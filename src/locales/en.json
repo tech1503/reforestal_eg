@@ -1,0 +1,764 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "initializing": "Initializing...",
+    "error": "Error",
+    "success": "Success",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "search": "Search...",
+    "share": "Share",
+    "download": "Download",
+    "active": "Active",
+    "inactive": "Inactive",
+    "finished": "Finished",
+    "copied_clipboard": "Copied to clipboard",
+    "feature_not_implemented": "This feature isn't implemented yet—but don't worry! You can request it in your next prompt! 🚀",
+    "locked_feature": "This feature is locked for your current tier.",
+    "notifications": "Notifications",
+    "language": "Language",
+    "theme": "Toggle Theme"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "subscription": "Subscription",
+    "referral": "Referrals",
+    "exchange": "Exchange",
+    "quests": "Quests",
+    "founding_members": "Founding Members",
+    "founding_pioneer": "Founding Pioneer",
+    "admin_panel": "Admin Panel",
+    "sign_out": "Sign Out",
+    "sign_in": "Sign In",
+    "get_started": "Get Started",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Sign Out"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "greeting": "Welcome, {{name}}",
+    "greeting_pioneer": "Hello, {{name}}",
+    "welcome": "Welcome to your dashboard.",
+    "impact_credits": "Bonus Points",
+    "click_to_view_history": "Click to view history",
+    "impact_credits_history": "Bonus Points History",
+    "no_history": "No history available",
+    "action": "Action",
+    "amount": "Amount",
+    "source": "Source",
+    "date": "Date",
+    "system_action": "System Action",
+    "available_quests": "Available Quests",
+    "start_quest": "Start Quest",
+    "new_quest_available": "New Quest Available",
+    "starting_quest": "Starting Quest",
+    "genesis_quest_locked": "Section Locked",
+    "complete_genesis_to_unlock": "To unlock your unique referral code and start earning Bonus Points, you must first complete the Genesis Quest to verify your alignment with our mission.",
+    "start_genesis_quest": "Start Genesis Quest",
+    "discover_investor_profile": "Discover your Partner Profile",
+    "discover_investor_profile_desc": "Complete the Genesis Quest to identify your unique impact style and unlock personalized benefits.",
+    "system_quest": "System Quest",
+    "required_quest": "Required for Pioneers",
+    "quests": {
+      "empty_title": "🚀 New quests coming soon!",
+      "empty_desc": "We're working on new missions so you can continue to grow and unlock opportunities. Stay tuned!"
+    },
+    "startnext_verification": {
+      "title": "Startnext Pioneer User",
+      "unique_id": "Unique User ID",
+      "date": "Contribution Date",
+      "amount": "Contribution Amount",
+      "tier": "Level",
+      "status_pioneer": "Pioneer Status",
+      "status_not_pioneer": "Startnext Status",
+      "not_pioneer_msg_title": "You are not a Pioneer yet...",
+      "not_pioneer_msg_desc": "Join our crowdfunding campaign and become a founding member.",
+      "support_button": "Support on Startnext"
+    },
+    "land_dollar": {
+      "title": "Digital Land Dollar",
+      "certificate_text": "\"Your Land Dollar is your founding certificate\"",
+      "download": "Download",
+      "share": "Share",
+      "locked_title": "Land Dollar",
+      "link_ref": "Reference Code"
+    },
+    "impact_credits_snx": {
+      "title": "Startnext Bonus Points",
+      "label": "Bonus Points",
+      "disclaimer": "These Bonus Points only apply to digital benefits on our platform.",
+      "locked_title": "Startnext Bonus Points"
+    },
+    "benefits": {
+      "title": "Your Startnext Benefits",
+      "no_benefits": "No benefits found.",
+      "locked_title": "Startnext Benefits"
+    },
+    "pioneers": {
+      "title": "Thank you for being a Pioneer!",
+      "description": "Your early contribution is the seed of this forest. As a founding member, you will have priority access to future stages of the Reforestal eG project.",
+      "locked_title": "Pioneers"
+    },
+    "reforestal_pfad": {
+      "title": "Reforestal-Pfad (Blocked)",
+      "description": "The system is under development. It will be enabled later."
+    },
+    "admin_view": {
+      "controller_title": "Admin View Controller",
+      "simulate_as": "Simulate As:",
+      "real_view": "My Real View",
+      "snx_user": "Startnext User",
+      "normal_user": "Normal User"
+    },
+    "referrals": {
+      "program_title": "Referral Program",
+      "program_desc": "Invite friends to grow the forest together!",
+      "total": "Total Referrals",
+      "active": "Active Members",
+      "credits": "Bonus Points Earned",
+      "unique_code": "Your Unique Code",
+      "copy_link": "Copy Referral Link",
+      "new_title": "New Referral!",
+      "new_desc": "Someone just joined using your code."
+    },
+    "explorer": {
+      "title": "Startnext Explorer Tiers",
+      "subtitle": "Discover the impact of your contribution. Enter an amount below or browse the official tiers.",
+      "simulator_title": "Tier Simulator",
+      "input_placeholder": "Enter amount...",
+      "empty_state": "Enter an amount (€5.00+) to preview your tier.",
+      "min_amount": "Min.",
+      "details_btn": "Details",
+      "contribution_level": "Contribution Level",
+      "included_benefits": "Included Benefits",
+      "simulator_hint": "Use the simulator to see full details for this amount.",
+      "support_btn": "Support this Tier"
+    },
+    "pioneer_status": {
+      "active": "Status Active",
+      "welcome": "Welcome, {{name}}!",
+      "explorer_fallback": "Explorer",
+      "verified_msg": "Startnext contribution verified. Reforestation initiated.",
+      "current_tier": "Current Tier"
+    },
+    "assets": {
+      "digital_asset_title": "Your Digital Asset",
+      "unique_id": "Unique ID",
+      "status_label": "Status",
+      "verified_status": "Verified"
+    },
+    "rewards": {
+      "title": "Unlocked Rewards",
+      "no_benefits": "No benefits found for this tier."
+    },
+    "startnext_dash": {
+      "benefit_available": "Benefit available",
+      "active_asset": "Active",
+      "pending": "Pending",
+      "digital_asset_title": "Your Digital Asset",
+      "hero_msg": "Your Startnext contribution is actively regenerating the forest. You are part of the movement.",
+      "contribution_date": "Contribution Date",
+      "total_contribution": "Total Contribution",
+      "rights_acquisition": "Rights Acquisition",
+      "rights_desc": "Your contribution grants immediate access to Bonus Points. Vesting rights for future growth are currently locked.",
+      "system_locked": "System Under Development"
+    },
+    "impact_chart": {
+      "title": "Environmental Impact",
+      "subtitle": "Trees planted and bonus points earned over time",
+      "growth": "growth",
+      "trees": "Trees",
+      "trees_planted": "Trees Planted"
+    }
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "overview": "Overview",
+    "gamification": "Gamification",
+    "user_management": "User Management",
+    "investor_profile": "Partner Profile",
+    "update_investor_profile": "Update Partner Profile",
+    "investor_profile_updated": "Partner Profile Updated",
+    "select_profile": "Select Profile",
+    "none": "None",
+    "financials": {
+      "title": "Financial Management",
+      "tabs": {
+        "overview": "Overview",
+        "startnext": "Startnext",
+        "land_dollars": "Land Dollars",
+        "impact_credits": "Bonus Points"
+      }
+    },
+    "startnext": {
+      "pending_approvals": "Pending Approvals",
+      "user": "User",
+      "amount": "Amount",
+      "status": "Status",
+      "actions": "Actions",
+      "pending": "Pending",
+      "approve": "Approve",
+      "reject": "Reject",
+      "tier": "Level"
+    },
+    "impact_credits": {
+      "configuration": "Configuration",
+      "action": "Action",
+      "points": "Points",
+      "mlm_trigger": "MLM Trigger",
+      "active": "Active",
+      "toggle_mlm": "Toggle MLM",
+      "toggle_active": "Toggle Active"
+    },
+    "content": "Content & Products",
+    "logs": "System Logs",
+    "settings": "Settings",
+    "genesis_quest": "Genesis Quest",
+    "vesting": "Vesting & Staking",
+    "quick_stats": {
+      "total_users": "Total Users",
+      "active_subscriptions": "Active Subscriptions",
+      "total_revenue": "Total Revenue",
+      "impact_generated": "Impact Generated",
+      "recent_activity": "Recent Activity",
+      "system_status": "System Status",
+      "all_systems_operational": "All systems operational"
+    },
+    "land_dollars": {
+      "title": "LandDollars Management",
+      "user": "User",
+      "link_ref": "Link Reference",
+      "status": "Status",
+      "actions": "Actions",
+      "view_qr": "View QR",
+      "download": "Download",
+      "toggle": "Toggle Status"
+    },
+    "analytics": {
+      "title": "Analytics & Reporting",
+      "land_dollars_metrics": "LandDollar Metrics",
+      "impact_credits_metrics": "Bonus Points Metrics",
+      "total": "Total",
+      "active": "Active",
+      "inactive": "Inactive",
+      "total_ic_distributed": "Total BP Distributed",
+      "ic_count": "BP Count",
+      "audit_history": "Audit History",
+      "user": "User",
+      "action": "Action",
+      "ic_awarded": "BP Awarded",
+      "source": "Source",
+      "date": "Date",
+      "system": "System Action"
+    },
+    "notifications": {
+      "title": "Global Notification Center",
+      "subtitle": "Monitor requests, system alerts, and user interactions.",
+      "refresh": "Refresh",
+      "empty": "No notifications found in the system.",
+      "new_activity": "New Activity",
+      "new_msg_desc": "A new notification has arrived.",
+      "actions": {
+        "mark_read": "Mark Read",
+        "delete": "Delete",
+        "reply": "Reply to User"
+      },
+      "reply_modal": {
+        "title": "Send Reply to User",
+        "desc": "This message will appear in the user's dashboard notifications.",
+        "placeholder": "Type your response here...",
+        "send": "Send Reply",
+        "success": "Reply Sent",
+        "success_desc": "The user has been notified."
+      },
+      "types": {
+        "system": "System",
+        "admin_alert": "Admin Alert",
+        "pioneer": "Pioneer Request",
+        "pioneer_request": "Pioneer Request",
+        "pioneer_application_request": "Pioneer Application",
+        "gamification": "Gamification",
+        "quest": "Quest",
+        "bonus": "Bonus Reward",
+        "admin_reply": "Admin Response"
+      }
+    }
+  },
+  "gamification": {
+    "sources": {
+      "profile_update": "Profile Update",
+      "quest_completion": "Quest Completion",
+      "startnext_contribution": "Startnext Contribution",
+      "referral_signup": "Referral Signup",
+      "mlm_direct": "MLM Direct Referral",
+      "mlm_indirect": "MLM Indirect Referral",
+      "manual": "Manual Award"
+    }
+  },
+  "profile": {
+    "title": "Profile Settings",
+    "labels": {
+      "full_name": "Full Name",
+      "avatar_url": "Avatar URL",
+      "bio": "Bio"
+    },
+    "placeholders": {
+      "name": "Your name",
+      "url": "https://...",
+      "bio": "Tell us about yourself..."
+    },
+    "character_count": "characters",
+    "gamification_card": {
+      "title": "Gamification",
+      "info": "When you update your profile, the system automatically awards Bonus Points based on admin configuration.",
+      "tip_label": "Tip",
+      "tip": "Complete your profile with detailed information to maximize your score."
+    },
+    "buttons": {
+      "save": "Save Changes",
+      "saving": "Saving..."
+    },
+    "validation": {
+      "name_required": "Name cannot be empty",
+      "bio_length": "Bio cannot exceed 500 characters",
+      "url_invalid": "Invalid Avatar URL"
+    },
+    "toasts": {
+      "success_title": "Profile Updated",
+      "success_desc": "Your profile has been updated. Bonus Points will be awarded automatically.",
+      "error_title": "Error"
+    }
+  },
+  "genesisQuest": {
+    "title": "Discover Your Impact Profile",
+    "onboarding_label": "Genesis Onboarding",
+    "finish_quest": "Reveal My Profile",
+    "profile_unlocked": "Profile Unlocked", 
+    "profiles.genesis": { 
+      "lena": {
+        "title": "Verified Impact Partner",
+        "description": "Driven by sustainability and long-term preservation. You believe in the power of nature."
+      },
+      "markus": {
+        "title": "Sustainable Risk-Controlled Partner",
+        "description": "Focused on systems, innovation, and calculated growth. You build the future with precision."
+      },
+      "david": {
+        "title": "Digital Participative Partner",
+        "description": "You care about people and community impact. You drive change where it is needed most."
+      }
+    },
+    "modal_title": "Complete Your Genesis Quest!",
+    "modal_text_title": "Complete your Genesis Quest to receive Bonus Points.",
+    "modal_text_desc": "These Bonus Points can be used to redeem products within the platform.",
+    "modal_cta": "Start Genesis Quest",
+    "result_modal_title": "Congratulations!",
+    "result_modal_continue": "Continue",
+    "next_step": "Next Step",
+    "create_account_btn": "Create Your Account",
+    "save_profile_hint": "Save your profile and claim your Bonus Points.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "The future of our climate is currently unstable. What is the first pillar you want to build to change this?",
+        "options": [
+          {
+            "type": "lena",
+            "main": "Forest Recovery",
+            "dropdown": "A radical acceleration of forest recovery to secure a stable future for the next generations."
+          },
+          {
+            "type": "markus",
+            "main": "Transparency Foundation",
+            "dropdown": "A solid, member-led foundation that ensures every cent is managed with professional transparency."
+          },
+          {
+            "type": "david",
+            "main": "Collective Ecosystem",
+            "dropdown": "A dynamic ecosystem where everyone's participation multiplies to achieve a shared environmental victory."
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "question": "A true shaper of the future doesn't just watch from the sidelines. What is your primary role in this mission?",
+        "options": [
+          {
+            "type": "lena",
+            "main": "Witnessing Biodiversity",
+            "dropdown": "By knowing exactly which square meters are being reforested and seeing biodiversity return."
+          },
+          {
+            "type": "markus",
+            "main": "Standard Verification",
+            "dropdown": "By verifying the legal and ethical standards of a cooperative that belongs to me and my fellow members."
+          },
+          {
+            "type": "david",
+            "main": "Digital Connection",
+            "dropdown": "By using digital tools to connect with others and lead collective efforts that amplify our positive environmental impact."
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "question": "When you look back on your time with us in one year, which result would make you feel most proud?",
+        "options": [
+          {
+            "type": "lena",
+            "main": "Recovered Rainforest",
+            "dropdown": "That I recovered real square meters of rainforest, bringing life and biodiversity back to critical areas of the Amazon."
+          },
+          {
+            "type": "markus",
+            "main": "Professional Shield",
+            "dropdown": "That I helped build a professional cooperative that provides the necessary resources to the indigenous guardians, acting as their legal and financial shield."
+          },
+          {
+            "type": "david",
+            "main": "Modern Community",
+            "dropdown": "That I am part of a modern community where digital participation connects us directly to the ground, turning our shared mission into a rewarding success."
+          }
+        ]
+      }
+    ]
+  },
+  "quest": {
+    "title": "Quests",
+    "subtitle": "Complete quests to earn bonus points and unlock new levels.",
+    "available_quests": "Available Quests",
+    "completed_quests": "Completed Quests",
+    "earn_credits": "Earn {{credits}} Bonus Points",
+    "complete_quest": "Complete Quest"
+  },
+  "home": {
+    "sign_in": "Sign In",
+    "main_title": "Don’t just Donate. Co-Found.",
+    "subtitle": "We’re turning Amazon stewardship from a side-project into a professional mission. Join the first German Cooperative (eG) built to make impact measurable, transparent, and yours.",
+    "hero_badge": "Crowdfunding Live",
+    "cta_buttons": {
+      "start_your_mission": "Start the Genesis Quest",
+      "supported_startnext": "I already supported on Startnext"
+    },
+    "m2_section": {
+      "label": "Real Impact Metrics",
+      "caption": "Protected Forever",
+      "title": "Why we measure in m², not just trees.",
+      "body": "Planting a tree is a start, but a whole ecosystem is the mission. A single tree is a data point, but a square meter of the Amazon is a home for biodiversity, a carbon sink, and a legacy. We don't just count saplings—we secure the land they grow on."
+    },
+    "ecosystem_title": "An integrated platform for professional impact.",
+    "feature_invest_title": "Secure the Planet",
+    "feature_invest_desc": "Your contributions convert directly into m² of secured habitat, protecting vital ecosystems from the ground up.",
+    "feature_earn_title": "Earn Bonus Points",
+    "feature_earn_desc": "Receive 'Bonus Points' for your active participation—a digital recognition of your engagement and contribution to the movement.",
+    "feature_join_title": "Join the Cooperative",
+    "feature_join_desc": "Become a co-owner of the mission. Participate in democratic decisions and connect with a community of visionary founders.",
+    "genesis_section": {
+      "badge": "System Initialization",
+      "intro": "Every revolution needs different minds.",
+      "hook": "Complete the Genesis Quest to see where your perspective meets our professional framework.",
+      "cta": "Begin the Mission"
+    },
+    "startnext_section": {
+      "title": "Become a Founding Member.",
+      "body": "We are currently in our 'Genesis Phase.' To ensure total independence and legal security under German Cooperative Law, we are raising our initial foundation capital on Startnext.",
+      "offer": "By supporting us now, you secure your status as a 'Genesis Founder,' receive the digital Land Dollar prototype, and help us build the infrastructure that makes professional reforestation possible.",
+      "cta": "Back us on Startnext"
+    },
+    "widget": {
+      "badge": "Startnext Project",
+      "title": "Reforestal eG",
+      "quote": "We make protecting the Amazon our top priority.",
+      "button": "Support the project"
+    },
+    "cta_final_title": "Radically Transparent. Legally Bound.",
+    "cta_final_points": [
+      {
+        "title": "The German eG:",
+        "text": "You aren't a customer; you are a co-owner with democratic participation."
+      },
+      {
+        "title": "Strict Oversight:",
+        "text": "Regulated by German auditing associations to ensure every cent goes toward the mission."
+      },
+      {
+        "title": "Full Transparency:",
+        "text": "Access real-time data and track your managed m² through your personal Dashboard."
+      }
+    ],
+    "cta_final_button": "Begin the Mission"
+  },
+  "auth": {
+    "welcome": "Welcome Back",
+    "reset_password": "Reset Password",
+    "reset_prompt": "Enter your email to receive a reset link.",
+    "sign_in_prompt": "Sign in to continue your journey",
+    "sign_up_prompt": "Join the movement today",
+    "forgot_password": "Forgot password?",
+    "send_reset_link": "Send Reset Link",
+    "sign_in": "Sign In",
+    "sign_up": "Sign Up",
+    "continue_with_google": "Continue with Google",
+    "back_to_signin": "Back to Sign In",
+    "no_account": "Don't have an account?",
+    "has_account": "Already have an account?",
+    "email_label": "Email Address",
+    "password_label": "Password",
+    "name_label": "Full Name",
+    "create_account": "Create Account",
+    "sign_in_title": "Sign In",
+    "sign_up_title": "Sign Up",
+    "sign_in_button": "Sign In",
+    "sign_up_button": "Sign Up",
+    "logging_in": "Logging in...",
+    "branding": {
+      "title": "Every revolution needs different minds",
+      "description": "Become a co-owner of the mission. Participate in democratic decisions and connect with a community of visionary founders.",
+      "stat_1_label": "POWERED BY",
+      "stat_1_text": "THE COMMUNITY",
+      "stat_2_label": "BECOME",
+      "stat_2_text": "CO-FOUNDER"
+    }
+  },
+  "genesis": {
+    "profile_saved_locally": "Profile Saved Locally",
+    "redirect_to_register": "Please register to save your progress.",
+    "profile_assigned": "Profile Assigned",
+    "error": "Error Saving Profile",
+    "save_profile_hint": "Save your profile and claim your Genesis Bonus Points.",
+    "next_step": "Next Step",
+    "required_action": "Action Required",
+    "continue_dashboard": "Continue to Dashboard",
+    "create_account": "Create Account to Save"
+  },
+  "exchange": {
+    "title": "Bonus Points Exchange",
+    "subtitle": "Use your vested Bonus Points to make a real-world impact.",
+    "categories": {
+      "all": "All Items",
+      "reforestation": "Reforestation",
+      "merch": "Merchandise",
+      "digital": "Digital Assets"
+    },
+    "labels": {
+      "balance": "Balance",
+      "impact": "Impact",
+      "total": "Total"
+    },
+    "buttons": {
+      "cart": "Cart",
+      "add_to_cart": "Add to Cart",
+      "redeem": "Redeem my Bonus Points",
+      "confirm": "Confirm Exchange"
+    },
+    "cta": {
+      "support_startnext": "I already provided support at StartNext"
+    },
+    "stock": {
+      "infinite": "∞ Stock",
+      "left": "Left"
+    },
+    "banner": {
+      "redeem_title": "Redeem Your Bonus Points",
+      "redeem_desc": "Bonus Points will be available for redemption when you upgrade to Startnext - Level 1 Explorer."
+    },
+    "tooltip": {
+      "mode_title": "Accumulating Mode",
+      "mode_desc": "You can earn Bonus Points now, but redemption requires Pioneer status."
+    },
+    "overlay": {
+      "message": "Exchange products are reserved for exchange with Bonus Points.",
+      "sub_message": "When you support our project, click below to submit your Startnext support and we will activate your Explorer account."
+    },
+    "redeem_modal": {
+      "title": "Redeem Bonus Points",
+      "description": "To redeem your credits, we need to verify your account status.",
+      "question": "Did you support our project on Startnext?",
+      "option_yes": "Yes, I am a supporter",
+      "option_no": "No, I haven't supported yet",
+      "form_title": "I Supported on Startnext",
+      "form_desc": "Provide contribution details for verification.",
+      "label_amount": "Contribution Amount (€)",
+      "label_city": "City (Optional)",
+      "label_country": "Country (Optional)",
+      "label_message": "Message (Optional)",
+      "message_placeholder": "Any additional details...",
+      "btn_verify": "Send for Verification",
+      "success_title": "Request Submitted",
+      "success_snx": "Your Startnext support details have been submitted for verification.",
+      "success_req": "Your Bonus Points request has been submitted and will be reviewed by our administrators."
+    },
+    "toasts": {
+      "pioneer_exclusive": "Pioneer Exclusive",
+      "upgrade_hint": "Upgrade to Startnext to purchase items.",
+      "stock_limit": "Stock limit reached",
+      "cart_empty": "Cart is empty",
+      "purchase_failed": "Purchase Failed",
+      "exchange_success": "Your exchange was successful!"
+    },
+    "errors": {
+      "load_failed": "Failed to load exchange products.",
+      "insufficient_credits": "Insufficient Bonus Points"
+    },
+    "cart": {
+      "title": "Your Cart",
+      "empty": "Your cart is empty.",
+      "browse": "Browse Products"
+    },
+    "empty_category": "No products available in this category.",
+    "default_impact_desc": "Contributes to Reforestal ecosystem growth."
+  },
+  "roles": {
+    "explorer_level_1": "Exclusive Level 1 - Explorer",
+    "admin": "Admin View"
+  },
+  "pioneer": {
+    "toasts": {
+      "access_granted_title": "Access Granted!",
+      "access_granted_desc": "Welcome to the Pioneer Lounge.",
+      "vote_success": "Vote Submitted!",
+      "vote_thanks": "Thank you for participating."
+    },
+    "notification": {
+      "evaluation_title": "Access Under Evaluation",
+      "evaluation_message": "Your Founding Pioneer access is being evaluated. Your participation and contributions are being reviewed by our team.",
+      "approved_title": "Access Granted",
+      "approved_message": "Welcome to Founding Pioneer. Your access is active. Your participation and impact are being monitored.",
+      "revoked_title": "Access Restricted",
+      "revoked_message": "Your Founding Pioneer access was not approved or has been revoked. Thank you for your participation."
+    },
+    "restricted": {
+      "title": "Access Restricted",
+      "status_msg": "Your Founding Pioneer status is currently",
+      "pending": "Pending",
+      "review_msg": "Our team is reviewing your contribution.",
+      "review_title": "Application Under Review",
+      "pending_msg": "We are reviewing your profile carefully.",
+      "rejected_msg": "Your application was not approved at this time. You may update your information and try again.",
+      "update_btn": "Update Application Details",
+      "contact_btn": "Contact Admin / Re-apply",
+      "rejected": "Rejected"
+    },
+    "header": {
+      "badge": "Founding Member Access",
+      "title": "Pioneer Command Center",
+      "subtitle": "Welcome to the core of Reforestal. Here you shape the future, access confidential updates, and track our impact in real-time."
+    },
+    "tabs": {
+      "governance": "Governance & Voting",
+      "news": "News Center",
+      "roadmap": "Roadmap Progress"
+    },
+    "governance": {
+      "active_decisions": "Active Decisions",
+      "past_decisions": "Past Decisions",
+      "ends": "Ends",
+      "cards": {
+        "location": {
+          "title": "Next Plantation Location",
+          "desc": "Strategic decision for Q4 2026 expansion. Where should we plant next?",
+          "opt1": "Córdoba, Argentina (Sierras)",
+          "opt2": "Misiones, Argentina (Selva)"
+        },
+        "nft": {
+          "title": "Commemorative NFT Art Style",
+          "desc": "Choose the visual direction for the 'Genesis' NFT collection airdrop.",
+          "opt1": "Abstract Minimalist",
+          "opt2": "Hyper-Realistic 3D"
+        },
+        "naming": {
+          "title": "Naming the First Forest",
+          "desc": "Community decision on the naming of lot #001.",
+          "opt1": "Pioneer Forest (Winner)",
+          "opt2": "Green Lung Reserve"
+        }
+      }
+    },
+    "news": {
+      "official_tag": "Official Announcement",
+      "today_time": "Today, 10:00 AM",
+      "read_more": "Read full article",
+      "hero": {
+        "title": "Strategic Alliance with Startnext Germany",
+        "desc": "We have officially formalized our collaboration to integrate European crowdfunding directly into our local soils."
+      },
+      "item1": {
+        "title": "First 100 Trees Planted"
+      },
+      "item2": {
+        "title": "Whitepaper Update v2.0"
+      },
+      "item3": {
+        "title": "New Partner: EcoLogistics"
+      },
+      "yesterday": "Yesterday",
+      "days_ago": "3 days ago",
+      "last_week": "Last Week",
+      "categories": {
+        "milestone": "Milestone",
+        "tech": "Tech",
+        "business": "Business"
+      }
+    },
+    "roadmap": {
+      "phase1_title": "Phase 1: Genesis",
+      "phase1_obj": "Objective: Land Acquisition and First 500 Trees",
+      "items": {
+        "launch": {
+          "title": "Platform Launch",
+          "date": "Jan 2026",
+          "desc": "User system, referrals, and Startnext connection fully operational."
+        },
+        "campaign": {
+          "title": "Founding Pioneer Campaign",
+          "date": "Q1 2026",
+          "desc": "Recruitment of the first 100 angel investors for seed capital."
+        },
+        "land": {
+          "title": "Córdoba Land Acquisition",
+          "date": "Q2 2026",
+          "desc": "Legal purchase of the first 5 hectares designated for the reserve."
+        },
+        "plant": {
+          "title": "First Mass Plantation",
+          "date": "Q3 2026",
+          "desc": "In-person and digital event with investors to plant the first native trees."
+        }
+      }
+    },
+    "vote_modal": {
+      "title": "Cast Your Vote",
+      "desc": "Select your preference. Your vote is recorded on-chain and cannot be changed.",
+      "option_a": "Option A",
+      "option_b": "Option B",
+      "confirm": "Confirm Vote"
+    },
+    "badges": {
+      "live_voting": "Live Voting",
+      "closed": "Closed"
+    },
+    "buttons": {
+      "cast_vote": "Cast Vote"
+    }
+  },
+  "founding_pioneer": {
+    "locked_section": {
+      "title_prefix": "Exclusive Access:",
+      "title_highlight": "Founding Pioneer",
+      "description": "This space is reserved for the most committed users of Reforestal eG. Our system and team evaluate participation, impact, and real contribution. Join the core that drives the future.",
+      "cta_button": "Apply to become a Pioneer",
+      "footer_note": "Evaluation Required • Limited Access"
+    }
+  },
+  "user_notifications": {
+    "new": "New",
+    "mark_all_read": "Mark all read",
+    "mark_read": "Mark Read",
+    "empty": "You're all caught up!"
+  }
+}

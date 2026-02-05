@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    /* --- MODO CLARO (Light Mode) --- */
+    --background: 0 0% 95%;
+    /* #F2F2F2 */
+    --foreground: 165 40% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 165 40% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 165 40% 10%;
+
+    --primary: 161 74% 36%;
+    /* #17a277 (Emerald) */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 165 20% 90%;
+    --secondary-foreground: 165 40% 10%;
+
+    --muted: 165 20% 90%;
+    --muted-foreground: 165 10% 40%;
+
+    --accent: 47 100% 46%;
+    --accent-foreground: 165 40% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 165 20% 80%;
+    --input: 165 20% 90%;
+    --ring: 161 74% 36%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    /* --- MODO OSCURO (Estilo Genesis Quest - Deep Emerald Gradient) --- */
+
+    /* IMPORTANTE: Fondo base transparente para dejar ver el degradado del body */
+    --background: 160 69% 6%;
+    /* #051c14 (Solo fallback) */
+    --foreground: 160 10% 95%;
+
+    /* Tarjetas: Semitransparentes (#064e3b con opacidad) para efecto cristal */
+    --card: 160 80% 5%;
+    --card-foreground: 160 10% 95%;
+
+    --popover: 160 80% 8%;
+    --popover-foreground: 160 10% 95%;
+
+    /* Primary: Esmeralda Brillante (#34d399) para resaltar sobre oscuro */
+    --primary: 158 64% 52%;
+    --primary-foreground: 160 90% 5%;
+
+    /* Secondary: Verde muy oscuro */
+    --secondary: 160 40% 20%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 160 40% 15%;
+    --muted-foreground: 160 20% 70%;
+
+    --accent: 47 100% 46%;
+    --accent-foreground: 160 90% 5%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* Bordes: Sutiles esmeralda */
+    --border: 160 50% 20%;
+    --input: 160 50% 15%;
+    --ring: 158 64% 52%;
+  }
+
+  html {
+    font-size: 14px;
+    scroll-behavior: smooth;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground text-sm font-sans antialiased selection:bg-emerald-500 selection:text-white;
+  }
+
+  /* --- FONDO GLOBAL "GENESIS QUEST" --- */
+  /* Esto inyecta el degradado verde profundo en toda la app cuando está en dark mode */
+  .dark body {
+    background-color: #051c14;
+    /* Color base sólido */
+
+    /* Degradado complejo: Luz arriba, oscuridad abajo */
+    background-image:
+      radial-gradient(circle at 50% -20%, rgba(16, 185, 129, 0.15), transparent 60%),
+      radial-gradient(circle at 100% 100%, rgba(20, 184, 166, 0.1), transparent 50%),
+      linear-gradient(to bottom, #064e3b 0%, #022c22 40%, #000000 100%);
+
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply tracking-tight font-bold;
+  }
+}
+
+@layer utilities {
+  .transition-fast {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  .transition-normal {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .animate-shine {
+    animation: shine 3s linear infinite;
+  }
+
+  @keyframes shine {
+    from {
+      background-position: 0 0;
+    }
+
+    to {
+      background-position: -200% 0;
+    }
+  }
+
+  .shadow-glow {
+    box-shadow: 0 0 30px -5px rgba(16, 185, 129, 0.3);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white rounded-full px-6 py-2.5 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 transition-all active:scale-95 font-bold flex items-center justify-center gap-2;
+  }
+
+  /* Cards Premium estilo Genesis */
+  .card-premium {
+    @apply bg-[#064e3b]/30 backdrop-blur-xl border border-emerald-500/20 rounded-2xl shadow-xl hover:border-emerald-500/40 transition-all;
+  }
+}

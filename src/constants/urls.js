@@ -1,0 +1,2 @@
+export const STARTNEXT_PROJECT_URL = "https://www.startnext.com/reforestal";
+export const PROJECT_BANNER_IMAGE_URL = "https://horizons-cdn.hostinger.com/f3e64aa8-a860-4738-bd1d-a8274113afae/5590c8658ce6095de1d13992a2d16403.png";

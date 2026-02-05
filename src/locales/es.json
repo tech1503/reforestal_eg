@@ -1,0 +1,762 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "initializing": "Inicializando...",
+    "error": "Error",
+    "success": "Éxito",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "submit": "Enviar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "search": "Buscar...",
+    "share": "Compartir",
+    "download": "Descargar",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "copied_clipboard": "Copiado al portapapeles",
+    "feature_not_implemented": "Esta función aún no está implementada, ¡pero no te preocupes! ¡Pronto la podrás solicitar! 🚀",
+    "locked_feature": "Esta función está bloqueada para tu nivel actual.",
+    "notifications": "Notificaciones",
+    "language": "Idioma",
+    "theme": "Cambiar Tema"
+  },
+  "navigation": {
+    "dashboard": "Panel de Control",
+    "subscription": "Suscripción",
+    "referral": "Referidos",
+    "exchange": "Canje",
+    "quests": "Misiones",
+    "founding_members": "Miembros Fundadores",
+    "founding_pioneer": "Pionero Fundador",
+    "admin_panel": "Panel de Admin",
+    "sign_out": "Cerrar Sesión",
+    "sign_in": "Iniciar Sesión",
+    "get_started": "Comenzar",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "logout": "Cerrar Sesión"
+  },
+  "dashboard": {
+    "title": "Panel de Control",
+    "greeting": "Bienvenido, {{name}}",
+    "greeting_pioneer": "Hola, {{name}}",
+    "welcome": "Bienvenido a tu panel de control.",
+    "impact_credits": "Bonos",
+    "click_to_view_history": "Haz clic para ver el historial",
+    "impact_credits_history": "Historial de Bonos",
+    "no_history": "Sin historial disponible",
+    "action": "Acción",
+    "amount": "Cantidad",
+    "source": "Origen",
+    "date": "Fecha",
+    "system_action": "Acción del Sistema",
+    "available_quests": "Misiones Disponibles",
+    "start_quest": "Iniciar Mision",
+    "new_quest_available": "Nueva Misión Disponible",
+    "starting_quest": "Iniciando Misión",
+    "genesis_quest_locked": "Sección Bloqueada",
+    "complete_genesis_to_unlock": "Para desbloquear tu código de referencia único y comenzar a ganar Bonos, primero debes completar la Misión Génesis para verificar tu alineación con nuestra misión.",
+    "start_genesis_quest": "Iniciar Misión Génesis",
+    "discover_investor_profile": "Descubre tu Perfil de Socio",
+    "discover_investor_profile_desc": "Completa la Misión Génesis para identificar tu estilo de impacto y desbloquear beneficios personalizados.",
+    "system_quest": "Misión del Sistema",
+    "required_quest": "Requerido para Pioneros",
+    "quests": {
+      "empty_title": "🚀 ¡Próximamente nuevas misiones!",
+      "empty_desc": "Estamos trabajando en nuevas misiones para que sigas creciendo y desbloqueando oportunidades. ¡Atento!"
+    },
+    "startnext_verification": {
+      "title": "Usuario Pionero Startnext",
+      "unique_id": "ID Único de Usuario",
+      "date": "Fecha Contribución",
+      "amount": "Monto Contribuido",
+      "tier": "Nivel",
+      "status_pioneer": "Estado Pionero",
+      "status_not_pioneer": "Estado Startnext",
+      "not_pioneer_msg_title": "Aún no eres Pionero...",
+      "not_pioneer_msg_desc": "Únete a nuestra campaña de crowdfunding y conviértete en miembro fundador.",
+      "support_button": "Apoyar en Startnext"
+    },
+    "land_dollar": {
+      "title": "Land Dollar Digital",
+      "certificate_text": "\"Tu Land Dollar es tu certificado fundador\"",
+      "download": "Descargar",
+      "share": "Compartir",
+      "locked_title": "Land Dollar",
+      "link_ref": "Código de Referencia"
+    },
+    "impact_credits_snx": {
+      "title": "Bonos Startnext",
+      "label": "Bonos",
+      "disclaimer": "Estos Bonos aplican solamente a beneficios digitales en nuestra plataforma.",
+      "locked_title": "Bonos Startnext"
+    },
+    "benefits": {
+      "title": "Tus Beneficios Startnext",
+      "no_benefits": "No se encontraron beneficios.",
+      "locked_title": "Beneficios Startnext"
+    },
+    "pioneers": {
+      "title": "¡Gracias por ser un Pionero!",
+      "description": "Tu contribución temprana es la semilla de este bosque. Como miembro fundador, tendrás acceso prioritario a las futuras etapas del proyecto Reforestal.",
+      "locked_title": "Pioneros"
+    },
+    "reforestal_pfad": {
+      "title": "Reforestal-Pfad (Bloqueado)",
+      "description": "El sistema se habilitará más adelante..."
+    },
+    "admin_view": {
+      "controller_title": "Controlador de Vista Admin",
+      "simulate_as": "Simular como:",
+      "real_view": "Mi Vista Real",
+      "snx_user": "Usuario Startnext",
+      "normal_user": "Usuario Normal"
+    },
+    "referrals": {
+      "program_title": "Programa de Referidos",
+      "program_desc": "Invita a amigos a unirse a Reforestal eG. Tú creces, el bosque crece.",
+      "total": "Referidos Totales",
+      "active": "Miembros Activos",
+      "credits": "Bonos Ganados",
+      "unique_code": "Tu Código Único",
+      "copy_link": "Copiar Enlace",
+      "new_title": "¡Nuevo Referido!",
+      "new_desc": "Alguien se unió usando tu código."
+    },
+    "explorer": {
+      "title": "Niveles de Explorador Startnext",
+      "subtitle": "Descubre el impacto de tu contribución. Ingresa una cantidad abajo o explora los niveles oficiales.",
+      "simulator_title": "Simulador de Niveles",
+      "input_placeholder": "Ingresar monto...",
+      "empty_state": "Ingresa un monto (€5.00+) para ver tu nivel.",
+      "min_amount": "Mín.",
+      "details_btn": "Detalles",
+      "contribution_level": "Nivel de Contribución",
+      "included_benefits": "Beneficios Incluidos",
+      "simulator_hint": "Usa el simulador para ver todos los detalles de este monto.",
+      "support_btn": "Apoyar este Nivel"
+    },
+    "pioneer_status": {
+      "active": "Estado Activo",
+      "welcome": "¡Bienvenido, {{name}}!",
+      "explorer_fallback": "Explorador",
+      "verified_msg": "Contribución de Startnext verificada. Reforestación iniciada.",
+      "current_tier": "Nivel Actual"
+    },
+    "assets": {
+      "digital_asset_title": "Tu Activo Digital",
+      "unique_id": "ID Único",
+      "status_label": "Estado",
+      "verified_status": "Verificado"
+    },
+    "rewards": {
+      "title": "Recompensas Desbloqueadas",
+      "no_benefits": "No se encontraron beneficios para este nivel."
+    },
+    "startnext_dash": {
+      "benefit_available": "Beneficio disponible",
+      "active_asset": "Activo",
+      "pending": "Pendiente",
+      "digital_asset_title": "Tu Activo Digital",
+      "hero_msg": "Tu contribución en Startnext está regenerando activamente el bosque. Eres parte del movimiento.",
+      "contribution_date": "Fecha de Contribución",
+      "total_contribution": "Contribución Total",
+      "rights_acquisition": "Adquisición de Derechos",
+      "rights_desc": "Tu contribución otorga acceso inmediato a Bonos. Los derechos de vesting para crecimiento futuro están bloqueados actualmente.",
+      "system_locked": "Sistema en Desarrollo"
+    },
+    "impact_chart": {
+      "title": "Impacto Ambiental",
+      "subtitle": "Árboles plantados y bonos ganados en el tiempo",
+      "growth": "crecimiento",
+      "trees": "Árboles",
+      "trees_planted": "Árboles Plantados"
+    }
+  },
+  "admin": {
+    "title": "Panel de Administración",
+    "overview": "Resumen",
+    "user_management": "Gestión de Usuarios",
+    "investor_profile": "Perfil de Socio",
+    "update_investor_profile": "Actualizar Perfil de Socio",
+    "investor_profile_updated": "Perfil de Socio Actualizado",
+    "select_profile": "Seleccionar Perfil",
+    "none": "Ninguno",
+    "financials": {
+      "title": "Gestión Financiera",
+      "tabs": {
+        "overview": "Resumen",
+        "startnext": "Startnext",
+        "land_dollars": "Land Dollars",
+        "impact_credits": "Bonos"
+      }
+    },
+    "startnext": {
+      "pending_approvals": "Aprobaciones Pendientes",
+      "user": "Usuario",
+      "amount": "Monto",
+      "status": "Estado",
+      "actions": "Acciones",
+      "pending": "Pendiente",
+      "approve": "Aprobar",
+      "reject": "Rechazar",
+      "tier": "Nivel"
+    },
+    "impact_credits": {
+      "configuration": "Configuración",
+      "action": "Acción",
+      "points": "Puntos",
+      "mlm_trigger": "Trigger MLM",
+      "active": "Activo",
+      "toggle_mlm": "Alternar MLM",
+      "toggle_active": "Alternar Activo"
+    },
+    "content": "Contenido y Productos",
+    "logs": "Registros del Sistema",
+    "settings": "Configuración",
+    "genesis_quest": "Misión Génesis",
+    "gamification": "Gamificación",
+    "vesting": "Vesting y Staking",
+    "quick_stats": {
+      "total_users": "Usuarios Totales",
+      "active_subscriptions": "Suscripciones Activas",
+      "total_revenue": "Ingresos Totales",
+      "impact_generated": "Impacto Generado",
+      "recent_activity": "Actividad Reciente",
+      "system_status": "Estado del Sistema",
+      "all_systems_operational": "Todos los sistemas operativos"
+    },
+    "land_dollars": {
+      "title": "Gestión de LandDollars",
+      "user": "Usuario",
+      "link_ref": "Referencia de Enlace",
+      "status": "Estado",
+      "actions": "Acciones",
+      "view_qr": "Ver QR",
+      "download": "Descargar",
+      "toggle": "Cambiar Estado"
+    },
+    "analytics": {
+      "title": "Analítica y Reportes",
+      "land_dollars_metrics": "Métricas de LandDollar",
+      "impact_credits_metrics": "Métricas de Bonos",
+      "total": "Total",
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "total_ic_distributed": "Total de Bonos Distribuidos",
+      "ic_count": "Cantidad de Bonos",
+      "audit_history": "Historial de Auditoría",
+      "user": "Usuario",
+      "action": "Acción",
+      "ic_awarded": "Bonos Otorgados",
+      "source": "Origen",
+      "date": "Fecha",
+      "system": "Acción del Sistema"
+    },
+    "notifications": {
+      "title": "Centro Global de Notificaciones",
+      "subtitle": "Supervisar solicitudes, alertas del sistema e interacciones de usuarios.",
+      "refresh": "Actualizar",
+      "empty": "No se encontraron notificaciones en el sistema.",
+      "new_activity": "Nueva Actividad",
+      "new_msg_desc": "Ha llegado una nueva notificación.",
+      "actions": {
+        "mark_read": "Marcar como Leído",
+        "delete": "Eliminar",
+        "reply": "Responder al Usuario"
+      },
+      "reply_modal": {
+        "title": "Enviar Respuesta al Usuario",
+        "desc": "Este mensaje aparecerá en las notificaciones del panel del usuario.",
+        "placeholder": "Escribe tu respuesta aquí...",
+        "send": "Enviar Respuesta",
+        "success": "Respuesta Enviada",
+        "success_desc": "El usuario ha sido notificado."
+      },
+      "types": {
+        "system": "Sistema",
+        "admin_alert": "Alerta de Admin",
+        "pioneer": "Solicitud de Pionero",
+        "pioneer_request": "Solicitud de Pionero",
+        "pioneer_application_request": "Solicitud de Aplicación a Pionero",
+        "gamification": "Gamificación",
+        "quest": "Misión",
+        "bonus": "Recompensa de Bono",
+        "admin_reply": "Respuesta de Admin"
+      }
+    }
+  },
+  "gamification": {
+    "sources": {
+      "profile_update": "Actualización de Perfil",
+      "quest_completion": "Finalización de Misión",
+      "startnext_contribution": "Contribución Startnext",
+      "referral_signup": "Registro por Referido",
+      "mlm_direct": "Referido Directo MLM",
+      "mlm_indirect": "Referido Indirecto MLM",
+      "manual": "Premio Manual"
+    }
+  },
+  "profile": {
+    "title": "Configuración de Perfil",
+    "labels": {
+      "full_name": "Nombre Completo",
+      "avatar_url": "URL de Avatar",
+      "bio": "Biografía"
+    },
+    "placeholders": {
+      "name": "Tu nombre",
+      "url": "https://...",
+      "bio": "Cuéntanos sobre ti..."
+    },
+    "character_count": "caracteres",
+    "gamification_card": {
+      "title": "Gamificación",
+      "info": "Cuando actualices tu perfil, el sistema de gamificación otorga puntos automáticamente según la configuración del administrador.",
+      "tip_label": "Consejo",
+      "tip": "Completa tu perfil con información detallada para maximizar tu puntuación de gamificación."
+    },
+    "buttons": {
+      "save": "Guardar Cambios",
+      "saving": "Guardando..."
+    },
+    "validation": {
+      "name_required": "El nombre no puede estar vacío",
+      "bio_length": "La biografía no puede exceder 500 caracteres",
+      "url_invalid": "URL de avatar inválida"
+    },
+    "toasts": {
+      "success_title": "Perfil Actualizado",
+      "success_desc": "Tu perfil ha sido actualizado. Los puntos de gamificación se otorgarán automáticamente.",
+      "error_title": "Error"
+    }
+  },
+  "genesisQuest": {
+    "title": "Descubre tu Perfil de Impacto",
+    "onboarding_label": "Onboarding Génesis",
+    "finish_quest": "Revelar Mi Perfil",
+    "profile_unlocked": "Perfil Desbloqueado", 
+    "profiles.genesis": { 
+      "lena": {
+        "title": "Socio de Impacto Verificado",
+        "description": "Impulsado por la sostenibilidad y la preservación a largo plazo. Crees en el poder de la naturaleza."
+      },
+      "markus": {
+        "title": "Socio Sostenible con Riesgo Controlado",
+        "description": "Enfocados en sistemas, innovación y crecimiento calculado. Construimos el futuro con precisión."
+      },
+      "david": {
+        "title": "Socio Participativo Digital",
+        "description": "Te preocupas por las personas y el impacto comunitario. Impulsas el cambio donde más se necesita."
+      }
+    },
+    "modal_title": "¡Completa tu Genesis Quest!",
+    "modal_text_title": "Completa tu Genesis Quest y recibe 1000 Bonos.",
+    "modal_text_desc": "Estos puntos puedes usar para canjear productos dentro de la plataforma.",
+    "modal_cta": "Iniciar Genesis Quest",
+    "result_modal_title": "¡Felicidades!",
+    "result_modal_continue": "Continuar",
+    "next_step": "Siguiente Paso",
+    "create_account_btn": "Crear Tu Cuenta",
+    "save_profile_hint": "Guarda tu perfil y reclama tus Bonos.",
+    "questions": [
+      {
+        "id": 1,
+        "question": "El futuro de nuestro clima es actualmente inestable. ¿Cuál es el primer pilar que quieres construir para solucionarlo?",
+        "options": [
+          {
+            "type": "lena",
+            "main": "Recuperación de Selva",
+            "dropdown": "Una aceleración radical de la recuperación de la selva para asegurar un futuro estable para las próximas generaciones."
+          },
+          {
+            "type": "markus",
+            "main": "Base de Transparencia",
+            "dropdown": "Una base sólida, propiedad de sus miembros, que garantice que cada centavo se gestione con transparencia profesional."
+          },
+          {
+            "type": "david",
+            "main": "Ecosistema Dinámico",
+            "dropdown": "Un ecosistema dinámico donde la participación de cada persona se multiplique para lograr una victoria ambiental compartida."
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "question": "Un verdadero gestor del futuro no se limita a mirar desde fuera. ¿Qué papel activo quieres desempeñar en esta misión?",
+        "options": [
+          {
+            "type": "lena",
+            "main": "Testigo de Biodiversidad",
+            "dropdown": "Sabiendo exactamente qué metros cuadrados están siendo reforestados y viendo cómo regresa la biodiversidad."
+          },
+          {
+            "type": "markus",
+            "main": "Verificación de Estándares",
+            "dropdown": "Verificando los estándares legales y éticos de una cooperativa que nos pertenece a mí y a mis compañeros."
+          },
+          {
+            "type": "david",
+            "main": "Conexión Digital",
+            "dropdown": "Usando herramientas digitales para conectar con otros y liderar esfuerzos colectivos que amplifican nuestro impacto ambiental positivo."
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "question": "Al mirar atrás dentro de un año, ¿qué resultado te haría sentir más satisfecho?",
+        "options": [
+          {
+            "type": "lena",
+            "main": "Selva Recuperada",
+            "dropdown": "Haber recuperado metros cuadrados reales de selva, devolviendo la vida y la biodiversidad a áreas críticas del Amazonas."
+          },
+          {
+            "type": "markus",
+            "main": "Cooperativa Profesional",
+            "dropdown": "Haber construido una cooperativa profesional que provee los recursos necesarios a los guardianes indígenas, actuando como su escudo legal y financiero."
+          },
+          {
+            "type": "david",
+            "main": "Comunidad Moderna",
+            "dropdown": "Ser parte de una comunidad moderna donde la participación digital nos conecta directamente con el terreno, convirtiendo nuestra misión en un éxito compartido."
+          }
+        ]
+      }
+    ]
+  },
+  "quest": {
+    "title": "Misiones",
+    "subtitle": "Completa misiones para ganar puntos de bonificación y desbloquear nuevos niveles.",
+    "available_quests": "Misiones Disponibles",
+    "completed_quests": "Misiones Completadas",
+    "earn_credits": "Gana {{credits}} Bonos",
+    "complete_quest": "Completar Misión"
+  },
+  "home": {
+    "sign_in": "Iniciar Sesión",
+    "main_title": "No solo dones. Co-funda.",
+    "subtitle": "Estamos transformando la custodia del Amazonas de un proyecto secundario en una misión profesional. Únete a la primera Cooperativa Alemana (eG) diseñada para que el cambio sea medible, transparente y tuyo.",
+    "hero_badge": "Crowdfunding en Vivo",
+    "cta_buttons": {
+      "start_your_mission": "Iniciar la Genesis Quest",
+      "supported_startnext": "Ya apoyé en Startnext"
+    },
+    "m2_section": {
+      "label": "Métricas de Impacto Real",
+      "caption": "Protegido para Siempre",
+      "title": "Por qué medimos en m² y no solo en árboles.",
+      "body": "Plantar un árbol es el comienzo, pero un ecosistema entero es la misión. Un solo árbol es un dato; un metro cuadrado del Amazonas es un hogar para la biodiversidad, un santuario de carbono y un legado para el futuro. No nos limitamos a contar brotes: aseguramos la tierra donde crecen."
+    },
+    "ecosystem_title": "Una plataforma integrada para un impacto profesional.",
+    "feature_invest_title": "Asegurar el Planeta",
+    "feature_invest_desc": "Tus contribuciones se convierten directamente en m² de hábitat asegurado, protegiendo ecosistemas vitales desde la raíz.",
+    "feature_earn_title": "Gana Bonos",
+    "feature_earn_desc": "Recibe \"Bonos\" por tu participación activa: un reconocimiento digital a tu compromiso y aporte al movimiento.",
+    "feature_join_title": "Únete a la Cooperativa",
+    "feature_join_desc": "Conviértete en copropietario de la misión. Participa en decisiones democráticas y conéctate con una comunidad de socios visionarios.",
+    "genesis_section": {
+      "badge": "Inicialización del Sistema",
+      "intro": "Toda revolución necesita mentes diferentes.",
+      "hook": "Completa la Genesis Quest para ver cómo tu perspectiva se encuentra con nuestro marco profesional.",
+      "cta": "Iniciar la Misión"
+    },
+    "startnext_section": {
+      "title": "Conviértete en Socio Fundador.",
+      "body": "Actualmente estamos en nuestra \"Fase Génesis\". Para garantizar total independencia y seguridad bajo la Ley de Cooperativas Alemanas, estamos recaudando nuestro capital fundacional en Startnext. Un cimiento sólido para un impacto global.",
+      "offer": "Al apoyarnos ahora, aseguras tu estatus como \"Socio Fundador\", recibes el prototipo físico del Land Dollar y nos ayudas a construir la infraestructura que hace posible la reforestación profesional.",
+      "cta": "Apóyanos en Startnext"
+    },
+    "widget": {
+      "badge": "Proyecto Startnext",
+      "title": "Reforestal eG",
+      "quote": "Hacemos de la protección del Amazonas nuestra máxima prioridad.",
+      "button": "Apoyar el proyecto"
+    },
+    "cta_final_title": "Radicalmente transparente. Legalmente vinculado.",
+    "cta_final_points": [
+      {
+        "title": "La eG Alemana:",
+        "text": "No eres un cliente; eres un socio con participación democrática."
+      },
+      {
+        "title": "Supervisión Estricta:",
+        "text": "Regulada por las Asociaciones de Auditoría Alemanas para garantizar que cada centavo se destine a la misión."
+      },
+      {
+        "title": "Transparencia Total:",
+        "text": "Accede a datos en tiempo real y rastrea tus m² gestionados a través de tu Dashboard personal."
+      }
+    ],
+    "cta_final_button": "Iniciar la Misión"
+  },
+  "auth": {
+    "welcome": "Bienvenido",
+    "reset_password": "Restablecer Contraseña",
+    "reset_prompt": "Ingresa tu email para recibir un enlace de restablecimiento.",
+    "sign_in_prompt": "Inicia sesión para continuar tu viaje",
+    "sign_up_prompt": "Únete al movimiento hoy",
+    "forgot_password": "¿Olvidaste tu contraseña?",
+    "send_reset_link": "Enviar enlace",
+    "sign_in": "Iniciar Sesión",
+    "sign_up": "Registrarse",
+    "continue_with_google": "Continuar con Google",
+    "back_to_signin": "Volver al inicio",
+    "no_account": "¿No tienes una cuenta?",
+    "has_account": "¿Ya tienes una cuenta?",
+    "email_label": "Email",
+    "password_label": "Contraseña",
+    "name_label": "Nombre Completo",
+    "create_account": "Crear Cuenta",
+    "sign_in_title": "Iniciar Sesión en Reforestal eG",
+    "sign_up_title": "Regístrate en Reforestal eG",
+    "sign_in_button": "Iniciar Sesión",
+    "sign_up_button": "Registrarse",
+    "logging_in": "Iniciando sesión...",
+    "branding": {
+      "title": "Toda revolución necesita mentes diferentes.",
+      "description": "Conviértete en copropietario de la misión. Participa en decisiones democráticas y conéctate con una comunidad de socios visionarios.",
+      "stat_1_label": "IMPULSADO POR",
+      "stat_1_text": "LA COMUNIDAD",
+      "stat_2_label": "CONVIERTETE EN",
+      "stat_2_text": "CO-FUNDADOR"
+    }
+  },
+  "genesis": {
+    "profile_saved_locally": "Perfil guardado localmente",
+    "redirect_to_register": "Por favor, regístrese para guardar su progreso.",
+    "profile_assigned": "Perfil asignado",
+    "error": "Error al guardar el perfil",
+    "save_profile_hint": "Guarda tu perfil y reclama tus Bonos.",
+    "next_step": "Siguiente Paso",
+    "required_action": "Acción Requerida",
+    "continue_dashboard": "Continuar al Panel de Control",
+    "create_account": "Crear Cuenta para Guardar"
+  },
+  "exchange": {
+    "title": "Intercambio de Bonos",
+    "subtitle": "Usa tus Bonos ganados para generar un impacto real.",
+    "categories": {
+      "all": "Todos",
+      "reforestation": "Reforestación",
+      "merch": "Mercancía",
+      "digital": "Activos Digitales"
+    },
+    "labels": {
+      "balance": "Saldo",
+      "impact": "Impacto",
+      "total": "Total"
+    },
+    "buttons": {
+      "cart": "Carrito",
+      "add_to_cart": "Agregar al Carrito",
+      "redeem": "Canjear mis Bonos",
+      "confirm": "Confirmar Canje"
+    },
+    "cta": {
+      "support_startnext": "Ya apoyé en StartNext"
+    },
+    "stock": {
+      "infinite": "∞ Stock",
+      "left": "Restantes"
+    },
+    "banner": {
+      "redeem_title": "Canjea tus Bonos",
+      "redeem_desc": "Los Bonos estarán disponibles para canje cuando actualices a Startnext - Nivel 1 Explorador."
+    },
+    "tooltip": {
+      "mode_title": "Modo Acumulación",
+      "mode_desc": "Puedes ganar Bonos ahora, pero el canje requiere estado de Pionero."
+    },
+    "overlay": {
+      "message": "Los productos de intercambio están reservados para el canje con Bonos.",
+      "sub_message": "Cuando apoyes nuestro proyecto, haz clic abajo para enviar tu soporte de Startnext y activaremos tu cuenta de Explorador."
+    },
+    "redeem_modal": {
+      "title": "Canjear Bonos",
+      "description": "Para canjear tus créditos, necesitamos verificar el estado de tu cuenta.",
+      "question": "¿Apoyaste nuestro proyecto en Startnext?",
+      "option_yes": "Sí, he apoyado el proyecto",
+      "option_no": "No, aún no he apoyado",
+      "form_title": "Apoyé en Startnext",
+      "form_desc": "Proporciona los detalles de tu contribución para verificación.",
+      "label_amount": "Monto de Contribución (€)",
+      "label_city": "Ciudad (Opcional)",
+      "label_country": "País (Opcional)",
+      "label_message": "Mensaje (Opcional)",
+      "message_placeholder": "Cualquier detalle adicional...",
+      "btn_verify": "Enviar para Verificación",
+      "success_title": "Solicitud Enviada",
+      "success_snx": "Tus detalles de Startnext han sido enviados para verificación.",
+      "success_req": "Tu solicitud de canje ha sido enviada y será revisada por nuestros administradores."
+    },
+    "toasts": {
+      "pioneer_exclusive": "Exclusivo para Pioneros",
+      "upgrade_hint": "Actualiza a Startnext para comprar artículos.",
+      "stock_limit": "Límite de stock alcanzado",
+      "cart_empty": "El carrito está vacío",
+      "purchase_failed": "Compra Fallida",
+      "exchange_success": "¡Tu canje fue exitoso!"
+    },
+    "errors": {
+      "load_failed": "Error al cargar productos de intercambio.",
+      "insufficient_credits": "Bonos Insuficientes"
+    },
+    "cart": {
+      "title": "Tu Carrito",
+      "empty": "Tu carrito está vacío.",
+      "browse": "Explorar Productos"
+    },
+    "empty_category": "No hay productos disponibles en esta categoría.",
+    "default_impact_desc": "Contribuye al crecimiento del ecosistema Reforestal."
+  },
+  "roles": {
+    "explorer_level_1": "Exclusivo Nivel 1 - Explorador"
+  },
+  "pioneer": {
+    "toasts": {
+      "access_granted_title": "¡Acceso Concedido!",
+      "access_granted_desc": "Bienvenido al Acceso Pionero.",
+      "vote_success": "¡Voto Enviado!",
+      "vote_thanks": "Gracias por participar."
+    },
+    "notification": {
+      "evaluation_title": "Acceso bajo Evaluación",
+      "evaluation_message": "Tu acceso a Pionero Fundador está siendo evaluado por nuestro comité. Tu participación y contribuciones están en revisión.",
+      "approved_title": "Acceso Concedido",
+      "approved_message": "Bienvenido a Pionero Fundador. Tu acceso está activo. Tu participación e impacto están siendo monitoreados.",
+      "revoked_title": "Acceso Restringido",
+      "revoked_message": "Tu acceso a Pionero Fundador no fue aprobado o ha sido revocado. Gracias por tu participación."
+    },
+    "restricted": {
+      "title": "Acceso Restringido",
+      "status_msg": "Tu estado actual es Pionero Fundador",
+      "pending": "Pendiente",
+      "review_msg": "Nuestro equipo está revisando tu contribución.",
+      "review_title": "Aplicación en Revisión",
+      "pending_msg": "Estamos revisando tu perfil cuidadosamente.",
+      "rejected_msg": "Tu solicitud no fue aprobada en este momento. Puedes actualizar tu información e intentarlo de nuevo.",
+      "update_btn": "Actualizar Detalles de Aplicación",
+      "contact_btn": "Contactar Admin / Reaplicar",
+      "rejected": "Rechazado"
+    },
+    "header": {
+      "badge": "Acceso Miembro Fundador",
+      "title": "Centro de Mando Pionero",
+      "subtitle": "Bienvenido al núcleo de Reforestal. Aquí das forma al futuro, accedes a actualizaciones confidenciales y sigues nuestro cambio en tiempo real."
+    },
+    "tabs": {
+      "governance": "Gobernanza y Votación",
+      "news": "Centro de Noticias",
+      "roadmap": "Progreso del Roadmap"
+    },
+    "governance": {
+      "active_decisions": "Decisiones Activas",
+      "past_decisions": "Decisiones Pasadas",
+      "ends": "Finaliza",
+      "cards": {
+        "location": {
+          "title": "Próxima Ubicación de Reforestal",
+          "desc": "Decisión estratégica para la expansión del Q4 2026. ¿Dónde deberíamos viajar a continuación?",
+          "opt1": "Córdoba, Argentina (Sierras)",
+          "opt2": "Misiones, Argentina (Selva)"
+        },
+        "nft": {
+          "title": "Estilo de Arte NFT Conmemorativo",
+          "desc": "Elige la dirección visual para el airdrop de la colección 'Génesis'.",
+          "opt1": "Minimalista Abstracto",
+          "opt2": "3D Hiperrealista"
+        },
+        "naming": {
+          "title": "Nombrando el Primer Bosque",
+          "desc": "Decisión comunitaria sobre el nombre del lote #001.",
+          "opt1": "Bosque Pionero (Ganador)",
+          "opt2": "Reserva Pulmón Verde"
+        }
+      }
+    },
+    "news": {
+      "official_tag": "Anuncio Oficial",
+      "today_time": "Hoy, 10:00 AM",
+      "read_more": "Leer artículo completo",
+      "hero": {
+        "title": "Alianza Estratégica con Startnext Alemania",
+        "desc": "Hemos formalizado oficialmente nuestra colaboración para integrar el crowdfunding europeo directamente en nuestros suelos locales."
+      },
+      "item1": {
+        "title": "Primeros 100 Árboles Plantados"
+      },
+      "item2": {
+        "title": "Actualización de Whitepaper v2.0"
+      },
+      "item3": {
+        "title": "Nuevo Socio: EcoLogistics"
+      },
+      "yesterday": "Ayer",
+      "days_ago": "hace 3 días",
+      "last_week": "La semana pasada",
+      "categories": {
+        "milestone": "Hito",
+        "tech": "Tecnología",
+        "business": "Negocios"
+      }
+    },
+    "roadmap": {
+      "phase1_title": "Fase 1: Génesis",
+      "phase1_obj": "Objetivo: Adquisición de Tierras y Primeros 500 Árboles",
+      "items": {
+        "launch": {
+          "title": "Lanzamiento de Plataforma",
+          "date": "Ene 2026",
+          "desc": "Sistema de usuarios, referidos y conexión Startnext totalmente operativos."
+        },
+        "campaign": {
+          "title": "Campaña Pionero Fundador",
+          "date": "Q1 2026",
+          "desc": "Reclutamiento de los primeros 100 inversores ángeles para capital semilla."
+        },
+        "land": {
+          "title": "Adquisición de Tierras Córdoba",
+          "date": "Q2 2026",
+          "desc": "Compra legal de las primeras 5 hectáreas designadas para la reserva."
+        },
+        "plant": {
+          "title": "Primera Plantación Masiva",
+          "date": "Q3 2026",
+          "desc": "Evento presencial y digital con inversores para plantar los primeros árboles nativos."
+        }
+      }
+    },
+    "vote_modal": {
+      "title": "Emite tu Voto",
+      "desc": "Selecciona tu preferencia. Tu voto se registra en la blockchain y no se puede cambiar.",
+      "option_a": "Opción A",
+      "option_b": "Opción B",
+      "confirm": "Confirmar Voto"
+    },
+    "badges": {
+      "live_voting": "Votación en Vivo",
+      "closed": "Cerrado"
+    },
+    "buttons": {
+      "cast_vote": "Votar"
+    }
+  },
+  "founding_pioneer": {
+    "locked_section": {
+      "title_prefix": "Acceso Exclusivo:",
+      "title_highlight": "Pionero Fundador",
+      "description": "Este espacio está reservado para los usuarios más comprometidos de Reforestal eG. Nuestro sistema y equipo evalúan la participación, el impacto y la contribución real. Únete al núcleo que impulsa el futuro.",
+      "cta_button": "Aplicar para ser Pionero",
+      "footer_note": "Evaluación Requerida • Acceso Limitado"
+    }
+  },
+  "user_notifications": {
+    "new": "Nuevo",
+    "mark_all_read": "Marcar todo como leído",
+    "mark_read": "Marcar como Leído",
+    "empty": "¡Estás al día con todas las notificaciones!"
+  }
+}
