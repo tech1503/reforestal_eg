@@ -8,16 +8,15 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
 import { CheckCircle, XCircle, Loader2, Search } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useTranslation } from 'react-i18next'; // IMPORTADO
+import { useTranslation } from 'react-i18next'; 
 
 const StartnextApprovals = () => {
   const { toast } = useToast();
-  const { t } = useTranslation(); // HOOK
+  const { t } = useTranslation(); 
   const [registrations, setRegistrations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState({});
   
-  // Filters
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [minAmount, setMinAmount] = useState('');

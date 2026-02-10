@@ -135,7 +135,7 @@ const AnalyticsReporting = () => {
                         </div>
                         <div>
                             <p className="text-sm text-slate-400">{t('admin.quick_stats.impact_generated')}</p>
-                            <p className="text-2xl font-bold">{metrics.exchangeVolume.toLocaleString()} IC</p>
+                            <p className="text-2xl font-bold">{metrics.exchangeVolume.toLocaleString()} </p>
                             <p className="text-xs text-slate-500">Credits Redeemed</p>
                         </div>
                     </CardContent>

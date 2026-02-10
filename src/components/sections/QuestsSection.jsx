@@ -165,13 +165,13 @@ const QuestsSection = ({ isReadOnly }) => {
   }
 
   return (
-    <div className="relative w-full overflow-hidden rounded-3xl shadow-lg bg-white/50 backdrop-blur-md border border-white/20">
+    <div className="relative w-full overflow-hidden rounded-3xl shadow-lg bg-card/50 backdrop-blur-md border border-white/20">
       <div className="p-8">
         <div className="flex items-center gap-4 mb-6">
             <div className="p-3 bg-emerald-100 rounded-full text-emerald-600"><Trophy className="w-6 h-6"/></div>
             <div>
-              <h2 className="text-2xl font-bold text-slate-800">{t('dashboard.available_quests')}</h2>
-              <p className="text-sm text-slate-500">{t('quest.subtitle')}</p>
+              <h2 className="text-2xl font-bold text-foreground">{t('dashboard.available_quests')}</h2>
+              <p className="text-sm text-muted-foreground">{t('quest.subtitle')}</p>
             </div>
         </div>
       
@@ -197,8 +197,8 @@ const QuestsSection = ({ isReadOnly }) => {
                     transition={{ delay: idx * 0.05 }}
                     className={cn(`relative rounded-2xl border p-6 transition-all`, 
                         quest.completed 
-                        ? 'bg-slate-50 border-slate-200 opacity-70' 
-                        : 'bg-white border-emerald-100 hover:shadow-md hover:border-emerald-300'
+                        ? 'bg-muted border-border opacity-70' 
+                        : 'bg-card border-border hover:shadow-md hover:border-emerald-300'
                     )}
                 >
                     <div className="flex justify-between items-start mb-4">
@@ -218,14 +218,14 @@ const QuestsSection = ({ isReadOnly }) => {
                     </div>
 
                     <div className="mb-4">
-                        <h3 className="font-bold text-lg text-slate-800 mb-1">{t(quest.title, quest.title)}</h3>
-                        <p className="text-sm text-slate-500 line-clamp-2">{t(quest.description, quest.description)}</p>
+                        <h3 className="font-bold text-lg text-foreground mb-1">{t(quest.title, quest.title)}</h3>
+                        <p className="text-sm text-muted-foreground line-clamp-2">{t(quest.description, quest.description)}</p>
                     </div>
 
                     <Button
                         onClick={() => handleInteraction(quest)}
                         disabled={isReadOnly || quest.completed || processingId === quest.id}
-                        className={cn(`w-full font-bold shadow-sm transition-all`, quest.completed ? 'bg-slate-100 text-slate-400' : 'bg-emerald-600 text-white hover:bg-emerald-700')}
+                        className={cn(`w-full font-bold shadow-sm transition-all`, quest.completed ? 'bg-muted text-muted-foreground' : 'bg-emerald-600 text-white hover:bg-emerald-700')}
                     >
                         {processingId === quest.id ? <Loader2 className="w-4 h-4 animate-spin"/> : <>{!quest.completed && getButtonIcon(quest)}{getButtonText(quest)}</>}
                     </Button>
@@ -234,7 +234,7 @@ const QuestsSection = ({ isReadOnly }) => {
             </AnimatePresence>
             
             {quests.length === 0 && !showDiscoveryCard && !loading && (
-                <div className="col-span-full text-center py-10 text-slate-400 border-2 border-dashed border-slate-200 rounded-xl">
+                <div className="col-span-full text-center py-10 text-muted-foreground border-2 border-dashed border-border rounded-xl">
                     <p>{t('quests.empty_desc', "No active quests.")}</p>
                 </div>
             )}

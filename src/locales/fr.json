@@ -52,7 +52,7 @@
     "source": "Source",
     "date": "Date",
     "system_action": "Action Système",
-    "available_quests": "Quêtes Disponibles",
+    "available_quests": "Quêtes",
     "start_quest": "Commencer la Quête",
     "new_quest_available": "Nouvelle Quête Disponible",
     "starting_quest": "Lancement de la quête",
@@ -81,7 +81,7 @@
     },
     "land_dollar": {
       "title": "Land Dollar Numérique",
-      "certificate_text": "\"Votre Land Dollar est votre certificat de fondation\"",
+      "certificate_text": "\"Votre Land Dollar est votre certificat\"",
       "download": "Télécharger",
       "share": "Partager",
       "locked_title": "Land Dollar",
@@ -430,7 +430,7 @@
   "quest": {
     "title": "Quêtes",
     "subtitle": "Terminez des quêtes pour gagner des Points Bonus et débloquer de nouveaux niveaux.",
-    "available_quests": "Quêtes Disponibles",
+    "available_quests": "Quêtes",
     "completed_quests": "Quêtes Terminées",
     "earn_credits": "Gagnez {{credits}} Points Bonus",
     "complete_quest": "Terminer la Quête"
@@ -555,7 +555,8 @@
       "confirm": "Confirmer l'échange"
     },
     "cta": {
-      "support_startnext": "J'ai déjà soutenu sur StartNext"
+      "support_startnext": "J'ai déjà soutenu sur StartNext",
+      "sidebar_btn": "Avez-vous soutenu Startnext?"
     },
     "stock": {
       "infinite": "Stock ∞",
@@ -758,5 +759,22 @@
     "mark_all_read": "Tout marquer comme lu",
     "mark_read": "Marquer comme lu",
     "empty": "Vous êtes à jour !"
+  },
+  "contact": {
+  "title": "Contactez-nous",
+  "subtitle": "Vous avez des questions sur votre impact ou notre mission? Nous sommes là pour vous aider.",
+  "address_label": "Siège social",
+  "email_label": "Écrivez-nous",
+  "phone_label": "Appelez-nous",
+  "faq_title": "Besoin de réponses rapides?",
+  "visit_faq": "Visitez notre centre d'aide",
+  "form_name": "Votre nom",
+  "form_email": "Adresse e-mail",
+  "form_subject": "Objet",
+  "form_message": "Message",
+  "send_btn": "Envoyer le message",
+  "sending": "Envoi en cours...",
+  "success_title": "Message envoyé!",
+  "success_desc": "Nous vous répondrons prochainement."
   }
 }

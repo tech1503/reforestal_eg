@@ -5,19 +5,20 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { motion } from 'framer-motion';
-import { Loader2, Mail, Lock, User, Leaf, ArrowRight } from 'lucide-react';
+import { Loader2, Mail, Lock, User, Leaf, ArrowRight, Home } from 'lucide-react';
 import ForgotPasswordModal from '@/components/ForgotPasswordModal';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher'; 
 import heroImg1 from '@/assets/hero-home-reforestal.png';
-
-// --- NEW IMPORT FOR REFERRAL LOGIC ---
+import { useNavigate } from 'react-router-dom'; 
+import ThemeSwitcher from '@/components/ThemeSwitcher';
 import { processReferralOnSignup } from '@/services/referralService'; 
 
 const AuthScreen = () => {
   const { signIn, signUp, signInWithGoogle } = useAuth();
   const { toast } = useToast();
   const { t } = useTranslation();
+  const navigate = useNavigate(); // Hook para navegar
 
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -96,9 +97,23 @@ const AuthScreen = () => {
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-slate-50 overflow-x-hidden relative">
       
-      {/* LANGUAGE SELECTOR (Floating Top Right) */}
-      <div className="absolute top-4 right-4 z-50">
-        <LanguageSwitcher className="bg-white/50 backdrop-blur-md hover:bg-white/80 rounded-full shadow-sm text-slate-700 h-10 w-auto px-3" />
+      {/* BOTÓN HOME (NUEVO - Izquierda Superior) */}
+      <div className="absolute top-4 left-4 z-50">
+        <Button 
+            onClick={() => navigate('/')} 
+            variant="secondary"
+            size="sm"
+            className="bg-white/50 backdrop-blur-md hover:bg-white/80 rounded-full shadow-sm text-slate-700 h-10 px-4 gap-2 border-0"
+        >
+            <Home className="w-4 h-4" />
+            <span className="hidden sm:inline font-medium">{t('navigation.home', 'Home')}</span>
+        </Button>
+      </div>
+
+      {/* LANGUAGE SELECTOR (Derecha Superior) */}
+      <div className="absolute top-4 right-4 z-50 flex items-center gap-2">
+         <ThemeSwitcher className="bg-white/50 backdrop-blur-md hover:bg-white/80 rounded-full shadow-sm text-slate-700 h-10 w-10 border-0" />
+         <LanguageSwitcher className="bg-white/50 backdrop-blur-md hover:bg-white/80 rounded-full shadow-sm text-slate-700 h-10 w-auto px-3" />
       </div>
 
       {/* --- BRANDING SECTION (IMAGE) --- */}

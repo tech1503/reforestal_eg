@@ -10,6 +10,7 @@ import heroImg from '@/assets/hero-reforestal.png';
 import heroImg1 from '@/assets/hero-home-reforestal.png';
 import logoLandDollar from '@/assets/land-dollar-base.png';
 import vegReforest from '@/assets/vegetacion-reforestal.png';
+//import ThemeSwitcher from '@/components/ThemeSwitcher';
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -50,10 +51,12 @@ const HomePage = () => {
             </div>
             <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-700 to-teal-600 dark:from-emerald-400 dark:to-teal-300 tracking-tight">Reforestal eG</span>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
             
+            {/*<ThemeSwitcher className="text-olive hover:bg-light dark:text-light dark:hover:bg-white/10 w-10 h-10" />*/}
             {/* --- LANGUAGE SWITCHER NUEVO --- */}
             <LanguageSwitcher className="text-olive hover:bg-light rounded-full transition-fast" />
+            
 
             <Button onClick={() => navigate('/auth')} className="rounded-full px-8 btn-primary text-base h-12 shadow-glow">{t('auth.sign_in')}</Button>
           </div>
@@ -293,12 +296,15 @@ const HomePage = () => {
             <div className="flex gap-8 text-sm font-medium">
               <a href="#" className="hover:text-gold transition-colors">Privacy</a>
               <a href="#" className="hover:text-gold transition-colors">Terms</a>
-              <a href="#" className="hover:text-gold transition-colors">Contact</a>
+              {/* IMPLEMENTACIÓN DE CONTACTO */}
+              <button onClick={() => navigate('/contact')} className="hover:text-gold transition-colors">
+                  {t('footer.contact', 'Contact')}
+              </button>
             </div>
             <div className="flex space-x-6">
-              <a href="#" className="text-light/60 hover:text-white hover:bg-olive/30 p-2 rounded-full transition-all"><Twitter className="w-5 h-5" /></a>
-              <a href="#" className="text-light/60 hover:text-white hover:bg-olive/30 p-2 rounded-full transition-all"><Linkedin className="w-5 h-5" /></a>
-              <a href="#" className="text-light/60 hover:text-white hover:bg-olive/30 p-2 rounded-full transition-all"><Instagram className="w-5 h-5" /></a>
+              {/*<a href="#" className="text-light/60 hover:text-white hover:bg-olive/30 p-2 rounded-full transition-all"><Twitter className="w-5 h-5" /></a>*/}
+              {/*<a href="#" className="text-light/60 hover:text-white hover:bg-olive/30 p-2 rounded-full transition-all"><Linkedin className="w-5 h-5" /></a>*/}
+              <a href="https://www.instagram.com/reforestal" className="text-light/60 hover:text-white hover:bg-olive/30 p-2 rounded-full transition-all"><Instagram className="w-5 h-5" /></a>
             </div>
         </div>
       </footer>

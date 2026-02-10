@@ -170,7 +170,7 @@ const PendingImpactCredits = () => {
                                         <div className="text-gray-500 text-xs">{req.email}</div>
                                     </td>
                                     <td className="px-4 py-3 font-mono font-bold text-indigo-600">
-                                        {req.impact_credits_balance} IC
+                                        {req.impact_credits_balance} 
                                     </td>
                                     <td className="px-4 py-3">
                                         <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">{t('admin.startnext.pending')}</Badge>

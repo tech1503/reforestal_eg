@@ -53,7 +53,7 @@
     "source": "Source",
     "date": "Date",
     "system_action": "System Action",
-    "available_quests": "Available Quests",
+    "available_quests": "Quests",
     "start_quest": "Start Quest",
     "new_quest_available": "New Quest Available",
     "starting_quest": "Starting Quest",
@@ -82,7 +82,7 @@
     },
     "land_dollar": {
       "title": "Digital Land Dollar",
-      "certificate_text": "\"Your Land Dollar is your founding certificate\"",
+      "certificate_text": "\"Your Land Dollar is your certificate\"",
       "download": "Download",
       "share": "Share",
       "locked_title": "Land Dollar",
@@ -431,7 +431,7 @@
   "quest": {
     "title": "Quests",
     "subtitle": "Complete quests to earn bonus points and unlock new levels.",
-    "available_quests": "Available Quests",
+    "available_quests": "Quests",
     "completed_quests": "Completed Quests",
     "earn_credits": "Earn {{credits}} Bonus Points",
     "complete_quest": "Complete Quest"
@@ -557,7 +557,8 @@
       "confirm": "Confirm Exchange"
     },
     "cta": {
-      "support_startnext": "I already provided support at StartNext"
+      "support_startnext": "I already provided support at StartNext",
+      "sidebar_btn": "Support on Startnext?"
     },
     "stock": {
       "infinite": "∞ Stock",
@@ -760,5 +761,22 @@
     "mark_all_read": "Mark all read",
     "mark_read": "Mark Read",
     "empty": "You're all caught up!"
+  },
+    "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Have questions about your impact or our mission? We are here to help.",
+    "address_label": "Headquarters",
+    "email_label": "Email Us",
+    "phone_label": "Call Us",
+    "faq_title": "Need quick answers?",
+    "visit_faq": "Visit Help Center",
+    "form_name": "Your Name",
+    "form_email": "Email Address",
+    "form_subject": "Subject",
+    "form_message": "Message",
+    "send_btn": "Send Message",
+    "sending": "Sending...",
+    "success_title": "Message Sent!",
+    "success_desc": "We'll get back to you shortly."
   }
 }

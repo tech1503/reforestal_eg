@@ -26,7 +26,6 @@ const ImpactCreditsMLM = () => {
     try {
       setLoading(true);
 
-      // Fetch IC Ledger (all users, admin view)
       const { data: icData, error: icError } = await supabase
         .from('impact_credits')
         .select(`
@@ -246,8 +245,8 @@ const ImpactCreditsMLM = () => {
                     <tr>
                       <th className="p-3 text-left font-medium text-slate-500">Referrer</th>
                       <th className="p-3 text-left font-medium text-slate-500">Referred</th>
-                      <th className="p-3 text-right font-medium text-slate-500">IC to Referrer</th>
-                      <th className="p-3 text-right font-medium text-slate-500">IC to Referred</th>
+                      <th className="p-3 text-right font-medium text-slate-500">BP to Referrer</th>
+                      <th className="p-3 text-right font-medium text-slate-500">BP to Referred</th>
                       <th className="p-3 text-right font-medium text-slate-500">{t('dashboard.date')}</th>
                     </tr>
                   </thead>
@@ -291,7 +290,7 @@ const ImpactCreditsMLM = () => {
         <TabsContent value="trends" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>IC Earned vs Spent Trends</CardTitle>
+              <CardTitle>BP Earned vs Spent Trends</CardTitle>
               <CardDescription>Monthly comparison of {t('dashboard.impact_credits')} flow</CardDescription>
             </CardHeader>
             <CardContent>

@@ -65,9 +65,11 @@ const UserManagement = () => {
       // Load Metrics (Reference only)
       const { data: metrics } = await supabase.from('founding_pioneer_metrics').select('user_id, total_impact_credits_earned, founding_pioneer_access_status');
       
+      // Load Land Dollars (Assets & Status)
       let landDollars = [];
       try { const { data: ld } = await supabase.from('land_dollars').select('*'); landDollars = ld || []; } catch (e) {}
 
+      // Load Rules (Para lógica de bonus por upgrade)
       let gameRules = [];
       try { const { data: gr } = await supabase.from('gamification_actions').select('*').eq('is_active', true); gameRules = gr || []; } catch (e) {}
       
@@ -93,6 +95,7 @@ const UserManagement = () => {
           has_land_dollar: !!userLandDollar,
           land_dollar_id: userLandDollar?.id,
           land_dollar_status: userLandDollar?.status || 'none',
+          land_dollar_link: userLandDollar?.link_ref || 'N/A',
           land_dollar_amount: userLandDollar?.amount || 0
         };
       });
@@ -145,6 +148,7 @@ const UserManagement = () => {
     if (!editingUser) return;
     setProcessing(true);
     try {
+      // 1. Update Profile
       const { error: profileErr } = await supabase.from('profiles').update({ 
           name: editingUser.name, 
           role: editingUser.role,
@@ -153,86 +157,97 @@ const UserManagement = () => {
       
       if (profileErr) throw new Error("Error updating profile: " + profileErr.message);
 
-      if (editingUser.land_dollar_id && editingUser.editLandDollarStatus) {
-          await supabase.from('land_dollars').update({ status: editingUser.editLandDollarStatus }).eq('id', editingUser.land_dollar_id);
+      // 2. Control del Land Dollar
+      if (editingUser.land_dollar_id) {
+          await supabase.from('land_dollars').update({ 
+              status: editingUser.editLandDollarStatus,
+              is_active: editingUser.editLandDollarStatus === 'active' || editingUser.editLandDollarStatus === 'issued'
+          }).eq('id', editingUser.land_dollar_id);
+      } else if (editingUser.editLandDollarStatus === 'active') {
+           const linkRef = `REF-${editingUser.id.substring(0,6).toUpperCase()}`;
+           await supabase.from('land_dollars').insert({
+               user_id: editingUser.id,
+               amount: 0,
+               status: 'active',
+               is_active: true,
+               link_ref: linkRef,
+               land_dollar_url: '/assets/land-dollar-base.png',
+               qr_code_url: `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://reforest.al/ref/${linkRef}`
+           });
       }
 
-      if (editingUser.selectedTier) { 
-          let tierData = null;
+      // 3. Cambio de Tier / Upgrade
+      if (editingUser.selectedTier && editingUser.selectedTier !== 'none' && editingUser.selectedTier !== editingUser.tier_id) { 
+          let tierData = availableTiers.find(t => t.id === editingUser.selectedTier);
           let prettyTierName = 'Standard';
           let creditsToAward = 0;
 
-          if (editingUser.selectedTier !== 'none') {
-             tierData = availableTiers.find(t => t.id === editingUser.selectedTier);
-             if (tierData) {
-                 prettyTierName = `Explorer / ${formatTierName(tierData.slug)}`;
-                 creditsToAward = Number(tierData.impact_credits_reward);
-             }
-          }
-
-          if (tierData) { 
-              let bonusPoints = 0;
-              const { data: existingContrib } = await supabase.from('startnext_contributions')
+          if (tierData) {
+             prettyTierName = `Explorer / ${formatTierName(tierData.slug)}`;
+             creditsToAward = Number(tierData.impact_credits_reward);
+             
+             let bonusPoints = 0;
+             const { data: existingContrib } = await supabase.from('startnext_contributions')
                   .select('id, contribution_amount')
                   .eq('user_id', editingUser.id)
                   .order('contribution_date', { ascending: false }).limit(1).maybeSingle();
               
-              let contributionId = existingContrib?.id;
+             let contributionId = existingContrib?.id;
 
-              if (existingContrib) {
+             // Startnext Contribution Logic
+             if (existingContrib) {
                   if (Number(tierData.min_amount) > Number(existingContrib.contribution_amount || 0)) {
                       const rule = gamificationRules.find(r => r.action_name === 'contribution_upgrade');
                       if (rule) bonusPoints = Number(rule.impact_credits_value || 0);
                   }
                   await supabase.from('startnext_contributions').update({
                       contribution_amount: tierData.min_amount, 
-                      benefit_level: prettyTierName, 
+                      benefit_level: prettyTierName, // Use prettyTierName
                       new_support_level_id: editingUser.selectedTier
                   }).eq('id', existingContrib.id);
-              } else {
+             } else {
                   const { data: newContrib } = await supabase.from('startnext_contributions').insert({
                       user_id: editingUser.id, 
                       contribution_amount: tierData.min_amount, 
                       contribution_date: new Date().toISOString(),
                       notes: 'Admin Allocation', 
                       benefit_assigned: true, 
-                      benefit_level: prettyTierName, 
+                      benefit_level: prettyTierName, // Use prettyTierName
                       new_support_level_id: editingUser.selectedTier
                   }).select().single();
                   contributionId = newContrib.id;
-              }
+             }
 
-              const bPayload = { 
+             // Actualizar Benefits
+             const bPayload = { 
                   user_id: editingUser.id, 
                   new_support_level_id: editingUser.selectedTier, 
                   benefit_level_id: null, 
                   contribution_id: contributionId,
                   status: 'active', 
                   assigned_date: new Date().toISOString() 
-              };
+             };
               
-              if (editingUser.benefit_row_id) {
-                  await supabase.from('user_benefits').update(bPayload).eq('id', editingUser.benefit_row_id);
-              } else {
-                  const { data: existingBen } = await supabase.from('user_benefits').select('id').eq('user_id', editingUser.id).limit(1).maybeSingle();
-                  if (existingBen) await supabase.from('user_benefits').update(bPayload).eq('id', existingBen.id);
-                  else await supabase.from('user_benefits').insert(bPayload);
-              }
+             if (editingUser.benefit_row_id) {
+                 await supabase.from('user_benefits').update(bPayload).eq('id', editingUser.benefit_row_id);
+             } else {
+                 const { data: existingBen } = await supabase.from('user_benefits').select('id').eq('user_id', editingUser.id).limit(1).maybeSingle();
+                 if (existingBen) await supabase.from('user_benefits').update(bPayload).eq('id', existingBen.id);
+                 else await supabase.from('user_benefits').insert(bPayload);
+             }
 
-              // CRITICAL FIX: Update Income (metrics) AND Ledger (log)
-              const totalAward = creditsToAward + bonusPoints;
-              if (totalAward > 0) {
-                 // 1. Log en Ledger (Historial)
+             // Actualizar Métricas (Puntos)
+             const totalAward = creditsToAward + bonusPoints;
+             if (totalAward > 0) {
                  await supabase.from('impact_credits').insert({ 
                     user_id: editingUser.id, 
                     amount: totalAward, 
                     source: 'tier_assignment', 
-                    description: `Tier Update: ${prettyTierName} (Admin Set)`, 
+                    description: `Tier Update: ${prettyTierName} (Admin Set)`, // Use prettyTierName
                     issued_date: new Date().toISOString(),
                     related_support_level_id: editingUser.selectedTier
                  });
 
-                 // 2. Sumar a Métricas (Ingresos Acumulados) - ¡ESTO ES LO QUE VE EL USUARIO!
                  const { data: currentMetric } = await supabase.from('founding_pioneer_metrics').select('total_impact_credits_earned').eq('user_id', editingUser.id).maybeSingle();
                  const currentTotal = currentMetric?.total_impact_credits_earned || 0;
                  
@@ -241,18 +256,18 @@ const UserManagement = () => {
                      total_impact_credits_earned: currentTotal + totalAward,
                      last_activity_date: new Date().toISOString()
                  }, { onConflict: 'user_id' });
-              }
+             }
 
-              const { data: existingLD } = await supabase.from('land_dollars').select('id').eq('user_id', editingUser.id).maybeSingle();
-              const ldPayload = {
+             // Actualizar Land Dollar (Monto)
+             const ldPayload = {
                   user_id: editingUser.id, 
                   amount: tierData.min_amount, 
                   status: editingUser.editLandDollarStatus || 'active',
-                  link_ref: `REF-${editingUser.id.substring(0,6).toUpperCase()}`, 
-                  related_support_level_id: editingUser.selectedTier
-              };
-              if (existingLD) await supabase.from('land_dollars').update(ldPayload).eq('id', existingLD.id);
-              else if (tierData.land_dollars_reward > 0) await supabase.from('land_dollars').insert({ ...ldPayload, issued_date: new Date().toISOString() });
+                  link_ref: editingUser.land_dollar_link !== 'N/A' ? editingUser.land_dollar_link : `REF-${editingUser.id.substring(0,6).toUpperCase()}`, 
+                  related_support_level_id: editingUser.selectedTier,
+                  land_dollar_url: '/assets/land-dollar-base.png'
+             };
+             await supabase.from('land_dollars').upsert(ldPayload, { onConflict: 'user_id' });
           }
       }
 
@@ -286,8 +301,7 @@ const UserManagement = () => {
         setIsDeleteOpen(false);
         fetchAllData();
     } catch (e) { 
-        console.error("Delete error:", e);
-        toast({ variant: "destructive", title: t('common.error'), description: "Failed to delete user." }); 
+        toast({ variant: "destructive", title: "Error", description: e.message }); 
     }
     finally { setProcessing(false); setDeletingUser(null); }
   };
@@ -300,6 +314,9 @@ const UserManagement = () => {
     try {
       const { error: updateError } = await supabase.from('founding_pioneer_metrics').update({ founding_pioneer_access_status: 'approved' }).eq('user_id', approvingPioneer.id);
       if (updateError) throw updateError;
+      
+      await supabase.from('profiles').update({ role: 'startnext_user' }).eq('id', approvingPioneer.id);
+      
       toast({ title: "Pioneer Approved! 🚀", description: "User successfully approved.", className: "bg-emerald-600 border-emerald-200 text-white" });
       setIsApprovePioneerOpen(false);
       fetchAllData();
@@ -314,7 +331,7 @@ const UserManagement = () => {
 
   const handleExportCSV = () => {
     if (!users.length) return;
-    const csvContent = [['ID', 'Name', 'Email', 'Role', 'Genesis', 'Tier', 'IC', 'LandDollar'].join(",") + "\n" + users.map(u => [u.id, u.name, u.email, u.role, u.genesis_profile, u.tier_name, u.ic_balance, u.has_land_dollar ? 'Yes' : 'No'].join(",")).join("\n")];
+    const csvContent = [['ID', 'Name', 'Email', 'Role', 'Genesis', 'Tier', 'IC', 'LandDollar', 'LD Status'].join(",") + "\n" + users.map(u => [u.id, u.name, u.email, u.role, u.genesis_profile, u.tier_name, u.ic_balance, u.has_land_dollar ? 'Yes' : 'No', u.land_dollar_status].join(",")).join("\n")];
     const link = document.createElement("a");
     link.href = URL.createObjectURL(new Blob(csvContent, { type: 'text/csv;charset=utf-8;' }));
     link.download = `users_export.csv`;
@@ -368,7 +385,22 @@ const UserManagement = () => {
                         <td className="p-4">{user.founding_pioneer_access_status ? <Badge className={`${user.founding_pioneer_access_status === 'approved' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'} border-0 capitalize`}>{user.founding_pioneer_access_status}</Badge> : <span className="text-gray-300">-</span>}</td>
                         <td className="p-4"><div className="flex items-center gap-1"><Leaf className="w-3 h-3 text-emerald-500"/><span className="text-emerald-700 font-medium">{user.tier_name}</span></div></td>
                         <td className="p-4"><div className="flex items-center gap-1 font-mono"><Coins className="w-3 h-3 text-amber-500"/>{user.ic_balance}</div></td>
-                        <td className="p-4 text-center">{user.has_land_dollar ? (<div className="flex flex-col items-center gap-1"><div className="flex items-center gap-1 font-bold text-emerald-800"><Wallet className="w-3 h-3"/> €{parseFloat(user.land_dollar_amount).toFixed(2)}</div><Badge variant={user.land_dollar_status === 'active' || user.land_dollar_status === 'issued' ? "default" : "destructive"} className={`text-[9px] h-4 ${user.land_dollar_status === 'active' || user.land_dollar_status === 'issued' ? 'bg-green-600' : 'bg-red-600'}`}>{user.land_dollar_status}</Badge></div>) : <span className="text-slate-300 text-xs italic">None</span>}</td>
+                        
+                        <td className="p-4 text-center">
+                            {user.has_land_dollar ? (
+                                <div className="flex flex-col items-center gap-1">
+                                    <div className="flex items-center gap-1 font-bold text-emerald-800">
+                                        <Wallet className="w-3 h-3"/> €{parseFloat(user.land_dollar_amount).toFixed(2)}
+                                    </div>
+                                    <Badge variant={['active','issued'].includes(user.land_dollar_status) ? "default" : "destructive"} 
+                                           className={`text-[9px] h-4 ${['active','issued'].includes(user.land_dollar_status) ? 'bg-green-600' : 'bg-red-600'}`}>
+                                        {user.land_dollar_status}
+                                    </Badge>
+                                    <span className="text-[9px] font-mono text-muted-foreground">{user.land_dollar_link}</span>
+                                </div>
+                            ) : <span className="text-slate-300 text-xs italic">Pending...</span>}
+                        </td>
+                        
                         <td className="p-4 text-right">
                           <div className="flex justify-end gap-1 items-center">
                             {user.role === 'startnext_user' && user.founding_pioneer_access_status === 'pending' && (
@@ -391,36 +423,54 @@ const UserManagement = () => {
 
       <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
         <DialogContent className="sm:max-w-lg">
-          <DialogHeader><DialogTitle>Edit User & Financials</DialogTitle><DialogDescription>Modify user details and tiers.</DialogDescription></DialogHeader>
+          <DialogHeader><DialogTitle>Edit User & Controls</DialogTitle></DialogHeader>
           {editingUser && (
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2"><Label>{t('auth.name_label')}</Label><Input value={editingUser.name || ''} onChange={(e) => setEditingUser({...editingUser, name: e.target.value})} /></div>
                   <div className="space-y-2"><Label>{t('auth.email_label')}</Label><Input disabled value={editingUser.email || ''} /></div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                      <Label>Role</Label>
-                      <Select value={editingUser.role} onValueChange={(val) => setEditingUser({...editingUser, role: val})}>
-                        <SelectTrigger><SelectValue /></SelectTrigger>
-                        <SelectContent><SelectItem value="user">Common User</SelectItem><SelectItem value="startnext_user">Startnext User</SelectItem><SelectItem value="admin">Admin</SelectItem></SelectContent>
-                      </Select>
-                  </div>
-                  <div className="space-y-2">
-                      <Label>{t('admin.investor_profile')}</Label>
-                      <Select value={editingUser.genesis_profile || 'none'} onValueChange={(val) => setEditingUser({...editingUser, genesis_profile: val === 'none' ? null : val})}>
-                        <SelectTrigger><SelectValue /></SelectTrigger>
-                        <SelectContent><SelectItem value="none">None</SelectItem>{investorProfiles.map(p => <SelectItem key={p.slug} value={p.slug}>{p.title}</SelectItem>)}</SelectContent>
-                      </Select>
-                  </div>
-              </div>
+              
               <div className="space-y-2 border-t pt-4 bg-slate-50 p-3 rounded-lg border">
-                  <Label className="text-emerald-800 font-bold flex items-center gap-2">{editingUser.editLandDollarStatus === 'suspended' ? <Ban className="w-4 h-4 text-red-500"/> : <Wallet className="w-4 h-4"/>} Digital Asset Status</Label>
-                  <Select value={editingUser.editLandDollarStatus || 'none'} onValueChange={(val) => setEditingUser({...editingUser, editLandDollarStatus: val})} disabled={!editingUser.land_dollar_id && editingUser.selectedTier === 'none'}>
-                    <SelectTrigger className={editingUser.editLandDollarStatus === 'suspended' ? 'border-red-500 bg-red-50 text-red-700' : ''}><SelectValue placeholder="Asset Status" /></SelectTrigger>
-                    <SelectContent><SelectItem value="none">None</SelectItem><SelectItem value="pending">Pending</SelectItem><SelectItem value="active">Active (Issued)</SelectItem><SelectItem value="suspended">Suspended</SelectItem></SelectContent>
+                  <Label className="text-emerald-800 font-bold flex items-center gap-2">
+                      {editingUser.editLandDollarStatus === 'suspended' ? <Ban className="w-4 h-4 text-red-500"/> : <Wallet className="w-4 h-4"/>} 
+                      Digital Asset Status (Admin Control)
+                  </Label>
+                  <Select value={editingUser.editLandDollarStatus || 'active'} onValueChange={(val) => setEditingUser({...editingUser, editLandDollarStatus: val})}>
+                    <SelectTrigger className={editingUser.editLandDollarStatus === 'suspended' ? 'border-red-500 bg-red-50 text-red-700' : ''}>
+                        <SelectValue placeholder="Status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="active">Active (Enable Rewards)</SelectItem>
+                        <SelectItem value="suspended">Suspended (Rewards Paused)</SelectItem>
+                        <SelectItem value="blocked">Blocked (Banned)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <p className="text-xs text-muted-foreground mt-1">
+                      Controlled by Admin. Suspend to stop rewards and referrals.
+                  </p>
+              </div>
+
+              <div className="space-y-2">
+                  <Label>Role</Label>
+                  <Select value={editingUser.role} onValueChange={(val) => setEditingUser({...editingUser, role: val})}>
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="user">User Common</SelectItem>
+                        <SelectItem value="startnext_user">Startnext User</SelectItem>
+                        <SelectItem value="admin">Admin</SelectItem>
+                    </SelectContent>
                   </Select>
               </div>
+              
+              <div className="space-y-2">
+                  <Label>{t('admin.investor_profile')}</Label>
+                  <Select value={editingUser.genesis_profile || 'none'} onValueChange={(val) => setEditingUser({...editingUser, genesis_profile: val === 'none' ? null : val})}>
+                    <SelectTrigger><SelectValue /></SelectTrigger>
+                    <SelectContent><SelectItem value="none">None</SelectItem>{investorProfiles.map(p => <SelectItem key={p.slug} value={p.slug}>{p.title}</SelectItem>)}</SelectContent>
+                  </Select>
+              </div>
+
               <div className="space-y-2 border-t pt-4">
                   <Label className="text-emerald-600 font-bold flex items-center gap-2"><Leaf className="w-4 h-4"/> Explorer Tier (Level)</Label>
                   <Select value={editingUser.selectedTier || 'none'} onValueChange={(val) => setEditingUser({...editingUser, selectedTier: val})}>
@@ -431,7 +481,10 @@ const UserManagement = () => {
               </div>
             </div>
           )}
-          <DialogFooter><Button variant="outline" onClick={() => setIsEditOpen(false)}>{t('common.cancel')}</Button><Button onClick={handleSaveEdit} disabled={processing}>{t('common.save')}</Button></DialogFooter>
+          <DialogFooter>
+              <Button variant="outline" onClick={() => setIsEditOpen(false)}>{t('common.cancel')}</Button>
+              <Button onClick={handleSaveEdit} disabled={processing}>{t('common.save')}</Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
       
@@ -440,7 +493,7 @@ const UserManagement = () => {
       </Dialog>
 
       <Dialog open={isApprovePioneerOpen} onOpenChange={setIsApprovePioneerOpen}>
-        <DialogContent><DialogHeader><DialogTitle>Approve Founding Pioneer</DialogTitle><DialogDescription>Grant 100 credits?</DialogDescription></DialogHeader><DialogFooter><Button variant="outline" onClick={() => setIsApprovePioneerOpen(false)}>{t('common.cancel')}</Button><Button className="bg-emerald-600 text-white" onClick={confirmApprovePioneer} disabled={approveProcessing}>Approve</Button></DialogFooter></DialogContent>
+        <DialogContent><DialogHeader><DialogTitle>Approve Founding Pioneer</DialogTitle><DialogDescription>Grant Access?</DialogDescription></DialogHeader><DialogFooter><Button variant="outline" onClick={() => setIsApprovePioneerOpen(false)}>{t('common.cancel')}</Button><Button className="bg-emerald-600 text-white" onClick={confirmApprovePioneer} disabled={approveProcessing}>Approve</Button></DialogFooter></DialogContent>
       </Dialog>
     </div>
   );

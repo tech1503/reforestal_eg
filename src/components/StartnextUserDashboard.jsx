@@ -28,7 +28,7 @@ const StartnextUserDashboard = () => {
   // Procesar beneficios para display
   const displayBenefits = tierBenefits.map(b => {
       const trans = b.support_benefit_translations?.find(t => t.language_code === currentLanguage) 
-                  || b.support_benefit_translations?.find(t => t.language_code === 'en');
+                || b.support_benefit_translations?.find(t => t.language_code === 'en');
       return {
           ...b,
           translated_desc: trans?.description || t('dashboard.startnext_dash.benefit_available') // Fallback traducido
@@ -45,9 +45,10 @@ const StartnextUserDashboard = () => {
        
        {/* SECCIÓN LAND DOLLAR (Ahora siempre muestra el QR único) */}
        <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.1 }} className="mb-8">
-           <Card variant="premium" className="overflow-hidden bg-gradient-to-br from-white to-emerald-50/50 dark:from-darkBgDeep dark:to-darkBg">
+           {/* CORREGIDO: Eliminado gradiente oscuro, ahora usa bg-card */}
+           <Card variant="premium" className="overflow-hidden bg-card border-border">
                 <CardContent className="flex flex-col items-center">
-                    <h2 className="text-3xl font-bold text-forest dark:text-light mb-8 flex items-center gap-3">
+                    <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
                         <Leaf className="w-8 h-8 text-emerald-500"/> 
                         {t('dashboard.startnext_dash.digital_asset_title')}
                     </h2>
@@ -137,17 +138,17 @@ const StartnextUserDashboard = () => {
           </div>
           <div className="lg:col-span-1 space-y-8">
              <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 }}>
-                 <Card variant="soft" className="border-l-4 border-l-gold">
+                 <Card variant="soft" className="border-l-4 border-l-gold bg-card">
                     <CardContent className="pt-6">
-                       <h3 className="font-bold text-forest dark:text-light mb-3 flex items-center gap-2 text-xl">
+                       <h3 className="font-bold text-foreground mb-3 flex items-center gap-2 text-xl">
                            <Trees className="w-6 h-6 text-gold" /> 
                            {t('dashboard.startnext_dash.rights_acquisition')}
                        </h3>
-                       <p className="text-sm text-olive dark:text-light/70 mb-6 leading-relaxed">
+                       <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
                            {t('dashboard.startnext_dash.rights_desc')}
                        </p>
-                       <div className="bg-white dark:bg-darkBgDeep rounded-xl p-4 flex items-center justify-center border border-olive/10 shadow-inner">
-                           <span className="flex items-center gap-2 text-olive font-bold text-sm">
+                       <div className="bg-muted/30 rounded-xl p-4 flex items-center justify-center border border-border shadow-inner">
+                           <span className="flex items-center gap-2 text-muted-foreground font-bold text-sm">
                                <Lock className="w-4 h-4 text-gold" /> 
                                {t('dashboard.startnext_dash.system_locked')}
                            </span>
@@ -165,15 +166,15 @@ const StartnextUserDashboard = () => {
 };
 
 const StatCard = ({ icon: Icon, iconColor, bgColor, label, value, highlight }) => (
-  <Card variant="premium" className="group">
+  <Card variant="premium" className="group bg-card border-border">
      <CardContent className="flex items-center justify-between">
-        <div>
-           <p className="text-sm font-medium text-olive dark:text-light/60 mb-1">{label}</p>
-           <h3 className={`text-2xl font-bold ${highlight ? 'text-forest dark:text-light' : 'text-forest/80 dark:text-light/80'}`}>{value}</h3>
-        </div>
-        <div className={`p-3 rounded-xl ${bgColor} dark:bg-white/5 group-hover:scale-110 transition-normal shadow-sm`}>
-            <Icon className={`w-6 h-6 ${iconColor}`}/>
-        </div>
+       <div>
+          <p className="text-sm font-medium text-muted-foreground mb-1">{label}</p>
+          <h3 className={`text-2xl font-bold ${highlight ? 'text-foreground' : 'text-foreground/90'}`}>{value}</h3>
+       </div>
+       <div className={`p-3 rounded-xl ${bgColor} dark:bg-muted group-hover:scale-110 transition-normal shadow-sm`}>
+           <Icon className={`w-6 h-6 ${iconColor}`}/>
+       </div>
      </CardContent>
   </Card>
 );

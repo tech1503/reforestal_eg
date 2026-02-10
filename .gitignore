@@ -21,3 +21,9 @@ yarn-error.log*
 # md
 *.md
 
+# Infra / deployment
+docker-compose.yml
+Dockerfile
+nginx-custom.conf
+
+

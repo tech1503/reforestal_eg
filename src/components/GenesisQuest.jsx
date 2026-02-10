@@ -18,7 +18,6 @@ import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { executeGamificationAction } from '@/utils/gamificationEngine';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher'; 
 
-// Utility to shuffle array
 const shuffleArray = (array) => {
   if (!array || !Array.isArray(array)) return [];
   const shuffled = [...array];
@@ -29,7 +28,6 @@ const shuffleArray = (array) => {
   return shuffled;
 };
 
-// Fallback data
 const FALLBACK_QUESTIONS = [
   {
     id: 1,
@@ -49,10 +47,8 @@ const PROFILE_ICONS = {
 };
 
 const Question = ({ questionData, onSelect, selectedOptionType }) => {
-  // CORRECCIÓN: Usamos JSON.stringify para evitar re-barajar al hacer clic
   const randomizedOptions = useMemo(() => {
     return shuffleArray(questionData.options);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questionData.id, JSON.stringify(questionData.options)]); 
   
   if (!questionData || !questionData.options) return null;
@@ -120,22 +116,16 @@ const Question = ({ questionData, onSelect, selectedOptionType }) => {
   );
 };
 
-// --- MODAL DE RESULTADOS ---
 const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const { user } = useAuth();
     
-    // Normalización
     const normalizedSlug = profileSlug ? profileSlug.toLowerCase() : 'markus';
-    
-    // Datos visuales (iconos, gradientes)
     const profile = getInvestorProfileBySlug(normalizedSlug);
     const Icon = PROFILE_ICONS[normalizedSlug] || Leaf;
     const { gradient } = profile || { gradient: 'from-gray-500 to-slate-500' };
 
-    // --- CORRECCIÓN SOLICITADA: RUTAS DE TRADUCCIÓN ---
-    // Se usa la nueva estructura "profiles.genesis"
     const title = t(`genesisQuest.profiles.genesis.${normalizedSlug}.title`, profile?.title || 'Unknown Profile');
     const description = t(`genesisQuest.profiles.genesis.${normalizedSlug}.description`, profile?.description || '');
 
@@ -150,36 +140,26 @@ const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            {/* Overlay manual para asegurar oscurecimiento */}
             {isOpen && <div className="fixed inset-0 z-[9998] bg-black/90 backdrop-blur-sm" />}
             
-            {/* Contenido con Z-Index extremo para que no sea tapado por nada */}
             <DialogContent className="fixed left-[50%] top-[50%] z-[9999] w-full max-w-md translate-x-[-50%] translate-y-[-50%] border-none bg-transparent shadow-none p-0 outline-none sm:max-w-lg">
-                
                 <DialogHeader className="sr-only">
                     <DialogTitle>Genesis Quest Result</DialogTitle>
                     <DialogDescription>Your assigned investor profile.</DialogDescription>
                 </DialogHeader>
-
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8, y: 50 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ duration: 0.5, type: "spring", bounce: 0.4 }}
-                    // Estilo Glassmorphism Oscuro y Sólido
                     className="relative overflow-hidden rounded-3xl border-2 border-emerald-500/50 bg-slate-950 p-8 text-white shadow-[0_0_60px_-15px_rgba(16,185,129,0.6)]"
                 >
-                    {/* Fondo decorativo interno */}
                     <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-10`} />
                     <div className="absolute -top-20 -left-20 w-60 h-60 bg-emerald-500/20 rounded-full blur-[80px] pointer-events-none" />
                     
                     <div className="relative z-10 flex flex-col items-center text-center">
-                        
-                        {/* Etiqueta Superior */}
                         <div className="mb-6 rounded-full bg-emerald-900/50 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-emerald-400 border border-emerald-500/30">
                             {t('genesisQuest.profile_unlocked', 'Profile Unlocked')}
                         </div>
-
-                        {/* Icono Grande Animado */}
                         <motion.div
                             initial={{ scale: 0, rotate: -180 }}
                             animate={{ scale: 1, rotate: 0 }}
@@ -190,8 +170,6 @@ const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
                                 <Icon className={`w-14 h-14 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]`} />
                             </div>
                         </motion.div>
-
-                        {/* Título y Nombre (Traducido) */}
                         <div className="mb-6 space-y-2">
                             <motion.h2 
                                 initial={{ opacity: 0, y: 10 }}
@@ -203,8 +181,6 @@ const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
                             </motion.h2>
                             <div className="h-1.5 w-20 bg-gradient-to-r from-emerald-400 to-teal-600 rounded-full mx-auto" />
                         </div>
-
-                        {/* Descripción (Traducida) */}
                         <motion.p 
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -213,8 +189,6 @@ const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
                         >
                             {description}
                         </motion.p>
-
-                        {/* Botón de Acción */}
                         <div className="w-full space-y-4">
                              <Button 
                                 onClick={handleContinue} 
@@ -226,7 +200,6 @@ const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
                                 </span>
                                 <ArrowRight className="ml-2 w-5 h-5 stroke-[3px]" />
                              </Button>
-
                              {!user && (
                                 <p className="text-xs text-slate-500 mt-3 font-medium">
                                     {t('genesis.save_profile_hint', 'Save your profile to secure your status.')}
@@ -300,40 +273,41 @@ const GenesisQuest = ({ forceShowResult = false }) => {
     const sessionId = `anon_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
     localStorage.setItem('genesisQuestSessionId', sessionId);
 
-    // LÓGICA: Si no hay usuario, guardamos localmente y mostramos el modal
     if (!user) {
         localStorage.setItem('pending_genesis_profile', resultSlug);
-        
         toast({
             title: t('genesis.profile_saved_locally', 'Profile Saved Locally'),
             description: t('genesis.redirect_to_register', 'Please register to save your progress.'),
             className: "bg-emerald-900 border-emerald-700 text-white"
         });
-
         setLoading(false);
         setShowResultModal(true); 
     } else {
-        // Lógica si YA hay usuario
         try {
-            const { error } = await supabase
+            const { error: profileError } = await supabase
                 .from('profiles')
                 .update({ genesis_profile: resultSlug })
                 .eq('id', user.id);
 
-            if (error) throw error;
+            if (profileError) throw profileError;
 
+            const capitalizedProfile = resultSlug.charAt(0).toUpperCase() + resultSlug.slice(1);
+            
             await supabase.from('genesis_quest_attempts')
                 .insert({ 
                     user_id: user.id, 
-                    profile_result: resultSlug, 
+                    profile_result: capitalizedProfile, 
                     session_id: sessionId 
                 });
 
-            // Acción corregida (25 pts)
-            const gamificationResult = await executeGamificationAction(user.id, 'initial_profile_quest', { profile: resultSlug });
+            const gamificationResult = await executeGamificationAction(
+                user.id, 
+                'genesis_quest', 
+                { profile: resultSlug }
+            );
 
             const rewardMsg = gamificationResult.success 
-                ? ` You earned +${gamificationResult.points} IC!` 
+                ? ` (+${gamificationResult.creditsAwarded} )` 
                 : '';
 
             toast({
@@ -382,7 +356,6 @@ const GenesisQuest = ({ forceShowResult = false }) => {
   return (
     <>
       <div className="min-h-screen w-full flex flex-col items-center justify-center bg-[#051c14] p-4 relative overflow-hidden font-sans">
-        {/* Background Gradients */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#064e3b] via-[#022c22] to-black"></div>
         <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px] animate-pulse"></div>
         <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-teal-500/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }}></div>
@@ -402,7 +375,6 @@ const GenesisQuest = ({ forceShowResult = false }) => {
         )}
 
         <div className="relative z-10 w-full max-w-4xl flex flex-col items-center">
-            {/* Progress Bar */}
             <div className="w-full max-w-xs md:max-w-md h-1.5 bg-emerald-900/50 rounded-full mb-8 md:mb-12 overflow-hidden border border-emerald-900/30">
                 <motion.div 
                     className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 shadow-[0_0_10px_rgba(16,185,129,0.5)]"

@@ -52,7 +52,7 @@
     "source": "Quelle",
     "date": "Datum",
     "system_action": "Systemaktion",
-    "available_quests": "Verfügbare Quests",
+    "available_quests": "Quests",
     "start_quest": "Quest starten",
     "new_quest_available": "Neue Quest verfügbar",
     "starting_quest": "Quest wird gestartet",
@@ -81,7 +81,7 @@
     },
     "land_dollar": {
       "title": "Digitaler Land Dollar",
-      "certificate_text": "\"Dein Land Dollar ist dein Gründungszertifikat\"",
+      "certificate_text": "\"Ihr Land Dollar ist Ihr Zertifikat\"",
       "download": "Herunterladen",
       "share": "Teilen",
       "locked_title": "Land Dollar",
@@ -430,7 +430,7 @@
   "quest": {
     "title": "Misionen",
     "subtitle": "Erledige misionen, um Bonuspunkte zu verdienen und neue Level freizuschalten.",
-    "available_quests": "Verfügbare Misionen",
+    "available_quests": "Misionen",
     "completed_quests": "Abgeschlossene Misionen",
     "earn_credits": "Verdiene {{credits}} Bonuspunkte",
     "complete_quest": "Misionen abschließen"
@@ -556,7 +556,8 @@
       "confirm": "Austausch bestätigen"
     },
     "cta": {
-      "support_startnext": "Ich habe bereits auf StartNext unterstützt"
+      "support_startnext": "Ich habe bereits auf StartNext unterstützt",
+      "sidebar_btn": "Haben Sie Startnext unterstützt?"
     },
     "stock": {
       "infinite": "∞ Vorrat",
@@ -759,5 +760,22 @@
     "mark_all_read": "Alle als gelesen markieren",
     "mark_read": "Als gelesen markieren",
     "empty": "Du bist auf dem neuesten Stand!"
+  },
+  "contact": {
+    "title": "Kontaktieren Sie uns",
+    "subtitle": "Haben Sie Fragen zu Ihrer Wirkung oder unserer Mission? Wir helfen Ihnen gerne.",
+    "address_label": "Hauptsitz",
+    "email_label": "E-Mail senden",
+    "phone_label": "Anrufen",
+    "faq_title": "Benötigen Sie schnelle Antworten?",
+    "visit_faq": "Hilfezentrum besuchen",
+    "form_name": "Ihr Name",
+    "form_email": "E-Mail",
+    "form_subject": "Betreff",
+    "form_message": "Nachricht",
+    "send_btn": "Nachricht senden",
+    "sending": "Wird gesendet...",
+    "success_title": "Nachricht gesendet!",
+    "success_desc": "Wir melden uns in Kürze bei Ihnen."
   }
 }

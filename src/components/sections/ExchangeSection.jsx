@@ -169,7 +169,7 @@ const ExchangeSection = ({ isReadOnly = false }) => {
       if (src && (src.startsWith('http') || src.startsWith('https'))) {
           return <img src={src} alt={alt} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />;
       }
-      return <div className="w-full h-full flex items-center justify-center bg-slate-100 text-slate-300"><ImageIcon className="w-12 h-12"/></div>;
+      return <div className="w-full h-full flex items-center justify-center bg-muted text-muted-foreground"><ImageIcon className="w-12 h-12"/></div>;
   };
 
   return (
@@ -181,8 +181,8 @@ const ExchangeSection = ({ isReadOnly = false }) => {
       <div className="flex flex-col gap-6 mb-8">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
           <div>
-            <h2 className="text-3xl font-bold text-slate-800">{t('exchange.title')}</h2>
-            <p className="text-slate-500 mt-2">{t('exchange.subtitle')}</p>
+            <h2 className="text-3xl font-bold text-foreground">{t('exchange.title')}</h2>
+            <p className="text-muted-foreground mt-2">{t('exchange.subtitle')}</p>
           </div>
           
           <div className="flex items-center gap-4 mt-4 sm:mt-0">
@@ -191,9 +191,9 @@ const ExchangeSection = ({ isReadOnly = false }) => {
                   <HeartHandshake className="w-4 h-4 mr-2" /> {t('exchange.cta.support_startnext')}
                 </Button>
              )}
-             <div className="bg-white px-4 py-2 rounded-xl border shadow-sm flex items-center gap-3">
+             <div className="bg-card px-4 py-2 rounded-xl border shadow-sm flex items-center gap-3">
                 <div className="text-right">
-                   <p className="text-xs text-slate-400 font-medium uppercase">{t('exchange.labels.balance')}</p>
+                   <p className="text-xs text-muted-foreground font-medium uppercase">{t('exchange.labels.balance')}</p>
                    <p className="text-xl font-bold text-emerald-600 font-mono">{userCredits.toLocaleString()}</p>
                 </div>
                 <div className="bg-emerald-100 p-2 rounded-full"><Coins className="w-6 h-6 text-emerald-600" /></div>
@@ -206,7 +206,7 @@ const ExchangeSection = ({ isReadOnly = false }) => {
                    {cart.reduce((sum, item) => sum + item.quantity, 0)}
                  </span>
                )}
-               {isReadOnly && <Lock className="w-3 h-3 ml-2 text-slate-400"/>}
+               {isReadOnly && <Lock className="w-3 h-3 ml-2 text-muted-foreground"/>}
              </Button>
           </div>
         </motion.div>
@@ -221,7 +221,7 @@ const ExchangeSection = ({ isReadOnly = false }) => {
           {categories.map((category) => {
             const Icon = category.icon;
             return (
-              <button key={category.id} onClick={() => setSelectedCategory(category.id)} className={`flex items-center px-4 py-2 rounded-lg transition-all duration-200 ${selectedCategory === category.id ? 'bg-emerald-600 text-white shadow-md' : 'bg-white text-gray-600 hover:bg-emerald-50 border border-gray-200'}`}>
+              <button key={category.id} onClick={() => setSelectedCategory(category.id)} className={`flex items-center px-4 py-2 rounded-lg transition-all duration-200 ${selectedCategory === category.id ? 'bg-emerald-600 text-white shadow-md' : 'bg-card text-muted-foreground hover:bg-emerald-50 border border-border'}`}>
                 <Icon className="w-4 h-4 mr-2" /> {category.label}
               </button>
             );
@@ -232,9 +232,9 @@ const ExchangeSection = ({ isReadOnly = false }) => {
       {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {loading ? (
-           Array(3).fill(0).map((_, i) => <div key={i} className="h-80 bg-slate-100 rounded-xl animate-pulse"/>)
+           Array(3).fill(0).map((_, i) => <div key={i} className="h-80 bg-muted rounded-xl animate-pulse"/>)
         ) : filteredProducts.length === 0 ? (
-           <div className="col-span-full py-12 text-center text-slate-400">
+           <div className="col-span-full py-12 text-center text-muted-foreground">
                <TreePine className="w-12 h-12 mx-auto mb-3 opacity-20" />
                <p>{t('exchange.empty_category')}</p>
            </div>
@@ -244,23 +244,23 @@ const ExchangeSection = ({ isReadOnly = false }) => {
              const content = getTranslatedContent(product);
 
              return (
-              <motion.div key={product.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }} className="bg-white rounded-xl shadow-sm border border-emerald-100 overflow-hidden hover:shadow-lg transition-all flex flex-col group relative">
+              <motion.div key={product.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }} className="bg-card rounded-xl shadow-sm border border-emerald-100 overflow-hidden hover:shadow-lg transition-all flex flex-col group relative">
                 {isReadOnly && (
                     <ReadOnlyOverlay title={t('roles.explorer_level_1')} message={t('exchange.overlay.message')} subMessage={t('exchange.overlay.sub_message')} />
                 )}
                 
-                <div className="aspect-[4/3] bg-slate-50 relative overflow-hidden">
+                <div className="aspect-[4/3] bg-muted relative overflow-hidden">
                   <ProductImage src={product.image_url} alt={content.name} />
                   
-                  <div className="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded text-xs font-medium text-slate-600 shadow-sm">
+                  <div className="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded text-xs font-medium text-muted-foreground shadow-sm">
                       {product.stock === -1 ? t('exchange.stock.infinite') : `${product.stock} ${t('exchange.stock.left')}`}
                   </div>
                 </div>
 
                 <div className="p-5 flex flex-col flex-1">
-                  <h3 className="font-bold text-lg text-slate-800 mb-1 line-clamp-1">{content.name}</h3>
+                  <h3 className="font-bold text-lg text-foreground mb-1 line-clamp-1">{content.name}</h3>
                   <div className="flex items-center gap-1 text-emerald-600 font-mono font-bold mb-3"><Coins className="w-4 h-4" /> {product.price}</div>
-                  <p className="text-sm text-slate-500 line-clamp-2 mb-4 flex-1">{content.description}</p>
+                  <p className="text-sm text-muted-foreground line-clamp-2 mb-4 flex-1">{content.description}</p>
                   
                   <div className="bg-emerald-50/50 p-2 rounded-lg mb-4 text-xs text-emerald-800 flex items-start gap-2">
                       <Leaf className="w-3 h-3 mt-0.5 shrink-0" />
@@ -282,14 +282,14 @@ const ExchangeSection = ({ isReadOnly = false }) => {
       {isCartOpen && (
         <div className="fixed inset-0 z-50 flex justify-end">
            <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" onClick={() => setIsCartOpen(false)}></div>
-           <motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} className="h-full w-full max-w-md bg-white shadow-2xl flex flex-col">
-              <div className="p-5 border-b flex items-center justify-between bg-slate-50">
-                  <h3 className="font-bold text-lg flex items-center gap-2"><ShoppingCart className="w-5 h-5 text-emerald-600"/> {t('exchange.cart.title')}</h3>
+           <motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} className="h-full w-full max-w-md bg-card shadow-2xl flex flex-col">
+              <div className="p-5 border-b flex items-center justify-between bg-muted/30">
+                  <h3 className="font-bold text-lg flex items-center gap-2 text-foreground"><ShoppingCart className="w-5 h-5 text-emerald-600"/> {t('exchange.cart.title')}</h3>
                   <Button variant="ghost" size="icon" onClick={() => setIsCartOpen(false)}><X className="w-5 h-5" /></Button>
               </div>
               <div className="flex-1 overflow-y-auto p-5 space-y-4">
                   {cart.length === 0 ? (
-                      <div className="text-center py-10 text-slate-400">
+                      <div className="text-center py-10 text-muted-foreground">
                           <ShoppingCart className="w-12 h-12 mx-auto mb-3 opacity-20"/>
                           <p>{t('exchange.cart.empty')}</p>
                           <Button variant="link" onClick={() => setIsCartOpen(false)}>{t('exchange.cart.browse')}</Button>
@@ -298,17 +298,17 @@ const ExchangeSection = ({ isReadOnly = false }) => {
                       cart.map(item => {
                           const content = getTranslatedContent(item);
                           return (
-                              <div key={item.id} className="flex gap-4 p-3 rounded-xl border bg-slate-50/50">
-                                  <div className="w-16 h-16 bg-white rounded-lg border overflow-hidden shrink-0 flex items-center justify-center">
-                                      {item.image_url ? <img src={item.image_url} className="w-full h-full object-cover" alt={content.name}/> : <ImageIcon className="w-6 h-6 text-slate-300"/>}
+                              <div key={item.id} className="flex gap-4 p-3 rounded-xl border bg-muted/20">
+                                  <div className="w-16 h-16 bg-card rounded-lg border overflow-hidden shrink-0 flex items-center justify-center">
+                                      {item.image_url ? <img src={item.image_url} className="w-full h-full object-cover" alt={content.name}/> : <ImageIcon className="w-6 h-6 text-muted-foreground"/>}
                                   </div>
                                   <div className="flex-1">
-                                      <h4 className="font-bold text-sm text-slate-800 line-clamp-1">{content.name}</h4>
+                                      <h4 className="font-bold text-sm text-foreground line-clamp-1">{content.name}</h4>
                                       <div className="flex items-center gap-1 text-emerald-600 font-mono text-xs font-bold mt-1"><Coins className="w-3 h-3"/> {item.price}</div>
                                   </div>
                                   <div className="flex flex-col items-end justify-between">
-                                      <Button variant="ghost" size="icon" className="h-6 w-6 text-slate-400 hover:text-red-500" onClick={() => updateCartItem(item.id, 0)}><X className="w-3 h-3"/></Button>
-                                      <div className="flex items-center gap-2 bg-white rounded-lg border px-1">
+                                      <Button variant="ghost" size="icon" className="h-6 w-6 text-muted-foreground hover:text-red-500" onClick={() => updateCartItem(item.id, 0)}><X className="w-3 h-3"/></Button>
+                                      <div className="flex items-center gap-2 bg-card rounded-lg border px-1">
                                           <button className="p-1 hover:text-emerald-600" onClick={() => updateCartItem(item.id, item.quantity - 1)} disabled={item.quantity <= 1}><Minus className="w-3 h-3"/></button>
                                           <span className="text-sm font-mono w-4 text-center">{item.quantity}</span>
                                           <button className="p-1 hover:text-emerald-600" onClick={() => updateCartItem(item.id, item.quantity + 1)}><Plus className="w-3 h-3"/></button>
@@ -319,8 +319,8 @@ const ExchangeSection = ({ isReadOnly = false }) => {
                       })
                   )}
               </div>
-              <div className="p-5 border-t bg-slate-50 space-y-4">
-                  <div className="flex justify-between text-lg font-bold text-slate-800"><span>{t('exchange.labels.total')}</span><span className="text-emerald-600 font-mono">{cartTotal.toLocaleString()} </span></div>
+              <div className="p-5 border-t bg-muted/30 space-y-4">
+                  <div className="flex justify-between text-lg font-bold text-foreground"><span>{t('exchange.labels.total')}</span><span className="text-emerald-600 font-mono">{cartTotal.toLocaleString()} </span></div>
                   <Button onClick={handleCheckout} className="w-full py-6 font-bold text-lg shadow-lg bg-emerald-600 hover:bg-emerald-700 text-white" disabled={loading || cart.length === 0 || userCredits < cartTotal}>
                     {loading ? <Loader2 className="w-5 h-5 animate-spin"/> : t('exchange.buttons.confirm')}
                   </Button>

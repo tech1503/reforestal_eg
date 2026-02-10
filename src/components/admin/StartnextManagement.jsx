@@ -499,7 +499,7 @@ const StartnextManagement = () => {
                         <h4 className="text-sm font-semibold text-slate-700">Calculated Variant</h4>
                         {calculatedVariant ? (
                              <Badge className="bg-emerald-600 hover:bg-emerald-700">
-                                {calculatedVariant.logical_name} // {calculatedVariant.variant_title}
+                                {calculatedVariant.logical_name} {/**/} {calculatedVariant.variant_title}
                              </Badge>
                         ) : (
                              <Badge variant="outline" className="text-slate-400">No Match</Badge>
@@ -532,7 +532,7 @@ const StartnextManagement = () => {
                                 <div className="flex gap-4">
                                      <div className="flex items-center gap-1">
                                         <Info className="w-3 h-3 text-blue-500"/>
-                                        <span className="font-mono text-blue-600">{calculatedVariant.impact_credits_reward} IC</span>
+                                        <span className="font-mono text-blue-600">{calculatedVariant.impact_credits_reward} </span>
                                      </div>
                                      <div className="flex items-center gap-1">
                                         <Info className="w-3 h-3 text-green-500"/>

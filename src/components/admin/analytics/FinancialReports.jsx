@@ -183,7 +183,7 @@ const FinancialReports = () => {
                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                ))}
                            </Pie>
-                           <Tooltip formatter={(value) => `${value.toLocaleString()} IC`} />
+                           <Tooltip formatter={(value) => `${value.toLocaleString()} `} />
                            <Legend />
                        </PieChart>
                    </ResponsiveContainer>
@@ -206,7 +206,7 @@ const FinancialReports = () => {
                        <div className="p-4 bg-slate-50 rounded-lg">
                            <p className="text-sm text-slate-500">Credits Issued</p>
                            <p className="text-2xl font-bold text-violet-700">
-                               {filteredData.i.reduce((sum, item) => sum + parseFloat(item.amount), 0).toLocaleString()} IC
+                               {filteredData.i.reduce((sum, item) => sum + parseFloat(item.amount), 0).toLocaleString()} 
                            </p>
                        </div>
                        <div className="p-4 bg-slate-50 rounded-lg">

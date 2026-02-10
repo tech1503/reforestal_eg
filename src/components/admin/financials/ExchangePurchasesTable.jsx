@@ -107,7 +107,7 @@ const ExchangePurchasesTable = () => {
                   </TableCell>
                   <TableCell>{purchase.exchange_products?.name || 'Unknown Product'}</TableCell>
                   <TableCell>{purchase.quantity}</TableCell>
-                  <TableCell>{purchase.credits_spent} IC</TableCell>
+                  <TableCell>{purchase.credits_spent}</TableCell>
                   <TableCell>
                     <Badge variant={purchase.status === 'completed' ? 'default' : 'secondary'} className={purchase.status === 'cancelled' ? 'bg-red-100 text-red-700' : ''}>
                       {purchase.status || 'Completed'}

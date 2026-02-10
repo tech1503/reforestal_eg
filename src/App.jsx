@@ -14,6 +14,7 @@ import GenesisQuest from '@/components/GenesisQuest';
 import HomePage from '@/components/HomePage';
 import UpdatePassword from '@/components/UpdatePassword';
 import GlobalErrorBoundary from '@/components/GlobalErrorBoundary';
+import ContactPage from '@/pages/ContactPage'; // <--- IMPORTACIÓN NUEVA
 
 // Contextos y Hooks
 import { useAuth } from '@/contexts/SupabaseAuthContext';
@@ -111,6 +112,10 @@ const AppContent = () => {
         <Route path="/genesis-quest" element={<GenesisQuest />} />
         <Route path="/genesis-profile" element={<GenesisQuest forceShowResult={true} />} />
         <Route path="/update-password" element={<UpdatePassword />} />
+        
+        {/* RUTA DE CONTACTO (NUEVA) */}
+        {/* Accesible para todos. La lógica de 'volver' se maneja dentro del componente. */}
+        <Route path="/contact" element={<ContactPage />} />
 
         {/* Autenticación */}
         <Route path="/auth" element={<RedirectAuthenticated><AuthScreen /></RedirectAuthenticated>} />

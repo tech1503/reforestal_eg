@@ -22,15 +22,15 @@ const ApplicationModal = ({ open, onOpenChange, reason, setReason, onSubmit, isS
   const { t } = useTranslation();
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="sm:max-w-md bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 shadow-2xl rounded-2xl">
+        <DialogContent className="sm:max-w-md bg-card border-border shadow-2xl rounded-2xl">
             <DialogHeader>
-                <DialogTitle className="flex items-center gap-2 text-xl font-bold text-slate-800 dark:text-slate-100">
+                <DialogTitle className="flex items-center gap-2 text-xl font-bold text-foreground">
                     <div className="p-2 bg-emerald-100 dark:bg-emerald-900/30 rounded-full">
                         <Send className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                     </div>
                     {t('founding_pioneer.locked_section.cta_button', 'Apply to become a Pioneer')}
                 </DialogTitle>
-                <DialogDescription className="text-slate-500 pt-2">
+                <DialogDescription className="text-muted-foreground pt-2">
                     {t('pioneer.restricted.pending_msg', 'Please explain why you want to join.')}
                 </DialogDescription>
             </DialogHeader>
@@ -39,11 +39,11 @@ const ApplicationModal = ({ open, onOpenChange, reason, setReason, onSubmit, isS
                     value={reason}
                     onChange={(e) => setReason(e.target.value)}
                     placeholder="I want to join because..."
-                    className="min-h-[120px] bg-slate-50 border-slate-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                    className="min-h-[120px] bg-background border-input focus:border-emerald-500 focus:ring-emerald-500/20"
                 />
             </div>
             <DialogFooter>
-                <Button variant="ghost" onClick={() => onOpenChange(false)} className="hover:bg-slate-100">{t('common.cancel')}</Button>
+                <Button variant="ghost" onClick={() => onOpenChange(false)} className="hover:bg-muted">{t('common.cancel')}</Button>
                 <Button onClick={onSubmit} disabled={isSubmitting || !reason.trim()} className="bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-600/20">
                     {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
                     {t('common.submit')}
@@ -374,11 +374,31 @@ const FoundingMembersSection = () => {
       </motion.div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 h-16 bg-white dark:bg-slate-950 border rounded-2xl mb-8 p-1">
-          <TabsTrigger value="governance" className="rounded-xl gap-2 font-bold"><Vote className="w-5 h-5"/> {t('pioneer.tabs.governance')}</TabsTrigger>
-          <TabsTrigger value="news" className="rounded-xl gap-2 font-bold"><Newspaper className="w-5 h-5"/> {t('pioneer.tabs.news')}</TabsTrigger>
-          <TabsTrigger value="roadmap" className="rounded-xl gap-2 font-bold"><TrendingUp className="w-5 h-5"/> {t('pioneer.tabs.roadmap')}</TabsTrigger>
-        </TabsList>
+        <TabsList className="grid w-full grid-cols-3 h-auto min-h-16 bg-card border rounded-2xl mb-8 p-1">
+        <TabsTrigger 
+          value="governance" 
+          className="whitespace-normal rounded-xl gap-1 sm:gap-2 font-bold text-[10px] sm:text-sm h-full px-1"
+        >
+          <Vote className="w-4 h-4 sm:w-5 sm:h-5 shrink-0"/> 
+          {t('pioneer.tabs.governance')}
+        </TabsTrigger>
+        
+        <TabsTrigger 
+          value="news" 
+          className="whitespace-normal rounded-xl gap-1 sm:gap-2 font-bold text-[10px] sm:text-sm h-full px-1"
+        >
+          <Newspaper className="w-4 h-4 sm:w-5 sm:h-5 shrink-0"/> 
+          {t('pioneer.tabs.news')}
+        </TabsTrigger>
+        
+        <TabsTrigger 
+          value="roadmap" 
+          className="whitespace-normal rounded-xl gap-1 sm:gap-2 font-bold text-[10px] sm:text-sm h-full px-1"
+        >
+          <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 shrink-0"/> 
+          {t('pioneer.tabs.roadmap')}
+        </TabsTrigger>
+      </TabsList>
 
         <AnimatePresence mode="wait">
             <TabsContent key={activeTab} value={activeTab} className="animate-in fade-in">
@@ -386,7 +406,7 @@ const FoundingMembersSection = () => {
                 {/* 1. GOVERNANCE */}
                 {activeTab === 'governance' && (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        {proposals.length === 0 && <div className="col-span-2 text-center text-slate-400 py-10 border-2 border-dashed rounded-xl">No active votes at this moment.</div>}
+                        {proposals.length === 0 && <div className="col-span-2 text-center text-muted-foreground py-10 border-2 border-dashed rounded-xl">No active votes at this moment.</div>}
                         {proposals.map(prop => (
                             <VotingCard 
                                 key={prop.id}
@@ -419,13 +439,13 @@ const FoundingMembersSection = () => {
                                 </Card>
                             </motion.div>
                         ))}
-                         {news.length === 0 && <p className="col-span-3 text-center text-slate-400">No news yet.</p>}
+                         {news.length === 0 && <p className="col-span-3 text-center text-muted-foreground">No news yet.</p>}
                     </div>
                 )}
 
                 {/* 3. ROADMAP */}
                 {activeTab === 'roadmap' && (
-                    <div className="space-y-12 pl-6 border-l-4 border-slate-100 ml-6 py-4">
+                    <div className="space-y-12 pl-6 border-l-4 border-muted ml-6 py-4">
                         {roadmap.map((item) => (
                             <TimelineItem 
                                 key={item.id}
@@ -436,7 +456,7 @@ const FoundingMembersSection = () => {
                                 percentage={item.completion_percentage}
                             />
                         ))}
-                        {roadmap.length === 0 && <p className="text-slate-400 pl-4">Roadmap pending.</p>}
+                        {roadmap.length === 0 && <p className="text-muted-foreground pl-4">Roadmap pending.</p>}
                     </div>
                 )}
             </TabsContent>
@@ -448,21 +468,21 @@ const FoundingMembersSection = () => {
 
 // --- SUBCOMPONENTS ---
 const VotingCard = ({ title, desc, date, hasVoted, onVote, options, image_url }) => (
-    <Card className="group hover:shadow-xl transition-all border-slate-200 bg-white overflow-hidden">
+    <Card className="group hover:shadow-xl transition-all border-border bg-card overflow-hidden">
         {image_url && (
             <div className="h-40 w-full overflow-hidden">
                 <img src={image_url} alt={title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
             </div>
         )}
         <CardHeader>
-            <div className="flex justify-between mb-2"><Badge className="bg-emerald-100 text-emerald-800">Live Voting</Badge> <span className="text-xs text-slate-400 flex items-center gap-1"><Clock className="w-3 h-3"/> {date}</span></div>
-            <CardTitle className="text-xl">{title}</CardTitle>
-            <CardDescription>{desc}</CardDescription>
+            <div className="flex justify-between mb-2"><Badge className="bg-emerald-100 text-emerald-800">Live Voting</Badge> <span className="text-xs text-muted-foreground flex items-center gap-1"><Clock className="w-3 h-3"/> {date}</span></div>
+            <CardTitle className="text-xl text-foreground">{title}</CardTitle>
+            <CardDescription className="text-muted-foreground">{desc}</CardDescription>
         </CardHeader>
         <CardContent>
             {options.map((o, i) => (
                 <div key={i} className="mb-3">
-                    <div className="flex justify-between text-sm mb-1 font-medium"><span>{o.label}</span><span>{o.percent}%</span></div>
+                    <div className="flex justify-between text-sm mb-1 font-medium text-foreground"><span>{o.label}</span><span>{o.percent}%</span></div>
                     <Progress value={o.percent} className="h-2" />
                 </div>
             ))}
@@ -473,14 +493,14 @@ const VotingCard = ({ title, desc, date, hasVoted, onVote, options, image_url })
                          <Button 
                             key={i} 
                             onClick={() => onVote(o.label)} 
-                            className="bg-slate-800 hover:bg-emerald-600 text-white transition-colors"
+                            className="bg-muted hover:bg-emerald-600 text-foreground hover:text-white transition-colors"
                          >
                             {o.label}
                          </Button>
                     ))}
                 </div>
             ) : (
-                <Button disabled className="w-full mt-4 bg-slate-100 text-slate-400">Vote Submitted</Button>
+                <Button disabled className="w-full mt-4 bg-muted text-muted-foreground">Vote Submitted</Button>
             )}
         </CardContent>
     </Card>
@@ -488,14 +508,14 @@ const VotingCard = ({ title, desc, date, hasVoted, onVote, options, image_url })
 
 const TimelineItem = ({ status, title, date, desc, percentage }) => (
     <div className="relative pl-8 pb-8 group">
-        <div className={`absolute -left-[39px] top-0 w-8 h-8 rounded-full flex items-center justify-center border-4 z-10 bg-white ${status === 'completed' ? 'border-emerald-500 text-emerald-500' : status === 'current' ? 'border-blue-500 text-blue-500' : 'border-slate-300 text-slate-300'}`}>
-            {status === 'completed' ? <CheckCircle2 className="w-4 h-4"/> : <div className={`w-3 h-3 rounded-full ${status === 'current' ? 'bg-blue-500 animate-pulse' : 'bg-slate-300'}`}/>}
+        <div className={`absolute -left-[39px] top-0 w-8 h-8 rounded-full flex items-center justify-center border-4 z-10 bg-card ${status === 'completed' ? 'border-emerald-500 text-emerald-500' : status === 'current' ? 'border-blue-500 text-blue-500' : 'border-border text-muted-foreground'}`}>
+            {status === 'completed' ? <CheckCircle2 className="w-4 h-4"/> : <div className={`w-3 h-3 rounded-full ${status === 'current' ? 'bg-blue-500 animate-pulse' : 'bg-muted'}`}/>}
         </div>
         <div>
-            <span className={`text-xs font-bold uppercase tracking-wider px-2 py-1 rounded ${status === 'completed' ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-100 text-slate-500'}`}>{date}</span>
-            <h4 className="text-xl font-bold mt-2 text-slate-800">{title}</h4>
-            <p className="text-slate-500 mt-1 mb-3">{desc}</p>
-            {percentage > 0 && <div className="flex items-center gap-3"><Progress value={percentage} className="h-1.5 w-48" /> <span className="text-xs font-bold">{percentage}%</span></div>}
+            <span className={`text-xs font-bold uppercase tracking-wider px-2 py-1 rounded ${status === 'completed' ? 'bg-emerald-50 text-emerald-600' : 'bg-muted text-muted-foreground'}`}>{date}</span>
+            <h4 className="text-xl font-bold mt-2 text-foreground">{title}</h4>
+            <p className="text-muted-foreground mt-1 mb-3">{desc}</p>
+            {percentage > 0 && <div className="flex items-center gap-3"><Progress value={percentage} className="h-1.5 w-48" /> <span className="text-xs font-bold text-foreground">{percentage}%</span></div>}
         </div>
     </div>
 );

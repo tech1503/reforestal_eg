@@ -34,14 +34,12 @@ const Dashboard = () => {
   const location = useLocation();
   const { t } = useI18n();
 
-  // Determinar visualmente qué item del menú está activo basado en la URL
   const getActiveSection = () => {
       const path = location.pathname;
       if (path.includes('/profile')) return 'profile';
       if (path.includes('/quests') || path.includes('/mission/')) return 'quests';
       if (path.includes('/referral')) return 'referral';
       if (path.includes('/exchange')) return 'exchange';
-      // Unificamos la detección para founding_members
       if (path.includes('/founding_members') || path.includes('/pioneer')) return 'founding_members';
       if (path.includes('/subscription')) return 'subscription';
       return 'dashboard';
@@ -49,20 +47,18 @@ const Dashboard = () => {
 
   const activeSection = getActiveSection();
 
-  // Función para manejar el cambio de sección desde el Sidebar (satisface requerimientos de props)
+  
   const handleSetActiveSection = (sectionId) => {
-      // Aquí podrías agregar lógica extra si fuera necesario, como analíticas
+      
       console.debug(`Navigating to section: ${sectionId}`);
   };
 
-  // Redirección de seguridad para admins
   useEffect(() => {
     if (!authLoading && profile?.role === 'admin') {
       navigate('/admin', { replace: true });
     }
   }, [profile, authLoading, navigate]);
 
-  // Chequeo de estatus Startnext
   useEffect(() => {
     const checkStatus = async () => {
       if (!profile?.id) return;
@@ -95,7 +91,6 @@ const Dashboard = () => {
 
   return (
     <div className="flex h-screen bg-slate-50 overflow-hidden font-sans text-sm">
-      {/* Botón Menú Móvil */}
       {!isSidebarOpen && (
         <button
           className="md:hidden fixed top-3 left-4 z-50 p-2 bg-white/90 backdrop-blur text-emerald-800 border border-emerald-100 rounded-lg shadow-md hover:bg-emerald-50 transition-all"
@@ -129,17 +124,14 @@ const Dashboard = () => {
                   <Route index element={isStartnext ? <StartnextUserDashboard /> : <DashboardSection />} />
                   <Route path="profile" element={<ProfileSettings />} />
                   
-                  {/* RUTA CORREGIDA: Coincide con el Sidebar ID */}
                   <Route path="founding_members" element={<FoundingMembersSection />} />
                   
                   <Route path="referral" element={<ReferralSection />} />
                   <Route path="exchange" element={<ExchangeSection isReadOnly={!isStartnext} />} />
                   <Route path="quests" element={<QuestsSection isReadOnly={!isStartnext} />} />
                   
-                  {/* Player de Misiones */}
                   <Route path="mission/:id" element={<MissionPlayer />} />
                   
-                  {/* Fallback */}
                   <Route path="*" element={isStartnext ? <StartnextUserDashboard /> : <DashboardSection />} />
               </Routes>
             </AnimatePresence>

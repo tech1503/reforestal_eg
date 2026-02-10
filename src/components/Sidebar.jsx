@@ -28,7 +28,6 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
 
   const isStartnext = role === 'startnext_user';
   
-  // Define el camino base dinámicamente
   const basePath = isStartnext ? '/startnext' : '/dashboard';
 
   const menuItems = [
@@ -52,15 +51,14 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
       id: 'subscription', 
       label: t('navigation.subscription'), 
       icon: CreditCard, 
-      locked: true,
-      // href opcional para elementos bloqueados/especiales
+      locked: true, 
       translationKey: 'navigation.subscription'
     },
     { 
       id: 'referral', 
       label: t('navigation.referral'), 
       icon: Users, 
-      locked: !isStartnext,
+      locked: false, 
       href: `${basePath}/referral`,
       translationKey: 'navigation.referral'
     },
@@ -84,15 +82,14 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
       id: 'founding_members', 
       label: t('navigation.founding_pioneer'),
       icon: Star, 
-      locked: !isStartnext,
-      // CORREGIDO: Ruta alineada con Dashboard.jsx
+      locked: !isStartnext, // Este sigue siendo exclusivo para Startnext/Pioneros
       href: `${basePath}/founding_members`,
       translationKey: 'navigation.founding_members'
     },
   ];
 
   const handleNavigation = (item) => {
-    // Lógica para items bloqueados o especiales (ej. Subscription)
+    
     if (item.id === 'subscription') {
         toast({
             variant: "default", 
@@ -156,7 +153,6 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
 
         <nav className="flex-1 overflow-y-auto py-6 px-3 space-y-2">
           {menuItems.map((item) => {
-             // CORREGIDO: Usamos activeSection para determinar el estilo
              const isActive = activeSection === item.id;
              const isLocked = item.locked;
              
@@ -201,10 +197,14 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
             <div className="px-3 pb-4 w-full">
                  <button
                    onClick={() => setIsSupportModalOpen(true)}
-                   className="w-full flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 rounded-lg px-3 py-3 transition-all duration-200 group text-xs font-semibold shadow-md"
+                   className="w-full h-auto min-h-[48px] flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 rounded-lg px-3 py-3 transition-all duration-200 group text-xs font-semibold shadow-md"
                 >
                    <HeartHandshake size={18} className="shrink-0 text-white" />
-                   <span className="text-left leading-tight">Supported on<br/>Startnext?</span>
+                   
+                   <span className="text-left leading-tight w-full break-words whitespace-normal">
+                      {t('exchange.cta.sidebar_btn')}
+                   </span>
+
                 </button>
             </div>
         )}

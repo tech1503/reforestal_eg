@@ -17,8 +17,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 165 40% 10%;
 
-    --primary: 161 74% 36%;
-    /* #17a277 (Emerald) */
+    --primary: 161 74% 36%; /* #17a277 (Emerald) */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 165 20% 90%;
@@ -44,38 +43,38 @@
     /* --- MODO OSCURO (Estilo Genesis Quest - Deep Emerald Gradient) --- */
 
     /* IMPORTANTE: Fondo base transparente para dejar ver el degradado del body */
-    --background: 160 69% 6%;
+    --background: 172 89% 20%;
     /* #051c14 (Solo fallback) */
-    --foreground: 160 10% 95%;
+    --foreground: 0 0% 100%;
 
     /* Tarjetas: Semitransparentes (#064e3b con opacidad) para efecto cristal */
-    --card: 160 80% 5%;
-    --card-foreground: 160 10% 95%;
+    --card: 172 70% 18%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 160 80% 8%;
-    --popover-foreground: 160 10% 95%;
+    --popover: 172 70% 25%;
+    --popover-foreground: 0 0% 100%;
 
     /* Primary: Esmeralda Brillante (#34d399) para resaltar sobre oscuro */
-    --primary: 158 64% 52%;
-    --primary-foreground: 160 90% 5%;
+    --primary: 161 74% 40%;
+    --primary-foreground: 0 0% 100%;
 
     /* Secondary: Verde muy oscuro */
-    --secondary: 160 40% 20%;
-    --secondary-foreground: 0 0% 95%;
+    --secondary: 172 50% 36%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 160 40% 15%;
-    --muted-foreground: 160 20% 70%;
+    --muted: 172 30% 30%;
+    --muted-foreground: 172 5% 70%;
 
-    --accent: 47 100% 46%;
-    --accent-foreground: 160 90% 5%;
+    --accent: 47 100% 50%;
+    --accent-foreground: 172 90% 10%;
 
-    --destructive: 0 62% 30%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 172 90% 10%;
 
     /* Bordes: Sutiles esmeralda */
-    --border: 160 50% 20%;
-    --input: 160 50% 15%;
-    --ring: 158 64% 52%;
+    --border: 172 40% 35%;
+    --input: 172 20% 20%;
+    --ring: 161 74% 40%;
   }
 
   html {
@@ -91,6 +90,10 @@
 
   body {
     @apply bg-background text-foreground text-sm font-sans antialiased selection:bg-emerald-500 selection:text-white;
+  }
+
+  input::placeholder, textarea::placeholder {
+    @apply text-muted-foreground/60 opacity-100; /* Forzamos el color definido arriba */
   }
 
   /* --- FONDO GLOBAL "GENESIS QUEST" --- */
@@ -155,6 +158,6 @@
 
   /* Cards Premium estilo Genesis */
   .card-premium {
-    @apply bg-[#064e3b]/30 backdrop-blur-xl border border-emerald-500/20 rounded-2xl shadow-xl hover:border-emerald-500/40 transition-all;
+    @apply bg-card/90 backdrop-blur-md border border-border/50 rounded-2xl shadow-xl transition-all hover:border-primary/50;
   }
 }

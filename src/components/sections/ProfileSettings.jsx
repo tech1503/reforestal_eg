@@ -14,7 +14,6 @@ import { useNavigate } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
-// IMPORTE NUEVO: Para vincular con la lógica central de perfiles
 import { getInvestorProfileBySlug } from '@/constants/investorProfiles';
 
 const ProfileSettings = () => {
@@ -39,7 +38,7 @@ const ProfileSettings = () => {
         country: ''
     });
 
-    // Cargar datos iniciales
+    // Cargar datos iniciales del perfil existente
     useEffect(() => {
         if (profile) {
             setFormData({
@@ -60,17 +59,31 @@ const ProfileSettings = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    // Manejar selección de archivo
+    // Manejar selección de archivo con validaciones de seguridad
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            // Validar tamaño (ej. máx 2MB)
+            // Validar tamaño (máx 2MB para performance)
             if (file.size > 2 * 1024 * 1024) {
-                toast({ variant: "destructive", title: "Archivo muy grande", description: "La imagen debe pesar menos de 2MB." });
+                toast({ 
+                    variant: "destructive", 
+                    title: t('common.error'), 
+                    description: "La imagen debe pesar menos de 2MB." 
+                });
                 return;
             }
+            // Validar tipo
+            if (!file.type.startsWith('image/')) {
+                toast({ 
+                    variant: "destructive", 
+                    title: t('common.error'), 
+                    description: "El archivo debe ser una imagen válida." 
+                });
+                return;
+            }
+
             setAvatarFile(file);
-            // Crear URL temporal para previsualizar
+            // Crear URL temporal para previsualizar inmediatamente
             const objectUrl = URL.createObjectURL(file);
             setAvatarPreview(objectUrl);
         }
@@ -80,21 +93,21 @@ const ProfileSettings = () => {
         return name ? name.substring(0, 2).toUpperCase() : 'US';
     };
 
-    // Función auxiliar para subir la imagen a Supabase Storage
     const uploadAvatar = async (file) => {
         try {
             const fileExt = file.name.split('.').pop();
-            const fileName = `${user.id}-${Math.random()}.${fileExt}`;
+            const fileName = `${user.id}-${Date.now()}.${fileExt}`;
             const filePath = `${fileName}`;
 
-            // Subir al bucket 'avatars' (ASEGÚRATE DE CREAR ESTE BUCKET EN SUPABASE)
             const { error: uploadError } = await supabase.storage
                 .from('avatars')
-                .upload(filePath, file);
+                .upload(filePath, file, {
+                    cacheControl: '3600',
+                    upsert: false
+                });
 
             if (uploadError) throw uploadError;
 
-            // Obtener URL pública
             const { data } = supabase.storage
                 .from('avatars')
                 .getPublicUrl(filePath);
@@ -114,15 +127,13 @@ const ProfileSettings = () => {
         try {
             let finalAvatarUrl = avatarPreview;
 
-            // 1. Si hay un nuevo archivo seleccionado, subirlo primero
             if (avatarFile) {
                 finalAvatarUrl = await uploadAvatar(avatarFile);
             }
 
-            // 2. ACTUALIZAR DATOS EN BASE DE DATOS
             const updates = {
                 name: formData.full_name, 
-                avatar_url: finalAvatarUrl, // Guardamos la URL generada
+                avatar_url: finalAvatarUrl, 
                 bio: formData.bio,
                 phone: formData.phone,
                 city: formData.city,
@@ -134,10 +145,8 @@ const ProfileSettings = () => {
 
             if (error) throw error;
 
-            // Actualizar contexto
             await fetchProfile(user.id);
 
-            // 3. GAMIFICACIÓN
             const result = await executeGamificationAction(
                 user.id, 
                 'profile', 
@@ -147,13 +156,13 @@ const ProfileSettings = () => {
             if (result.success) {
                 await refreshFinancials(); 
                 toast({
-                    title: "¡Perfil Actualizado!",
-                    description: `Has recibido +${result.creditsAwarded} Bonos.`,
+                    title: t('common.success'), 
+                    description: `¡Perfil actualizado! Has recibido +${result.creditsAwarded} Bonos.`,
                     className: "bg-emerald-600 text-white border-none"
                 });
             } else {
                 toast({
-                    title: t('common.success', 'Success'),
+                    title: t('common.success'),
                     description: t('profile.toasts.success_desc', 'Profile updated successfully.'),
                     className: "bg-slate-800 text-white border-none"
                 });
@@ -161,7 +170,7 @@ const ProfileSettings = () => {
 
         } catch (err) {
             console.error(err);
-            toast({ variant: "destructive", title: t('common.error', 'Error'), description: err.message });
+            toast({ variant: "destructive", title: t('common.error'), description: err.message });
         } finally {
             setLoading(false);
         }
@@ -209,21 +218,21 @@ const ProfileSettings = () => {
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.1 }}
                 >
-                    <Card className="bg-white dark:bg-slate-900 shadow-xl border-0 rounded-2xl overflow-hidden min-h-[500px]">
+                    <Card className="bg-card shadow-xl border-0 rounded-2xl overflow-hidden min-h-[500px]">
 
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-0">
 
                             {/* COLUMNA IZQUIERDA (FOTO Y RESUMEN) */}
-                            <div className="md:col-span-5 lg:col-span-4 bg-slate-50 dark:bg-slate-800/30 p-8 flex flex-col items-center text-center border-b md:border-b-0 md:border-r border-slate-100 dark:border-slate-800">
+                            <div className="md:col-span-5 lg:col-span-4 bg-muted/30 p-8 flex flex-col items-center text-center border-b md:border-b-0 md:border-r border-border">
                                 
                                 {/* COMPONENTE DE SUBIDA DE FOTO */}
                                 <div className="relative group mt-4">
                                     <div className="absolute -inset-1 bg-gradient-to-tr from-emerald-400 to-emerald-600 rounded-full blur opacity-30 group-hover:opacity-60 transition duration-500"></div>
                                     
                                     <label htmlFor="avatar-upload" className="cursor-pointer block relative">
-                                        <Avatar className="w-40 h-40 border-[6px] border-white dark:border-slate-900 shadow-xl bg-white transition-transform group-hover:scale-105">
+                                        <Avatar className="w-40 h-40 border-[6px] border-card shadow-xl bg-white transition-transform group-hover:scale-105">
                                             <AvatarImage src={avatarPreview} className="object-cover" />
-                                            <AvatarFallback className="bg-slate-100 text-slate-400 text-5xl font-bold">
+                                            <AvatarFallback className="bg-muted text-muted-foreground text-5xl font-bold">
                                                 {getInitials(formData.full_name)}
                                             </AvatarFallback>
                                         </Avatar>
@@ -234,7 +243,7 @@ const ProfileSettings = () => {
                                         </div>
 
                                         {/* Botón flotante siempre visible */}
-                                        <div className="absolute bottom-2 right-2 bg-emerald-600 text-white p-2.5 rounded-full shadow-lg border-2 border-white dark:border-slate-800 hover:bg-emerald-700 transition-colors">
+                                        <div className="absolute bottom-2 right-2 bg-emerald-600 text-white p-2.5 rounded-full shadow-lg border-2 border-card hover:bg-emerald-700 transition-colors">
                                             <Upload className="w-4 h-4" />
                                         </div>
                                     </label>
@@ -250,26 +259,25 @@ const ProfileSettings = () => {
                                     />
                                 </div>
 
-                                <p className="text-xs text-slate-400 mt-4 font-medium">
-                                    Click image to change (Max 2MB)
+                                <p className="text-xs text-muted-foreground mt-4 font-medium">
+                                    Click image to change (Max 5MB)
                                 </p>
 
-                                <h2 className="text-xl font-bold text-slate-800 dark:text-white mt-6 mb-1">
+                                <h2 className="text-xl font-bold text-foreground mt-6 mb-1">
                                     {formData.full_name || t('profile.placeholders.name', 'Your Name')}
                                 </h2>
-                                <p className="text-slate-500 text-sm mb-6 flex items-center justify-center gap-1">
+                                <p className="text-muted-foreground text-sm mb-6 flex items-center justify-center gap-1">
                                     <Mail className="w-3 h-3" /> {formData.email}
                                 </p>
 
                                 <div className="flex flex-wrap gap-2 justify-center mb-8">
-                                    <Badge variant="secondary" className="bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-300 capitalize">
+                                    <Badge variant="secondary" className="bg-muted text-muted-foreground capitalize">
                                         {profile?.role?.replace('_', ' ') || 'User'}
                                     </Badge>
                                     {profile?.genesis_profile && (() => {
-                                        // LOGICA DINÁMICA DE PERFIL
+                                        // LOGICA DINÁMICA DE PERFIL (Para mostrar el badge correcto)
                                         const slug = profile.genesis_profile.toLowerCase();
                                         const pData = getInvestorProfileBySlug(slug);
-                                        // Usamos las claves de traducción existentes en locales/xx.json
                                         const label = t(`genesisQuest.profiles.genesis.${slug}.title`, pData?.title || `${profile.genesis_profile} Profile`);
                                         
                                         return (
@@ -288,7 +296,7 @@ const ProfileSettings = () => {
                                         </span>
                                     </div>
                                     <p className="text-xs text-amber-700 dark:text-amber-300/80 leading-relaxed">
-                                        Update your profile details to earn +25.
+                                        Update your profile details to earn bonus credits.
                                     </p>
                                 </div>
                             </div>
@@ -296,7 +304,7 @@ const ProfileSettings = () => {
                             {/* COLUMNA DERECHA: FORMULARIO */}
                             <div className="md:col-span-7 lg:col-span-8 p-8 md:p-12">
                                 <div className="flex items-center justify-between mb-8">
-                                    <h3 className="text-xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                                    <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
                                         <User className="w-5 h-5 text-emerald-600" />
                                         {t('profile.edit_details', 'Edit Details')}
                                     </h3>
@@ -307,30 +315,30 @@ const ProfileSettings = () => {
                                     {/* 1. INFORMACIÓN PERSONAL */}
                                     <div className="grid gap-6 md:grid-cols-2">
                                         <div className="space-y-2">
-                                            <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                                            <label className="text-sm font-semibold text-foreground">
                                                 {t('profile.labels.full_name', 'Full Name')} <span className="text-red-500">*</span>
                                             </label>
                                             <Input
                                                 name="full_name"
                                                 value={formData.full_name}
                                                 onChange={handleChange}
-                                                className="h-11 bg-white"
+                                                className="h-11 bg-background"
                                                 placeholder="Your Name"
                                                 required
                                             />
                                         </div>
 
                                         <div className="space-y-2">
-                                            <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                                            <label className="text-sm font-semibold text-foreground">
                                                 Phone Number
                                             </label>
                                             <div className="relative">
-                                                <Phone className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
+                                                <Phone className="absolute left-3 top-3.5 h-4 w-4 text-muted-foreground" />
                                                 <Input
                                                     name="phone"
                                                     value={formData.phone}
                                                     onChange={handleChange}
-                                                    className="h-11 pl-10 bg-white"
+                                                    className="h-11 pl-10 bg-background"
                                                     placeholder="+1 234 567 890"
                                                 />
                                             </div>
@@ -340,30 +348,30 @@ const ProfileSettings = () => {
                                     {/* 2. UBICACIÓN */}
                                     <div className="grid gap-6 md:grid-cols-2">
                                         <div className="space-y-2">
-                                            <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                                            <label className="text-sm font-semibold text-foreground">
                                                 City
                                             </label>
                                             <div className="relative">
-                                                <MapPin className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
+                                                <MapPin className="absolute left-3 top-3.5 h-4 w-4 text-muted-foreground" />
                                                 <Input
                                                     name="city"
                                                     value={formData.city}
                                                     onChange={handleChange}
-                                                    className="h-11 pl-10 bg-white"
+                                                    className="h-11 pl-10 bg-background"
                                                     placeholder="Berlin"
                                                 />
                                             </div>
                                         </div>
 
                                         <div className="space-y-2">
-                                            <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                                            <label className="text-sm font-semibold text-foreground">
                                                 Country
                                             </label>
                                             <Input
                                                 name="country"
                                                 value={formData.country}
                                                 onChange={handleChange}
-                                                className="h-11 bg-white"
+                                                className="h-11 bg-background"
                                                 placeholder="Germany"
                                             />
                                         </div>
@@ -371,25 +379,25 @@ const ProfileSettings = () => {
 
                                     {/* 3. BIOGRAFÍA */}
                                     <div className="space-y-2">
-                                        <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                                        <label className="text-sm font-semibold text-foreground">
                                             {t('profile.labels.bio', 'Bio')}
                                         </label>
                                         <Textarea
                                             name="bio"
                                             value={formData.bio}
                                             onChange={handleChange}
-                                            className="resize-none min-h-[100px] bg-white p-4 leading-relaxed border-slate-200"
+                                            className="resize-none min-h-[100px] bg-background p-4 leading-relaxed border-input"
                                             placeholder={t('profile.placeholders.bio', 'Tell us about yourself...')}
                                             maxLength={500}
                                         />
                                         <div className="flex justify-end">
-                                            <span className="text-xs text-slate-400 font-medium">
+                                            <span className="text-xs text-muted-foreground font-medium">
                                                 {formData.bio.length}/500 {t('profile.character_count', 'characters')}
                                             </span>
                                         </div>
                                     </div>
 
-                                    <div className="flex justify-end pt-4 border-t border-slate-100 dark:border-slate-800">
+                                    <div className="flex justify-end pt-4 border-t border-border">
                                         <Button
                                             type="submit"
                                             disabled={loading}

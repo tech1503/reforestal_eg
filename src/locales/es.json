@@ -52,7 +52,7 @@
     "source": "Origen",
     "date": "Fecha",
     "system_action": "Acción del Sistema",
-    "available_quests": "Misiones Disponibles",
+    "available_quests": "Misiones",
     "start_quest": "Iniciar Mision",
     "new_quest_available": "Nueva Misión Disponible",
     "starting_quest": "Iniciando Misión",
@@ -81,7 +81,7 @@
     },
     "land_dollar": {
       "title": "Land Dollar Digital",
-      "certificate_text": "\"Tu Land Dollar es tu certificado fundador\"",
+      "certificate_text": "\"Tu Land Dollar es tu certificado\"",
       "download": "Descargar",
       "share": "Compartir",
       "locked_title": "Land Dollar",
@@ -556,7 +556,8 @@
       "confirm": "Confirmar Canje"
     },
     "cta": {
-      "support_startnext": "Ya apoyé en StartNext"
+      "support_startnext": "Ya apoyé en StartNext",
+      "sidebar_btn": "¿Apoyaste en Startnext?"
     },
     "stock": {
       "infinite": "∞ Stock",
@@ -758,5 +759,22 @@
     "mark_all_read": "Marcar todo como leído",
     "mark_read": "Marcar como Leído",
     "empty": "¡Estás al día con todas las notificaciones!"
+  },
+    "contact": {
+    "title": "Contáctanos",
+    "subtitle": "¿Tienes preguntas sobre tu impacto o nuestra misión? Estamos aquí para ayudarte.",
+    "address_label": "Oficina Central",
+    "email_label": "Envíanos un Correo",
+    "phone_label": "Llámanos",
+    "faq_title": "¿Necesitas respuestas rápidas?",
+    "visit_faq": "Visit Help Center",
+    "form_name": "Tu Nombre",
+    "form_email": "Email",
+    "form_subject": "Asunto",
+    "form_message": "Mensaje",
+    "send_btn": "Enviar Mensaje",
+    "sending": "Enviando...",
+    "success_title": "¡Mensaje Enviado!",
+    "success_desc": "Te responderemos en breve."
   }
 }
