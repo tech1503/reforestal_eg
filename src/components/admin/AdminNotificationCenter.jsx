@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Loader2, Bell, Check, Trash2, Mail, User, Trophy, AlertCircle, MessageSquare, Send } from 'lucide-react';
+import { Loader2, Bell, Check, Trash2, User, Trophy, AlertCircle, MessageSquare, Send } from 'lucide-react';
 import { format } from 'date-fns';
 import { useToast } from '@/components/ui/use-toast';
-import { useTranslation } from 'react-i18next'; // IMPORTADO
+import { useTranslation } from 'react-i18next';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -21,25 +21,7 @@ const AdminNotificationCenter = () => {
     const [replyText, setReplyText] = useState("");
     const [sendingReply, setSendingReply] = useState(false);
 
-    useEffect(() => {
-        fetchNotifications();
-
-        const channel = supabase.channel('admin_notifications_global')
-            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'notifications' }, (payload) => {
-                fetchNotifications();
-                // CORRECCIÓN AQUÍ: Usamos claves específicas, no el objeto padre
-                toast({
-                    title: t('admin.notifications.new_activity', 'New Activity'),
-                    description: t('admin.notifications.new_msg_desc', 'A new notification has arrived.'),
-                    className: "bg-blue-600 text-white"
-                });
-            })
-            .subscribe();
-
-        return () => supabase.removeChannel(channel);
-    }, []);
-
-    const fetchNotifications = async () => {
+    const fetchNotifications = useCallback(async () => {
         setLoading(true);
         try {
             const { data, error } = await supabase
@@ -62,7 +44,25 @@ const AdminNotificationCenter = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, []);
+
+    useEffect(() => {
+        fetchNotifications();
+
+        // FIX LINTER: '_payload' indica variable no usada intencionalmente
+        const channel = supabase.channel('admin_notifications_global')
+            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'notifications' }, (_payload) => {
+                fetchNotifications();
+                toast({
+                    title: t('admin.notifications.new_activity', 'New Activity'),
+                    description: t('admin.notifications.new_msg_desc', 'A new notification has arrived.'),
+                    className: "bg-blue-600 text-white"
+                });
+            })
+            .subscribe();
+
+        return () => supabase.removeChannel(channel);
+    }, [fetchNotifications, t, toast]); // FIX DEPS: Dependencias completas
 
     const markAsRead = async (id) => {
         await supabase.from('notifications').update({ is_read: true }).eq('id', id);
@@ -121,7 +121,6 @@ const AdminNotificationCenter = () => {
         const tLower = type?.toLowerCase() || '';
         
         let style = { color: 'text-slate-600 bg-slate-50 border-slate-200', icon: <Bell className="w-3 h-3" /> };
-        // CORRECCIÓN: Definimos la clave específica del JSON, no el objeto entero
         let labelKey = 'admin.notifications.types.system';
 
         if (tLower.includes('admin_alert') || tLower.includes('pioneer')) {
@@ -146,7 +145,6 @@ const AdminNotificationCenter = () => {
             <div className="flex items-center justify-between">
                 <div>
                     <h2 className="text-2xl font-bold flex items-center gap-2 text-slate-900">
-                        {/* CORRECCIÓN: Usamos .title, asegurando que sea un string */}
                         <Bell className="w-6 h-6 text-emerald-600" /> {t('admin.notifications.title', 'Global Notification Center')}
                     </h2>
                     <p className="text-slate-500">{t('admin.notifications.subtitle', 'Monitor requests and alerts.')}</p>
@@ -171,7 +169,6 @@ const AdminNotificationCenter = () => {
                     <div className="divide-y divide-slate-100">
                         {notifications.map(n => {
                             const styles = getTypeStyles(n.notification_type);
-                            // CORRECCIÓN: Pasamos el texto fallback por si la clave no existe
                             const badgeLabel = t(styles.labelKey, n.notification_type?.replace(/_/g, ' ') || 'System');
 
                             return (

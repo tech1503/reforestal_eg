@@ -129,7 +129,7 @@
     "explorer": {
       "title": "Startnext Explorer Tiers",
       "subtitle": "Discover the impact of your contribution. Enter an amount below or browse the official tiers.",
-      "simulator_title": "Tier Simulator",
+      "simulator_title": "Simulator",
       "input_placeholder": "Enter amount...",
       "empty_state": "Enter an amount (€5.00+) to preview your tier.",
       "min_amount": "Min.",

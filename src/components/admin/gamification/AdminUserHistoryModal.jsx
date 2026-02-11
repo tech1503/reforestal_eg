@@ -1,10 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { supabase } from '@/lib/customSupabaseClient';
-import { Loader2, TrendingUp, Calendar, Zap } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -15,36 +14,35 @@ const AdminUserHistoryModal = ({ isOpen, onClose, userId, userName }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        const fetchUserHistory = async () => {
+            setLoading(true);
+            const { data, error } = await supabase
+                .rpc('get_user_history', { p_user_id: userId, p_limit: 100 });
+    
+            if (!error && data) {
+                setHistory(data);
+                
+                const totalCredits = data.reduce((sum, item) => sum + (item.impact_credits_awarded || 0), 0);
+                const actionsByType = {};
+                data.forEach(item => {
+                    actionsByType[item.action_type] = (actionsByType[item.action_type] || 0) + 1;
+                });
+                const topAction = Object.keys(actionsByType).reduce((a, b) => actionsByType[a] > actionsByType[b] ? a : b, 'N/A');
+    
+                setStats({
+                    totalCredits,
+                    totalActions: data.length,
+                    lastActive: data[0]?.action_date,
+                    topAction
+                });
+            }
+            setLoading(false);
+        };
+
         if (isOpen && userId) {
             fetchUserHistory();
         }
     }, [isOpen, userId]);
-
-    const fetchUserHistory = async () => {
-        setLoading(true);
-        const { data, error } = await supabase
-            .rpc('get_user_history', { p_user_id: userId, p_limit: 100 });
-
-        if (!error && data) {
-            setHistory(data);
-            
-            // Calculate Stats
-            const totalCredits = data.reduce((sum, item) => sum + (item.impact_credits_awarded || 0), 0);
-            const actionsByType = {};
-            data.forEach(item => {
-                actionsByType[item.action_type] = (actionsByType[item.action_type] || 0) + 1;
-            });
-            const topAction = Object.keys(actionsByType).reduce((a, b) => actionsByType[a] > actionsByType[b] ? a : b, 'N/A');
-
-            setStats({
-                totalCredits,
-                totalActions: data.length,
-                lastActive: data[0]?.action_date,
-                topAction
-            });
-        }
-        setLoading(false);
-    };
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>

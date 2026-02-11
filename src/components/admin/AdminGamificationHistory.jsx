@@ -1,14 +1,11 @@
-
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
-import { useToast } from '@/components/ui/use-toast';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Loader2, Search } from 'lucide-react';
 import { format } from 'date-fns';
 
 const AdminGamificationHistory = () => {
-    const { toast } = useToast();
     const [history, setHistory] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -23,7 +20,7 @@ const AdminGamificationHistory = () => {
 
     const fetchHistory = async () => {
         setLoading(true);
-        // Using 'gamification_history' table
+        // CORRECCIÓN: Quitamos el hint explícito.
         const { data, error } = await supabase
             .from('gamification_history')
             .select(`

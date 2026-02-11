@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -24,6 +23,7 @@ const AdminUserHistoryLog = () => {
 
     const fetchLogs = async () => {
         setLoading(true);
+        
         const { data, error } = await supabase
             .from('gamification_history')
             .select(`
@@ -31,7 +31,7 @@ const AdminUserHistoryLog = () => {
                 profile:user_id (email, name)
             `)
             .order('action_date', { ascending: false })
-            .limit(100); // Pagination could be added here
+            .limit(100); 
         
         if (error) console.error(error);
         else setLogs(data || []);

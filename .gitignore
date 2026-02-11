@@ -17,6 +17,12 @@ yarn-error.log*
 
 # OS
 .DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+.vscode-test/
 
 # md
 *.md

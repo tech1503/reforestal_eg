@@ -128,7 +128,7 @@
     "explorer": {
       "title": "Niveaux d'Explorateur Startnext",
       "subtitle": "Découvrez l'impact de votre contribution. Entrez un montant ci-dessous ou parcourez les niveaux officiels.",
-      "simulator_title": "Simulateur de Niveau",
+      "simulator_title": "Simulateur",
       "input_placeholder": "Entrez un montant...",
       "empty_state": "Entrez un montant (5,00 €+) pour voir votre niveau.",
       "min_amount": "Min.",

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
@@ -21,32 +20,31 @@ const AdminUserScoring = () => {
     const [selectedUserMetrics, setSelectedUserMetrics] = useState(null);
 
     useEffect(() => {
+        const fetchScoring = async () => {
+            setLoading(true);
+            const { data, error } = await supabase
+                .from('founding_pioneer_metrics')
+                .select(`
+                    *,
+                    profile:user_id (id, email, name)
+                `)
+                .order('total_impact_credits_earned', { ascending: false });
+    
+            if (error) {
+                toast({ variant: 'destructive', title: 'Error', description: error.message });
+            } else {
+                setScoringData(data || []);
+            }
+            setLoading(false);
+        };
+
         fetchScoring();
-        // Subscribe to metrics updates
+        
         const channel = supabase.channel('scoring_view_updates')
             .on('postgres_changes', { event: '*', schema: 'public', table: 'founding_pioneer_metrics' }, fetchScoring)
             .subscribe();
         return () => supabase.removeChannel(channel);
-    }, []);
-
-    const fetchScoring = async () => {
-        setLoading(true);
-        // We use founding_pioneer_metrics as the cached aggregate source
-        const { data, error } = await supabase
-            .from('founding_pioneer_metrics')
-            .select(`
-                *,
-                profile:user_id (id, email, name)
-            `)
-            .order('total_impact_credits_earned', { ascending: false });
-
-        if (error) {
-            toast({ variant: 'destructive', title: 'Error', description: error.message });
-        } else {
-            setScoringData(data || []);
-        }
-        setLoading(false);
-    };
+    }, [toast]);
 
     const handleResetScoring = async (userId) => {
         if (!window.confirm("DANGER: This will wipe all gamification history and reset scores for this user. Continue?")) return;

@@ -7,24 +7,25 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Loader2, Plus, Edit, Eye, Power, Search, AlertTriangle, Globe, Save } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useTranslation } from 'react-i18next';
 import AdminGamificationActionModal from './AdminGamificationActionModal';
 import AdminGamificationActionUsageModal from './AdminGamificationActionUsageModal';
 
-// --- MODAL DE TRADUCCIÓN (Copia local para este módulo o importar si se extrajo) ---
+// --- MODAL DE TRADUCCIÓN CORREGIDO (AHORA CON SUCCESS MESSAGE) ---
 const GamificationTranslationModal = ({ isOpen, onClose, item }) => {
     const { t } = useTranslation();
     const { toast } = useToast();
     const [loading, setLoading] = useState(false);
     const [activeLang, setActiveLang] = useState('es');
     
+    // ESTADO ACTUALIZADO: Incluye success_message
     const [translations, setTranslations] = useState({
-        es: { title: '', description: '' },
-        de: { title: '', description: '' },
-        fr: { title: '', description: '' }
+        es: { title: '', description: '', success_message: '' },
+        de: { title: '', description: '', success_message: '' },
+        fr: { title: '', description: '', success_message: '' }
     });
 
     const fetchTranslations = useCallback(async () => {
@@ -37,9 +38,9 @@ const GamificationTranslationModal = ({ isOpen, onClose, item }) => {
             .eq('gamification_action_id', item.id);
 
         const newTrans = { 
-            es: { title: '', description: '' },
-            de: { title: '', description: '' },
-            fr: { title: '', description: '' }
+            es: { title: '', description: '', success_message: '' },
+            de: { title: '', description: '', success_message: '' },
+            fr: { title: '', description: '', success_message: '' }
         };
 
         if (data) {
@@ -47,7 +48,8 @@ const GamificationTranslationModal = ({ isOpen, onClose, item }) => {
                 if (newTrans[tr.language_code]) {
                     newTrans[tr.language_code] = { 
                         title: tr.action_title || '', 
-                        description: tr.description || ''
+                        description: tr.description || '',
+                        success_message: tr.success_message || '' // CARGAMOS EL MENSAJE
                     };
                 }
             });
@@ -67,7 +69,8 @@ const GamificationTranslationModal = ({ isOpen, onClose, item }) => {
                 gamification_action_id: item.id,
                 language_code: lang,
                 action_title: translations[lang].title,
-                description: translations[lang].description
+                description: translations[lang].description,
+                success_message: translations[lang].success_message // GUARDAMOS EL MENSAJE
             }));
 
             const { error } = await supabase
@@ -94,7 +97,7 @@ const GamificationTranslationModal = ({ isOpen, onClose, item }) => {
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="sm:max-w-[600px]">
+            <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle>Translate: {item?.action_title || item?.action_name}</DialogTitle>
                     <DialogDescription>Localization for System Actions</DialogDescription>
@@ -123,8 +126,20 @@ const GamificationTranslationModal = ({ isOpen, onClose, item }) => {
                                     value={translations[activeLang].description} 
                                     onChange={e => updateField('description', e.target.value)} 
                                     placeholder="Translated Description"
-                                    rows={3}
+                                    rows={2}
                                 />
+                            </div>
+                            {/* CAMPO DE MENSAJE DE ÉXITO AÑADIDO */}
+                            <div className="space-y-2">
+                                <Label className="text-emerald-700 font-semibold">Success Notification ({activeLang.toUpperCase()})</Label>
+                                <Textarea 
+                                    value={translations[activeLang].success_message} 
+                                    onChange={e => updateField('success_message', e.target.value)} 
+                                    placeholder="e.g. ¡Felicidades! Has completado la acción."
+                                    className="border-emerald-200 bg-emerald-50/20"
+                                    rows={2}
+                                />
+                                <p className="text-[10px] text-muted-foreground">This message is sent to the user when they trigger this action.</p>
                             </div>
                         </div>
                     )}
@@ -159,7 +174,6 @@ const AdminGamificationActionsConfig = () => {
 
     const fetchActions = useCallback(async () => {
         setLoading(true);
-        // FILTRO DE SEGURIDAD: Excluímos Genesis Quests de esta vista técnica
         const { data, error } = await supabase
             .from('gamification_actions')
             .select('*')
@@ -290,7 +304,6 @@ const AdminGamificationActionsConfig = () => {
                                                 <Power className={`w-4 h-4 ${action.is_active ? 'text-green-500' : 'text-gray-300'}`} />
                                             </Button>
                                             
-                                            {/* BOTÓN TRADUCCIÓN */}
                                             <Button variant="ghost" size="icon" onClick={() => handleTranslate(action)} title="Translate">
                                                 <Globe className="w-4 h-4 text-purple-500" />
                                             </Button>

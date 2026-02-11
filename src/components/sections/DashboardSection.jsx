@@ -11,7 +11,13 @@ import { Input } from '@/components/ui/input';
 import { useI18n } from '@/contexts/I18nContext';
 import { useTranslation } from 'react-i18next'; 
 import LandDollarDisplay from '@/components/LandDollarDisplay';
-import { fetchSupportLevelsForLogic, getSupportLevelByAmount, getVariantDetails } from '@/utils/tierLogicUtils';
+// IMPORTAMOS LA NUEVA FUNCIÓN AQUÍ
+import { 
+    fetchSupportLevelsForLogic, 
+    getSupportLevelByAmount, 
+    getVariantDetails,
+    calculateDynamicCredits 
+} from '@/utils/tierLogicUtils';
 import { Loader2 } from 'lucide-react';
 import { getVariantIcon, getBenefitIcon } from '@/components/Icons/CustomIcons';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogDescription } from '@/components/ui/dialog';
@@ -115,7 +121,9 @@ const DashboardSection = () => {
   useEffect(() => {
     const runSim = async () => {
       if (!simAmount || isNaN(parseFloat(simAmount))) { setSimVariant(null); return; }
+      
       const id = await getSupportLevelByAmount(parseFloat(simAmount));
+      
       if (id) {
         const details = await getVariantDetails(id, currentLanguage);
         const { data: bData } = await supabase.from('support_benefits')
@@ -127,7 +135,15 @@ const DashboardSection = () => {
             type: b.benefit_type,
             description: b.support_benefit_translations?.find(t => t.language_code === currentLanguage)?.description || 'Benefit'
         }));
-        setSimVariant({ ...details, benefits });
+
+        // CALCULO DINÁMICO DE CRÉDITOS
+        const dynamicCredits = calculateDynamicCredits(simAmount);
+
+        setSimVariant({ 
+            ...details, 
+            impact_credits_reward: dynamicCredits, 
+            benefits 
+        });
       } else { setSimVariant(null); }
     };
     const timer = setTimeout(runSim, 300);
@@ -139,9 +155,7 @@ const DashboardSection = () => {
 
   // --- VISTA 1: EXPLORER (Usuario Común / No Contribuyente) ---
   if (!startnextData && !isAdmin) {
-    // Calculamos la fecha de registro para mostrar en la tarjeta
     const registrationDate = user?.created_at ? format(new Date(user.created_at), 'MMM d, yyyy') : '-';
-    // Estado del Land Dollar para mostrar
     const landDollarStatus = landDollar ? 'Active' : 'Pending';
 
     return (

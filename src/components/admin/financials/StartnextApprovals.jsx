@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
-import { emitImpactCredits } from '@/services/impactCreditService';
+// ELIMINAMOS LA IMPORTACIÓN QUE YA NO USAREMOS
+// import { emitImpactCredits } from '@/services/impactCreditService'; 
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -65,6 +66,8 @@ const StartnextApprovals = () => {
       if (!tier) throw new Error('No matching tier found for amount');
 
       // 2. Create contribution record
+      // ESTA INSERCIÓN DISPARA EL TRIGGER 'auto_assign_benefits' EN LA BASE DE DATOS
+      // EL TRIGGER SE ENCARGARÁ DE DAR LOS CRÉDITOS.
       const { data: contribution, error: contribError } = await supabase
         .from('startnext_contributions')
         .insert({
@@ -72,7 +75,7 @@ const StartnextApprovals = () => {
           contribution_amount: registration.amount,
           contribution_date: new Date().toISOString(),
           new_support_level_id: tier,
-          benefit_assigned: false,
+          benefit_assigned: false, // El trigger lo pondrá en true
           notes: `Approved from pending registration. Original message: ${registration.message || 'N/A'}`
         })
         .select()
@@ -80,7 +83,7 @@ const StartnextApprovals = () => {
 
       if (contribError) throw contribError;
 
-      // 3. Assign tier and benefits (triggers auto-creation of land dollars)
+      // 3. Assign tier and benefits (triggers auto-creation of land dollars via RPC logic if configured)
       const { error: tierAssignError } = await supabase.rpc(
         'assign_tier_to_contribution',
         { 
@@ -91,7 +94,11 @@ const StartnextApprovals = () => {
 
       if (tierAssignError) throw tierAssignError;
 
-      // 4. Emit Impact Credits
+      // --- CORRECCIÓN: ELIMINADO EL PASO 4 (EMISIÓN MANUAL) ---
+      // La base de datos ya está emitiendo los créditos a través del trigger en el paso 2.
+      // Si dejamos esto, se duplican los puntos.
+      
+      /*
       const tierData = await supabase
         .from('support_levels')
         .select('impact_credits_reward')
@@ -107,6 +114,8 @@ const StartnextApprovals = () => {
           related_support_level_id: tier
         });
       }
+      */
+      // ---------------------------------------------------------
 
       // 5. Update profile role to startnext_user
       await supabase

@@ -1,9 +1,8 @@
-
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { supabase } from '@/lib/customSupabaseClient';
-import { Loader2, TrendingUp, Users } from 'lucide-react';
+import { Loader2, TrendingUp } from 'lucide-react';
 import { format } from 'date-fns';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -20,7 +19,7 @@ const AdminGamificationActionUsageModal = ({ isOpen, onClose, action }) => {
 
     const fetchUsage = async (actionId) => {
         setLoading(true);
-        // Fetch log history for this action
+        
         const { data, error } = await supabase
             .from('gamification_history')
             .select(`
@@ -34,12 +33,9 @@ const AdminGamificationActionUsageModal = ({ isOpen, onClose, action }) => {
         if (!error && data) {
             setUsageHistory(data);
             
-            // Calculate stats (rough estimation based on fetched data limit or use count queries for accurate total)
-            // Ideally we'd do a count query for 'totalCalls', but for UI speed we aggregate the page
             const totalCredits = data.reduce((acc, curr) => acc + (curr.impact_credits_awarded || 0), 0);
             const usersSet = new Set(data.map(d => d.user_id));
             
-            // Fetch total count separately
             const { count } = await supabase
                 .from('gamification_history')
                 .select('*', { count: 'exact', head: true })
@@ -47,7 +43,7 @@ const AdminGamificationActionUsageModal = ({ isOpen, onClose, action }) => {
 
             setStats({
                 totalCalls: count || data.length,
-                totalCredits: totalCredits, // This is just for the visible slice, confusing? Maybe show "Visible Credits"
+                totalCredits: totalCredits, 
                 uniqueUsers: usersSet.size
             });
         }

@@ -25,10 +25,11 @@ const GamificationTranslationModal = ({ isOpen, onClose, item, type }) => {
     const [loading, setLoading] = useState(false);
     const [activeLang, setActiveLang] = useState('es');
     
+    // Estado extendido con success_message
     const [translations, setTranslations] = useState({
-        es: { title: '', description: '' },
-        de: { title: '', description: '' },
-        fr: { title: '', description: '' }
+        es: { title: '', description: '', success_message: '' },
+        de: { title: '', description: '', success_message: '' },
+        fr: { title: '', description: '', success_message: '' }
     });
 
     const fetchTranslations = useCallback(async () => {
@@ -45,9 +46,9 @@ const GamificationTranslationModal = ({ isOpen, onClose, item, type }) => {
             .eq(idField, item.id);
 
         const newTrans = { 
-            es: { title: '', description: '' },
-            de: { title: '', description: '' },
-            fr: { title: '', description: '' }
+            es: { title: '', description: '', success_message: '' },
+            de: { title: '', description: '', success_message: '' },
+            fr: { title: '', description: '', success_message: '' }
         };
 
         if (data) {
@@ -55,7 +56,8 @@ const GamificationTranslationModal = ({ isOpen, onClose, item, type }) => {
                 if (newTrans[tr.language_code]) {
                     newTrans[tr.language_code] = { 
                         title: tr[titleField] || '', 
-                        description: tr.description || ''
+                        description: tr.description || '',
+                        success_message: tr.success_message || '' 
                     };
                 }
             });
@@ -81,7 +83,8 @@ const GamificationTranslationModal = ({ isOpen, onClose, item, type }) => {
                 [idField]: item.id,
                 language_code: lang,
                 [titleField]: translations[lang].title,
-                description: translations[lang].description
+                description: translations[lang].description,
+                success_message: translations[lang].success_message 
             }));
 
             const { error } = await supabase
@@ -107,10 +110,10 @@ const GamificationTranslationModal = ({ isOpen, onClose, item, type }) => {
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="sm:max-w-[600px]">
+            <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle>Translate: {item?.action_title || item?.title}</DialogTitle>
-                    <DialogDescription>Add translations for Title and Description.</DialogDescription>
+                    <DialogDescription>Add translations for Title, Description and Success Notifications.</DialogDescription>
                 </DialogHeader>
                 
                 <Tabs value={activeLang} onValueChange={setActiveLang} className="w-full">
@@ -136,8 +139,19 @@ const GamificationTranslationModal = ({ isOpen, onClose, item, type }) => {
                                     value={translations[activeLang].description} 
                                     onChange={e => updateField('description', e.target.value)} 
                                     placeholder="Translated Description"
-                                    rows={3}
+                                    rows={2}
                                 />
+                            </div>
+                            <div className="space-y-2">
+                                <Label className="text-emerald-700">Success Message / Notification ({activeLang.toUpperCase()})</Label>
+                                <Textarea 
+                                    value={translations[activeLang].success_message} 
+                                    onChange={e => updateField('success_message', e.target.value)} 
+                                    placeholder="e.g. ¡Felicidades! Has completado la misión."
+                                    className="border-emerald-200 bg-emerald-50/30"
+                                    rows={2}
+                                />
+                                <p className="text-[10px] text-muted-foreground">This message will appear in the user notification popup.</p>
                             </div>
                         </div>
                     )}
@@ -187,7 +201,11 @@ const GamificationManagement = () => {
         const [actionsRes, genesisRes, logsRes] = await Promise.all([
             supabase.from('gamification_actions').select('*').in('action_type', ['Quest', 'quest', 'Mission Quest', 'mission_quest', 'Custom', 'custom']).order('created_at', { ascending: false }),
             supabase.from('genesis_missions').select('*').order('created_at', { ascending: false }),
-            supabase.from('gamification_history').select('*, profiles:user_id(email, name)').order('created_at', { ascending: false }).limit(20)
+
+            supabase.from('gamification_history')
+                .select('*, profiles:user_id(email, name)') 
+                .order('created_at', { ascending: false })
+                .limit(20)
         ]);
 
         setQuestActions(actionsRes.data || []);
@@ -196,7 +214,6 @@ const GamificationManagement = () => {
 
     } catch (e) {
         console.error("Fetch Error", e);
-        // Toast removido de aquí para evitar advertencia de dependencia, o agrégalo a deps
     } finally {
         setLoading(false);
     }
@@ -387,7 +404,6 @@ const GamificationManagement = () => {
                                             <SelectItem value="all">All Users</SelectItem>
                                             <SelectItem value="user">User Common</SelectItem>
                                             <SelectItem value="startnext_user">Startnext User</SelectItem>
-                                            {/* AQUÍ ESTÁ LA CLAVE PARA EL PRODUCTO "KEY" */}
                                             <SelectItem value="unlockable">Unlockable (Store Only)</SelectItem>
                                         </SelectContent>
                                     </Select>
@@ -506,7 +522,6 @@ const GamificationManagement = () => {
                   <DialogTitle>{editingGenesisId ? 'Edit Mission' : 'Create Genesis Mission'}</DialogTitle>
                   <DialogDescription>Define a complex task or quiz for users.</DialogDescription>
               </DialogHeader>
-              {/* ... (Contenido del formulario Genesis - Lo mantengo igual que tu original para brevedad) ... */}
                <div className="grid gap-4 py-4">
                   <div className="grid gap-2">
                       <Label>Title (English)</Label>

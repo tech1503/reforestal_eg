@@ -128,7 +128,7 @@
     "explorer": {
       "title": "Niveles de Explorador Startnext",
       "subtitle": "Descubre el impacto de tu contribución. Ingresa una cantidad abajo o explora los niveles oficiales.",
-      "simulator_title": "Simulador de Niveles",
+      "simulator_title": "Simulador",
       "input_placeholder": "Ingresar monto...",
       "empty_state": "Ingresa un monto (€5.00+) para ver tu nivel.",
       "min_amount": "Mín.",

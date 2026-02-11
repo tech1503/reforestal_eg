@@ -14,16 +14,17 @@ import { Loader2, ArrowLeft, CheckCircle2, XCircle, Trophy, HelpCircle } from 'l
 import { motion } from 'framer-motion';
 import ReactConfetti from 'react-confetti';
 import { useTranslation } from 'react-i18next';
+// Importamos el motor
 import { executeGamificationAction } from '@/utils/gamificationEngine';
 
 const MissionPlayer = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, profile } = useAuth();
+  const { user } = useAuth(); // FIX LINTER: Eliminado 'profile'
   const { refreshFinancials } = useFinancial();
   const { toast } = useToast();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation(); 
 
   const [mission, setMission] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -47,8 +48,7 @@ const MissionPlayer = () => {
     if (!id) return;
     try {
       setLoading(true);
-      // Obtenemos los datos de la misión, incluyendo los PUNTOS configurados en Admin
-      // NOTA: 'impact_credit_reward' es la columna correcta en genesis_missions
+      // Obtenemos los datos de la misión
       const { data, error } = await supabase
         .from('genesis_missions')
         .select('id, title, description, response_type, response_options, impact_credit_reward') 
@@ -93,13 +93,13 @@ const MissionPlayer = () => {
 
   const handleSubmit = async () => {
     if (answer === null || (Array.isArray(answer) && answer.length === 0) || (typeof answer === 'string' && !answer.trim())) {
-        toast({ title: "Atención", description: "Por favor selecciona una respuesta." });
+        toast({ title: t('common.error'), description: t('quest.select_answer_error', "Please select an answer.") });
         return;
     }
     setSubmitting(true);
 
     try {
-        // 1. Validamos la respuesta con RPC (Seguridad: La respuesta correcta no está en el frontend)
+        // 1. Validamos la respuesta con RPC
         const { data: rpcData, error: rpcError } = await supabase.rpc('submit_mission_answer', {
             p_mission_id: mission.id,
             p_user_answer: answer 
@@ -110,47 +110,45 @@ const MissionPlayer = () => {
         if (rpcData.success) {
             setResult('success');
             
-            // 2. EJECUCIÓN DINÁMICA DE RECOMPENSA
-            // Aquí está la magia: Pasamos el objeto 'mission' como dynamicAction.
-            // El engine usará 'mission.impact_credit_reward' directamente.
+            // 2. EJECUCIÓN DINÁMICA DE RECOMPENSA (CON IDIOMA)
             await executeGamificationAction(user.id, null, {
                 dynamicAction: {
                     id: mission.id, 
-                    action_name: `mission_${mission.id.slice(0,8)}`, // Nombre único para el log
+                    action_name: `mission_${mission.id.slice(0,8)}`,
                     action_title: mission.title,
                     action_type: 'Mission Quest',
-                    impact_credit_reward: mission.impact_credit_reward, // Valor de la tabla genesis_missions
+                    impact_credit_reward: mission.impact_credit_reward,
                     source_event: 'quest_completion'
                 },
-                notes: `Completed mission: ${mission.title}`
+                notes: `Completed mission: ${mission.title}`,
+                languageCode: i18n.language // PASAMOS EL IDIOMA ACTIVO
             });
 
-            // 3. Actualizar Dashboard
             await refreshFinancials();
             toast({ 
                 title: t('common.success'), 
-                description: `¡Correcto! Ganaste +${mission.impact_credit_reward} Bonos.`, 
-                className: "bg-emerald-600 text-white border-none" 
+                description: t('quest.success_toast', { credits: mission.impact_credit_reward }),
+                className: "bg-emerald-50 border-emerald-200 text-emerald-900" 
             });
         } else {
             if (rpcData.message === 'already_completed') {
                 setResult('already_completed');
-                toast({ title: "Info", description: "Ya completaste esta misión." });
+                toast({ title: t('common.info'), description: t('quest.already_completed_msg', "You already completed this mission.") });
             } else {
                 setResult('failure');
-                toast({ variant: "destructive", title: "Incorrecto", description: "Inténtalo de nuevo." });
+                toast({ variant: "destructive", title: t('common.error'), description: t('quest.incorrect_msg', "Try again.") });
             }
         }
     } catch (error) {
         console.error("Submission Error:", error);
-        toast({ variant: "destructive", title: t('common.error'), description: "Error al enviar respuesta." });
+        toast({ variant: "destructive", title: t('common.error'), description: t('quest.submission_error', "Submission failed.") });
     } finally {
         setSubmitting(false);
     }
   };
 
   if (loading) return <div className="h-96 flex items-center justify-center"><Loader2 className="w-10 h-10 animate-spin text-emerald-600"/></div>;
-  if (!mission) return <div className="text-center p-10">Misión no encontrada</div>;
+  if (!mission) return <div className="text-center p-10">{t('quest.not_found', "Mission not found")}</div>;
 
   return (
     <div className="w-full max-w-4xl mx-auto py-6 px-4 md:px-0 relative">
@@ -171,7 +169,7 @@ const MissionPlayer = () => {
                 </CardTitle>
                 <div className="flex justify-center mt-4">
                     <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-bold bg-emerald-100 text-emerald-800 shadow-sm border border-emerald-200">
-                        Premio: {mission.impact_credit_reward} Bonos
+                        {t('quest.reward_label', 'Reward')}: {mission.impact_credit_reward} 
                     </span>
                 </div>
             </CardHeader>
@@ -185,18 +183,18 @@ const MissionPlayer = () => {
                     {result === 'already_completed' ? (
                         <div className="text-center p-8 bg-green-50 rounded-2xl border border-green-200 shadow-sm">
                             <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                            <h3 className="text-2xl font-bold text-green-800 mb-2">¡Misión Completada!</h3>
-                            <p className="text-green-700 font-medium">Recompensa ya reclamada.</p>
+                            <h3 className="text-2xl font-bold text-green-800 mb-2">{t('quest.completed_title', 'Mission Completed!')}</h3>
+                            <p className="text-green-700 font-medium">{t('quest.reward_claimed', 'Reward already claimed.')}</p>
                         </div>
                     ) : result === 'success' ? (
                         <div className="text-center p-8 bg-emerald-50 rounded-2xl border border-emerald-200 shadow-sm animate-in zoom-in duration-300">
                             <CheckCircle2 className="w-16 h-16 text-emerald-600 mx-auto mb-4" />
-                            <h3 className="text-2xl font-bold text-emerald-800 mb-2">¡Respuesta Correcta!</h3>
-                            <p className="text-emerald-700 font-medium text-lg">Has ganado +{mission.impact_credit_reward} Bonos.</p>
+                            <h3 className="text-2xl font-bold text-emerald-800 mb-2">{t('quest.correct_title', 'Correct Answer!')}</h3>
+                            <p className="text-emerald-700 font-medium text-lg">{t('quest.earned_msg', { amount: mission.impact_credit_reward })}</p>
                         </div>
                     ) : (
                         <div className="p-4 space-y-6">
-                            <Label className="block mb-4 text-xl font-bold text-slate-800 text-center">Selecciona tu respuesta:</Label>
+                            <Label className="block mb-4 text-xl font-bold text-slate-800 text-center">{t('quest.select_answer_label', 'Select your Answer:')}</Label>
                             
                             {(mission.response_type === 'single_choice' || mission.response_type === 'abc') && (
                                 <RadioGroup onValueChange={handleSelectionChange} className="space-y-4">
@@ -227,12 +225,12 @@ const MissionPlayer = () => {
                             )}
 
                             {mission.response_type === 'free_text' && (
-                                <Textarea placeholder="Escribe tu respuesta..." className="min-h-[180px] text-lg p-5 border-2 rounded-xl" value={answer} onChange={(e) => handleSelectionChange(e.target.value)} />
+                                <Textarea placeholder={t('quest.free_text_placeholder', 'Type your answer...')} className="min-h-[180px] text-lg p-5 border-2 rounded-xl" value={answer} onChange={(e) => handleSelectionChange(e.target.value)} />
                             )}
 
                             {result === 'failure' && (
                                 <div className="flex items-center justify-center gap-3 text-red-600 bg-red-50 p-4 rounded-xl border border-red-100 animate-pulse">
-                                    <XCircle className="w-6 h-6" /> <span className="font-bold text-lg">Incorrecto. Inténtalo de nuevo.</span>
+                                    <XCircle className="w-6 h-6" /> <span className="font-bold text-lg">{t('quest.incorrect_try_again', 'Incorrect. Try again.')}</span>
                                 </div>
                             )}
                         </div>
@@ -243,11 +241,11 @@ const MissionPlayer = () => {
             <CardFooter className="pb-10 pt-4 px-6 md:px-12 flex justify-center bg-white">
                 {result === 'success' || result === 'already_completed' ? (
                     <Button size="lg" className="w-full md:w-1/2 bg-slate-800 hover:bg-slate-900 text-white font-bold text-lg h-14 rounded-xl shadow-lg" onClick={goBack}>
-                        Volver a Misiones
+                        {t('common.back')}
                     </Button>
                 ) : (
                     <Button size="lg" className="w-full md:w-1/2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-lg h-14 rounded-xl shadow-lg" onClick={handleSubmit} disabled={submitting}>
-                        {submitting ? <Loader2 className="mr-2 h-6 w-6 animate-spin" /> : "Enviar Respuesta"}
+                        {submitting ? <Loader2 className="mr-2 h-6 w-6 animate-spin" /> : t('quest.submit_answer', "Submit Answer")}
                     </Button>
                 )}
             </CardFooter>

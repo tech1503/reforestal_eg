@@ -60,7 +60,7 @@ const BenefitTranslationEditor = ({ benefit, isOpen, onClose, onSave }) => {
         support_benefit_id: benefit.id,
         language_code: code,
         description: data.description,
-        ...(data.id ? { id: data.id } : {})
+        
       }));
 
       const { error } = await supabase

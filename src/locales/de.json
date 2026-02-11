@@ -27,7 +27,7 @@
     "subscription": "Abonnement",
     "referral": "Empfehlungen",
     "exchange": "Austausch",
-    "quests": "Quests",
+    "quests": "Aufgaben",
     "founding_members": "Gründungsmitglieder",
     "founding_pioneer": "Pionier",
     "admin_panel": "Admin-Panel",
@@ -52,7 +52,7 @@
     "source": "Quelle",
     "date": "Datum",
     "system_action": "Systemaktion",
-    "available_quests": "Quests",
+    "available_quests": "Aufgaben",
     "start_quest": "Quest starten",
     "new_quest_available": "Neue Quest verfügbar",
     "starting_quest": "Quest wird gestartet",
@@ -128,7 +128,7 @@
     "explorer": {
       "title": "Startnext Explorer Stufen",
       "subtitle": "Entdecke die Wirkung deines Beitrags. Gib unten einen Betrag ein oder durchsuche die offiziellen Stufen.",
-      "simulator_title": "Stufen-Simulator",
+      "simulator_title": "Simulator",
       "input_placeholder": "Betrag eingeben...",
       "empty_state": "Gib einen Betrag ein (€5.00+), um deine Stufe zu sehen.",
       "min_amount": "Min.",
@@ -282,7 +282,7 @@
         "pioneer_request": "Pionier-Anfrage",
         "pioneer_application_request": "Pionier-Bewerbung",
         "gamification": "Gamifizierung",
-        "quest": "Quest",
+        "quest": "Aufgaben",
         "bonus": "Bonus-Belohnung",
         "admin_reply": "Admin-Antwort"
       }
@@ -291,7 +291,7 @@
   "gamification": {
     "sources": {
       "profile_update": "Profilaktualisierung",
-      "quest_completion": "Quest-Abschluss",
+      "quest_completion": "Aufgaben-Abschluss",
       "startnext_contribution": "Startnext-Beitrag",
       "referral_signup": "Empfehlungsanmeldung",
       "mlm_direct": "Direkte Empfehlung",
