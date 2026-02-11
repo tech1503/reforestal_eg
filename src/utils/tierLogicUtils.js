@@ -1,12 +1,5 @@
 import { supabase } from '@/lib/customSupabaseClient';
 
-/**
- * UTILS DE LÓGICA DE NIVELES (Tier Logic) - VERSIÓN PRODUCCIÓN
- * Prioridad: Base de Datos (support_levels)
- * Fallback: Constantes alineadas con DB (solo si falla la red)
- */
-
-// --- FALLBACK CONSTANTS (Alineadas con tu DB actual) ---
 export const TIER_LEVELS = {
   EXPLORER_LIFELINE: {
     id: 'bedb258e-9555-4a15-8677-4d6b4b0b4910',
@@ -38,27 +31,30 @@ export const TIER_LEVELS = {
   }
 };
 
-// --- NUEVA LÓGICA DE NEGOCIO ---
+// --- LÓGICA HÍBRIDA ---
 
 /**
- * Calcula los créditos dinámicos basados en el multiplicador oficial.
- * Regla: 1 Euro = 200 (Bonos).
- * @param {number|string} amount 
+ * * @param {number|string} amount 
  * @returns {number} 
  */
 export const calculateDynamicCredits = (amount) => {
     const val = parseFloat(amount);
     if (isNaN(val) || val < 0) return 0;
+
     
-    const MULTIPLIER = 200; // Regla de Negocio: x200
+    if (val === 5) return 1000;
+    if (val === 14.99) return 3000;
+    if (val === 49.99) return 10000;
+    if (val === 97.99) return 25000;
+
+
+    const MULTIPLIER = 260; 
     
     return Math.floor(val * MULTIPLIER);
 };
 
-// --- FUNCIONES ASÍNCRONAS (LÓGICA PRINCIPAL CON DB) ---
 
 /**
- * Obtiene todos los niveles de soporte activos directamente desde Supabase.
  */
 export const fetchSupportLevelsForLogic = async () => {
   try {
@@ -80,9 +76,8 @@ export const fetchSupportLevelsForLogic = async () => {
 };
 
 /**
- * Compara el monto contra min_amount para encontrar el tier más alto elegible.
  * @param {number|string} amount 
- * @returns {Promise<string|null>} ID del nivel o null
+ * @returns {Promise<string|null>} 
  */
 export const getSupportLevelByAmount = async (amount) => {
   const val = parseFloat(amount);
@@ -92,10 +87,8 @@ export const getSupportLevelByAmount = async (amount) => {
     const levels = await fetchSupportLevelsForLogic();
     if (levels.length === 0) return null;
     
-    // Ordenar por monto mínimo ascendente
     const sortedLevels = levels.sort((a, b) => (parseFloat(a.min_amount) || 0) - (parseFloat(b.min_amount) || 0));
     
-    // Encontrar el nivel más alto que el monto satisface (Lógica de "Floor")
     const eligibleLevels = sortedLevels.filter(level => val >= (parseFloat(level.min_amount) || 0));
     const match = eligibleLevels.length > 0 ? eligibleLevels[eligibleLevels.length - 1] : null;
     
@@ -107,7 +100,6 @@ export const getSupportLevelByAmount = async (amount) => {
 };
 
 /**
- * Obtiene detalles completos de un nivel para mostrar en el frontend.
  * @param {string} levelId 
  * @param {string} languageCode 
  * @returns {Promise<object>}

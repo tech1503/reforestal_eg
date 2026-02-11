@@ -44,8 +44,17 @@ const ReferralSection = () => {
             setReferralCode(code || 'GENERATING...');
           }
 
-          const { count: totalCount } = await supabase.from('referrals').select('id', { count: 'exact' }).eq('referrer_id', user.id);
-          const { data: creditData } = await supabase.from('gamification_history').select('impact_credits_awarded').eq('user_id', user.id).ilike('action_type', '%referral%');
+          const { count: totalCount } = await supabase
+            .from('referrals')
+            .select('id', { count: 'exact' })
+            .eq('user_id', user.id); 
+
+          const { data: creditData } = await supabase
+            .from('gamification_history')
+            .select('impact_credits_awarded')
+            .eq('user_id', user.id)
+            .ilike('action_type', '%referral%');
+            
           const totalCredits = creditData ? creditData.reduce((sum, item) => sum + (Number(item.impact_credits_awarded) || 0), 0) : 0;
 
           if (mounted) {
@@ -65,7 +74,7 @@ const ReferralSection = () => {
       fetchReferralData();
       
       const subscription = supabase.channel('public:referrals_update')
-        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'referrals', filter: `referrer_id=eq.${user.id}` }, () => fetchReferralData())
+        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'referrals', filter: `user_id=eq.${user.id}` }, () => fetchReferralData())
         .subscribe();
 
       return () => { mounted = false; supabase.removeChannel(subscription); };
@@ -88,7 +97,6 @@ const ReferralSection = () => {
       setTimeout(() => setCopied(false), 2000);
     });
   };
-
 
   const statsCards = [
       { title: t('dashboard.referrals.total', 'Total Referrals'), value: referralStats.total, icon: Users, color: 'blue' },

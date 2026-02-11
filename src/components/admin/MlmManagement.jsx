@@ -9,11 +9,11 @@ import { useToast } from '@/components/ui/use-toast';
 import { Loader2, Users, Gift, Activity, Plus } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
-import { useTranslation } from 'react-i18next'; // IMPORTADO
+import { useTranslation } from 'react-i18next';
 
 const MlmManagement = () => {
     const { toast } = useToast();
-    const { t } = useTranslation(); // HOOK
+    const { t } = useTranslation();
     const [actions, setActions] = useState([]);
     const [referrals, setReferrals] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -35,15 +35,15 @@ const MlmManagement = () => {
             const { data: actionsData } = await supabase
                 .from('gamification_actions')
                 .select('*')
-                .ilike('type', '%referral%')
+                .ilike('action_type', '%referral%') 
                 .order('created_at', { ascending: false });
             
             const { data: referralsData } = await supabase
                 .from('referrals')
                 .select(`
-                    id, created_at, status,
-                    referrer:referrer_id(name, email),
-                    referee:referee_id(name, email)
+                    id, created_at,
+                    referrer:user_id(name, email),
+                    referee:referred_user_id(name, email)
                 `)
                 .order('created_at', { ascending: false })
                 .limit(50);
@@ -61,13 +61,13 @@ const MlmManagement = () => {
         if(!newAction.name) return toast({variant: "destructive", title: t('common.error'), description: "Name required"});
         
         const payload = {
-            title: newAction.name,
+            action_name: `referral_${Date.now()}`,
+            action_title: newAction.name,
             description: newAction.description,
-            credits: parseInt(newAction.credits),
-            type: 'Referral (MLM)',
-            slug: `referral_${Date.now()}`,
-            status: newAction.status,
-            binding: 'referral_custom'
+            impact_credits_value: parseInt(newAction.credits),
+            action_type: 'Referral (MLM)',
+            is_active: newAction.status === 'active',
+            system_binding: 'referral_custom'
         };
 
         const { error } = await supabase.from('gamification_actions').insert(payload);
@@ -82,8 +82,8 @@ const MlmManagement = () => {
     };
 
     const toggleStatus = async (id, currentStatus) => {
-        const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
-        await supabase.from('gamification_actions').update({ status: newStatus }).eq('id', id);
+        const newStatus = !currentStatus;
+        await supabase.from('gamification_actions').update({ is_active: newStatus }).eq('id', id);
         fetchData();
     };
 
@@ -116,7 +116,7 @@ const MlmManagement = () => {
                         <Activity className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">{actions.filter(a => a.status === 'active').length}</div>
+                        <div className="text-2xl font-bold">{actions.filter(a => a.is_active).length}</div>
                         <p className="text-xs text-muted-foreground">Reward types running</p>
                     </CardContent>
                 </Card>
@@ -127,9 +127,9 @@ const MlmManagement = () => {
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">
-                            {referrals.filter(r => r.status === 'completed').length}
+                            {referrals.length}
                         </div>
-                        <p className="text-xs text-muted-foreground">Successful conversions</p>
+                        <p className="text-xs text-muted-foreground">Total connections</p>
                     </CardContent>
                 </Card>
             </div>
@@ -154,15 +154,15 @@ const MlmManagement = () => {
                             <TableBody>
                                 {actions.map(action => (
                                     <TableRow key={action.id}>
-                                        <TableCell className="font-medium">{action.title || action.name}</TableCell>
-                                        <TableCell>{action.credits} IC</TableCell>
+                                        <TableCell className="font-medium">{action.action_title || action.action_name}</TableCell>
+                                        <TableCell>{action.impact_credits_value} IC</TableCell>
                                         <TableCell>
-                                            <Badge variant={action.status === 'active' ? 'default' : 'secondary'}>
-                                                {action.status}
+                                            <Badge variant={action.is_active ? 'default' : 'secondary'}>
+                                                {action.is_active ? 'Active' : 'Inactive'}
                                             </Badge>
                                         </TableCell>
                                         <TableCell>
-                                            <Button variant="ghost" size="sm" onClick={() => toggleStatus(action.id, action.status)}>
+                                            <Button variant="ghost" size="sm" onClick={() => toggleStatus(action.id, action.is_active)}>
                                                 Toggle
                                             </Button>
                                         </TableCell>
