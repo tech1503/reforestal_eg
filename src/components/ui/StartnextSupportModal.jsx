@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -11,7 +10,7 @@ import { supabase } from '@/lib/customSupabaseClient';
 import { Loader2, CheckCircle, HeartHandshake } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const StartnextSupportModal = ({ isOpen, onClose }) => {
+const StartnextSupportModal = ({ isOpen, onClose, initialAmount }) => {
   const { user, profile } = useAuth();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
@@ -27,9 +26,14 @@ const StartnextSupportModal = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (isOpen) {
       setSuccess(false);
-      setFormData({ amount: '', city: '', country: '', message: '' });
+      setFormData({ 
+          amount: initialAmount || '', 
+          city: '', 
+          country: '', 
+          message: '' 
+      });
     }
-  }, [isOpen]);
+  }, [isOpen, initialAmount]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -72,7 +76,7 @@ const StartnextSupportModal = ({ isOpen, onClose }) => {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => !loading && handleClose()}>
+    <Dialog open={isOpen} onOpenChange={(isOpen) => !loading && !isOpen && handleClose()}>
       <DialogContent className="sm:max-w-[500px]">
         <AnimatePresence mode="wait">
           {success ? (

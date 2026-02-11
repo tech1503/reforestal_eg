@@ -1,51 +1,62 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { useFinancial } from '@/contexts/FinancialContext'; 
 import { useI18n } from '@/contexts/I18nContext';
-import { useTranslation } from 'react-i18next'; // IMPORTADO
+import { useTranslation } from 'react-i18next'; 
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Loader2, Trees, Calendar, CreditCard, Leaf, Wallet, Coins, Lock, ShieldCheck } from 'lucide-react';
+import { Loader2, Trees, Calendar, CreditCard, Leaf, Wallet, Coins, Lock, ShieldCheck, Clock, Package } from 'lucide-react';
 import BenefitsDisplay from '@/components/ui/BenefitsDisplay';
 import { format } from 'date-fns';
 import LandDollarDisplay from '@/components/LandDollarDisplay';
 import ReforestaProjectWidget from '@/components/ReforestaProjectWidget';
+import { supabase } from '@/lib/customSupabaseClient';
+//import { getBenefitIcon } from '@/components/Icons/CustomIcons';
 
 const StartnextUserDashboard = () => {
   const { profile, user } = useAuth();
   const { currentLanguage } = useI18n();
-  const { t } = useTranslation(); // HOOK
+  const { t } = useTranslation(); 
   
-  // Consumimos el contexto financiero
   const { userTier, tierBenefits, impactCredits, landDollar, contributions, loading } = useFinancial();
+  const [pioneerStatus, setPioneerStatus] = useState('pending');
+
+  useEffect(() => {
+    if (user?.id) {
+        const checkStatus = async () => {
+            const { data } = await supabase.from('founding_pioneer_metrics').select('founding_pioneer_access_status').eq('user_id', user.id).maybeSingle();
+            setPioneerStatus(data?.founding_pioneer_access_status || 'pending');
+        };
+        checkStatus();
+    }
+  }, [user]);
 
   if (loading) return <div className="flex justify-center items-center min-h-[50vh]"><Loader2 className="w-10 h-10 animate-spin text-emerald-500"/></div>;
 
   const snxId = contributions?.imported_user_id ? 'SNX-IMP' : 'SNX-ACT';
   const tierName = userTier?.displayName || 'Explorer Standard';
   
-  // Procesar beneficios para display
   const displayBenefits = tierBenefits.map(b => {
       const trans = b.support_benefit_translations?.find(t => t.language_code === currentLanguage) 
                 || b.support_benefit_translations?.find(t => t.language_code === 'en');
       return {
           ...b,
-          translated_desc: trans?.description || t('dashboard.startnext_dash.benefit_available') // Fallback traducido
+          translated_desc: trans?.description || t('dashboard.startnext_dash.benefit_available')
       };
   });
 
-  // Lógica para mostrar el valor del Land Dollar en la tarjeta pequeña
   const landDollarDisplayValue = landDollar ? (
       <span className="text-emerald-600 text-lg">{t('dashboard.startnext_dash.active_asset')}</span>
   ) : t('dashboard.startnext_dash.pending');
 
+  const isPioneerApproved = pioneerStatus === 'approved';
+
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8 py-4">
        
-       {/* SECCIÓN LAND DOLLAR (Ahora siempre muestra el QR único) */}
+       {/* SECCIÓN LAND DOLLAR */}
        <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.1 }} className="mb-8">
-           {/* CORREGIDO: Eliminado gradiente oscuro, ahora usa bg-card */}
            <Card variant="premium" className="overflow-hidden bg-card border-border">
                 <CardContent className="flex flex-col items-center">
                     <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
@@ -53,7 +64,6 @@ const StartnextUserDashboard = () => {
                         {t('dashboard.startnext_dash.digital_asset_title')}
                     </h2>
                     <div className="w-full max-w-4xl transform hover:scale-[1.01] transition-normal">
-                        {/* Pasamos user para que genere el QR con su ID si falla el LandDollar */}
                         <LandDollarDisplay user={user} landDollar={landDollar} />
                     </div>
                 </CardContent>
@@ -66,10 +76,15 @@ const StartnextUserDashboard = () => {
           <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
               <div>
                  <div className="flex items-center gap-3 mb-4">
-                    <Badge className="bg-white/20 hover:bg-white/30 text-white border-0 px-4 py-1.5 backdrop-blur-md shadow-sm">
-                        {t('dashboard.pioneer_status.active')}
+                    {/* BADGE DE ESTADO PIONERO */}
+                    <Badge className={`border-0 px-4 py-1.5 backdrop-blur-md shadow-sm flex items-center gap-2 ${isPioneerApproved ? 'bg-white/20 text-white' : 'bg-amber-500/80 text-white'}`}>
+                        {isPioneerApproved ? (
+                            <><ShieldCheck className="w-4 h-4"/> {t('dashboard.pioneer_status.active')}</>
+                        ) : (
+                            <><Clock className="w-4 h-4"/> {t('pioneer.restricted.pending', 'Pioneer Review')}</>
+                        )}
                     </Badge>
-                    <span className="text-xs font-mono text-emerald-100 bg-black/20 px-3 py-1 rounded-full flex items-center gap-2">
+                    <span className="text-xs font-mono text-emerald-100 bg-black/20 px-3 py-1 rounded-full flex items-center gap-2 border border-white/10">
                         <ShieldCheck className="w-3 h-3"/> {snxId}
                     </span>
                  </div>
@@ -157,7 +172,6 @@ const StartnextUserDashboard = () => {
                  </Card>
              </motion.div>
              
-             {/* Widget */}
              <ReforestaProjectWidget />
           </div>
        </div>
@@ -167,7 +181,7 @@ const StartnextUserDashboard = () => {
 
 const StatCard = ({ icon: Icon, iconColor, bgColor, label, value, highlight }) => (
   <Card variant="premium" className="group bg-card border-border">
-     <CardContent className="flex items-center justify-between">
+     <CardContent className="flex items-center justify-between p-4">
        <div>
           <p className="text-sm font-medium text-muted-foreground mb-1">{label}</p>
           <h3 className={`text-2xl font-bold ${highlight ? 'text-foreground' : 'text-foreground/90'}`}>{value}</h3>

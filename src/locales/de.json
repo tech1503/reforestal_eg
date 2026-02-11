@@ -136,7 +136,7 @@
       "contribution_level": "Beitragsstufe",
       "included_benefits": "Enthaltene Vorteile",
       "simulator_hint": "Nutze den Simulator, um alle Details für diesen Betrag zu sehen.",
-      "support_btn": "Diese Stufe unterstützen"
+      "support_btn": "Unterstützen Sie dieses Projekt"
     },
     "pioneer_status": {
       "active": "Status Aktiv",
@@ -642,6 +642,7 @@
       "rejected_msg": "Ihre Bewerbung wurde dieses Mal nicht genehmigt. Sie können Ihre Angaben aktualisieren und es erneut versuchen.",
       "update_btn": "Bewerbungsdetails aktualisieren",
       "contact_btn": "Admin kontaktieren / erneut bewerben",
+      "access_denied": "Zugriff verweigert",
       "rejected": "Abgelehnt"
     },
     "header": {

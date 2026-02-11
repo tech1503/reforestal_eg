@@ -137,7 +137,7 @@
       "contribution_level": "Contribution Level",
       "included_benefits": "Included Benefits",
       "simulator_hint": "Use the simulator to see full details for this amount.",
-      "support_btn": "Support this Tier"
+      "support_btn": "Support this Project"
     },
     "pioneer_status": {
       "active": "Status Active",
@@ -643,6 +643,7 @@
       "rejected_msg": "Your application was not approved at this time. You may update your information and try again.",
       "update_btn": "Update Application Details",
       "contact_btn": "Contact Admin / Re-apply",
+      "access_denied": "Access Denied",
       "rejected": "Rejected"
     },
     "header": {

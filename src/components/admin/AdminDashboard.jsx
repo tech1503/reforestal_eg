@@ -29,7 +29,7 @@ const FinalDashboardTest = lazy(() => import('@/components/admin/FinalDashboardT
 const SchemaAuditView = lazy(() => import('@/components/admin/SchemaAuditView'));
 const SchemaMapper = lazy(() => import('@/components/admin/SchemaMapper'));
 const PendingRegistrations = lazy(() => import('@/components/admin/PendingRegistrations'));
-const LandDollarsTable = lazy(() => import('@/components/admin/LandDollarsTable'));
+//const LandDollarsTable = lazy(() => import('@/components/admin/LandDollarsTable'));
 
 // New Gamification & Founding Pioneer Modules...
 const AdminGamificationActionsConfig = lazy(() => import('@/components/admin/gamification/AdminGamificationActionsConfig'));

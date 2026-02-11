@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
-// ELIMINAMOS LA IMPORTACIÓN QUE YA NO USAREMOS
-// import { emitImpactCredits } from '@/services/impactCreditService'; 
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,6 +8,8 @@ import { useToast } from '@/components/ui/use-toast';
 import { CheckCircle, XCircle, Loader2, Search } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useTranslation } from 'react-i18next'; 
+// IMPORTAMOS LA LÓGICA DE CÁLCULO
+import { getSupportLevelByAmount, calculateDynamicCredits } from '@/utils/tierLogicUtils';
 
 const StartnextApprovals = () => {
   const { toast } = useToast();
@@ -22,11 +22,8 @@ const StartnextApprovals = () => {
   const [statusFilter, setStatusFilter] = useState('all');
   const [minAmount, setMinAmount] = useState('');
 
-  useEffect(() => {
-    fetchPendingRegistrations();
-  }, []);
-
-  const fetchPendingRegistrations = async () => {
+  // CORRECCIÓN: useCallback para evitar warning de dependencia
+  const fetchPendingRegistrations = useCallback(async () => {
     try {
       setLoading(true);
       const { data, error } = await supabase
@@ -49,33 +46,41 @@ const StartnextApprovals = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [t, toast]);
+
+  useEffect(() => {
+    fetchPendingRegistrations();
+  }, [fetchPendingRegistrations]);
 
   const handleApprove = async (registration) => {
     const regId = registration.id;
     setProcessing(prev => ({ ...prev, [regId]: 'approving' }));
 
     try {
-      // 1. Determine support level based on amount
-      const { data: tier, error: tierError } = await supabase.rpc(
-        'calculate_tier_by_amount',
-        { p_amount: registration.amount }
-      );
+      // 1. Asignar Rol 'startnext_user' (Acceso al Dashboard y Land Dollar)
+      const { data: roleData } = await supabase.from('roles').select('id').eq('name', 'startnext_user').single();
+      if (roleData) {
+          await supabase.from('users_roles').upsert({ user_id: registration.user_id, role_id: roleData.id }, { onConflict: 'user_id,role_id' });
+      }
+      // Actualizamos el perfil para activar el dashboard Startnext
+      await supabase
+        .from('profiles')
+        .update({ role: 'startnext_user' })
+        .eq('id', registration.user_id);
 
-      if (tierError) throw tierError;
-      if (!tier) throw new Error('No matching tier found for amount');
-
-      // 2. Create contribution record
-      // ESTA INSERCIÓN DISPARA EL TRIGGER 'auto_assign_benefits' EN LA BASE DE DATOS
-      // EL TRIGGER SE ENCARGARÁ DE DAR LOS CRÉDITOS.
+      // 2. Calcular Tier basado en el monto
+      const tierId = await getSupportLevelByAmount(registration.amount);
+      
+      // 3. Crear registro de contribución
+      // NOTA: Esto dispara triggers en la DB que pueden crear créditos automáticos incorrectos
       const { data: contribution, error: contribError } = await supabase
         .from('startnext_contributions')
         .insert({
           user_id: registration.user_id,
           contribution_amount: registration.amount,
           contribution_date: new Date().toISOString(),
-          new_support_level_id: tier,
-          benefit_assigned: false, // El trigger lo pondrá en true
+          new_support_level_id: tierId,
+          benefit_assigned: true, 
           notes: `Approved from pending registration. Original message: ${registration.message || 'N/A'}`
         })
         .select()
@@ -83,47 +88,77 @@ const StartnextApprovals = () => {
 
       if (contribError) throw contribError;
 
-      // 3. Assign tier and benefits (triggers auto-creation of land dollars via RPC logic if configured)
-      const { error: tierAssignError } = await supabase.rpc(
-        'assign_tier_to_contribution',
-        { 
-          p_contribution_id: contribution.id,
-          p_support_level_id: tier 
-        }
-      );
-
-      if (tierAssignError) throw tierAssignError;
-
-      // --- CORRECCIÓN: ELIMINADO EL PASO 4 (EMISIÓN MANUAL) ---
-      // La base de datos ya está emitiendo los créditos a través del trigger en el paso 2.
-      // Si dejamos esto, se duplican los puntos.
-      
-      /*
-      const tierData = await supabase
-        .from('support_levels')
-        .select('impact_credits_reward')
-        .eq('id', tier)
-        .single();
-
-      if (tierData.data?.impact_credits_reward) {
-        await emitImpactCredits({
-          user_id: registration.user_id,
-          amount: tierData.data.impact_credits_reward,
-          source: 'startnext_contribution',
-          description: `Startnext contribution approved: €${registration.amount}`,
-          related_support_level_id: tier
-        });
+      if (tierId) {
+          // Asignar beneficios visuales
+          await supabase.from('user_benefits').upsert({
+              user_id: registration.user_id,
+              new_support_level_id: tierId,
+              status: 'active',
+              assigned_date: new Date().toISOString()
+          }, { onConflict: 'user_id' });
       }
-      */
-      // ---------------------------------------------------------
 
-      // 5. Update profile role to startnext_user
-      await supabase
-        .from('profiles')
-        .update({ role: 'startnext_user' })
-        .eq('id', registration.user_id);
+      // 4. LÓGICA DE BONOS CORREGIDA (Evita Duplicados)
+      // Calculamos los bonos correctos (Monto * 200)
+      const correctCredits = calculateDynamicCredits(registration.amount);
 
-      // 6. Update registration status
+      // Buscamos si la base de datos ya creó créditos automáticamente para esta contribución
+      const { data: existingCredits } = await supabase
+          .from('impact_credits')
+          .select('id, amount')
+          .eq('contribution_id', contribution.id);
+
+      if (existingCredits && existingCredits.length > 0) {
+          // SI EXISTEN: Actualizamos el primero al valor correcto (x200)
+          await supabase.from('impact_credits')
+              .update({ 
+                  amount: correctCredits, 
+                  description: `Startnext Contribution (Verified x200)`
+              })
+              .eq('id', existingCredits[0].id);
+          
+          // Si por error hubo múltiples (duplicados previos), borramos los sobrantes
+          if (existingCredits.length > 1) {
+              const idsToDelete = existingCredits.slice(1).map(c => c.id);
+              await supabase.from('impact_credits').delete().in('id', idsToDelete);
+          }
+      } else {
+          // SI NO EXISTEN: Creamos el registro manualmente
+          await supabase.from('impact_credits').insert({
+            user_id: registration.user_id,
+            amount: correctCredits,
+            source: 'startnext_contribution',
+            description: `Startnext contribution approved: €${registration.amount}`,
+            related_support_level_id: tierId,
+            contribution_id: contribution.id
+          });
+      }
+
+      // 5. GESTIÓN DE PIONEROS (Evitar Aprobación Automática)
+      // Buscamos el estado actual
+      const { data: currentMetric } = await supabase
+          .from('founding_pioneer_metrics')
+          .select('founding_pioneer_access_status, total_impact_credits_earned')
+          .eq('user_id', registration.user_id)
+          .maybeSingle();
+
+      // Recalculamos el total de créditos del usuario para mantener consistencia
+      const { data: allUserCredits } = await supabase.from('impact_credits').select('amount').eq('user_id', registration.user_id);
+      const totalScore = allUserCredits?.reduce((sum, c) => sum + Number(c.amount), 0) || correctCredits;
+
+      // FORZAMOS ESTADO: Si ya era 'approved', se mantiene. Si no, se queda 'pending'.
+      // Esto asegura que la aprobación de la contribución NO apruebe la sección Pionero automáticamente.
+      const statusToSet = currentMetric?.founding_pioneer_access_status === 'approved' ? 'approved' : 'pending';
+
+      await supabase.from('founding_pioneer_metrics').upsert({
+          user_id: registration.user_id,
+          total_impact_credits_earned: totalScore,
+          founding_pioneer_access_status: statusToSet, // Mantiene el bloqueo si no estaba aprobado
+          updated_at: new Date().toISOString()
+      }, { onConflict: 'user_id' });
+
+
+      // 6. Actualizar estado de la solicitud
       const { error: updateError } = await supabase
         .from('pending_startnext_registrations')
         .update({ 
@@ -134,16 +169,16 @@ const StartnextApprovals = () => {
 
       if (updateError) throw updateError;
 
-      // 7. Send notification
+      // 7. Notificación
       await supabase.rpc('create_notification', {
         p_user_id: registration.user_id,
         p_title: 'Welcome to Startnext Pioneers! 🌟',
-        p_message: `Your contribution of €${registration.amount} has been approved. Your Land Dollar and Impact Credits are now available.`
+        p_message: `Your contribution of €${registration.amount} has been approved. You received ${correctCredits} Bonus Points.`
       });
 
       toast({
         title: t('common.success'),
-        description: `${registration.name} has been approved and upgraded to Startnext Pioneer`,
+        description: `${registration.name} approved. BP: ${correctCredits}. Pioneer Status: ${statusToSet}.`,
         className: 'bg-green-50 border-green-200'
       });
 

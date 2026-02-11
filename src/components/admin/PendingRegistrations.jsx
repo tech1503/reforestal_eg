@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { CheckCircle, XCircle, Trash2, Clock, Mail, MapPin, Search, RefreshCw, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,7 +7,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import PendingImpactCredits from '@/components/admin/PendingImpactCredits';
-import { getSupportLevelByAmount } from '@/utils/tierLogicUtils';
+import { getSupportLevelByAmount, calculateDynamicCredits } from '@/utils/tierLogicUtils';
 
 const PendingRegistrations = () => {
     const { toast } = useToast();
@@ -17,7 +17,7 @@ const PendingRegistrations = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [confirmAction, setConfirmAction] = useState(null); 
 
-    const fetchRegistrations = async () => {
+    const fetchRegistrations = useCallback(async () => {
         setLoading(true);
         try {
             const { data, error } = await supabase
@@ -34,21 +34,21 @@ const PendingRegistrations = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [toast]);
 
     useEffect(() => {
         fetchRegistrations();
         const channel = supabase.channel('pending-regs-admin')
             .on('postgres_changes', { event: '*', schema: 'public', table: 'pending_startnext_registrations' }, (payload) => {
                 if(payload.eventType === 'INSERT' && payload.new.status === 'pending') {
-                      setRegistrations(prev => [payload.new, ...prev]);
+                      fetchRegistrations(); 
                 } else if(payload.eventType === 'UPDATE' || payload.eventType === 'DELETE') {
                       fetchRegistrations();
                 }
             })
             .subscribe();
         return () => supabase.removeChannel(channel);
-    }, []);
+    }, [fetchRegistrations]);
 
     const handleApprove = async () => {
         if (!confirmAction?.item) return;
@@ -56,70 +56,93 @@ const PendingRegistrations = () => {
         setProcessing(item.id);
 
         try {
-            // 1. Get Role ID for startnext_user
             const { data: roleData } = await supabase.from('roles').select('id').eq('name', 'startnext_user').single();
-            if (!roleData) throw new Error("Role 'startnext_user' not found in roles table.");
+            if (!roleData) throw new Error("Role 'startnext_user' not found.");
 
-            // 2. Upsert Users Roles
             await supabase.from('users_roles').upsert({ user_id: item.user_id, role_id: roleData.id }, { onConflict: 'user_id,role_id' });
-            
-            // 3. Update Profile
             await supabase.from('profiles').update({ role: 'startnext_user' }).eq('id', item.user_id);
 
-            // 4. Calculate Tier & Fetch Level ID
             const supportLevelId = await getSupportLevelByAmount(item.amount);
-            let tierSlug = '';
             
             if (supportLevelId) {
-                // 5. Upsert User Benefits
                 await supabase.from('user_benefits').upsert({
                     user_id: item.user_id,
                     new_support_level_id: supportLevelId,
                     status: 'active',
                     assigned_date: new Date().toISOString()
                 }, { onConflict: 'user_id' });
-
-                // Get slug for reward calculation
-                const { data: level } = await supabase.from('support_levels').select('slug').eq('id', supportLevelId).single();
-                if (level) tierSlug = level.slug;
             }
 
-            // 6. Gamification History & Credits
-            // Reward logic: Spring=50, Stream=150, Riverbed=500, Lifeline=1000
-            let icReward = 0;
-            if (tierSlug === 'explorer-mountain-spring') icReward = 50;
-            else if (tierSlug === 'explorer-mountain-stream') icReward = 150;
-            else if (tierSlug === 'explorer-riverbed') icReward = 500;
-            else if (tierSlug === 'explorer-lifeline') icReward = 1000;
+            const { data: contrib, error: contribError } = await supabase.from('startnext_contributions').insert({
+                user_id: item.user_id,
+                contribution_amount: item.amount,
+                new_support_level_id: supportLevelId,
+                benefit_assigned: true,
+                notes: item.message || 'Approved from pending request'
+            }).select().single();
 
-            if (icReward > 0) {
-                 await supabase.from('gamification_history').insert({
+            if (contribError) throw contribError;
+
+            const correctCredits = calculateDynamicCredits(item.amount); 
+            
+            const { data: existingCredits } = await supabase
+                .from('impact_credits')
+                .select('id, amount')
+                .eq('contribution_id', contrib.id);
+
+            if (existingCredits && existingCredits.length > 0) {
+                const firstCredit = existingCredits[0];
+                
+                await supabase.from('impact_credits')
+                    .update({ 
+                        amount: correctCredits, 
+                        description: `Startnext Contribution (Verified x200)`
+                    })
+                    .eq('id', firstCredit.id);
+                
+                if (existingCredits.length > 1) {
+                    const idsToDelete = existingCredits.slice(1).map(c => c.id);
+                    await supabase.from('impact_credits').delete().in('id', idsToDelete);
+                }
+            } else {
+                await supabase.from('impact_credits').insert({
                     user_id: item.user_id,
-                    action_type: 'tier_assignment',
-                    action_name: `Tier Assigned: ${tierSlug}`,
-                    impact_credits_awarded: icReward,
-                    action_date: new Date().toISOString()
-                 });
-                 
-                 // 7. Upsert Metrics
-                 await supabase.from('founding_pioneer_metrics').upsert({
-                     user_id: item.user_id,
-                     contribution_count: 1, 
-                     total_impact_credits_earned: icReward 
-                 }, { onConflict: 'user_id' });
+                    amount: correctCredits,
+                    source: 'startnext',
+                    description: 'Startnext Contribution (Manual Verify)',
+                    contribution_id: contrib.id,
+                    related_support_level_id: supportLevelId
+                });
             }
 
-            // 8. Notification
+            const { data: currentMetrics } = await supabase
+                .from('founding_pioneer_metrics')
+                .select('founding_pioneer_access_status, total_impact_credits_earned')
+                .eq('user_id', item.user_id)
+                .maybeSingle();
+
+            const { data: allCredits } = await supabase.from('impact_credits').select('amount').eq('user_id', item.user_id);
+            const totalScore = allCredits?.reduce((sum, c) => sum + Number(c.amount), 0) || correctCredits;
+
+            // Mantenemos el estado existente o 'pending' si es nuevo. NUNCA 'approved' aquí.
+            const pioneerStatus = currentMetrics?.founding_pioneer_access_status || 'pending';
+
+            await supabase.from('founding_pioneer_metrics').upsert({
+                user_id: item.user_id,
+                total_impact_credits_earned: totalScore,
+                founding_pioneer_access_status: pioneerStatus, 
+                updated_at: new Date().toISOString()
+            }, { onConflict: 'user_id' });
+
             await supabase.from('notifications').insert({
                 user_id: item.user_id,
-                title: "Account Verified! 🎉",
-                message: `You are now a verified Startnext User. Tier: ${tierSlug || 'Standard'}.`
+                title: "Contribution Verified",
+                message: `Your contribution of €${item.amount} is confirmed. ${correctCredits} Credits added. Pioneer access is under review.`
             });
 
-            // 9. Update Request Status
             await supabase.from('pending_startnext_registrations').update({ status: 'approved' }).eq('id', item.id);
 
-            toast({ title: "Approved", description: `${item.name} has been upgraded successfully.` });
+            toast({ title: "Approved", description: `${item.name} role updated. Credits adjusted to ${correctCredits}. Pioneer status: ${pioneerStatus}.` });
             setConfirmAction(null);
             fetchRegistrations();
 
@@ -250,12 +273,12 @@ const PendingRegistrations = () => {
 
             <PendingImpactCredits />
 
-            <Dialog open={!!confirmAction} onOpenChange={(open) => !open && setConfirmAction(null)}>
+            <Dialog open={!!confirmAction} onOpenChange={(isOpen) => !isOpen && setConfirmAction(null)}>
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>Confirm Action</DialogTitle>
                         <DialogDescription>
-                            {confirmAction?.type === 'approve' && <span>Are you sure you want to approve <strong>{confirmAction.item.name}</strong>? This will grant full Startnext status.</span>}
+                            {confirmAction?.type === 'approve' && <span>Are you sure you want to approve <strong>{confirmAction.item.name}</strong>? This will grant Startnext Supporter status (Land Dollar + BP). <strong>Pioneer Access requires separate evaluation.</strong></span>}
                             {confirmAction?.type === 'reject' && <span>Are you sure you want to reject this request from <strong>{confirmAction.item.name}</strong>?</span>}
                             {confirmAction?.type === 'delete' && <span>Are you sure you want to permanently delete this record?</span>}
                         </DialogDescription>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Search, Edit, Trash2, Download, RefreshCw, Loader2, Leaf, Coins, Wallet, Ban, Award, Users, Shield } from 'lucide-react';
+import { Search, Edit, Trash2, Download, RefreshCw, Loader2, Leaf, Coins, Wallet, Ban, Award, Users, Shield, XCircle, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
@@ -29,11 +29,11 @@ const UserManagement = () => {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [processing, setProcessing] = useState(false);
 
-  // Pioneer Approval State
-  const [approvingPioneer, setApprovingPioneer] = useState(null);
-  const [isApprovePioneerOpen, setIsApprovePioneerOpen] = useState(false);
-  const [approveProcessing, setApproveProcessing] = useState(false);
-  
+  // Pioneer Management State
+  const [pioneerActionUser, setPioneerActionUser] = useState(null);
+  const [isPioneerModalOpen, setIsPioneerModalOpen] = useState(false);
+  const [pioneerActionType, setPioneerActionType] = useState('approve'); 
+
   // System Data
   const [availableTiers, setAvailableTiers] = useState([]);
   const [gamificationRules, setGamificationRules] = useState([]);
@@ -55,21 +55,17 @@ const UserManagement = () => {
   const fetchAllData = useCallback(async () => {
     setLoading(true);
     try {
-      // 1. Load Profiles
       const { data: profiles, error: profileError } = await supabase.from('profiles').select('*').order('created_at', { ascending: false });
       if (profileError) throw profileError;
 
       const { data: tiers } = await supabase.from('support_levels').select('*').order('min_amount');
       const { data: benefits } = await supabase.from('user_benefits').select('*').eq('status', 'active').order('assigned_date', { ascending: false });
       
-      // Load Metrics (Reference only)
       const { data: metrics } = await supabase.from('founding_pioneer_metrics').select('user_id, total_impact_credits_earned, founding_pioneer_access_status');
       
-      // Load Land Dollars (Assets & Status)
       let landDollars = [];
       try { const { data: ld } = await supabase.from('land_dollars').select('*'); landDollars = ld || []; } catch (e) {}
 
-      // Load Rules (Para lógica de bonus por upgrade)
       let gameRules = [];
       try { const { data: gr } = await supabase.from('gamification_actions').select('*').eq('is_active', true); gameRules = gr || []; } catch (e) {}
       
@@ -91,7 +87,7 @@ const UserManagement = () => {
           tier_id: tierInfo ? tierInfo.id : 'none',
           benefit_row_id: userBenefit ? userBenefit.id : null,
           ic_balance: metric ? metric.total_impact_credits_earned : 0,
-          founding_pioneer_access_status: metric ? metric.founding_pioneer_access_status : null,
+          founding_pioneer_access_status: metric ? metric.founding_pioneer_access_status : 'pending',
           has_land_dollar: !!userLandDollar,
           land_dollar_id: userLandDollar?.id,
           land_dollar_status: userLandDollar?.status || 'none',
@@ -148,16 +144,14 @@ const UserManagement = () => {
     if (!editingUser) return;
     setProcessing(true);
     try {
-      // 1. Update Profile
       const { error: profileErr } = await supabase.from('profiles').update({ 
           name: editingUser.name, 
           role: editingUser.role,
           genesis_profile: editingUser.genesis_profile
         }).eq('id', editingUser.id);
       
-      if (profileErr) throw new Error("Error updating profile: " + profileErr.message);
+      if (profileErr) throw new Error(profileErr.message);
 
-      // 2. Control del Land Dollar
       if (editingUser.land_dollar_id) {
           await supabase.from('land_dollars').update({ 
               status: editingUser.editLandDollarStatus,
@@ -176,7 +170,6 @@ const UserManagement = () => {
            });
       }
 
-      // 3. Cambio de Tier / Upgrade
       if (editingUser.selectedTier && editingUser.selectedTier !== 'none' && editingUser.selectedTier !== editingUser.tier_id) { 
           let tierData = availableTiers.find(t => t.id === editingUser.selectedTier);
           let prettyTierName = 'Standard';
@@ -194,7 +187,6 @@ const UserManagement = () => {
               
              let contributionId = existingContrib?.id;
 
-             // Startnext Contribution Logic
              if (existingContrib) {
                   if (Number(tierData.min_amount) > Number(existingContrib.contribution_amount || 0)) {
                       const rule = gamificationRules.find(r => r.action_name === 'contribution_upgrade');
@@ -202,7 +194,7 @@ const UserManagement = () => {
                   }
                   await supabase.from('startnext_contributions').update({
                       contribution_amount: tierData.min_amount, 
-                      benefit_level: prettyTierName, // Use prettyTierName
+                      benefit_level: prettyTierName,
                       new_support_level_id: editingUser.selectedTier
                   }).eq('id', existingContrib.id);
              } else {
@@ -212,13 +204,12 @@ const UserManagement = () => {
                       contribution_date: new Date().toISOString(),
                       notes: 'Admin Allocation', 
                       benefit_assigned: true, 
-                      benefit_level: prettyTierName, // Use prettyTierName
+                      benefit_level: prettyTierName, 
                       new_support_level_id: editingUser.selectedTier
                   }).select().single();
                   contributionId = newContrib.id;
              }
 
-             // Actualizar Benefits
              const bPayload = { 
                   user_id: editingUser.id, 
                   new_support_level_id: editingUser.selectedTier, 
@@ -236,14 +227,13 @@ const UserManagement = () => {
                  else await supabase.from('user_benefits').insert(bPayload);
              }
 
-             // Actualizar Métricas (Puntos)
              const totalAward = creditsToAward + bonusPoints;
              if (totalAward > 0) {
                  await supabase.from('impact_credits').insert({ 
                     user_id: editingUser.id, 
                     amount: totalAward, 
                     source: 'tier_assignment', 
-                    description: `Tier Update: ${prettyTierName} (Admin Set)`, // Use prettyTierName
+                    description: `Tier Update: ${prettyTierName} (Admin Set)`,
                     issued_date: new Date().toISOString(),
                     related_support_level_id: editingUser.selectedTier
                  });
@@ -258,7 +248,6 @@ const UserManagement = () => {
                  }, { onConflict: 'user_id' });
              }
 
-             // Actualizar Land Dollar (Monto)
              const ldPayload = {
                   user_id: editingUser.id, 
                   amount: tierData.min_amount, 
@@ -306,32 +295,51 @@ const UserManagement = () => {
     finally { setProcessing(false); setDeletingUser(null); }
   };
 
-  const handleApprovePioneerClick = (user) => { setApprovingPioneer(user); setIsApprovePioneerOpen(true); };
+  // --- LOGICA DE PIONERO (APROBAR / REVOCAR) ---
+  const handlePioneerAction = (user, type) => {
+      setPioneerActionUser(user);
+      setPioneerActionType(type);
+      setIsPioneerModalOpen(true);
+  };
 
-  const confirmApprovePioneer = async () => {
-    if (!approvingPioneer) return;
-    setApproveProcessing(true);
+  const confirmPioneerAction = async () => {
+    if (!pioneerActionUser) return;
+    setProcessing(true);
+    
     try {
-      const { error: updateError } = await supabase.from('founding_pioneer_metrics').update({ founding_pioneer_access_status: 'approved' }).eq('user_id', approvingPioneer.id);
+      const newStatus = pioneerActionType === 'approve' ? 'approved' : 'revoked';
+      
+      const { error: updateError } = await supabase
+        .from('founding_pioneer_metrics')
+        .update({ founding_pioneer_access_status: newStatus })
+        .eq('user_id', pioneerActionUser.id);
+        
       if (updateError) throw updateError;
       
-      await supabase.from('profiles').update({ role: 'startnext_user' }).eq('id', approvingPioneer.id);
+      if (pioneerActionType === 'approve') {
+          await supabase.from('profiles').update({ role: 'startnext_user' }).eq('id', pioneerActionUser.id);
+      }
       
-      toast({ title: "Pioneer Approved! 🚀", description: "User successfully approved.", className: "bg-emerald-600 border-emerald-200 text-white" });
-      setIsApprovePioneerOpen(false);
+      toast({ 
+          title: pioneerActionType === 'approve' ? "Pioneer Approved! 🚀" : "Access Revoked", 
+          description: `User status updated to ${newStatus}.`, 
+          className: pioneerActionType === 'approve' ? "bg-emerald-600 border-emerald-200 text-white" : "bg-red-600 text-white" 
+      });
+      
+      setIsPioneerModalOpen(false);
       fetchAllData();
     } catch (error) {
-      console.error("Approval Error:", error);
+      console.error("Pioneer Action Error:", error);
       toast({ variant: "destructive", title: t('common.error'), description: error.message });
     } finally {
-      setApproveProcessing(false);
-      setApprovingPioneer(null);
+      setProcessing(false);
+      setPioneerActionUser(null);
     }
   };
 
   const handleExportCSV = () => {
     if (!users.length) return;
-    const csvContent = [['ID', 'Name', 'Email', 'Role', 'Genesis', 'Tier', 'IC', 'LandDollar', 'LD Status'].join(",") + "\n" + users.map(u => [u.id, u.name, u.email, u.role, u.genesis_profile, u.tier_name, u.ic_balance, u.has_land_dollar ? 'Yes' : 'No', u.land_dollar_status].join(",")).join("\n")];
+    const csvContent = [['ID', 'Name', 'Email', 'Role', 'Genesis', 'Tier', 'IC', 'LandDollar', 'LD Status', 'Pioneer Status'].join(",") + "\n" + users.map(u => [u.id, u.name, u.email, u.role, u.genesis_profile, u.tier_name, u.ic_balance, u.has_land_dollar ? 'Yes' : 'No', u.land_dollar_status, u.founding_pioneer_access_status].join(",")).join("\n")];
     const link = document.createElement("a");
     link.href = URL.createObjectURL(new Blob(csvContent, { type: 'text/csv;charset=utf-8;' }));
     link.download = `users_export.csv`;
@@ -376,13 +384,14 @@ const UserManagement = () => {
                     const profileKey = user.genesis_profile ? user.genesis_profile.toLowerCase() : 'none';
                     const ProfileIcon = profileIcons[profileKey] || null;
                     const badgeClass = profileColors[profileKey] || profileColors.none;
+                    const isPioneerApproved = user.founding_pioneer_access_status === 'approved';
 
                     return (
                       <tr key={user.id} className="hover:bg-muted/5 transition-colors">
                         <td className="p-4"><div className="flex flex-col"><span className="font-semibold">{user.name || 'Unnamed'}</span><span className="text-xs text-muted-foreground">{user.email}</span></div></td>
                         <td className="p-4"><Badge variant="outline" className={`gap-1 pr-3 capitalize ${badgeClass}`}>{ProfileIcon && <ProfileIcon className="w-3 h-3" />}{user.genesis_profile || 'None'}</Badge></td>
                         <td className="p-4"><Badge variant="outline">{user.role}</Badge></td>
-                        <td className="p-4">{user.founding_pioneer_access_status ? <Badge className={`${user.founding_pioneer_access_status === 'approved' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'} border-0 capitalize`}>{user.founding_pioneer_access_status}</Badge> : <span className="text-gray-300">-</span>}</td>
+                        <td className="p-4">{user.founding_pioneer_access_status ? <Badge className={`${isPioneerApproved ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'} border-0 capitalize`}>{user.founding_pioneer_access_status}</Badge> : <span className="text-gray-300">-</span>}</td>
                         <td className="p-4"><div className="flex items-center gap-1"><Leaf className="w-3 h-3 text-emerald-500"/><span className="text-emerald-700 font-medium">{user.tier_name}</span></div></td>
                         <td className="p-4"><div className="flex items-center gap-1 font-mono"><Coins className="w-3 h-3 text-amber-500"/>{user.ic_balance}</div></td>
                         
@@ -403,11 +412,19 @@ const UserManagement = () => {
                         
                         <td className="p-4 text-right">
                           <div className="flex justify-end gap-1 items-center">
-                            {user.role === 'startnext_user' && user.founding_pioneer_access_status === 'pending' && (
-                              <Button onClick={() => handleApprovePioneerClick(user)} disabled={approveProcessing} className="bg-emerald-600 hover:bg-emerald-700 text-white h-8 px-3 rounded text-sm mr-1" size="sm">
-                                {approveProcessing ? <Loader2 className="w-3 h-3 animate-spin" /> : <Award className="w-3 h-3 mr-1" />} Approve
-                              </Button>
+                            {/* BOTONES DE PIONERO APROBAR/REVOCAR */}
+                            {user.role === 'startnext_user' && (
+                                isPioneerApproved ? (
+                                    <Button onClick={() => handlePioneerAction(user, 'revoke')} disabled={processing} className="bg-red-50 hover:bg-red-100 text-white h-8 px-2 rounded text-xs mr-1 border border-red-200" size="sm" title="Revoke Pioneer Access">
+                                        <XCircle className="w-3 h-3 mr-1" /> Revoke
+                                    </Button>
+                                ) : (
+                                    <Button onClick={() => handlePioneerAction(user, 'approve')} disabled={processing} className="bg-emerald-600 hover:bg-emerald-700 text-white h-8 px-3 rounded text-sm mr-1" size="sm" title="Approve Pioneer Access">
+                                        <Award className="w-3 h-3 mr-1" /> Approve
+                                    </Button>
+                                )
                             )}
+
                             <Button onClick={() => handleEditClick(user)} variant="ghost" size="icon" className="h-8 w-8 text-blue-500"><Edit className="w-4 h-4" /></Button>
                             <Button onClick={() => handleDeleteClick(user)} variant="ghost" size="icon" className="h-8 w-8 text-red-500"><Trash2 className="w-4 h-4" /></Button>
                           </div>
@@ -492,8 +509,28 @@ const UserManagement = () => {
         <DialogContent><DialogHeader><DialogTitle>Delete User?</DialogTitle></DialogHeader><DialogFooter><Button variant="outline" onClick={() => setIsDeleteOpen(false)}>{t('common.cancel')}</Button><Button variant="destructive" onClick={confirmDelete} disabled={processing}>Delete User</Button></DialogFooter></DialogContent>
       </Dialog>
 
-      <Dialog open={isApprovePioneerOpen} onOpenChange={setIsApprovePioneerOpen}>
-        <DialogContent><DialogHeader><DialogTitle>Approve Founding Pioneer</DialogTitle><DialogDescription>Grant Access?</DialogDescription></DialogHeader><DialogFooter><Button variant="outline" onClick={() => setIsApprovePioneerOpen(false)}>{t('common.cancel')}</Button><Button className="bg-emerald-600 text-white" onClick={confirmApprovePioneer} disabled={approveProcessing}>Approve</Button></DialogFooter></DialogContent>
+      {/* MODAL DE CONFIRMACIÓN PIONERO (APROBAR / REVOCAR) */}
+      <Dialog open={isPioneerModalOpen} onOpenChange={setIsPioneerModalOpen}>
+        <DialogContent>
+            <DialogHeader>
+                <DialogTitle>{pioneerActionType === 'approve' ? 'Approve Founding Pioneer' : 'Revoke Pioneer Access'}</DialogTitle>
+                <DialogDescription>
+                    {pioneerActionType === 'approve' 
+                        ? 'This will unlock the Founding Members section for this user.' 
+                        : 'This will lock the Founding Members section. The user will still have Land Dollars and Credits.'}
+                </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+                <Button variant="outline" onClick={() => setIsPioneerModalOpen(false)}>{t('common.cancel')}</Button>
+                <Button 
+                    className={pioneerActionType === 'approve' ? "bg-emerald-600 text-white" : "bg-red-600 text-white"} 
+                    onClick={confirmPioneerAction} 
+                    disabled={processing}
+                >
+                    {pioneerActionType === 'approve' ? 'Confirm Approval' : 'Confirm Revoke'}
+                </Button>
+            </DialogFooter>
+        </DialogContent>
       </Dialog>
     </div>
   );

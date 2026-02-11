@@ -6,16 +6,13 @@ import { supabase } from '@/lib/customSupabaseClient';
  * Fallback: Constantes alineadas con DB (solo si falla la red)
  */
 
-// --- FALLBACK CONSTANTS (Alineadas con tu DB actual para evitar 'Interferencias') ---
+// --- FALLBACK CONSTANTS (Alineadas con tu DB actual) ---
 export const TIER_LEVELS = {
   EXPLORER_LIFELINE: {
-    id: 'bedb258e-9555-4a15-8677-4d6b4b0b4910', // ID real aprox o placeholder
+    id: 'bedb258e-9555-4a15-8677-4d6b4b0b4910',
     slug: 'explorer_lifeline', 
     name: 'Explorer Lifeline',
     minAmount: 97.99,
-    maxAmount: Infinity,
-    currency: 'EUR',
-    icReward: 100, // Valor fallback (será ignorado por la lógica dinámica)
     description: 'Maximum impact for true pioneers.'
   },
   EXPLORER_RIVERBED: {
@@ -23,9 +20,6 @@ export const TIER_LEVELS = {
     slug: 'explorer_riverbed',
     name: 'Explorer Riverbed',
     minAmount: 49.99,
-    maxAmount: 97.98,
-    currency: 'EUR',
-    icReward: 50,
     description: 'Deepening the flow of support.'
   },
   EXPLORER_MOUNTAIN_STREAM: {
@@ -33,9 +27,6 @@ export const TIER_LEVELS = {
     slug: 'explorer_mountain_stream',
     name: 'Explorer Mountain Stream',
     minAmount: 14.99,
-    maxAmount: 49.98,
-    currency: 'EUR',
-    icReward: 15,
     description: 'Steady support for the ecosystem.'
   },
   EXPLORER_MOUNTAIN_SPRING: {
@@ -43,18 +34,31 @@ export const TIER_LEVELS = {
     slug: 'explorer_mountain_spring',
     name: 'Explorer Mountain Spring',
     minAmount: 5.00,
-    maxAmount: 14.98,
-    currency: 'EUR',
-    icReward: 5,
     description: 'The source of all growth.'
   }
+};
+
+// --- NUEVA LÓGICA DE NEGOCIO ---
+
+/**
+ * Calcula los créditos dinámicos basados en el multiplicador oficial.
+ * Regla: 1 Euro = 200 (Bonos).
+ * @param {number|string} amount 
+ * @returns {number} 
+ */
+export const calculateDynamicCredits = (amount) => {
+    const val = parseFloat(amount);
+    if (isNaN(val) || val < 0) return 0;
+    
+    const MULTIPLIER = 200; // Regla de Negocio: x200
+    
+    return Math.floor(val * MULTIPLIER);
 };
 
 // --- FUNCIONES ASÍNCRONAS (LÓGICA PRINCIPAL CON DB) ---
 
 /**
  * Obtiene todos los niveles de soporte activos directamente desde Supabase.
- * @returns {Promise<Array>} Lista ordenada de niveles
  */
 export const fetchSupportLevelsForLogic = async () => {
   try {
@@ -66,18 +70,17 @@ export const fetchSupportLevelsForLogic = async () => {
 
     if (error) {
       console.error('[TierLogic] Error fetching support levels:', error);
-      return getAllTiers(); // Fallback a constantes si falla la DB
+      return Object.values(TIER_LEVELS).sort((a, b) => a.minAmount - b.minAmount);
     }
     return Array.isArray(data) ? data : [];
   } catch (err) {
     console.error('[TierLogic] Unexpected error in fetchSupportLevelsForLogic:', err);
-    return getAllTiers(); // Fallback
+    return Object.values(TIER_LEVELS).sort((a, b) => a.minAmount - b.minAmount);
   }
 };
 
 /**
- * Encuentra el ID del nivel adecuado para un monto dado consultando la DB.
- * Es la función maestra para determinar qué nivel le toca a una contribución.
+ * Compara el monto contra min_amount para encontrar el tier más alto elegible.
  * @param {number|string} amount 
  * @returns {Promise<string|null>} ID del nivel o null
  */
@@ -89,10 +92,10 @@ export const getSupportLevelByAmount = async (amount) => {
     const levels = await fetchSupportLevelsForLogic();
     if (levels.length === 0) return null;
     
-    // Ordenar por monto mínimo ascendente para asegurar lógica de rangos
+    // Ordenar por monto mínimo ascendente
     const sortedLevels = levels.sort((a, b) => (parseFloat(a.min_amount) || 0) - (parseFloat(b.min_amount) || 0));
     
-    // Encontrar el nivel más alto que el monto satisface
+    // Encontrar el nivel más alto que el monto satisface (Lógica de "Floor")
     const eligibleLevels = sortedLevels.filter(level => val >= (parseFloat(level.min_amount) || 0));
     const match = eligibleLevels.length > 0 ? eligibleLevels[eligibleLevels.length - 1] : null;
     
@@ -104,14 +107,13 @@ export const getSupportLevelByAmount = async (amount) => {
 };
 
 /**
- * Obtiene detalles completos de un nivel para mostrar en el frontend (Simulador/Dashboard).
- * Incluye traducciones y recompensas dinámicas.
+ * Obtiene detalles completos de un nivel para mostrar en el frontend.
  * @param {string} levelId 
  * @param {string} languageCode 
  * @returns {Promise<object>}
  */
 export const getVariantDetails = async (levelId, languageCode = 'en') => {
-  if (!levelId) return { variant_title: 'Unknown', logical_name: 'Unknown', min_amount: 0 };
+  if (!levelId) return null;
 
   try {
     const { data: level, error } = await supabase
@@ -124,9 +126,6 @@ export const getVariantDetails = async (levelId, languageCode = 'en') => {
       .single();
 
     if (error) {
-       if (error.code !== 'PGRST116') {
-         console.warn('[TierLogic] DB Error in getVariantDetails:', error.message);
-       }
        const fallback = Object.values(TIER_LEVELS).find(t => t.id === levelId);
        if (fallback) {
            return {
@@ -135,11 +134,10 @@ export const getVariantDetails = async (levelId, languageCode = 'en') => {
                variant_title: fallback.name,
                logical_name: fallback.slug.replace(/_/g, ' '),
                min_amount: fallback.minAmount,
-               impact_credits_reward: fallback.icReward,
                land_dollars_reward: 0
            };
        }
-       return { variant_title: 'Unknown Tier', logical_name: 'Unknown', min_amount: 0 };
+       return null;
     }
 
     const safeLang = typeof languageCode === 'string' ? languageCode.split('-')[0] : 'en';
@@ -152,65 +150,23 @@ export const getVariantDetails = async (levelId, languageCode = 'en') => {
       id: level.id,
       slug: level.slug || 'unknown_slug',
       variant_title: translation?.name || level.slug || 'Unknown',
-      logical_name: (level.slug || '').replace(/_/g, ' ').replace(/-/g, ' '), 
+      logical_name: (level.slug || '').replace(/_/g, ' ').replace(/-/g, ' ').replace('explorer', '').trim(), 
       min_amount: level.min_amount || 0,
       description: translation?.description || '',
-      impact_credits_reward: level.impact_credits_reward || 0,
       land_dollars_reward: level.land_dollars_reward || 0
     };
   } catch (err) {
     console.error('[TierLogic] Critical error in getVariantDetails:', err);
-    return { variant_title: 'Error', logical_name: 'Error', min_amount: 0 };
+    return null;
   }
 };
 
-/**
- * NUEVA LÓGICA: Calcula los créditos dinámicos basados en un multiplicador.
- * Regla: 1 Euro = 200 Impact Credits (Bonos).
- * Esta función asegura que el simulador y el backend (si se replicara lógica) estén alineados.
- */
-export const calculateDynamicCredits = (amount) => {
-    const val = parseFloat(amount);
-    if (isNaN(val) || val < 0) return 0;
-    
-    const MULTIPLIER = 200; // Regla de Negocio: x200
-    
-    return Math.floor(val * MULTIPLIER);
-};
+// --- FUNCIONES DE SOPORTE LEGACY / HELPERS ---
 
-// --- FUNCIONES DE SOPORTE (SYNC / LEGACY COMPATIBILITY) ---
-
-export const getDefaultTier = () => TIER_LEVELS.EXPLORER_MOUNTAIN_SPRING;
-
-export const isTierValid = (tier) => {
-  return tier && typeof tier === 'object' && typeof tier.slug === 'string';
-};
-
-export const getAllTiers = () => {
-  return Object.values(TIER_LEVELS).sort((a, b) => a.minAmount - b.minAmount);
-};
-
-export const getTierByAmount = (amount) => {
-  const val = parseFloat(amount);
-  if (isNaN(val) || val < 5.00) return null;
-
-  if (val >= TIER_LEVELS.EXPLORER_LIFELINE.minAmount) return TIER_LEVELS.EXPLORER_LIFELINE;
-  if (val >= TIER_LEVELS.EXPLORER_RIVERBED.minAmount) return TIER_LEVELS.EXPLORER_RIVERBED;
-  if (val >= TIER_LEVELS.EXPLORER_MOUNTAIN_STREAM.minAmount) return TIER_LEVELS.EXPLORER_MOUNTAIN_STREAM;
-  if (val >= TIER_LEVELS.EXPLORER_MOUNTAIN_SPRING.minAmount) return TIER_LEVELS.EXPLORER_MOUNTAIN_SPRING;
-  
-  return null;
-};
-
-export const getTierBySlug = (slug) => {
-  if (!slug) return null;
-  const normalizedSlug = slug.replace(/-/g, '_').toLowerCase(); 
-  return Object.values(TIER_LEVELS).find(t => t.slug === normalizedSlug) || null;
-};
-
-export const formatTierName = (slug) => {
-    if (!slug) return 'Standard';
-    return slug.replace(/explorer[-_]/i, '') 
-               .replace(/[-_]/g, ' ')        
-               .replace(/\b\w/g, l => l.toUpperCase()); 
+export const getVariantIconName = (slug) => {
+    if (!slug) return 'mountain-spring';
+    if (slug.includes('lifeline')) return 'lifeline';
+    if (slug.includes('river')) return 'riverbed';
+    if (slug.includes('stream')) return 'mountain-stream';
+    return 'mountain-spring';
 };

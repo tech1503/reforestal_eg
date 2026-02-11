@@ -136,7 +136,7 @@
       "contribution_level": "Nivel de Contribución",
       "included_benefits": "Beneficios Incluidos",
       "simulator_hint": "Usa el simulador para ver todos los detalles de este monto.",
-      "support_btn": "Apoyar este Nivel"
+      "support_btn": "Apoyar este Proyecto"
     },
     "pioneer_status": {
       "active": "Estado Activo",
@@ -641,6 +641,7 @@
       "rejected_msg": "Tu solicitud no fue aprobada en este momento. Puedes actualizar tu información e intentarlo de nuevo.",
       "update_btn": "Actualizar Detalles de Aplicación",
       "contact_btn": "Contactar Admin / Reaplicar",
+      "access_denied": "Acceso Denegado",
       "rejected": "Rechazado"
     },
     "header": {

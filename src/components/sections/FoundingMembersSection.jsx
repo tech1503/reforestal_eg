@@ -12,12 +12,10 @@ import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { useTranslation } from 'react-i18next';
 import { Textarea } from '@/components/ui/textarea';
-
-// Componentes de UI
 import FoundingPioneerNotification from '@/components/ui/FoundingPioneerNotification';
 import FoundingPioneerLockedSection from '@/components/ui/FoundingPioneerLockedSection';
 
-// --- MODAL DE APLICACIÓN ---
+
 const ApplicationModal = ({ open, onOpenChange, reason, setReason, onSubmit, isSubmitting }) => {
   const { t } = useTranslation();
   return (
@@ -77,7 +75,7 @@ const FoundingMembersSection = () => {
 
   const isAdmin = profile?.role === 'admin';
 
-  // 1. FETCH DYNAMIC CONTENT (Definido antes para ser dependencia)
+  // 1. FETCH DYNAMIC CONTENT
   const fetchData = useCallback(async (isSilent = false) => {
     try {
         if (!isSilent) setLoading(true);
@@ -111,11 +109,9 @@ const FoundingMembersSection = () => {
 
         if (propsData) {
             const processedProps = propsData.map(p => {
-                // Cálculo dinámico de porcentajes para N opciones
                 const total = p.votes.length;
-                const opts = Array.isArray(p.options) ? p.options : ['Option A', 'Option B']; // Fallback
+                const opts = Array.isArray(p.options) ? p.options : ['Option A', 'Option B'];
                 
-                // Creamos el array de stats dinámico
                 const statsArray = opts.map(optLabel => {
                     const count = p.votes.filter(v => v.vote === optLabel).length;
                     const percent = total === 0 ? 0 : Math.round((count / total) * 100);
@@ -127,7 +123,7 @@ const FoundingMembersSection = () => {
                 return { 
                     ...p, 
                     ...getTrans(p.proposal_translations, p), 
-                    stats: statsArray // Ahora stats es un array, no percentA/B
+                    stats: statsArray
                 };
             });
             setProposals(processedProps);
@@ -152,21 +148,18 @@ const FoundingMembersSection = () => {
   useEffect(() => {
      if (!user) return;
      
-     // Carga inicial de estado
      const checkStatus = async () => {
         const { data } = await supabase.from('founding_pioneer_metrics').select('founding_pioneer_access_status').eq('user_id', user.id).maybeSingle();
         setAccessStatus(data?.founding_pioneer_access_status?.toLowerCase());
         
-        // Si ya está aprobado o es admin, cargamos contenido inicial
         if (profile?.role === 'admin' || data?.founding_pioneer_access_status === 'approved') {
-            fetchData(false); // Carga con spinner
+            fetchData(false);
         } else {
             setLoading(false);
         }
      };
      checkStatus();
 
-     // --- CANALES REALTIME ---
      const statusChannel = supabase.channel(`pioneer_status_${user.id}`)
       .on('postgres_changes', { event: '*', schema: 'public', table: 'founding_pioneer_metrics', filter: `user_id=eq.${user.id}` }, 
         (payload) => {
@@ -181,7 +174,6 @@ const FoundingMembersSection = () => {
         }
       ).subscribe();
 
-      // Escuchar cambios de CONTENIDO (Noticias, Votos, Roadmap)
       const contentChannel = supabase.channel('community_content_realtime')
         .on('postgres_changes', { event: '*', schema: 'public', table: 'proposals' }, () => fetchData(true))
         .on('postgres_changes', { event: '*', schema: 'public', table: 'news_items' }, () => fetchData(true))
@@ -195,7 +187,6 @@ const FoundingMembersSection = () => {
     };
   }, [user, profile?.role, fetchData, t, toast]);
 
-  // Carga inicial de datos si ya está aprobado
   useEffect(() => {
       if (user && (isAdmin || accessStatus === 'approved')) {
           fetchData();
@@ -213,7 +204,9 @@ const FoundingMembersSection = () => {
             message: `User ${profile?.email} requests access. Reason: "${applicationReason}"`,
             status: 'unread'
         });
+        // RESETEAMOS A PENDING PARA QUE APAREZCA EN LA LISTA DE EVALUACIÓN
         await supabase.from('founding_pioneer_metrics').upsert({ user_id: user.id, founding_pioneer_access_status: 'pending' }, { onConflict: 'user_id' });
+        
         setAccessStatus('pending');
         setOpenApplyModal(false);
         toast({ title: t('common.success'), description: t('pioneer.restricted.pending_msg') });
@@ -231,7 +224,6 @@ const FoundingMembersSection = () => {
           
           toast({ title: t('pioneer.toasts.vote_success') });
           setUserVotes(prev => new Set(prev).add(proposalId));
-          // No llamamos a fetchData() aquí porque el Realtime lo hará automáticamente
       } catch (e) {
           toast({ variant: "destructive", title: "Error", description: e.message });
       }
@@ -245,7 +237,8 @@ const FoundingMembersSection = () => {
   if (!isAdmin && accessStatus !== 'approved') {
       
       const isPending = accessStatus === 'pending';
-      const isRejected = accessStatus === 'rejected';
+
+      const isRejected = accessStatus === 'rejected' || accessStatus === 'revoked';
 
       if (isPending || isRejected) {
           return (
@@ -261,17 +254,14 @@ const FoundingMembersSection = () => {
                     className={`relative w-full max-w-5xl overflow-hidden rounded-3xl shadow-2xl border border-white/20 ${
                         isPending 
                             ? 'bg-gradient-to-br from-emerald-400 to-emerald-800' 
-                            : 'bg-gradient-to-br from-red-700 to-rose-900'
+                            : 'bg-gradient-to-br  from-emerald-500 to-emerald-900'
                     }`}
                 >
-                    {/* --- Background Effects --- */}
                     <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
                     <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-72 h-72 bg-black/20 rounded-full blur-3xl pointer-events-none"></div>
                     <div className="absolute inset-0 opacity-[0.05] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] pointer-events-none"></div>
 
                     <div className="relative z-10 flex flex-col md:flex-row items-center p-10 md:p-16 gap-12">
-                        
-                        {/* --- Animated Icon --- */}
                         <div className="flex-shrink-0 relative group">
                             <motion.div 
                                 animate={{ rotate: 360 }}
@@ -292,7 +282,6 @@ const FoundingMembersSection = () => {
                             </motion.div>
                         </div>
 
-                        {/* --- Content --- */}
                         <div className="flex-1 text-center md:text-left space-y-6 text-white">
                             <div>
                                 <Badge className={`mb-4 px-3 py-1 text-xs border-0 backdrop-blur-md ${isPending ? 'bg-amber-400/20 text-amber-100' : 'bg-red-400/20 text-red-100'}`}>
@@ -300,7 +289,7 @@ const FoundingMembersSection = () => {
                                 </Badge>
                                 
                                 <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight drop-shadow-sm">
-                                    {isPending ? t('pioneer.restricted.review_title', 'Application Under Review') : "Access Denied"}
+                                    {isPending ? t('pioneer.restricted.review_title', 'Application Under Review') : t('pioneer.restricted.access_denied', 'Access Denied')}
                                 </h2>
                             </div>
                             
@@ -318,6 +307,8 @@ const FoundingMembersSection = () => {
                                 >
                                     <span className="relative z-10 flex items-center gap-3">
                                         <Edit className="w-5 h-5 text-slate-600" />
+                                        
+                                        {/* Botón cambiará a "Re-Apply" si fue rechazado o revocado */}
                                         {isPending ? t('pioneer.restricted.update_btn', 'Update Application') : t('pioneer.restricted.contact_btn', 'Re-Apply')}
                                     </span>
                                 </Button>
@@ -417,7 +408,7 @@ const FoundingMembersSection = () => {
                                 image_url={prop.image_url} 
                                 hasVoted={userVotes.has(prop.id)}
                                 onVote={(optLabel) => handleVote(prop.id, optLabel)}
-                                options={prop.stats} // Array de { label, percent }
+                                options={prop.stats}
                             />
                         ))}
                     </div>
