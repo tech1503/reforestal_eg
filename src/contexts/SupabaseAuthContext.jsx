@@ -1,8 +1,9 @@
-
 import { useToast } from '@/components/ui/use-toast';
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useNavigate, useLocation } from 'react-router-dom';
+// 1. IMPORTA TU SERVICIO DE REFERIDOS AQUÍ
+import { processReferralOnSignup } from '@/services/referralService'; 
 
 const AuthContext = createContext(undefined);
 
@@ -17,19 +18,13 @@ export const AuthProvider = ({ children }) => {
   
   const mounted = useRef(true);
 
-  // --- Profile Fetching ---
+  // ... (MANTÉN TU CÓDIGO DE fetchProfile y handleAuthRedirect IGUAL QUE ANTES) ...
   const fetchProfile = useCallback(async (userId) => {
     if (!userId) return null;
     try {
       const { data, error } = await supabase
         .from('profiles')
-        .select(`
-            *,
-            users_roles (
-                role_id,
-                roles ( name )
-            )
-        `)
+        .select(`*, users_roles (role_id, roles ( name ))`)
         .eq('id', userId)
         .maybeSingle();
 
@@ -42,7 +37,6 @@ export const AuthProvider = ({ children }) => {
       
       const fullProfile = { ...data, role: effectiveRole };
       
-      // Update state if it's the current user
       if (mounted.current && session?.user?.id === userId) {
         setProfile(fullProfile);
       }
@@ -54,9 +48,9 @@ export const AuthProvider = ({ children }) => {
     }
   }, [session]);
 
-  // --- Intelligent Redirect ---
   const handleAuthRedirect = useCallback(async (forcedRole = null) => {
-    let role = forcedRole;
+     // ... (MANTÉN TU LÓGICA DE REDIRECCIÓN IGUAL) ...
+     let role = forcedRole;
     
     if (!role) {
         const { data: { user } } = await supabase.auth.getUser();
@@ -77,7 +71,6 @@ export const AuthProvider = ({ children }) => {
     navigate(paths[role] || '/dashboard', { replace: true });
   }, [navigate, location, fetchProfile]);
 
-  // --- Auth Actions ---
   const signIn = useCallback(async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (data?.user) {
@@ -127,6 +120,30 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
       } else if (['SIGNED_IN', 'TOKEN_REFRESHED', 'USER_UPDATED'].includes(event)) {
         setSession(currentSession);
+        
+        // -----------------------------------------------------------
+        // 2. NUEVA LÓGICA AGREGADA: PROCESAR REFERIDOS AUTOMÁTICAMENTE
+        // -----------------------------------------------------------
+        if (event === 'SIGNED_IN' && currentSession?.user) {
+            const storedRefCode = localStorage.getItem('reforestal_ref');
+            
+            if (storedRefCode) {
+                console.log(`[AuthContext] Código de referido detectado (${storedRefCode}). Procesando para usuario ${currentSession.user.id}...`);
+                
+                // Ejecutamos sin await para no bloquear la UI principal
+                processReferralOnSignup(currentSession.user.id, storedRefCode)
+                    .then(() => {
+                        console.log('[AuthContext] Referido procesado correctamente.');
+                        // Limpiamos el código para que no se intente procesar de nuevo en el futuro
+                        localStorage.removeItem('reforestal_ref'); 
+                    })
+                    .catch(err => {
+                        console.error('[AuthContext] Error procesando referido:', err);
+                    });
+            }
+        }
+        // -----------------------------------------------------------
+
         if (currentSession?.user) {
           const p = await fetchProfile(currentSession.user.id);
           setProfile(p);
@@ -139,8 +156,9 @@ export const AuthProvider = ({ children }) => {
       mounted.current = false;
       subscription.unsubscribe();
     };
-  }, []); // Removing fetchProfile from dependency array to avoid loops, as it is stable via useCallback
+  }, []); 
 
+  // ... (MANTÉN EL RESTO DEL COMPONENTE IGUAL) ...
   const value = useMemo(() => ({
     user: session?.user ?? null,
     session,
@@ -150,7 +168,7 @@ export const AuthProvider = ({ children }) => {
     signIn,
     signOut,
     handleAuthRedirect,
-    fetchProfile, // Exposed for external syncing hooks
+    fetchProfile, 
     signUp: async (e, p, n) => supabase.auth.signUp({ email: e, password: p, options: { data: { full_name: n } } }),
     signInWithGoogle: () => supabase.auth.signInWithOAuth({ provider: 'google' }),
     updatePassword: (p) => supabase.auth.updateUser({ password: p }),

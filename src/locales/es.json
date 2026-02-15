@@ -85,7 +85,16 @@
       "download": "Descargar",
       "share": "Compartir",
       "locked_title": "Land Dollar",
-      "link_ref": "Código de Referencia"
+      "link_ref": "Código de Referencia",
+      "processing": "Procesando...",
+      "suspended": "Suspendido",
+      "pending": "Pendiente",
+      "download_started": "Descarga Iniciada",
+      "download_started_desc": "Tu activo digital está listo.",
+      "download_error": "Error de Descarga",
+      "download_error_desc": "No se pudo generar la imagen.",
+      "copy_click": "Clic para copiar enlace",
+      "link_ref_btn": "Enlace Ref"
     },
     "impact_credits_snx": {
       "title": "Bonos Startnext",
@@ -304,19 +313,27 @@
     "labels": {
       "full_name": "Nombre Completo",
       "avatar_url": "URL de Avatar",
-      "bio": "Biografía"
+      "bio": "Biografía",
+      "phone": "Número de Teléfono",
+      "city": "Ciudad",
+      "country": "País"
     },
     "placeholders": {
       "name": "Tu nombre",
       "url": "https://...",
-      "bio": "Cuéntanos sobre ti..."
+      "bio": "Cuéntanos sobre ti...",
+      "phone": "+1 234 567 890",
+      "city": "ej. Madrid",
+      "country": "ej. España"
     },
     "character_count": "caracteres",
+    "change_image_hint": "Haz clic en la imagen para cambiar (Máx 5MB)",
     "gamification_card": {
       "title": "Gamificación",
       "info": "Cuando actualices tu perfil, el sistema de gamificación otorga puntos automáticamente según la configuración del administrador.",
       "tip_label": "Consejo",
-      "tip": "Completa tu perfil con información detallada para maximizar tu puntuación de gamificación."
+      "tip": "Completa tu perfil con información detallada para maximizar tu puntuación de gamificación.",
+      "reward_text": "Actualiza los detalles de tu perfil para ganar puntos de bonificación."
     },
     "buttons": {
       "save": "Guardar Cambios",
@@ -556,7 +573,7 @@
       "confirm": "Confirmar Canje"
     },
     "cta": {
-      "support_startnext": "Ya apoyé en StartNext",
+      "support_startnext": "Ya apoyé en Startnext",
       "sidebar_btn": "¿Apoyaste en Startnext?"
     },
     "stock": {
@@ -777,5 +794,45 @@
     "sending": "Enviando...",
     "success_title": "¡Mensaje Enviado!",
     "success_desc": "Te responderemos en breve."
+  },
+  "startnext_modal": {
+  "title": "Ya apoyé en Startnext",
+  "description": "Por favor proporciona los detalles de tu contribución para verificar y actualizar tu cuenta.",
+  "labels": {
+    "name": "Nombre",
+    "email": "Email",
+    "amount": "Monto de Contribución (€)",
+    "city": "Ciudad (Opcional)",
+    "country": "País (Opcional)",
+    "message": "Mensaje (Opcional)"
+  },
+  "placeholders": {
+    "city": "ej. Madrid",
+    "country": "ej. España",
+    "message": "Cualquier detalle adicional..."
+  },
+  "buttons": {
+    "cancel": "Cancelar",
+    "submit": "Enviar para Verificación",
+    "close": "Cerrar"
+  },
+  "success": {
+    "title": "¡Solicitud Enviada!",
+    "message": "¡Gracias! Tu información ha sido enviada. Activaremos tu cuenta de Explorador en breve."
+  },
+  "errors": {
+    "invalid_amount_title": "Monto Inválido",
+    "invalid_amount_desc": "Por favor ingresa un monto válido.",
+    "submit_error": "No se pudo enviar el registro. Por favor intenta de nuevo."
+  }
+},
+"footer": {
+    "privacy": "Política de Privacidad",
+    "terms": "Términos y Condiciones",
+    "contact": "Contáctanos",
+    "copyright": "Reforestal eG © 2026",
+    "socials": {
+      "instagram": "Visita nuestro Instagram"
+    }
   }
 }

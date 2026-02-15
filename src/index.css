@@ -39,7 +39,7 @@
     --radius: 0.75rem;
   }
 
-  .dark {
+.dark {
     /* --- MODO OSCURO (Estilo Genesis Quest - Deep Emerald Gradient) --- */
 
     /* IMPORTANTE: Fondo base transparente para dejar ver el degradado del body */
@@ -75,11 +75,6 @@
     --border: 172 40% 35%;
     --input: 172 20% 20%;
     --ring: 161 74% 40%;
-  }
-
-  html {
-    font-size: 14px;
-    scroll-behavior: smooth;
   }
 }
 

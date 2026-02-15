@@ -68,7 +68,7 @@ const ProfileSettings = () => {
                 toast({ 
                     variant: "destructive", 
                     title: t('common.error'), 
-                    description: "La imagen debe pesar menos de 2MB." 
+                    description: "Image must be less than 2MB." // Podrías traducir esto también si quieres
                 });
                 return;
             }
@@ -77,7 +77,7 @@ const ProfileSettings = () => {
                 toast({ 
                     variant: "destructive", 
                     title: t('common.error'), 
-                    description: "El archivo debe ser una imagen válida." 
+                    description: "File must be a valid image." 
                 });
                 return;
             }
@@ -157,7 +157,7 @@ const ProfileSettings = () => {
                 await refreshFinancials(); 
                 toast({
                     title: t('common.success'), 
-                    description: `¡Perfil actualizado! Has recibido +${result.creditsAwarded} Bonos.`,
+                    description: `Profile updated! You earned +${result.creditsAwarded} Bonus Points.`, // Puedes ajustar esto para usar traducciones dinámicas si lo deseas
                     className: "bg-emerald-600 text-white border-none"
                 });
             } else {
@@ -260,7 +260,7 @@ const ProfileSettings = () => {
                                 </div>
 
                                 <p className="text-xs text-muted-foreground mt-4 font-medium">
-                                    Click image to change (Max 5MB)
+                                    {t('profile.change_image_hint', 'Click image to change (Max 5MB)')}
                                 </p>
 
                                 <h2 className="text-xl font-bold text-foreground mt-6 mb-1">
@@ -275,7 +275,6 @@ const ProfileSettings = () => {
                                         {profile?.role?.replace('_', ' ') || 'User'}
                                     </Badge>
                                     {profile?.genesis_profile && (() => {
-                                        // LOGICA DINÁMICA DE PERFIL (Para mostrar el badge correcto)
                                         const slug = profile.genesis_profile.toLowerCase();
                                         const pData = getInvestorProfileBySlug(slug);
                                         const label = t(`genesisQuest.profiles.genesis.${slug}.title`, pData?.title || `${profile.genesis_profile} Profile`);
@@ -296,7 +295,7 @@ const ProfileSettings = () => {
                                         </span>
                                     </div>
                                     <p className="text-xs text-amber-700 dark:text-amber-300/80 leading-relaxed">
-                                        Update your profile details to earn bonus credits.
+                                        {t('profile.gamification_card.reward_text', 'Update your profile details to earn bonus credits.')}
                                     </p>
                                 </div>
                             </div>
@@ -323,14 +322,14 @@ const ProfileSettings = () => {
                                                 value={formData.full_name}
                                                 onChange={handleChange}
                                                 className="h-11 bg-background"
-                                                placeholder="Your Name"
+                                                placeholder={t('profile.placeholders.name', 'Your Name')}
                                                 required
                                             />
                                         </div>
 
                                         <div className="space-y-2">
                                             <label className="text-sm font-semibold text-foreground">
-                                                Phone Number
+                                                {t('profile.labels.phone', 'Phone Number')}
                                             </label>
                                             <div className="relative">
                                                 <Phone className="absolute left-3 top-3.5 h-4 w-4 text-muted-foreground" />
@@ -339,7 +338,7 @@ const ProfileSettings = () => {
                                                     value={formData.phone}
                                                     onChange={handleChange}
                                                     className="h-11 pl-10 bg-background"
-                                                    placeholder="+1 234 567 890"
+                                                    placeholder={t('profile.placeholders.phone', '+1 234 567 890')}
                                                 />
                                             </div>
                                         </div>
@@ -349,7 +348,7 @@ const ProfileSettings = () => {
                                     <div className="grid gap-6 md:grid-cols-2">
                                         <div className="space-y-2">
                                             <label className="text-sm font-semibold text-foreground">
-                                                City
+                                                {t('profile.labels.city', 'City')}
                                             </label>
                                             <div className="relative">
                                                 <MapPin className="absolute left-3 top-3.5 h-4 w-4 text-muted-foreground" />
@@ -358,21 +357,21 @@ const ProfileSettings = () => {
                                                     value={formData.city}
                                                     onChange={handleChange}
                                                     className="h-11 pl-10 bg-background"
-                                                    placeholder="Berlin"
+                                                    placeholder={t('profile.placeholders.city', 'e.g. Berlin')}
                                                 />
                                             </div>
                                         </div>
 
                                         <div className="space-y-2">
                                             <label className="text-sm font-semibold text-foreground">
-                                                Country
+                                                {t('profile.labels.country', 'Country')}
                                             </label>
                                             <Input
                                                 name="country"
                                                 value={formData.country}
                                                 onChange={handleChange}
                                                 className="h-11 bg-background"
-                                                placeholder="Germany"
+                                                placeholder={t('profile.placeholders.country', 'e.g. Germany')}
                                             />
                                         </div>
                                     </div>

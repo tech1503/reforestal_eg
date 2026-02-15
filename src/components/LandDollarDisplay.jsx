@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Download, RefreshCw, ExternalLink, Loader2, Ban } from 'lucide-react';
+// 1. IMPORTAR ICONOS NECESARIOS (Copy, Check)
+import { Download, Copy, Check, Loader2, Ban } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -18,9 +19,14 @@ const LandDollarDisplay = ({
   const { t } = useTranslation();
   const { toast } = useToast();
   const [isDownloading, setIsDownloading] = useState(false);
+  
+  // 2. ESTADO PARA EL EFECTO DE COPIADO
+  const [copied, setCopied] = useState(false);
 
   const isSuspended = landDollar?.status === 'suspended' || landDollar?.status === 'blocked';
   const uniqueRef = landDollar?.link_ref || user?.user_metadata?.referral_code || 'PENDING';
+  const displayRef = uniqueRef === 'PENDING' ? t('dashboard.land_dollar.pending') : uniqueRef;
+
   const referralLink = `https://reforest.al/ref/${uniqueRef}`;
 
   const handleDownload = async () => {
@@ -40,11 +46,18 @@ const LandDollarDisplay = ({
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
 
-        toast({ title: "Download Started", description: "Your digital asset is ready." });
+        toast({ 
+            title: t('dashboard.land_dollar.download_started'), 
+            description: t('dashboard.land_dollar.download_started_desc') 
+        });
 
     } catch (error) {
         console.error("Download failed:", error);
-        toast({ variant: "destructive", title: "Download Error", description: "Could not generate image." });
+        toast({ 
+            variant: "destructive", 
+            title: t('dashboard.land_dollar.download_error'), 
+            description: t('dashboard.land_dollar.download_error_desc') 
+        });
     } finally {
         setIsDownloading(false);
     }
@@ -52,10 +65,18 @@ const LandDollarDisplay = ({
 
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(referralLink)}&bgcolor=ffffff&color=1A4231&margin=2`;
 
-  const handleCopyRef = () => {
+  // 3. FUNCIÓN DE COPIADO (Reutilizada y mejorada)
+  const handleCopyLink = () => {
       if (!isSuspended && uniqueRef !== 'PENDING') {
-          navigator.clipboard.writeText(referralLink);
-          toast({ title: "Copied!", description: "Link copied to clipboard." });
+          navigator.clipboard.writeText(referralLink).then(() => {
+              setCopied(true);
+              toast({ 
+                  title: t('common.copied_clipboard'), 
+                  description: referralLink 
+              });
+              // Volver al estado original después de 2 segundos
+              setTimeout(() => setCopied(false), 2000);
+          });
       }
   };
 
@@ -77,7 +98,7 @@ const LandDollarDisplay = ({
         {isSuspended && (
             <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/40 backdrop-blur-sm">
                 <div className="bg-destructive text-destructive-foreground px-6 py-2 rounded-lg font-bold text-xl tracking-widest shadow-2xl border-2 border-red-400 rotate-[-15deg] flex items-center gap-3 transform scale-110">
-                    <Ban className="w-6 h-6" /> SUSPENDED
+                    <Ban className="w-6 h-6" /> {t('dashboard.land_dollar.suspended')}
                 </div>
             </div>
         )}
@@ -92,14 +113,14 @@ const LandDollarDisplay = ({
                     <Tooltip>
                         <TooltipTrigger asChild>
                              <div 
-                                onClick={handleCopyRef}
+                                onClick={handleCopyLink} // Usamos la misma función aquí también
                                 className="bg-emerald-950/90 text-emerald-100 text-[9px] md:text-[10px] font-mono py-0.5 px-2 rounded-full border border-emerald-500/30 truncate max-w-full text-center shadow-md cursor-pointer hover:bg-emerald-800 transition-colors"
                              >
-                                {uniqueRef}
+                                {displayRef}
                              </div>
                         </TooltipTrigger>
                         <TooltipContent>
-                            <p>Click to Copy Link</p>
+                            <p>{t('dashboard.land_dollar.copy_click')}</p>
                         </TooltipContent>
                     </Tooltip>
                 </TooltipProvider>
@@ -111,7 +132,7 @@ const LandDollarDisplay = ({
                  isSuspended ? 'bg-destructive/90 text-destructive-foreground' : 
                  landDollar?.status === 'active' || landDollar?.status === 'issued' ? 'bg-emerald-500/80 text-white' : 'bg-muted/80 text-muted-foreground'
              }`}>
-                {landDollar?.status || 'Active'}
+                {landDollar?.status ? (t(`common.${landDollar.status.toLowerCase()}`) !== `common.${landDollar.status.toLowerCase()}` ? t(`common.${landDollar.status.toLowerCase()}`) : landDollar.status) : t('common.active')}
              </span>
         </div>
       </motion.div>
@@ -122,16 +143,20 @@ const LandDollarDisplay = ({
             disabled={isDownloading || isSuspended} 
             className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg min-w-[200px]"
         >
-            {isDownloading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Processing...</> : <><Download className="w-4 h-4 mr-2" /> {isSuspended ? 'Locked' : t('dashboard.land_dollar.download', 'Download High-Res')}</>}
+            {isDownloading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {t('dashboard.land_dollar.processing')}</> : <><Download className="w-4 h-4 mr-2" /> {isSuspended ? t('common.locked_feature') : t('dashboard.land_dollar.download', 'Download High-Res')}</>}
         </Button>
         
         {!isSuspended && (
              <Button 
                 variant="ghost" 
-                onClick={() => window.open(referralLink, '_blank')} 
-                className="text-emerald-700 hover:bg-emerald-50"
+                onClick={handleCopyLink} 
+                className={`text-emerald-700 hover:bg-emerald-50 transition-all duration-300 ${copied ? 'bg-emerald-100' : ''}`}
              >
-                <ExternalLink className="w-4 h-4 mr-2" /> Link Ref
+                {/* Cambia el icono dinámicamente: Check si copió, Copy si no */}
+                {copied ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />} 
+                
+                {/* Mantiene el texto fijo como pediste, o puedes hacerlo dinámico si prefieres "Copied!" */}
+                {t('dashboard.land_dollar.link_ref_btn')}
             </Button>
         )}
       </div>

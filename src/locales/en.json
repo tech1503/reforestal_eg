@@ -86,7 +86,16 @@
       "download": "Download",
       "share": "Share",
       "locked_title": "Land Dollar",
-      "link_ref": "Reference Code"
+      "link_ref": "Reference Code",
+      "processing": "Processing...",
+      "suspended": "Suspended",
+      "pending": "Pending",
+      "download_started": "Download Started",
+      "download_started_desc": "Your digital asset is ready.",
+      "download_error": "Download Error",
+      "download_error_desc": "Could not generate image.",
+      "copy_click": "Click to Copy Link",
+      "link_ref_btn": "Link Ref"
     },
     "impact_credits_snx": {
       "title": "Startnext Bonus Points",
@@ -305,19 +314,27 @@
     "labels": {
       "full_name": "Full Name",
       "avatar_url": "Avatar URL",
-      "bio": "Bio"
+      "bio": "Bio",
+      "phone": "Phone Number",
+      "city": "City",
+      "country": "Country"
     },
     "placeholders": {
       "name": "Your name",
       "url": "https://...",
-      "bio": "Tell us about yourself..."
+      "bio": "Tell us about yourself...",
+      "phone": "+1 234 567 890",
+      "city": "e.g. Berlin",
+      "country": "e.g. Germany"
     },
     "character_count": "characters",
+    "change_image_hint": "Click image to change (Max 5MB)",
     "gamification_card": {
       "title": "Gamification",
       "info": "When you update your profile, the system automatically awards Bonus Points based on admin configuration.",
       "tip_label": "Tip",
-      "tip": "Complete your profile with detailed information to maximize your score."
+      "tip": "Complete your profile with detailed information to maximize your score.",
+      "reward_text": "Update your profile details to earn bonus point."
     },
     "buttons": {
       "save": "Save Changes",
@@ -557,7 +574,7 @@
       "confirm": "Confirm Exchange"
     },
     "cta": {
-      "support_startnext": "I already provided support at StartNext",
+      "support_startnext": "I already provided support at Startnext",
       "sidebar_btn": "Support on Startnext?"
     },
     "stock": {
@@ -779,5 +796,45 @@
     "sending": "Sending...",
     "success_title": "Message Sent!",
     "success_desc": "We'll get back to you shortly."
+  },
+  "startnext_modal": {
+  "title": "I already supported on Startnext",
+  "description": "Please provide your contribution details so we can verify and upgrade your account.",
+  "labels": {
+    "name": "Name",
+    "email": "Email",
+    "amount": "Contribution Amount (€)",
+    "city": "City (Optional)",
+    "country": "Country (Optional)",
+    "message": "Message (Optional)"
+  },
+  "placeholders": {
+    "city": "e.g. Berlin",
+    "country": "e.g. Germany",
+    "message": "Any additional details..."
+  },
+  "buttons": {
+    "cancel": "Cancel",
+    "submit": "Send for Verification",
+    "close": "Close"
+  },
+  "success": {
+    "title": "Request Submitted!",
+    "message": "Thank you! Your information has been submitted for verification. We will activate your Explorer account shortly."
+  },
+  "errors": {
+    "invalid_amount_title": "Invalid Amount",
+    "invalid_amount_desc": "Please enter a valid contribution amount.",
+    "submit_error": "Could not submit registration. Please try again."
+  }
+},
+"footer": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "contact": "Contact Us",
+    "copyright": "Reforestal eG © 2026",
+    "socials": {
+      "instagram": "Visit our Instagram"
+    }
   }
 }

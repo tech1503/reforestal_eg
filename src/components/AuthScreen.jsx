@@ -12,13 +12,12 @@ import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
 import heroImg1 from '@/assets/hero-home-reforestal.png';
 import { useNavigate } from 'react-router-dom'; 
 import ThemeSwitcher from '@/components/ThemeSwitcher';
-import { processReferralOnSignup } from '@/services/referralService'; 
 
 const AuthScreen = () => {
   const { signIn, signUp, signInWithGoogle } = useAuth();
   const { toast } = useToast();
   const { t } = useTranslation();
-  const navigate = useNavigate(); // Hook para navegar
+  const navigate = useNavigate();
 
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -43,33 +42,11 @@ const AuthScreen = () => {
         const { error } = await signIn(email, password);
         if (error) throw error;
         toast({ title: t('auth.welcome'), description: "Successfully signed in." });
-        // NOTE: No need for navigate('/dashboard') here. 
-        // The state change in Context will trigger the redirect in App.jsx automatically.
       } else {
-        // REGISTRATION FLOW
         const { data, error } = await signUp(email, password, name);
         if (error) throw error;
 
-        // --- REFERRAL LINKING LOGIC ---
-        // If registration was successful, check for a stored referral code
-        if (data?.user) {
-            const storedRefCode = localStorage.getItem('reforestal_ref');
-            
-            if (storedRefCode) {
-                // Execute referral processing in the background
-                // This ensures the UI doesn't freeze while we award points
-                processReferralOnSignup(data.user.id, storedRefCode)
-                    .then(() => {
-                        // Clear the code so it's not reused for another signup on this device
-                        localStorage.removeItem('reforestal_ref');
-                        console.log('Referral processed and storage cleared.');
-                    })
-                    .catch(err => {
-                        console.error('Background referral processing failed:', err);
-                    });
-            }
-        }
-        // ------------------------------
+
 
         toast({ title: "Account created!", description: "Please check your email to confirm your account." });
       }
@@ -97,7 +74,7 @@ const AuthScreen = () => {
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-slate-50 overflow-x-hidden relative">
       
-      {/* BOTÓN HOME (NUEVO - Izquierda Superior) */}
+      {/* BOTÓN HOME */}
       <div className="absolute top-4 left-4 z-50">
         <Button 
             onClick={() => navigate('/')} 
@@ -110,7 +87,7 @@ const AuthScreen = () => {
         </Button>
       </div>
 
-      {/* LANGUAGE SELECTOR (Derecha Superior) */}
+      {/* LANGUAGE SELECTOR */}
       <div className="absolute top-4 right-4 z-50 flex items-center gap-2">
          <ThemeSwitcher className="bg-white/50 backdrop-blur-md hover:bg-white/80 rounded-full shadow-sm text-slate-700 h-10 w-10 border-0" />
          <LanguageSwitcher className="bg-white/50 backdrop-blur-md hover:bg-white/80 rounded-full shadow-sm text-slate-700 h-10 w-auto px-3" />
@@ -119,7 +96,6 @@ const AuthScreen = () => {
       {/* --- BRANDING SECTION (IMAGE) --- */}
       <div className="w-full md:w-1/2 order-1 md:order-2 relative bg-slate-900 flex flex-col items-center justify-center p-8 md:p-12 text-center overflow-hidden min-h-[60vh] md:min-h-screen">
          
-         {/* Background Image/Gradient */}
          <div className="absolute inset-0 bg-gradient-to-br from-[#055b4f] via-[#0f3d36] to-black opacity-90 z-10"></div>
          <img 
             className="absolute inset-0 w-full h-full object-cover z-0" 
@@ -127,7 +103,6 @@ const AuthScreen = () => {
             src={IMAGES.background} 
          />
 
-         {/* Content */}
          <div className="relative z-20 max-w-lg space-y-6">
             <motion.div 
                initial={{ y: 20, opacity: 0 }}
@@ -148,7 +123,6 @@ const AuthScreen = () => {
                {t('auth.branding.description')}
             </motion.p>
 
-            {/* Stats or Social Proof */}
             <motion.div 
                initial={{ scale: 0.9, opacity: 0 }}
                animate={{ scale: 1, opacity: 1 }}
@@ -196,7 +170,6 @@ const AuthScreen = () => {
               
               <form onSubmit={handleSubmit} className="space-y-5 relative z-10">
                  
-                 {/* Name (Register only) */}
                  {!isLogin && (
                     <div className="space-y-2">
                        <Label>{t('auth.name_label')}</Label>
@@ -214,7 +187,6 @@ const AuthScreen = () => {
                     </div>
                  )}
 
-                 {/* Email */}
                  <div className="space-y-2">
                     <Label>{t('auth.email_label')}</Label>
                     <div className="relative">
@@ -230,7 +202,6 @@ const AuthScreen = () => {
                     </div>
                  </div>
 
-                 {/* Password */}
                  <div className="space-y-2">
                     <div className="flex items-center justify-between">
                        <Label>{t('auth.password_label')}</Label>
@@ -308,7 +279,6 @@ const AuthScreen = () => {
         </motion.div>
       </div>
 
-      {/* Modals */}
       <ForgotPasswordModal 
          isOpen={showForgotModal} 
          onClose={() => setShowForgotModal(false)} 

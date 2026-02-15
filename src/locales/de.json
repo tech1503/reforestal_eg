@@ -85,7 +85,16 @@
       "download": "Herunterladen",
       "share": "Teilen",
       "locked_title": "Land Dollar",
-      "link_ref": "Referenzcode"
+      "link_ref": "Referenzcode",
+      "processing": "Verarbeitung...",
+      "suspended": "Suspendiert",
+      "pending": "Ausstehend",
+      "download_started": "Download gestartet",
+      "download_started_desc": "Ihr digitales Asset ist bereit.",
+      "download_error": "Download-Fehler",
+      "download_error_desc": "Bild konnte nicht generiert werden.",
+      "copy_click": "Zum Kopieren klicken",
+      "link_ref_btn": "Link Ref"
     },
     "impact_credits_snx": {
       "title": "Startnext Bonuspunkte",
@@ -304,19 +313,27 @@
     "labels": {
       "full_name": "Vollständiger Name",
       "avatar_url": "Avatar-URL",
-      "bio": "Biografie"
+      "bio": "Biografie",
+      "phone": "Telefonnummer",
+      "city": "Stadt",
+      "country": "Land"
     },
     "placeholders": {
       "name": "Dein Name",
       "url": "https://...",
-      "bio": "Erzähl uns von dir..."
+      "bio": "Erzähl uns von dir...",
+      "phone": "+1 234 567 890",
+      "city": "e.g. Berlin",
+      "country": "e.g. Germany"
     },
     "character_count": "Zeichen",
+    "change_image_hint": "Klicke auf das Bild, um es zu ändern (Max 5MB)",
     "gamification_card": {
       "title": "Gamifizierung",
       "info": "Wenn du dein Profil aktualisierst, vergibt das System automatisch Punkte basierend auf der Admin-Konfiguration.",
       "tip_label": "Tipp",
-      "tip": "Vervollständige dein Profil mit detaillierten Informationen, um Die Bonuspunktzahl zu maximieren."
+      "tip": "Vervollständige dein Profil mit detaillierten Informationen, um Die Bonuspunktzahl zu maximieren.",
+      "reward_text": "Aktualisiere deine Profildetails, um Bonuspunkte zu erhalten."
     },
     "buttons": {
       "save": "Änderungen Speichern",
@@ -556,7 +573,7 @@
       "confirm": "Austausch bestätigen"
     },
     "cta": {
-      "support_startnext": "Ich habe bereits auf StartNext unterstützt",
+      "support_startnext": "Ich habe bereits auf Startnext unterstützt",
       "sidebar_btn": "Haben Sie Startnext unterstützt?"
     },
     "stock": {
@@ -778,5 +795,45 @@
     "sending": "Wird gesendet...",
     "success_title": "Nachricht gesendet!",
     "success_desc": "Wir melden uns in Kürze bei Ihnen."
+  },
+  "startnext_modal": {
+  "title": "Ich habe bereits auf Startnext unterstützt",
+  "description": "Bitte gib deine Beitragsdetails an, damit wir dein Konto überprüfen und aktualisieren können.",
+  "labels": {
+    "name": "Name",
+    "email": "E-Mail",
+    "amount": "Beitragshöhe (€)",
+    "city": "Stadt (Optional)",
+    "country": "Land (Optional)",
+    "message": "Nachricht (Optional)"
+  },
+  "placeholders": {
+    "city": "z.B. Berlin",
+    "country": "z.B. Deutschland",
+    "message": "Zusätzliche Details..."
+  },
+  "buttons": {
+    "cancel": "Abbrechen",
+    "submit": "Zur Überprüfung senden",
+    "close": "Schließen"
+  },
+  "success": {
+    "title": "Anfrage gesendet!",
+    "message": "Danke! Deine Informationen wurden gesendet. Wir werden dein Explorer-Konto in Kürze aktivieren."
+  },
+  "errors": {
+    "invalid_amount_title": "Ungültiger Betrag",
+    "invalid_amount_desc": "Bitte gib einen gültigen Betrag ein.",
+    "submit_error": "Registrierung konnte nicht gesendet werden. Bitte versuche es erneut."
+  }
+},
+"footer": {
+    "privacy": "Datenschutz",
+    "terms": "AGB",
+    "contact": "Kontakt",
+    "copyright": "Reforestal eG © 2026",
+    "socials": {
+      "instagram": "Besuche unser Instagram"
+    }
   }
 }
