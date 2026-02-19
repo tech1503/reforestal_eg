@@ -657,7 +657,7 @@
       "review_title": "Bewerbung wird geprüft",
       "pending_msg": "Wir prüfen Ihr Profil sorgfältig.",
       "rejected_msg": "Ihre Bewerbung wurde dieses Mal nicht genehmigt. Sie können Ihre Angaben aktualisieren und es erneut versuchen.",
-      "update_btn": "Bewerbungsdetails aktualisieren",
+      "update_btn": "Erneut bewerben",
       "contact_btn": "Admin kontaktieren / erneut bewerben",
       "access_denied": "Zugriff verweigert",
       "rejected": "Abgelehnt"
@@ -778,6 +778,36 @@
     "mark_all_read": "Alle als gelesen markieren",
     "mark_read": "Als gelesen markieren",
     "empty": "Du bist auf dem neuesten Stand!"
+  },
+  "notifications": {
+    "points_earned": {
+      "title": "¡Bonuspunkte erhalten!",
+      "message": "Herzlichen Glückwunsch! Sie haben {{points}} Bonuspunkte für folgende Aktion erhalten: {{action}}."
+    },
+    "welcome": {
+      "title": "¡Willkommen bei Reforestal!",
+      "message": "Hallo {{name}}, wir freuen uns, Sie in unserer Community begrüßen zu dürfen."
+    },
+    "level_up": {
+      "title": "¡Glückwunsch!",
+      "message": "Glückwunsch, du bist jetzt {{newLevel}}."
+    },
+    "admin_new_action": {
+      "title": "Neue Admin-Aktion",
+      "message": "Der Benutzer {{userName}} hat folgende Aktion durchgeführt: {{action}}."
+    } ,
+    "snx_approved": {
+      "title": "¡Konto aktiviert!",
+      "message": "Ihr Konto wurde verifiziert. Sie haben Stufe {{level}} erreicht."
+    },
+    "new_referral": {
+      "title": "¡Neuer Nutzer in Ihrem Netzwerk registriert!",
+      "message": "Jemand hat sich mit Ihrem Code registriert. Sie haben {{points}} Bonuspunkte erhalten."
+    },
+    "admin_direct_reply": {
+      "title": "Antwort von Admin",
+      "message": "{{replyText}}"
+    }
   },
   "contact": {
     "title": "Kontaktieren Sie uns",

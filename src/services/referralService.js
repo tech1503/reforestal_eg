@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/customSupabaseClient';
+import { createNotification } from '@/utils/notificationUtils';
 
 export const processReferralOnSignup = async (newUserId, refCode) => {
   if (!newUserId || !refCode) return;
@@ -18,6 +19,17 @@ export const processReferralOnSignup = async (newUserId, refCode) => {
 
     if (data?.success) {
         console.log(`[ReferralService] Success. Referrer ${data.referrer_id} rewarded with ${data.points_awarded} IC.`);
+        
+        await createNotification(
+            data.referrer_id,
+            'notifications.new_referral.title',
+            'notifications.new_referral.message',
+            { points: data.points_awarded },
+            'success',
+            null, 
+            newUserId 
+        );
+
     } else {
         console.warn('[ReferralService] Referral Logic Skipped:', data?.message);
     }

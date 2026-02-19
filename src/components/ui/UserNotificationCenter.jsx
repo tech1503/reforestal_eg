@@ -4,19 +4,18 @@ import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Bell, Check, Loader2, Sparkles } from 'lucide-react'; // Eliminado Trash2
+import { Bell, Check, Loader2, Sparkles } from 'lucide-react';
 import { format } from 'date-fns';
-import { useTranslation } from 'react-i18next'; // Añadido hook de traducción
+import { useTranslation } from 'react-i18next';
 
 const UserNotificationCenter = () => {
     const { user } = useAuth();
-    const { t } = useTranslation(); // Inicializar traducción
+    const { t } = useTranslation();
     const [notifications, setNotifications] = useState([]);
     const [unreadCount, setUnreadCount] = useState(0);
     const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
-    // CORRECCIÓN 1: Envolver en useCallback para estabilidad
     const fetchNotifications = useCallback(async () => {
         setLoading(true);
         const { data } = await supabase
@@ -33,7 +32,6 @@ const UserNotificationCenter = () => {
         setLoading(false);
     }, [user]);
 
-    // CORRECCIÓN 1: fetchNotifications ahora es dependencia segura
     useEffect(() => {
         if (!user) return;
         fetchNotifications();
@@ -107,13 +105,17 @@ const UserNotificationCenter = () => {
                                 >
                                     <div className="flex justify-between items-start mb-2">
                                         <h4 className={`text-sm ${n.is_read ? 'font-medium text-gray-700' : 'font-bold text-emerald-900'}`}>
-                                            {n.title}
+
+                                            {t(n.title, n.metadata || {})} 
                                         </h4>
                                         <span className="text-[10px] text-gray-400 whitespace-nowrap ml-2">
                                             {format(new Date(n.created_at), 'MMM d, HH:mm')}
                                         </span>
                                     </div>
-                                    <p className="text-sm text-gray-600 mb-3">{n.message}</p>
+
+                                    <p className="text-sm text-gray-600 mb-3">
+                                        {t(n.message, n.metadata || {})}
+                                    </p>
                                     {!n.is_read && (
                                         <div className="flex justify-end">
                                             <Button 

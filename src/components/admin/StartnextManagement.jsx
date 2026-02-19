@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Search, Plus, Trash2, Mail, Loader2, UserPlus, Eye, Info, Edit, MoreVertical, CheckCircle2 } from 'lucide-react';
+import { Search, Plus, Trash2, Mail, Loader2, Eye, Info, Edit, MoreVertical, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { generateLandDollarWithQR } from '@/utils/landDollarQRRenderer';
 import { useI18n } from '@/contexts/I18nContext';
 import { validateContributionForm } from '@/utils/validationUtils';
@@ -17,6 +17,7 @@ import { safeSupabaseCall } from '@/utils/supabaseErrorHandler';
 import { format } from 'date-fns';
 import { getSupportLevelByAmount, getVariantDetails } from '@/utils/tierLogicUtils';
 import StartnextEditModal from './financials/StartnextEditModal';
+import { createNotification } from '@/utils/notificationUtils';
 
 const StartnextManagement = () => {
   const { toast } = useToast();
@@ -37,7 +38,7 @@ const StartnextManagement = () => {
   
   // Form States
   const [userMode, setUserMode] = useState('manual');
-  const [createAccount, setCreateAccount] = useState(true); // Default to creating account
+  const [createAccount, setCreateAccount] = useState(true); 
   const [manualUser, setManualUser] = useState({
     full_name: '',
     email: '',
@@ -149,7 +150,7 @@ const StartnextManagement = () => {
         }
     };
 
-    const timer = setTimeout(calc, 400); // Debounce
+    const timer = setTimeout(calc, 400);
     return () => clearTimeout(timer);
   }, [formData.contribution_amount, currentLanguage]);
 
@@ -298,6 +299,14 @@ const StartnextManagement = () => {
               status: 'active',
               benefit_level_id: '00000000-0000-0000-0000-000000000000' 
           });
+
+          await createNotification(
+              finalUserId,
+              'notifications.snx_approved.title',
+              'notifications.snx_approved.message',
+              { level: calculatedVariant.variant_title },
+              'success'
+          );
       }
 
       toast({ 
@@ -327,7 +336,7 @@ const StartnextManagement = () => {
       const { error } = await supabase.from('startnext_contributions').delete().eq('id', deleteTargetId);
       if(error) throw error;
       toast({description: "Deleted"});
-      // fetchData called automatically by realtime
+      
     } catch (err) {
       toast({variant: 'destructive', description: err.message});
     } finally {

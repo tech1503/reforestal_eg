@@ -658,7 +658,7 @@
       "review_title": "Application Under Review",
       "pending_msg": "We are reviewing your profile carefully.",
       "rejected_msg": "Your application was not approved at this time. You may update your information and try again.",
-      "update_btn": "Update Application Details",
+      "update_btn": "Apply again",
       "contact_btn": "Contact Admin / Re-apply",
       "access_denied": "Access Denied",
       "rejected": "Rejected"
@@ -779,6 +779,36 @@
     "mark_all_read": "Mark all read",
     "mark_read": "Mark Read",
     "empty": "You're all caught up!"
+  },
+  "notifications": {
+    "points_earned": {
+      "title": "¡Bonus Points Earned!",
+      "message": "Congratulations, you have earned {{points}} bonus points for: {{action}}."
+    },
+    "welcome": {
+      "title": "Welcome to Reforestal!",
+      "message": "Hello {{name}}, we're glad to have you in our community."
+    },
+    "level_up": {
+      "title": "Congratulations!",
+      "message": "Congratulations, you are now {{newLevel}}."
+    },
+    "admin_new_action": {
+      "title": "New Admin Action",
+      "message": "The user {{userName}} has performed: {{action}}."
+    },
+    "snx_approved": {
+      "title": "¡Account Activated!",
+      "message": "Your account has been verified. You have reached: {{level}}."
+    },
+    "new_referral": {
+      "title": "¡New user registered in your network!",
+      "message": "Someone registered with your code. You have earned {{points}} bonus points."
+    },
+    "admin_direct_reply": {
+      "title": "Administrator's response",
+      "message": "{{replyText}}"
+    }
   },
     "contact": {
     "title": "Get in Touch",

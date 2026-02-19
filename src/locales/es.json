@@ -656,7 +656,7 @@
       "review_title": "Aplicación en Revisión",
       "pending_msg": "Estamos revisando tu perfil cuidadosamente.",
       "rejected_msg": "Tu solicitud no fue aprobada en este momento. Puedes actualizar tu información e intentarlo de nuevo.",
-      "update_btn": "Actualizar Detalles de Aplicación",
+      "update_btn": "Aplicar nuevamente",
       "contact_btn": "Contactar Admin / Reaplicar",
       "access_denied": "Acceso Denegado",
       "rejected": "Rechazado"
@@ -777,6 +777,36 @@
     "mark_all_read": "Marcar todo como leído",
     "mark_read": "Marcar como Leído",
     "empty": "¡Estás al día con todas las notificaciones!"
+  },
+  "notifications": {
+    "points_earned": {
+      "title": "¡Bonos Obtenidos!",
+      "message": "Felicidades, has ganado {{points}} bonos por: {{action}}."
+    },
+    "welcome": {
+      "title": "¡Bienvenido a Reforestal!",
+      "message": "Hola {{name}}, nos alegra tenerte en nuestra comunidad."
+    },
+    "level_up": {
+      "title": "¡En hora buena!",
+      "message": "Felicidades, ahora eres {{newLevel}}."
+    },
+    "admin_new_action": {
+      "title": "Nueva Actividad de Usuario",
+      "message": "El usuario {{userName}} ha realizado: {{action}}."
+    },
+    "snx_approved": {
+      "title": "¡Cuenta Activada!",
+      "message": "Tu cuenta ha sido verificada. Has alcanzado: {{level}}."
+    },
+    "new_referral": {
+      "title": "¡Nuevo usuario registrado en tu red!",
+      "message": "Alguien se registró con tu código. Has ganado {{points}} bonos."
+    },
+    "admin_direct_reply": {
+      "title": "Respuesta del Administrador",
+      "message": "{{replyText}}"
+    }
   },
     "contact": {
     "title": "Contáctanos",

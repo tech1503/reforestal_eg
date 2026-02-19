@@ -656,7 +656,7 @@
       "review_title": "Application en cours d'examen",
       "pending_msg": "Nous examinons votre profil attentivement.",
       "rejected_msg": "Votre candidature n'a pas été approuvée pour le moment. Vous pouvez mettre à jour vos informations et réessayer.",
-      "update_btn": "Mettre à jour les détails de la candidature",
+      "update_btn": "Postuler à nouveau",
       "contact_btn": "Contacter l'Admin / Ré-apply",
       "access_denied": "Accès refusé",
       "rejected": "Rejetée"
@@ -777,6 +777,36 @@
     "mark_all_read": "Tout marquer comme lu",
     "mark_read": "Marquer comme lu",
     "empty": "Vous êtes à jour !"
+  },
+  "notifications": {
+    "points_earned": {
+      "title": "¡Bonus gagnés !",
+      "message": "Félicitations, vous avez gagné {{points}} points bonus pour : {{action}}."
+    },
+    "welcome": {
+      "title": "¡Bienvenue sur Reforestal!",
+      "message": "Bonjour {{name}}, nous sommes ravis de vous accueillir dans notre communauté."
+    },
+    "level_up": {
+      "title": "¡Félicitations!",
+      "message": "Félicitations, vous êtes maintenant {{newLevel}}."
+    },
+    "admin_new_action": {
+      "title": "Activité d'un nouvel utilisateur",
+      "message": "L'utilisateur {{userName}} a effectué l'action: {{action}}."
+    },
+    "snx_approved": {
+      "title": "¡Compte activé !",
+      "message": "Votre compte a été vérifié. Vous avez atteint le niveau {{level}}."
+    },
+    "new_referral": {
+      "title": "¡Nouvel utilisateur enregistré dans votre réseau!",
+      "message": "Une personne s'est inscrite avec votre code. Vous avez gagné {{points}} points bonus."
+    },
+    "admin_direct_reply": {
+      "title": "Réponse de l'administrateur",
+      "message": "{{replyText}}"
+    }
   },
   "contact": {
   "title": "Contactez-nous",

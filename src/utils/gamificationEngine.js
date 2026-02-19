@@ -2,7 +2,7 @@ import { supabase } from '@/lib/customSupabaseClient';
 import { createNotification } from '@/utils/notificationUtils';
 
 /**
- * Gamification Engine - Version Final + i18n
+ * Gamification Engine 
  */
 
 const GAMIFICATION_ACTION_TABLE = 'gamification_actions';
@@ -10,42 +10,8 @@ const GAMIFICATION_HISTORY_TABLE = 'gamification_history';
 const IMPACT_CREDITS_TABLE = 'impact_credits';
 const FOUNDING_PIONEER_METRICS_TABLE = 'founding_pioneer_metrics';
 
-// --- DICCIONARIO DE FALLBACKS (Si no hay traducción en DB) ---
-const FALLBACK_MESSAGES = {
-    en: "You just earned {credits} Bonus Points for {action}.",
-    es: "¡Acabas de ganar {credits} Bonos por: {action}!",
-    de: "Du hast gerade {credits} Bonuspunkte für {action} erhalten.",
-    fr: "Vous venez de gagner {credits} Bonus Points pour {action}."
-};
-
 /**
- * Busca el mensaje de éxito traducido en la base de datos.
- */
-async function getTranslatedSuccessMessage(actionId, isDynamic, languageCode) {
-    if (!actionId) return null;
-    
-    // Normalizamos el código de idioma (ej: 'es-ES' -> 'es')
-    const lang = languageCode ? languageCode.split('-')[0] : 'en';
-    const tableName = isDynamic ? 'genesis_mission_translations' : 'gamification_action_translations';
-    const idField = isDynamic ? 'genesis_mission_id' : 'gamification_action_id';
-
-    try {
-        const { data } = await supabase
-            .from(tableName)
-            .select('success_message')
-            .eq(idField, actionId)
-            .eq('language_code', lang)
-            .maybeSingle();
-            
-        return data?.success_message || null;
-    } catch (e) {
-        console.warn("Translation fetch failed", e);
-        return null;
-    }
-}
-
-/**
- * Busca acción en DB
+ * Busc en DB
  */
 async function getActiveActionBySystemBinding(systemBinding) {
     if (!systemBinding) return null;
@@ -84,7 +50,7 @@ async function logGamificationHistory(userId, action, creditsAwarded, notes = nu
 }
 
 /**
- * Transacción de Créditos (Dispara Triggers)
+ *  (Dispara Triggers)
  */
 async function awardImpactCredits(userId, amount, source, description, relatedSupportLevelId = null) {
     if (!userId || amount <= 0) return;
@@ -107,15 +73,14 @@ async function awardImpactCredits(userId, amount, source, description, relatedSu
 }
 
 /**
- * EJECUTOR PRINCIPAL (CON SOPORTE i18n)
+ * EJECUTOR PRINCIPAL (CON SOPORTE i18n JSON)
  */
 export async function executeGamificationAction(userId, systemBinding, options = {}) {
     const { 
         customCreditValue, 
         preventNotification = false, 
         notes, 
-        dynamicAction,
-        languageCode = 'en' // Nuevo parámetro
+        dynamicAction
     } = options;
 
     if (!userId) return { success: false, message: 'Missing User ID' };
@@ -150,29 +115,16 @@ export async function executeGamificationAction(userId, systemBinding, options =
         const displayTitle = action.action_title || action.title || action.name || 'Reward';
         const sourceType = action.source_event || (isDynamic ? 'quest_completion' : 'gamification');
 
-        // Ejecución Secuencial
         await logGamificationHistory(userId, action, creditsToAward, notes, isDynamic);
         await awardImpactCredits(userId, creditsToAward, sourceType, displayTitle);
 
-        // NOTIFICACIÓN INTELIGENTE CON TRADUCCIÓN
         if (!preventNotification) {
-            // 1. Buscar mensaje personalizado en DB
-            let userMessage = await getTranslatedSuccessMessage(action.id, isDynamic, languageCode);
-            
-            // 2. Si no hay custom, usar fallback
-            if (!userMessage) {
-                const lang = languageCode.split('-')[0];
-                const template = FALLBACK_MESSAGES[lang] || FALLBACK_MESSAGES['en'];
-                userMessage = template
-                    .replace('{credits}', creditsToAward)
-                    .replace('{action}', displayTitle);
-            }
-
             await createNotification(
                 userId,
-                'Bonus Earned! 🚀', // Título genérico (o podrías traducirlo también)
-                userMessage,
-                'bonus'
+                'notifications.points_earned.title',   
+                'notifications.points_earned.message', 
+                { points: creditsToAward, action: displayTitle }, 
+                'gamification'
             );
         }
 

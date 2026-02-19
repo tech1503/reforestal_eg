@@ -8,6 +8,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { useTranslation } from 'react-i18next';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
+import { createNotification } from '@/utils/notificationUtils'; 
 
 const AdminNotificationCenter = () => {
     const { t } = useTranslation(); 
@@ -15,7 +16,6 @@ const AdminNotificationCenter = () => {
     const [notifications, setNotifications] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // Estados para Responder (Reply)
     const [replyModalOpen, setReplyModalOpen] = useState(false);
     const [selectedNotification, setSelectedNotification] = useState(null);
     const [replyText, setReplyText] = useState("");
@@ -49,7 +49,6 @@ const AdminNotificationCenter = () => {
     useEffect(() => {
         fetchNotifications();
 
-        // FIX LINTER: '_payload' indica variable no usada intencionalmente
         const channel = supabase.channel('admin_notifications_global')
             .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'notifications' }, (_payload) => {
                 fetchNotifications();
@@ -62,7 +61,7 @@ const AdminNotificationCenter = () => {
             .subscribe();
 
         return () => supabase.removeChannel(channel);
-    }, [fetchNotifications, t, toast]); // FIX DEPS: Dependencias completas
+    }, [fetchNotifications, t, toast]); 
 
     const markAsRead = async (id) => {
         await supabase.from('notifications').update({ is_read: true }).eq('id', id);
@@ -85,16 +84,14 @@ const AdminNotificationCenter = () => {
         setSendingReply(true);
 
         try {
-            const { error } = await supabase.from('notifications').insert({
-                user_id: selectedNotification.user_id,
-                title: t('admin.notifications.types.admin_reply', 'Admin Response'),
-                message: replyText,
-                notification_type: 'admin_reply',
-                is_read: false,
-                created_at: new Date().toISOString()
-            });
-
-            if (error) throw error;
+            // AHORA USAMOS EL SISTEMA MULTILINGÜE PARA EL MENSAJE MANUAL DEL ADMIN
+            await createNotification(
+                selectedNotification.user_id,
+                'notifications.admin_direct_reply.title', 
+                'notifications.admin_direct_reply.message', 
+                { replyText: replyText }, 
+                'admin_reply'
+            );
 
             await markAsRead(selectedNotification.id);
 
@@ -171,6 +168,14 @@ const AdminNotificationCenter = () => {
                             const styles = getTypeStyles(n.notification_type);
                             const badgeLabel = t(styles.labelKey, n.notification_type?.replace(/_/g, ' ') || 'System');
 
+                            // PARSEO DE METADATA IGUAL QUE EN EL DASHBOARD DE USUARIO
+                            let meta = {};
+                            if (typeof n.metadata === 'string') {
+                                try { meta = JSON.parse(n.metadata); } catch(e) { }
+                            } else if (n.metadata && typeof n.metadata === 'object') {
+                                meta = n.metadata;
+                            }
+
                             return (
                                 <div key={n.id} className={`p-5 flex gap-4 transition-colors hover:bg-slate-50 ${n.is_read ? 'bg-white' : 'bg-blue-50/30'}`}>
                                     <div className="pt-1.5">
@@ -179,16 +184,18 @@ const AdminNotificationCenter = () => {
 
                                     <div className="flex-1 space-y-1">
                                         <div className="flex justify-between items-start">
+                                            {/* APLICAMOS TRADUCCIÓN A TÍTULO */}
                                             <h4 className={`text-sm ${n.is_read ? 'font-medium text-slate-700' : 'font-bold text-slate-900'}`}>
-                                                {n.title}
+                                                {t(n.title, meta)}
                                             </h4>
                                             <span className="text-xs text-slate-400 whitespace-nowrap ml-4 font-mono">
                                                 {format(new Date(n.created_at), 'MMM d, HH:mm')}
                                             </span>
                                         </div>
 
+                                        {/* APLICAMOS TRADUCCIÓN A MENSAJE */}
                                         <p className="text-sm text-slate-600 leading-relaxed max-w-3xl">
-                                            {n.message}
+                                            {t(n.message, meta)}
                                         </p>
 
                                         <div className="flex flex-wrap items-center justify-between pt-3 gap-3">
