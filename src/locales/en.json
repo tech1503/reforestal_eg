@@ -806,8 +806,16 @@
       "message": "Someone registered with your code. You have earned {{points}} bonus points."
     },
     "admin_direct_reply": {
-      "title": "Administrator's response",
+      "title": "Admin Reforestal eG",
       "message": "{{replyText}}"
+    },
+    "credits_released": {
+      "title": "¡Bonus Points Released! 🔓",
+      "message": "Your request to redeem {{amount}} Bonus Points has been approved. They are now available."
+    },
+    "contribution_verified": {
+      "title": "Contribution Verified",
+      "message": "Your contribution of €{{amount}} is confirmed. {{credits}} Bonus Points have been added."
     }
   },
     "contact": {

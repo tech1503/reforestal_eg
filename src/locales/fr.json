@@ -804,8 +804,16 @@
       "message": "Une personne s'est inscrite avec votre code. Vous avez gagné {{points}} points bonus."
     },
     "admin_direct_reply": {
-      "title": "Réponse de l'administrateur",
+      "title": "Admin Reforestal eG",
       "message": "{{replyText}}"
+    },
+    "credits_released": {
+      "title": "¡Points bonus disponibles! 🔓",
+      "message": "Votre demande de rachat de {{amount}} points bonus a été approuvée. Ils sont maintenant disponibles."
+    },
+    "contribution_verified": {
+      "title": "Contribution vérifiée",
+      "message": "Votre contribution de €{{amount}} est confirmée. {{credits}} points bonus ont été ajoutés."
     }
   },
   "contact": {

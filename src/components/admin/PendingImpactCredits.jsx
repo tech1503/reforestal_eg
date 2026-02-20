@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Coins, CheckCircle, XCircle, Trash2, Search, RefreshCw, AlertCircle, Loader2 } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Coins, Trash2, Search, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -8,11 +8,12 @@ import { supabase } from '@/lib/customSupabaseClient';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { useTranslation } from 'react-i18next'; // IMPORTADO
+import { useTranslation } from 'react-i18next';
+import { createNotification } from '@/utils/notificationUtils';
 
 const PendingImpactCredits = () => {
     const { toast } = useToast();
-    const { t } = useTranslation(); // HOOK
+    const { t } = useTranslation(); 
     const [requests, setRequests] = useState([]);
     const [loading, setLoading] = useState(true);
     const [processing, setProcessing] = useState(null);
@@ -23,7 +24,8 @@ const PendingImpactCredits = () => {
     const [releaseAmount, setReleaseAmount] = useState('');
     const [adminNote, setAdminNote] = useState('');
 
-    const fetchRequests = async () => {
+    // OPTIMIZACIÓN 1: Envolvemos en useCallback para estabilizar la función
+    const fetchRequests = useCallback(async () => {
         try {
             const { data, error } = await supabase
                 .from('impact_credits_requests')
@@ -39,8 +41,9 @@ const PendingImpactCredits = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [toast, t]); // Agregamos las dependencias necesarias
 
+    // OPTIMIZACIÓN 2: Agregamos dependencias al useEffect
     useEffect(() => {
         fetchRequests();
 
@@ -60,7 +63,7 @@ const PendingImpactCredits = () => {
             .subscribe();
 
         return () => supabase.removeChannel(channel);
-    }, []);
+    }, [fetchRequests, toast]); 
 
     const openActionDialog = (type, item) => {
         setActionDialog({ type, item });
@@ -90,11 +93,14 @@ const PendingImpactCredits = () => {
                     .eq('id', item.id);
                 if (reqError) throw reqError;
 
-                await supabase.from('notifications').insert({
-                    user_id: item.user_id,
-                    title: "Credits Released! 🔓",
-                    message: `Your request to redeem ${amount} Impact Credits has been approved. They are now available.`
-                });
+                // SISTEMA DE NOTIFICACIONES MULTILINGÜE INTEGRADO
+                await createNotification(
+                    item.user_id,
+                    'notifications.credits_released.title',
+                    'notifications.credits_released.message',
+                    { amount: amount },
+                    'success'
+                );
 
                 toast({ title: t('common.success'), description: "Request approved successfully." });
 
@@ -160,7 +166,10 @@ const PendingImpactCredits = () => {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200">
-                        {filtered.length === 0 ? (
+                        {/* OPTIMIZACIÓN 3: Hacemos uso de la variable loading aquí */}
+                        {loading ? (
+                            <tr><td colSpan="4" className="px-4 py-8 text-center"><Loader2 className="w-6 h-6 animate-spin mx-auto text-indigo-500" /></td></tr>
+                        ) : filtered.length === 0 ? (
                             <tr><td colSpan="4" className="px-4 py-6 text-center text-gray-500">No pending credit requests.</td></tr>
                         ) : (
                             filtered.map(req => (

@@ -26,6 +26,14 @@ const QuestsSection = ({ isReadOnly }) => {
   const hasGenesisProfile = !!profile?.genesis_profile;
   const showDiscoveryCard = !hasGenesisProfile;
 
+  // NUEVA LÓGICA DE ROLES: Función inteligente para verificar el acceso a la misión
+  const isMissionUnlocked = (targetRole, userRole) => {
+      if (!targetRole || targetRole === 'all') return true;
+      if (targetRole === 'user' && userRole === 'user') return true;
+      if (targetRole === 'startnext_user' && userRole === 'startnext_user') return true;
+      return false; // Si no cumple ninguna, se bloquea (no se muestra en la lista activa)
+  };
+
   const fetchAllMissions = useCallback(async () => {
     try {
       setLoading(true);
@@ -56,8 +64,8 @@ const QuestsSection = ({ isReadOnly }) => {
 
       const simpleMapped = (simpleQuestsRes.data || [])
         .filter(q => {
-            const target = q.target_role || 'all'; 
-            return (target === 'all' || target === userRole || unlockedIds.has(q.id));
+            // APLICAMOS LA NUEVA LÓGICA DE ROLES AQUÍ (O si fue desbloqueada comprándola)
+            return isMissionUnlocked(q.target_role, userRole) || unlockedIds.has(q.id);
         })
         .map(q => {
             const trans = getTrans(q, 'simple');
@@ -78,8 +86,8 @@ const QuestsSection = ({ isReadOnly }) => {
 
       const complexMapped = (complexMissionsRes.data || [])
         .filter(q => {
-            const target = q.target_role || 'all';
-            return target === 'all' || target === userRole;
+            // APLICAMOS LA NUEVA LÓGICA DE ROLES AQUÍ
+            return isMissionUnlocked(q.target_role, userRole);
         })
         .map(q => {
             const trans = getTrans(q, 'genesis');
@@ -235,7 +243,7 @@ const QuestsSection = ({ isReadOnly }) => {
             
             {quests.length === 0 && !showDiscoveryCard && !loading && (
                 <div className="col-span-full text-center py-10 text-muted-foreground border-2 border-dashed border-border rounded-xl">
-                    <p>{t('quests.empty_desc', "No active quests.")}</p>
+                    <p>{t('quests.empty_desc', "No active quests for your level at the moment.")}</p>
                 </div>
             )}
         </div>
@@ -244,4 +252,4 @@ const QuestsSection = ({ isReadOnly }) => {
   );
 };
 
-export default QuestsSection;
+export default QuestsSection;;

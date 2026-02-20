@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Plus, Trophy, Loader2, Trash2, Edit, Save, X, List, Target, FileText, EyeOff, Globe } from 'lucide-react';
+import { Plus, Trophy, Loader2, Trash2, Edit, Save, X, List, Target, FileText, EyeOff, Globe, Image as ImageIcon, UploadCloud } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { format } from 'date-fns';
 import { useTranslation } from 'react-i18next';
@@ -25,11 +25,15 @@ const GamificationTranslationModal = ({ isOpen, onClose, item, type }) => {
     const [loading, setLoading] = useState(false);
     const [activeLang, setActiveLang] = useState('es');
     
-    // Estado extendido con success_message
+    // Estado extendido con nuevos campos de contenido enriquecido y opciones
+    const getInitialLangState = () => ({ 
+        title: '', subtitle: '', description: '', extra_info: '', success_message: '', response_options: [] 
+    });
+
     const [translations, setTranslations] = useState({
-        es: { title: '', description: '', success_message: '' },
-        de: { title: '', description: '', success_message: '' },
-        fr: { title: '', description: '', success_message: '' }
+        es: getInitialLangState(),
+        de: getInitialLangState(),
+        fr: getInitialLangState()
     });
 
     const fetchTranslations = useCallback(async () => {
@@ -40,24 +44,27 @@ const GamificationTranslationModal = ({ isOpen, onClose, item, type }) => {
         const idField = type === 'simple' ? 'gamification_action_id' : 'genesis_mission_id';
         const titleField = type === 'simple' ? 'action_title' : 'title'; 
 
-        const { data } = await supabase
-            .from(tableName)
-            .select('*')
-            .eq(idField, item.id);
+        const { data } = await supabase.from(tableName).select('*').eq(idField, item.id);
 
-        const newTrans = { 
-            es: { title: '', description: '', success_message: '' },
-            de: { title: '', description: '', success_message: '' },
-            fr: { title: '', description: '', success_message: '' }
-        };
+        const newTrans = { es: getInitialLangState(), de: getInitialLangState(), fr: getInitialLangState() };
+
+        // Pre-llenar arrays vacíos para las opciones si es tipo genesis
+        if (type === 'genesis' && item.response_options) {
+            ['es', 'de', 'fr'].forEach(l => {
+                newTrans[l].response_options = new Array(item.response_options.length).fill('');
+            });
+        }
 
         if (data) {
             data.forEach(tr => {
                 if (newTrans[tr.language_code]) {
                     newTrans[tr.language_code] = { 
                         title: tr[titleField] || '', 
+                        subtitle: tr.subtitle || '', // NUEVO
                         description: tr.description || '',
-                        success_message: tr.success_message || '' 
+                        extra_info: tr.extra_info || '', // NUEVO
+                        success_message: tr.success_message || '',
+                        response_options: tr.response_options || (type === 'genesis' ? new Array(item.response_options?.length || 0).fill('') : []) // NUEVO
                     };
                 }
             });
@@ -67,9 +74,7 @@ const GamificationTranslationModal = ({ isOpen, onClose, item, type }) => {
     }, [item, type]);
 
     useEffect(() => {
-        if (isOpen && item) {
-            fetchTranslations();
-        }
+        if (isOpen && item) fetchTranslations();
     }, [isOpen, item, fetchTranslations]);
 
     const handleSave = async () => {
@@ -79,17 +84,26 @@ const GamificationTranslationModal = ({ isOpen, onClose, item, type }) => {
             const idField = type === 'simple' ? 'gamification_action_id' : 'genesis_mission_id';
             const titleField = type === 'simple' ? 'action_title' : 'title';
 
-            const upserts = Object.keys(translations).map(lang => ({
-                [idField]: item.id,
-                language_code: lang,
-                [titleField]: translations[lang].title,
-                description: translations[lang].description,
-                success_message: translations[lang].success_message 
-            }));
+            const upserts = Object.keys(translations).map(lang => {
+                const basePayload = {
+                    [idField]: item.id,
+                    language_code: lang,
+                    [titleField]: translations[lang].title,
+                    description: translations[lang].description,
+                    success_message: translations[lang].success_message 
+                };
 
-            const { error } = await supabase
-                .from(tableName)
-                .upsert(upserts, { onConflict: `${idField}, language_code` });
+                // Añadir campos enriquecidos si es Misión Génesis
+                if (type === 'genesis') {
+                    basePayload.subtitle = translations[lang].subtitle;
+                    basePayload.extra_info = translations[lang].extra_info;
+                    basePayload.response_options = translations[lang].response_options;
+                }
+
+                return basePayload;
+            });
+
+            const { error } = await supabase.from(tableName).upsert(upserts, { onConflict: `${idField}, language_code` });
 
             if (error) throw error;
             toast({ title: t('common.success'), description: "Translations updated." });
@@ -102,18 +116,23 @@ const GamificationTranslationModal = ({ isOpen, onClose, item, type }) => {
     };
 
     const updateField = (field, value) => {
-        setTranslations(prev => ({
-            ...prev,
-            [activeLang]: { ...prev[activeLang], [field]: value }
-        }));
+        setTranslations(prev => ({ ...prev, [activeLang]: { ...prev[activeLang], [field]: value } }));
+    };
+
+    const updateOptionTranslation = (idx, value) => {
+        setTranslations(prev => {
+            const newOptions = [...prev[activeLang].response_options];
+            newOptions[idx] = value;
+            return { ...prev, [activeLang]: { ...prev[activeLang], response_options: newOptions } };
+        });
     };
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+            <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle>Translate: {item?.action_title || item?.title}</DialogTitle>
-                    <DialogDescription>Add translations for Title, Description and Success Notifications.</DialogDescription>
+                    <DialogDescription>Add translations for content and user responses.</DialogDescription>
                 </DialogHeader>
                 
                 <Tabs value={activeLang} onValueChange={setActiveLang} className="w-full">
@@ -125,34 +144,52 @@ const GamificationTranslationModal = ({ isOpen, onClose, item, type }) => {
                     
                     {loading ? <div className="py-8 flex justify-center"><Loader2 className="animate-spin"/></div> : (
                         <div className="space-y-4 py-2">
-                            <div className="space-y-2">
-                                <Label>Title ({activeLang.toUpperCase()})</Label>
-                                <Input 
-                                    value={translations[activeLang].title} 
-                                    onChange={e => updateField('title', e.target.value)} 
-                                    placeholder="Translated Title"
-                                />
+                            <div className="grid gap-4 md:grid-cols-2">
+                                <div className="space-y-2">
+                                    <Label>Title ({activeLang.toUpperCase()})</Label>
+                                    <Input value={translations[activeLang].title} onChange={e => updateField('title', e.target.value)} placeholder="Translated Title" />
+                                </div>
+                                {type === 'genesis' && (
+                                    <div className="space-y-2">
+                                        <Label>Subtitle ({activeLang.toUpperCase()})</Label>
+                                        <Input value={translations[activeLang].subtitle} onChange={e => updateField('subtitle', e.target.value)} placeholder="Short descriptive subtitle" />
+                                    </div>
+                                )}
                             </div>
+
                             <div className="space-y-2">
                                 <Label>Description ({activeLang.toUpperCase()})</Label>
-                                <Textarea 
-                                    value={translations[activeLang].description} 
-                                    onChange={e => updateField('description', e.target.value)} 
-                                    placeholder="Translated Description"
-                                    rows={2}
-                                />
+                                <Textarea value={translations[activeLang].description} onChange={e => updateField('description', e.target.value)} placeholder="Main question or text..." rows={2} />
                             </div>
+
+                            {type === 'genesis' && (
+                                <div className="space-y-2">
+                                    <Label>Extra Info / Tooltip ({activeLang.toUpperCase()})</Label>
+                                    <Textarea value={translations[activeLang].extra_info} onChange={e => updateField('extra_info', e.target.value)} placeholder="Additional context for the user..." rows={2} className="bg-slate-50" />
+                                </div>
+                            )}
+
                             <div className="space-y-2">
                                 <Label className="text-emerald-700">Success Message / Notification ({activeLang.toUpperCase()})</Label>
-                                <Textarea 
-                                    value={translations[activeLang].success_message} 
-                                    onChange={e => updateField('success_message', e.target.value)} 
-                                    placeholder="e.g. ¡Felicidades! Has completado la misión."
-                                    className="border-emerald-200 bg-emerald-50/30"
-                                    rows={2}
-                                />
-                                <p className="text-[10px] text-muted-foreground">This message will appear in the user notification popup.</p>
+                                <Textarea value={translations[activeLang].success_message} onChange={e => updateField('success_message', e.target.value)} placeholder="e.g. ¡Felicidades! Has completado la misión." className="border-emerald-200 bg-emerald-50/30" rows={2} />
                             </div>
+
+                            {/* SECCIÓN DE TRADUCCIÓN DE OPCIONES DE RESPUESTA */}
+                            {type === 'genesis' && item?.response_options?.length > 0 && (
+                                <div className="pt-4 border-t space-y-3">
+                                    <Label className="text-blue-700 font-bold flex items-center gap-2"><List className="w-4 h-4"/> Translate Response Options (Buttons)</Label>
+                                    {item.response_options.map((baseOption, idx) => (
+                                        <div key={idx} className="grid md:grid-cols-2 gap-2 items-center bg-slate-50 p-2 rounded border">
+                                            <div className="text-xs text-slate-500 font-medium">EN: "{baseOption}"</div>
+                                            <Input 
+                                                placeholder={`Translation for option ${idx + 1}...`}
+                                                value={translations[activeLang].response_options?.[idx] || ''}
+                                                onChange={e => updateOptionTranslation(idx, e.target.value)}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     )}
                 </Tabs>
@@ -172,11 +209,13 @@ const GamificationTranslationModal = ({ isOpen, onClose, item, type }) => {
 const GamificationManagement = () => {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const fileInputRef = useRef(null); // Ref para el input de archivo
   
   const [questActions, setQuestActions] = useState([]);   
   const [realGenesisMissions, setRealGenesisMissions] = useState([]); 
   const [completions, setCompletions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [uploadingImage, setUploadingImage] = useState(false); // Estado para subida
   const [activeTab, setActiveTab] = useState("quests");
   
   const [transModalOpen, setTransModalOpen] = useState(false);
@@ -190,8 +229,10 @@ const GamificationManagement = () => {
 
   const [isGenesisDialogOpen, setIsGenesisDialogOpen] = useState(false);
   const [editingGenesisId, setEditingGenesisId] = useState(null);
+  // FORMULARIO GÉNESIS
   const [genesisForm, setGenesisForm] = useState({
-    title: '', description: '', response_type: 'single_choice', impact_credit_reward: 0, status: 'draft', target_role: 'all', response_options: ['', ''], correct_answers: null
+    title: '', subtitle: '', description: '', extra_info: '', image_url: '',
+    response_type: 'single_choice', impact_credit_reward: 0, status: 'draft', target_role: 'all', response_options: ['', ''], correct_answers: null
   });
 
   // Fetch de Datos
@@ -220,6 +261,54 @@ const GamificationManagement = () => {
   }, []);
 
   useEffect(() => { fetchData(); }, [fetchData]);
+
+  // --- LÓGICA DE SUBIDA DE IMAGEN ---
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Validación básica
+    if (!file.type.startsWith('image/')) {
+        return toast({ variant: 'destructive', title: 'Format Error', description: 'Please select a valid image file.' });
+    }
+    if (file.size > 5 * 1024 * 1024) { // Límite de 5MB
+        return toast({ variant: 'destructive', title: 'Size Error', description: 'Image must be less than 5MB.' });
+    }
+
+    setUploadingImage(true);
+    try {
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+        const filePath = `mission_banners/${fileName}`;
+
+        // Subir al bucket 'mission-assets'
+        const { error: uploadError } = await supabase.storage
+            .from('mission-assets')
+            .upload(filePath, file);
+
+        if (uploadError) throw uploadError;
+
+        // Obtener URL Pública
+        const { data: { publicUrl } } = supabase.storage
+            .from('mission-assets')
+            .getPublicUrl(filePath);
+
+        // Actualizar el formulario
+        setGenesisForm(prev => ({ ...prev, image_url: publicUrl }));
+        toast({ title: 'Success', description: 'Image uploaded successfully.', className: "bg-emerald-50 border-emerald-200" });
+
+    } catch (error) {
+        console.error('Error uploading image:', error);
+        toast({ variant: 'destructive', title: 'Upload Failed', description: error.message });
+    } finally {
+        setUploadingImage(false);
+        if (fileInputRef.current) fileInputRef.current.value = ''; // Limpiar input
+    }
+  };
+
+  const removeImage = () => {
+      setGenesisForm(prev => ({ ...prev, image_url: '' }));
+  };
 
   // --- HANDLERS SIMPLE ---
   const handleSaveSimple = async (e) => {
@@ -291,7 +380,7 @@ const GamificationManagement = () => {
       let opts = mission.response_options;
       if (!Array.isArray(opts)) opts = [];
       setGenesisForm({
-        title: mission.title, description: mission.description || '',
+        title: mission.title, subtitle: mission.subtitle || '', description: mission.description || '', extra_info: mission.extra_info || '', image_url: mission.image_url || '',
         response_type: mission.response_type, impact_credit_reward: mission.impact_credit_reward || 0,
         status: mission.status || 'draft', target_role: mission.target_role || 'all',
         response_options: opts, correct_answers: mission.correct_answers
@@ -299,8 +388,8 @@ const GamificationManagement = () => {
     } else {
       setEditingGenesisId(null);
       setGenesisForm({
-        title: '', description: '', response_type: 'single_choice',
-        impact_credit_reward: 0, status: 'draft', target_role: 'all',
+        title: '', subtitle: '', description: '', extra_info: '', image_url: '',
+        response_type: 'single_choice', impact_credit_reward: 0, status: 'draft', target_role: 'all',
         response_options: ['', ''], correct_answers: null
       });
     }
@@ -311,7 +400,8 @@ const GamificationManagement = () => {
       if (!genesisForm.title) return toast({title: "Title required", variant: "destructive"});
       
       const payload = {
-        title: genesisForm.title, description: genesisForm.description,
+        title: genesisForm.title, subtitle: genesisForm.subtitle, description: genesisForm.description,
+        extra_info: genesisForm.extra_info, image_url: genesisForm.image_url,
         response_type: genesisForm.response_type, impact_credit_reward: genesisForm.impact_credit_reward,
         status: genesisForm.status, target_role: genesisForm.target_role,
         response_options: genesisForm.response_options, correct_answers: genesisForm.correct_answers,
@@ -460,19 +550,22 @@ const GamificationManagement = () => {
                     {/* GENESIS MISSIONS LIST */}
                     <div className="border-t pt-6">
                         <div className="flex justify-between items-center mb-4">
-                            <h3 className="text-lg font-bold flex items-center gap-2 text-slate-800"><FileText className="w-5 h-5 text-purple-600"/> Genesis Missions (Quizzes)</h3>
+                            <h3 className="text-lg font-bold flex items-center gap-2 text-slate-800"><FileText className="w-5 h-5 text-purple-600"/> Genesis Missions (Rich Quizzes)</h3>
                             <Button onClick={() => handleOpenGenesisDialog()} size="sm" className="bg-purple-600 hover:bg-purple-700 text-white"><Plus className="w-4 h-4 mr-2"/> New Quiz</Button>
                         </div>
                         <div className="space-y-2">
                             {realGenesisMissions.map(m => (
                                 <Card key={m.id} className="relative group border-purple-100 hover:border-purple-300 transition-all bg-white">
                                     <CardContent className="p-4 flex justify-between items-center">
-                                        <div>
-                                            <div className="font-bold">{m.title}</div>
-                                            <Badge variant="secondary" className="text-[10px]">{m.response_type}</Badge>
+                                        <div className="flex items-center gap-4">
+                                            {m.image_url && <img src={m.image_url} alt="Cover" className="w-12 h-12 rounded object-cover border" />}
+                                            <div>
+                                                <div className="font-bold">{m.title}</div>
+                                                <Badge variant="secondary" className="text-[10px]">{m.response_type}</Badge>
+                                            </div>
                                         </div>
                                         <div className="flex gap-1">
-                                            <Button size="icon" variant="ghost" onClick={() => openTranslation(m, 'genesis')}><Globe className="w-4 h-4 text-blue-500"/></Button>
+                                            <Button size="icon" variant="ghost" onClick={() => openTranslation(m, 'genesis')} title="Translate Content & Options"><Globe className="w-4 h-4 text-blue-500"/></Button>
                                             <Button size="icon" variant="ghost" onClick={() => handleOpenGenesisDialog(m)}><Edit className="w-4 h-4 text-slate-500"/></Button>
                                             <Button size="icon" variant="ghost" onClick={() => handleDeleteGenesis(m.id)}><Trash2 className="w-4 h-4 text-red-500"/></Button>
                                         </div>
@@ -515,88 +608,158 @@ const GamificationManagement = () => {
         </TabsContent>
       </Tabs>
 
-      {/* GENESIS DIALOG */}
+      {/* GENESIS DIALOG (CON CONTENIDO ENRIQUECIDO Y SUBIDA DE IMAGEN) */}
       <Dialog open={isGenesisDialogOpen} onOpenChange={setIsGenesisDialogOpen}>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                   <DialogTitle>{editingGenesisId ? 'Edit Mission' : 'Create Genesis Mission'}</DialogTitle>
-                  <DialogDescription>Define a complex task or quiz for users.</DialogDescription>
+                  <DialogDescription>Design a rich interactive experience for your users.</DialogDescription>
               </DialogHeader>
-               <div className="grid gap-4 py-4">
-                  <div className="grid gap-2">
-                      <Label>Title (English)</Label>
-                      <Input value={genesisForm.title} onChange={e => setGenesisForm({...genesisForm, title: e.target.value})} />
-                  </div>
-                  <div className="grid gap-2">
-                      <Label>Description (English)</Label>
-                      <Textarea value={genesisForm.description} onChange={e => setGenesisForm({...genesisForm, description: e.target.value})} />
-                  </div>
+               <div className="grid gap-6 py-4 md:grid-cols-2">
                   
-                  <div className="grid grid-cols-2 gap-4">
-                      <div>
-                          <Label>Response Type</Label>
-                          <Select value={genesisForm.response_type} onValueChange={v => setGenesisForm({...genesisForm, response_type: v})}>
-                              <SelectTrigger><SelectValue/></SelectTrigger>
-                              <SelectContent>
-                                  <SelectItem value="single_choice">Single Choice</SelectItem>
-                                  <SelectItem value="multiple_choice">Multi Select</SelectItem>
-                                  <SelectItem value="abc">A/B/C Test</SelectItem>
-                                  <SelectItem value="free_text">Free Text</SelectItem>
-                              </SelectContent>
-                          </Select>
-                      </div>
-                      <div>
-                          <Label>Reward (IC)</Label>
-                          <Input type="number" value={genesisForm.impact_credit_reward} onChange={e => setGenesisForm({...genesisForm, impact_credit_reward: parseInt(e.target.value)})} />
-                      </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                      <div>
-                          <Label>Status</Label>
-                          <Select value={genesisForm.status} onValueChange={v => setGenesisForm({...genesisForm, status: v})}>
-                              <SelectTrigger><SelectValue/></SelectTrigger>
-                              <SelectContent><SelectItem value="draft">Draft</SelectItem><SelectItem value="active">Active</SelectItem><SelectItem value="archived">Archived</SelectItem></SelectContent>
-                          </Select>
-                      </div>
-                      <div>
-                          <Label>Target Audience</Label>
-                          <Select value={genesisForm.target_role} onValueChange={v => setGenesisForm({...genesisForm, target_role: v})}>
-                              <SelectTrigger><SelectValue/></SelectTrigger>
-                              <SelectContent><SelectItem value="all">Everyone</SelectItem><SelectItem value="user">User Common</SelectItem><SelectItem value="startnext_user">Startnext User</SelectItem></SelectContent>
-                          </Select>
-                      </div>
-                  </div>
-
-                  {genesisForm.response_type !== 'free_text' && (
-                      <div className="space-y-3 bg-slate-50 p-4 rounded-lg border">
-                          <div className="flex justify-between items-center">
-                              <Label>Response Options (English)</Label>
-                              <Button type="button" size="sm" variant="outline" onClick={addGenesisOption}><Plus className="w-3 h-3 mr-1"/> Add Option</Button>
+                  {/* COLUMNA IZQUIERDA: DISEÑO VISUAL */}
+                  <div className="space-y-4 border-r pr-4">
+                      <h4 className="font-semibold flex items-center gap-2 border-b pb-2"><ImageIcon className="w-4 h-4 text-purple-500"/> Visual Content (English)</h4>
+                      
+                      <div className="space-y-2">
+                          <Label>Header Image (AVIF, WEBP, PNG, JPG)</Label>
+                          <div className="flex items-center gap-2">
+                              {/* Botón oculto real */}
+                              <input 
+                                  type="file" 
+                                  accept="image/avif, image/webp, image/png, image/jpeg" 
+                                  className="hidden" 
+                                  ref={fileInputRef}
+                                  onChange={handleImageUpload} 
+                              />
+                              {/* Botón de Interfaz */}
+                              <Button 
+                                  type="button" 
+                                  variant="outline" 
+                                  onClick={() => fileInputRef.current.click()} 
+                                  disabled={uploadingImage}
+                                  className="w-full flex justify-start text-muted-foreground"
+                              >
+                                  {uploadingImage ? <Loader2 className="w-4 h-4 mr-2 animate-spin"/> : <UploadCloud className="w-4 h-4 mr-2"/>}
+                                  {uploadingImage ? 'Uploading...' : 'Choose File...'}
+                              </Button>
                           </div>
-                          <RadioGroup value={String(genesisForm.correct_answers)} onValueChange={v => handleCorrectAnswerChange(parseInt(v), true)}>
-                              {genesisForm.response_options.map((opt, idx) => (
-                                  <div key={idx} className="flex gap-2 items-center mb-2">
-                                      {genesisForm.response_type === 'multiple_choice' ? (
-                                          <Checkbox 
-                                            checked={Array.isArray(genesisForm.correct_answers) && genesisForm.correct_answers.includes(idx)}
-                                            onCheckedChange={(checked) => handleCorrectAnswerChange(idx, checked)}
-                                          />
-                                      ) : (
-                                          <RadioGroupItem value={String(idx)} id={`opt-${idx}`} />
-                                      )}
-                                      
-                                      <Input value={opt} onChange={e => handleGenesisOptionChange(idx, e.target.value)} placeholder={`Option ${idx+1}`} />
-                                      <Button type="button" size="icon" variant="ghost" onClick={() => removeGenesisOption(idx)} disabled={genesisForm.response_options.length <= 2}><X className="w-4 h-4 text-red-500"/></Button>
-                                  </div>
-                              ))}
-                          </RadioGroup>
+                          
+                          {/* Vista Previa de la Imagen */}
+                          {genesisForm.image_url && (
+                              <div className="relative mt-2">
+                                  <img src={genesisForm.image_url} alt="Preview" className="h-32 w-full object-cover rounded-md border shadow-sm" />
+                                  <Button type="button" size="icon" variant="destructive" className="absolute top-2 right-2 h-6 w-6 rounded-full" onClick={removeImage}>
+                                      <X className="w-3 h-3"/>
+                                  </Button>
+                              </div>
+                          )}
+                          {!genesisForm.image_url && (
+                               <Input placeholder="Or paste direct URL here..." value={genesisForm.image_url} onChange={e => setGenesisForm({...genesisForm, image_url: e.target.value})} className="mt-2 text-xs" />
+                          )}
                       </div>
-                  )}
+                      
+                      <div className="space-y-2">
+                          <Label>Main Title *</Label>
+                          <Input placeholder="E.g. The Amazon Rainforest" value={genesisForm.title} onChange={e => setGenesisForm({...genesisForm, title: e.target.value})} />
+                      </div>
+
+                      <div className="space-y-2">
+                          <Label>Subtitle</Label>
+                          <Input placeholder="A quick summary..." value={genesisForm.subtitle} onChange={e => setGenesisForm({...genesisForm, subtitle: e.target.value})} />
+                      </div>
+                      
+                      <div className="space-y-2">
+                          <Label>Question / Main Description</Label>
+                          <Textarea placeholder="What is the main cause of..." rows={3} value={genesisForm.description} onChange={e => setGenesisForm({...genesisForm, description: e.target.value})} />
+                      </div>
+
+                      <div className="space-y-2">
+                          <Label>Extra Info (Tooltip / Hint)</Label>
+                          <Textarea placeholder="Additional context to help the user decide..." rows={2} className="bg-slate-50" value={genesisForm.extra_info} onChange={e => setGenesisForm({...genesisForm, extra_info: e.target.value})} />
+                      </div>
+                  </div>
+
+                  {/* COLUMNA DERECHA: LÓGICA Y OPCIONES */}
+                  <div className="space-y-4">
+                      <h4 className="font-semibold flex items-center gap-2 border-b pb-2"><Target className="w-4 h-4 text-blue-500"/> Logic & Rewards</h4>
+                      
+                      <div className="grid grid-cols-2 gap-2">
+                          <div>
+                              <Label className="text-xs">Response Type</Label>
+                              <Select value={genesisForm.response_type} onValueChange={v => setGenesisForm({...genesisForm, response_type: v})}>
+                                  <SelectTrigger><SelectValue/></SelectTrigger>
+                                  <SelectContent>
+                                      <SelectItem value="single_choice">Single Choice</SelectItem>
+                                      <SelectItem value="multiple_choice">Multi Select</SelectItem>
+                                      <SelectItem value="abc">A/B/C Test</SelectItem>
+                                      <SelectItem value="free_text">Free Text</SelectItem>
+                                  </SelectContent>
+                              </Select>
+                          </div>
+                          <div>
+                              <Label className="text-xs text-emerald-600 font-bold">Reward (IC)</Label>
+                              <Input type="number" className="border-emerald-200" value={genesisForm.impact_credit_reward} onChange={e => setGenesisForm({...genesisForm, impact_credit_reward: parseInt(e.target.value)})} />
+                          </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2">
+                          <div>
+                              <Label className="text-xs">Status</Label>
+                              <Select value={genesisForm.status} onValueChange={v => setGenesisForm({...genesisForm, status: v})}>
+                                  <SelectTrigger><SelectValue/></SelectTrigger>
+                                  <SelectContent><SelectItem value="draft">Draft</SelectItem><SelectItem value="active">Active</SelectItem><SelectItem value="archived">Archived</SelectItem></SelectContent>
+                              </Select>
+                          </div>
+                          <div>
+                              <Label className="text-xs">Target Audience</Label>
+                              <Select value={genesisForm.target_role} onValueChange={v => setGenesisForm({...genesisForm, target_role: v})}>
+                                  <SelectTrigger><SelectValue/></SelectTrigger>
+                                  <SelectContent><SelectItem value="all">Everyone</SelectItem><SelectItem value="user">User Common</SelectItem><SelectItem value="startnext_user">Startnext User</SelectItem></SelectContent>
+                              </Select>
+                          </div>
+                      </div>
+
+                      {genesisForm.response_type !== 'free_text' && (
+                          <div className="space-y-3 bg-blue-50/50 p-4 rounded-lg border border-blue-100 mt-4">
+                              <div className="flex justify-between items-center">
+                                  <Label>Response Options (Buttons)</Label>
+                                  <Button type="button" size="sm" variant="outline" className="h-7 text-xs" onClick={addGenesisOption}><Plus className="w-3 h-3 mr-1"/> Add Option</Button>
+                              </div>
+                              <p className="text-[10px] text-muted-foreground">Check the box/radio next to the correct answer(s).</p>
+                              
+                             <RadioGroup 
+                                value={genesisForm.response_type === 'multiple_choice' ? undefined : String(genesisForm.correct_answers)} 
+                                onValueChange={v => {
+                                    if (genesisForm.response_type !== 'multiple_choice') {
+                                        handleCorrectAnswerChange(parseInt(v), true);
+                                    }
+                                }}
+                              >
+                                  {genesisForm.response_options.map((opt, idx) => (
+                                      <div key={idx} className="flex gap-2 items-center mb-2 bg-white p-1 rounded border">
+                                          {genesisForm.response_type === 'multiple_choice' ? (
+                                              <Checkbox 
+                                                className="ml-2"
+                                                checked={Array.isArray(genesisForm.correct_answers) && genesisForm.correct_answers.includes(idx)}
+                                                onCheckedChange={(checked) => handleCorrectAnswerChange(idx, checked)}
+                                              />
+                                          ) : (
+                                              <RadioGroupItem className="ml-2" value={String(idx)} id={`opt-${idx}`} />
+                                          )}
+                                          
+                                          <Input className="h-8 text-sm border-0 focus-visible:ring-0" value={opt} onChange={e => handleGenesisOptionChange(idx, e.target.value)} placeholder={`Option ${idx+1} (English)`} />
+                                          <Button type="button" size="icon" variant="ghost" className="h-8 w-8" onClick={() => removeGenesisOption(idx)} disabled={genesisForm.response_options.length <= 2}><X className="w-4 h-4 text-slate-400 hover:text-red-500"/></Button>
+                                      </div>
+                                  ))}
+                              </RadioGroup>
+                          </div>
+                      )}
+                  </div>
               </div>
-              <DialogFooter>
+              <DialogFooter className="bg-slate-50 -mx-6 -mb-6 p-4 border-t">
                   <Button variant="outline" onClick={() => setIsGenesisDialogOpen(false)}>{t('common.cancel')}</Button>
-                  <Button onClick={handleSaveGenesis} className="bg-purple-600 hover:bg-purple-700 text-white">
+                  <Button onClick={handleSaveGenesis} className="bg-purple-600 hover:bg-purple-700 text-white min-w-[120px]">
                       {loading ? <Loader2 className="w-4 h-4 animate-spin"/> : <><Save className="w-4 h-4 mr-2"/> Save Mission</>}
                   </Button>
               </DialogFooter>

@@ -8,6 +8,7 @@ import { supabase } from '@/lib/customSupabaseClient';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import PendingImpactCredits from '@/components/admin/PendingImpactCredits';
 import { getSupportLevelByAmount, calculateDynamicCredits } from '@/utils/tierLogicUtils';
+import { createNotification } from '@/utils/notificationUtils'; 
 
 const PendingRegistrations = () => {
     const { toast } = useToast();
@@ -124,7 +125,6 @@ const PendingRegistrations = () => {
             const { data: allCredits } = await supabase.from('impact_credits').select('amount').eq('user_id', item.user_id);
             const totalScore = allCredits?.reduce((sum, c) => sum + Number(c.amount), 0) || correctCredits;
 
-            // Mantenemos el estado existente o 'pending' si es nuevo. NUNCA 'approved' aquí.
             const pioneerStatus = currentMetrics?.founding_pioneer_access_status || 'pending';
 
             await supabase.from('founding_pioneer_metrics').upsert({
@@ -134,11 +134,13 @@ const PendingRegistrations = () => {
                 updated_at: new Date().toISOString()
             }, { onConflict: 'user_id' });
 
-            await supabase.from('notifications').insert({
-                user_id: item.user_id,
-                title: "Contribution Verified",
-                message: `Your contribution of €${item.amount} is confirmed. ${correctCredits} Credits added. Pioneer access is under review.`
-            });
+            await createNotification(
+                item.user_id,
+                'notifications.contribution_verified.title',
+                'notifications.contribution_verified.message',
+                { amount: item.amount, credits: correctCredits },
+                'success'
+            );
 
             await supabase.from('pending_startnext_registrations').update({ status: 'approved' }).eq('id', item.id);
 

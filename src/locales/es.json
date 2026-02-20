@@ -804,8 +804,16 @@
       "message": "Alguien se registró con tu código. Has ganado {{points}} bonos."
     },
     "admin_direct_reply": {
-      "title": "Respuesta del Administrador",
+      "title": "Admin Reforestal eG",
       "message": "{{replyText}}"
+    },
+    "credits_released": {
+      "title": "¡Bonos Liberados! 🔓",
+      "message": "Tu solicitud para canjear {{amount}} Bonos ha sido aprobada. Ya están disponibles."
+    },
+    "contribution_verified": {
+      "title": "Contribución Verificada",
+      "message": "Tu contribución de €{{amount}} está confirmada. Se han añadido {{credits}} Bonos."
     }
   },
     "contact": {

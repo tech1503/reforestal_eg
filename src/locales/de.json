@@ -805,8 +805,16 @@
       "message": "Jemand hat sich mit Ihrem Code registriert. Sie haben {{points}} Bonuspunkte erhalten."
     },
     "admin_direct_reply": {
-      "title": "Antwort von Admin",
+      "title": "Admin Reforestal eG",
       "message": "{{replyText}}"
+    },
+    "credits_released": {
+      "title": "¡Bonuspunkte freigegeben! 🔓",
+      "message": "Ihre Anfrage zum Einlösen von {{amount}} Bonuspunkten wurde genehmigt. Sie sind jetzt verfügbar."
+    },
+    "contribution_verified": {
+      "title": "Beitrag bestätigt",
+      "message": "Ihr Beitrag von €{{amount}} wurde bestätigt. {{credits}} Bonuspunkte wurden hinzugefügt."
     }
   },
   "contact": {
