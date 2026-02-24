@@ -6,9 +6,11 @@ import { Button } from '@/components/ui/button';
 import { Loader2, Search, Trash2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { useToast } from '@/components/ui/use-toast';
+import { useTranslation } from 'react-i18next';
 
 const AdminUserHistoryLog = () => {
     const { toast } = useToast();
+    const { t } = useTranslation();
     const [logs, setLogs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -39,10 +41,10 @@ const AdminUserHistoryLog = () => {
     };
 
     const handleDelete = async (id) => {
-        if (!window.confirm("Delete this log entry? Credits will NOT be automatically deducted from user total (requires recalc).")) return;
+        if (!window.confirm(t('gamification_admin.history_log.delete_warning', "Delete this log entry? Credits will NOT be automatically deducted from user total (requires recalc)."))) return;
         const { error } = await supabase.from('gamification_history').delete().eq('id', id);
-        if (error) toast({ variant: 'destructive', title: 'Error', description: error.message });
-        else toast({ title: 'Deleted', description: 'Entry removed.' });
+        if (error) toast({ variant: 'destructive', title: t('common.error'), description: error.message });
+        else toast({ title: t('common.success'), description: 'Entry removed.' });
     };
 
     const filteredLogs = logs.filter(log => 
@@ -53,10 +55,10 @@ const AdminUserHistoryLog = () => {
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <h3 className="text-lg font-bold text-gray-800">System Activity Log</h3>
+                <h3 className="text-lg font-bold text-gray-800">{t('gamification_admin.history_log.title', 'System Activity Log')}</h3>
                 <div className="relative w-64">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <Input placeholder="Search logs..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-9" />
+                    <Input placeholder={t('gamification_admin.history_log.search', 'Search logs...')} value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-9" />
                 </div>
             </div>
 
@@ -64,11 +66,11 @@ const AdminUserHistoryLog = () => {
                 <Table>
                     <TableHeader>
                         <TableRow className="bg-gray-50/50">
-                            <TableHead>Date</TableHead>
-                            <TableHead>User</TableHead>
-                            <TableHead>Action</TableHead>
-                            <TableHead>System Binding</TableHead>
-                            <TableHead className="text-right">Credits</TableHead>
+                            <TableHead>{t('gamification_admin.history_log.table.date', 'Date')}</TableHead>
+                            <TableHead>{t('gamification_admin.history_log.table.user', 'User')}</TableHead>
+                            <TableHead>{t('gamification_admin.history_log.table.action', 'Action')}</TableHead>
+                            <TableHead>{t('gamification_admin.history_log.table.system_binding', 'System Binding')}</TableHead>
+                            <TableHead className="text-right">{t('gamification_admin.history_log.table.credits', 'Credits')}</TableHead>
                             <TableHead className="text-right"></TableHead>
                         </TableRow>
                     </TableHeader>
@@ -76,7 +78,7 @@ const AdminUserHistoryLog = () => {
                         {loading ? (
                             <TableRow><TableCell colSpan={6} className="text-center py-8"><Loader2 className="w-6 h-6 animate-spin mx-auto text-emerald-500" /></TableCell></TableRow>
                         ) : filteredLogs.length === 0 ? (
-                            <TableRow><TableCell colSpan={6} className="text-center py-8 text-gray-500">No logs found.</TableCell></TableRow>
+                            <TableRow><TableCell colSpan={6} className="text-center py-8 text-gray-500">{t('gamification_admin.history_log.no_logs', 'No logs found.')}</TableCell></TableRow>
                         ) : (
                             filteredLogs.map(log => (
                                 <TableRow key={log.id}>

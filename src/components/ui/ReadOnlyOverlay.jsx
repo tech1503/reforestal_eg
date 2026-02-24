@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Lock, ExternalLink, HeartHandshake } from 'lucide-react';
+import { Lock, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import StartnextSupportModal from '@/components/ui/StartnextSupportModal';
@@ -13,9 +13,8 @@ const ReadOnlyOverlay = ({
     link = STARTNEXT_PROJECT_URL 
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { t } = useTranslation(); // HOOK
+  const { t } = useTranslation();
 
-  // Usamos las props si existen, sino, usamos las traducciones por defecto
   const displayTitle = title || t('roles.explorer_level_1');
   const displayMessage = message || t('exchange.overlay.message');
   const displaySubMessage = subMessage || t('exchange.overlay.sub_message');

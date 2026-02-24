@@ -275,6 +275,9 @@ const ProductsManager = () => {
                 finalImageUrl = await uploadImage();
             }
 
+            // CORRECCIÓN CLAVE: Transformar explícitamente "none" a null para evitar el error UUID de Supabase.
+            const safeUnlocksQuestId = (formData.unlocks_quest_id === 'none' || formData.unlocks_quest_id === '') ? null : formData.unlocks_quest_id;
+
             const payload = {
                 name: formData.name,
                 description: formData.description,
@@ -283,7 +286,7 @@ const ProductsManager = () => {
                 image_alt: formData.name,
                 image_url: finalImageUrl,
                 is_active: formData.is_active,
-                unlocks_quest_id: formData.unlocks_quest_id || null
+                unlocks_quest_id: safeUnlocksQuestId
             };
             
             const { error } = await supabase
@@ -456,7 +459,7 @@ const ProductsManager = () => {
                             <select 
                                 className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm"
                                 value={formData.unlocks_quest_id || 'none'}
-                                onChange={e => setFormData({...formData, unlocks_quest_id: e.target.value === 'none' ? null : e.target.value})}
+                                onChange={e => setFormData({...formData, unlocks_quest_id: e.target.value})}
                             >
                                 <option value="none">-- No Quest Linked (Regular Item) --</option>
                                 {availableQuests.map(q => (

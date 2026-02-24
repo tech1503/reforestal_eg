@@ -187,6 +187,155 @@
   },
   "admin": {
     "title": "Admin Panel",
+    "community": "Founders Area",
+    "mlm": "Referrals (MLM)",
+    "quest_moderation": "Quest Engine",
+    "audience": {
+      "label": "Target Audience",
+      "all": "All",
+      "user": "Standard User",
+      "startnext_user": "Startnext Supporter",
+      "pioneer": "Founding Pioneer"
+    },
+    "gamification_actions": {
+      "page_title": "System Actions Configuration",
+      "page_subtitle": "Manage technical triggers (Referrals, Login, Contributions).",
+      "search": "Search system actions...",
+      "add_btn": "Add System Action",
+      "note_label": "Note:",
+      "warning_note_1": "Genesis Missions and Quests are managed in the platform",
+      "gamification_tab": "Gamification Tab",
+      "warning_note_2": "to ensure the consistency of rewards.",
+      "table": {
+        "title": "Title / Name",
+        "type": "Type",
+        "binding": "Binding"
+      },
+      "trans_modal": {
+        "title": "Translate:",
+        "desc": "Localization for System Actions",
+        "field_title": "Title",
+        "field_desc": "Description",
+        "field_success": "Success Notification",
+        "field_success_hint": "This message is sent to the user when they complete the action.",
+        "saved": "Translations saved successfully."
+      }
+    },
+    "quest_builder": {
+      "modal_title_edit": "Edit Interactive Mission",
+    "modal_title_new": "Mission Creation Studio",
+    "modal_desc": "Design the learning flow, rewards, and conditions.",
+    "save_mission": "Save Mission",
+    "tab_general": "General",
+    "tab_rules": "Rules and Rewards",
+    "tab_steps": "Step Builder",
+    "cover_image": "Cover Image (Banner)",
+    "change_image": "Change Image",
+    "upload_image": "Click to upload image (Optional)",
+    "uploading": "Uploading...",
+    "main_title": "Main Title *",
+    "main_title_placeholder": "e.g. The Amazon Ecosystem",
+    "subtitle": "Subtitle",
+    "subtitle_placeholder": "A short and engaging phrase",
+    "mission_desc": "Mission Description (Intro)",
+    "extra_info": "Extra Information (Tooltip / Hint)",
+    "extra_info_placeholder": "Optional context to help users...",
+    "completion_rewards": "Completion Rewards",
+    "skill_category": "Skill Category",
+    "availability": "Availability and Limits",
+    "status": "Status",
+    "start_date": "Start Date (Optional)",
+    "end_date": "End Date (Optional)",
+    "allow_skip": "Allow Skip",
+    "allow_skip_desc": "Can users skip this entire mission?",
+    "skip_penalty": "Skip Penalty (Deducted from Reputation)",
+    "no_steps_title": "No steps yet",
+    "no_steps_desc": "Create your first block to start building the mission flow.",
+    "add_content": "Add Content",
+    "add_question": "Add Question",
+    "step": "Step",
+    "step_title": "Step Title",
+    "media_url": "Media URL (Video/Image)",
+    "ui_type": "UI Type",
+    "content_md": "Content (Supports Markdown)",
+    "content_placeholder": "Write the educational content here...",
+    "question_type": "Question Component Type",
+    "question_text": "Question Text",
+    "ask_something": "Ask something...",
+    "required": "Required?",
+    "answers": "Answers",
+    "add_option": "Add",
+    "correct_answer_index": "Correct Answer Index (e.g. 0, or 0,2)",
+    "correct_answer_placeholder": "Leave blank if any option is correct",
+    "slider_poles": "Define Slider Poles",
+    "slider_poles_desc": "Users will distribute 100% among these variables.",
+    "free_text_note": "Note: Free-text responses will mark the mission as 'Pending Review'. A Guardian (Admin) must manually approve it to grant the rewards.",
+    "scale_5_note": "Automatically generates a star/number scale from 1 to 5.",
+    "on_fail_redirect": "Redirect URL if failed (Bridge-Quest)",
+    "mission_flow": "Mission Flow",
+    "empty": "Empty"
+    },
+    "quest_review": {
+      "title": "Pending Mission Review",
+      "subtitle": "Review and approve community commitment.",
+      "tabs": {
+        "pending": "PENDING REVIEW",
+        "history": "FULL HISTORY"
+      },
+      "notif_approved_title": "Mission Approved! ✅ ",
+      "notif_approved_msg": "You have approved this mission. The rewards have been granted.",
+      "notif_rejected_title": "Mission Requires Review ⚠️",
+      "notif_rejected_msg": "You have rejected this mission. No rewards will be granted.",
+      "status_updated": "Status updated successfully.",
+      "no_pending": "No pending missions",
+      "no_history": "Empty history.",
+      "table": {
+        "user": "User",
+        "mission": "Mission Title",
+        "reward": "Potential Reward",
+        "submitted": "Submitted",
+        "action": "Action",
+        "details": "Details"
+      },
+      "evaluate_btn": "Evaluate",
+      "view_btn": "View Response",
+      "feedback_guardian": "FEEDBACK FROM ADMIN",
+      "feedback_placeholder": "Excellent response! Your perspective is very valuable.",
+      "all_missions": "All Missions (Global)",
+      "no_data": "No participations recorded",
+      "tooltip_users": "Users",
+      "tooltip_participation": "Participation",
+      "status_badge": {
+        "approved": "Approved",
+        "auto_approved": "Automatically Approved",
+        "rejected": "Rejected",
+        "pending": "Pending",
+        "completed": "Completed"
+      },
+      "modal": {
+        "read_only": "Read Only View",
+        "guardian_eval": "Admin Evaluation",
+        "rewards_label": "Rewards",
+        "no_answer": "No Answer",
+        "step": "Step",
+        "stars": "Stars",
+        "close": "Close",
+        "reject": "Reject",
+        "approve_reward": "Approve and Reward"
+      },
+      "errors": {
+        "already_processed": "Permission denied or the mission is no longer pending.",
+        "save_failed": "There was a problem saving the status to the database."
+      },
+      "description": "This mission requires manual review. Please review the user's responses and award the appropriate rewards.",
+      "user_response": "User Response",
+      "mark_complete": "Mark as Complete",
+      "mark_incomplete": "Mark as Incomplete",
+      "feedback_label": "Feedback for User",
+      "success_msg": "Mission reviewed successfully.",
+      "analytics_title": "Participation Metrics",
+      "analytics_desc": "Breakdown of participant roles by mission."
+    },
     "overview": "Overview",
     "gamification": "Gamification",
     "user_management": "User Management",
@@ -451,7 +600,15 @@
     "available_quests": "Quests",
     "completed_quests": "Completed Quests",
     "earn_credits": "Earn {{credits}} Bonus Points",
-    "complete_quest": "Complete Quest"
+    "complete_quest": "Complete Quest",
+    "status_in_review": "In Review",
+    "go_to_referrals": "Go to Referrals",
+    "support_startnext": "Support on Startnext",
+    "requires_genesis": "Requires Genesis Mission",
+    "requires_startnext": "Requires Startnext",
+    "requires_pioneer": "Requires Pioneer",
+    "unlocked_premium": "Unlocked Premium",
+    "empty_desc": "No active quests available at this time."
   },
   "home": {
     "sign_in": "Sign In",
@@ -488,7 +645,7 @@
       "cta": "Back us on Startnext"
     },
     "widget": {
-      "badge": "Startnext Project",
+      "badge": "Crowdfunding on Startnext",
       "title": "Reforestal eG",
       "quote": "We make protecting the Amazon our top priority.",
       "button": "Support the project"
@@ -785,6 +942,9 @@
       "title": "¡Bonus Points Earned!",
       "message": "Congratulations, you have earned {{points}} bonus points for: {{action}}."
     },
+    "points_and_rep_earned": {
+      "message": "Congratulations, you have earned {{points}} bonus points and +{{rep}} reputation for: {{action}}."
+    },
     "welcome": {
       "title": "Welcome to Reforestal!",
       "message": "Hello {{name}}, we're glad to have you in our community."
@@ -873,6 +1033,184 @@
     "copyright": "Reforestal eG © 2026",
     "socials": {
       "instagram": "Visit our Instagram"
+    }
+  },
+  "rewards": {
+    "bonus_points": "Bonus Points",
+    "bonus_points_short": "BP",
+    "reputation": "Reputation"
+  },
+  "mission": {
+    "distribute_resources": "Distributing resources",
+    "remaining": "Remaining",
+    "load_failed": "Failed to load mission details.",
+    "incorrect_title": "Incorrect Answer",
+    "redirect_msg": "You will be redirected to review the materials.",
+    "review_answer": "Please review your answer and try again.",
+    "skip_mission": "Skip Mission",
+    "skip_confirm": "Skip mission? A penalty of -{{penalty}} reputation points will be applied.",
+    "skipped_title": "Mission Skipped",
+    "penalty_applied": "Penalty applied: -{{penalty}} Reputation.",
+    "submitted_title": "Mission Submitted!",
+    "review_msg": "An Admin will review your answers shortly.",
+    "submit_failed": "Failed to submit mission.",
+    "write_answer": "Write your detailed answer here...",
+    "start_btn": "Start Mission",
+    "step_x_of_y": "Step {{current}} of {{total}}",
+    "complete_btn": "Complete Mission",
+    "next_btn": "Next Step",
+    "accomplished_title": "Mission Accomplished!",
+    "success_default": "You have successfully completed this mission.",
+    "under_review_title": "Under Review",
+    "under_review_desc": "Your answers have been submitted. An Admin will review your answer shortly to award you your rewards.",
+    "already_completed_title": "Already Completed",
+    "already_completed_desc": "You have already received the rewards for this mission.",
+    "return_btn": "Return to Missions"
+  },
+  "gamification_admin": {
+    "quest_engine": {
+      "title": "Advanced Quest Engine",
+      "subtitle": "Build interactive quests, manage skills and reputation.",
+      "rpg_missions": "Advanced RPG Missions",
+      "build_new": "Create New Mission",
+      "no_missions": "No interactive missions found. Click 'Create New Mission' to get started."
+    },
+    "scoring": {
+      "title": "User Scoring Summary",
+      "subtitle": "Aggregated metrics from gamification history.",
+      "search": "Search user...",
+      "table": {
+        "rank": "Rank",
+        "user": "User",
+        "total_credits": "Total Bonus Points",
+        "eval_score": "Evaluation Score",
+        "status": "Status",
+        "actions": "Actions",
+        "genesis": "Genesis",
+        "quests": "Quests",
+        "referrals": "Referrals"
+      },
+      "badges": {
+        "approved": "Approved",
+        "rejected": "Rejected",
+        "revoked": "Revoked",
+        "pending": "Pending",
+        "done": "Done"
+      },
+      "actions": {
+        "details": "Details",
+        "reset_scoring": "Reset Scoring"
+      },
+      "reset_warning": "WARNING: This will delete all gamification history and reset this user's scores. Continue?",
+      "reset_success": "User's scoring has been reset."
+    },
+    "metrics_modal": {
+      "title": "User Metrics:",
+      "tabs": {
+        "overview": "Overview",
+        "evaluation": "Evaluation",
+        "history": "History",
+        "notes": "Notes"
+      },
+      "overview_tab": {
+        "quests": "Short Quests",
+        "missions": "RPG Missions",
+        "referrals": "Referrals",
+        "contributions": "Contribuciones",
+        "system_flags": "System Flags",
+        "genesis_quest": "Genesis Quest",
+        "profile_updated": "Profile Updated"
+      },
+      "evaluation_tab": {
+        "status_title": "Founder Pioneer Status",
+        "approve": "Approve Access",
+        "reject": "Reject",
+        "revoke": "Revoke",
+        "score_label": "Evaluation Score (0-100)",
+        "score_desc": "This score determines the ranking for the Top 100 limit."
+      },
+      "history_tab": {
+        "no_history": "No history found"
+      },
+      "notes_tab": {
+        "label": "Admin Notes",
+        "placeholder": "Internal notes about this user..."
+      }
+    },
+    "history_log": {
+      "title": "System Activity Log",
+      "search": "Search logs...",
+      "table": {
+        "date": "Date",
+        "user": "User",
+        "action": "Action",
+        "type": "Type",
+        "credits": "Credits"
+      },
+      "delete_warning": "Delete this record? Credits will NOT be automatically deducted from the user's total.",
+      "no_logs": "No logs found."
+    },
+    "user_history_modal": {
+      "title": "User Activity History",
+      "desc": "Detailed record of user interactions and rewards.",
+      "tabs": {
+        "overview": "Overview",
+        "log": "Detailed Log"
+      },
+      "stats": {
+        "total_credits": "Total Credits",
+        "actions_logged": "Actions Logged",
+        "top_activity": "Top Activity",
+        "last_active": "Last Active",
+        "never": "Never"
+      },
+      "timeline": "Recent Timeline",
+      "no_history": "No history found.",
+      "table": {
+        "date": "Date",
+        "action": "Action",
+        "type": "Type",
+        "credits": "Credits"
+      }
+    },
+    "action_usage_modal": {
+      "title": "Usage Report:",
+      "desc": "Analysis of how this action affects user scoring.",
+      "stats": {
+        "total_calls": "Total Calls",
+        "unique_users": "Unique Users (Recent)",
+        "action_value": "Action Value"
+      },
+      "table": {
+        "user": "User",
+        "credits_awarded": "Credits Awarded",
+        "date": "Date",
+        "context": "Context/Trigger"
+      },
+      "no_usage": "No usage found for this action."
+    },
+    "action_modal": {
+      "title_edit": "Edit Action",
+      "title_new": "Create New Action",
+      "desc": "Configure scoring rules and trigger bindings.",
+      "fields": {
+        "action_name": "Action Name (Unique ID)",
+        "action_name_desc": "System action names cannot be modified.",
+        "action_name_placeholder": "e.g. custom_event_x",
+        "display_title": "Display Title",
+        "display_title_placeholder": "e.g. Custom Event X",
+        "type": "Type",
+        "system_binding": "System Binding",
+        "active": "Active Action",
+        "description": "Description",
+        "description_placeholder": "Public description or tooltip...",
+        "trigger": "Trigger Event (Optional)",
+        "trigger_placeholder": "e.g. user_registration",
+        "trigger_desc": "Technical identifier for external systems.",
+        "admin_notes": "Admin Notes",
+        "admin_notes_placeholder": "Internal notes..."
+      },
+      "delete_warning": "Are you sure? This action cannot be undone and may affect the display of historical records."
     }
   }
 }

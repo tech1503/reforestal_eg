@@ -9,7 +9,6 @@ import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Loader2 } from 'lucide-react';
-import { detectSystemBinding } from '@/utils/gamificationUtils';
 import { useTranslation } from 'react-i18next';
 
 const AdminGamificationActionModal = ({ isOpen, onClose, actionToEdit, onSuccess }) => {
@@ -62,15 +61,7 @@ const AdminGamificationActionModal = ({ isOpen, onClose, actionToEdit, onSuccess
     }, [actionToEdit, isOpen]);
 
     const handleChange = (field, value) => {
-        setFormData(prev => {
-            const updates = { ...prev, [field]: value };
-            // Auto-detect binding only if it's a new action or type changed
-            if (field === 'action_type' && !isBaseAction) {
-                // Optional: Helper logic to suggest binding based on type
-                // updates.system_binding = detectSystemBinding(value); 
-            }
-            return updates;
-        });
+        setFormData(prev => ({ ...prev, [field]: value }));
     };
 
     const handleSave = async () => {
@@ -111,12 +102,12 @@ const AdminGamificationActionModal = ({ isOpen, onClose, actionToEdit, onSuccess
     };
 
     const handleDelete = async () => {
-        if (!window.confirm("Are you sure? This action cannot be undone and may affect historical logs display.")) return;
+        if (!window.confirm(t('gamification_admin.action_modal.delete_warning', "Are you sure? This action cannot be undone and may affect historical logs display."))) return;
         setLoading(true);
         try {
             const { error } = await supabase.from('gamification_actions').delete().eq('id', actionToEdit.id);
             if (error) throw error;
-            toast({ title: "Deleted", description: "Action removed." });
+            toast({ title: t('common.success'), description: "Action removed." });
             onSuccess();
             onClose();
         } catch (err) {
@@ -130,35 +121,35 @@ const AdminGamificationActionModal = ({ isOpen, onClose, actionToEdit, onSuccess
         <Dialog open={isOpen} onOpenChange={onClose}>
             <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
-                    <DialogTitle>{actionToEdit ? 'Edit Action' : 'Create New Action'}</DialogTitle>
-                    <DialogDescription>Configure scoring rules and trigger bindings.</DialogDescription>
+                    <DialogTitle>{actionToEdit ? t('gamification_admin.action_modal.title_edit', 'Edit Action') : t('gamification_admin.action_modal.title_new', 'Create New Action')}</DialogTitle>
+                    <DialogDescription>{t('gamification_admin.action_modal.desc', 'Configure scoring rules and trigger bindings.')}</DialogDescription>
                 </DialogHeader>
 
                 <div className="grid gap-6 py-4">
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
-                            <Label>Action Name (Unique ID)</Label>
+                            <Label>{t('gamification_admin.action_modal.fields.action_name', 'Action Name (Unique ID)')}</Label>
                             <Input 
                                 value={formData.action_name} 
                                 onChange={(e) => handleChange('action_name', e.target.value)} 
                                 disabled={isBaseAction}
-                                placeholder="e.g., custom_event_x"
+                                placeholder={t('gamification_admin.action_modal.fields.action_name_placeholder', 'e.g., custom_event_x')}
                             />
-                            {isBaseAction && <p className="text-xs text-muted-foreground">System action names cannot be changed.</p>}
+                            {isBaseAction && <p className="text-xs text-muted-foreground">{t('gamification_admin.action_modal.fields.action_name_desc', 'System action names cannot be changed.')}</p>}
                         </div>
                         <div className="space-y-2">
-                            <Label>Display Title</Label>
+                            <Label>{t('gamification_admin.action_modal.fields.display_title', 'Display Title')}</Label>
                             <Input 
                                 value={formData.action_title} 
                                 onChange={(e) => handleChange('action_title', e.target.value)} 
-                                placeholder="e.g., Custom Event X"
+                                placeholder={t('gamification_admin.action_modal.fields.display_title_placeholder', 'e.g., Custom Event X')}
                             />
                         </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
-                            <Label>Type</Label>
+                            <Label>{t('gamification_admin.action_modal.fields.type', 'Type')}</Label>
                             <Select 
                                 value={formData.action_type} 
                                 onValueChange={(val) => handleChange('action_type', val)}
@@ -178,7 +169,7 @@ const AdminGamificationActionModal = ({ isOpen, onClose, actionToEdit, onSuccess
                             </Select>
                         </div>
                         <div className="space-y-2">
-                            <Label>System Binding</Label>
+                            <Label>{t('gamification_admin.action_modal.fields.system_binding', 'System Binding')}</Label>
                             <Select 
                                 value={formData.system_binding} 
                                 onValueChange={(val) => handleChange('system_binding', val)}
@@ -215,36 +206,36 @@ const AdminGamificationActionModal = ({ isOpen, onClose, actionToEdit, onSuccess
                                     checked={formData.is_active} 
                                     onCheckedChange={(checked) => handleChange('is_active', checked)}
                                 />
-                                <Label>Action Active</Label>
+                                <Label>{t('gamification_admin.action_modal.fields.active', 'Action Active')}</Label>
                             </div>
                         </div>
                     </div>
 
                     <div className="space-y-2">
-                        <Label>Description</Label>
+                        <Label>{t('gamification_admin.action_modal.fields.description', 'Description')}</Label>
                         <Textarea 
                             value={formData.description} 
                             onChange={(e) => handleChange('description', e.target.value)} 
-                            placeholder="Public facing description or tooltip..."
+                            placeholder={t('gamification_admin.action_modal.fields.description_placeholder', 'Public facing description or tooltip...')}
                         />
                     </div>
 
                     <div className="space-y-2">
-                        <Label>Trigger Event (Optional)</Label>
+                        <Label>{t('gamification_admin.action_modal.fields.trigger', 'Trigger Event (Optional)')}</Label>
                         <Input 
                             value={formData.trigger_event} 
                             onChange={(e) => handleChange('trigger_event', e.target.value)} 
-                            placeholder="e.g., user_signup"
+                            placeholder={t('gamification_admin.action_modal.fields.trigger_placeholder', 'e.g., user_signup')}
                         />
-                        <p className="text-xs text-muted-foreground">Technical hook identifier for external systems.</p>
+                        <p className="text-xs text-muted-foreground">{t('gamification_admin.action_modal.fields.trigger_desc', 'Technical hook identifier for external systems.')}</p>
                     </div>
 
                     <div className="space-y-2">
-                        <Label>Admin Notes</Label>
+                        <Label>{t('gamification_admin.action_modal.fields.admin_notes', 'Admin Notes')}</Label>
                         <Textarea 
                             value={formData.admin_notes} 
                             onChange={(e) => handleChange('admin_notes', e.target.value)} 
-                            placeholder="Internal notes..."
+                            placeholder={t('gamification_admin.action_modal.fields.admin_notes_placeholder', 'Internal notes...')}
                         />
                     </div>
                 </div>
@@ -252,7 +243,7 @@ const AdminGamificationActionModal = ({ isOpen, onClose, actionToEdit, onSuccess
                 <DialogFooter className="justify-between">
                     <div>
                         {actionToEdit && !isBaseAction && (
-                            <Button variant="destructive" onClick={handleDelete} disabled={loading}>Delete</Button>
+                            <Button variant="destructive" onClick={handleDelete} disabled={loading}>{t('common.cancel').replace('Cancel', 'Delete')}</Button>
                         )}
                     </div>
                     <div className="flex gap-2">

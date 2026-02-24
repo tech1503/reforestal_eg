@@ -42,7 +42,6 @@ const AdminGamificationMetricsModal = ({ isOpen, onClose, userScoring }) => {
 
     const handleSave = async () => {
         setSaving(true);
-        // CORRECCIÓN: Apuntando a 'founding_pioneer_metrics'
         const { error } = await supabase
             .from('founding_pioneer_metrics') 
             .update({
@@ -68,7 +67,6 @@ const AdminGamificationMetricsModal = ({ isOpen, onClose, userScoring }) => {
         if (status === 'approved') updates.founding_pioneer_access_date = new Date().toISOString();
         if (status === 'revoked') updates.founding_pioneer_revoke_date = new Date().toISOString();
 
-        // CORRECCIÓN: Apuntando a 'founding_pioneer_metrics'
         const { error } = await supabase
             .from('founding_pioneer_metrics')
             .update(updates)
@@ -88,38 +86,36 @@ const AdminGamificationMetricsModal = ({ isOpen, onClose, userScoring }) => {
             <DialogContent className="max-w-3xl max-h-[90vh] flex flex-col">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
-                        User Metrics: {userScoring.profile?.name}
+                        {t('gamification_admin.metrics_modal.title', 'User Metrics:')} {userScoring.profile?.name}
                         <Badge variant="outline">{userScoring.founding_pioneer_access_status}</Badge>
                     </DialogTitle>
                 </DialogHeader>
                 
                 <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col overflow-hidden">
                     <TabsList className="grid grid-cols-4 w-full">
-                        <TabsTrigger value="overview">{t('admin.overview')}</TabsTrigger>
-                        <TabsTrigger value="evaluation">Evaluation</TabsTrigger>
-                        <TabsTrigger value="history">History</TabsTrigger>
-                        <TabsTrigger value="notes">Notes</TabsTrigger>
+                        <TabsTrigger value="overview">{t('gamification_admin.metrics_modal.tabs.overview', 'Overview')}</TabsTrigger>
+                        <TabsTrigger value="evaluation">{t('gamification_admin.metrics_modal.tabs.evaluation', 'Evaluation')}</TabsTrigger>
+                        <TabsTrigger value="history">{t('gamification_admin.metrics_modal.tabs.history', 'History')}</TabsTrigger>
+                        <TabsTrigger value="notes">{t('gamification_admin.metrics_modal.tabs.notes', 'Notes')}</TabsTrigger>
                     </TabsList>
 
                     <div className="flex-1 overflow-y-auto py-4 pr-2">
                         <TabsContent value="overview" className="mt-0 space-y-4">
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                {/* CORRECCIÓN: Usando 'total_impact_credits_earned' que es el nombre real en DB */}
                                 <MetricCard icon={Trophy} label={t('dashboard.impact_credits')} value={userScoring.total_impact_credits_earned} color="text-amber-500" />
                                 <MetricCard icon={Activity} label="Eval Score" value={userScoring.founding_pioneer_evaluation_score} color="text-blue-500" />
-                                {/* CORRECCIÓN: Usando 'rank' que es el nombre real en DB (si existe) o calculándolo */}
                                 <MetricCard icon={ShieldCheck} label="Rank" value={userScoring.rank || 'N/A'} color="text-emerald-500" />
                                 
-                                <MetricCard label="Quests" value={userScoring.quests_participated} />
-                                <MetricCard label="Missions" value={userScoring.mission_quests_participated} />
-                                <MetricCard label="Referrals" value={userScoring.referrals_count} />
-                                <MetricCard label="Contributions" value={userScoring.contribution_count} />
+                                <MetricCard label={t('gamification_admin.metrics_modal.overview_tab.quests', 'Quests')} value={userScoring.quests_participated} />
+                                <MetricCard label={t('gamification_admin.metrics_modal.overview_tab.missions', 'Missions')} value={userScoring.mission_quests_participated} />
+                                <MetricCard label={t('gamification_admin.metrics_modal.overview_tab.referrals', 'Referrals')} value={userScoring.referrals_count} />
+                                <MetricCard label={t('gamification_admin.metrics_modal.overview_tab.contributions', 'Contributions')} value={userScoring.contribution_count} />
                                 
                                 <div className="col-span-full bg-gray-50 p-3 rounded-lg border">
-                                    <p className="text-xs text-gray-500 uppercase font-semibold">System Flags</p>
+                                    <p className="text-xs text-gray-500 uppercase font-semibold">{t('gamification_admin.metrics_modal.overview_tab.system_flags', 'System Flags')}</p>
                                     <div className="flex gap-2 mt-2">
-                                        <Badge variant={userScoring.genesis_quest_completed ? "default" : "secondary"}>Genesis Quest</Badge>
-                                        <Badge variant={userScoring.profile_updated ? "default" : "secondary"}>Profile Updated</Badge>
+                                        <Badge variant={userScoring.genesis_quest_completed ? "default" : "secondary"}>{t('gamification_admin.metrics_modal.overview_tab.genesis_quest', 'Genesis Quest')}</Badge>
+                                        <Badge variant={userScoring.profile_updated ? "default" : "secondary"}>{t('gamification_admin.metrics_modal.overview_tab.profile_updated', 'Profile Updated')}</Badge>
                                     </div>
                                 </div>
                             </div>
@@ -127,24 +123,25 @@ const AdminGamificationMetricsModal = ({ isOpen, onClose, userScoring }) => {
 
                         <TabsContent value="evaluation" className="mt-0 space-y-6">
                             <div className="space-y-4 border p-4 rounded-lg bg-gray-50">
-                                <h4 className="font-semibold text-sm">Founding Pioneer Status</h4>
+                                <h4 className="font-semibold text-sm">{t('gamification_admin.metrics_modal.evaluation_tab.status_title', 'Founding Pioneer Status')}</h4>
                                 <div className="flex gap-2">
-                                    <Button size="sm" onClick={() => handleUpdateStatus('approved')} disabled={userScoring.founding_pioneer_access_status === 'approved'} className="bg-emerald-600 hover:bg-emerald-700">Approve Access</Button>
-                                    <Button size="sm" variant="destructive" onClick={() => handleUpdateStatus('rejected')} disabled={userScoring.founding_pioneer_access_status === 'rejected'}>Reject</Button>
-                                    <Button size="sm" variant="outline" onClick={() => handleUpdateStatus('revoked')} className="text-orange-600 border-orange-200 hover:bg-orange-50">Revoke</Button>
+                                    <Button size="sm" onClick={() => handleUpdateStatus('approved')} disabled={userScoring.founding_pioneer_access_status === 'approved'} className="bg-emerald-600 hover:bg-emerald-700">{t('gamification_admin.metrics_modal.evaluation_tab.approve', 'Approve Access')}</Button>
+                                    <Button size="sm" variant="destructive" onClick={() => handleUpdateStatus('rejected')} disabled={userScoring.founding_pioneer_access_status === 'rejected'}>{t('gamification_admin.metrics_modal.evaluation_tab.reject', 'Reject')}</Button>
+                                    <Button size="sm" variant="outline" onClick={() => handleUpdateStatus('revoked')} className="text-orange-600 border-orange-200 hover:bg-orange-50">{t('gamification_admin.metrics_modal.evaluation_tab.revoke', 'Revoke')}</Button>
                                 </div>
                             </div>
                             <div className="space-y-2">
-                                <label className="text-sm font-medium">Evaluation Score (0-100)</label>
+                                <label className="text-sm font-medium">{t('gamification_admin.metrics_modal.evaluation_tab.score_label', 'Evaluation Score (0-100)')}</label>
                                 <Input type="number" min="0" max="100" value={evalScore} onChange={e => setEvalScore(e.target.value)} />
-                                <p className="text-xs text-muted-foreground">This score determines ranking for the Top 100 limit.</p>
+                                <p className="text-xs text-muted-foreground">{t('gamification_admin.metrics_modal.evaluation_tab.score_desc', 'This score determines ranking for the Top 100 limit.')}</p>
                             </div>
                         </TabsContent>
 
                         <TabsContent value="history" className="mt-0">
                             {loadingHistory ? <Loader2 className="animate-spin mx-auto mt-8" /> : (
                                 <div className="space-y-2">
-                                    {history.map(item => (
+                                    {history.length === 0 ? <p className="text-sm text-muted-foreground p-4 text-center">{t('gamification_admin.metrics_modal.history_tab.no_history', 'No history found')}</p> : 
+                                    history.map(item => (
                                         <div key={item.id} className="flex justify-between items-center p-2 border rounded-md text-sm hover:bg-gray-50">
                                             <div>
                                                 <p className="font-medium">{item.action_name}</p>
@@ -159,8 +156,8 @@ const AdminGamificationMetricsModal = ({ isOpen, onClose, userScoring }) => {
 
                         <TabsContent value="notes" className="mt-0 space-y-4">
                             <div className="space-y-2">
-                                <label className="text-sm font-medium">Admin Notes</label>
-                                <Textarea value={adminNotes} onChange={e => setAdminNotes(e.target.value)} rows={8} placeholder="Internal notes about this user..." />
+                                <label className="text-sm font-medium">{t('gamification_admin.metrics_modal.notes_tab.label', 'Admin Notes')}</label>
+                                <Textarea value={adminNotes} onChange={e => setAdminNotes(e.target.value)} rows={8} placeholder={t('gamification_admin.metrics_modal.notes_tab.placeholder', 'Internal notes about this user...')} />
                             </div>
                         </TabsContent>
                     </div>

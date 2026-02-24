@@ -186,6 +186,155 @@
   },
   "admin": {
     "title": "Panel de Administración",
+    "community": "Área Fundadores",
+    "mlm": "Referidos (MLM)",
+    "quest_moderation": "Motor de misiones",
+    "audience": {
+      "label": "Audiencia Objetivo",
+      "all": "Todos",
+      "user": "Usuario Estándar",
+      "startnext_user": "Apoyo Startnext",
+      "pioneer": "Pionero Fundador"
+    },
+    "gamification_actions": {
+      "page_title": "Configuración de Acciones del Sistema",
+      "page_subtitle": "Gestiona los triggers técnicos (Referidos, Login, Contribuciones).",
+      "search": "Buscar acciones del sistema...",
+      "add_btn": "Añadir Acción del Sistema",
+      "note_label": "Nota:",
+      "warning_note_1": "Las Misiones de Génesis y Quests se gestionan en la plataforma.",
+      "gamification_tab": "Pestaña de Gamificación",
+      "warning_note_2": "para asegurar la consistencia de las recompensas.",
+      "table": {
+        "title": "Título / Nombre",
+        "type": "Tipo",
+        "binding": "Vinculación (Binding)"
+      },
+      "trans_modal": {
+        "title": "Traducir:",
+        "desc": "Localización para las Acciones del Sistema",
+        "field_title": "Título",
+        "field_desc": "Descripción",
+        "field_success": "Notificación de Éxito",
+        "field_success_hint": "Este mensaje se envía al usuario cuando completa la acción.",
+        "saved": "Traducciones guardadas exitosamente."
+      }
+    },
+    "quest_builder": {
+      "modal_title_edit": "Editar Misión Interactiva",
+      "modal_title_new": "Estudio de Creación de Misiones",
+      "modal_desc": "Diseña el flujo de aprendizaje, recompensas y condiciones.",
+      "save_mission": "Guardar Misión",
+      "tab_general": "General",
+      "tab_rules": "Reglas y Recompensas",
+      "tab_steps": "Constructor de Pasos",
+      "cover_image": "Imagen de Portada (Banner)",
+      "change_image": "Cambiar Imagen",
+      "upload_image": "Haz clic para subir imagen (Opcional)",
+      "uploading": "Subiendo...",
+      "main_title": "Título Principal *",
+      "main_title_placeholder": "ej. El Ecosistema del Amazonas",
+      "subtitle": "Subtítulo",
+      "subtitle_placeholder": "Una frase corta y atractiva",
+      "mission_desc": "Descripción de la Misión (Intro)",
+      "extra_info": "Información Extra (Tooltip / Pista)",
+      "extra_info_placeholder": "Contexto opcional para ayudar a los usuarios...",
+      "completion_rewards": "Recompensas al Completar",
+      "skill_category": "Categoría de Habilidad",
+      "availability": "Disponibilidad y Límites",
+      "status": "Estado",
+      "start_date": "Fecha Inicio (Opcional)",
+      "end_date": "Fecha Fin (Opcional)",
+      "allow_skip": "Permitir Omitir",
+      "allow_skip_desc": "¿Pueden los usuarios saltarse esta misión completa?",
+      "skip_penalty": "Penalización por Omitir (Se resta de Reputación)",
+      "no_steps_title": "Aún no hay pasos",
+      "no_steps_desc": "Crea tu primer bloque para empezar a construir el flujo de la misión.",
+      "add_content": "Añadir Contenido",
+      "add_question": "Añadir Pregunta",
+      "step": "Paso",
+      "step_title": "Título del Paso",
+      "media_url": "URL Multimedia (Video/Imagen)",
+      "ui_type": "Tipo de UI",
+      "content_md": "Contenido (Soporta Markdown)",
+      "content_placeholder": "Escribe el contenido educativo aquí...",
+      "question_type": "Tipo de Componente de Pregunta",
+      "question_text": "Texto de la Pregunta",
+      "ask_something": "Pregunta algo...",
+      "required": "¿Obligatorio?",
+      "answers": "Respuestas",
+      "add_option": "Añadir",
+      "correct_answer_index": "Índice de Respuesta Correcta (ej. 0, o 0,2)",
+      "correct_answer_placeholder": "Déjalo en blanco si cualquier opción es correcta",
+      "slider_poles": "Definir Polos del Slider",
+      "slider_poles_desc": "Los usuarios distribuirán el 100% entre estas variables.",
+      "free_text_note": "Nota: Las respuestas de texto libre marcarán la misión como 'Pendiente de Revisión'. Un Guardián (Admin) debe aprobarla manualmente para otorgar las recompensas.",
+      "scale_5_note": "Genera automáticamente una escala de estrellas/números del 1 al 5.",
+      "on_fail_redirect": "URL de redirección si falla (Bridge-Quest)",
+      "mission_flow": "Flujo de la Misión",
+      "empty": "Vacío"
+    },
+    "quest_review": {
+      "title": "Revisión de Misión Pendiente",
+      "subtitle": "Revise y apruebe el compromiso de la comunidad.",
+      "tabs": {
+        "pending": "REVISIÓN PENDIENTE",
+        "history": "HISTORIAL COMPLETO"
+      },
+      "notif_approved_title": "Misión Aprobada! ✅ ",
+      "notif_approved_msg": "Has aprobado esta misión. Las recompensas te han sido otorgadas.",
+      "notif_rejected_title": "Misión Requiere Revisión ⚠️",
+      "notif_rejected_msg": "Has rechazado esta misión. No se otorgarán recompensas.",
+      "status_updated": "Estado actualizado exitosamente.",
+      "no_pending": "No hay misiones pendientes",
+      "no_history": "Historial vacío.",
+      "table": {
+        "user": "Usuario",
+        "mission": "Título de la misión",
+        "reward": "Recompensa potencial",
+        "submitted": "Enviado",
+        "action": "Acción",
+        "details": "Detalles"
+      },
+      "evaluate_btn": "Evaluar",
+      "view_btn": "Ver respuesta",
+      "feedback_guardian": "FEEDBACK DEL ADMIN",
+      "feedback_placeholder": "Ej: ¡Excelente respuesta! Tu perspectiva es muy valiosa.",
+      "all_missions": "Todas las Misiones (Global)",
+      "no_data": "Sin participaciones registradas",
+      "tooltip_users": "Usuarios",
+      "tooltip_participation": "Participación",
+      "status_badge": {
+        "approved": "Aprobada",
+        "auto_approved": "Aprobada Automáticamente",
+        "rejected": "Rechazada",
+        "pending": "Pendiente",
+        "completed": "Completada"
+      },
+      "modal": {
+        "read_only": "Vista de Solo Lectura",
+        "guardian_eval": "Evaluación del Admin",
+        "rewards_label": "Bonos",
+        "no_answer": "Sin respuesta",
+        "step": "Paso",
+        "stars": "Estrellas",
+        "close": "Cerrar",
+        "reject": "Rechazar",
+        "approve_reward": "Aprobar y Premiar"
+      },
+      "errors": {
+        "already_processed": "Permiso denegado o la misión ya no está pendiente.",
+        "save_failed": "Hubo un problema al guardar el estado en la base de datos."
+      },
+      "description": "Esta misión requiere revisión manual. Por favor, revisa las respuestas del usuario y otorga las recompensas correspondientes.",
+      "user_response": "Respuesta del Usuario",
+      "mark_complete": "Marcar como Completa",
+      "mark_incomplete": "Marcar como Incompleta",
+      "feedback_label": "Feedback para el Usuario",
+      "success_msg": "Misión revisada exitosamente.",
+      "analytics_title": "Métricas de Participación",
+      "analytics_desc": "Desglose de roles de los participantes por misión."
+    },
     "overview": "Resumen",
     "user_management": "Gestión de Usuarios",
     "investor_profile": "Perfil de Socio",
@@ -227,7 +376,7 @@
     "settings": "Configuración",
     "genesis_quest": "Misión Génesis",
     "gamification": "Gamificación",
-    "vesting": "Vesting y Staking",
+    "vesting": "Vesting y Participación",
     "quick_stats": {
       "total_users": "Usuarios Totales",
       "active_subscriptions": "Suscripciones Activas",
@@ -450,7 +599,15 @@
     "available_quests": "Misiones Disponibles",
     "completed_quests": "Misiones Completadas",
     "earn_credits": "Gana {{credits}} Bonos",
-    "complete_quest": "Completar Misión"
+    "complete_quest": "Completar Misión",
+    "status_in_review": "En Revisión",
+    "go_to_referrals": "Ir a Referidos",
+    "support_startnext": "Apoyar en Startnext",
+    "requires_genesis": "Requiere Misión Inicial",
+    "requires_startnext": "Requiere Startnext",
+    "requires_pioneer": "Requiere Pionero",
+    "unlocked_premium": "Desbloqueado",
+    "empty_desc": "No hay misiones activas en este momento."
   },
   "home": {
     "sign_in": "Iniciar Sesión",
@@ -487,7 +644,7 @@
       "cta": "Apóyanos en Startnext"
     },
     "widget": {
-      "badge": "Proyecto Startnext",
+      "badge": "Crowdfunding en Startnext",
       "title": "Reforestal eG",
       "quote": "Hacemos de la protección del Amazonas nuestra máxima prioridad.",
       "button": "Apoyar el proyecto"
@@ -783,6 +940,9 @@
       "title": "¡Bonos Obtenidos!",
       "message": "Felicidades, has ganado {{points}} bonos por: {{action}}."
     },
+    "points_and_rep_earned": {
+      "message": "Felicidades, has ganado {{points}} bonos y +{{rep}} de Reputación por: {{action}}."
+    },
     "welcome": {
       "title": "¡Bienvenido a Reforestal!",
       "message": "Hola {{name}}, nos alegra tenerte en nuestra comunidad."
@@ -871,6 +1031,184 @@
     "copyright": "Reforestal eG © 2026",
     "socials": {
       "instagram": "Visita nuestro Instagram"
+    }
+  },
+  "rewards": {
+    "bonus_points": "Bonos",
+    "bonus_points_short": "BP",
+    "reputation": "Reputación"
+  },
+  "mission": {
+    "distribute_resources": "Distribuye tus Recursos",
+    "remaining": "Restante",
+    "load_failed": "Error al cargar la misión.",
+    "incorrect_title": "Respuesta Incorrecta",
+    "redirect_msg": "Serás redirigido para repasar los materiales.",
+    "review_answer": "Revisa tu respuesta e inténtalo de nuevo.",
+    "skip_mission": "Omitir Misión",
+    "skip_confirm": "¿Omitir misión? Se aplicará una penalización de -{{penalty}} puntos de Reputación.",
+    "skipped_title": "Misión Omitida",
+    "penalty_applied": "Penalización aplicada: -{{penalty}} Reputación.",
+    "submitted_title": "¡Misión Enviada!",
+    "review_msg": "Un Guardián revisará tus respuestas en breve.",
+    "submit_failed": "Error al enviar la misión.",
+    "write_answer": "Escribe tu respuesta detallada aquí...",
+    "start_btn": "Comenzar Misión",
+    "step_x_of_y": "Paso {{current}} de {{total}}",
+    "complete_btn": "Completar Misión",
+    "next_btn": "Siguiente Paso",
+    "accomplished_title": "¡Misión Cumplida!",
+    "success_default": "Has completado esta misión exitosamente.",
+    "under_review_title": "En Revisión",
+    "under_review_desc": "Tus respuestas han sido enviadas. Un Admin revisará tu respuesta en breve para otorgarte tus recompensas.",
+    "already_completed_title": "Ya Completado",
+    "already_completed_desc": "Ya has obtenido las recompensas de esta misión.",
+    "return_btn": "Volver a Misiones"
+  },
+  "gamification_admin": {
+    "quest_engine": {
+      "title": "Motor de Misiones Avanzado",
+      "subtitle": "Construye misiones interactivas, gestiona habilidades y reputación.",
+      "rpg_missions": "Misiones RPG Avanzadas",
+      "build_new": "Crear Nueva Misión",
+      "no_missions": "No se encontraron misiones interactivas. Haz clic en 'Crear Nueva Misión' para empezar."
+    },
+    "scoring": {
+      "title": "Resumen de Puntuación de Usuarios",
+      "subtitle": "Métricas agregadas del historial de gamificación.",
+      "search": "Buscar usuario...",
+      "table": {
+        "rank": "Rango",
+        "user": "Usuario",
+        "total_credits": "Créditos Totales",
+        "eval_score": "Puntuación",
+        "status": "Estado",
+        "actions": "Acciones",
+        "genesis": "Génesis",
+        "quests": "Misiones",
+        "referrals": "Referidos"
+      },
+      "badges": {
+        "approved": "Aprobado",
+        "rejected": "Rechazado",
+        "revoked": "Revocado",
+        "pending": "Pendiente",
+        "done": "Hecho"
+      },
+      "actions": {
+        "details": "Detalles",
+        "reset_scoring": "Reiniciar Puntuación"
+      },
+      "reset_warning": "PELIGRO: Esto borrará todo el historial de gamificación y reiniciará las puntuaciones de este usuario. ¿Continuar?",
+      "reset_success": "La puntuación del usuario ha sido reiniciada."
+    },
+    "metrics_modal": {
+      "title": "Métricas de Usuario:",
+      "tabs": {
+        "overview": "Resumen",
+        "evaluation": "Evaluación",
+        "history": "Historial",
+        "notes": "Notas"
+      },
+      "overview_tab": {
+        "quests": "Misiones Cortas",
+        "missions": "Misiones RPG",
+        "referrals": "Referidos",
+        "contributions": "Contribuciones",
+        "system_flags": "Marcadores del Sistema",
+        "genesis_quest": "Misión Génesis",
+        "profile_updated": "Perfil Actualizado"
+      },
+      "evaluation_tab": {
+        "status_title": "Estado de Pionero Fundador",
+        "approve": "Aprobar Acceso",
+        "reject": "Rechazar",
+        "revoke": "Revocar",
+        "score_label": "Puntuación de Evaluación (0-100)",
+        "score_desc": "Esta puntuación determina la clasificación para el límite del Top 100."
+      },
+      "history_tab": {
+        "no_history": "No se encontró historial"
+      },
+      "notes_tab": {
+        "label": "Notas de Admin",
+        "placeholder": "Notas internas sobre este usuario..."
+      }
+    },
+    "history_log": {
+      "title": "Registro de Actividad del Sistema",
+      "search": "Buscar registros...",
+      "table": {
+        "date": "Fecha",
+        "user": "Usuario",
+        "action": "Acción",
+        "type": "Tipo",
+        "credits": "Créditos"
+      },
+      "delete_warning": "¿Eliminar este registro? Los créditos NO se deducirán automáticamente del total del usuario.",
+      "no_logs": "No se encontraron registros."
+    },
+    "user_history_modal": {
+      "title": "Historial de Actividad:",
+      "desc": "Registro detallado de interacciones y recompensas del usuario.",
+      "tabs": {
+        "overview": "Resumen",
+        "log": "Registro Detallado"
+      },
+      "stats": {
+        "total_credits": "Créditos Totales",
+        "actions_logged": "Acciones Registradas",
+        "top_activity": "Actividad Principal",
+        "last_active": "Última Actividad",
+        "never": "Nunca"
+      },
+      "timeline": "Línea de Tiempo Reciente",
+      "no_history": "No se encontró historial.",
+      "table": {
+        "date": "Fecha",
+        "action": "Acción",
+        "type": "Tipo",
+        "credits": "Créditos"
+      }
+    },
+    "action_usage_modal": {
+      "title": "Reporte de Uso:",
+      "desc": "Análisis de cómo esta acción afecta la puntuación del usuario.",
+      "stats": {
+        "total_calls": "Ejecuciones Totales",
+        "unique_users": "Usuarios Únicos (Recientes)",
+        "action_value": "Valor de la Acción"
+      },
+      "table": {
+        "user": "Usuario",
+        "credits_awarded": "Créditos Otorgados",
+        "date": "Fecha",
+        "context": "Contexto/Disparador"
+      },
+      "no_usage": "Aún no se ha registrado uso."
+    },
+    "action_modal": {
+      "title_edit": "Editar Acción",
+      "title_new": "Crear Nueva Acción",
+      "desc": "Configura reglas de puntuación y enlaces de disparo.",
+      "fields": {
+        "action_name": "Nombre de la Acción (ID Único)",
+        "action_name_desc": "Los nombres de las acciones del sistema no pueden modificarse.",
+        "action_name_placeholder": "ej. evento_personalizado_x",
+        "display_title": "Título a Mostrar",
+        "display_title_placeholder": "ej. Evento Personalizado X",
+        "type": "Tipo",
+        "system_binding": "Enlace del Sistema",
+        "active": "Acción Activa",
+        "description": "Descripción",
+        "description_placeholder": "Descripción pública o tooltip...",
+        "trigger": "Evento Disparador (Opcional)",
+        "trigger_placeholder": "ej. registro_usuario",
+        "trigger_desc": "Identificador técnico para sistemas externos.",
+        "admin_notes": "Notas de Admin",
+        "admin_notes_placeholder": "Notas internas..."
+      },
+      "delete_warning": "¿Estás seguro? Esta acción no se puede deshacer y puede afectar la visualización de los registros históricos."
     }
   }
 }

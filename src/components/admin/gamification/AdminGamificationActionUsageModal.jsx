@@ -5,8 +5,10 @@ import { supabase } from '@/lib/customSupabaseClient';
 import { Loader2, TrendingUp } from 'lucide-react';
 import { format } from 'date-fns';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useTranslation } from 'react-i18next';
 
 const AdminGamificationActionUsageModal = ({ isOpen, onClose, action }) => {
+    const { t } = useTranslation();
     const [usageHistory, setUsageHistory] = useState([]);
     const [stats, setStats] = useState({ totalCalls: 0, totalCredits: 0, uniqueUsers: 0 });
     const [loading, setLoading] = useState(true);
@@ -56,22 +58,22 @@ const AdminGamificationActionUsageModal = ({ isOpen, onClose, action }) => {
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
                         <TrendingUp className="w-5 h-5 text-emerald-600"/>
-                        Usage Report: {action?.action_title}
+                        {t('gamification_admin.action_usage_modal.title', 'Usage Report:')} {action?.action_title}
                     </DialogTitle>
-                    <DialogDescription>Analysis of how this action affects user scoring.</DialogDescription>
+                    <DialogDescription>{t('gamification_admin.action_usage_modal.desc', 'Analysis of how this action affects user scoring.')}</DialogDescription>
                 </DialogHeader>
 
                 <div className="grid grid-cols-3 gap-4 my-4">
                     <Card className="bg-slate-50">
-                        <CardHeader className="p-4 pb-2"><CardTitle className="text-sm font-medium text-slate-500">Total Executions</CardTitle></CardHeader>
+                        <CardHeader className="p-4 pb-2"><CardTitle className="text-sm font-medium text-slate-500">{t('gamification_admin.action_usage_modal.stats.total_calls', 'Total Executions')}</CardTitle></CardHeader>
                         <CardContent className="p-4 pt-0"><div className="text-2xl font-bold">{stats.totalCalls}</div></CardContent>
                     </Card>
                     <Card className="bg-slate-50">
-                        <CardHeader className="p-4 pb-2"><CardTitle className="text-sm font-medium text-slate-500">Unique Users (Recent)</CardTitle></CardHeader>
+                        <CardHeader className="p-4 pb-2"><CardTitle className="text-sm font-medium text-slate-500">{t('gamification_admin.action_usage_modal.stats.unique_users', 'Unique Users (Recent)')}</CardTitle></CardHeader>
                         <CardContent className="p-4 pt-0"><div className="text-2xl font-bold">{stats.uniqueUsers}</div></CardContent>
                     </Card>
                     <Card className="bg-slate-50">
-                        <CardHeader className="p-4 pb-2"><CardTitle className="text-sm font-medium text-slate-500">Action Value</CardTitle></CardHeader>
+                        <CardHeader className="p-4 pb-2"><CardTitle className="text-sm font-medium text-slate-500">{t('gamification_admin.action_usage_modal.stats.action_value', 'Action Value')}</CardTitle></CardHeader>
                         <CardContent className="p-4 pt-0"><div className="text-2xl font-bold text-emerald-600">+{action?.impact_credits_value}</div></CardContent>
                     </Card>
                 </div>
@@ -80,17 +82,17 @@ const AdminGamificationActionUsageModal = ({ isOpen, onClose, action }) => {
                     <Table>
                         <TableHeader>
                             <TableRow className="bg-slate-50 sticky top-0">
-                                <TableHead>User</TableHead>
-                                <TableHead>Credits Awarded</TableHead>
-                                <TableHead>Date</TableHead>
-                                <TableHead>Context/Trigger</TableHead>
+                                <TableHead>{t('gamification_admin.action_usage_modal.table.user', 'User')}</TableHead>
+                                <TableHead>{t('gamification_admin.action_usage_modal.table.credits_awarded', 'Credits Awarded')}</TableHead>
+                                <TableHead>{t('gamification_admin.action_usage_modal.table.date', 'Date')}</TableHead>
+                                <TableHead>{t('gamification_admin.action_usage_modal.table.context', 'Context/Trigger')}</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {loading ? (
                                 <TableRow><TableCell colSpan={4} className="text-center py-8"><Loader2 className="animate-spin mx-auto"/></TableCell></TableRow>
                             ) : usageHistory.length === 0 ? (
-                                <TableRow><TableCell colSpan={4} className="text-center py-8 text-muted-foreground">No usage recorded yet.</TableCell></TableRow>
+                                <TableRow><TableCell colSpan={4} className="text-center py-8 text-muted-foreground">{t('gamification_admin.action_usage_modal.no_usage', 'No usage recorded yet.')}</TableCell></TableRow>
                             ) : (
                                 usageHistory.map(record => (
                                     <TableRow key={record.id}>

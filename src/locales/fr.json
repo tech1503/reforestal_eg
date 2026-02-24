@@ -186,6 +186,155 @@
   },
   "admin": {
     "title": "Panneau d'Administration",
+    "community": "Espace Fondateurs",
+    "mlm": "Parrainages (MLM)",
+    "quest_moderation": "Moteur de missions",
+    "audience": {
+      "label": "Audience cible",
+      "all": "Tous",
+      "user": "Utilisateur standard",
+      "startnext_user": "Soutien Startnext",
+      "pioneer": "Pionnier fondateur"
+    },
+    "gamification_actions": {
+      "page_title": "Configuration des actions système",
+      "page_subtitle": "Gérez les déclencheurs techniques (Parrainages, Connexion, Contributions).",
+      "search": "Rechercher des actions système...",
+      "add_btn": "Ajouter une action système",
+      "note_label": "Remarque :",
+      "warning_note_1": "Les missions Genesis et les quêtes sont gérées sur la plateforme.",
+      "gamification_tab": "Onglet Gamification",
+      "warning_note_2": "afin d’assurer la cohérence des récompenses.",
+      "table": {
+        "title": "Titre / Nom",
+        "type": "Type",
+        "binding": "Liaison (Binding)"
+      },
+      "trans_modal": {
+        "title": "Traduire :",
+        "desc": "Localisation des actions système",
+        "field_title": "Titre",
+        "field_desc": "Description",
+        "field_success": "Notification de succès",
+        "field_success_hint": "Ce message est envoyé à l’utilisateur lorsqu’il termine l’action.",
+        "saved": "Traductions enregistrées avec succès."
+      }
+    },
+    "quest_builder": {
+      "modal_title_edit": "Modifier la mission interactive",
+      "modal_title_new": "Studio de création de missions",
+      "modal_desc": "Concevez le parcours d’apprentissage, les récompenses et les conditions.",
+      "save_mission": "Enregistrer la mission",
+      "tab_general": "Général",
+      "tab_rules": "Règles et récompenses",
+      "tab_steps": "Constructeur d’étapes",
+      "cover_image": "Image de couverture (Bannière)",
+      "change_image": "Changer l’image",
+      "upload_image": "Cliquez pour télécharger une image (Optionnel)",
+      "uploading": "Téléchargement en cours...",
+      "main_title": "Titre principal *",
+      "main_title_placeholder": "ex. L’écosystème amazonien",
+      "subtitle": "Sous-titre",
+      "subtitle_placeholder": "Une phrase courte et attrayante",
+      "mission_desc": "Description de la mission (Intro)",
+      "extra_info": "Information supplémentaire (Tooltip / Indice)",
+      "extra_info_placeholder": "Contexte optionnel pour aider les utilisateurs...",
+      "completion_rewards": "Récompenses à l’achèvement",
+      "skill_category": "Catégorie de compétence",
+      "availability": "Disponibilité et limites",
+      "status": "Statut",
+      "start_date": "Date de début (Optionnel)",
+      "end_date": "Date de fin (Optionnel)",
+      "allow_skip": "Autoriser à passer",
+      "allow_skip_desc": "Les utilisateurs peuvent-ils ignorer toute la mission ?",
+      "skip_penalty": "Pénalité en cas de passage (déduite de la réputation)",
+      "no_steps_title": "Aucune étape pour le moment",
+      "no_steps_desc": "Créez votre premier bloc pour commencer à construire le flux de la mission.",
+      "add_content": "Ajouter du contenu",
+      "add_question": "Ajouter une question",
+      "step": "Étape",
+      "step_title": "Titre de l’étape",
+      "media_url": "URL multimédia (Vidéo/Image)",
+      "ui_type": "Type d’interface",
+      "content_md": "Contenu (supporte Markdown)",
+      "content_placeholder": "Écrivez le contenu pédagogique ici...",
+      "question_type": "Type de composant de question",
+      "question_text": "Texte de la question",
+      "ask_something": "Posez une question...",
+      "required": "Obligatoire ?",
+      "answers": "Réponses",
+      "add_option": "Ajouter",
+      "correct_answer_index": "Index de la bonne réponse (ex. 0 ou 0,2)",
+      "correct_answer_placeholder": "Laisser vide si toute option est correcte",
+      "slider_poles": "Définir les pôles du curseur",
+      "slider_poles_desc": "Les utilisateurs répartiront 100 % entre ces variables.",
+      "free_text_note": "Remarque : les réponses en texte libre marqueront la mission comme « En révision ». Un Guardian (Admin) devra l’approuver manuellement pour attribuer les récompenses.",
+      "scale_5_note": "Génère automatiquement une échelle d’étoiles/nombres de 1 à 5.",
+      "on_fail_redirect": "URL de redirection en cas d’échec (Bridge-Quest)",
+      "mission_flow": "Flux de la mission",
+      "empty": "Vide"
+    },
+    "quest_review": {
+      "title": "Révision des missions en attente",
+      "subtitle": "Examinez et approuvez l’engagement de la communauté.",
+      "tabs": {
+        "pending": "RÉVISION EN ATTENTE",
+        "history": "HISTORIQUE COMPLET"
+      },
+      "notif_approved_title": "Mission approuvée ! ✅",
+      "notif_approved_msg": "Vous avez approuvé cette mission. Les récompenses ont été attribuées.",
+      "notif_rejected_title": "Mission nécessitant une révision ⚠️",
+      "notif_rejected_msg": "Vous avez rejeté cette mission. Aucune récompense ne sera attribuée.",
+      "status_updated": "Statut mis à jour avec succès.",
+      "no_pending": "Aucune mission en attente",
+      "no_history": "Historique vide.",
+      "table": {
+        "user": "Utilisateur",
+        "mission": "Titre de la mission",
+        "reward": "Récompense potentielle",
+        "submitted": "Soumis",
+        "action": "Action",
+        "details": "Détails"
+      },
+      "evaluate_btn": "Évaluer",
+      "view_btn": "Voir la réponse",
+      "feedback_guardian": "FEEDBACK ADMIN",
+      "feedback_placeholder": "ex. : Excellente réponse ! Votre perspective est très précieuse.",
+      "all_missions": "Toutes les missions (Global)",
+      "no_data": "Aucune participation enregistrée",
+      "tooltip_users": "Utilisateurs",
+      "tooltip_participation": "Participation",
+      "status_badge": {
+        "approved": "Approuvée",
+        "auto_approved": "Approuvée automatiquement",
+        "rejected": "Rejetée",
+        "pending": "En attente",
+        "completed": "Terminée"
+      },
+      "modal": {
+        "read_only": "Vue en lecture seule",
+        "guardian_eval": "Évaluation Admin",
+        "rewards_label": "Points bonus",
+        "no_answer": "Aucune réponse",
+        "step": "Étape",
+        "stars": "Étoiles",
+        "close": "Fermer",
+        "reject": "Rejeter",
+        "approve_reward": "Approuver et récompenser"
+      },
+      "errors": {
+        "already_processed": "Accès refusé ou la mission n’est plus en attente.",
+        "save_failed": "Un problème est survenu lors de l’enregistrement du statut dans la base de données."
+      },
+      "description": "Cette mission nécessite une révision manuelle. Veuillez examiner les réponses de l’utilisateur et attribuer les récompenses correspondantes.",
+      "user_response": "Réponse de l’utilisateur",
+      "mark_complete": "Marquer comme terminée",
+      "mark_incomplete": "Marquer comme incomplète",
+      "feedback_label": "Feedback pour l’utilisateur",
+      "success_msg": "Mission révisée avec succès.",
+      "analytics_title": "Métriques de participation",
+      "analytics_desc": "Répartition des rôles des participants par mission."
+    },
     "overview": "Vue d'ensemble",
     "user_management": "Gestion des Utilisateurs",
     "investor_profile": "Profil Sociétaire",
@@ -450,7 +599,15 @@
     "available_quests": "Quêtes",
     "completed_quests": "Quêtes Terminées",
     "earn_credits": "Gagnez {{credits}} Points Bonus",
-    "complete_quest": "Terminer la Quête"
+    "complete_quest": "Terminer la Quête",
+    "status_in_review": "En révision",
+    "go_to_referrals": "Aller aux parrainages",
+    "support_startnext": "Soutenir sur Startnext",
+    "requires_genesis": "Nécessite une mission initiale",
+    "requires_startnext": "Nécessite Startnext",
+    "requires_pioneer": "Nécessite le statut de pionnier",
+    "unlocked_premium": "Débloqué",
+    "empty_desc": "Il n’y a aucune mission active pour le moment."
   },
   "home": {
     "sign_in": "Se Connecter",
@@ -487,7 +644,7 @@
       "cta": "Soutenez-nous sur Startnext"
     },
     "widget": {
-      "badge": "Projet Startnext",
+      "badge": "Crowdfunding dans Startnext",
       "title": "Reforestal eG",
       "quote": "Nous faisons de la protection de l'Amazonie notre priorité absolue.",
       "button": "Soutenir le projet"
@@ -783,6 +940,9 @@
       "title": "¡Bonus gagnés !",
       "message": "Félicitations, vous avez gagné {{points}} points bonus pour : {{action}}."
     },
+    "points_and_rep_earned": {
+      "message": "Félicitations, vous avez gagné {{points}} points bonus et +{{rep}} de réputation pour : {{action}}."
+    },
     "welcome": {
       "title": "¡Bienvenue sur Reforestal!",
       "message": "Bonjour {{name}}, nous sommes ravis de vous accueillir dans notre communauté."
@@ -872,5 +1032,183 @@
     "socials": {
       "instagram": "Visitez notre Instagram"
     }
+    },
+    "rewards": {
+      "bonus_points": "Points bonus",
+      "bonus_points_short": "PB",
+      "reputation": "Réputation"
+    },
+    "mission": {
+      "distribute_resources": "Distribuez vos ressources",
+      "remaining": "Restant",
+      "load_failed": "Erreur lors du chargement de la mission.",
+      "incorrect_title": "Réponse incorrecte",
+      "redirect_msg": "Vous serez redirigé pour revoir les contenus.",
+      "review_answer": "Vérifiez votre réponse et réessayez.",
+      "skip_mission": "Passer la mission",
+      "skip_confirm": "Passer la mission ? Une pénalité de -{{penalty}} points de réputation sera appliquée.",
+      "skipped_title": "Mission passée",
+      "penalty_applied": "Pénalité appliquée : -{{penalty}} Réputation.",
+      "submitted_title": "Mission envoyée !",
+      "review_msg": "Un Guardian examinera bientôt vos réponses.",
+      "submit_failed": "Erreur lors de l’envoi de la mission.",
+      "write_answer": "Écrivez votre réponse détaillée ici...",
+      "start_btn": "Commencer la mission",
+      "step_x_of_y": "Étape {{current}} sur {{total}}",
+      "complete_btn": "Terminer la mission",
+      "next_btn": "Étape suivante",
+      "accomplished_title": "Mission accomplie !",
+      "success_default": "Vous avez complété cette mission avec succès.",
+      "under_review_title": "En révision",
+      "under_review_desc": "Vos réponses ont été envoyées. Un Admin examinera votre réponse sous peu afin de vous attribuer vos récompenses.",
+      "already_completed_title": "Déjà complétée",
+      "already_completed_desc": "Vous avez déjà obtenu les récompenses de cette mission.",
+      "return_btn": "Retour aux missions"
+    },
+    "gamification_admin": {
+      "quest_engine": {
+        "title": "Moteur de missions avancé",
+        "subtitle": "Créez des missions interactives, gérez les compétences et la réputation.",
+        "rpg_missions": "Missions RPG avancées",
+        "build_new": "Créer une nouvelle mission",
+        "no_missions": "Aucune mission interactive trouvée. Cliquez sur « Créer une nouvelle mission » pour commencer."
+      },
+      "scoring": {
+        "title": "Résumé des scores utilisateurs",
+        "subtitle": "Métriques agrégées de l’historique de gamification.",
+        "search": "Rechercher un utilisateur...",
+        "table": {
+          "rank": "Rang",
+          "user": "Utilisateur",
+          "total_credits": "Crédits totaux",
+          "eval_score": "Score",
+          "status": "Statut",
+          "actions": "Actions",
+          "genesis": "Genesis",
+          "quests": "Missions",
+          "referrals": "Parrainages"
+        },
+        "badges": {
+          "approved": "Approuvé",
+          "rejected": "Rejeté",
+          "revoked": "Révoqué",
+          "pending": "En attente",
+          "done": "Terminé"
+        },
+        "actions": {
+          "details": "Détails",
+          "reset_scoring": "Réinitialiser le score"
+        },
+        "reset_warning": "DANGER : Cela supprimera tout l’historique de gamification et réinitialisera les scores de cet utilisateur. Continuer ?",
+        "reset_success": "Le score de l’utilisateur a été réinitialisé."
+      },
+      "metrics_modal": {
+        "title": "Métriques utilisateur :",
+        "tabs": {
+          "overview": "Aperçu",
+          "evaluation": "Évaluation",
+          "history": "Historique",
+          "notes": "Notes"
+        },
+        "overview_tab": {
+          "quests": "Missions courtes",
+          "missions": "Missions RPG",
+          "referrals": "Parrainages",
+          "contributions": "Contributions",
+          "system_flags": "Indicateurs système",
+          "genesis_quest": "Mission Genesis",
+          "profile_updated": "Profil mis à jour"
+        },
+        "evaluation_tab": {
+          "status_title": "Statut de pionnier fondateur",
+          "approve": "Approuver l’accès",
+          "reject": "Rejeter",
+          "revoke": "Révoquer",
+          "score_label": "Score d’évaluation (0-100)",
+          "score_desc": "Ce score détermine le classement pour la limite du Top 100."
+        },
+        "history_tab": {
+          "no_history": "Aucun historique trouvé"
+        },
+        "notes_tab": {
+          "label": "Notes Admin",
+          "placeholder": "Notes internes concernant cet utilisateur..."
+        }
+      },
+      "history_log": {
+        "title": "Journal d’activité du système",
+        "search": "Rechercher des enregistrements...",
+        "table": {
+          "date": "Date",
+          "user": "Utilisateur",
+          "action": "Action",
+          "type": "Type",
+          "credits": "Crédits"
+        },
+        "delete_warning": "Supprimer cet enregistrement ? Les crédits ne seront PAS automatiquement déduits du total de l’utilisateur.",
+        "no_logs": "Aucun enregistrement trouvé."
+      },
+      "user_history_modal": {
+        "title": "Historique d’activité :",
+        "desc": "Journal détaillé des interactions et récompenses de l’utilisateur.",
+        "tabs": {
+          "overview": "Aperçu",
+          "log": "Journal détaillé"
+        },
+        "stats": {
+          "total_credits": "Crédits totaux",
+          "actions_logged": "Actions enregistrées",
+          "top_activity": "Activité principale",
+          "last_active": "Dernière activité",
+          "never": "Jamais"
+        },
+        "timeline": "Chronologie récente",
+        "no_history": "Aucun historique trouvé.",
+        "table": {
+          "date": "Date",
+          "action": "Action",
+          "type": "Type",
+          "credits": "Crédits"
+        }
+      },
+      "action_usage_modal": {
+        "title": "Rapport d’utilisation :",
+        "desc": "Analyse de la manière dont cette action affecte le score de l’utilisateur.",
+        "stats": {
+          "total_calls": "Exécutions totales",
+          "unique_users": "Utilisateurs uniques (récents)",
+          "action_value": "Valeur de l’action"
+        },
+        "table": {
+          "user": "Utilisateur",
+          "credits_awarded": "Crédits attribués",
+          "date": "Date",
+          "context": "Contexte/Déclencheur"
+        },
+        "no_usage": "Aucune utilisation enregistrée pour le moment."
+      },
+      "action_modal": {
+        "title_edit": "Modifier l’action",
+        "title_new": "Créer une nouvelle action",
+        "desc": "Configurez les règles de score et les liens de déclenchement.",
+        "fields": {
+          "action_name": "Nom de l’action (ID unique)",
+          "action_name_desc": "Les noms des actions système ne peuvent pas être modifiés.",
+          "action_name_placeholder": "ex. evenement_personnalise_x",
+          "display_title": "Titre affiché",
+          "display_title_placeholder": "ex. Événement personnalisé X",
+          "type": "Type",
+          "system_binding": "Liaison système",
+          "active": "Action active",
+          "description": "Description",
+          "description_placeholder": "Description publique ou infobulle...",
+          "trigger": "Événement déclencheur (Optionnel)",
+          "trigger_placeholder": "ex. inscription_utilisateur",
+          "trigger_desc": "Identifiant technique pour les systèmes externes.",
+          "admin_notes": "Notes Admin",
+          "admin_notes_placeholder": "Notes internes..."
+        },
+        "delete_warning": "Êtes-vous sûr ? Cette action ne peut pas être annulée et peut affecter l’affichage des enregistrements historiques."
+      } 
   }
-}
+  }

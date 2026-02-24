@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Users, Sprout, Wallet, Gamepad2, ScrollText, Database, Activity,
   LogOut, Menu, X, Settings, Globe, Share2, Layers, LineChart, Loader2, ClipboardCheck,
   FlaskConical, CheckSquare, Search, ChevronDown, UserPlus, Award, ListChecks, Trophy, Bell,
-  Banknote, BarChart4
+  Banknote, BarChart4, Shield
 } from 'lucide-react';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { Button } from '@/components/ui/button';
@@ -29,7 +29,7 @@ const FinalDashboardTest = lazy(() => import('@/components/admin/FinalDashboardT
 const SchemaAuditView = lazy(() => import('@/components/admin/SchemaAuditView'));
 const SchemaMapper = lazy(() => import('@/components/admin/SchemaMapper'));
 const PendingRegistrations = lazy(() => import('@/components/admin/PendingRegistrations'));
-//const LandDollarsTable = lazy(() => import('@/components/admin/LandDollarsTable'));
+const AdminQuestReview = lazy(() => import('@/components/admin/gamification/AdminQuestReview'));
 
 // New Gamification & Founding Pioneer Modules...
 const AdminGamificationActionsConfig = lazy(() => import('@/components/admin/gamification/AdminGamificationActionsConfig'));
@@ -51,8 +51,6 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  // --- FUNCIÓN MANUAL ELIMINADA (Ya no se necesita) ---
-
   useEffect(() => {
     if (!loading && profile && profile.role !== 'admin') {
       navigate('/dashboard', { replace: true });
@@ -64,7 +62,7 @@ const AdminDashboard = () => {
     const settingsSubItems = ['schema_mapping', 'schema_audit', 'final_test', 'validation', 'logs'];
     if (settingsSubItems.includes(activeSection)) setSettingsExpanded(true);
 
-    const gamificationSubItems = ['gamification_actions_config', 'gamification_history', 'gamification_scoring', 'gamification_quests'];
+    const gamificationSubItems = ['gamification_actions_config', 'gamification_history', 'gamification_scoring', 'gamification_quests', 'quest_moderation'];
     if (gamificationSubItems.includes(activeSection)) setGamificationExpanded(true);
 
     const pioneerSubItems = ['founding_eval', 'founding_ranking'];
@@ -96,10 +94,11 @@ const AdminDashboard = () => {
         { id: 'gamification_actions_config', label: t('admin.impact_credits.action', 'Actions'), icon: Settings, component: AdminGamificationActionsConfig },
         { id: 'gamification_history', label: t('admin.analytics.audit_history', 'History'), icon: ScrollText, component: AdminUserHistoryLog },
         { id: 'gamification_quests', label: t('navigation.quests', 'Quests'), icon: Sprout, component: GamificationManagement },
+        { id: 'quest_moderation', label: t('admin.quest_moderation', 'Quest Moderation'), icon: Shield, component: AdminQuestReview }
       ]
     },
     { id: 'users', label: t('admin.user_management', 'Users'), icon: Users, component: UserManagement },
-    { id: 'community', label: 'Community', icon: Globe, component: CommunityManagement },
+    { id: 'community', label: t('admin.community', 'Community'), icon: Globe, component: CommunityManagement },
     { id: 'financials', label: t('admin.financials.title', 'Financials'), icon: Wallet, component: FinancialsManagement },
     { id: 'tiers', label: t('admin.startnext.tier', 'Tiers'), icon: Layers, component: TierManagement },
     { id: 'mlm', label: t('admin.mlm', 'Referrals (MLM)'), icon: Share2, component: MlmManagement },
@@ -226,10 +225,7 @@ const AdminDashboard = () => {
         <header className="bg-card border-b border-border h-16 flex items-center justify-between px-4 md:px-8 shadow-sm z-10">
           <h2 className="text-lg font-semibold flex items-center gap-2">{t('admin.title', 'Admin Panel')}</h2>
           <div className="flex items-center gap-3">
-
-            {/* --- NUEVO COMPONENTE LanguageSwitcher --- */}
             <LanguageSwitcher />
-
             <ThemeSwitcher />
             <Button variant="ghost" onClick={signOut}>{t('navigation.sign_out', 'Sign Out')}</Button>
           </div>

@@ -186,6 +186,155 @@
   },
   "admin": {
     "title": "Admin-Panel",
+    "community": "Gründerbereich",
+    "mlm": "Empfehlungen (MLM)",
+    "quest_moderation": "Missions-Engine",
+    "audience": {
+      "label": "Zielgruppe",
+      "all": "Alle",
+      "user": "Standardbenutzer",
+      "startnext_user": "Startnext-Unterstützer",
+      "pioneer": "Gründungs-Pionier"
+    },
+    "gamification_actions": {
+      "page_title": "Konfiguration der Systemaktionen",
+      "page_subtitle": "Verwalte technische Trigger (Empfehlungen, Login, Beiträge).",
+      "search": "Systemaktionen suchen...",
+      "add_btn": "Systemaktion hinzufügen",
+      "note_label": "Hinweis:",
+      "warning_note_1": "Genesis-Missionen und Quests werden auf der Plattform verwaltet.",
+      "gamification_tab": "Gamification-Tab",
+      "warning_note_2": "um die Konsistenz der Belohnungen sicherzustellen.",
+      "table": {
+        "title": "Titel / Name",
+        "type": "Typ",
+        "binding": "Verknüpfung (Binding)"
+      },
+      "trans_modal": {
+        "title": "Übersetzen:",
+        "desc": "Lokalisierung für Systemaktionen",
+        "field_title": "Titel",
+        "field_desc": "Beschreibung",
+        "field_success": "Erfolgsbenachrichtigung",
+        "field_success_hint": "Diese Nachricht wird an den Benutzer gesendet, wenn er die Aktion abschließt.",
+        "saved": "Übersetzungen erfolgreich gespeichert."
+      }
+    },
+    "quest_builder": {
+      "modal_title_edit": "Interaktive Mission bearbeiten",
+      "modal_title_new": "Missions-Erstellungsstudio",
+      "modal_desc": "Gestalte Lernablauf, Belohnungen und Bedingungen.",
+      "save_mission": "Mission speichern",
+      "tab_general": "Allgemein",
+      "tab_rules": "Regeln und Belohnungen",
+      "tab_steps": "Schritt-Builder",
+      "cover_image": "Titelbild (Banner)",
+      "change_image": "Bild ändern",
+      "upload_image": "Klicke, um ein Bild hochzuladen (Optional)",
+      "uploading": "Wird hochgeladen...",
+      "main_title": "Haupttitel *",
+      "main_title_placeholder": "z. B. Das Amazonas-Ökosystem",
+      "subtitle": "Untertitel",
+      "subtitle_placeholder": "Ein kurzer, ansprechender Satz",
+      "mission_desc": "Missionsbeschreibung (Intro)",
+      "extra_info": "Zusätzliche Information (Tooltip / Hinweis)",
+      "extra_info_placeholder": "Optionaler Kontext zur Unterstützung der Benutzer...",
+      "completion_rewards": "Belohnungen bei Abschluss",
+      "skill_category": "Fähigkeitskategorie",
+      "availability": "Verfügbarkeit und Limits",
+      "status": "Status",
+      "start_date": "Startdatum (Optional)",
+      "end_date": "Enddatum (Optional)",
+      "allow_skip": "Überspringen erlauben",
+      "allow_skip_desc": "Dürfen Benutzer diese gesamte Mission überspringen?",
+      "skip_penalty": "Strafe bei Überspringen (Abzug vom Ruf)",
+      "no_steps_title": "Noch keine Schritte",
+      "no_steps_desc": "Erstelle deinen ersten Block, um den Missionsablauf zu beginnen.",
+      "add_content": "Inhalt hinzufügen",
+      "add_question": "Frage hinzufügen",
+      "step": "Schritt",
+      "step_title": "Schritttitel",
+      "media_url": "Medien-URL (Video/Bild)",
+      "ui_type": "UI-Typ",
+      "content_md": "Inhalt (unterstützt Markdown)",
+      "content_placeholder": "Schreibe hier den Lerninhalt...",
+      "question_type": "Fragekomponenten-Typ",
+      "question_text": "Fragetext",
+      "ask_something": "Stelle eine Frage...",
+      "required": "Pflichtfeld?",
+      "answers": "Antworten",
+      "add_option": "Hinzufügen",
+      "correct_answer_index": "Index der richtigen Antwort (z. B. 0 oder 0,2)",
+      "correct_answer_placeholder": "Leer lassen, wenn jede Option korrekt ist",
+      "slider_poles": "Slider-Pole definieren",
+      "slider_poles_desc": "Benutzer verteilen 100 % auf diese Variablen.",
+      "free_text_note": "Hinweis: Freitextantworten markieren die Mission als „In Überprüfung“. Ein Guardian (Admin) muss sie manuell genehmigen, um die Belohnungen zu vergeben.",
+      "scale_5_note": "Erzeugt automatisch eine Sterne-/Zahlenskala von 1 bis 5.",
+      "on_fail_redirect": "Weiterleitungs-URL bei Fehler (Bridge-Quest)",
+      "mission_flow": "Missionsablauf",
+      "empty": "Leer"
+    },
+    "quest_review": {
+      "title": "Ausstehende Missionsprüfung",
+      "subtitle": "Überprüfe und genehmige das Engagement der Community.",
+      "tabs": {
+        "pending": "AUSSTEHENDE PRÜFUNG",
+        "history": "VOLLSTÄNDIGER VERLAUF"
+      },
+      "notif_approved_title": "Mission genehmigt! ✅",
+      "notif_approved_msg": "Du hast diese Mission genehmigt. Die Belohnungen wurden vergeben.",
+      "notif_rejected_title": "Mission erfordert Prüfung ⚠️",
+      "notif_rejected_msg": "Du hast diese Mission abgelehnt. Es werden keine Belohnungen vergeben.",
+      "status_updated": "Status erfolgreich aktualisiert.",
+      "no_pending": "Keine ausstehenden Missionen",
+      "no_history": "Verlauf leer.",
+      "table": {
+        "user": "Benutzer",
+        "mission": "Missionstitel",
+        "reward": "Mögliche Belohnung",
+        "submitted": "Eingereicht",
+        "action": "Aktion",
+        "details": "Details"
+      },
+      "evaluate_btn": "Bewerten",
+      "view_btn": "Antwort anzeigen",
+      "feedback_guardian": "ADMIN-FEEDBACK",
+      "feedback_placeholder": "z. B.: Hervorragende Antwort! Deine Perspektive ist sehr wertvoll.",
+      "all_missions": "Alle Missionen (Global)",
+      "no_data": "Keine Teilnahmen registriert",
+      "tooltip_users": "Benutzer",
+      "tooltip_participation": "Teilnahme",
+      "status_badge": {
+        "approved": "Genehmigt",
+        "auto_approved": "Automatisch genehmigt",
+        "rejected": "Abgelehnt",
+        "pending": "Ausstehend",
+        "completed": "Abgeschlossen"
+      },
+      "modal": {
+        "read_only": "Nur-Lese-Ansicht",
+        "guardian_eval": "Admin-Bewertung",
+        "rewards_label": "Bonuspunkte",
+        "no_answer": "Keine Antwort",
+        "step": "Schritt",
+        "stars": "Sterne",
+        "close": "Schließen",
+        "reject": "Ablehnen",
+        "approve_reward": "Genehmigen und belohnen"
+      },
+      "errors": {
+        "already_processed": "Zugriff verweigert oder die Mission ist nicht mehr ausstehend.",
+        "save_failed": "Beim Speichern des Status in der Datenbank ist ein Problem aufgetreten."
+      },
+      "description": "Diese Mission erfordert eine manuelle Überprüfung. Bitte prüfe die Antworten des Benutzers und gewähre die entsprechenden Belohnungen.",
+      "user_response": "Antwort des Benutzers",
+      "mark_complete": "Als abgeschlossen markieren",
+      "mark_incomplete": "Als unvollständig markieren",
+      "feedback_label": "Feedback für den Benutzer",
+      "success_msg": "Mission erfolgreich überprüft.",
+      "analytics_title": "Teilnahmemetriken",
+      "analytics_desc": "Aufschlüsselung der Rollen der Teilnehmer pro Mission."
+    },
     "overview": "Übersicht",
     "user_management": "Benutzerverwaltung",
     "investor_profile": "Partnerprofil",
@@ -450,7 +599,15 @@
     "available_quests": "Misionen",
     "completed_quests": "Abgeschlossene Misionen",
     "earn_credits": "Verdiene {{credits}} Bonuspunkte",
-    "complete_quest": "Misionen abschließen"
+    "complete_quest": "Misionen abschließen",
+    "status_in_review": "In Überprüfung",
+    "go_to_referrals": "Zu Empfehlungen gehen",
+    "support_startnext": "Auf Startnext unterstützen",
+    "requires_genesis": "Erfordert Genesis-Mission",
+    "requires_startnext": "Erfordert Startnext",
+    "requires_pioneer": "Erfordert Pionier-Status",
+    "unlocked_premium": "Freigeschaltet",
+    "empty_desc": "Derzeit sind keine aktiven Missionen verfügbar."
   },
   "home": {
     "sign_in": "Anmelden",
@@ -487,7 +644,7 @@
       "cta": "Unterstütze uns auf Startnext"
     },
     "widget": {
-      "badge": "Startnext Projekt",
+      "badge": "Crowdfunding auf Startnext",
       "title": "Reforestal eG",
       "quote": "Wir machen den Schutz des Amazonas zu unserer höchsten Priorität.",
       "button": "Projekt unterstützen"
@@ -784,6 +941,9 @@
       "title": "¡Bonuspunkte erhalten!",
       "message": "Herzlichen Glückwunsch! Sie haben {{points}} Bonuspunkte für folgende Aktion erhalten: {{action}}."
     },
+    "points_and_rep_earned": {
+      "message": "Herzlichen Glückwunsch! Sie haben {{points}} Bonuspunkte und +{{rep}} Reputation für folgende Aktion erhalten: {{action}}."
+    },
     "welcome": {
       "title": "¡Willkommen bei Reforestal!",
       "message": "Hallo {{name}}, wir freuen uns, Sie in unserer Community begrüßen zu dürfen."
@@ -872,6 +1032,184 @@
     "copyright": "Reforestal eG © 2026",
     "socials": {
       "instagram": "Besuche unser Instagram"
+    }
+  },
+  "rewards": {
+  "bonus_points": "Bonuspunkte",
+  "bonus_points_short": "BP",
+  "reputation": "Ruf"
+},
+  "mission": {
+    "distribute_resources": "Verteile deine Ressourcen",
+    "remaining": "Verbleibend",
+    "load_failed": "Fehler beim Laden der Mission.",
+    "incorrect_title": "Falsche Antwort",
+    "redirect_msg": "Du wirst weitergeleitet, um die Materialien erneut zu prüfen.",
+    "review_answer": "Überprüfe deine Antwort und versuche es erneut.",
+    "skip_mission": "Mission überspringen",
+    "skip_confirm": "Mission überspringen? Es wird eine Strafe von -{{penalty}} Rufpunkten angewendet.",
+    "skipped_title": "Mission übersprungen",
+    "penalty_applied": "Strafe angewendet: -{{penalty}} Ruf.",
+    "submitted_title": "Mission eingereicht!",
+    "review_msg": "Ein Guardian wird deine Antworten in Kürze überprüfen.",
+    "submit_failed": "Fehler beim Absenden der Mission.",
+    "write_answer": "Schreibe hier deine ausführliche Antwort...",
+    "start_btn": "Mission starten",
+    "step_x_of_y": "Schritt {{current}} von {{total}}",
+    "complete_btn": "Mission abschließen",
+    "next_btn": "Nächster Schritt",
+    "accomplished_title": "Mission erfüllt!",
+    "success_default": "Du hast diese Mission erfolgreich abgeschlossen.",
+    "under_review_title": "In Überprüfung",
+    "under_review_desc": "Deine Antworten wurden übermittelt. Ein Admin wird sie in Kürze prüfen, um dir deine Belohnungen zu gewähren.",
+    "already_completed_title": "Bereits abgeschlossen",
+    "already_completed_desc": "Du hast die Belohnungen für diese Mission bereits erhalten.",
+    "return_btn": "Zurück zu den Missionen"
+  },
+  "gamification_admin": {
+    "quest_engine": {
+      "title": "Erweiterte Missions-Engine",
+      "subtitle": "Erstelle interaktive Missionen und verwalte Fähigkeiten sowie Ruf.",
+      "rpg_missions": "Erweiterte RPG-Missionen",
+      "build_new": "Neue Mission erstellen",
+      "no_missions": "Keine interaktiven Missionen gefunden. Klicke auf 'Neue Mission erstellen', um zu beginnen."
+    },
+    "scoring": {
+      "title": "Übersicht der Benutzerbewertung",
+      "subtitle": "Aggregierte Kennzahlen aus der Gamification-Historie.",
+      "search": "Benutzer suchen...",
+      "table": {
+        "rank": "Rang",
+        "user": "Benutzer",
+        "total_credits": "Gesamtpunkte",
+        "eval_score": "Bewertung",
+        "status": "Status",
+        "actions": "Aktionen",
+        "genesis": "Genesis",
+        "quests": "Missionen",
+        "referrals": "Empfehlungen"
+      },
+      "badges": {
+        "approved": "Genehmigt",
+        "rejected": "Abgelehnt",
+        "revoked": "Widerrufen",
+        "pending": "Ausstehend",
+        "done": "Erledigt"
+      },
+      "actions": {
+        "details": "Details",
+        "reset_scoring": "Bewertung zurücksetzen"
+      },
+      "reset_warning": "GEFAHR: Dies löscht die gesamte Gamification-Historie und setzt die Bewertung dieses Benutzers zurück. Fortfahren?",
+      "reset_success": "Die Benutzerbewertung wurde zurückgesetzt."
+    },
+    "metrics_modal": {
+      "title": "Benutzermetriken:",
+      "tabs": {
+        "overview": "Übersicht",
+        "evaluation": "Bewertung",
+        "history": "Verlauf",
+        "notes": "Notizen"
+      },
+      "overview_tab": {
+        "quests": "Kurze Missionen",
+        "missions": "RPG-Missionen",
+        "referrals": "Empfehlungen",
+        "contributions": "Beiträge",
+        "system_flags": "System-Markierungen",
+        "genesis_quest": "Genesis-Mission",
+        "profile_updated": "Profil aktualisiert"
+      },
+      "evaluation_tab": {
+        "status_title": "Status Gründungs-Pionier",
+        "approve": "Zugang genehmigen",
+        "reject": "Ablehnen",
+        "revoke": "Widerrufen",
+        "score_label": "Bewertungspunktzahl (0-100)",
+        "score_desc": "Diese Punktzahl bestimmt die Qualifikation für das Top-100-Limit."
+      },
+      "history_tab": {
+        "no_history": "Kein Verlauf gefunden"
+      },
+      "notes_tab": {
+        "label": "Admin-Notizen",
+        "placeholder": "Interne Notizen zu diesem Benutzer..."
+      }
+    },
+    "history_log": {
+      "title": "System-Aktivitätsprotokoll",
+      "search": "Protokolle durchsuchen...",
+      "table": {
+        "date": "Datum",
+        "user": "Benutzer",
+        "action": "Aktion",
+        "type": "Typ",
+        "credits": "Punkte"
+      },
+      "delete_warning": "Diesen Eintrag löschen? Die Punkte werden NICHT automatisch vom Gesamtwert des Benutzers abgezogen.",
+      "no_logs": "Keine Einträge gefunden."
+    },
+    "user_history_modal": {
+      "title": "Aktivitätsverlauf:",
+      "desc": "Detailliertes Protokoll der Interaktionen und Belohnungen des Benutzers.",
+      "tabs": {
+        "overview": "Übersicht",
+        "log": "Detailliertes Protokoll"
+      },
+      "stats": {
+        "total_credits": "Gesamtpunkte",
+        "actions_logged": "Protokollierte Aktionen",
+        "top_activity": "Hauptaktivität",
+        "last_active": "Letzte Aktivität",
+        "never": "Nie"
+      },
+      "timeline": "Letzte Zeitachse",
+      "no_history": "Kein Verlauf gefunden.",
+      "table": {
+        "date": "Datum",
+        "action": "Aktion",
+        "type": "Typ",
+        "credits": "Punkte"
+      }
+    },
+    "action_usage_modal": {
+      "title": "Nutzungsbericht:",
+      "desc": "Analyse, wie diese Aktion die Benutzerbewertung beeinflusst.",
+      "stats": {
+        "total_calls": "Gesamtausführungen",
+        "unique_users": "Einzigartige Benutzer (kürzlich)",
+        "action_value": "Aktionswert"
+      },
+      "table": {
+        "user": "Benutzer",
+        "credits_awarded": "Vergebene Punkte",
+        "date": "Datum",
+        "context": "Kontext/Auslöser"
+      },
+      "no_usage": "Noch keine Nutzung registriert."
+    },
+    "action_modal": {
+      "title_edit": "Aktion bearbeiten",
+      "title_new": "Neue Aktion erstellen",
+      "desc": "Konfiguriere Bewertungsregeln und Trigger-Verknüpfungen.",
+      "fields": {
+        "action_name": "Aktionsname (Eindeutige ID)",
+        "action_name_desc": "Systemaktionsnamen können nicht geändert werden.",
+        "action_name_placeholder": "z.B. benutzerdefiniertes_event_x",
+        "display_title": "Anzeigetitel",
+        "display_title_placeholder": "z.B. Benutzerdefiniertes Event X",
+        "type": "Typ",
+        "system_binding": "Systemverknüpfung",
+        "active": "Aktion aktiv",
+        "description": "Beschreibung",
+        "description_placeholder": "Öffentliche Beschreibung oder Tooltip...",
+        "trigger": "Auslösendes Ereignis (Optional)",
+        "trigger_placeholder": "z.B. benutzer_registrierung",
+        "trigger_desc": "Technischer Bezeichner für externe Systeme.",
+        "admin_notes": "Admin-Notizen",
+        "admin_notes_placeholder": "Interne Notizen..."
+      },
+      "delete_warning": "Bist du sicher? Diese Aktion kann nicht rückgängig gemacht werden und kann die Anzeige historischer Einträge beeinflussen."
     }
   }
 }

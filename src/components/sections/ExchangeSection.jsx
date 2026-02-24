@@ -259,7 +259,7 @@ const ExchangeSection = ({ isReadOnly = false }) => {
 
                 <div className="p-5 flex flex-col flex-1">
                   <h3 className="font-bold text-lg text-foreground mb-1 line-clamp-1">{content.name}</h3>
-                  <div className="flex items-center gap-1 text-emerald-600 font-mono font-bold mb-3"><Coins className="w-4 h-4" /> {product.price}</div>
+                  {/*<div className="flex items-center gap-1 text-emerald-600 font-mono font-bold mb-3"><Coins className="w-4 h-4" /> {product.price}</div>*/}
                   <p className="text-sm text-muted-foreground line-clamp-2 mb-4 flex-1">{content.description}</p>
                   
                   <div className="bg-emerald-50/50 p-2 rounded-lg mb-4 text-xs text-emerald-800 flex items-start gap-2">

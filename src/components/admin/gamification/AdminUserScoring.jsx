@@ -8,9 +8,11 @@ import { Badge } from '@/components/ui/badge';
 import { Loader2, Search, RotateCcw, FileText, BarChart2 } from 'lucide-react';
 import AdminUserHistoryModal from './AdminUserHistoryModal';
 import AdminGamificationMetricsModal from '../AdminGamificationMetricsModal';
+import { useTranslation } from 'react-i18next';
 
 const AdminUserScoring = () => {
     const { toast } = useToast();
+    const { t } = useTranslation();
     const [scoringData, setScoringData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -47,10 +49,10 @@ const AdminUserScoring = () => {
     }, [toast]);
 
     const handleResetScoring = async (userId) => {
-        if (!window.confirm("DANGER: This will wipe all gamification history and reset scores for this user. Continue?")) return;
+        if (!window.confirm(t('gamification_admin.scoring.reset_warning', "DANGER: This will wipe all gamification history and reset scores for this user. Continue?"))) return;
         const { error } = await supabase.rpc('admin_reset_user_scoring', { p_user_id: userId });
-        if (error) toast({ variant: 'destructive', title: 'Error', description: error.message });
-        else toast({ title: 'Reset Complete', description: 'User scoring has been reset.' });
+        if (error) toast({ variant: 'destructive', title: t('common.error'), description: error.message });
+        else toast({ title: t('common.success'), description: t('gamification_admin.scoring.reset_success', 'User scoring has been reset.') });
     };
 
     const filteredData = scoringData.filter(item => 
@@ -58,16 +60,25 @@ const AdminUserScoring = () => {
         item.profile?.name?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    const getStatusBadge = (status) => {
+        switch(status) {
+            case 'approved': return <Badge className="bg-emerald-500">{t('gamification_admin.scoring.badges.approved', 'Approved')}</Badge>;
+            case 'rejected': return <Badge variant="destructive">{t('gamification_admin.scoring.badges.rejected', 'Rejected')}</Badge>;
+            case 'revoked': return <Badge variant="outline" className="border-red-500 text-red-500">{t('gamification_admin.scoring.badges.revoked', 'Revoked')}</Badge>;
+            default: return <Badge variant="secondary">{t('gamification_admin.scoring.badges.pending', 'Pending')}</Badge>;
+        }
+    };
+
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <div>
-                    <h3 className="text-lg font-bold text-gray-800">User Scoring Overview</h3>
-                    <p className="text-sm text-gray-500">Aggregated metrics from gamification history.</p>
+                    <h3 className="text-lg font-bold text-gray-800">{t('gamification_admin.scoring.title', 'User Scoring Overview')}</h3>
+                    <p className="text-sm text-gray-500">{t('gamification_admin.scoring.subtitle', 'Aggregated metrics from gamification history.')}</p>
                 </div>
                 <div className="relative w-64">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <Input placeholder="Search user..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-9" />
+                    <Input placeholder={t('gamification_admin.scoring.search', 'Search user...')} value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-9" />
                 </div>
             </div>
 
@@ -75,12 +86,12 @@ const AdminUserScoring = () => {
                 <Table>
                     <TableHeader>
                         <TableRow className="bg-gray-50/50">
-                            <TableHead>User</TableHead>
-                            <TableHead className="text-right">Total Credits</TableHead>
-                            <TableHead className="text-center">Genesis</TableHead>
-                            <TableHead className="text-center">Quests</TableHead>
-                            <TableHead className="text-center">Referrals</TableHead>
-                            <TableHead className="text-right">Actions</TableHead>
+                            <TableHead>{t('gamification_admin.scoring.table.rank', 'Rank')}</TableHead>
+                            <TableHead>{t('gamification_admin.scoring.table.user', 'User')}</TableHead>
+                            <TableHead className="text-right">{t('gamification_admin.scoring.table.total_credits', 'Total Credits')}</TableHead>
+                            <TableHead className="text-center">{t('gamification_admin.scoring.table.eval_score', 'Eval Score')}</TableHead>
+                            <TableHead className="text-center">{t('gamification_admin.scoring.table.status', 'Status')}</TableHead>
+                            <TableHead className="text-right">{t('gamification_admin.scoring.table.actions', 'Actions')}</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -89,29 +100,31 @@ const AdminUserScoring = () => {
                         ) : filteredData.length === 0 ? (
                             <TableRow><TableCell colSpan={6} className="text-center py-8 text-gray-500">No data found.</TableCell></TableRow>
                         ) : (
-                            filteredData.map(item => (
+                            filteredData.map((item, idx) => (
                                 <TableRow key={item.id}>
+                                    <TableCell className="font-bold text-gray-500">#{item.rank || idx + 1}</TableCell>
                                     <TableCell>
                                         <div className="flex flex-col">
-                                            <span className="font-medium">{item.profile?.name || 'Unknown'}</span>
+                                            <span className="font-medium text-sm">{item.profile?.name || 'Unknown'}</span>
                                             <span className="text-xs text-gray-500">{item.profile?.email}</span>
                                         </div>
                                     </TableCell>
                                     <TableCell className="text-right font-mono font-bold text-emerald-600">{item.total_impact_credits_earned}</TableCell>
                                     <TableCell className="text-center">
-                                        {item.genesis_quest_completed ? <Badge className="bg-emerald-500">Done</Badge> : <span className="text-gray-400">-</span>}
+                                        <div className="flex items-center justify-center gap-1">
+                                            <span className="font-bold">{item.evaluation_score}</span>
+                                        </div>
                                     </TableCell>
-                                    <TableCell className="text-center">{item.quests_participated}</TableCell>
-                                    <TableCell className="text-center">{item.referrals_count}</TableCell>
+                                    <TableCell className="text-center">{getStatusBadge(item.founding_pioneer_access_status)}</TableCell>
                                     <TableCell className="text-right">
                                         <div className="flex justify-end gap-1">
-                                            <Button variant="ghost" size="icon" onClick={() => setSelectedUserHistory({ id: item.user_id, name: item.profile?.name })} title="Full History">
+                                            <Button variant="ghost" size="icon" onClick={() => setSelectedUserHistory({ id: item.user_id, name: item.profile?.name })} title={t('gamification_admin.scoring.actions.details', 'Full History')}>
                                                 <FileText className="w-4 h-4 text-blue-500" />
                                             </Button>
-                                            <Button variant="ghost" size="icon" onClick={() => setSelectedUserMetrics(item)} title="Metrics Detail">
+                                            <Button variant="ghost" size="icon" onClick={() => setSelectedUserMetrics(item)} title={t('gamification_admin.scoring.actions.details', 'Metrics Detail')}>
                                                 <BarChart2 className="w-4 h-4 text-slate-500" />
                                             </Button>
-                                            <Button variant="ghost" size="icon" onClick={() => handleResetScoring(item.user_id)} title="Reset Scoring">
+                                            <Button variant="ghost" size="icon" onClick={() => handleResetScoring(item.user_id)} title={t('gamification_admin.scoring.actions.reset_scoring', 'Reset Scoring')}>
                                                 <RotateCcw className="w-4 h-4 text-red-400" />
                                             </Button>
                                         </div>

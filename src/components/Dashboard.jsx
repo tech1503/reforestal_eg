@@ -128,7 +128,10 @@ const Dashboard = () => {
                   
                   <Route path="referral" element={<ReferralSection />} />
                   <Route path="exchange" element={<ExchangeSection isReadOnly={!isStartnext} />} />
-                  <Route path="quests" element={<QuestsSection isReadOnly={!isStartnext} />} />
+                  
+                  {/*<Route path="quests" element={<QuestsSection isReadOnly={!isStartnext} />} />*/}
+                  <Route path="quests" element={<QuestsSection />} />
+
                   
                   <Route path="mission/:id" element={<MissionPlayer />} />
                   

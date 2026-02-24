@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Search, Edit, Trash2, Download, RefreshCw, Loader2, Leaf, Coins, Wallet, Ban, Award, Users, Shield, XCircle, CheckCircle } from 'lucide-react';
+import { Search, Edit, Trash2, Download, RefreshCw, Loader2, Leaf, Coins, Wallet, Ban, Award, Users, Shield, XCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
@@ -165,7 +165,7 @@ const UserManagement = () => {
                status: 'active',
                is_active: true,
                link_ref: linkRef,
-               land_dollar_url: '/assets/land-dollar-base.png',
+               land_dollar_url: '/assets/land-dollar-base.webp',
                qr_code_url: `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://reforest.al/ref/${linkRef}`
            });
       }
@@ -254,7 +254,7 @@ const UserManagement = () => {
                   status: editingUser.editLandDollarStatus || 'active',
                   link_ref: editingUser.land_dollar_link !== 'N/A' ? editingUser.land_dollar_link : `REF-${editingUser.id.substring(0,6).toUpperCase()}`, 
                   related_support_level_id: editingUser.selectedTier,
-                  land_dollar_url: '/assets/land-dollar-base.png'
+                  land_dollar_url: '/assets/land-dollar-base.webp',
              };
              await supabase.from('land_dollars').upsert(ldPayload, { onConflict: 'user_id' });
           }

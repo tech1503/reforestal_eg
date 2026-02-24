@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Badge } from '@/components/ui/badge';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher'; 
-import heroImg from '@/assets/hero-reforestal.png';
-import heroImg1 from '@/assets/hero-home-reforestal.png';
-import logoLandDollar from '@/assets/land-dollar-base.png';
-import vegReforest from '@/assets/vegetacion-reforestal.png';
+import heroImg from '@/assets/hero-reforestal.webp';
+import heroImg1 from '@/assets/hero-home-reforestal.webp';
+import logoLandDollar from '@/assets/land-dollar-base.webp';
+import vegReforest from '@/assets/vegetacion-reforestal.webp';
 
 const HomePage = () => {
   const { t } = useTranslation();

@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-// 1. IMPORTAR ICONOS NECESARIOS (Copy, Check)
 import { Download, Copy, Check, Loader2, Ban } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { generateLandDollarWithQR } from '@/utils/landDollarQRRenderer';
 
-import landDollarBaseImg from '@/assets/land-dollar-base.png';
+import landDollarBaseImg from '@/assets/land-dollar-base.webp';
 
 const LandDollarDisplay = ({ 
   user, 
@@ -20,7 +19,6 @@ const LandDollarDisplay = ({
   const { toast } = useToast();
   const [isDownloading, setIsDownloading] = useState(false);
   
-  // 2. ESTADO PARA EL EFECTO DE COPIADO
   const [copied, setCopied] = useState(false);
 
   const isSuspended = landDollar?.status === 'suspended' || landDollar?.status === 'blocked';
@@ -39,7 +37,7 @@ const LandDollarDisplay = ({
         
         const link = document.createElement('a');
         link.href = url;
-        link.download = `Reforestal_LandDollar_${uniqueRef}.png`; 
+        link.download = `Reforestal_LandDollar_${uniqueRef}.jpg`; 
         document.body.appendChild(link);
         link.click();
         
@@ -74,7 +72,7 @@ const LandDollarDisplay = ({
                   title: t('common.copied_clipboard'), 
                   description: referralLink 
               });
-              // Volver al estado original después de 2 segundos
+              
               setTimeout(() => setCopied(false), 2000);
           });
       }
@@ -113,7 +111,7 @@ const LandDollarDisplay = ({
                     <Tooltip>
                         <TooltipTrigger asChild>
                              <div 
-                                onClick={handleCopyLink} // Usamos la misma función aquí también
+                                onClick={handleCopyLink}
                                 className="bg-emerald-950/90 text-emerald-100 text-[9px] md:text-[10px] font-mono py-0.5 px-2 rounded-full border border-emerald-500/30 truncate max-w-full text-center shadow-md cursor-pointer hover:bg-emerald-800 transition-colors"
                              >
                                 {displayRef}
@@ -152,10 +150,8 @@ const LandDollarDisplay = ({
                 onClick={handleCopyLink} 
                 className={`text-emerald-700 hover:bg-emerald-50 transition-all duration-300 ${copied ? 'bg-emerald-100' : ''}`}
              >
-                {/* Cambia el icono dinámicamente: Check si copió, Copy si no */}
                 {copied ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />} 
                 
-                {/* Mantiene el texto fijo como pediste, o puedes hacerlo dinámico si prefieres "Copied!" */}
                 {t('dashboard.land_dollar.link_ref_btn')}
             </Button>
         )}

@@ -7,8 +7,10 @@ import { Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useTranslation } from 'react-i18next';
 
 const AdminUserHistoryModal = ({ isOpen, onClose, userId, userName }) => {
+    const { t } = useTranslation();
     const [history, setHistory] = useState([]);
     const [stats, setStats] = useState({ totalCredits: 0, totalActions: 0, lastActive: null, topAction: 'N/A' });
     const [loading, setLoading] = useState(true);
@@ -48,38 +50,38 @@ const AdminUserHistoryModal = ({ isOpen, onClose, userId, userName }) => {
         <Dialog open={isOpen} onOpenChange={onClose}>
             <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
                 <DialogHeader>
-                    <DialogTitle>Activity History: {userName}</DialogTitle>
-                    <DialogDescription>Detailed log of user interactions and rewards.</DialogDescription>
+                    <DialogTitle>{t('gamification_admin.user_history_modal.title', 'Activity History:')} {userName}</DialogTitle>
+                    <DialogDescription>{t('gamification_admin.user_history_modal.desc', 'Detailed log of user interactions and rewards.')}</DialogDescription>
                 </DialogHeader>
 
                 <Tabs defaultValue="overview" className="flex-1 flex flex-col overflow-hidden">
                     <TabsList>
-                        <TabsTrigger value="overview">Overview</TabsTrigger>
-                        <TabsTrigger value="log">Detailed Log</TabsTrigger>
+                        <TabsTrigger value="overview">{t('gamification_admin.user_history_modal.tabs.overview', 'Overview')}</TabsTrigger>
+                        <TabsTrigger value="log">{t('gamification_admin.user_history_modal.tabs.log', 'Detailed Log')}</TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="overview" className="space-y-4 p-1">
                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <Card className="bg-emerald-50 border-emerald-100">
-                                <CardHeader className="p-4 pb-2"><CardTitle className="text-xs font-bold text-emerald-600 uppercase">Total Credits</CardTitle></CardHeader>
+                                <CardHeader className="p-4 pb-2"><CardTitle className="text-xs font-bold text-emerald-600 uppercase">{t('gamification_admin.user_history_modal.stats.total_credits', 'Total Credits')}</CardTitle></CardHeader>
                                 <CardContent className="p-4 pt-0"><div className="text-2xl font-bold text-emerald-900">{stats.totalCredits}</div></CardContent>
                             </Card>
                             <Card>
-                                <CardHeader className="p-4 pb-2"><CardTitle className="text-xs font-bold text-slate-500 uppercase">Actions Logged</CardTitle></CardHeader>
+                                <CardHeader className="p-4 pb-2"><CardTitle className="text-xs font-bold text-slate-500 uppercase">{t('gamification_admin.user_history_modal.stats.actions_logged', 'Actions Logged')}</CardTitle></CardHeader>
                                 <CardContent className="p-4 pt-0"><div className="text-2xl font-bold">{stats.totalActions}</div></CardContent>
                             </Card>
                             <Card>
-                                <CardHeader className="p-4 pb-2"><CardTitle className="text-xs font-bold text-slate-500 uppercase">Top Activity</CardTitle></CardHeader>
+                                <CardHeader className="p-4 pb-2"><CardTitle className="text-xs font-bold text-slate-500 uppercase">{t('gamification_admin.user_history_modal.stats.top_activity', 'Top Activity')}</CardTitle></CardHeader>
                                 <CardContent className="p-4 pt-0"><div className="text-lg font-bold truncate" title={stats.topAction}>{stats.topAction}</div></CardContent>
                             </Card>
                             <Card>
-                                <CardHeader className="p-4 pb-2"><CardTitle className="text-xs font-bold text-slate-500 uppercase">Last Active</CardTitle></CardHeader>
-                                <CardContent className="p-4 pt-0"><div className="text-sm font-medium">{stats.lastActive ? format(new Date(stats.lastActive), 'MMM d, yyyy') : 'Never'}</div></CardContent>
+                                <CardHeader className="p-4 pb-2"><CardTitle className="text-xs font-bold text-slate-500 uppercase">{t('gamification_admin.user_history_modal.stats.last_active', 'Last Active')}</CardTitle></CardHeader>
+                                <CardContent className="p-4 pt-0"><div className="text-sm font-medium">{stats.lastActive ? format(new Date(stats.lastActive), 'MMM d, yyyy') : t('gamification_admin.user_history_modal.stats.never', 'Never')}</div></CardContent>
                             </Card>
                         </div>
                         
                         <div className="border rounded-lg p-4 bg-slate-50">
-                            <h4 className="font-semibold text-sm mb-3">Recent Timeline</h4>
+                            <h4 className="font-semibold text-sm mb-3">{t('gamification_admin.user_history_modal.timeline', 'Recent Timeline')}</h4>
                             <div className="space-y-4">
                                 {history.slice(0, 5).map((item, i) => (
                                     <div key={i} className="flex gap-3 items-start">
@@ -90,7 +92,7 @@ const AdminUserHistoryModal = ({ isOpen, onClose, userId, userName }) => {
                                         </div>
                                         <div>
                                             <p className="text-sm font-medium text-slate-800">{item.action_name}</p>
-                                            <p className="text-xs text-emerald-600 font-bold">+{item.impact_credits_awarded} Credits</p>
+                                            <p className="text-xs text-emerald-600 font-bold">+{item.impact_credits_awarded} {t('dashboard.impact_credits')}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -102,17 +104,17 @@ const AdminUserHistoryModal = ({ isOpen, onClose, userId, userName }) => {
                         <Table>
                             <TableHeader>
                                 <TableRow className="bg-slate-50 sticky top-0">
-                                    <TableHead>Date</TableHead>
-                                    <TableHead>Action</TableHead>
-                                    <TableHead>Type</TableHead>
-                                    <TableHead className="text-right">Credits</TableHead>
+                                    <TableHead>{t('gamification_admin.user_history_modal.table.date', 'Date')}</TableHead>
+                                    <TableHead>{t('gamification_admin.user_history_modal.table.action', 'Action')}</TableHead>
+                                    <TableHead>{t('gamification_admin.user_history_modal.table.type', 'Type')}</TableHead>
+                                    <TableHead className="text-right">{t('gamification_admin.user_history_modal.table.credits', 'Credits')}</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
                                 {loading ? (
                                     <TableRow><TableCell colSpan={4} className="text-center py-8"><Loader2 className="animate-spin mx-auto"/></TableCell></TableRow>
                                 ) : history.length === 0 ? (
-                                    <TableRow><TableCell colSpan={4} className="text-center py-8 text-muted-foreground">No history found.</TableCell></TableRow>
+                                    <TableRow><TableCell colSpan={4} className="text-center py-8 text-muted-foreground">{t('gamification_admin.user_history_modal.no_history', 'No history found.')}</TableCell></TableRow>
                                 ) : (
                                     history.map(item => (
                                         <TableRow key={item.id}>

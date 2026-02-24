@@ -9,7 +9,7 @@ import { Loader2, Mail, Lock, User, Leaf, ArrowRight, Home } from 'lucide-react'
 import ForgotPasswordModal from '@/components/ForgotPasswordModal';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher'; 
-import heroImg1 from '@/assets/hero-home-reforestal.png';
+import heroImg1 from '@/assets/hero-home-reforestal.webp';
 import { useNavigate } from 'react-router-dom'; 
 import ThemeSwitcher from '@/components/ThemeSwitcher';
 
