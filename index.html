@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,25 +5,19 @@
     <link rel="icon" type="image/png" href="/public/assets/icono-navbar.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- CSP Configuration: Allows Supabase Auth WebSocket and HTTPS connections -->
-    <!-- wss://*.supabase.co: WebSocket for real-time auth events (PASSWORD_RECOVERY) -->
-    <!-- https://*.supabase.co: HTTPS for API calls -->
-    <!-- https://*.hostingersite.com: Production domain -->
-    <!-- http://localhost:*: Development environment -->
     <meta http-equiv="Content-Security-Policy" content="
       default-src 'self'; 
       script-src 'self' 'unsafe-inline' 'unsafe-eval'; 
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
       font-src 'self' https://fonts.gstatic.com data:; 
-      img-src 'self' data: https: blob: https://images.unsplash.com; 
+      img-src 'self' data: https: blob: https://images.unsplash.com https://i.ytimg.com https://img.youtube.com; 
       connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.hostingersite.com http://localhost:*; 
-      frame-src 'none'; 
+      frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com; 
       object-src 'none';
     ">
     
     <script>
-      console.log("CSP configured for Supabase Auth");
-      console.log("Allowed: wss://*.supabase.co, https://*.supabase.co");
+      console.log("CSP configured for Supabase Auth and YouTube Embebs");
     </script>
     
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />

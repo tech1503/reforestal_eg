@@ -8,13 +8,65 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
-import { Loader2, ArrowLeft, ArrowRight, CheckCircle2, Trophy, Lightbulb, Zap, Check, SkipForward, Star, Shield, Play, ExternalLink, Sparkles, Leaf, Instagram } from 'lucide-react';
+import { Loader2, ArrowLeft, ArrowRight, CheckCircle2, Trophy, Lightbulb, Zap, Check, SkipForward, Star, Shield, ExternalLink, Sparkles, Leaf, Instagram, Youtube, Info, PlayCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ReactConfetti from 'react-confetti';
 import { useTranslation } from 'react-i18next';
 import { executeGamificationAction } from '@/utils/gamificationEngine';
 import { cn } from '@/lib/utils';
 import LeafBackground from '@/components/ui/LeafBackground';
+
+const YouTubeEmbed = ({ videoId }) => {
+    const [isPlaying, setIsPlaying] = useState(false);
+
+    const thumbUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+    const fallbackThumb = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+    
+    const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+
+    if (isPlaying) {
+        return (
+            <div className="relative w-full aspect-video rounded-[2rem] overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.2)] mb-10 border border-white/10 bg-black">
+                <iframe 
+                    src={embedUrl} 
+                    title="YouTube video player" 
+                    className="absolute top-0 left-0 w-full h-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowFullScreen
+                ></iframe>
+            </div>
+        );
+    }
+
+    return (
+        <div 
+            className="relative w-full aspect-video rounded-[2rem] overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.2)] mb-10 border border-white/10 bg-black cursor-pointer group"
+            onClick={() => setIsPlaying(true)}
+        >
+            <img 
+                src={thumbUrl} 
+                onError={(e) => { e.target.src = fallbackThumb; }}
+                alt="Video Preview" 
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80" 
+            />
+            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex flex-col justify-between p-4 md:p-6">
+                <div />
+                
+                <div className="flex justify-center transform group-hover:scale-110 transition-transform">
+                    <PlayCircle className="w-20 h-20 md:w-24 md:h-24 text-white opacity-90 drop-shadow-lg" strokeWidth={1} />
+                </div>
+                
+                <div className="flex justify-between items-end w-full">
+                    <div className="flex items-center gap-2 text-white/90 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg text-xs font-medium border border-white/10">
+                        <Info className="w-4 h-4" />
+                        <span>Datenschutzhinweis</span>
+                    </div>
+                    <Youtube className="w-10 h-10 text-white opacity-90 drop-shadow-md" strokeWidth={1.5} />
+                </div>
+            </div>
+        </div>
+    );
+};
 
 // --- SUBCOMPONENTE REDISEÑADO: DISTRIBUIDOR MULTI-POLAR ---
 const ResourceAllocator = ({ poles, values, onChange }) => {
@@ -100,34 +152,55 @@ const MissionPlayer = () => {
       setLoading(true);
       const { data, error } = await supabase
         .from('genesis_missions')
-        .select(`*, genesis_mission_translations!genesis_mission_translations_genesis_mission_id_fkey(language_code, title, subtitle, description, extra_info, success_message, response_options, steps_translation)`) 
+        .select(`*, genesis_mission_translations (language_code, title, subtitle, description, extra_info, success_message, response_options, steps_translation)`) 
         .eq('id', id)
+        .limit(1)
         .single();
       
-      if (error) throw error;
+      if (error) {
+          console.warn("Misión no encontrada o error de DB:", error);
+          throw error;
+      }
 
       const { data: existing } = await supabase.from('user_quest_responses')
         .select('id, review_status')
         .eq('user_id', user.id).eq('mission_id', id)
         .in('review_status', ['auto_approved', 'approved', 'pending'])
+        .limit(1)
         .maybeSingle();
 
       if (existing) setResult('already_completed');
 
       const lang = i18n.language ? i18n.language.split('-')[0] : 'en';
-      const translation = data.genesis_mission_translations?.find(t => t.language_code === lang) 
-                       || data.genesis_mission_translations?.find(t => t.language_code === 'en');
       
+      // ESCUDO: Manejo seguro de traducciones
+      let translation = null;
+      if (data.genesis_mission_translations && Array.isArray(data.genesis_mission_translations)) {
+          translation = data.genesis_mission_translations.find(t => t.language_code === lang) 
+                     || data.genesis_mission_translations.find(t => t.language_code === 'en');
+      }
+      
+      // ESCUDO: Parseo seguro de STEPS
       let parsedSteps = [];
-      if (Array.isArray(data.steps)) parsedSteps = data.steps;
-      else if (typeof data.steps === 'string') {
-          try { parsedSteps = JSON.parse(data.steps); } catch(e) { parsedSteps = []; }
+      if (Array.isArray(data.steps)) {
+          parsedSteps = data.steps;
+      } else if (typeof data.steps === 'string' && data.steps.trim() !== '') {
+          try { 
+              parsedSteps = JSON.parse(data.steps); 
+          } catch(e) { 
+              console.error("Error crítico parseando steps de la misión:", e);
+              parsedSteps = []; 
+          }
       }
 
       let parsedStepsTrans = [];
-      if (translation?.steps_translation) {
-           if (typeof translation.steps_translation === 'string') {
-               try { parsedStepsTrans = JSON.parse(translation.steps_translation); } catch(e) {}
+      if (translation && translation.steps_translation) {
+           if (typeof translation.steps_translation === 'string' && translation.steps_translation.trim() !== '') {
+               try { 
+                   parsedStepsTrans = JSON.parse(translation.steps_translation); 
+               } catch(e) {
+                   console.error("Error parseando traducción de steps:", e);
+               }
            } else if (Array.isArray(translation.steps_translation)) {
                parsedStepsTrans = translation.steps_translation;
            }
@@ -138,23 +211,24 @@ const MissionPlayer = () => {
               const transStep = parsedStepsTrans[idx] || {};
               return {
                   ...step,
-                  title: transStep.title || step.title,
-                  content: transStep.content || step.content,
+                  title: transStep.title || step.title || `Step ${idx + 1}`,
+                  content: transStep.content || step.content || '',
+                  media_url: step.media_url || '',
                   options: (transStep.options && transStep.options.length > 0 && transStep.options.some(o => o)) 
                            ? step.options.map((o, i) => transStep.options[i] || o) 
-                           : step.options,
+                           : (step.options || []),
                   poles: (transStep.poles && transStep.poles.length > 0 && transStep.poles.some(p => p))
                          ? step.poles.map((p, i) => transStep.poles[i] || p)
-                         : step.poles
+                         : (step.poles || [])
               };
           });
       }
 
       const processedMission = {
           ...data,
-          displayTitle: translation?.title || data.title,
+          displayTitle: translation?.title || data.title || 'Mission',
           displaySubtitle: translation?.subtitle || data.subtitle || null,
-          displayDescription: translation?.description || data.description,
+          displayDescription: translation?.description || data.description || '',
           displayExtraInfo: translation?.extra_info || data.extra_info || null,
           successMessage: translation?.success_message || null,
           parsedSteps: parsedSteps
@@ -198,7 +272,7 @@ const MissionPlayer = () => {
       const answer = stepAnswers[currentStepIndex];
       
       if (currentStep.is_required) {
-          if (currentStep.ui_type === 'multiple_choice' && answer.length === 0) return false;
+          if (currentStep.ui_type === 'multiple_choice' && (!answer || answer.length === 0)) return false;
           if (currentStep.ui_type === 'circular_slider') {
               const total = Object.values(answer || {}).reduce((a,b)=>a+b, 0);
               if (total !== 100) return false;
@@ -304,42 +378,15 @@ const MissionPlayer = () => {
     }
   };
 
-  // --- RENDERIZADOR MAGICO DE CONTENIDO ---
+  // --- RENDERIZADOR MÁGICO DE CONTENIDO ACTUALIZADO ---
   const renderMedia = (url) => {
-      if (!url) return null;
+      if (!url || typeof url !== 'string') return null;
       
-      // 1. Verificamos si es un video de YouTube
-      if (url.includes('youtube.com') || url.includes('youtu.be')) {
-          let videoId = '';
-          if (url.includes('youtube.com/watch')) {
-              videoId = url.split('v=')[1]?.split('&')[0];
-          } else if (url.includes('youtu.be/')) {
-              videoId = url.split('youtu.be/')[1]?.split('?')[0];
-          }
-          
-          if (!videoId) return null;
-
-          const thumbUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-          
-          return (
-              <a 
-                href={url} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="relative block aspect-video w-full rounded-[2rem] overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.2)] mb-10 border border-white/10 group cursor-pointer"
-                title="Ver Video en YouTube"
-              >
-                  <img src={thumbUrl} alt="Video Thumbnail" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px] flex items-center justify-center group-hover:bg-black/10 transition-colors duration-500">
-                      <div className="w-20 h-20 bg-red-600/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(220,38,38,0.5)] transform group-hover:scale-110 transition-transform">
-                          <Play className="w-8 h-8 text-white ml-1 fill-white" />
-                      </div>
-                  </div>
-                  <div className="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md px-5 py-2.5 rounded-xl text-white text-xs font-bold flex items-center shadow-lg border border-white/10">
-                       <ExternalLink className="w-4 h-4 mr-2" /> Ver en YouTube
-                  </div>
-              </a>
-          );
+      // 1. Verificamos si es un video de YouTube usando un Regex avanzado
+      const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))((\w|-){11})/);
+      
+      if (ytMatch && ytMatch[1]) {
+          return <YouTubeEmbed videoId={ytMatch[1]} />;
       }
 
       // 2. Verificamos si es un enlace de Instagram
@@ -349,21 +396,20 @@ const MissionPlayer = () => {
                 href={url} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="relative flex flex-col items-center justify-center w-full aspect-[21/9] rounded-[2rem] overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.2)] mb-10 border border-white/10 group cursor-pointer bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500"
+                className="relative flex flex-col items-center justify-center w-full aspect-[21/9] md:aspect-[3/1] rounded-[2rem] overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.2)] mb-10 border border-white/10 group cursor-pointer bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500"
                 title="Ver en Instagram"
               >
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
                   <div className="relative z-10 flex flex-col items-center transform group-hover:scale-110 transition-transform duration-500">
-                      <Instagram className="w-16 h-16 text-white mb-4 drop-shadow-lg" />
-                      <span className="text-white font-bold text-lg md:text-xl bg-black/40 px-6 py-2 rounded-full backdrop-blur-md border border-white/20 shadow-xl flex items-center gap-2">
-                          <ExternalLink className="w-5 h-5" /> Ir a Instagram
+                      <Instagram className="w-12 h-12 md:w-16 md:h-16 text-white mb-4 drop-shadow-lg" />
+                      <span className="text-white font-bold text-sm md:text-lg bg-black/40 px-6 py-2 rounded-full backdrop-blur-md border border-white/20 shadow-xl flex items-center gap-2">
+                          <ExternalLink className="w-4 h-4 md:w-5 md:h-5" /> Abrir en Instagram
                       </span>
                   </div>
               </a>
           );
       }
       
-      // 3. Si no es ni YouTube ni Instagram, asumimos que es una imagen estándar
       return (
         <div className="relative w-full rounded-[2rem] overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.15)] mb-10 border border-white/5 bg-black/20 flex items-center justify-center">
             <img 
@@ -500,6 +546,8 @@ const MissionPlayer = () => {
                         <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
 
                         <CardContent className="p-8 md:p-12 lg:p-16 relative z-10">
+                            
+                            {/* --- RENDERIZADOR DE MEDIA PROTEGIDO --- */}
                             {renderMedia(currentStep.media_url)}
 
                             <h2 className="text-3xl md:text-5xl font-black text-foreground mb-8 leading-tight tracking-tight drop-shadow-sm break-words">
