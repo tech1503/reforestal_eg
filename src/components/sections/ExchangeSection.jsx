@@ -37,7 +37,6 @@ const ExchangeSection = ({ isReadOnly = false }) => {
 
   const getProducts = useCallback(async () => {
     try {
-      // JOIN COMPLETO: Productos + Traducciones
       const { data: productData, error: productError } = await supabase
         .from('exchange_products')
         .select(`
@@ -53,10 +52,9 @@ const ExchangeSection = ({ isReadOnly = false }) => {
 
       if (productError) throw productError;
 
-      // FILTRO DE VISIBILIDAD: Solo mostrar si stock > 0 (o infinito) Y está activo
       const availableProducts = (productData || []).filter(p => 
           (p.stock === -1 || p.stock > 0) && 
-          (p.is_active === true) // Filtro crítico de Admin
+          (p.is_active === true) 
       );
       
       setProducts(availableProducts);
@@ -74,11 +72,11 @@ const ExchangeSection = ({ isReadOnly = false }) => {
 
   useEffect(() => {
     getProducts();
-    // Suscripción a ambos canales para actualización en tiempo real
+
     const sub1 = supabase.channel('exchange_realtime_main')
        .on('postgres_changes', { event: '*', schema: 'public', table: 'exchange_products' }, getProducts)
        .subscribe();
-    // También escuchamos cambios en traducciones
+
     const sub2 = supabase.channel('exchange_realtime_trans')
        .on('postgres_changes', { event: '*', schema: 'public', table: 'exchange_product_translations' }, getProducts)
        .subscribe();
@@ -89,7 +87,6 @@ const ExchangeSection = ({ isReadOnly = false }) => {
     };
   }, [getProducts]);
 
-  // --- HELPER MAESTRO DE TRADUCCIÓN ---
   const getTranslatedContent = (product) => {
       const lang = i18n.language ? i18n.language.split('-')[0] : 'en';
       
@@ -187,22 +184,22 @@ const ExchangeSection = ({ isReadOnly = false }) => {
           
           <div className="flex items-center gap-4 mt-4 sm:mt-0">
              {isReadOnly && (
-                <Button onClick={() => setIsSupportModalOpen(true)} variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100 hidden md:flex">
+                <Button onClick={() => setIsSupportModalOpen(true)} variant="outline" className="hidden md:flex font-bold">
                   <HeartHandshake className="w-4 h-4 mr-2" /> {t('exchange.cta.support_startnext')}
                 </Button>
              )}
-             <div className="bg-card px-4 py-2 rounded-xl border shadow-sm flex items-center gap-3">
+             <div className="bg-card px-4 py-2 rounded-xl border border-border shadow-sm flex items-center gap-3">
                 <div className="text-right">
                    <p className="text-xs text-muted-foreground font-medium uppercase">{t('exchange.labels.balance')}</p>
-                   <p className="text-xl font-bold text-emerald-600 font-mono">{userCredits.toLocaleString()}</p>
+                   <p className="text-xl font-bold text-[#5b8370] font-mono">{userCredits.toLocaleString()}</p>
                 </div>
-                <div className="bg-emerald-100 p-2 rounded-full"><Coins className="w-6 h-6 text-emerald-600" /></div>
+                <div className="bg-muted p-2 rounded-full"><Coins className="w-6 h-6 text-[#5b8370]" /></div>
              </div>
              
              <Button onClick={() => setIsCartOpen(true)} variant="outline" className="relative h-12" disabled={isReadOnly}>
                <ShoppingCart className="w-5 h-5" />
                {cart.length > 0 && (
-                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full border-2 border-white">
+                 <span className="absolute -top-2 -right-2 bg-[#5b8370] text-white font-bold text-xs w-5 h-5 flex items-center justify-center rounded-full border-2 border-card">
                    {cart.reduce((sum, item) => sum + item.quantity, 0)}
                  </span>
                )}
@@ -212,7 +209,7 @@ const ExchangeSection = ({ isReadOnly = false }) => {
         </motion.div>
 
         {isReadOnly && (
-            <Button onClick={() => setIsSupportModalOpen(true)} variant="outline" className="w-full bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100 md:hidden">
+            <Button onClick={() => setIsSupportModalOpen(true)} variant="outline" className="w-full md:hidden font-bold">
               <HeartHandshake className="w-4 h-4 mr-2" /> {t('exchange.cta.support_startnext')}
             </Button>
         )}
@@ -221,7 +218,7 @@ const ExchangeSection = ({ isReadOnly = false }) => {
           {categories.map((category) => {
             const Icon = category.icon;
             return (
-              <button key={category.id} onClick={() => setSelectedCategory(category.id)} className={`flex items-center px-4 py-2 rounded-lg transition-all duration-200 ${selectedCategory === category.id ? 'bg-emerald-600 text-white shadow-md' : 'bg-card text-muted-foreground hover:bg-emerald-50 border border-border'}`}>
+              <button key={category.id} onClick={() => setSelectedCategory(category.id)} className={`flex items-center px-4 py-2 rounded-lg font-semibold transition-all duration-200 border ${selectedCategory === category.id ? 'bg-[#5b8370] text-white border-transparent shadow-md' : 'bg-card text-muted-foreground hover:bg-muted border-border'}`}>
                 <Icon className="w-4 h-4 mr-2" /> {category.label}
               </button>
             );
@@ -232,7 +229,7 @@ const ExchangeSection = ({ isReadOnly = false }) => {
       {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {loading ? (
-           Array(3).fill(0).map((_, i) => <div key={i} className="h-80 bg-muted rounded-xl animate-pulse"/>)
+           Array(3).fill(0).map((_, i) => <div key={i} className="h-80 bg-card rounded-xl animate-pulse border border-border"/>)
         ) : filteredProducts.length === 0 ? (
            <div className="col-span-full py-12 text-center text-muted-foreground">
                <TreePine className="w-12 h-12 mx-auto mb-3 opacity-20" />
@@ -244,7 +241,7 @@ const ExchangeSection = ({ isReadOnly = false }) => {
              const content = getTranslatedContent(product);
 
              return (
-              <motion.div key={product.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }} className="bg-card rounded-xl shadow-sm border border-emerald-100 overflow-hidden hover:shadow-lg transition-all flex flex-col group relative">
+              <motion.div key={product.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }} className="bg-card rounded-xl shadow-md border border-border overflow-hidden hover:shadow-xl hover:border-[#5b8370]/50 transition-all flex flex-col group relative">
                 {isReadOnly && (
                     <ReadOnlyOverlay title={t('roles.explorer_level_1')} message={t('exchange.overlay.message')} subMessage={t('exchange.overlay.sub_message')} />
                 )}
@@ -252,24 +249,40 @@ const ExchangeSection = ({ isReadOnly = false }) => {
                 <div className="aspect-[4/3] bg-muted relative overflow-hidden">
                   <ProductImage src={product.image_url} alt={content.name} />
                   
-                  <div className="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded text-xs font-medium text-muted-foreground shadow-sm">
+                  <div className="absolute top-3 right-3 bg-black/80 backdrop-blur px-2 py-1 rounded text-xs font-bold text-white shadow-sm border border-white/20">
                       {product.stock === -1 ? t('exchange.stock.infinite') : `${product.stock} ${t('exchange.stock.left')}`}
                   </div>
                 </div>
 
                 <div className="p-5 flex flex-col flex-1">
-                  <h3 className="font-bold text-lg text-foreground mb-1 line-clamp-1">{content.name}</h3>
-                  {/*<div className="flex items-center gap-1 text-emerald-600 font-mono font-bold mb-3"><Coins className="w-4 h-4" /> {product.price}</div>*/}
-                  <p className="text-sm text-muted-foreground line-clamp-2 mb-4 flex-1">{content.description}</p>
+                  <h3 className="font-bold text-lg text-[#063127] dark:text-white mb-1 line-clamp-1">{content.name}</h3>
                   
-                  <div className="bg-emerald-50/50 p-2 rounded-lg mb-4 text-xs text-emerald-800 flex items-start gap-2">
-                      <Leaf className="w-3 h-3 mt-0.5 shrink-0" />
+                  {/*Precio producto de intercambio*/}
+                  {/*<div className="flex items-center gap-1 text-[#063127] dark:text-[#c4d1c0] font-mono font-bold mb-3"><Coins className="w-4 h-4" /> {product.price}</div>*/}
+                  <p className="text-sm text-[#063127]/80 dark:text-white/70 line-clamp-2 mb-4 flex-1">{content.description}</p>
+                  
+                  <div className="bg-[#5b8370]/50 dark:bg-black/10 p-2 rounded-lg mb-4 text-xs text-[#063127] dark:text-white font-medium flex items-start gap-2 border border-transparent dark:border-white/30">
+                      <Leaf className="w-3 h-3 mt-0.5 shrink-0 text-[#063127]" />
                       <span>{content.impact}</span>
                   </div>
 
-                  <Button onClick={() => updateCartItem(product.id, (cart.find(i => i.id === product.id)?.quantity || 0) + 1)} className={`w-full text-white mt-auto shadow-md ${!canAfford ? 'opacity-80' : 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-200'}`} disabled={isReadOnly || !canAfford}>
-                    {isReadOnly ? <><Lock className="w-4 h-4 mr-2"/> {t('common.locked_feature')}</> : 
-                     !canAfford ? t('exchange.errors.insufficient_credits') : <><ShoppingCart className="w-4 h-4 mr-2"/> {t('exchange.buttons.add_to_cart')}</>}
+                  <Button 
+                    onClick={() => updateCartItem(product.id, (cart.find(i => i.id === product.id)?.quantity || 0) + 1)} 
+                    className={`w-full mt-auto shadow-md font-bold transition-all border ${
+                      isReadOnly 
+                        ? 'bg-black/5 text-white border-transparent hover:bg-black/10 dark:bg-white dark:text-white dark:hover:bg-white/10' 
+                        : !canAfford 
+                          ? 'opacity-50 bg-black/5 text-[#063127] cursor-not-allowed border-transparent dark:bg-white/5 dark:text-white/90' 
+                          : 'bg-[#063127] text-white hover:brightness-110 border-transparent shadow-[#5b8370]/20' 
+                    }`} 
+                    disabled={isReadOnly || !canAfford}
+                  >
+                    {isReadOnly 
+                      ? <><Lock className="w-4 h-4 mr-2"/> {t('common.locked_feature')}</> 
+                      : !canAfford 
+                        ? t('exchange.errors.insufficient_credits') 
+                        : <><ShoppingCart className="w-4 h-4 mr-2"/> {t('exchange.buttons.add_to_cart')}</>
+                    }
                   </Button>
                 </div>
               </motion.div>
@@ -281,37 +294,37 @@ const ExchangeSection = ({ isReadOnly = false }) => {
       {/* Cart Drawer */}
       {isCartOpen && (
         <div className="fixed inset-0 z-50 flex justify-end">
-           <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" onClick={() => setIsCartOpen(false)}></div>
-           <motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} className="h-full w-full max-w-md bg-card shadow-2xl flex flex-col">
-              <div className="p-5 border-b flex items-center justify-between bg-muted/30">
-                  <h3 className="font-bold text-lg flex items-center gap-2 text-foreground"><ShoppingCart className="w-5 h-5 text-emerald-600"/> {t('exchange.cart.title')}</h3>
-                  <Button variant="ghost" size="icon" onClick={() => setIsCartOpen(false)}><X className="w-5 h-5" /></Button>
+           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsCartOpen(false)}></div>
+           <motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} className="h-full w-full max-w-md bg-card shadow-2xl flex flex-col border-l border-border relative z-10">
+              <div className="p-5 border-b border-border flex items-center justify-between bg-muted/30">
+                  <h3 className="font-bold text-lg flex items-center gap-2 text-foreground"><ShoppingCart className="w-5 h-5 text-[#5b8370]"/> {t('exchange.cart.title')}</h3>
+                  <Button variant="ghost" size="icon" onClick={() => setIsCartOpen(false)} className="text-muted-foreground hover:text-foreground"><X className="w-5 h-5" /></Button>
               </div>
               <div className="flex-1 overflow-y-auto p-5 space-y-4">
                   {cart.length === 0 ? (
                       <div className="text-center py-10 text-muted-foreground">
                           <ShoppingCart className="w-12 h-12 mx-auto mb-3 opacity-20"/>
                           <p>{t('exchange.cart.empty')}</p>
-                          <Button variant="link" onClick={() => setIsCartOpen(false)}>{t('exchange.cart.browse')}</Button>
+                          <Button variant="link" className="text-[#5b8370] font-bold" onClick={() => setIsCartOpen(false)}>{t('exchange.cart.browse')}</Button>
                       </div>
                   ) : (
                       cart.map(item => {
                           const content = getTranslatedContent(item);
                           return (
-                              <div key={item.id} className="flex gap-4 p-3 rounded-xl border bg-muted/20">
-                                  <div className="w-16 h-16 bg-card rounded-lg border overflow-hidden shrink-0 flex items-center justify-center">
+                              <div key={item.id} className="flex gap-4 p-3 rounded-xl border border-border bg-muted/20">
+                                  <div className="w-16 h-16 bg-card rounded-lg border border-border overflow-hidden shrink-0 flex items-center justify-center">
                                       {item.image_url ? <img src={item.image_url} className="w-full h-full object-cover" alt={content.name}/> : <ImageIcon className="w-6 h-6 text-muted-foreground"/>}
                                   </div>
                                   <div className="flex-1">
-                                      <h4 className="font-bold text-sm text-foreground line-clamp-1">{content.name}</h4>
-                                      <div className="flex items-center gap-1 text-emerald-600 font-mono text-xs font-bold mt-1"><Coins className="w-3 h-3"/> {item.price}</div>
+                                      <h4 className="font-bold text-sm text-[#063127] dark:text-white line-clamp-1">{content.name}</h4>
+                                      <div className="flex items-center gap-1 text-[#5b8370] font-mono text-xs font-bold mt-1"><Coins className="w-3 h-3"/> {item.price}</div>
                                   </div>
                                   <div className="flex flex-col items-end justify-between">
                                       <Button variant="ghost" size="icon" className="h-6 w-6 text-muted-foreground hover:text-red-500" onClick={() => updateCartItem(item.id, 0)}><X className="w-3 h-3"/></Button>
-                                      <div className="flex items-center gap-2 bg-card rounded-lg border px-1">
-                                          <button className="p-1 hover:text-emerald-600" onClick={() => updateCartItem(item.id, item.quantity - 1)} disabled={item.quantity <= 1}><Minus className="w-3 h-3"/></button>
-                                          <span className="text-sm font-mono w-4 text-center">{item.quantity}</span>
-                                          <button className="p-1 hover:text-emerald-600" onClick={() => updateCartItem(item.id, item.quantity + 1)}><Plus className="w-3 h-3"/></button>
+                                      <div className="flex items-center gap-2 bg-card rounded-lg border border-border px-1">
+                                          <button className="p-1 hover:text-[#5b8370] text-[#063127] dark:text-white font-bold" onClick={() => updateCartItem(item.id, item.quantity - 1)} disabled={item.quantity <= 1}><Minus className="w-3 h-3"/></button>
+                                          <span className="text-sm font-mono w-4 text-center text-[#063127] dark:text-white font-bold">{item.quantity}</span>
+                                          <button className="p-1 hover:text-[#5b8370] text-[#063127] dark:text-white font-bold" onClick={() => updateCartItem(item.id, item.quantity + 1)}><Plus className="w-3 h-3"/></button>
                                       </div>
                                   </div>
                               </div>
@@ -319,9 +332,9 @@ const ExchangeSection = ({ isReadOnly = false }) => {
                       })
                   )}
               </div>
-              <div className="p-5 border-t bg-muted/30 space-y-4">
-                  <div className="flex justify-between text-lg font-bold text-foreground"><span>{t('exchange.labels.total')}</span><span className="text-emerald-600 font-mono">{cartTotal.toLocaleString()} </span></div>
-                  <Button onClick={handleCheckout} className="w-full py-6 font-bold text-lg shadow-lg bg-emerald-600 hover:bg-emerald-700 text-white" disabled={loading || cart.length === 0 || userCredits < cartTotal}>
+              <div className="p-5 border-t border-border bg-muted/30 space-y-4">
+                  <div className="flex justify-between text-lg font-bold text-foreground"><span>{t('exchange.labels.total')}</span><span className="text-[#5b8370] font-mono">{cartTotal.toLocaleString()} </span></div>
+                  <Button onClick={handleCheckout} className="w-full py-6 font-bold text-lg shadow-lg bg-[#5b8370] hover:bg-[#4a6b5c] text-white" disabled={loading || cart.length === 0 || userCredits < cartTotal}>
                     {loading ? <Loader2 className="w-5 h-5 animate-spin"/> : t('exchange.buttons.confirm')}
                   </Button>
               </div>

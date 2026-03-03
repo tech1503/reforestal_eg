@@ -519,14 +519,14 @@
       }
     },
     "modal_title": "Terminez votre Quête Genesis !",
-    "modal_text_title": "Terminez votre Quête Genesis pour recevoir 1000 Points Bonus.",
-    "modal_text_desc": "Ces Points Bonus ne font pas partie du système de vesting, mais vous pouvez les utiliser pour échanger des produits dans l'application.",
+    "modal_text_title": "Terminez votre Quête Genesis pour recevoir Points Bonus.",
+    "modal_text_desc": "Ces Points Bonus ne font pas partie du système, mais vous pouvez les utiliser pour échanger des produits dans l'application.",
     "modal_cta": "Commencer la Quête Genesis",
     "result_modal_title": "Félicitations !",
     "result_modal_continue": "Continuer",
     "next_step": "Étape Suivante",
     "create_account_btn": "Créer Votre Compte",
-    "save_profile_hint": "Enregistrez votre profil et réclamez vos 1000 Points Bonus.",
+    "save_profile_hint": "Enregistrez votre profil et réclamez vos Points Bonus.",
     "questions": [
       {
         "id": 1,

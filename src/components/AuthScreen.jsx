@@ -96,7 +96,7 @@ const AuthScreen = () => {
       {/* --- BRANDING SECTION (IMAGE) --- */}
       <div className="w-full md:w-1/2 order-1 md:order-2 relative bg-slate-900 flex flex-col items-center justify-center p-8 md:p-12 text-center overflow-hidden min-h-[60vh] md:min-h-screen">
          
-         <div className="absolute inset-0 bg-gradient-to-br from-[#055b4f] via-[#0f3d36] to-black opacity-90 z-10"></div>
+         <div className="absolute inset-0 bg-gradient-to-br from-[#063127] via-[#04241d] to-black opacity-90 z-10"></div>
          <img 
             className="absolute inset-0 w-full h-full object-cover z-0" 
             alt="Lush green forest aerial view" 
@@ -109,7 +109,7 @@ const AuthScreen = () => {
                animate={{ y: 0, opacity: 1 }}
                transition={{ duration: 0.6, delay: 0.2 }}
             >
-                <h1 className="text-4xl lg:text-5xl font-bold text-white leading-tight whitespace-pre-line">
+                <h1 className="text-4xl lg:text-5xl font-bold text-[#c4d1c0] leading-tight whitespace-pre-line drop-shadow-md">
                    {t('auth.branding.title')}
                 </h1>
             </motion.div>
@@ -129,13 +129,13 @@ const AuthScreen = () => {
                transition={{ duration: 0.6, delay: 0.6 }}
                className="pt-8 grid grid-cols-2 gap-4"
             >
-                <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/10">
-                    <div className="text-2xl font-bold text-[#4ade80]">{t('auth.branding.stat_1_label')}</div>
-                    <div className="text-xs text-slate-400 uppercase tracking-wider">{t('auth.branding.stat_1_text')}</div>
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-[#5b8370]/30 shadow-lg">
+                    <div className="text-2xl font-bold text-[#5b8370]">{t('auth.branding.stat_1_label')}</div>
+                    <div className="text-xs text-[#c4d1c0]/80 uppercase tracking-wider mt-1">{t('auth.branding.stat_1_text')}</div>
                 </div>
-                <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/10">
-                    <div className="text-2xl font-bold text-[#4ade80]">{t('auth.branding.stat_2_label')}</div>
-                    <div className="text-xs text-slate-400 uppercase tracking-wider">{t('auth.branding.stat_2_text')}</div>
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-[#5b8370]/30 shadow-lg">
+                    <div className="text-2xl font-bold text-[#5b8370]">{t('auth.branding.stat_2_label')}</div>
+                    <div className="text-xs text-[#c4d1c0]/80 uppercase tracking-wider mt-1">{t('auth.branding.stat_2_text')}</div>
                 </div>
             </motion.div>
          </div>
@@ -152,12 +152,12 @@ const AuthScreen = () => {
           {/* Header */}
           <div className="text-center md:text-left space-y-2">
               <div className="flex items-center justify-center md:justify-start gap-2 mb-6">
-                 <div className="w-10 h-10 bg-gradient-to-br from-[#055b4f] to-[#17a277] rounded-xl flex items-center justify-center text-white">
+                 <div className="w-10 h-10 bg-gradient-to-br from-[#063127] to-[#5b8370] rounded-xl flex items-center justify-center text-[#c4d1c0] shadow-md">
                     <Leaf className="w-6 h-6" />
                  </div>
-                 <span className="text-2xl font-bold text-slate-900 tracking-tight">Reforestal eG</span>
+                 <span className="text-2xl font-bold text-[#063127] tracking-tight">Reforestal eG</span>
               </div>
-              <h2 className="text-3xl font-bold text-slate-900">
+              <h2 className="text-3xl font-bold text-[#063127]">
                  {isLogin ? t('auth.welcome') : t('auth.create_account')}
               </h2>
               <p className="text-slate-500">
@@ -172,13 +172,13 @@ const AuthScreen = () => {
                  
                  {!isLogin && (
                     <div className="space-y-2">
-                       <Label>{t('auth.name_label')}</Label>
+                       <Label className="text-[#063127]">{t('auth.name_label')}</Label>
                        <div className="relative">
                           <User className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                           <Input 
                              type="text" 
                              placeholder="John Doe" 
-                             className="pl-9 h-11" 
+                             className="pl-9 h-11 focus-visible:ring-[#5b8370]" 
                              value={name}
                              onChange={(e) => setName(e.target.value)}
                              required={!isLogin}
@@ -188,13 +188,13 @@ const AuthScreen = () => {
                  )}
 
                  <div className="space-y-2">
-                    <Label>{t('auth.email_label')}</Label>
+                    <Label className="text-[#063127]">{t('auth.email_label')}</Label>
                     <div className="relative">
                        <Mail className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                        <Input 
                           type="email" 
                           placeholder="name@example.com" 
-                          className="pl-9 h-11"
+                          className="pl-9 h-11 focus-visible:ring-[#5b8370]"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           required 
@@ -204,12 +204,12 @@ const AuthScreen = () => {
 
                  <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                       <Label>{t('auth.password_label')}</Label>
+                       <Label className="text-[#063127]">{t('auth.password_label')}</Label>
                        {isLogin && (
                           <button 
                             type="button"
                             onClick={() => setShowForgotModal(true)}
-                            className="text-xs text-[#17a277] hover:underline font-medium"
+                            className="text-xs text-[#5b8370] hover:text-[#063127] hover:underline font-bold transition-colors"
                           >
                              {t('auth.forgot_password')}
                           </button>
@@ -220,7 +220,7 @@ const AuthScreen = () => {
                        <Input 
                           type="password" 
                           placeholder="••••••••" 
-                          className="pl-9 h-11"
+                          className="pl-9 h-11 focus-visible:ring-[#5b8370]"
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           required 
@@ -231,7 +231,7 @@ const AuthScreen = () => {
                  <Button 
                     type="submit" 
                     disabled={loading}
-                    className="w-full bg-gradient-to-r from-[#055b4f] to-[#17a277] text-white font-semibold h-12 rounded-lg hover:shadow-lg hover:scale-[1.02] transition-all"
+                    className="w-full h-12 mt-2"
                  >
                     {loading ? <Loader2 className="animate-spin mr-2" /> : (isLogin ? t('auth.sign_in') : t('auth.sign_up'))}
                     {!loading && <ArrowRight className="ml-2 w-4 h-4" />}
@@ -241,8 +241,8 @@ const AuthScreen = () => {
                     <div className="absolute inset-0 flex items-center">
                         <span className="w-full border-t border-slate-200" />
                     </div>
-                    <div className="relative flex justify-center text-xs uppercase">
-                        <span className="bg-white px-2 text-slate-500">Or continue with</span>
+                    <div className="relative flex justify-center text-xs uppercase font-bold">
+                        <span className="bg-white px-2 text-slate-400">Or continue with</span>
                     </div>
                  </div>
 
@@ -250,7 +250,7 @@ const AuthScreen = () => {
                     type="button" 
                     variant="outline" 
                     onClick={handleGoogleLogin}
-                    className="w-full h-11 border-slate-200 hover:bg-slate-50"
+                    className="w-full h-11 border-slate-200 hover:bg-slate-50 text-slate-600 shadow-sm"
                  >
                     <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
@@ -268,7 +268,7 @@ const AuthScreen = () => {
                     {isLogin ? t('auth.no_account') : t('auth.has_account')}
                     <button 
                        onClick={() => setIsLogin(!isLogin)}
-                       className="ml-2 text-[#055b4f] font-semibold hover:underline"
+                       className="ml-2 text-[#5b8370] font-bold hover:text-[#063127] hover:underline transition-colors"
                     >
                        {isLogin ? t('auth.sign_up') : t('auth.sign_in')}
                     </button>

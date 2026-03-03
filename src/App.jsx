@@ -14,7 +14,7 @@ import GenesisQuest from '@/components/GenesisQuest';
 import HomePage from '@/components/HomePage';
 import UpdatePassword from '@/components/UpdatePassword';
 import GlobalErrorBoundary from '@/components/GlobalErrorBoundary';
-import ContactPage from '@/pages/ContactPage'; // <--- IMPORTACIÓN NUEVA
+import ContactPage from '@/pages/ContactPage';
 
 // Contextos y Hooks
 import { useAuth } from '@/contexts/SupabaseAuthContext';
@@ -23,8 +23,6 @@ import { useAnalyticsFeedback } from '@/hooks/useAnalyticsFeedback';
 import { runDataIntegrityCheck } from '@/utils/dataIntegrityCheck';
 import { useGenesisSync } from '@/hooks/useGenesisSync';
 
-// --- Middlewares de Protección ---
-
 const AppWithAnalytics = ({ children }) => {
   useAnalyticsFeedback();
   return children;
@@ -32,9 +30,7 @@ const AppWithAnalytics = ({ children }) => {
 
 const RedirectAuthenticated = ({ children }) => {
   const { session, profile, loading } = useAuth();
-
   if (loading) return <div className="h-screen w-full flex items-center justify-center"><Loader className="animate-spin text-emerald-500 w-10 h-10" /></div>;
-
   if (session && profile) {
     const role = profile.role || 'user';
     if (role === 'admin') return <Navigate to="/admin" replace />;
@@ -51,7 +47,6 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
   if (loading || (session && !profile)) {
     return <div className="h-screen w-full flex items-center justify-center"><Loader className="w-8 h-8 animate-spin text-emerald-500" /></div>;
   }
-
   if (!session) return <Navigate to="/auth" state={{ from: location }} replace />;
 
   const userRole = profile?.role || 'user';
@@ -63,18 +58,14 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
   return children;
 };
 
-// --- Contenido Principal ---
-
 const AppContent = () => {
   const { loading } = useAuth();
   const location = useLocation();
   const { toast } = useToast();
 
   useGenesisSync();
-
   useEffect(() => { runDataIntegrityCheck(); }, []);
 
-  // Kill Switch para bucles de redirección infinitos
   useEffect(() => {
     const reloadCount = parseInt(sessionStorage.getItem('reload_count') || '0');
     const lastReloadTime = parseInt(sessionStorage.getItem('last_reload_time') || '0');
@@ -88,12 +79,10 @@ const AppContent = () => {
     sessionStorage.setItem('last_reload_time', now.toString());
 
     if (reloadCount > 5) {
-      console.error('CRITICAL: Infinite reload cycle prevented.');
       toast({ variant: "destructive", title: "System Alert", description: "Stability protocol activated. Please clear cache." });
     }
   }, [toast]);
 
-  // Manejo de Referrals
   if (location.pathname.startsWith('/ref/')) {
     const refId = location.pathname.split('/ref/')[1];
     if (refId) {
@@ -107,48 +96,17 @@ const AppContent = () => {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        {/* Rutas Públicas */}
         <Route path="/" element={<HomePage />} />
         <Route path="/genesis-quest" element={<GenesisQuest />} />
         <Route path="/genesis-profile" element={<GenesisQuest forceShowResult={true} />} />
         <Route path="/update-password" element={<UpdatePassword />} />
-        
-        {/* RUTA DE CONTACTO (NUEVA) */}
-        {/* Accesible para todos. La lógica de 'volver' se maneja dentro del componente. */}
         <Route path="/contact" element={<ContactPage />} />
-
-        {/* Autenticación */}
         <Route path="/auth" element={<RedirectAuthenticated><AuthScreen /></RedirectAuthenticated>} />
         <Route path="/login" element={<Navigate to="/auth" replace />} />
         <Route path="/register" element={<Navigate to="/auth" replace />} />
-
-        {/* --- ÁREAS PROTEGIDAS (Rutas Anidadas) --- */}
-        
-        {/* User Dashboard Standard */}
-        <Route path="/dashboard/*" element={
-            <ProtectedRoute allowedRoles={['user']}>
-              <Dashboard />
-            </ProtectedRoute>
-          } 
-        />
-
-        {/* Startnext User Dashboard */}
-        <Route path="/startnext/*" element={
-            <ProtectedRoute allowedRoles={['startnext_user']}>
-              <Dashboard />
-            </ProtectedRoute>
-          } 
-        />
-
-        {/* Admin Panel */}
-        <Route path="/admin/*" element={
-            <ProtectedRoute allowedRoles={['admin']}>
-              <AdminDashboard />
-            </ProtectedRoute>
-          } 
-        />
-
-        {/* Fallback 404 */}
+        <Route path="/dashboard/*" element={<ProtectedRoute allowedRoles={['user']}><Dashboard /></ProtectedRoute>} />
+        <Route path="/startnext/*" element={<ProtectedRoute allowedRoles={['startnext_user']}><Dashboard /></ProtectedRoute>} />
+        <Route path="/admin/*" element={<ProtectedRoute allowedRoles={['admin']}><AdminDashboard /></ProtectedRoute>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AnimatePresence>
@@ -164,7 +122,8 @@ const App = () => (
     <GlobalErrorBoundary>
       <FinancialProvider>
         <AppWithAnalytics>
-          <div className="min-h-screen font-sans text-foreground bg-slate-50">
+          
+          <div className="min-h-screen font-sans text-foreground bg-slate-50 dark:bg-transparent">
             <AppContent />
             <Toaster />
           </div>

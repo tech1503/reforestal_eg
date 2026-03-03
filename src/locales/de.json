@@ -166,14 +166,14 @@
     },
     "startnext_dash": {
       "benefit_available": "Vorteil verfügbar",
-      "active_asset": "Aktives",
+      "active_asset": "Aktiv",
       "pending": "Ausstehend",
       "digital_asset_title": "Dein Digitales Asset",
       "hero_msg": "Dein Startnext-Beitrag regeneriert aktiv den Wald. Du bist Teil der Bewegung.",
       "contribution_date": "Beitragsdatum",
       "total_contribution": "Gesamtbeitrag",
       "rights_acquisition": "Rechteerwerb",
-      "rights_desc": "Dein Beitrag gewährt sofortigen Zugang zu Bonuspunkten. Vesting-Rechte für zukünftiges Wachstum sind derzeit gesperrt.",
+      "rights_desc": "Dein Beitrag gewährt sofortigen Zugang zu Bonuspunkten. Zukünftiges Wachstum sind derzeit gesperrt.",
       "system_locked": "System in Entwicklung"
     },
     "impact_chart": {

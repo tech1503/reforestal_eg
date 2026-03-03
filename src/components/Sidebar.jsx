@@ -82,7 +82,7 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
       id: 'founding_members', 
       label: t('navigation.founding_pioneer'),
       icon: Star, 
-      locked: !isStartnext, // Este sigue siendo exclusivo para Startnext/Pioneros
+      locked: !isStartnext, 
       href: `${basePath}/founding_members`,
       translationKey: 'navigation.founding_members'
     },
@@ -100,15 +100,12 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
     }
 
     if (item.href) {
-        // 1. Ejecutar navegación
         navigate(item.href);
         
-        // 2. Actualizar estado activo usando la prop (Satisface requerimiento de uso)
         if (setActiveSection) {
             setActiveSection(item.id);
         }
 
-        // 3. Cerrar sidebar en móvil
         if (onClose) onClose();
     }
   };
@@ -131,7 +128,7 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
 
       <aside 
         className={cn(
-            "fixed inset-y-0 left-0 z-40 w-64 transform transition-transform duration-300 ease-in-out bg-gradient-to-b from-[#055b4f] via-[#17a277] to-[#82c6ba] border-r border-white/10 md:relative md:translate-x-0 flex flex-col shadow-2xl md:shadow-none",
+            "fixed inset-y-0 left-0 z-40 w-64 transform transition-transform duration-300 ease-in-out bg-gradient-to-b from-[#063127] via-[#215141] to-[#5b8370] border-r border-white/10 md:relative md:translate-x-0 flex flex-col shadow-2xl md:shadow-none",
             isOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
@@ -177,7 +174,7 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
                           )} 
                        />
                        {isLocked && (
-                           <div className="absolute -top-1 -right-1 bg-[#055b4f] rounded-full p-0.5 border border-white/30 shadow-sm">
+                           <div className="absolute -top-1 -right-1 bg-[#063127] rounded-full p-0.5 border border-white/30 shadow-sm">
                                <Lock size={8} className="text-white/80" />
                            </div>
                        )}
@@ -209,7 +206,7 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
             </div>
         )}
 
-        <div className="p-4 border-t border-white/20 w-full bg-black/10">
+        <div className="p-4 border-t border-white/20 w-full bg-black/10 dark:bg-transparent">
            <button
               onClick={handleSignOut}
               className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-white/90 hover:bg-red-500/20 hover:text-white transition-colors duration-200 font-medium"

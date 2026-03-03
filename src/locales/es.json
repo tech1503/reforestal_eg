@@ -173,7 +173,7 @@
       "contribution_date": "Fecha de Contribución",
       "total_contribution": "Contribución Total",
       "rights_acquisition": "Adquisición de Derechos",
-      "rights_desc": "Tu contribución otorga acceso inmediato a Bonos. Los derechos de vesting para crecimiento futuro están bloqueados actualmente.",
+      "rights_desc": "Tu contribución otorga acceso inmediato a Bonos. Los derechos para crecimiento futuro están bloqueados actualmente.",
       "system_locked": "Sistema en Desarrollo"
     },
     "impact_chart": {
@@ -519,7 +519,7 @@
       }
     },
     "modal_title": "¡Completa tu Genesis Quest!",
-    "modal_text_title": "Completa tu Genesis Quest y recibe 1000 Bonos.",
+    "modal_text_title": "Completa tu Genesis Quest y recibe Bonos.",
     "modal_text_desc": "Estos puntos puedes usar para canjear productos dentro de la plataforma.",
     "modal_cta": "Iniciar Genesis Quest",
     "result_modal_title": "¡Felicidades!",

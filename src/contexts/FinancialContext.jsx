@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+// @refresh reset
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { useTierLogic } from '@/hooks/useTierLogic';
@@ -9,7 +10,6 @@ const FinancialContext = createContext(undefined);
 export const FinancialProvider = ({ children }) => {
   const { user, loading: authLoading } = useAuth();
 
-  // --- 1. HOOKS DE LÓGICA DE NEGOCIO ---
   const {
     userTier,
     tierBenefits,
@@ -19,16 +19,14 @@ export const FinancialProvider = ({ children }) => {
 
   useRealtimeProfileUpdate();
 
-  // --- 2. ESTADO FINANCIERO UNIFICADO ---
-  const [balance, setBalance] = useState(0);       // Saldo Gastable (Real)
-  const [lifetimeScore, setLifetimeScore] = useState(0); // Score Histórico (Total Ganado)
+  const [balance, setBalance] = useState(0);       
+  const [lifetimeScore, setLifetimeScore] = useState(0); 
   const [landDollar, setLandDollar] = useState(null);
   const [contributions, setContributions] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // --- 3. FUNCIÓN DE CARGA DE DATOS ---
   const fetchFinancialData = useCallback(async () => {
-    if (!user) {
+    if (!user?.id) {
       setBalance(0);
       setLifetimeScore(0);
       setLandDollar(null);
@@ -38,16 +36,12 @@ export const FinancialProvider = ({ children }) => {
     }
 
     try {
-      // A. OBTENER SALDO REAL (RPC - Income vs Expenses)
       const { data: realBalance, error: balanceError } = await supabase
         .rpc('get_real_balance', { p_user_id: user.id });
 
       if (balanceError) console.error("Error fetching balance RPC:", balanceError);
-      
-      const safeBalance = Number(realBalance) || 0;
-      setBalance(safeBalance);
+      setBalance(Number(realBalance) || 0);
 
-      // B. OBTENER MÉTRICAS (Fuente de Ingresos)
       const { data: metrics } = await supabase
         .from('founding_pioneer_metrics')
         .select('total_impact_credits_earned')
@@ -56,7 +50,6 @@ export const FinancialProvider = ({ children }) => {
 
       setLifetimeScore(metrics?.total_impact_credits_earned || 0);
 
-      // C. DATOS DE ACTIVOS Y CONTRIBUCIONES
       const { data: ld } = await supabase.from('land_dollars').select('*').eq('user_id', user.id).maybeSingle();
       setLandDollar(ld);
 
@@ -75,19 +68,16 @@ export const FinancialProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  }, [user, fetchUserTier]);
+  }, [user?.id, fetchUserTier]); 
 
-  // --- 4. SUSCRIPCIONES REALTIME ---
   useEffect(() => {
-    if (user && !authLoading) {
+    if (user?.id && !authLoading) {
       fetchFinancialData();
 
       const channel = supabase
         .channel('financial_updates_global')
-        // Escuchamos METRICS (Ingresos) y PURCHASES (Gastos)
         .on('postgres_changes', { event: '*', schema: 'public', table: 'founding_pioneer_metrics', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
         .on('postgres_changes', { event: '*', schema: 'public', table: 'user_purchases', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
-        // Escuchamos otros activos
         .on('postgres_changes', { event: '*', schema: 'public', table: 'land_dollars', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
         .on('postgres_changes', { event: '*', schema: 'public', table: 'startnext_contributions', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
         .subscribe();
@@ -96,19 +86,19 @@ export const FinancialProvider = ({ children }) => {
     } else if (!authLoading) {
       setLoading(false);
     }
-  }, [user, authLoading, fetchFinancialData]);
+  }, [user?.id, authLoading, fetchFinancialData]); 
 
-  const value = {
-    balance,           // USAR ESTE para mostrar Saldo Disponible (ej. 125 o 235 si no gastó)
-    impactCredits: balance, // Mapeamos impactCredits al balance para corregir el Dashboard visualmente
-    lifetimeScore,     // Total ganado históricamente (ej. 235 siempre, aunque gaste)
+  const value = useMemo(() => ({
+    balance,           
+    impactCredits: balance, 
+    lifetimeScore,     
     landDollar,
     contributions,
     userTier,
     tierBenefits,
     loading: loading || tierLoading,
     refreshFinancials: fetchFinancialData
-  };
+  }), [balance, lifetimeScore, landDollar, contributions, userTier, tierBenefits, loading, tierLoading, fetchFinancialData]);
 
   return <FinancialContext.Provider value={value}>{children}</FinancialContext.Provider>;
 };

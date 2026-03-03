@@ -24,11 +24,9 @@ const ProfileSettings = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     
-    // Estado para la imagen
     const [avatarFile, setAvatarFile] = useState(null);
     const [avatarPreview, setAvatarPreview] = useState('');
 
-    // Estado del formulario
     const [formData, setFormData] = useState({
         full_name: '',
         bio: '',
@@ -38,7 +36,6 @@ const ProfileSettings = () => {
         country: ''
     });
 
-    // Cargar datos iniciales del perfil existente
     useEffect(() => {
         if (profile) {
             setFormData({
@@ -49,7 +46,7 @@ const ProfileSettings = () => {
                 city: profile.city || '',
                 country: profile.country || ''
             });
-            // Establecer la imagen actual como previsualización inicial
+
             setAvatarPreview(profile.avatar_url || '');
         }
     }, [profile, user]);
@@ -59,20 +56,17 @@ const ProfileSettings = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    // Manejar selección de archivo con validaciones de seguridad
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            // Validar tamaño (máx 2MB para performance)
             if (file.size > 2 * 1024 * 1024) {
                 toast({ 
                     variant: "destructive", 
                     title: t('common.error'), 
-                    description: "Image must be less than 2MB." // Podrías traducir esto también si quieres
+                    description: "Image must be less than 5MB." 
                 });
                 return;
             }
-            // Validar tipo
             if (!file.type.startsWith('image/')) {
                 toast({ 
                     variant: "destructive", 
@@ -83,7 +77,6 @@ const ProfileSettings = () => {
             }
 
             setAvatarFile(file);
-            // Crear URL temporal para previsualizar inmediatamente
             const objectUrl = URL.createObjectURL(file);
             setAvatarPreview(objectUrl);
         }
@@ -157,8 +150,8 @@ const ProfileSettings = () => {
                 await refreshFinancials(); 
                 toast({
                     title: t('common.success'), 
-                    description: `Profile updated! You earned +${result.creditsAwarded} Bonus Points.`, // Puedes ajustar esto para usar traducciones dinámicas si lo deseas
-                    className: "bg-emerald-600 text-white border-none"
+                    description: `Profile updated! You earned +${result.creditsAwarded} Bonus Points.`, 
+                    className: "bg-[#5b8370] text-white border-none"
                 });
             } else {
                 toast({
@@ -183,10 +176,10 @@ const ProfileSettings = () => {
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="relative w-full bg-[#107856] pb-32 pt-10 px-6 rounded-3xl shadow-lg mb-[-5rem] overflow-hidden"
+                className="relative w-full bg-gradient-to-br from-[#063127] to-[#5b8370] pb-32 pt-10 px-6 rounded-3xl shadow-lg mb-[-5rem] overflow-hidden"
             >
                 <div className="absolute top-0 right-0 -mt-10 -mr-10 h-64 w-64 rounded-full bg-white/10 blur-3xl pointer-events-none" />
-                <div className="absolute bottom-0 left-0 -mb-10 -ml-10 h-40 w-40 rounded-full bg-emerald-400/10 blur-2xl pointer-events-none" />
+                <div className="absolute bottom-0 left-0 -mb-10 -ml-10 h-40 w-40 rounded-full bg-[#c4d1c0]/20 blur-2xl pointer-events-none" />
 
                 <div className="relative z-10 max-w-7xl mx-auto">
                     <div className="flex flex-col gap-2">
@@ -200,7 +193,7 @@ const ProfileSettings = () => {
                         </Button>
 
                         <div className="flex items-center gap-3">
-                            <Badge className="bg-[#FCD34D] text-emerald-900 hover:bg-[#FCD34D] border-0 px-2 py-0.5 font-bold text-xs shadow-sm">
+                            <Badge className="bg-[#FCD34D] text-[#063127] hover:bg-[#FCD34D]/90 border-0 px-2 py-0.5 font-bold text-xs shadow-sm">
                                 {t('navigation.settings', 'Settings')}
                             </Badge>
                         </div>
@@ -227,7 +220,7 @@ const ProfileSettings = () => {
                                 
                                 {/* COMPONENTE DE SUBIDA DE FOTO */}
                                 <div className="relative group mt-4">
-                                    <div className="absolute -inset-1 bg-gradient-to-tr from-emerald-400 to-emerald-600 rounded-full blur opacity-30 group-hover:opacity-60 transition duration-500"></div>
+                                    <div className="absolute -inset-1 bg-gradient-to-tr from-[#5b8370] to-[#063127] rounded-full blur opacity-30 group-hover:opacity-60 transition duration-500"></div>
                                     
                                     <label htmlFor="avatar-upload" className="cursor-pointer block relative">
                                         <Avatar className="w-40 h-40 border-[6px] border-card shadow-xl bg-white transition-transform group-hover:scale-105">
@@ -237,13 +230,11 @@ const ProfileSettings = () => {
                                             </AvatarFallback>
                                         </Avatar>
 
-                                        {/* Overlay de cámara al hacer hover */}
                                         <div className="absolute inset-0 rounded-full bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                             <Camera className="w-10 h-10 text-white drop-shadow-md" />
                                         </div>
 
-                                        {/* Botón flotante siempre visible */}
-                                        <div className="absolute bottom-2 right-2 bg-emerald-600 text-white p-2.5 rounded-full shadow-lg border-2 border-card hover:bg-emerald-700 transition-colors">
+                                        <div className="absolute bottom-2 right-2 bg-[#5b8370] text-white p-2.5 rounded-full shadow-lg border-2 border-card hover:bg-[#063127] transition-colors">
                                             <Upload className="w-4 h-4" />
                                         </div>
                                     </label>
@@ -304,7 +295,7 @@ const ProfileSettings = () => {
                             <div className="md:col-span-7 lg:col-span-8 p-8 md:p-12">
                                 <div className="flex items-center justify-between mb-8">
                                     <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
-                                        <User className="w-5 h-5 text-emerald-600" />
+                                        <User className="w-5 h-5 text-[#5b8370]" />
                                         {t('profile.edit_details', 'Edit Details')}
                                     </h3>
                                 </div>
@@ -321,7 +312,7 @@ const ProfileSettings = () => {
                                                 name="full_name"
                                                 value={formData.full_name}
                                                 onChange={handleChange}
-                                                className="h-11 bg-background"
+                                                className="h-11 bg-background focus-visible:ring-[#5b8370]"
                                                 placeholder={t('profile.placeholders.name', 'Your Name')}
                                                 required
                                             />
@@ -337,7 +328,7 @@ const ProfileSettings = () => {
                                                     name="phone"
                                                     value={formData.phone}
                                                     onChange={handleChange}
-                                                    className="h-11 pl-10 bg-background"
+                                                    className="h-11 pl-10 bg-background focus-visible:ring-[#5b8370]"
                                                     placeholder={t('profile.placeholders.phone', '+1 234 567 890')}
                                                 />
                                             </div>
@@ -356,7 +347,7 @@ const ProfileSettings = () => {
                                                     name="city"
                                                     value={formData.city}
                                                     onChange={handleChange}
-                                                    className="h-11 pl-10 bg-background"
+                                                    className="h-11 pl-10 bg-background focus-visible:ring-[#5b8370]"
                                                     placeholder={t('profile.placeholders.city', 'e.g. Berlin')}
                                                 />
                                             </div>
@@ -370,7 +361,7 @@ const ProfileSettings = () => {
                                                 name="country"
                                                 value={formData.country}
                                                 onChange={handleChange}
-                                                className="h-11 bg-background"
+                                                className="h-11 bg-background focus-visible:ring-[#5b8370]"
                                                 placeholder={t('profile.placeholders.country', 'e.g. Germany')}
                                             />
                                         </div>
@@ -385,7 +376,7 @@ const ProfileSettings = () => {
                                             name="bio"
                                             value={formData.bio}
                                             onChange={handleChange}
-                                            className="resize-none min-h-[100px] bg-background p-4 leading-relaxed border-input"
+                                            className="resize-none min-h-[100px] bg-background p-4 leading-relaxed border-input focus-visible:ring-[#5b8370]"
                                             placeholder={t('profile.placeholders.bio', 'Tell us about yourself...')}
                                             maxLength={500}
                                         />
@@ -400,7 +391,7 @@ const ProfileSettings = () => {
                                         <Button
                                             type="submit"
                                             disabled={loading}
-                                            className="px-8 h-12 text-base font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-200/50 hover:shadow-emerald-200/80 transition-all hover:-translate-y-0.5 rounded-xl"
+                                            className="px-8 h-12 text-base font-semibold bg-[#063127] hover:bg-[#5b8370] text-[#c4d1c0] hover:text-white shadow-lg shadow-[#063127]/20 hover:shadow-[#5b8370]/40 transition-all hover:-translate-y-0.5 rounded-xl border-none"
                                         >
                                             {loading ? <Loader2 className="w-5 h-5 animate-spin mr-2" /> : <Save className="w-5 h-5 mr-2" />}
                                             {loading ? t('profile.buttons.saving', 'Saving...') : t('profile.buttons.save', 'Save Changes')}

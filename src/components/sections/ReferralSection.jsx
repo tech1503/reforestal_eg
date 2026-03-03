@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Copy, Share2, Users, Gift, TrendingUp, Lock, AlertCircle, Loader2, Check } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Copy, Share2, Users, Gift, TrendingUp, AlertCircle, Loader2, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
@@ -111,8 +111,8 @@ const ReferralSection = () => {
   return (
     <div className="space-y-8 pb-10">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-        <h2 className="text-3xl font-bold text-foreground mb-3">{t('dashboard.referrals.program_title', 'Referral Program')}</h2>
-        {userTier && <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">{userTier.name}</span>}
+        <h2 className="text-3xl font-bold text-[#053127] dark:text-[#c2d2c1] mb-3">{t('dashboard.referrals.program_title', 'Referral Program')}</h2>
+        {userTier && <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#5b8370]/10 text-[#5b8370] border border-[#5b8370]/20">{userTier.name}</span>}
         <p className="text-muted-foreground max-w-2xl mx-auto">{t('dashboard.referrals.program_desc', 'Invite friends and earn rewards.')}</p>
       </motion.div>
 
@@ -124,7 +124,7 @@ const ReferralSection = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-muted-foreground text-sm font-medium uppercase tracking-wide">{stat.title}</p>
-                  <p className="text-3xl font-bold text-foreground mt-1">{statsLoading ? <Loader2 className="h-6 w-6 animate-spin text-emerald-500" /> : stat.value}</p>
+                  <p className="text-3xl font-bold text-[#053127] dark:text-[#c2d2c1] mt-1">{statsLoading ? <Loader2 className="h-6 w-6 animate-spin text-[#5b8370]" /> : stat.value}</p>
                 </div>
                 <div className={`p-3 rounded-xl bg-muted`}><Icon className={`w-6 h-6 text-${stat.color}-600`} /></div>
               </div>
@@ -133,12 +133,12 @@ const ReferralSection = () => {
         })}
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className={`rounded-2xl p-8 text-white shadow-xl relative overflow-hidden transition-colors ${isSuspended ? 'bg-slate-600' : 'bg-emerald-700 shadow-emerald-200/50'}`}>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className={`rounded-2xl p-8 text-[#c2d2c1] shadow-xl relative overflow-hidden transition-colors ${isSuspended ? 'bg-slate-600' : 'bg-gradient-to-br from-[#053127] to-[#5b8370] shadow-[#053127]/30'}`}>
         <div className="relative z-10 text-center">
           <h3 className="text-2xl font-bold mb-2">{t('dashboard.referrals.unique_code', 'Your Code')}</h3>
           <div className={`max-w-md mx-auto bg-white/10 backdrop-blur-sm rounded-xl p-4 mb-6 border border-white/20 flex justify-between items-center gap-4 ${isSuspended ? 'opacity-50' : ''}`}>
             <span className="text-2xl font-mono font-bold tracking-wider">{statsLoading || !referralCode ? "..." : referralCode}</span>
-            <Button onClick={() => {navigator.clipboard.writeText(referralCode); toast({ title: "Code Copied" });}} variant="ghost" size="icon" className="bg-white/20 hover:bg-white/30" disabled={!referralCode}>
+            <Button onClick={() => {navigator.clipboard.writeText(referralCode); toast({ title: "Code Copied" });}} variant="ghost" size="icon" className="bg-white/10 hover:bg-white/20 text-[#c2d2c1]" disabled={!referralCode}>
                 <Copy className="w-5 h-5" />
             </Button>
           </div>
@@ -146,7 +146,7 @@ const ReferralSection = () => {
               <div className="inline-flex items-center justify-center gap-2 text-red-200 font-bold bg-red-900/30 p-2 rounded-lg px-6"><AlertCircle className="w-5 h-5"/> ACCOUNT SUSPENDED</div>
           ) : (
               <div className="flex justify-center gap-3">
-                  <Button onClick={handleCopyLink} className="bg-white text-emerald-900 hover:bg-emerald-500 font-bold min-w-[200px]">
+                  <Button onClick={handleCopyLink} className="bg-[#c2d2c1] text-[#053127] hover:bg-white font-bold min-w-[200px] border-none shadow-md">
                     {copied ? <Check className="w-4 h-4 mr-2" /> : <Share2 className="w-4 h-4 mr-2" />} {copied ? t('common.success', 'Copied!') : t('dashboard.referrals.copy_link', 'Copy Link')}
                   </Button>
               </div>
@@ -155,7 +155,7 @@ const ReferralSection = () => {
       </motion.div>
 
       <div className="mt-12 border-t border-border pt-10">
-        <h3 className="text-2xl font-bold text-center mb-8 text-foreground">{t('dashboard.land_dollar.title', 'Your Digital Asset')}</h3>
+        <h3 className="text-2xl font-bold text-center mb-8 text-[#053127] dark:text-[#c2d2c1]">{t('dashboard.land_dollar.title', 'Your Digital Asset')}</h3>
         <LandDollarDisplay user={user} landDollar={landDollar} />
       </div>
     </div>

@@ -15,7 +15,6 @@ import { Textarea } from '@/components/ui/textarea';
 import FoundingPioneerNotification from '@/components/ui/FoundingPioneerNotification';
 import FoundingPioneerLockedSection from '@/components/ui/FoundingPioneerLockedSection';
 
-
 const ApplicationModal = ({ open, onOpenChange, reason, setReason, onSubmit, isSubmitting }) => {
   const { t } = useTranslation();
   return (
@@ -23,8 +22,8 @@ const ApplicationModal = ({ open, onOpenChange, reason, setReason, onSubmit, isS
         <DialogContent className="sm:max-w-md bg-card border-border shadow-2xl rounded-2xl">
             <DialogHeader>
                 <DialogTitle className="flex items-center gap-2 text-xl font-bold text-foreground">
-                    <div className="p-2 bg-emerald-100 dark:bg-emerald-900/30 rounded-full">
-                        <Send className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                    <div className="p-2 bg-[#5b8370]/10 rounded-full">
+                        <Send className="w-5 h-5 text-[#5b8370]" />
                     </div>
                     {t('founding_pioneer.locked_section.cta_button', 'Apply to become a Pioneer')}
                 </DialogTitle>
@@ -37,12 +36,12 @@ const ApplicationModal = ({ open, onOpenChange, reason, setReason, onSubmit, isS
                     value={reason}
                     onChange={(e) => setReason(e.target.value)}
                     placeholder="I want to join because..."
-                    className="min-h-[120px] bg-background border-input focus:border-emerald-500 focus:ring-emerald-500/20"
+                    className="min-h-[120px] bg-background border-input focus:border-[#5b8370] focus:ring-[#5b8370]/20"
                 />
             </div>
             <DialogFooter>
-                <Button variant="ghost" onClick={() => onOpenChange(false)} className="hover:bg-muted">{t('common.cancel')}</Button>
-                <Button onClick={onSubmit} disabled={isSubmitting || !reason.trim()} className="bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-600/20">
+                <Button variant="ghost" onClick={() => onOpenChange(false)} className="hover:bg-muted text-foreground">{t('common.cancel')}</Button>
+                <Button onClick={onSubmit} disabled={isSubmitting || !reason.trim()} className="bg-[#5b8370] hover:bg-[#063127] text-[#c4d1c0] hover:text-white shadow-lg border-none">
                     {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
                     {t('common.submit')}
                 </Button>
@@ -144,7 +143,6 @@ const FoundingMembersSection = () => {
     }
   }, [i18n.language, user?.id]);
 
-  // 2. CHECK ACCESS STATUS & REALTIME SUSCRIPTIONS
   useEffect(() => {
      if (!user) return;
      
@@ -204,7 +202,7 @@ const FoundingMembersSection = () => {
             message: `User ${profile?.email} requests access. Reason: "${applicationReason}"`,
             status: 'unread'
         });
-        // RESETEAMOS A PENDING PARA QUE APAREZCA EN LA LISTA DE EVALUACIÓN
+        
         await supabase.from('founding_pioneer_metrics').upsert({ user_id: user.id, founding_pioneer_access_status: 'pending' }, { onConflict: 'user_id' });
         
         setAccessStatus('pending');
@@ -229,7 +227,7 @@ const FoundingMembersSection = () => {
       }
   };
 
-  if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin w-10 h-10 text-emerald-500"/></div>;
+  if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin w-10 h-10 text-[#5b8370]"/></div>;
 
   // ==================================================================================
   // VISTA BLOQUEADA - ESTILO PREMIUM
@@ -237,7 +235,6 @@ const FoundingMembersSection = () => {
   if (!isAdmin && accessStatus !== 'approved') {
       
       const isPending = accessStatus === 'pending';
-
       const isRejected = accessStatus === 'rejected' || accessStatus === 'revoked';
 
       if (isPending || isRejected) {
@@ -251,49 +248,48 @@ const FoundingMembersSection = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className={`relative w-full max-w-5xl overflow-hidden rounded-3xl shadow-2xl border border-white/20 ${
+                    className={`relative w-full max-w-5xl overflow-hidden rounded-3xl shadow-2xl border ${
                         isPending 
-                            ? 'bg-gradient-to-br from-emerald-400 to-emerald-800' 
-                            : 'bg-gradient-to-br  from-emerald-500 to-emerald-900'
+                            ? 'bg-gradient-to-br from-[#063127] to-[#144738] border-[#5b8370]/30' 
+                            : 'bg-gradient-to-br from-[#5b8370] to-[#063127] border-red-900/30'
                     }`}
                 >
-                    <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
-                    <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-72 h-72 bg-black/20 rounded-full blur-3xl pointer-events-none"></div>
-                    <div className="absolute inset-0 opacity-[0.05] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-[#5b8370]/10 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
+                    <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-72 h-72 bg-black/40 rounded-full blur-3xl pointer-events-none"></div>
 
                     <div className="relative z-10 flex flex-col md:flex-row items-center p-10 md:p-16 gap-12">
                         <div className="flex-shrink-0 relative group">
                             <motion.div 
                                 animate={{ rotate: 360 }}
                                 transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                                className="absolute inset-0 rounded-full border border-white/20 border-dashed"
+                                className="absolute inset-0 rounded-full border border-white/10 border-dashed"
                             />
                             
                             <motion.div 
                                 animate={{ y: [0, -10, 0] }}
                                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                className="w-40 h-40 md:w-48 md:h-48 bg-white/10 rounded-full border-2 border-white/30 flex items-center justify-center backdrop-blur-md relative z-10 shadow-2xl"
+                                className="w-40 h-40 md:w-48 md:h-48 bg-black/20 rounded-full border-2 border-white/20 flex items-center justify-center backdrop-blur-md relative z-10 shadow-2xl"
                             >
                                 {isPending ? (
-                                    <Hourglass className="w-20 h-20 text-amber-200 drop-shadow-md" />
+                                    <Hourglass className="w-20 h-20 text-[#c4d1c0] drop-shadow-md" />
                                 ) : (
-                                    <Lock className="w-20 h-20 text-red-200 drop-shadow-md" />
+                                    <Lock className="w-20 h-20 text-red-300 drop-shadow-md" />
                                 )}
                             </motion.div>
                         </div>
 
                         <div className="flex-1 text-center md:text-left space-y-6 text-white">
                             <div>
-                                <Badge className={`mb-4 px-3 py-1 text-xs border-0 backdrop-blur-md ${isPending ? 'bg-amber-400/20 text-amber-100' : 'bg-red-400/20 text-red-100'}`}>
+                                <Badge className={`mb-4 px-3 py-1 text-xs border-0 backdrop-blur-md ${isPending ? 'bg-[#5b8370]/20 text-[#c4d1c0]' : 'bg-red-500/20 text-red-200'}`}>
                                     {isPending ? t('pioneer.restricted.pending', 'Pending Review') : t('pioneer.restricted.rejected', 'Application Rejected')}
                                 </Badge>
                                 
-                                <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight drop-shadow-sm">
+                                <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight drop-shadow-sm text-[#c4d1c0]">
                                     {isPending ? t('pioneer.restricted.review_title', 'Application Under Review') : t('pioneer.restricted.access_denied', 'Access Denied')}
                                 </h2>
                             </div>
                             
-                            <p className="text-lg md:text-xl text-white/80 font-light leading-relaxed max-w-2xl mx-auto md:mx-0">
+                            <p className="text-lg md:text-xl text-white/70 font-light leading-relaxed max-w-2xl mx-auto md:mx-0">
                                 {isPending 
                                     ? t('pioneer.restricted.pending_msg', 'We are reviewing your profile carefully.') 
                                     : t('pioneer.restricted.rejected_msg', 'Your application was not approved.')
@@ -303,18 +299,16 @@ const FoundingMembersSection = () => {
                             <div className="pt-4 flex flex-col md:items-start items-center">
                                 <Button 
                                     onClick={() => setOpenApplyModal(true)}
-                                    className="group relative overflow-hidden bg-white text-slate-900 hover:bg-slate-100 font-bold text-lg px-10 py-6 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl"
+                                    className="group relative overflow-hidden bg-[#5b8370] text-[#063127] hover:bg-[#c4d1c0] font-bold text-lg px-10 py-6 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl border-none"
                                 >
                                     <span className="relative z-10 flex items-center gap-3">
-                                        <Edit className="w-5 h-5 text-slate-600" />
-                                        
-                                        {/* Botón cambiará a "Re-Apply" si fue rechazado o revocado */}
+                                        <Edit className="w-5 h-5" />
                                         {isPending ? t('pioneer.restricted.update_btn', 'Update Application') : t('pioneer.restricted.contact_btn', 'Re-Apply')}
                                     </span>
                                 </Button>
                                 
                                 {isPending && (
-                                    <p className="mt-4 text-xs text-white/50 uppercase tracking-[0.1em] font-medium flex items-center gap-2">
+                                    <p className="mt-4 text-xs text-[#5b8370] uppercase tracking-[0.1em] font-bold flex items-center gap-2">
                                         <Loader2 className="w-3 h-3 animate-spin"/> Processing by Admin Team
                                     </p>
                                 )}
@@ -356,19 +350,19 @@ const FoundingMembersSection = () => {
   // ==================================================================================
   return (
     <div className="space-y-8 pb-20">
-      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="rounded-[2.5rem] bg-gradient-to-r from-[#064e3b] to-[#111827] p-10 text-white shadow-2xl relative overflow-hidden">
+      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="rounded-[2.5rem] bg-gradient-to-r from-[#063127] to-[#124f3c] p-10 text-white shadow-2xl relative overflow-hidden border border-[#5b8370]/20">
          <div className="relative z-10">
-            <Badge className="bg-amber-400 text-amber-950 mb-4">{t('pioneer.header.badge')}</Badge>
-            <h1 className="text-4xl font-black mb-4">{t('pioneer.header.title')}</h1>
-            <p className="text-emerald-100/80 max-w-2xl">{t('pioneer.header.subtitle')}</p>
+            <Badge className="bg-[#5b8370] text-[#063127] border-none font-bold mb-4">{t('pioneer.header.badge')}</Badge>
+            <h1 className="text-4xl font-black mb-4 text-[#c4d1c0]">{t('pioneer.header.title')}</h1>
+            <p className="text-white/80 max-w-2xl">{t('pioneer.header.subtitle')}</p>
          </div>
       </motion.div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 h-auto min-h-16 bg-card border rounded-2xl mb-8 p-1">
+        <TabsList className="grid w-full grid-cols-3 h-auto min-h-16 bg-card border border-border rounded-2xl mb-8 p-1">
         <TabsTrigger 
           value="governance" 
-          className="whitespace-normal rounded-xl gap-1 sm:gap-2 font-bold text-[10px] sm:text-sm h-full px-1"
+          className="whitespace-normal rounded-xl gap-1 sm:gap-2 font-bold text-[10px] sm:text-sm h-full px-1 data-[state=active]:bg-[#5b8370] data-[state=active]:text-white"
         >
           <Vote className="w-4 h-4 sm:w-5 sm:h-5 shrink-0"/> 
           {t('pioneer.tabs.governance')}
@@ -376,7 +370,7 @@ const FoundingMembersSection = () => {
         
         <TabsTrigger 
           value="news" 
-          className="whitespace-normal rounded-xl gap-1 sm:gap-2 font-bold text-[10px] sm:text-sm h-full px-1"
+          className="whitespace-normal rounded-xl gap-1 sm:gap-2 font-bold text-[10px] sm:text-sm h-full px-1 data-[state=active]:bg-[#5b8370] data-[state=active]:text-white"
         >
           <Newspaper className="w-4 h-4 sm:w-5 sm:h-5 shrink-0"/> 
           {t('pioneer.tabs.news')}
@@ -384,7 +378,7 @@ const FoundingMembersSection = () => {
         
         <TabsTrigger 
           value="roadmap" 
-          className="whitespace-normal rounded-xl gap-1 sm:gap-2 font-bold text-[10px] sm:text-sm h-full px-1"
+          className="whitespace-normal rounded-xl gap-1 sm:gap-2 font-bold text-[10px] sm:text-sm h-full px-1 data-[state=active]:bg-[#5b8370] data-[state=active]:text-white"
         >
           <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 shrink-0"/> 
           {t('pioneer.tabs.roadmap')}
@@ -397,7 +391,7 @@ const FoundingMembersSection = () => {
                 {/* 1. GOVERNANCE */}
                 {activeTab === 'governance' && (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        {proposals.length === 0 && <div className="col-span-2 text-center text-muted-foreground py-10 border-2 border-dashed rounded-xl">No active votes at this moment.</div>}
+                        {proposals.length === 0 && <div className="col-span-2 text-center text-muted-foreground py-10 border-2 border-dashed border-border rounded-xl">No active votes at this moment.</div>}
                         {proposals.map(prop => (
                             <VotingCard 
                                 key={prop.id}
@@ -419,13 +413,13 @@ const FoundingMembersSection = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {news.map((item, idx) => (
                              <motion.div key={item.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }} className={idx === 0 ? "md:col-span-2" : ""}>
-                                <Card className="overflow-hidden border-0 shadow-lg group cursor-pointer h-full relative rounded-3xl min-h-[300px]">
+                                <Card className="overflow-hidden border border-border shadow-lg group cursor-pointer h-full relative rounded-3xl min-h-[300px]">
                                     <img src={item.image_url || "https://via.placeholder.com/800x600"} alt="News" className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"/>
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"/>
                                     <div className="relative z-10 h-full flex flex-col justify-end p-8 text-white">
-                                        <Badge className="w-fit mb-2 bg-blue-600 border-0">{item.category}</Badge>
-                                        <h3 className={`${idx === 0 ? 'text-3xl' : 'text-xl'} font-bold mb-2`}>{item.title}</h3>
-                                        <p className="text-slate-200 line-clamp-2">{item.description}</p>
+                                        <Badge className="w-fit mb-2 bg-[#5b8370] border-0 text-[#063127] font-bold">{item.category}</Badge>
+                                        <h3 className={`${idx === 0 ? 'text-3xl' : 'text-xl'} font-bold mb-2 text-[#c4d1c0]`}>{item.title}</h3>
+                                        <p className="text-white/80 line-clamp-2">{item.description}</p>
                                     </div>
                                 </Card>
                             </motion.div>
@@ -436,7 +430,7 @@ const FoundingMembersSection = () => {
 
                 {/* 3. ROADMAP */}
                 {activeTab === 'roadmap' && (
-                    <div className="space-y-12 pl-6 border-l-4 border-muted ml-6 py-4">
+                    <div className="space-y-12 pl-6 border-l-4 border-[#5b8370]/30 ml-6 py-4">
                         {roadmap.map((item) => (
                             <TimelineItem 
                                 key={item.id}
@@ -466,15 +460,18 @@ const VotingCard = ({ title, desc, date, hasVoted, onVote, options, image_url })
             </div>
         )}
         <CardHeader>
-            <div className="flex justify-between mb-2"><Badge className="bg-emerald-100 text-emerald-800">Live Voting</Badge> <span className="text-xs text-muted-foreground flex items-center gap-1"><Clock className="w-3 h-3"/> {date}</span></div>
+            <div className="flex justify-between mb-2">
+                <Badge className="bg-[#5b8370]/20 text-[#5b8370] border-0">Live Voting</Badge> 
+                <span className="text-xs text-muted-foreground flex items-center gap-1"><Clock className="w-3 h-3"/> {date}</span>
+            </div>
             <CardTitle className="text-xl text-foreground">{title}</CardTitle>
             <CardDescription className="text-muted-foreground">{desc}</CardDescription>
         </CardHeader>
         <CardContent>
             {options.map((o, i) => (
                 <div key={i} className="mb-3">
-                    <div className="flex justify-between text-sm mb-1 font-medium text-foreground"><span>{o.label}</span><span>{o.percent}%</span></div>
-                    <Progress value={o.percent} className="h-2" />
+                    <div className="flex justify-between text-sm mb-1 font-medium text-foreground"><span>{o.label}</span><span className="text-[#5b8370]">{o.percent}%</span></div>
+                    <Progress value={o.percent} className="h-2 bg-muted [&>div]:bg-[#5b8370]" />
                 </div>
             ))}
             
@@ -484,14 +481,14 @@ const VotingCard = ({ title, desc, date, hasVoted, onVote, options, image_url })
                          <Button 
                             key={i} 
                             onClick={() => onVote(o.label)} 
-                            className="bg-muted hover:bg-emerald-600 text-foreground hover:text-white transition-colors"
+                            className="bg-card border-2 border-[#5b8370] text-[#063127] dark:text-[#c4d1c0] hover:bg-[#5b8370] hover:text-white transition-colors"
                          >
                             {o.label}
                          </Button>
                     ))}
                 </div>
             ) : (
-                <Button disabled className="w-full mt-4 bg-muted text-muted-foreground">Vote Submitted</Button>
+                <Button disabled className="w-full mt-4 bg-muted text-muted-foreground border-0">Vote Submitted</Button>
             )}
         </CardContent>
     </Card>
@@ -499,14 +496,14 @@ const VotingCard = ({ title, desc, date, hasVoted, onVote, options, image_url })
 
 const TimelineItem = ({ status, title, date, desc, percentage }) => (
     <div className="relative pl-8 pb-8 group">
-        <div className={`absolute -left-[39px] top-0 w-8 h-8 rounded-full flex items-center justify-center border-4 z-10 bg-card ${status === 'completed' ? 'border-emerald-500 text-emerald-500' : status === 'current' ? 'border-blue-500 text-blue-500' : 'border-border text-muted-foreground'}`}>
-            {status === 'completed' ? <CheckCircle2 className="w-4 h-4"/> : <div className={`w-3 h-3 rounded-full ${status === 'current' ? 'bg-blue-500 animate-pulse' : 'bg-muted'}`}/>}
+        <div className={`absolute -left-[39px] top-0 w-8 h-8 rounded-full flex items-center justify-center border-4 z-10 bg-card ${status === 'completed' ? 'border-[#5b8370] text-[#5b8370]' : status === 'current' ? 'border-[#c4d1c0] text-[#063127] dark:text-white' : 'border-border text-muted-foreground'}`}>
+            {status === 'completed' ? <CheckCircle2 className="w-4 h-4"/> : <div className={`w-3 h-3 rounded-full ${status === 'current' ? 'bg-[#5b8370] animate-pulse' : 'bg-muted'}`}/>}
         </div>
         <div>
-            <span className={`text-xs font-bold uppercase tracking-wider px-2 py-1 rounded ${status === 'completed' ? 'bg-emerald-50 text-emerald-600' : 'bg-muted text-muted-foreground'}`}>{date}</span>
+            <span className={`text-xs font-bold uppercase tracking-wider px-2 py-1 rounded ${status === 'completed' ? 'bg-[#5b8370]/10 text-[#5b8370]' : 'bg-muted text-muted-foreground'}`}>{date}</span>
             <h4 className="text-xl font-bold mt-2 text-foreground">{title}</h4>
             <p className="text-muted-foreground mt-1 mb-3">{desc}</p>
-            {percentage > 0 && <div className="flex items-center gap-3"><Progress value={percentage} className="h-1.5 w-48" /> <span className="text-xs font-bold text-foreground">{percentage}%</span></div>}
+            {percentage > 0 && <div className="flex items-center gap-3"><Progress value={percentage} className="h-1.5 w-48 bg-muted [&>div]:bg-[#5b8370]" /> <span className="text-xs font-bold text-foreground">{percentage}%</span></div>}
         </div>
     </div>
 );

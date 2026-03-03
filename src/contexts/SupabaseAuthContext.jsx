@@ -1,8 +1,7 @@
-import { useToast } from '@/components/ui/use-toast';
+// @refresh reset
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useNavigate, useLocation } from 'react-router-dom';
-// 1. IMPORTA TU SERVICIO DE REFERIDOS AQUÍ
 import { processReferralOnSignup } from '@/services/referralService'; 
 
 const AuthContext = createContext(undefined);
@@ -18,7 +17,6 @@ export const AuthProvider = ({ children }) => {
   
   const mounted = useRef(true);
 
-  // ... (MANTÉN TU CÓDIGO DE fetchProfile y handleAuthRedirect IGUAL QUE ANTES) ...
   const fetchProfile = useCallback(async (userId) => {
     if (!userId) return null;
     try {
@@ -46,10 +44,9 @@ export const AuthProvider = ({ children }) => {
       console.error('Error fetching profile:', err);
       return null;
     }
-  }, [session]);
+  }, [session?.user?.id]); 
 
   const handleAuthRedirect = useCallback(async (forcedRole = null) => {
-     // ... (MANTÉN TU LÓGICA DE REDIRECCIÓN IGUAL) ...
      let role = forcedRole;
     
     if (!role) {
@@ -85,10 +82,10 @@ export const AuthProvider = ({ children }) => {
     await supabase.auth.signOut();
     setSession(null);
     setProfile(null);
+    setIsPasswordRecovery(false);
     navigate('/auth');
   }, [navigate]);
 
-  // --- Initialization & Realtime ---
   useEffect(() => {
     mounted.current = true;
     
@@ -111,38 +108,27 @@ export const AuthProvider = ({ children }) => {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, currentSession) => {
       if (!mounted.current) return;
-      
-      console.log(`Auth event: ${event}`);
 
       if (event === 'SIGNED_OUT') {
         setSession(null);
         setProfile(null);
+        setIsPasswordRecovery(false);
+        setLoading(false);
+      } else if (event === 'PASSWORD_RECOVERY') {
+        setIsPasswordRecovery(true);
         setLoading(false);
       } else if (['SIGNED_IN', 'TOKEN_REFRESHED', 'USER_UPDATED'].includes(event)) {
         setSession(currentSession);
+        setIsPasswordRecovery(false); 
         
-        // -----------------------------------------------------------
-        // 2. NUEVA LÓGICA AGREGADA: PROCESAR REFERIDOS AUTOMÁTICAMENTE
-        // -----------------------------------------------------------
         if (event === 'SIGNED_IN' && currentSession?.user) {
             const storedRefCode = localStorage.getItem('reforestal_ref');
-            
             if (storedRefCode) {
-                console.log(`[AuthContext] Código de referido detectado (${storedRefCode}). Procesando para usuario ${currentSession.user.id}...`);
-                
-                // Ejecutamos sin await para no bloquear la UI principal
                 processReferralOnSignup(currentSession.user.id, storedRefCode)
-                    .then(() => {
-                        console.log('[AuthContext] Referido procesado correctamente.');
-                        // Limpiamos el código para que no se intente procesar de nuevo en el futuro
-                        localStorage.removeItem('reforestal_ref'); 
-                    })
-                    .catch(err => {
-                        console.error('[AuthContext] Error procesando referido:', err);
-                    });
+                    .then(() => localStorage.removeItem('reforestal_ref'))
+                    .catch(err => console.error(err));
             }
         }
-        // -----------------------------------------------------------
 
         if (currentSession?.user) {
           const p = await fetchProfile(currentSession.user.id);
@@ -156,9 +142,8 @@ export const AuthProvider = ({ children }) => {
       mounted.current = false;
       subscription.unsubscribe();
     };
-  }, []); 
+  }, [fetchProfile]); 
 
-  // ... (MANTÉN EL RESTO DEL COMPONENTE IGUAL) ...
   const value = useMemo(() => ({
     user: session?.user ?? null,
     session,

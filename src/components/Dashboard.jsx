@@ -90,7 +90,7 @@ const Dashboard = () => {
   const userRole = isStartnext ? 'startnext_user' : 'user';
 
   return (
-    <div className="flex h-screen bg-slate-50 overflow-hidden font-sans text-sm">
+    <div className="flex h-screen bg-slate-50 dark:bg-transparent overflow-hidden font-sans text-sm">
       {!isSidebarOpen && (
         <button
           className="md:hidden fixed top-3 left-4 z-50 p-2 bg-white/90 backdrop-blur text-emerald-800 border border-emerald-100 rounded-lg shadow-md hover:bg-emerald-50 transition-all"
@@ -117,7 +117,7 @@ const Dashboard = () => {
           onOpenHistory={() => setShowICHistory(true)}
         />
 
-        <main className="flex-1 overflow-y-auto p-4 md:p-6 scroll-smooth pb-24 relative bg-background">
+        <main className="flex-1 overflow-y-auto p-4 md:p-6 scroll-smooth pb-24 relative bg-background dark:bg-transparent">
           <div className="max-w-7xl mx-auto space-y-6">
             <AnimatePresence mode="wait">
               <Routes>
