@@ -21,6 +21,7 @@ const AdminGamificationActionModal = ({ isOpen, onClose, actionToEdit, onSuccess
         action_type: 'Custom',
         system_binding: 'custom',
         impact_credits_value: 0,
+        referee_credits_value: 0, 
         description: '',
         admin_notes: '',
         trigger_event: '',
@@ -40,6 +41,7 @@ const AdminGamificationActionModal = ({ isOpen, onClose, actionToEdit, onSuccess
                 action_type: actionToEdit.action_type || 'Custom',
                 system_binding: actionToEdit.system_binding || 'custom',
                 impact_credits_value: actionToEdit.impact_credits_value || 0,
+                referee_credits_value: actionToEdit.referee_credits_value || 0, 
                 description: actionToEdit.description || '',
                 admin_notes: actionToEdit.admin_notes || '',
                 trigger_event: actionToEdit.trigger_event || '',
@@ -52,6 +54,7 @@ const AdminGamificationActionModal = ({ isOpen, onClose, actionToEdit, onSuccess
                 action_type: 'Custom',
                 system_binding: 'custom',
                 impact_credits_value: 0,
+                referee_credits_value: 0,
                 description: '',
                 admin_notes: '',
                 trigger_event: '',
@@ -68,7 +71,7 @@ const AdminGamificationActionModal = ({ isOpen, onClose, actionToEdit, onSuccess
         if (!formData.action_name || !formData.action_title) {
             return toast({ variant: "destructive", title: t('common.error'), description: "Name and Title are required." });
         }
-        if (formData.impact_credits_value < 0) {
+        if (formData.impact_credits_value < 0 || formData.referee_credits_value < 0) {
             return toast({ variant: "destructive", title: t('common.error'), description: "Credits cannot be negative." });
         }
 
@@ -190,24 +193,28 @@ const AdminGamificationActionModal = ({ isOpen, onClose, actionToEdit, onSuccess
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-4 p-4 bg-emerald-50 rounded-xl border border-emerald-100">
                         <div className="space-y-2">
-                            <Label>{t('dashboard.impact_credits')} Value</Label>
+                            <Label className="text-emerald-800">{t('gamification_admin.action_modal.fields.impact_credits_value', 'Main Reward (BP)')}</Label>
                             <Input 
                                 type="number" 
                                 min="0" 
                                 value={formData.impact_credits_value} 
                                 onChange={(e) => handleChange('impact_credits_value', e.target.value)} 
+                                className="bg-white"
                             />
+                            <p className="text-[10px] text-emerald-600/80">{t('gamification_admin.action_modal.fields.impact_credits_desc', 'Points for the user (or Referrer if MLM).')}</p>
                         </div>
-                        <div className="space-y-2 flex flex-col justify-end pb-2">
-                            <div className="flex items-center space-x-2">
-                                <Switch 
-                                    checked={formData.is_active} 
-                                    onCheckedChange={(checked) => handleChange('is_active', checked)}
-                                />
-                                <Label>{t('gamification_admin.action_modal.fields.active', 'Action Active')}</Label>
-                            </div>
+                        <div className="space-y-2">
+                            <Label className="text-purple-800">{t('gamification_admin.action_modal.fields.referee_credits_value', 'Secondary/Referee Reward (BP)')}</Label>
+                            <Input 
+                                type="number" 
+                                min="0" 
+                                value={formData.referee_credits_value} 
+                                onChange={(e) => handleChange('referee_credits_value', e.target.value)} 
+                                className="bg-white"
+                            />
+                            <p className="text-[10px] text-purple-600/80">{t('gamification_admin.action_modal.fields.referee_credits_desc', 'Points for the invited person / passive action completer.')}</p>
                         </div>
                     </div>
 
@@ -220,14 +227,25 @@ const AdminGamificationActionModal = ({ isOpen, onClose, actionToEdit, onSuccess
                         />
                     </div>
 
-                    <div className="space-y-2">
-                        <Label>{t('gamification_admin.action_modal.fields.trigger', 'Trigger Event (Optional)')}</Label>
-                        <Input 
-                            value={formData.trigger_event} 
-                            onChange={(e) => handleChange('trigger_event', e.target.value)} 
-                            placeholder={t('gamification_admin.action_modal.fields.trigger_placeholder', 'e.g., user_signup')}
-                        />
-                        <p className="text-xs text-muted-foreground">{t('gamification_admin.action_modal.fields.trigger_desc', 'Technical hook identifier for external systems.')}</p>
+                    <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                            <Label>{t('gamification_admin.action_modal.fields.trigger', 'Trigger Event (Optional)')}</Label>
+                            <Input 
+                                value={formData.trigger_event} 
+                                onChange={(e) => handleChange('trigger_event', e.target.value)} 
+                                placeholder={t('gamification_admin.action_modal.fields.trigger_placeholder', 'e.g., user_signup')}
+                            />
+                            <p className="text-xs text-muted-foreground">{t('gamification_admin.action_modal.fields.trigger_desc', 'Technical hook identifier for external systems.')}</p>
+                        </div>
+                        <div className="space-y-2 flex flex-col justify-center pl-4">
+                            <div className="flex items-center space-x-2">
+                                <Switch 
+                                    checked={formData.is_active} 
+                                    onCheckedChange={(checked) => handleChange('is_active', checked)}
+                                />
+                                <Label>{t('gamification_admin.action_modal.fields.active', 'Action Active')}</Label>
+                            </div>
+                        </div>
                     </div>
 
                     <div className="space-y-2">
@@ -248,7 +266,7 @@ const AdminGamificationActionModal = ({ isOpen, onClose, actionToEdit, onSuccess
                     </div>
                     <div className="flex gap-2">
                         <Button variant="outline" onClick={onClose} disabled={loading}>{t('common.cancel')}</Button>
-                        <Button onClick={handleSave} disabled={loading}>
+                        <Button onClick={handleSave} disabled={loading} className="bg-[#063127] text-white hover:bg-[#5b8370]">
                             {loading && <Loader2 className="w-4 h-4 animate-spin mr-2"/>} {t('common.save')}
                         </Button>
                     </div>

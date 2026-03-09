@@ -221,6 +221,9 @@
       }
     },
     "quest_builder": {
+      "global_penalty_title": "Globale Strafe für Fehler",
+      "global_penalty_label": "Globale Strafe (%)",
+      "global_penalty_desc": "Wenn ein Schritt keine spezifische Strafe konfiguriert hat, wird dieser Prozentsatz vom Gesamtpreis für jede falsche Antwort abgezogen.",
       "modal_title_edit": "Interaktive Mission bearbeiten",
       "modal_title_new": "Missions-Erstellungsstudio",
       "modal_desc": "Gestalte Lernablauf, Belohnungen und Bedingungen.",
@@ -240,14 +243,25 @@
       "extra_info": "Zusätzliche Information (Tooltip / Hinweis)",
       "extra_info_placeholder": "Optionaler Kontext zur Unterstützung der Benutzer...",
       "completion_rewards": "Belohnungen bei Abschluss",
+      "reward_user": "Benutzerbelohnung (BP)",
+      "reward_user_desc": "Boni für diejenigen, die die Mission abschließen.",
+      "reward_referrer": "Empfehlungsbelohnung (BP)",
+      "reward_referrer_desc": "Boni für den werbenden Benutzer.",
+      "reputation": "Reputationspunkte (Optional)",
       "skill_category": "Fähigkeitskategorie",
       "availability": "Verfügbarkeit und Limits",
       "status": "Status",
       "start_date": "Startdatum (Optional)",
       "end_date": "Enddatum (Optional)",
+      "auto_approve": "Automatische Genehmigung von Freitexten",
+      "auto_approve_desc": "Vermeiden Sie die manuelle Überprüfung der Antworten.",
+      "auto_approve_note": "Wenn diese Option aktiviert ist, werden durch Freitext-Schritte sofort Belohnungen gewährt, ohne dass ein Überprüfungsprozess durchlaufen werden muss.",
+      "auto_approve_active": "Automatische Genehmigung aktiviert. Keine manuelle Überprüfung durch Admin erforderlich.",
       "allow_skip": "Überspringen erlauben",
       "allow_skip_desc": "Dürfen Benutzer diese gesamte Mission überspringen?",
       "skip_penalty": "Strafe bei Überspringen (Abzug vom Ruf)",
+      "delete_confirm": "Diese Mission dauerhaft löschen? (Benutzer behalten ihre verdienten Punkte).",
+      "delete_success": "Die Mission wurde vollständig gelöscht.",
       "no_steps_title": "Noch keine Schritte",
       "no_steps_desc": "Erstelle deinen ersten Block, um den Missionsablauf zu beginnen.",
       "add_content": "Inhalt hinzufügen",
@@ -272,7 +286,12 @@
       "scale_5_note": "Erzeugt automatisch eine Sterne-/Zahlenskala von 1 bis 5.",
       "on_fail_redirect": "Weiterleitungs-URL bei Fehler (Bridge-Quest)",
       "mission_flow": "Missionsablauf",
-      "empty": "Leer"
+      "empty": "Leer",
+      "apply_penalty": "Strafe bei falscher Antwort anwenden",
+      "penalty_type": "Strafentyp",
+      "penalty_fixed": "Fester Betrag (BP)",
+      "penalty_percentage": "% des Missionsgesamtbetrags",
+      "penalty_value": "Abzuziehender Betrag"
     },
     "quest_review": {
       "title": "Ausstehende Missionsprüfung",
@@ -1040,6 +1059,9 @@
   "reputation": "Ruf"
 },
   "mission": {
+    "open_instagram": "In Instagram öffnen",
+    "view_instagram": "In Instagram ansehen",
+    "privacy_note": "Datenschutzhinweis",
     "distribute_resources": "Verteile deine Ressourcen",
     "remaining": "Verbleibend",
     "load_failed": "Fehler beim Laden der Mission.",
@@ -1064,7 +1086,8 @@
     "under_review_desc": "Deine Antworten wurden übermittelt. Ein Admin wird sie in Kürze prüfen, um dir deine Belohnungen zu gewähren.",
     "already_completed_title": "Bereits abgeschlossen",
     "already_completed_desc": "Du hast die Belohnungen für diese Mission bereits erhalten.",
-    "return_btn": "Zurück zu den Missionen"
+    "return_btn": "Zurück zu den Missionen",
+    "penalty_applied_credits": "Strafe angewendet: -{{amount}} BP."
   },
   "gamification_admin": {
     "quest_engine": {
@@ -1200,6 +1223,10 @@
         "display_title_placeholder": "z.B. Benutzerdefiniertes Event X",
         "type": "Typ",
         "system_binding": "Systemverknüpfung",
+        "impact_credits_value": "Hauptprämie (BP)",
+        "impact_credits_desc": "Bonuspunkte für die Hauptaktion.",
+        "referee_credits_value": "Nebenprämie (BP)",
+        "referee_credits_desc": "Boni für Eingeladene/Teilnehmer der passiven Aktion.",
         "active": "Aktion aktiv",
         "description": "Beschreibung",
         "description_placeholder": "Öffentliche Beschreibung oder Tooltip...",

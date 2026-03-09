@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogD
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Loader2, CheckCircle, FileText, Zap, PieChart as PieChartIcon, Eye, Clock, Sparkles } from 'lucide-react';
+import { Loader2, CheckCircle, FileText, Zap, PieChart as PieChartIcon, Eye, Clock, Sparkles, Download } from 'lucide-react';
 import { format } from 'date-fns';
 import { executeGamificationAction } from '@/utils/gamificationEngine';
 import { createNotification } from '@/utils/notificationUtils';
@@ -71,7 +71,7 @@ const AdminQuestReview = () => {
         setLoading(true);
         try {
             let query = supabase.from('user_quest_responses')
-                .select(`*, profiles:user_id (name, email), genesis_missions (title, steps, impact_credit_reward, reputation_reward)`)
+                .select(`*, profiles:user_id (name, email), genesis_missions (title, steps, impact_credit_reward, reputation_reward, referrer_reward)`)
                 .eq('review_status', 'pending').order('created_at', { ascending: true });
             if (selectedMissionChart !== 'all') query = query.eq('mission_id', selectedMissionChart);
             const { data, error } = await query;
@@ -84,7 +84,7 @@ const AdminQuestReview = () => {
         setLoadingHistory(true);
         try {
             let query = supabase.from('user_quest_responses')
-                .select(`*, profiles:user_id (name, email), genesis_missions (title, steps, impact_credit_reward, reputation_reward)`)
+                .select(`*, profiles:user_id (name, email), genesis_missions (title, steps, impact_credit_reward, reputation_reward, referrer_reward)`)
                 .neq('review_status', 'pending').order('created_at', { ascending: false }).limit(50);
             if (selectedMissionChart !== 'all') query = query.eq('mission_id', selectedMissionChart);
             const { data, error } = await query;
@@ -101,6 +101,88 @@ const AdminQuestReview = () => {
         return () => supabase.removeChannel(channel);
     }, [fetchPendingReviews, fetchHistoryResponses, fetchMissionsList, fetchChartData]);
 
+    // --- NUEVO: FUNCIÓN PARA EXPORTAR HISTORIAL COMPLETO A CSV/EXCEL ---
+    const handleExportCSV = async () => {
+        try {
+            // Notificamos inicio
+            toast({ title: "Preparando Exportación", description: "Descargando datos y procesando respuestas..." });
+            
+            // Obtenemos todos los registros (sin límite de 50)
+            const { data, error } = await supabase
+                .from('user_quest_responses')
+                .select(`
+                    *,
+                    profiles:user_id (name, email),
+                    genesis_missions (title, steps)
+                `)
+                .order('created_at', { ascending: false });
+
+            if (error) throw error;
+            if (!data || data.length === 0) {
+                toast({ description: "No hay registros para exportar." });
+                return;
+            }
+
+            // Cabeceras del Excel
+            const headers = ['Fecha_Envio', 'Nombre_Usuario', 'Email_Usuario', 'Titulo_Mision', 'Estado_Revision', 'Bonos_Obtenidos', 'Reputacion_Obtenida', 'Preguntas_y_Respuestas', 'Feedback_Admin'];
+
+            // Formateo de Filas
+            const rows = data.map(row => {
+                const date = new Date(row.created_at).toLocaleString();
+                const name = row.profiles?.name || 'Desconocido';
+                const email = row.profiles?.email || 'Desconocido';
+                const mission = row.genesis_missions?.title || 'Misión Desconocida';
+                const status = row.review_status || 'N/A';
+                const credits = row.credits_awarded || 0;
+                const rep = row.earned_reputation || 0;
+                const feedback = row.admin_feedback ? row.admin_feedback.replace(/(\r\n|\n|\r)/gm, " ") : '';
+                
+                // Formateo de las respuestas JSON a texto legible para Excel
+                let answersStr = '';
+                if (row.response_data) {
+                    try {
+                        let steps = row.genesis_missions?.steps;
+                        // Si steps viene como string, lo parseamos
+                        if (typeof steps === 'string') steps = JSON.parse(steps);
+                        
+                        const ansArr = Object.entries(row.response_data).map(([idx, ans]) => {
+                            const stepConfig = steps && steps[idx] ? steps[idx] : null;
+                            const questionText = stepConfig?.content || `Paso ${idx}`;
+                            const answerVal = typeof ans === 'object' ? JSON.stringify(ans) : ans;
+                            return `[Pregunta: ${questionText} | Respuesta: ${answerVal}]`;
+                        });
+                        answersStr = ansArr.join('  //  ');
+                    } catch (e) {
+                        // Fallback si hay error al cruzar la pregunta
+                        answersStr = JSON.stringify(row.response_data);
+                    }
+                }
+                
+                // Escapar comillas dobles y armar la fila CSV
+                const cleanAnswers = answersStr.replace(/"/g, '""');
+                return `"${date}","${name}","${email}","${mission}","${status}","${credits}","${rep}","${cleanAnswers}","${feedback}"`;
+            });
+
+            // Ensamblar archivo
+            const csvContent = [headers.join(','), ...rows].join('\n');
+            const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' }); // \uFEFF para soportar tildes en Excel
+            const url = URL.createObjectURL(blob);
+            
+            // Forzar descarga
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", `Reporte_Respuestas_Misiones_${new Date().getTime()}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            toast({ title: t('common.success'), description: "Exportación completada y archivo descargado." });
+        } catch (err) {
+            console.error("Export error:", err);
+            toast({ variant: 'destructive', title: t('common.error'), description: "Fallo al exportar los datos." });
+        }
+    };
+
     const handleAction = async (actionType) => {
         if (!selectedReview || processing) return;
         
@@ -111,14 +193,13 @@ const AdminQuestReview = () => {
         const feedbackToSave = adminFeedback;
 
         try {
-            // REGLA ESTRICTA DE ACTUALIZACIÓN
             const { data, error: updateError } = await supabase
                 .from('user_quest_responses')
                 .update({ 
                     review_status: newStatus, 
                     admin_feedback: feedbackToSave, 
                     is_correct: isApproved,
-                    credits_awarded: isApproved ? currentReview.genesis_missions.impact_credit_reward : 0,
+                    credits_awarded: isApproved ? currentReview.credits_awarded : 0, 
                     earned_reputation: isApproved ? currentReview.genesis_missions.reputation_reward : 0
                 })
                 .eq('id', currentReview.id)
@@ -132,18 +213,49 @@ const AdminQuestReview = () => {
             }
 
             if (isApproved) {
+                // 1. PAGO AL USUARIO
                 await executeGamificationAction(currentReview.user_id, null, {
                     dynamicAction: {
                         id: currentReview.mission_id,
                         action_name: `mission_${currentReview.mission_id.slice(0,8)}`,
                         action_title: currentReview.genesis_missions.title,
                         action_type: 'Mission Quest',
-                        impact_credit_reward: currentReview.genesis_missions.impact_credit_reward,
+                        impact_credit_reward: currentReview.credits_awarded, // Monto descontado
                         reputation_reward: currentReview.genesis_missions.reputation_reward,
                         source_event: 'quest_completion'
                     },
                     preventNotification: true
                 });
+
+                // 2. PAGO AL REFERIDOR (Si existe)
+                if (currentReview.genesis_missions.referrer_reward > 0) {
+                    try {
+                        const { data: pData } = await supabase.from('profiles').select('referrer_id').eq('id', currentReview.user_id).single();
+                        if (pData?.referrer_id) {
+                            await executeGamificationAction(pData.referrer_id, null, {
+                                dynamicAction: {
+                                    id: currentReview.mission_id,
+                                    action_name: `mlm_mission_${currentReview.mission_id.slice(0,8)}`,
+                                    action_title: `Red Bonus: ${currentReview.genesis_missions.title}`,
+                                    action_type: 'Referral (MLM)',
+                                    impact_credit_reward: currentReview.genesis_missions.referrer_reward,
+                                    reputation_reward: 0,
+                                    source_event: 'mlm_indirect_quest'
+                                },
+                                preventNotification: true
+                            });
+                            await createNotification(
+                                pData.referrer_id, 
+                                'notifications.points_earned.title', 
+                                'notifications.points_earned.message', 
+                                { points: currentReview.genesis_missions.referrer_reward, action: currentReview.genesis_missions.title }, 
+                                'bonus'
+                            );
+                        }
+                    } catch (mlmErr) {
+                        console.error("MLM Distribution Error in Admin Review:", mlmErr);
+                    }
+                }
             }
 
             const notifTitle = isApproved 
@@ -245,11 +357,20 @@ const AdminQuestReview = () => {
                 </CardContent>
             </Card>
 
-            <div className="flex items-center justify-between px-2">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-2 gap-4">
                 <div>
                     <h2 className="text-3xl font-black text-slate-900 tracking-tight">{t('admin.quest_review.title', 'Moderación de Misiones')}</h2>
                     <p className="text-slate-500 font-medium">{t('admin.quest_review.subtitle', 'Supervisa y recompensa el compromiso de la comunidad.')}</p>
                 </div>
+                
+                {/* BOTÓN GLOBAL DE EXPORTACIÓN */}
+                <Button 
+                    onClick={handleExportCSV} 
+                    variant="outline" 
+                    className="gap-2 font-bold bg-white text-emerald-700 border-emerald-200 hover:bg-emerald-50 shadow-sm rounded-xl"
+                >
+                    <Download className="w-4 h-4" /> Exportar Respuestas a Excel
+                </Button>
             </div>
 
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -283,7 +404,7 @@ const AdminQuestReview = () => {
                                         <div className="text-xs font-bold text-slate-400">{r.profiles?.email}</div>
                                     </TableCell>
                                     <TableCell><div className="flex items-center gap-2 font-bold text-slate-700"><FileText className="w-4 h-4 text-purple-500" /> {r.genesis_missions?.title}</div></TableCell>
-                                    <TableCell><div className="flex gap-2"><Badge className="bg-emerald-50 text-emerald-700 border-emerald-100 shadow-none font-black">+{r.genesis_missions?.impact_credit_reward} BP</Badge></div></TableCell>
+                                    <TableCell><div className="flex gap-2"><Badge className="bg-emerald-50 text-emerald-700 border-emerald-100 shadow-none font-black">+{r.credits_awarded} BP</Badge></div></TableCell>
                                     <TableCell className="text-right pr-8"><Button onClick={() => { setSelectedReview(r); setAdminFeedback(''); }} className="bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl px-6 h-11">{t('admin.quest_review.evaluate_btn', 'EVALUAR')}</Button></TableCell>
                                 </TableRow>
                              ))}
@@ -342,7 +463,7 @@ const AdminQuestReview = () => {
                                 <div className="bg-white p-3 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3">
                                     <Zap className={`w-6 h-6 ${isReadOnlyMode ? 'text-slate-400 fill-slate-200' : 'text-emerald-500 fill-emerald-500'}`} />
                                     <span className="text-2xl font-black text-slate-800">
-                                        +{isReadOnlyMode ? (selectedReview?.credits_awarded || 0) : selectedReview?.genesis_missions?.impact_credit_reward} 
+                                        +{selectedReview?.credits_awarded || 0} 
                                         <span className="text-xs text-slate-400 block -mt-1 uppercase">{t('admin.quest_review.modal.rewards_label', 'Créditos')}</span>
                                     </span>
                                 </div>

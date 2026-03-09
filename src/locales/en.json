@@ -222,7 +222,10 @@
       }
     },
     "quest_builder": {
-      "modal_title_edit": "Edit Interactive Mission",
+    "global_penalty_title": "Global Penalty for Errors",
+    "global_penalty_label": "Global Penalty (%)",
+    "global_penalty_desc": "If a step doesn't have a specific penalty configured, this percentage will be deducted from the total reward for each incorrect answer.",
+    "modal_title_edit": "Edit Interactive Mission",
     "modal_title_new": "Mission Creation Studio",
     "modal_desc": "Design the learning flow, rewards, and conditions.",
     "save_mission": "Save Mission",
@@ -241,14 +244,25 @@
     "extra_info": "Extra Information (Tooltip / Hint)",
     "extra_info_placeholder": "Optional context to help users...",
     "completion_rewards": "Completion Rewards",
+    "reward_user": "Reward User (BP)",
+    "reward_user_desc": "Bonus points for those who complete the mission.",
+    "reward_referrer": "Reward Referrer (BP)",
+    "reward_referrer_desc": "Bonus points for the user who invited.",
+    "reputation": "Reputation (Optional)",
     "skill_category": "Skill Category",
     "availability": "Availability and Limits",
     "status": "Status",
     "start_date": "Start Date (Optional)",
     "end_date": "End Date (Optional)",
+    "auto_approve": "Auto-approve Free Text",
+    "auto_approve_desc": "Prevents manual review of responses.",
+    "auto_approve_note": "If enabled, free text steps will instantly grant rewards without going through the review panel.",
+    "auto_approve_active": "Automatic Pass Enabled. No admin review required.",
     "allow_skip": "Allow Skip",
     "allow_skip_desc": "Can users skip this entire mission?",
     "skip_penalty": "Skip Penalty (Deducted from Reputation)",
+    "delete_confirm": "Delete this mission permanently? (Users will retain their earned points.)",
+    "delete_success": "Mission deleted successfully.",
     "no_steps_title": "No steps yet",
     "no_steps_desc": "Create your first block to start building the mission flow.",
     "add_content": "Add Content",
@@ -273,7 +287,12 @@
     "scale_5_note": "Automatically generates a star/number scale from 1 to 5.",
     "on_fail_redirect": "Redirect URL if failed (Bridge-Quest)",
     "mission_flow": "Mission Flow",
-    "empty": "Empty"
+    "empty": "Empty",
+    "apply_penalty": "Penalty for Incorrect Answer",
+    "penalty_type": "Penalty Type",
+    "penalty_fixed": "Fixed Amount (BP)",
+    "penalty_percentage": "% of Total Mission",
+    "penalty_value": "Value to Deduct"
     },
     "quest_review": {
       "title": "Pending Mission Review",
@@ -1041,6 +1060,9 @@
     "reputation": "Reputation"
   },
   "mission": {
+    "open_instagram": "Open on Instagram",
+    "view_instagram": "View on Instagram",
+    "privacy_note": "Privacy Note",
     "distribute_resources": "Distributing resources",
     "remaining": "Remaining",
     "load_failed": "Failed to load mission details.",
@@ -1065,7 +1087,8 @@
     "under_review_desc": "Your answers have been submitted. An Admin will review your answer shortly to award you your rewards.",
     "already_completed_title": "Already Completed",
     "already_completed_desc": "You have already received the rewards for this mission.",
-    "return_btn": "Return to Missions"
+    "return_btn": "Return to Missions",
+    "penalty_applied_credits": "Penalty applied: -{{amount}} BP."
   },
   "gamification_admin": {
     "quest_engine": {
@@ -1201,6 +1224,10 @@
         "display_title_placeholder": "e.g. Custom Event X",
         "type": "Type",
         "system_binding": "System Binding",
+        "impact_credits_value": "Main Reward (BP)",
+        "impact_credits_desc": "Bonus points for the main action.",
+        "referee_credits_value": "Guest Reward (BP)",
+        "referee_credits_desc": "Bonus points for invited users or passive action completers.",
         "active": "Active Action",
         "description": "Description",
         "description_placeholder": "Public description or tooltip...",

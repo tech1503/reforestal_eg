@@ -221,6 +221,9 @@
       }
     },
     "quest_builder": {
+      "global_penalty_title": "Pénalité globale pour les erreurs",
+      "global_penalty_label": "Pénalité globale (%)",
+      "global_penalty_desc": "Si aucune pénalité spécifique n'est configurée pour une étape, ce pourcentage sera déduit du prix total pour chaque réponse incorrecte.",
       "modal_title_edit": "Modifier la mission interactive",
       "modal_title_new": "Studio de création de missions",
       "modal_desc": "Concevez le parcours d’apprentissage, les récompenses et les conditions.",
@@ -240,11 +243,20 @@
       "extra_info": "Information supplémentaire (Tooltip / Indice)",
       "extra_info_placeholder": "Contexte optionnel pour aider les utilisateurs...",
       "completion_rewards": "Récompenses à l’achèvement",
+      "reward_user": "Récompenses de fin de mission (BP)",
+      "reward_user_desc": "Points bonus pour ceux qui terminent la mission.",
+      "reward_referrer": "Récompense au Parrain (BP)",
+      "reward_referrer_desc": "Points bonus pour l'utilisateur qui a invité.",
+      "reputation": "Réputation (Optionnel)",
       "skill_category": "Catégorie de compétence",
       "availability": "Disponibilité et limites",
       "status": "Statut",
       "start_date": "Date de début (Optionnel)",
       "end_date": "Date de fin (Optionnel)",
+      "auto_approve": "Approbation automatique des réponses libres",
+      "auto_approve_desc": "Evite la révision manuelle des réponses.",
+      "auto_approve_note": "Si activé, les étapes de texte libre attribueront instantanément des récompenses sans passer par le panneau de révision.",
+      "auto_approve_active": "Approbation automatique activée. Aucune révision de l'administrateur requise.",
       "allow_skip": "Autoriser à passer",
       "allow_skip_desc": "Les utilisateurs peuvent-ils ignorer toute la mission ?",
       "skip_penalty": "Pénalité en cas de passage (déduite de la réputation)",
@@ -272,7 +284,12 @@
       "scale_5_note": "Génère automatiquement une échelle d’étoiles/nombres de 1 à 5.",
       "on_fail_redirect": "URL de redirection en cas d’échec (Bridge-Quest)",
       "mission_flow": "Flux de la mission",
-      "empty": "Vide"
+      "empty": "Vide",
+      "apply_penalty": "Pénalité pour réponse incorrecte",
+      "penalty_type": "Type de pénalité",
+      "penalty_fixed": "Montant fixe (BP)",
+      "penalty_percentage": "% du total de la mission",
+      "penalty_value": "Valeur à déduire"
     },
     "quest_review": {
       "title": "Révision des missions en attente",
@@ -1039,6 +1056,9 @@
       "reputation": "Réputation"
     },
     "mission": {
+      "open_instagram": "Ouvrir sur Instagram",
+      "view_instagram": "Voir sur Instagram",
+      "privacy_note": "Note de confidentialité",
       "distribute_resources": "Distribuez vos ressources",
       "remaining": "Restant",
       "load_failed": "Erreur lors du chargement de la mission.",
@@ -1063,7 +1083,8 @@
       "under_review_desc": "Vos réponses ont été envoyées. Un Admin examinera votre réponse sous peu afin de vous attribuer vos récompenses.",
       "already_completed_title": "Déjà complétée",
       "already_completed_desc": "Vous avez déjà obtenu les récompenses de cette mission.",
-      "return_btn": "Retour aux missions"
+      "return_btn": "Retour aux missions",
+      "penalty_applied_credits": "Pénalité appliquée: -{{amount}} BP."
     },
     "gamification_admin": {
       "quest_engine": {
@@ -1199,6 +1220,10 @@
           "display_title_placeholder": "ex. Événement personnalisé X",
           "type": "Type",
           "system_binding": "Liaison système",
+          "impact_credits_value": "Récompense principale (BP)",
+          "impact_credits_desc": "Bonus pour l'utilisateur (ou le parrain).",
+          "referee_credits_value": "Récompense invité (BP)",
+          "referee_credits_desc": "Bonus pour l'utilisateur invité ou celui qui exécute l'action passivement.",
           "active": "Action active",
           "description": "Description",
           "description_placeholder": "Description publique ou infobulle...",

@@ -221,6 +221,9 @@
       }
     },
     "quest_builder": {
+      "global_penalty_title": "Penalización Global por Errores",
+      "global_penalty_label": "Penalización Global (%)",
+      "global_penalty_desc": "Si un paso no tiene una penalización específica configurada, se descontará este porcentaje del premio total por cada respuesta incorrecta.",
       "modal_title_edit": "Editar Misión Interactiva",
       "modal_title_new": "Estudio de Creación de Misiones",
       "modal_desc": "Diseña el flujo de aprendizaje, recompensas y condiciones.",
@@ -240,14 +243,25 @@
       "extra_info": "Información Extra (Tooltip / Pista)",
       "extra_info_placeholder": "Contexto opcional para ayudar a los usuarios...",
       "completion_rewards": "Recompensas al Completar",
+      "reward_user": "Recompensa al Usuario (BP)",
+      "reward_user_desc": "Bonos para quien completa la misión.",
+      "reward_referrer": "Recompensa al Referidor (BP)",
+      "reward_referrer_desc": "Bonos para el usuario que invita.",
+      "reputation": "Reputación (Opcional)",
       "skill_category": "Categoría de Habilidad",
       "availability": "Disponibilidad y Límites",
       "status": "Estado",
       "start_date": "Fecha Inicio (Opcional)",
       "end_date": "Fecha Fin (Opcional)",
+      "auto_approve": "Auto-Aprobar Textos Libres",
+      "auto_approve_desc": "Evita la revisión manual de las respuestas.",
+      "auto_approve_note": "Si está activado, los pasos de texto libre otorgarán recompensas al instante sin pasar por el panel de revisión.",
+      "auto_approve_active": "Pasada Automática Activada. No requerirá revisión del administrador.",
       "allow_skip": "Permitir Omitir",
       "allow_skip_desc": "¿Pueden los usuarios saltarse esta misión completa?",
       "skip_penalty": "Penalización por Omitir (Se resta de Reputación)",
+      "delete_confirm": "¿Eliminar esta misión de forma permanente? (Los usuarios conservarán sus puntos ganados).",
+      "delete_success": "La misión ha sido eliminada por completo.",
       "no_steps_title": "Aún no hay pasos",
       "no_steps_desc": "Crea tu primer bloque para empezar a construir el flujo de la misión.",
       "add_content": "Añadir Contenido",
@@ -272,7 +286,12 @@
       "scale_5_note": "Genera automáticamente una escala de estrellas/números del 1 al 5.",
       "on_fail_redirect": "URL de redirección si falla (Bridge-Quest)",
       "mission_flow": "Flujo de la Misión",
-      "empty": "Vacío"
+      "empty": "Vacío",
+      "apply_penalty": "Penalización por Respuesta Incorrecta",
+      "penalty_type": "Tipo de Penalización",
+      "penalty_fixed": "Monto Fijo (BP)",
+      "penalty_percentage": "% del Total de la Misión",
+      "penalty_value": "Valor a Descontar"
     },
     "quest_review": {
       "title": "Revisión de Misión Pendiente",
@@ -1039,6 +1058,9 @@
     "reputation": "Reputación"
   },
   "mission": {
+    "open_instagram": "Abrir en Instagram",
+    "view_instagram": "Ver en Instagram",
+    "privacy_note": "Nota de Privacidad",
     "distribute_resources": "Distribuye tus Recursos",
     "remaining": "Restante",
     "load_failed": "Error al cargar la misión.",
@@ -1063,7 +1085,8 @@
     "under_review_desc": "Tus respuestas han sido enviadas. Un Admin revisará tu respuesta en breve para otorgarte tus recompensas.",
     "already_completed_title": "Ya Completado",
     "already_completed_desc": "Ya has obtenido las recompensas de esta misión.",
-    "return_btn": "Volver a Misiones"
+    "return_btn": "Volver a Misiones",
+    "penalty_applied_credits": "Penalización aplicada: -{{amount}} BP."
   },
   "gamification_admin": {
     "quest_engine": {
@@ -1199,6 +1222,10 @@
         "display_title_placeholder": "ej. Evento Personalizado X",
         "type": "Tipo",
         "system_binding": "Enlace del Sistema",
+        "impact_credits_value": "Recompensa Principal (BP)",
+        "impact_credits_desc": "Bonos para el usuario (o Referidor).",
+        "referee_credits_value": "Recompensa Invitado (BP)",
+        "referee_credits_desc": "Bonos para quien es invitado / cumple la acción pasiva.",
         "active": "Acción Activa",
         "description": "Descripción",
         "description_placeholder": "Descripción pública o tooltip...",
