@@ -551,7 +551,7 @@
       },
       {
         "id": 2,
-        "question": "Un verdadero gestor del futuro no se limita a mirar desde fuera. ¿Qué papel activo quieres desempeñar en esta misión?",
+        "question": "Un verdadero gestor del futuro no se limita a esperar a cambio. ¿Qué papel activo quieres desempeñar en esta misión?",
         "options": [
           {
             "type": "lena",
@@ -561,12 +561,12 @@
           {
             "type": "markus",
             "main": "Verificación de Estándares",
-            "dropdown": "Verificando los estándares legales y éticos de una cooperativa que nos pertenece a mí y a mis compañeros."
+            "dropdown": "Cogestionar los estándares legales y éticos de la cooperativa que nos pertenece a mí y a mis compañeros."
           },
           {
             "type": "david",
             "main": "Conexión Digital",
-            "dropdown": "Usando herramientas digitales para conectar con otros y liderar esfuerzos colectivos que amplifican nuestro impacto ambiental positivo."
+            "dropdown": "Usando herramientas digitales para conectar con otros y ejecutar esfuerzos colectivos que amplifican nuestro impacto ambiental positivo."
           }
         ]
       },

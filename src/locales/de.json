@@ -551,7 +551,7 @@
       },
       {
         "id": 2,
-        "question": "Ein echter Zukunftsgestalter schaut nicht nur von der Seitenlinie aus zu. Welche aktive Rolle möchtest du dabei übernehmen?",
+        "question": "Ein echter Zukunftsgestalter wartet nicht auf Veränderung. Welche Rolle möchtest du dabei übernehmen?",
         "options": [
           {
             "type": "lena",
@@ -561,12 +561,12 @@
           {
             "type": "markus",
             "main": "Standardprüfung",
-            "dropdown": "Durch die Prüfung der rechtlichen und ethischen Standards einer Genossenschaft, die mir und meinen Mitstreitern gehört."
+            "dropdown": "Durch die Mitbestimmung der rechtlichen und ethischen Standards der Genossenschaft, die mir und meinen Mitstreitern gehört."
           },
           {
             "type": "david",
             "main": "Digitale Vernetzung",
-            "dropdown": "Indem ich digitale Werkzeuge nutze, um mich mit anderen zu vernetzen und gemeinsame Aktionen anzuführen, die unsere positive Wirkung auf die Umwelt verstärken."
+            "dropdown": "Indem ich digitale Werkzeuge nutze, um mich mit anderen zu vernetzen und gemeinsame Aktionen durchzuführen, die unsere positive Wirkung auf die Umwelt verstärken."
           }
         ]
       },

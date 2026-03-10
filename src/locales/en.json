@@ -552,7 +552,7 @@
       },
       {
         "id": 2,
-        "question": "A true shaper of the future doesn't just watch from the sidelines. What is your primary role in this mission?",
+        "question": "A true shaper of the future doesn't just wait for change. What is your primary role in this mission?",
         "options": [
           {
             "type": "lena",
@@ -562,12 +562,12 @@
           {
             "type": "markus",
             "main": "Standard Verification",
-            "dropdown": "By verifying the legal and ethical standards of a cooperative that belongs to me and my fellow members."
+            "dropdown": "By co-creating the legal and ethical standards of the cooperative that belongs to me and my fellow members."
           },
           {
             "type": "david",
             "main": "Digital Connection",
-            "dropdown": "By using digital tools to connect with others and lead collective efforts that amplify our positive environmental impact."
+            "dropdown": "By using digital tools to connect with others and execute collective efforts that amplify our positive environmental impact."
           }
         ]
       },
