@@ -568,7 +568,7 @@
       },
       {
         "id": 2,
-        "question": "Un véritable bâtisseur d'avenir ne reste pas sur la touche. Quel rôle actif souhaitez-vous assumer dans cette mission ?",
+        "question": "Un véritable bâtisseur d'avenir ne reste pas sur le changement. Quel rôle actif souhaitez-vous assumer dans cette mission ?",
         "options": [
           {
             "type": "lena",
@@ -578,12 +578,12 @@
           {
             "type": "markus",
             "main": "Vérification des normes",
-            "dropdown": "En vérifiant les normes juridiques et éthiques d'une coopérative qui m'appartient, ainsi qu'à mes pairs."
+            "dropdown": "En cogérer les normes juridiques et éthiques d'une coopérative qui m'appartient, ainsi qu'à mes pairs."
           },
           {
             "type": "david",
             "main": "Connexion numérique",
-            "dropdown": "En utilisant des outils numériques pour se connecter aux autres et mener des efforts collectifs qui amplifient notre impact environnemental positif."
+            "dropdown": "En utilisant des outils numériques pour se connecter aux autres et exécuter des efforts collectifs qui amplifient notre impact environnemental positif."
           }
         ]
       },
