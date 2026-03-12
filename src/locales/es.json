@@ -1006,6 +1006,8 @@
     "form_name": "Tu Nombre",
     "form_email": "Email",
     "form_subject": "Asunto",
+    "subjectPlaceholder": "Introduzca el asunto...",
+    "messagePlaceholder": "Escribe tu mensaje aquí...",
     "form_message": "Mensaje",
     "send_btn": "Enviar Mensaje",
     "sending": "Enviando...",

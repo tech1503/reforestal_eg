@@ -1008,6 +1008,8 @@
     "form_name": "Your Name",
     "form_email": "Email Address",
     "form_subject": "Subject",
+    "subjectPlaceholder": "Enter subject...",
+    "messagePlaceholder": "Enter your message here...",
     "form_message": "Message",
     "send_btn": "Send Message",
     "sending": "Sending...",

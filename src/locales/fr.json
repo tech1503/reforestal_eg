@@ -1004,6 +1004,8 @@
   "form_name": "Votre nom",
   "form_email": "Adresse e-mail",
   "form_subject": "Objet",
+  "subjectPlaceholder": "Entrez le sujet...",
+  "messagePlaceholder": "Entrez votre message ici...",
   "form_message": "Message",
   "send_btn": "Envoyer le message",
   "sending": "Envoi en cours...",

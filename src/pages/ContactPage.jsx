@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 // Importamos contextos y componentes UI existentes
-import { useAuth } from '@/contexts/SupabaseAuthContext'; // Importante para saber si está registrado
+import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -27,26 +27,23 @@ const ContactPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { user, profile } = useAuth(); // Obtenemos el usuario actual
+  const { user, profile } = useAuth(); 
   
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    name: profile?.name || '', // Pre-llenamos si tiene perfil
-    email: user?.email || '',  // Pre-llenamos si tiene usuario
+    name: profile?.name || '', 
+    email: user?.email || '',  
     subject: '',
     message: ''
   });
 
-  // Lógica inteligente para el botón de volver
   const handleBackNavigation = () => {
     if (user) {
-        // Si hay usuario, verificamos su rol para enviarlo al dashboard correcto
         const role = profile?.role || 'user';
         if (role === 'admin') navigate('/admin');
         else if (role === 'startnext_user') navigate('/startnext');
         else navigate('/dashboard');
     } else {
-        // Si NO hay usuario, vuelve al Home público
         navigate('/');
     }
   };
@@ -156,8 +153,8 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h3 className="font-bold text-foreground mb-1">{t('contact.email_label', 'Email Us')}</h3>
-                    <a href="mailto:support@reforestal.eg" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                      support@reforestal.eg
+                    <a href="mailto:support@reforest.al" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                      support@reforest.al
                     </a>
                   </div>
                 </div>
@@ -184,7 +181,7 @@ const ContactPage = () => {
                   {t('contact.faq_title', 'Need quick answers?')}
                 </h3>
                 <p className="text-emerald-100 text-sm mb-4">
-                  Check our Help Center for immediate answers to common questions about Land Dollars and Impact Credits.
+                  Check our Help Center for immediate answers to common questions about Land Dollars and Bonus Points.
                 </p>
                 <Button variant="secondary" className="w-full bg-white text-emerald-700 hover:bg-emerald-50 border-none font-bold">
                   {t('contact.visit_faq', 'Visit Help Center')}
@@ -243,7 +240,7 @@ const ContactPage = () => {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      placeholder="Investment Inquiry" 
+                      placeholder={t('contact.subjectPlaceholder', 'Important Topic')} 
                       required 
                       className="bg-background"
                     />
@@ -257,7 +254,7 @@ const ContactPage = () => {
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
-                      placeholder="How can we help you today?" 
+                      placeholder={t('contact.messagePlaceholder', 'Your message here...')}
                       className="min-h-[150px] bg-background resize-none"
                       required
                     />

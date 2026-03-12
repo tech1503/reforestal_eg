@@ -1007,6 +1007,8 @@
     "form_name": "Ihr Name",
     "form_email": "E-Mail",
     "form_subject": "Betreff",
+    "subjectPlaceholder": "Betreff eingeben...",
+    "messagePlaceholder": "Deine Nachricht hier...",
     "form_message": "Nachricht",
     "send_btn": "Nachricht senden",
     "sending": "Wird gesendet...",
