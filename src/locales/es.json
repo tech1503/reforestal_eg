@@ -6,6 +6,7 @@
     "success": "Éxito",
     "save": "Guardar",
     "cancel": "Cancelar",
+    "restart": "Restaurar",
     "close": "Cerrar",
     "submit": "Enviar",
     "back": "Atrás",
@@ -708,6 +709,18 @@
     "sign_in_button": "Iniciar Sesión",
     "sign_up_button": "Registrarse",
     "logging_in": "Iniciando sesión...",
+    "error": "Error",
+    "nickname_short": "Mínimo 3 caracteres",
+    "nickname_taken": "Este apodo ya está en uso.",
+    "fix_nickname": "Por favor elige un apodo válido.",
+    "nickname_label": "Tu Apodo Único (URL)",
+    "google_modal": {
+      "title": "¡Casi listo! 🚀",
+      "desc": "Antes de ir a Google, elige cómo quieres que se vea tu enlace de referidos único.",
+      "placeholder": "ej: peter123",
+      "your_link": "Tu enlace será:",
+      "continue_btn": "Continuar con Google"
+    },
     "branding": {
       "title": "Toda revolución necesita mentes diferentes.",
       "description": "Conviértete en copropietario de la misión. Participa en decisiones democráticas y conéctate con una comunidad de socios visionarios.",
@@ -745,6 +758,7 @@
     "buttons": {
       "cart": "Carrito",
       "add_to_cart": "Agregar al Carrito",
+      "pay": "Pagar",
       "redeem": "Canjear mis Bonos",
       "confirm": "Confirmar Canje"
     },
@@ -1088,7 +1102,12 @@
     "already_completed_title": "Ya Completado",
     "already_completed_desc": "Ya has obtenido las recompensas de esta misión.",
     "return_btn": "Volver a Misiones",
-    "penalty_applied_credits": "Penalización aplicada: -{{amount}} BP."
+    "penalty_applied_credits": "Penalización aplicada: -{{amount}} BP.",
+    "referral_bonus":"Tu Referidor",
+    "restart_title": "Reiniciar Misión",
+    "restart_warning": "¿Estás seguro de que quieres reiniciar esta misión? Se perderán todos los progresos y recompensas obtenidos hasta ahora.",
+    "restart_btn": "Reiniciar Misión",
+    "restart_confirm": "¿Reiniciar misión? Se perderán todos los progresos."
   },
   "gamification_admin": {
     "quest_engine": {

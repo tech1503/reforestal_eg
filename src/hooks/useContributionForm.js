@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/lib/customSupabaseClient';
 import { generateLandDollarWithQR } from '@/utils/landDollarQRRenderer';
@@ -22,10 +22,8 @@ export const useContributionForm = (tiers, onSuccess) => {
         manual_country: ''
     });
 
-    // We store the computed tier object locally for preview
     const [computedTier, setComputedTier] = useState(null);
 
-    // Effect to automatically calculate variant based on amount using new utility
     useEffect(() => {
         const calculate = async () => {
             const amount = parseFloat(formData.contribution_amount);
@@ -34,18 +32,14 @@ export const useContributionForm = (tiers, onSuccess) => {
                 return;
             }
 
-            // Phase 3 Integration: Use centralized logic
             const levelId = await getSupportLevelByAmount(amount);
             
             if (levelId) {
-                // Find full object from props 'tiers' or fetch details if needed. 
-                // Since 'tiers' is passed from parent (StartnextManagement), we can try to find it there first for immediate UI feedback.
                 const foundInProps = tiers.find(t => t.id === levelId);
                 
                 if (foundInProps) {
                     setComputedTier(foundInProps);
                 } else {
-                    // Fallback: fetch details if not in props
                     const details = await getVariantDetails(levelId, 'en');
                     if (details) {
                         setComputedTier({
@@ -54,7 +48,7 @@ export const useContributionForm = (tiers, onSuccess) => {
                             min_amount: details.min_amount,
                             slug: details.slug,
                             description: details.variant_description,
-                            benefits: [] // Benefits might be missing in this fallback, strictly for preview
+                            benefits: [] 
                         });
                     }
                 }
@@ -63,12 +57,10 @@ export const useContributionForm = (tiers, onSuccess) => {
             }
         };
         
-        // Debounce slightly to avoid rapid calcs
         const timer = setTimeout(calculate, 300);
         return () => clearTimeout(timer);
     }, [formData.contribution_amount, tiers]);
 
-    // Used for validation in submit
     const selectedTier = computedTier;
 
     const submitContribution = async () => {
@@ -80,11 +72,9 @@ export const useContributionForm = (tiers, onSuccess) => {
             let finalImportedUserId = null;
             let snxId = null;
 
-            // 1. Handle User Identity
             if (userMode === 'manual') {
                 if (!formData.manual_email || !formData.manual_name) throw new Error("Name and Email required.");
 
-                // Check existing imported user
                 const { data: existing } = await supabase
                     .from('startnext_imported_users')
                     .select('id, snx_id')
@@ -148,9 +138,7 @@ export const useContributionForm = (tiers, onSuccess) => {
 
             if (cError) throw cError;
 
-            // 4. Side Effects (Credits, Land Dollars, Benefits)
-            // Use reward values from the selectedTier object (ensure they exist in source)
-            const icReward = selectedTier.impact_credits_reward || (selectedTier.min_amount * 100); // Fallback logic if null
+            const icReward = selectedTier.impact_credits_reward || (selectedTier.min_amount * 100); 
             const ldReward = selectedTier.land_dollars_reward || selectedTier.min_amount;
 
             if (finalUserId) {
@@ -168,7 +156,7 @@ export const useContributionForm = (tiers, onSuccess) => {
                         amount: ldReward,
                         land_dollar_url: landDollarUrl,
                         link_ref: linkRef,
-                        qr_code_url: `https://reforest.al/ref/${linkRef}`,
+                        qr_code_url: `https://reforest.al/${linkRef}`,
                         status: 'issued',
                         related_support_level_id: selectedTier.id,
                         contribution_id: contrib.id
@@ -179,14 +167,13 @@ export const useContributionForm = (tiers, onSuccess) => {
                         contribution_id: contrib.id,
                         assigned_date: new Date().toISOString(),
                         status: 'active',
-                        benefit_level_id: '00000000-0000-0000-0000-000000000000' // Legacy fallback
+                        benefit_level_id: '00000000-0000-0000-0000-000000000000'
                     })
                 ]);
             }
 
             toast({ title: "Success", description: "Contribution processed successfully." });
             onSuccess?.();
-            // Reset crucial fields
             setFormData(prev => ({ ...prev, contribution_amount: '', notes: '' }));
             setComputedTier(null);
         } catch (err) {
@@ -202,7 +189,7 @@ export const useContributionForm = (tiers, onSuccess) => {
         setFormData,
         userMode,
         setUserMode,
-        selectedTier, // Now driven by the async effect
+        selectedTier, 
         submitContribution,
         isProcessing
     };

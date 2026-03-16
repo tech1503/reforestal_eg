@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { ShoppingCart, Coins, Gift, TreePine, Award, Leaf, X, Minus, Plus, Lock, Image as ImageIcon, Loader2, HeartHandshake } from 'lucide-react';
+import { ShoppingCart, Coins, Gift, TreePine, Award, Leaf, X, Minus, Plus, Lock, Image as ImageIcon, Loader2, HeartHandshake, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
@@ -48,7 +49,7 @@ const ExchangeSection = ({ isReadOnly = false }) => {
                 impact_description
             )
         `)
-        .order('name');
+        .order('price');
 
       if (productError) throw productError;
 
@@ -114,20 +115,32 @@ const ExchangeSection = ({ isReadOnly = false }) => {
   const userCredits = Number(balance) || 0;
   const cartTotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
-  const updateCartItem = (productId, quantity) => {
+  const updateCartItem = (product, quantity) => {
     if (isReadOnly) {
       toast({ variant: "destructive", title: t('exchange.toasts.pioneer_exclusive'), description: t('exchange.toasts.upgrade_hint') });
       return;
     }
+    
+    // PREVENCIÓN FIAT: Si el producto es SOLO dinero real, no entra al carrito de bonos.
+    if (product.payment_type === 'fiat') {
+        toast({
+            title: "Próximamente / Coming Soon",
+            description: "Las compras con tarjeta se habilitarán muy pronto.",
+            className: "bg-blue-50 border-blue-200 text-blue-900"
+        });
+        return;
+    }
+
     if (quantity <= 0) {
-      setCart(cart.filter(item => item.id !== productId));
+      setCart(cart.filter(item => item.id !== product.id));
       return;
     }
-    const existing = cart.find(item => item.id === productId);
-    if (existing) setCart(cart.map(item => item.id === productId ? { ...item, quantity } : item));
-    else {
-        const product = products.find(p => p.id === productId);
-        if(product) setCart([...cart, { ...product, quantity }]);
+
+    const existing = cart.find(item => item.id === product.id);
+    if (existing) {
+        setCart(cart.map(item => item.id === product.id ? { ...item, quantity } : item));
+    } else {
+        setCart([...cart, { ...product, quantity }]);
     }
   };
 
@@ -237,7 +250,8 @@ const ExchangeSection = ({ isReadOnly = false }) => {
            </div>
         ) : (
           filteredProducts.map((product, index) => {
-             const canAfford = userCredits >= product.price;
+             const isFiatOnly = product.payment_type === 'fiat';
+             const canAfford = isFiatOnly ? true : userCredits >= product.price; // El dinero fiat no bloquea por bonos
              const content = getTranslatedContent(product);
 
              return (
@@ -255,10 +269,22 @@ const ExchangeSection = ({ isReadOnly = false }) => {
                 </div>
 
                 <div className="p-5 flex flex-col flex-1">
-                  <h3 className="font-bold text-lg text-[#063127] dark:text-white mb-1 line-clamp-1">{content.name}</h3>
+                  <h3 className="font-bold text-lg text-[#063127] dark:text-white mb-2 line-clamp-1">{content.name}</h3>
                   
-                  {/*Precio producto de intercambio*/}
-                  {/*<div className="flex items-center gap-1 text-[#063127] dark:text-[#c4d1c0] font-mono font-bold mb-3"><Coins className="w-4 h-4" /> {product.price}</div>*/}
+                  {/* PRECIOS DINÁMICOS HÍBRIDOS */}
+                  <div className="flex flex-wrap gap-2 mb-3">
+                      {(product.payment_type === 'credits' || product.payment_type === 'both' || !product.payment_type) && (
+                          <Badge variant="outline" className="bg-emerald-50 text-emerald-800 border-emerald-200 flex items-center gap-1 font-mono text-sm px-2 shadow-sm">
+                              {/*<Coins className="w-3 h-3 text-emerald-600"/> {product.price} BP */}
+                          </Badge>
+                      )}
+                      {(product.payment_type === 'fiat' || product.payment_type === 'both') && (
+                          <Badge variant="outline" className="bg-blue-50 text-blue-800 border-blue-200 flex items-center gap-1 font-mono text-sm px-2 shadow-sm">
+                              <CreditCard className="w-3 h-3 text-blue-600"/> €{product.price_eur}
+                          </Badge>
+                      )}
+                  </div>
+
                   <p className="text-sm text-[#063127]/80 dark:text-white/70 line-clamp-2 mb-4 flex-1">{content.description}</p>
                   
                   <div className="bg-[#5b8370]/50 dark:bg-black/10 p-2 rounded-lg mb-4 text-xs text-[#063127] dark:text-white font-medium flex items-start gap-2 border border-transparent dark:border-white/30">
@@ -266,23 +292,29 @@ const ExchangeSection = ({ isReadOnly = false }) => {
                       <span>{content.impact}</span>
                   </div>
 
+                  {/* BOTÓN INTELIGENTE (Tarjeta o Bonos) */}
                   <Button 
-                    onClick={() => updateCartItem(product.id, (cart.find(i => i.id === product.id)?.quantity || 0) + 1)} 
+                    onClick={() => updateCartItem(product, (cart.find(i => i.id === product.id)?.quantity || 0) + 1)} 
                     className={`w-full mt-auto shadow-md font-bold transition-all border ${
                       isReadOnly 
                         ? 'bg-black/5 text-white border-transparent hover:bg-black/10 dark:bg-white dark:text-white dark:hover:bg-white/10' 
-                        : !canAfford 
+                        : (!canAfford && !isFiatOnly)
                           ? 'opacity-50 bg-black/5 text-[#063127] cursor-not-allowed border-transparent dark:bg-white/5 dark:text-white/90' 
-                          : 'bg-[#063127] text-white hover:brightness-110 border-transparent shadow-[#5b8370]/20' 
+                          : isFiatOnly
+                            ? 'bg-blue-600 text-white hover:bg-blue-700'
+                            : 'bg-[#063127] text-white hover:brightness-110 border-transparent shadow-[#5b8370]/20' 
                     }`} 
-                    disabled={isReadOnly || !canAfford}
+                    disabled={isReadOnly || (!canAfford && !isFiatOnly)}
                   >
-                    {isReadOnly 
-                      ? <><Lock className="w-4 h-4 mr-2"/> {t('common.locked_feature')}</> 
-                      : !canAfford 
-                        ? t('exchange.errors.insufficient_credits') 
-                        : <><ShoppingCart className="w-4 h-4 mr-2"/> {t('exchange.buttons.add_to_cart')}</>
-                    }
+                    {isReadOnly ? (
+                        <><Lock className="w-4 h-4 mr-2"/> {t('common.locked_feature')}</> 
+                    ) : isFiatOnly ? (
+                        <><CreditCard className="w-4 h-4 mr-2"/> {t('exchange.buttons.pay', 'Pay')} </>
+                    ) : !canAfford ? (
+                        t('exchange.errors.insufficient_credits') 
+                    ) : (
+                        <><ShoppingCart className="w-4 h-4 mr-2"/> {t('exchange.buttons.add_to_cart')}</>
+                    )}
                   </Button>
                 </div>
               </motion.div>
@@ -317,14 +349,14 @@ const ExchangeSection = ({ isReadOnly = false }) => {
                                   </div>
                                   <div className="flex-1">
                                       <h4 className="font-bold text-sm text-[#063127] dark:text-white line-clamp-1">{content.name}</h4>
-                                      <div className="flex items-center gap-1 text-[#5b8370] font-mono text-xs font-bold mt-1"><Coins className="w-3 h-3"/> {item.price}</div>
+                                      <div className="flex items-center gap-1 text-[#5b8370] font-mono text-xs font-bold mt-1"><Coins className="w-3 h-3"/> {item.price} BP</div>
                                   </div>
                                   <div className="flex flex-col items-end justify-between">
-                                      <Button variant="ghost" size="icon" className="h-6 w-6 text-muted-foreground hover:text-red-500" onClick={() => updateCartItem(item.id, 0)}><X className="w-3 h-3"/></Button>
+                                      <Button variant="ghost" size="icon" className="h-6 w-6 text-muted-foreground hover:text-red-500" onClick={() => updateCartItem(item, 0)}><X className="w-3 h-3"/></Button>
                                       <div className="flex items-center gap-2 bg-card rounded-lg border border-border px-1">
-                                          <button className="p-1 hover:text-[#5b8370] text-[#063127] dark:text-white font-bold" onClick={() => updateCartItem(item.id, item.quantity - 1)} disabled={item.quantity <= 1}><Minus className="w-3 h-3"/></button>
+                                          <button className="p-1 hover:text-[#5b8370] text-[#063127] dark:text-white font-bold" onClick={() => updateCartItem(item, item.quantity - 1)} disabled={item.quantity <= 1}><Minus className="w-3 h-3"/></button>
                                           <span className="text-sm font-mono w-4 text-center text-[#063127] dark:text-white font-bold">{item.quantity}</span>
-                                          <button className="p-1 hover:text-[#5b8370] text-[#063127] dark:text-white font-bold" onClick={() => updateCartItem(item.id, item.quantity + 1)}><Plus className="w-3 h-3"/></button>
+                                          <button className="p-1 hover:text-[#5b8370] text-[#063127] dark:text-white font-bold" onClick={() => updateCartItem(item, item.quantity + 1)}><Plus className="w-3 h-3"/></button>
                                       </div>
                                   </div>
                               </div>
@@ -333,7 +365,7 @@ const ExchangeSection = ({ isReadOnly = false }) => {
                   )}
               </div>
               <div className="p-5 border-t border-border bg-muted/30 space-y-4">
-                  <div className="flex justify-between text-lg font-bold text-foreground"><span>{t('exchange.labels.total')}</span><span className="text-[#5b8370] font-mono">{cartTotal.toLocaleString()} </span></div>
+                  <div className="flex justify-between text-lg font-bold text-foreground"><span>{t('exchange.labels.total')}</span><span className="text-[#5b8370] font-mono">{cartTotal.toLocaleString()} BP</span></div>
                   <Button onClick={handleCheckout} className="w-full py-6 font-bold text-lg shadow-lg bg-[#5b8370] hover:bg-[#4a6b5c] text-white" disabled={loading || cart.length === 0 || userCredits < cartTotal}>
                     {loading ? <Loader2 className="w-5 h-5 animate-spin"/> : t('exchange.buttons.confirm')}
                   </Button>

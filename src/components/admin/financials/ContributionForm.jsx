@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Loader2, Mail, Check, AlertCircle } from 'lucide-react';
+import { Loader2, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -37,11 +37,9 @@ const ContributionForm = ({ onSuccess, onCancel }) => {
     const initData = async () => {
       setLoading(true);
       try {
-        // Fetch Users
         const { data: profiles } = await supabase.from('profiles').select('id, name, email');
         setUsers(profiles || []);
 
-        // Fetch Support Levels (Tiers)
         const { data: levels } = await supabase
             .from('support_levels')
             .select(`
@@ -67,12 +65,10 @@ const ContributionForm = ({ onSuccess, onCancel }) => {
     initData();
   }, []);
 
-  // Calculate Tier
   const selectedTier = useMemo(() => {
     const amount = parseFloat(formData.contribution_amount);
     if (!amount || isNaN(amount) || amount < 5) return null;
     
-    // Find highest eligible tier
     const eligibleTiers = tiers.filter(t => amount >= t.min_amount);
     return eligibleTiers.length > 0 ? eligibleTiers[eligibleTiers.length - 1] : null;
   }, [formData.contribution_amount, tiers]);
@@ -87,12 +83,10 @@ const ContributionForm = ({ onSuccess, onCancel }) => {
       let snxId = null;
       let userName = '';
 
-      // 1. Handle User Identity
       if (userMode === 'manual') {
         if (!manualUser.email || !manualUser.full_name) throw new Error("Name and Email required.");
         userName = manualUser.full_name;
 
-        // Check if imported user exists
         const { data: existing } = await supabase
             .from('startnext_imported_users')
             .select('id, snx_id')
@@ -103,7 +97,6 @@ const ContributionForm = ({ onSuccess, onCancel }) => {
             finalImportedUserId = existing.id;
             snxId = existing.snx_id;
         } else {
-            // Create new imported user
             const { data: newImport, error: impError } = await supabase
                 .from('startnext_imported_users')
                 .insert({
@@ -127,11 +120,9 @@ const ContributionForm = ({ onSuccess, onCancel }) => {
          snxId = `SNX-EXT-${Date.now().toString().slice(-6)}`;
       }
 
-      // 2. Assets Generation
       const linkRef = crypto.randomUUID();
       let landDollarUrl = null;
 
-      // Generate Image
       try {
           const blob = await generateLandDollarWithQR(linkRef);
           const fileName = `land-dollars/${finalUserId || 'guest'}/${linkRef}.png`;
@@ -144,9 +135,6 @@ const ContributionForm = ({ onSuccess, onCancel }) => {
           console.warn("Asset generation failed, continuing...", e);
       }
 
-      // 3. Create Contribution
-      // Note: We use the RPC function assign_tier_to_contribution implicitly by inserting with null ID first 
-      // OR we just insert directly with the known ID to save an RPC call.
       const { data: contrib, error: cError } = await supabase.from('startnext_contributions').insert({
           user_id: finalUserId,
           imported_user_id: finalImportedUserId,
@@ -163,7 +151,6 @@ const ContributionForm = ({ onSuccess, onCancel }) => {
 
       if (cError) throw cError;
 
-      // 4. Sync Side Effects (Credits, Land Dollars)
       if (finalUserId) {
           // Credits
           await supabase.from('impact_credits').insert({
@@ -181,7 +168,7 @@ const ContributionForm = ({ onSuccess, onCancel }) => {
               amount: parseFloat(formData.contribution_amount),
               land_dollar_url: landDollarUrl,
               link_ref: linkRef,
-              qr_code_url: `https://reforest.al/ref/${linkRef}`,
+              qr_code_url: `https://reforest.al/${linkRef}`,
               status: 'issued',
               related_support_level_id: selectedTier.id,
               contribution_id: contrib.id
@@ -194,7 +181,7 @@ const ContributionForm = ({ onSuccess, onCancel }) => {
               contribution_id: contrib.id,
               assigned_date: new Date().toISOString(),
               status: 'active',
-              benefit_level_id: '00000000-0000-0000-0000-000000000000' // Legacy fallback UUID if constraint exists
+              benefit_level_id: '00000000-0000-0000-0000-000000000000' 
           });
       }
 

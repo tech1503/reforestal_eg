@@ -90,7 +90,7 @@ const ReferralSection = () => {
     }
     if (!referralCode || referralCode === 'GENERATING...') return;
 
-    const link = `${window.location.origin}/ref/${referralCode}`;
+    const link = `${window.location.origin}/${referralCode}`;
     navigator.clipboard.writeText(link).then(() => {
       setCopied(true);
       toast({ title: t('common.copied_clipboard'), description: link });

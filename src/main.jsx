@@ -9,7 +9,10 @@ import { ThemeProvider } from '@/contexts/ThemeContext';
 import { BrowserRouter as Router } from 'react-router-dom';
 import '@/i18n';
 
-// --- SERVICE WORKER KILL SWITCH OPTIMIZADO ---
+// --- SERVICE WORKER KILL SWITCH OPTIMIZADO CACHÉ ---
+
+// SOLO EN DESARROLLO, NO EN PRODUCCIÓN
+{/*
 console.log('SERVICE WORKER KILL SWITCH: Iniciando...');
 
 const isSWCleaned = () => {
@@ -48,9 +51,7 @@ if ('serviceWorker' in navigator) {
     });
   });
 }
-
-// ELIMINADO: El setTimeout que borraba el sessionStorage ha sido removido 
-// para evitar que la app pierda su estado de "limpieza realizada".
+*/}
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Router>

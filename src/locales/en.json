@@ -6,6 +6,7 @@
     "success": "Success",
     "save": "Save",
     "cancel": "Cancel",
+    "restart": "Restart",
     "close": "Close",
     "submit": "Submit",
     "back": "Back",
@@ -709,6 +710,18 @@
     "sign_in_button": "Sign In",
     "sign_up_button": "Sign Up",
     "logging_in": "Logging in...",
+    "error": "Error",
+    "nickname_short": "Minimum 3 characters",
+    "nickname_taken": "This nickname is already in use.",
+    "fix_nickname": "Please choose a valid nickname.",
+    "nickname_label": "Your Unique Nickname (URL)",
+    "google_modal": {
+      "title": "Almost there! 🚀",
+      "desc": "Before going to Google, choose how you want your unique referral link to look.",
+      "placeholder": "e.g., peter123",
+      "your_link": "Your link will be:",
+      "continue_btn": "Continue with Google"
+    },
     "branding": {
       "title": "Every revolution needs different minds",
       "description": "Become a co-owner of the mission. Participate in democratic decisions and connect with a community of visionary founders.",
@@ -746,6 +759,7 @@
     "buttons": {
       "cart": "Cart",
       "add_to_cart": "Add to Cart",
+      "pay": "Pay",
       "redeem": "Redeem my Bonus Points",
       "confirm": "Confirm Exchange"
     },
@@ -1090,7 +1104,12 @@
     "already_completed_title": "Already Completed",
     "already_completed_desc": "You have already received the rewards for this mission.",
     "return_btn": "Return to Missions",
-    "penalty_applied_credits": "Penalty applied: -{{amount}} BP."
+    "penalty_applied_credits": "Penalty applied: -{{amount}} BP.",
+    "referral_bonus":"Your Referrer",
+    "restart_title": "Restart Mission",
+    "restart_warning": "Are you sure you want to restart this mission? All progress and rewards obtained so far will be lost.",
+    "restart_btn": "Restart Mission",
+    "restart_confirm": "Restart mission? All progress will be lost."
   },
   "gamification_admin": {
     "quest_engine": {

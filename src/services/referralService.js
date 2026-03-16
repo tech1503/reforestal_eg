@@ -1,14 +1,27 @@
 import { supabase } from '@/lib/customSupabaseClient';
 import { createNotification } from '@/utils/notificationUtils';
 
-export const processReferralOnSignup = async (newUserId, refCode) => {
-  if (!newUserId || !refCode) return;
+/**
+ * Procesa el referido después de un registro exitoso.
+ * @param {string} newUserId 
+ * @param {string} [manualRefCode] 
+ */
+export const processReferralOnSignup = async (newUserId, manualRefCode = null) => {
 
-  console.log(`[ReferralService] Processing referral code: ${refCode} for user ${newUserId}`);
+  const refCode = sessionStorage.getItem('pending_referral_code') || manualRefCode;
+  
+  if (!newUserId || !refCode) {
+    return;
+  }
+
+  sessionStorage.removeItem('pending_referral_code');
+  localStorage.removeItem('reforestal_ref');
+
+  console.log(`[ReferralService] Processing referral: ${refCode} for user ${newUserId}`);
 
   try {
     const { data, error } = await supabase.rpc('process_referral_reward', {
-        p_ref_code: refCode,
+        p_ref_code: refCode.toLowerCase().trim(),
         p_new_user_id: newUserId
     });
 
@@ -18,7 +31,7 @@ export const processReferralOnSignup = async (newUserId, refCode) => {
     }
 
     if (data?.success) {
-        console.log(`[ReferralService] Success. Referrer ${data.referrer_id} rewarded with ${data.points_awarded} IC.`);
+        console.log(`[ReferralService] Success. Referrer ${data.referrer_id} rewarded.`);
         
         await createNotification(
             data.referrer_id,
@@ -29,7 +42,6 @@ export const processReferralOnSignup = async (newUserId, refCode) => {
             null, 
             newUserId 
         );
-
     } else {
         console.warn('[ReferralService] Referral Logic Skipped:', data?.message);
     }

@@ -1,14 +1,13 @@
 // @refresh reset
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { processReferralOnSignup } from '@/services/referralService'; 
 
 const AuthContext = createContext(undefined);
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [session, setSession] = useState(null);
   const [profile, setProfile] = useState(null);
@@ -26,7 +25,8 @@ export const AuthProvider = ({ children }) => {
         .eq('id', userId)
         .maybeSingle();
 
-      if (error || !data) return null;
+      if (error) throw error;
+      if (!data) return null;
 
       let effectiveRole = data.role || 'user';
       if (data.users_roles?.[0]?.roles) {
@@ -35,106 +35,86 @@ export const AuthProvider = ({ children }) => {
       
       const fullProfile = { ...data, role: effectiveRole };
       
-      if (mounted.current && session?.user?.id === userId) {
+      if (mounted.current) {
         setProfile(fullProfile);
       }
-
       return fullProfile;
-    } catch (err) {
-      console.error('Error fetching profile:', err);
+    } catch (error) {
+      console.error('Error fetching profile:', error);
       return null;
     }
-  }, [session?.user?.id]); 
+  }, []);
 
-  const handleAuthRedirect = useCallback(async (forcedRole = null) => {
-     let role = forcedRole;
-    
-    if (!role) {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) {
-            navigate('/auth');
-            return;
-        }
-        const fetchedProfile = await fetchProfile(user.id);
-        role = fetchedProfile?.role || 'user';
-    }
-
-    if (location.state?.from?.pathname && !location.pathname.includes('update-password')) {
-        navigate(location.state.from.pathname, { replace: true });
-        return;
-    }
-
-    const paths = { admin: '/admin', startnext_user: '/startnext' };
-    navigate(paths[role] || '/dashboard', { replace: true });
-  }, [navigate, location, fetchProfile]);
-
-  const signIn = useCallback(async (email, password) => {
+  const signIn = async (email, password) => {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    if (data?.user) {
-      const userProfile = await fetchProfile(data.user.id);
-      setProfile(userProfile);
-      handleAuthRedirect(userProfile?.role || 'user');
-    }
-    return { data, error };
-  }, [fetchProfile, handleAuthRedirect]);
+    if (error) throw error;
+    return data;
+  };
 
   const signOut = useCallback(async () => {
-    await supabase.auth.signOut();
-    setSession(null);
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
     setProfile(null);
-    setIsPasswordRecovery(false);
+    setSession(null);
     navigate('/auth');
   }, [navigate]);
 
+  const handleAuthRedirect = useCallback((userRole) => {
+    if (userRole === 'admin') navigate('/admin');
+    else if (userRole === 'startnext_user') navigate('/startnext');
+    else navigate('/dashboard');
+  }, [navigate]);
+
   useEffect(() => {
-    mounted.current = true;
-    
-    const initializeAuth = async () => {
-      try {
-        const { data: { session: initialSession } } = await supabase.auth.getSession();
-        if (mounted.current) {
-          setSession(initialSession);
-          if (initialSession?.user) {
-            const p = await fetchProfile(initialSession.user.id);
-            setProfile(p);
-          }
+    const checkSession = async () => {
+      const { data: { session: currentSession } } = await supabase.auth.getSession();
+      if (mounted.current) {
+        setSession(currentSession);
+        if (currentSession?.user) {
+          await fetchProfile(currentSession.user.id);
         }
-      } finally {
-        if (mounted.current) setLoading(false);
+        setLoading(false);
       }
     };
 
-    initializeAuth();
+    checkSession();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, currentSession) => {
-      if (!mounted.current) return;
-
-      if (event === 'SIGNED_OUT') {
-        setSession(null);
-        setProfile(null);
-        setIsPasswordRecovery(false);
-        setLoading(false);
-      } else if (event === 'PASSWORD_RECOVERY') {
-        setIsPasswordRecovery(true);
-        setLoading(false);
-      } else if (['SIGNED_IN', 'TOKEN_REFRESHED', 'USER_UPDATED'].includes(event)) {
+      if (mounted.current) {
         setSession(currentSession);
-        setIsPasswordRecovery(false); 
         
-        if (event === 'SIGNED_IN' && currentSession?.user) {
-            const storedRefCode = localStorage.getItem('reforestal_ref');
-            if (storedRefCode) {
-                processReferralOnSignup(currentSession.user.id, storedRefCode)
-                    .then(() => localStorage.removeItem('reforestal_ref'))
-                    .catch(err => console.error(err));
-            }
+        if (event === 'PASSWORD_RECOVERY') {
+          setIsPasswordRecovery(true);
         }
 
-        if (currentSession?.user) {
-          const p = await fetchProfile(currentSession.user.id);
-          setProfile(p);
+        if (event === 'SIGNED_IN' && currentSession) {
+          
+          // LÓGICA DE REFERIDOS BLINDADA
+          const storedRef = localStorage.getItem('reforestal_ref');
+          if (storedRef) {
+
+              localStorage.removeItem('reforestal_ref');
+              processReferralOnSignup(currentSession.user.id, storedRef)
+                  .catch(err => console.error("Referral error:", err));
+          }
+
+          const pendingGoogleNickname = localStorage.getItem('pending_google_nickname');
+          if (pendingGoogleNickname) {
+              localStorage.removeItem('pending_google_nickname');
+              try {
+                  await supabase.rpc('set_google_nickname', { new_nickname: pendingGoogleNickname });
+              } catch(e) {
+                  console.error("Error setting Google nickname", e);
+              }
+          }
+
+          await fetchProfile(currentSession.user.id);
         }
-        setLoading(false);
+        
+        if (event === 'SIGNED_OUT') {
+          setProfile(null);
+          setIsPasswordRecovery(false);
+        }
       }
     });
 
@@ -143,6 +123,22 @@ export const AuthProvider = ({ children }) => {
       subscription.unsubscribe();
     };
   }, [fetchProfile]); 
+
+  const signUp = useCallback(async (email, password, displayName, nickname) => {
+    const { data, error } = await supabase.auth.signUp({ 
+      email: email, 
+      password: password, 
+      options: { 
+        data: { 
+          name: displayName,       
+          referral_code: nickname   
+        },
+        emailRedirectTo: `${window.location.origin}/auth`
+      } 
+    });
+    if (error) throw error;
+    return data;
+  }, []);
 
   const value = useMemo(() => ({
     user: session?.user ?? null,
@@ -154,17 +150,24 @@ export const AuthProvider = ({ children }) => {
     signOut,
     handleAuthRedirect,
     fetchProfile, 
-    signUp: async (e, p, n) => supabase.auth.signUp({ email: e, password: p, options: { data: { full_name: n } } }),
-    signInWithGoogle: () => supabase.auth.signInWithOAuth({ provider: 'google' }),
+    signUp, 
+    signInWithGoogle: () => supabase.auth.signInWithOAuth({ 
+      provider: 'google',
+      options: { redirectTo: `${window.location.origin}/auth` }
+    }),
     updatePassword: (p) => supabase.auth.updateUser({ password: p }),
-    sendPasswordResetEmail: (e) => supabase.auth.resetPasswordForEmail(e, { redirectTo: `${window.location.origin}/update-password` })
-  }), [session, profile, loading, isPasswordRecovery, signIn, signOut, handleAuthRedirect, fetchProfile]);
+    sendPasswordResetEmail: (e) => supabase.auth.resetPasswordForEmail(e, { 
+      redirectTo: `${window.location.origin}/update-password` 
+    })
+  }), [session, profile, loading, isPasswordRecovery, signOut, handleAuthRedirect, fetchProfile, signUp]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) throw new Error('useAuth must be used within an AuthProvider');
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
   return context;
 };

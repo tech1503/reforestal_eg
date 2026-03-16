@@ -1,20 +1,20 @@
 import React from 'react';
 import QRCode from 'qrcode';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Copy, Download, Share2, X, Check } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from '@/components/ui/dialog';
+import { motion } from 'framer-motion';
+import { Copy, Download, Share2, Check } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
-import { useTranslation } from 'react-i18next'; // IMPORTADO
+import { useTranslation } from 'react-i18next'; 
 
 const ShareQRModal = ({ isOpen, onClose, linkRef, imageUrl }) => {
   const { toast } = useToast();
-  const { t } = useTranslation(); // HOOK
+  const { t } = useTranslation(); 
   const [copied, setCopied] = React.useState(false);
   const [qrDataUrl, setQrDataUrl] = React.useState('');
 
-  const referralLink = `https://reforest.al/ref/${linkRef}`;
+  const referralLink = `https://reforest.al/${linkRef}`;
 
   React.useEffect(() => {
     if (linkRef && isOpen) {

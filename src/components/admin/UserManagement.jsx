@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Search, Edit, Trash2, Download, RefreshCw, Loader2, Leaf, Coins, Wallet, Ban, Award, Users, Shield, XCircle } from 'lucide-react';
+import { Search, Edit, Trash2, Download, RefreshCw, Loader2, Leaf, Coins, Wallet, Ban, Award, Users, Shield, XCircle, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { investorProfiles } from '@/constants/investorProfiles';
 import { useRealtimeProfileUpdate } from '@/hooks/useRealtimeProfileUpdate';
 import { useTranslation } from 'react-i18next';
+import { deleteUserCascade } from '@/services/userService';
 
 const UserManagement = () => {
   const { toast } = useToast();
@@ -126,7 +127,7 @@ const UserManagement = () => {
       (user.name?.toLowerCase() || '').includes(lowerTerm) ||
       (user.email?.toLowerCase() || '').includes(lowerTerm) ||
       (user.role?.toLowerCase() || '').includes(lowerTerm) ||
-      (user.genesis_profile?.toLowerCase() || '').includes(lowerTerm)
+      (user.referral_code?.toLowerCase() || '').includes(lowerTerm)
     );
     setFilteredUsers(filtered);
   }, [searchTerm, users]);
@@ -135,7 +136,8 @@ const UserManagement = () => {
     setEditingUser({ 
         ...user, 
         selectedTier: user.tier_id || 'none',
-        editLandDollarStatus: user.land_dollar_status === 'none' ? 'active' : user.land_dollar_status 
+        editLandDollarStatus: user.land_dollar_status === 'none' ? 'active' : user.land_dollar_status,
+        referral_code: user.referral_code || '' 
     }); 
     setIsEditOpen(true);
   };
@@ -144,29 +146,37 @@ const UserManagement = () => {
     if (!editingUser) return;
     setProcessing(true);
     try {
+      
+      const safeReferralCode = editingUser.referral_code.trim() === '' ? null : editingUser.referral_code.trim().toLowerCase();
+
       const { error: profileErr } = await supabase.from('profiles').update({ 
           name: editingUser.name, 
           role: editingUser.role,
-          genesis_profile: editingUser.genesis_profile
+          genesis_profile: editingUser.genesis_profile,
+          referral_code: safeReferralCode
         }).eq('id', editingUser.id);
       
       if (profileErr) throw new Error(profileErr.message);
 
+      const linkRefToUse = safeReferralCode || `REF-${editingUser.id.substring(0,6).toUpperCase()}`;
+      const newQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://reforest.al/${linkRefToUse}`;
+
       if (editingUser.land_dollar_id) {
           await supabase.from('land_dollars').update({ 
               status: editingUser.editLandDollarStatus,
-              is_active: editingUser.editLandDollarStatus === 'active' || editingUser.editLandDollarStatus === 'issued'
+              is_active: editingUser.editLandDollarStatus === 'active' || editingUser.editLandDollarStatus === 'issued',
+              link_ref: linkRefToUse,
+              qr_code_url: newQrUrl
           }).eq('id', editingUser.land_dollar_id);
       } else if (editingUser.editLandDollarStatus === 'active') {
-           const linkRef = `REF-${editingUser.id.substring(0,6).toUpperCase()}`;
            await supabase.from('land_dollars').insert({
                user_id: editingUser.id,
                amount: 0,
                status: 'active',
                is_active: true,
-               link_ref: linkRef,
+               link_ref: linkRefToUse,
                land_dollar_url: '/assets/land-dollar-base.webp',
-               qr_code_url: `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://reforest.al/ref/${linkRef}`
+               qr_code_url: newQrUrl
            });
       }
 
@@ -252,7 +262,7 @@ const UserManagement = () => {
                   user_id: editingUser.id, 
                   amount: tierData.min_amount, 
                   status: editingUser.editLandDollarStatus || 'active',
-                  link_ref: editingUser.land_dollar_link !== 'N/A' ? editingUser.land_dollar_link : `REF-${editingUser.id.substring(0,6).toUpperCase()}`, 
+                  link_ref: linkRefToUse, 
                   related_support_level_id: editingUser.selectedTier,
                   land_dollar_url: '/assets/land-dollar-base.webp',
              };
@@ -260,7 +270,7 @@ const UserManagement = () => {
           }
       }
 
-      toast({ title: t('common.success'), description: "User data updated successfully." });
+      toast({ title: t('common.success'), description: "Usuario y Apodo actualizados exitosamente." });
       setIsEditOpen(false);
       await fetchAllData();
     } catch (error) {
@@ -271,31 +281,31 @@ const UserManagement = () => {
     }
   };
 
-  const handleDeleteClick = (user) => { setDeletingUser(user); setIsDeleteOpen(true); };
+  const handleDeleteClick = (user) => { 
+      setDeletingUser(user); 
+      setIsDeleteOpen(true); 
+  };
   
   const confirmDelete = async () => {
     if (!deletingUser) return;
     setProcessing(true);
     try {
-        await supabase.from('gamification_history').delete().eq('user_id', deletingUser.id);
-        await supabase.from('founding_pioneer_metrics').delete().eq('user_id', deletingUser.id);
-        await supabase.from('impact_credits').delete().eq('user_id', deletingUser.id);
-        await supabase.from('user_benefits').delete().eq('user_id', deletingUser.id);
-        await supabase.from('land_dollars').delete().eq('user_id', deletingUser.id);
-        await supabase.from('startnext_contributions').delete().eq('user_id', deletingUser.id);
-        await supabase.from('user_quest_responses').delete().eq('user_id', deletingUser.id);
-        const { error } = await supabase.from('profiles').delete().eq('id', deletingUser.id);
-        if (error) throw error;
-        toast({ title: "Deleted", description: "User and all related data deleted." });
-        setIsDeleteOpen(false);
-        fetchAllData();
+        const result = await deleteUserCascade(deletingUser.id);
+        if (!result.success) throw new Error(result.error);
+
+        setUsers(prev => prev.filter(u => u.id !== deletingUser.id));
+        setFilteredUsers(prev => prev.filter(u => u.id !== deletingUser.id));
+
+        toast({ title: "User Deleted", className: "bg-emerald-600 text-white border-none" });
     } catch (e) { 
-        toast({ variant: "destructive", title: "Error", description: e.message }); 
+        toast({ variant: "destructive", title: "Deletion Failed", description: e.message }); 
+    } finally { 
+        setProcessing(false); 
+        setIsDeleteOpen(false);
+        setDeletingUser(null); 
     }
-    finally { setProcessing(false); setDeletingUser(null); }
   };
 
-  // --- LOGICA DE PIONERO (APROBAR / REVOCAR) ---
   const handlePioneerAction = (user, type) => {
       setPioneerActionUser(user);
       setPioneerActionType(type);
@@ -308,28 +318,17 @@ const UserManagement = () => {
     
     try {
       const newStatus = pioneerActionType === 'approve' ? 'approved' : 'revoked';
-      
-      const { error: updateError } = await supabase
-        .from('founding_pioneer_metrics')
-        .update({ founding_pioneer_access_status: newStatus })
-        .eq('user_id', pioneerActionUser.id);
-        
+      const { error: updateError } = await supabase.from('founding_pioneer_metrics').update({ founding_pioneer_access_status: newStatus }).eq('user_id', pioneerActionUser.id);
       if (updateError) throw updateError;
       
       if (pioneerActionType === 'approve') {
           await supabase.from('profiles').update({ role: 'startnext_user' }).eq('id', pioneerActionUser.id);
       }
       
-      toast({ 
-          title: pioneerActionType === 'approve' ? "Pioneer Approved! 🚀" : "Access Revoked", 
-          description: `User status updated to ${newStatus}.`, 
-          className: pioneerActionType === 'approve' ? "bg-emerald-600 border-emerald-200 text-white" : "bg-red-600 text-white" 
-      });
-      
+      toast({ title: pioneerActionType === 'approve' ? "Pioneer Approved!" : "Access Revoked", className: pioneerActionType === 'approve' ? "bg-emerald-600 text-white" : "bg-red-600 text-white" });
       setIsPioneerModalOpen(false);
       fetchAllData();
     } catch (error) {
-      console.error("Pioneer Action Error:", error);
       toast({ variant: "destructive", title: t('common.error'), description: error.message });
     } finally {
       setProcessing(false);
@@ -339,9 +338,9 @@ const UserManagement = () => {
 
   const handleExportCSV = () => {
     if (!users.length) return;
-    const csvContent = [['ID', 'Name', 'Email', 'Role', 'Genesis', 'Tier', 'IC', 'LandDollar', 'LD Status', 'Pioneer Status'].join(",") + "\n" + users.map(u => [u.id, u.name, u.email, u.role, u.genesis_profile, u.tier_name, u.ic_balance, u.has_land_dollar ? 'Yes' : 'No', u.land_dollar_status, u.founding_pioneer_access_status].join(",")).join("\n")];
+    const csvContent = [['ID', 'Name', 'Email', 'Apodo', 'Role', 'Genesis', 'Tier', 'IC', 'LD Status', 'Pioneer Status'].join(",") + "\n" + users.map(u => [u.id, u.name, u.email, u.referral_code || 'N/A', u.role, u.genesis_profile, u.tier_name, u.ic_balance, u.land_dollar_status, u.founding_pioneer_access_status].join(",")).join("\n")];
     const link = document.createElement("a");
-    link.href = URL.createObjectURL(new Blob(csvContent, { type: 'text/csv;charset=utf-8;' }));
+    link.href = URL.createObjectURL(new Blob([csvContent], { type: 'text/csv;charset=utf-8;' }));
     link.download = `users_export.csv`;
     link.click();
   };
@@ -351,7 +350,7 @@ const UserManagement = () => {
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
         <div className="relative flex-1 w-full max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          <Input placeholder={t('common.search')} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-9" />
+          <Input placeholder="Buscar usuario, email o apodo..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="pl-9" />
         </div>
         <div className="flex gap-2">
             <Button onClick={fetchAllData} variant="outline" size="icon" disabled={loading}><RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /></Button>
@@ -365,6 +364,7 @@ const UserManagement = () => {
             <thead className="bg-muted/50 border-b">
               <tr>
                 <th className="text-left p-4 font-medium text-muted-foreground">{t('admin.startnext.user')}</th>
+                <th className="text-left p-4 font-medium text-muted-foreground">Apodo</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">Partner Profile</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">Role</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">Pioneer Status</th>
@@ -376,9 +376,9 @@ const UserManagement = () => {
             </thead>
             <tbody className="divide-y">
               {loading ? (
-                <tr><td colSpan="8" className="p-8 text-center"><Loader2 className="w-6 h-6 animate-spin mx-auto" /></td></tr>
+                <tr><td colSpan="9" className="p-8 text-center"><Loader2 className="w-6 h-6 animate-spin mx-auto" /></td></tr>
               ) : filteredUsers.length === 0 ? (
-                 <tr><td colSpan="8" className="p-8 text-center text-muted-foreground">No users found.</td></tr>
+                 <tr><td colSpan="9" className="p-8 text-center text-muted-foreground">No users found.</td></tr>
               ) : (
                 filteredUsers.map((user) => {
                     const profileKey = user.genesis_profile ? user.genesis_profile.toLowerCase() : 'none';
@@ -389,6 +389,7 @@ const UserManagement = () => {
                     return (
                       <tr key={user.id} className="hover:bg-muted/5 transition-colors">
                         <td className="p-4"><div className="flex flex-col"><span className="font-semibold">{user.name || 'Unnamed'}</span><span className="text-xs text-muted-foreground">{user.email}</span></div></td>
+                        <td className="p-4"><span className="font-mono text-emerald-700 bg-emerald-50 px-2 py-1 rounded">@{user.referral_code || 'N/A'}</span></td>
                         <td className="p-4"><Badge variant="outline" className={`gap-1 pr-3 capitalize ${badgeClass}`}>{ProfileIcon && <ProfileIcon className="w-3 h-3" />}{user.genesis_profile || 'None'}</Badge></td>
                         <td className="p-4"><Badge variant="outline">{user.role}</Badge></td>
                         <td className="p-4">{user.founding_pioneer_access_status ? <Badge className={`${isPioneerApproved ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'} border-0 capitalize`}>{user.founding_pioneer_access_status}</Badge> : <span className="text-gray-300">-</span>}</td>
@@ -405,14 +406,12 @@ const UserManagement = () => {
                                            className={`text-[9px] h-4 ${['active','issued'].includes(user.land_dollar_status) ? 'bg-green-600' : 'bg-red-600'}`}>
                                         {user.land_dollar_status}
                                     </Badge>
-                                    <span className="text-[9px] font-mono text-muted-foreground">{user.land_dollar_link}</span>
                                 </div>
-                            ) : <span className="text-slate-300 text-xs italic">Pending...</span>}
+                            ) : <span className="text-slate-300 text-xs italic">N/A</span>}
                         </td>
                         
                         <td className="p-4 text-right">
                           <div className="flex justify-end gap-1 items-center">
-                            {/* BOTONES DE PIONERO APROBAR/REVOCAR */}
                             {user.role === 'startnext_user' && (
                                 isPioneerApproved ? (
                                     <Button onClick={() => handlePioneerAction(user, 'revoke')} disabled={processing} className="bg-red-50 hover:bg-red-100 text-white h-8 px-2 rounded text-xs mr-1 border border-red-200" size="sm" title="Revoke Pioneer Access">
@@ -447,6 +446,17 @@ const UserManagement = () => {
                   <div className="space-y-2"><Label>{t('auth.name_label')}</Label><Input value={editingUser.name || ''} onChange={(e) => setEditingUser({...editingUser, name: e.target.value})} /></div>
                   <div className="space-y-2"><Label>{t('auth.email_label')}</Label><Input disabled value={editingUser.email || ''} /></div>
               </div>
+
+              {/* NUEVO CAMPO DE APODO */}
+              <div className="space-y-2">
+                  <Label className="text-emerald-700 font-bold">Apodo (URL / Código de Referido)</Label>
+                  <Input 
+                      value={editingUser.referral_code || ''} 
+                      onChange={(e) => setEditingUser({...editingUser, referral_code: e.target.value.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()})} 
+                      placeholder="ej: carlos123"
+                  />
+                  <p className="text-xs text-muted-foreground">Al cambiarlo, se regenerará automáticamente el QR y el enlace del Land Dollar.</p>
+              </div>
               
               <div className="space-y-2 border-t pt-4 bg-slate-50 p-3 rounded-lg border">
                   <Label className="text-emerald-800 font-bold flex items-center gap-2">
@@ -463,9 +473,6 @@ const UserManagement = () => {
                         <SelectItem value="blocked">Blocked (Banned)</SelectItem>
                     </SelectContent>
                   </Select>
-                  <p className="text-xs text-muted-foreground mt-1">
-                      Controlled by Admin. Suspend to stop rewards and referrals.
-                  </p>
               </div>
 
               <div className="space-y-2">
@@ -506,10 +513,34 @@ const UserManagement = () => {
       </Dialog>
       
       <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
-        <DialogContent><DialogHeader><DialogTitle>Delete User?</DialogTitle></DialogHeader><DialogFooter><Button variant="outline" onClick={() => setIsDeleteOpen(false)}>{t('common.cancel')}</Button><Button variant="destructive" onClick={confirmDelete} disabled={processing}>Delete User</Button></DialogFooter></DialogContent>
+        <DialogContent>
+            <DialogHeader>
+                <DialogTitle className="flex items-center gap-2 text-red-600">
+                    <AlertTriangle className="w-5 h-5" /> 
+                    Delete User in Cascade?
+                </DialogTitle>
+                <DialogDescription className="pt-3 space-y-2">
+                    <p>You are about to permanently delete <strong>{deletingUser?.email}</strong>.</p>
+                    <p>This action will destroy:</p>
+                    <ul className="list-disc pl-5 text-sm text-slate-600">
+                        <li>Authentication record</li>
+                        <li>Land Dollars & Impact Credits</li>
+                        <li>MLM / Gamification History</li>
+                        <li>Startnext Contributions</li>
+                    </ul>
+                    <p className="font-bold text-red-600 mt-2">This cannot be undone.</p>
+                </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+                <Button variant="outline" onClick={() => setIsDeleteOpen(false)} disabled={processing}>{t('common.cancel')}</Button>
+                <Button variant="destructive" onClick={confirmDelete} disabled={processing}>
+                    {processing ? <Loader2 className="w-4 h-4 mr-2 animate-spin"/> : <Trash2 className="w-4 h-4 mr-2" />}
+                    Delete Permanently
+                </Button>
+            </DialogFooter>
+        </DialogContent>
       </Dialog>
 
-      {/* MODAL DE CONFIRMACIÓN PIONERO (APROBAR / REVOCAR) */}
       <Dialog open={isPioneerModalOpen} onOpenChange={setIsPioneerModalOpen}>
         <DialogContent>
             <DialogHeader>

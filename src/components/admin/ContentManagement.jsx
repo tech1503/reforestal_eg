@@ -7,11 +7,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
-import { Loader, Trash2, Plus, Edit, Save, Image as ImageIcon, Globe, Eye, EyeOff, Target } from 'lucide-react';
+import { Loader, Trash2, Plus, Edit, Save, Image as ImageIcon, Globe, Eye, EyeOff, Target, Coins, CreditCard } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useTranslation } from 'react-i18next';
 
 // --- SUB-COMPONENTE: MODAL DE TRADUCCIÓN ---
@@ -165,10 +166,8 @@ const ProductsManager = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     
-    // Lista de Quests para el selector
     const [availableQuests, setAvailableQuests] = useState([]);
 
-    // Modals
     const [showModal, setShowModal] = useState(false);
     const [showTranslateModal, setShowTranslateModal] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -176,12 +175,13 @@ const ProductsManager = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [uploading, setUploading] = useState(false);
     
-    // Form State
     const [formData, setFormData] = useState({
         id: null,
         name: '',
         description: '',
         price: '',
+        price_eur: 0,
+        payment_type: 'credits',
         stock: -1,
         image_url: '', 
         is_active: true,
@@ -190,7 +190,6 @@ const ProductsManager = () => {
     const [imageFile, setImageFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
 
-    // Fetch principal
     const fetchProducts = useCallback(async () => {
         setLoading(true);
         const { data, error } = await supabase
@@ -206,7 +205,6 @@ const ProductsManager = () => {
         setLoading(false);
     }, []);
 
-    // Cargar Quests disponibles
     const fetchQuests = useCallback(async () => {
         const { data } = await supabase
             .from('gamification_actions')
@@ -263,8 +261,8 @@ const ProductsManager = () => {
     };
 
     const handleSave = async () => {
-        if (!formData.name || !formData.price) {
-            toast({variant: "destructive", title: "Error", description: "Name and Price required."});
+        if (!formData.name) {
+            toast({variant: "destructive", title: "Error", description: "Name is required."});
             return;
         }
 
@@ -275,13 +273,14 @@ const ProductsManager = () => {
                 finalImageUrl = await uploadImage();
             }
 
-            // CORRECCIÓN CLAVE: Transformar explícitamente "none" a null para evitar el error UUID de Supabase.
             const safeUnlocksQuestId = (formData.unlocks_quest_id === 'none' || formData.unlocks_quest_id === '') ? null : formData.unlocks_quest_id;
 
             const payload = {
                 name: formData.name,
                 description: formData.description,
-                price: parseFloat(formData.price),
+                price: parseFloat(formData.price || 0),
+                price_eur: parseFloat(formData.price_eur || 0),
+                payment_type: formData.payment_type,
                 stock: parseInt(formData.stock),
                 image_alt: formData.name,
                 image_url: finalImageUrl,
@@ -309,14 +308,9 @@ const ProductsManager = () => {
     const handleToggleVisibility = async (product) => {
         try {
             const newStatus = !product.is_active;
-            const { error } = await supabase
-                .from('exchange_products')
-                .update({ is_active: newStatus })
-                .eq('id', product.id);
-            
+            const { error } = await supabase.from('exchange_products').update({ is_active: newStatus }).eq('id', product.id);
             if (error) throw error;
             setProducts(prev => prev.map(p => p.id === product.id ? { ...p, is_active: newStatus } : p));
-            toast({ title: newStatus ? "Visible" : "Hidden" });
         } catch (err) {
             toast({ variant: 'destructive', title: 'Error', description: err.message });
         }
@@ -340,7 +334,9 @@ const ProductsManager = () => {
             id: p.id,
             name: p.name,
             description: p.description || '',
-            price: p.price,
+            price: p.price || 0,
+            price_eur: p.price_eur || 0,
+            payment_type: p.payment_type || 'credits',
             stock: p.stock,
             image_url: p.image_url || '',
             is_active: p.is_active !== false,
@@ -357,7 +353,7 @@ const ProductsManager = () => {
     };
 
     const resetForm = () => {
-        setFormData({ id: null, name: '', description: '', price: '', stock: -1, image_url: '', is_active: true, unlocks_quest_id: 'none' });
+        setFormData({ id: null, name: '', description: '', price: 0, price_eur: 0, payment_type: 'credits', stock: -1, image_url: '', is_active: true, unlocks_quest_id: 'none' });
         setImageFile(null);
         setPreviewUrl(null);
     };
@@ -376,7 +372,7 @@ const ProductsManager = () => {
                             <TableRow>
                                 <TableHead>Image</TableHead>
                                 <TableHead>Name</TableHead>
-                                <TableHead>Price</TableHead>
+                                <TableHead>Pricing Method</TableHead>
                                 <TableHead>Type</TableHead>
                                 <TableHead>Status</TableHead>
                                 <TableHead className="text-right">Actions</TableHead>
@@ -399,7 +395,16 @@ const ProductsManager = () => {
                                             </div>
                                         )}
                                     </TableCell>
-                                    <TableCell>{p.price} IC</TableCell>
+                                    <TableCell>
+                                        <div className="flex flex-col gap-1">
+                                            {(p.payment_type === 'credits' || p.payment_type === 'both') && (
+                                                <span className="text-xs font-mono font-bold text-emerald-600 flex items-center gap-1"><Coins className="w-3 h-3"/> {p.price} BP</span>
+                                            )}
+                                            {(p.payment_type === 'fiat' || p.payment_type === 'both') && (
+                                                <span className="text-xs font-mono font-bold text-blue-600 flex items-center gap-1"><CreditCard className="w-3 h-3"/> €{p.price_eur}</span>
+                                            )}
+                                        </div>
+                                    </TableCell>
                                     <TableCell>
                                         {p.unlocks_quest_id ? <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">Quest Key</Badge> : <Badge variant="outline">Item</Badge>}
                                     </TableCell>
@@ -426,15 +431,15 @@ const ProductsManager = () => {
             </Card>
 
             <Dialog open={showModal} onOpenChange={setShowModal}>
-                <DialogContent className="sm:max-w-[500px]">
+                <DialogContent className="sm:max-w-[550px]">
                     <DialogHeader>
                         <DialogTitle>{isEditing ? 'Edit Product' : 'Create Product'}</DialogTitle>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
                         <div className="flex justify-center mb-2">
-                            <label className="cursor-pointer relative group w-40 h-40 bg-slate-50 rounded-xl border-2 border-dashed border-slate-300 flex items-center justify-center overflow-hidden hover:bg-slate-100 transition-colors">
+                            <label className="cursor-pointer relative group w-32 h-32 bg-slate-50 rounded-xl border-2 border-dashed border-slate-300 flex items-center justify-center overflow-hidden hover:bg-slate-100 transition-colors">
                                 <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
-                                {previewUrl ? <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" /> : <div className="text-center text-slate-400 p-4"><ImageIcon className="w-8 h-8 mx-auto mb-2 opacity-50" /><span className="text-xs font-medium">Click to Upload</span></div>}
+                                {previewUrl ? <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" /> : <div className="text-center text-slate-400 p-4"><ImageIcon className="w-8 h-8 mx-auto mb-2 opacity-50" /><span className="text-xs font-medium">Upload Image</span></div>}
                             </label>
                         </div>
                         
@@ -442,36 +447,55 @@ const ProductsManager = () => {
                             <Label>Name (English/Default)</Label>
                             <Input value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
                         </div>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="gap-2 grid">
-                                <Label>Price (IC)</Label>
-                                <Input type="number" value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} />
+                        
+                        {/* CONFIGURACIÓN DE PAGOS */}
+                        <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-4">
+                            <div className="space-y-2">
+                                <Label>Payment Method Supported</Label>
+                                <Select value={formData.payment_type} onValueChange={v => setFormData({...formData, payment_type: v})}>
+                                    <SelectTrigger className="bg-white"><SelectValue/></SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="credits">Bonus (Bonus Points) ONLY</SelectItem>
+                                        <SelectItem value="fiat">Real Money (Euros) ONLY</SelectItem>
+                                        <SelectItem value="both">Both (User can choose)</SelectItem>
+                                    </SelectContent>
+                                </Select>
                             </div>
-                            <div className="gap-2 grid">
-                                <Label>Stock</Label>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label className={formData.payment_type === 'fiat' ? 'opacity-50' : 'text-emerald-700 font-bold'}>Price in BP</Label>
+                                    <Input type="number" disabled={formData.payment_type === 'fiat'} value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} className="bg-white" />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label className={formData.payment_type === 'credits' ? 'opacity-50' : 'text-blue-700 font-bold'}>Price in Euros (€)</Label>
+                                    <Input type="number" disabled={formData.payment_type === 'credits'} value={formData.price_eur} onChange={e => setFormData({...formData, price_eur: e.target.value})} className="bg-white" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                                <Label>Stock (-1 for infinite)</Label>
                                 <Input type="number" value={formData.stock} onChange={e => setFormData({...formData, stock: e.target.value})} />
                             </div>
+                            <div className="space-y-2">
+                                <Label className="flex items-center gap-2"><Target className="w-4 h-4"/> Unlocks Quest</Label>
+                                <select 
+                                    className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm"
+                                    value={formData.unlocks_quest_id || 'none'}
+                                    onChange={e => setFormData({...formData, unlocks_quest_id: e.target.value})}
+                                >
+                                    <option value="none">-- No Quest Linked --</option>
+                                    {availableQuests.map(q => (
+                                        <option key={q.id} value={q.id}>{q.action_title || q.action_name}</option>
+                                    ))}
+                                </select>
+                            </div>
                         </div>
 
-                        {/* SELECTOR DE VINCULACIÓN */}
-                        <div className="space-y-2 border-t pt-4 mt-2">
-                            <Label className="flex items-center gap-2 text-blue-700 font-semibold"><Target className="w-4 h-4"/> Unlocks Quest (Paywall)</Label>
-                            <select 
-                                className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm"
-                                value={formData.unlocks_quest_id || 'none'}
-                                onChange={e => setFormData({...formData, unlocks_quest_id: e.target.value})}
-                            >
-                                <option value="none">-- No Quest Linked (Regular Item) --</option>
-                                {availableQuests.map(q => (
-                                    <option key={q.id} value={q.id}>{q.action_title || q.action_name}</option>
-                                ))}
-                            </select>
-                            <p className="text-[10px] text-slate-500">Buying this product will automatically unlock this quest for the user.</p>
-                        </div>
-
-                        <div className="grid gap-2 mt-2">
+                        <div className="grid gap-2">
                             <Label>Description (English)</Label>
-                            <Textarea value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} />
+                            <Textarea value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} rows={2}/>
                         </div>
                         
                         <div className="flex items-center space-x-2 border p-3 rounded-lg bg-slate-50">
@@ -481,7 +505,7 @@ const ProductsManager = () => {
                     </div>
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setShowModal(false)}>{t('common.cancel')}</Button>
-                        <Button onClick={handleSave} disabled={uploading} className="btn-primary">
+                        <Button onClick={handleSave} disabled={uploading} className="bg-slate-800 hover:bg-slate-900 text-white">
                             {uploading && <Loader className="w-4 h-4 animate-spin mr-2" />} {t('common.save')}
                         </Button>
                     </DialogFooter>
@@ -499,12 +523,12 @@ const ContentManagement = () => {
     <div className="space-y-6">
       <div>
           <h2 className="text-2xl font-bold tracking-tight">Content Management</h2>
-          <p className="text-muted-foreground">Manage products and localized content.</p>
+          <p className="text-muted-foreground">Manage exchange products, pricing methods and catalog.</p>
       </div>
       
       <Tabs defaultValue="products">
         <TabsList className="mb-4">
-            <TabsTrigger value="products">Exchange Products</TabsTrigger>
+            <TabsTrigger value="products">Store Catalog</TabsTrigger>
             <TabsTrigger value="proposals">Voting Proposals</TabsTrigger>
             <TabsTrigger value="benefits">Benefit Levels</TabsTrigger>
         </TabsList>
@@ -513,10 +537,10 @@ const ContentManagement = () => {
             <ProductsManager />
         </TabsContent>
         <TabsContent value="proposals">
-            <Card><CardContent className="py-8 text-center text-muted-foreground">Proposal Management Coming Soon</CardContent></Card>
+            <Card><CardContent className="py-8 text-center text-muted-foreground">Proposal Management moved to Community Tab.</CardContent></Card>
         </TabsContent>
         <TabsContent value="benefits">
-            <Card><CardContent className="py-8 text-center text-muted-foreground">Benefit Levels Configuration Coming Soon</CardContent></Card>
+            <Card><CardContent className="py-8 text-center text-muted-foreground">Benefit Levels moved to Tiers Tab.</CardContent></Card>
         </TabsContent>
       </Tabs>
     </div>

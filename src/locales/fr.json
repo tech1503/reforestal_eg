@@ -6,6 +6,7 @@
     "success": "Succès",
     "save": "Enregistrer",
     "cancel": "Annuler",
+    "restart": "Redémarrer",
     "close": "Fermer",
     "submit": "Soumettre",
     "back": "Retour",
@@ -705,6 +706,18 @@
     "sign_in_button": "Se Connecter",
     "sign_up_button": "S'inscrire",
     "logging_in": "Connexion...",
+    "error": "Erreur",
+    "nickname_short": "Minimum 3 caractères",
+    "nickname_taken": "Ce pseudo est déjà utilisé.",
+    "fix_nickname": "Veuillez choisir un pseudo valide.",
+    "nickname_label": "Votre Pseudo Unique (URL)",
+    "google_modal": {
+      "title": "Presque terminé ! 🚀",
+      "desc": "Avant d'aller sur Google, choisissez l'apparence de votre lien de parrainage unique.",
+      "placeholder": "ex: peter123",
+      "your_link": "Votre lien sera :",
+      "continue_btn": "Continuer avec Google"
+    },
     "branding": {
       "title": "Chaque révolution a besoin d'esprits différents.",
       "description": "Devenez copropriétaire de la mission. Participez aux décisions démocratiques et connectez-vous avec une communauté de fondateurs visionnaires.",
@@ -742,6 +755,7 @@
     "buttons": {
       "cart": "Panier",
       "add_to_cart": "Ajouter au panier",
+      "pay": "Payer",
       "redeem": "Échanger mes Points Bonus",
       "confirm": "Confirmer l'échange"
     },
@@ -1086,7 +1100,12 @@
       "already_completed_title": "Déjà complétée",
       "already_completed_desc": "Vous avez déjà obtenu les récompenses de cette mission.",
       "return_btn": "Retour aux missions",
-      "penalty_applied_credits": "Pénalité appliquée: -{{amount}} BP."
+      "penalty_applied_credits": "Pénalité appliquée: -{{amount}} BP.",
+      "referral_bonus":"Votre Référent",
+      "restart_title": "Redémarrer la mission",
+      "restart_warning": "Êtes-vous sûr de vouloir redémarrer cette mission ? Tous les progrès et récompenses obtenus jusqu'à présent seront perdus.",
+      "restart_btn": "Redémarrer la mission",
+      "restart_confirm": "Redémarrer la mission ? Tous les progrès seront perdus."
     },
     "gamification_admin": {
       "quest_engine": {

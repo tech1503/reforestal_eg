@@ -11,21 +11,23 @@ import landDollarBaseImg from '@/assets/land-dollar-base.webp';
 
 const LandDollarDisplay = ({ 
   user, 
+  profile,
   landDollar, 
-  onRegenerate, 
-  isAdmin = false 
+  loading,
+  onRegenerate
 }) => {
   const { t } = useTranslation();
   const { toast } = useToast();
   const [isDownloading, setIsDownloading] = useState(false);
-  
   const [copied, setCopied] = useState(false);
 
-  const isSuspended = landDollar?.status === 'suspended' || landDollar?.status === 'blocked';
-  const uniqueRef = landDollar?.link_ref || user?.user_metadata?.referral_code || 'PENDING';
+  if (profile?.role === 'admin') return null;
+
+  const isSuspended = profile?.status === 'suspended' || landDollar?.status === 'suspended';
+  const uniqueRef = landDollar?.link_ref || profile?.referral_code || user?.user_metadata?.referral_code || 'PENDING';
   const displayRef = uniqueRef === 'PENDING' ? t('dashboard.land_dollar.pending') : uniqueRef;
 
-  const referralLink = `https://reforest.al/ref/${uniqueRef}`;
+  const referralLink = `https://reforest.al/${uniqueRef}`;
 
   const handleDownload = async () => {
     if (isSuspended || uniqueRef === 'PENDING') return;
@@ -61,9 +63,9 @@ const LandDollarDisplay = ({
     }
   };
 
+  // QR dinámico para la vista previa
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(referralLink)}&bgcolor=ffffff&color=1A4231&margin=2`;
 
-  // 3. FUNCIÓN DE COPIADO (Reutilizada y mejorada)
   const handleCopyLink = () => {
       if (!isSuspended && uniqueRef !== 'PENDING') {
           navigator.clipboard.writeText(referralLink).then(() => {
@@ -72,11 +74,18 @@ const LandDollarDisplay = ({
                   title: t('common.copied_clipboard'), 
                   description: referralLink 
               });
-              
               setTimeout(() => setCopied(false), 2000);
           });
       }
   };
+
+  if (loading && !landDollar) {
+    return (
+        <div className="w-full aspect-[2.4/1] flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-2xl animate-pulse">
+            <Loader2 className="w-8 h-8 animate-spin text-emerald-500" />
+        </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6">
@@ -101,6 +110,7 @@ const LandDollarDisplay = ({
             </div>
         )}
 
+        {/* QR Overlay Original */}
         {!isSuspended && (
             <div className="absolute top-1/2 right-[18%] -translate-y-1/2 flex flex-col items-center w-[14%]">
                 <div className="bg-white/90 p-1 rounded-lg shadow-lg backdrop-blur-sm w-full aspect-square mb-2">
@@ -128,9 +138,9 @@ const LandDollarDisplay = ({
         <div className="absolute top-4 right-6 z-10">
              <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-sm backdrop-blur-md ${
                  isSuspended ? 'bg-destructive/90 text-destructive-foreground' : 
-                 landDollar?.status === 'active' || landDollar?.status === 'issued' ? 'bg-emerald-500/80 text-white' : 'bg-muted/80 text-muted-foreground'
+                 'bg-emerald-500/80 text-white'
              }`}>
-                {landDollar?.status ? (t(`common.${landDollar.status.toLowerCase()}`) !== `common.${landDollar.status.toLowerCase()}` ? t(`common.${landDollar.status.toLowerCase()}`) : landDollar.status) : t('common.active')}
+                {isSuspended ? 'SUSPENDED' : 'ACTIVE'}
              </span>
         </div>
       </motion.div>
@@ -139,7 +149,7 @@ const LandDollarDisplay = ({
         <Button 
             onClick={handleDownload} 
             disabled={isDownloading || isSuspended} 
-            className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg min-w-[200px]"
+            className="bg-[#063127] hover:bg-[#0a4d3d] text-white shadow-lg min-w-[200px]"
         >
             {isDownloading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {t('dashboard.land_dollar.processing')}</> : <><Download className="w-4 h-4 mr-2" /> {isSuspended ? t('common.locked_feature') : t('dashboard.land_dollar.download', 'Download High-Res')}</>}
         </Button>
@@ -151,7 +161,6 @@ const LandDollarDisplay = ({
                 className={`text-emerald-700 hover:bg-emerald-50 transition-all duration-300 ${copied ? 'bg-emerald-100' : ''}`}
              >
                 {copied ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />} 
-                
                 {t('dashboard.land_dollar.link_ref_btn')}
             </Button>
         )}

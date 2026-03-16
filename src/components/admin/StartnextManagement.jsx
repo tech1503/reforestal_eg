@@ -270,7 +270,6 @@ const StartnextManagement = () => {
 
       if (contribError) throw contribError;
 
-      // 4. Issue Credits & Assets (Only if we have a real user_id)
       if (finalUserId) {
           await supabase.from('impact_credits').insert({
               user_id: finalUserId,
@@ -286,7 +285,7 @@ const StartnextManagement = () => {
               amount: parseFloat(formData.contribution_amount),
               land_dollar_url: landDollarUrl,
               link_ref: linkRef,
-              qr_code_url: `https://reforest.al/ref/${linkRef}`,
+              qr_code_url: `https://reforest.al/${linkRef}`,
               status: 'issued',
               related_support_level_id: calculatedVariant.id,
               contribution_id: newContrib.id

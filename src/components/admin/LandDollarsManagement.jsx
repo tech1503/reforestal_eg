@@ -85,7 +85,7 @@ const LandDollarsManagement = () => {
                                                 </Button>
                                             )}
                                             {ld.link_ref && (
-                                                <Button variant="ghost" size="icon" title="Check Link" onClick={() => window.open(`https://reforest.al/ref/${ld.link_ref}`, '_blank')}>
+                                                <Button variant="ghost" size="icon" title="Check Link" onClick={() => window.open(`https://reforest.al/${ld.link_ref}`, '_blank')}>
                                                     <ExternalLink className="w-4 h-4 text-gray-600" />
                                                 </Button>
                                             )}

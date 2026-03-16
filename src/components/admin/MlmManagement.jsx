@@ -6,10 +6,12 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
-import { Loader2, Users, Gift, Activity, Plus } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { Loader2, Users, Gift, Activity, Plus, MoreHorizontal, UserX } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { useTranslation } from 'react-i18next';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { deleteUserCascade } from '@/services/userService';
 
 const MlmManagement = () => {
     const { toast } = useToast();
@@ -17,13 +19,14 @@ const MlmManagement = () => {
     const [actions, setActions] = useState([]);
     const [referrals, setReferrals] = useState([]);
     const [loading, setLoading] = useState(true);
+    
     const [showDialog, setShowDialog] = useState(false);
-    const [newAction, setNewAction] = useState({
-        name: '',
-        description: '',
-        credits: 50,
-        status: 'active'
-    });
+    const [newAction, setNewAction] = useState({ name: '', description: '', credits: 50, status: 'active' });
+
+    // Delete State
+    const [deletingUser, setDeletingUser] = useState(null);
+    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+    const [processing, setProcessing] = useState(false);
 
     useEffect(() => {
         fetchData();
@@ -41,7 +44,7 @@ const MlmManagement = () => {
             const { data: referralsData } = await supabase
                 .from('referrals')
                 .select(`
-                    id, created_at,
+                    id, created_at, referred_user_id,
                     referrer:user_id(name, email),
                     referee:referred_user_id(name, email)
                 `)
@@ -85,6 +88,29 @@ const MlmManagement = () => {
         const newStatus = !currentStatus;
         await supabase.from('gamification_actions').update({ is_active: newStatus }).eq('id', id);
         fetchData();
+    };
+
+    const confirmDeleteReferral = async () => {
+        if (!deletingUser) return;
+        setProcessing(true);
+        try {
+            const result = await deleteUserCascade(deletingUser.referred_user_id);
+            if (!result.success) throw new Error(result.error);
+
+            setReferrals(prev => prev.filter(r => r.referred_user_id !== deletingUser.referred_user_id));
+            
+            toast({ 
+                title: "Fake User Deleted", 
+                description: "The referred user and all derived credits have been cascade deleted.",
+                className: "bg-emerald-600 text-white" 
+            });
+        } catch (err) {
+            toast({ variant: "destructive", title: "Error", description: err.message });
+        } finally {
+            setProcessing(false);
+            setIsDeleteOpen(false);
+            setDeletingUser(null);
+        }
     };
 
     return (
@@ -135,7 +161,6 @@ const MlmManagement = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Actions Table */}
                 <Card className="h-full">
                     <CardHeader>
                         <CardTitle>Reward Actions</CardTitle>
@@ -173,7 +198,6 @@ const MlmManagement = () => {
                     </CardContent>
                 </Card>
 
-                {/* Recent Referrals List */}
                 <Card className="h-full">
                     <CardHeader>
                         <CardTitle>Recent Referrals</CardTitle>
@@ -184,8 +208,8 @@ const MlmManagement = () => {
                             <TableHeader>
                                 <TableRow>
                                     <TableHead>Referrer</TableHead>
-                                    <TableHead>New User</TableHead>
-                                    <TableHead>{t('dashboard.date')}</TableHead>
+                                    <TableHead>New User (Referee)</TableHead>
+                                    <TableHead className="text-right">Actions</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -198,18 +222,30 @@ const MlmManagement = () => {
                                         <TableRow key={ref.id}>
                                             <TableCell>
                                                 <div className="flex flex-col">
-                                                    <span className="font-medium">{ref.referrer?.name || 'Unknown'}</span>
-                                                    <span className="text-xs text-muted-foreground">{ref.referrer?.email}</span>
+                                                    <span className="font-medium text-sm">{ref.referrer?.name || 'Unknown'}</span>
+                                                    <span className="text-[10px] text-muted-foreground">{ref.referrer?.email}</span>
                                                 </div>
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex flex-col">
-                                                    <span className="font-medium">{ref.referee?.name || 'Pending'}</span>
-                                                    <span className="text-xs text-muted-foreground">{ref.referee?.email}</span>
+                                                    <span className="font-medium text-sm text-emerald-700">{ref.referee?.name || 'Pending'}</span>
+                                                    <span className="text-[10px] text-muted-foreground">{ref.referee?.email}</span>
                                                 </div>
                                             </TableCell>
-                                            <TableCell className="text-xs text-muted-foreground">
-                                                {new Date(ref.created_at).toLocaleDateString()}
+                                            <TableCell className="text-right">
+                                                 <DropdownMenu>
+                                                      <DropdownMenuTrigger asChild>
+                                                          <Button variant="ghost" size="icon"><MoreHorizontal className="w-4 h-4 text-slate-500"/></Button>
+                                                      </DropdownMenuTrigger>
+                                                      <DropdownMenuContent align="end">
+                                                          <DropdownMenuItem 
+                                                            className="text-red-600 focus:bg-red-50 focus:text-red-700 cursor-pointer" 
+                                                            onClick={() => { setDeletingUser(ref); setIsDeleteOpen(true); }}
+                                                          >
+                                                              <UserX className="w-4 h-4 mr-2"/> Delete Referee (Fake Account)
+                                                          </DropdownMenuItem>
+                                                      </DropdownMenuContent>
+                                                  </DropdownMenu>
                                             </TableCell>
                                         </TableRow>
                                     ))
@@ -220,7 +256,6 @@ const MlmManagement = () => {
                 </Card>
             </div>
 
-            {/* Create Action Dialog */}
             <Dialog open={showDialog} onOpenChange={setShowDialog}>
                 <DialogContent>
                     <DialogHeader>
@@ -247,6 +282,25 @@ const MlmManagement = () => {
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
+
+            <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle className="text-red-600 flex items-center gap-2"><UserX className="w-5 h-5"/> Delete Fake Referral?</DialogTitle>
+                        <DialogDescription className="pt-2">
+                            Are you sure you want to permanently delete the referred user <strong>{deletingUser?.referee?.email}</strong>? 
+                            This is useful to clean up spam/fake accounts. This performs a full cascade delete.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setIsDeleteOpen(false)} disabled={processing}>{t('common.cancel')}</Button>
+                        <Button variant="destructive" onClick={confirmDeleteReferral} disabled={processing}>
+                            {processing && <Loader2 className="w-4 h-4 mr-2 animate-spin"/>} Delete User
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
         </div>
     );
 };

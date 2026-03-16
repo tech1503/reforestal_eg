@@ -6,6 +6,7 @@
     "success": "Erfolg",
     "save": "Speichern",
     "cancel": "Abbrechen",
+    "restart": "Neu starten",
     "close": "Schließen",
     "submit": "Absenden",
     "back": "Zurück",
@@ -708,6 +709,18 @@
     "sign_in_button": "Anmelden",
     "sign_up_button": "Registrieren",
     "logging_in": "Anmelden...",
+    "error": "Fehler",
+    "nickname_short": "Mindestens 3 Zeichen",
+    "nickname_taken": "Dieser Spitzname wird bereits verwendet.",
+    "fix_nickname": "Bitte wähle einen gültigen Spitznamen.",
+    "nickname_label": "Dein Einzigartiger Spitzname (URL)",
+    "google_modal": {
+      "title": "Fast geschafft! 🚀",
+      "desc": "Bevor du zu Google gehst, wähle aus, wie dein einzigartiger Empfehlungslink aussehen soll.",
+      "placeholder": "z.B. peter123",
+      "your_link": "Dein Link wird sein:",
+      "continue_btn": "Weiter mit Google"
+    },
     "branding": {
       "title": "Jede Revolution braucht unterschiedliche Köpfe.",
       "description": "Werde Miteigentümer der Mission. Beteilige dich an demokratischen Entscheidungen und vernetze dich mit einer Gemeinschaft von visionären Gründerinnen und Gründern.",
@@ -745,6 +758,7 @@
     "buttons": {
       "cart": "Warenkorb",
       "add_to_cart": "In den Warenkorb",
+      "pay": "Bezahlen",
       "redeem": "Meine Bonuspunkte einlösen",
       "confirm": "Austausch bestätigen"
     },
@@ -1089,7 +1103,12 @@
     "already_completed_title": "Bereits abgeschlossen",
     "already_completed_desc": "Du hast die Belohnungen für diese Mission bereits erhalten.",
     "return_btn": "Zurück zu den Missionen",
-    "penalty_applied_credits": "Strafe angewendet: -{{amount}} BP."
+    "penalty_applied_credits": "Strafe angewendet: -{{amount}} BP.",
+    "referral_bonus":"Dein Referent",
+    "restart_title": "Mission neu starten",
+    "restart_warning": "Bist du sicher, dass du diese Mission neu starten möchtest? Alle Fortschritte und Belohnungen werden verloren gehen.",
+    "restart_btn": "Mission neu starten",
+    "restart_confirm": "Mission neu starten? Alle Fortschritte werden verloren gehen."
   },
   "gamification_admin": {
     "quest_engine": {

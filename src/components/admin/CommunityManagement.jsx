@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
-import { Loader2, Trash2, Plus, Edit, Globe, Vote, Newspaper, TrendingUp, Image as ImageIcon, X, BarChart3, Calendar } from 'lucide-react';
+import { Loader2, Trash2, Plus, Edit, Globe, Vote, Newspaper, TrendingUp, Image as ImageIcon, X, BarChart3, Calendar, Eye, Users } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -15,14 +15,85 @@ import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { format } from 'date-fns';
 
-// --- CONFIGURACIÓN ESTÁTICA ---
 const TABLE_CONFIG = {
     proposals: { table: 'proposal_translations', fk: 'proposal_id' },
     news: { table: 'news_translations', fk: 'news_id' },
     roadmap: { table: 'roadmap_translations', fk: 'roadmap_id' }
 };
 
-// --- COMPONENTE: VOTING ANALYTICS DASHBOARD ---
+// --- NUEVO COMPONENTE: VISOR DE HISTORIAL DE VOTOS ---
+const ProposalVotesModal = ({ isOpen, onClose, proposal }) => {
+    const [votes, setVotes] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const fetchDetailedVotes = async () => {
+            if (!proposal?.id || !isOpen) return;
+            setLoading(true);
+            const { data, error } = await supabase
+                .from('votes')
+                .select(`
+                    id, vote, created_at,
+                    profiles:user_id (name, email)
+                `)
+                .eq('proposal_id', proposal.id)
+                .order('created_at', { ascending: false });
+            
+            if (!error && data) setVotes(data);
+            setLoading(false);
+        };
+        fetchDetailedVotes();
+    }, [proposal, isOpen]);
+
+    return (
+        <Dialog open={isOpen} onOpenChange={onClose}>
+            <DialogContent className="max-w-2xl max-h-[80vh] flex flex-col">
+                <DialogHeader>
+                    <DialogTitle className="flex items-center gap-2">
+                        <Users className="w-5 h-5 text-blue-500"/>
+                        Voting History: {proposal?.title}
+                    </DialogTitle>
+                </DialogHeader>
+                <div className="flex-1 overflow-auto border rounded-md mt-4">
+                    <Table>
+                        <TableHeader>
+                            <TableRow className="bg-slate-50 sticky top-0">
+                                <TableHead>Pioneer</TableHead>
+                                <TableHead>Option Voted</TableHead>
+                                <TableHead className="text-right">Date</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {loading ? (
+                                <TableRow><TableCell colSpan={3} className="text-center py-8"><Loader2 className="animate-spin mx-auto text-blue-500"/></TableCell></TableRow>
+                            ) : votes.length === 0 ? (
+                                <TableRow><TableCell colSpan={3} className="text-center py-8 text-muted-foreground">No votes recorded yet.</TableCell></TableRow>
+                            ) : (
+                                votes.map(v => (
+                                    <TableRow key={v.id}>
+                                        <TableCell>
+                                            <div className="font-medium">{v.profiles?.name || 'Unknown'}</div>
+                                            <div className="text-xs text-muted-foreground">{v.profiles?.email}</div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Badge variant="outline" className="bg-emerald-50 text-emerald-800 border-emerald-200">
+                                                {v.vote}
+                                            </Badge>
+                                        </TableCell>
+                                        <TableCell className="text-right text-xs text-muted-foreground">
+                                            {format(new Date(v.created_at), 'PP p')}
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            )}
+                        </TableBody>
+                    </Table>
+                </div>
+            </DialogContent>
+        </Dialog>
+    );
+};
+
 const VotingAnalytics = ({ proposals }) => {
     const [stats, setStats] = useState({});
     const [loading, setLoading] = useState(true);
@@ -33,7 +104,6 @@ const VotingAnalytics = ({ proposals }) => {
             const { data: votes } = await supabase.from('votes').select('proposal_id, vote');
 
             const newStats = {};
-
             proposals.forEach(prop => {
                 const propVotes = votes?.filter(v => v.proposal_id === prop.id) || [];
                 const total = propVotes.length;
@@ -42,9 +112,7 @@ const VotingAnalytics = ({ proposals }) => {
                 const options = Array.isArray(prop.options) ? prop.options : ['Option A', 'Option B'];
                 options.forEach(opt => counts[opt] = 0);
 
-                propVotes.forEach(v => {
-                    counts[v.vote] = (counts[v.vote] || 0) + 1;
-                });
+                propVotes.forEach(v => { counts[v.vote] = (counts[v.vote] || 0) + 1; });
 
                 newStats[prop.id] = {
                     total,
@@ -55,10 +123,9 @@ const VotingAnalytics = ({ proposals }) => {
                     }))
                 };
             });
-
             setStats(newStats);
         } catch (e) {
-            console.error("Error stats", e);
+            console.error(e);
         } finally {
             setLoading(false);
         }
@@ -87,9 +154,6 @@ const VotingAnalytics = ({ proposals }) => {
                                     <Vote className="w-3 h-3"/> {stat.total}
                                 </Badge>
                             </div>
-                            <CardDescription className="text-xs">
-                                Ends: {prop.end_date ? format(new Date(prop.end_date), 'PPP') : 'N/A'}
-                            </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-3 pt-2">
                             {loading ? <Loader2 className="w-4 h-4 animate-spin text-slate-400"/> : 
@@ -111,7 +175,6 @@ const VotingAnalytics = ({ proposals }) => {
     );
 };
 
-// --- MODAL DE TRADUCCIÓN ---
 const TranslationModal = ({ isOpen, onClose, itemId, tableType }) => {
     const { toast } = useToast();
     const [loading, setLoading] = useState(false);
@@ -125,23 +188,13 @@ const TranslationModal = ({ isOpen, onClose, itemId, tableType }) => {
     const fetchTrans = useCallback(async () => {
         if(!itemId) return;
         setLoading(true);
-        
         const conf = TABLE_CONFIG[tableType];
         const { data: res } = await supabase.from(conf.table).select('*').eq(conf.fk, itemId);
-        
-        const newData = { 
-            es: { title: '', description: '', date_display: '' },
-            de: { title: '', description: '', date_display: '' },
-            fr: { title: '', description: '', date_display: '' }
-        };
+        const newData = { es: { title: '', description: '', date_display: '' }, de: { title: '', description: '', date_display: '' }, fr: { title: '', description: '', date_display: '' } };
         
         res?.forEach(r => {
             if(newData[r.language_code]) {
-                newData[r.language_code] = { 
-                    title: r.title || '', 
-                    description: r.description || '',
-                    date_display: r.date_display || '' 
-                };
+                newData[r.language_code] = { title: r.title || '', description: r.description || '', date_display: r.date_display || '' };
             }
         });
         setData(newData);
@@ -154,20 +207,13 @@ const TranslationModal = ({ isOpen, onClose, itemId, tableType }) => {
         setLoading(true);
         const conf = TABLE_CONFIG[tableType];
         const upserts = Object.keys(data).map(lang => ({
-            [conf.fk]: itemId,
-            language_code: lang,
-            title: data[lang].title,
-            description: data[lang].description,
+            [conf.fk]: itemId, language_code: lang, title: data[lang].title, description: data[lang].description,
             ...(tableType === 'roadmap' ? { date_display: data[lang].date_display } : {})
         }));
 
         const { error } = await supabase.from(conf.table).upsert(upserts, { onConflict: `${conf.fk}, language_code` });
-        
         if (error) toast({ variant: "destructive", title: "Error", description: error.message });
-        else {
-            toast({ title: "Success", description: "Translations saved." });
-            onClose();
-        }
+        else { toast({ title: "Success", description: "Translations saved." }); onClose(); }
         setLoading(false);
     };
 
@@ -184,20 +230,9 @@ const TranslationModal = ({ isOpen, onClose, itemId, tableType }) => {
                         <TabsTrigger value="fr">Français</TabsTrigger>
                     </TabsList>
                     <div className="py-4 space-y-4">
-                        <div className="space-y-2">
-                            <Label>Title ({activeLang})</Label>
-                            <Input value={data[activeLang].title} onChange={e => update('title', e.target.value)} />
-                        </div>
-                        <div className="space-y-2">
-                            <Label>Description ({activeLang})</Label>
-                            <Textarea value={data[activeLang].description} onChange={e => update('description', e.target.value)} />
-                        </div>
-                        {tableType === 'roadmap' && (
-                            <div className="space-y-2">
-                                <Label>Date Display ({activeLang}) - e.g. "Q1 2026"</Label>
-                                <Input value={data[activeLang].date_display} onChange={e => update('date_display', e.target.value)} />
-                            </div>
-                        )}
+                        <div className="space-y-2"><Label>Title ({activeLang})</Label><Input value={data[activeLang].title} onChange={e => update('title', e.target.value)} /></div>
+                        <div className="space-y-2"><Label>Description ({activeLang})</Label><Textarea value={data[activeLang].description} onChange={e => update('description', e.target.value)} /></div>
+                        {tableType === 'roadmap' && <div className="space-y-2"><Label>Date Display ({activeLang})</Label><Input value={data[activeLang].date_display} onChange={e => update('date_display', e.target.value)} /></div>}
                     </div>
                 </Tabs>
                 <DialogFooter>
@@ -210,7 +245,6 @@ const TranslationModal = ({ isOpen, onClose, itemId, tableType }) => {
     );
 };
 
-// --- COMPONENTE PRINCIPAL ---
 const CommunityManagement = () => {
     const { toast } = useToast();
     const [activeTab, setActiveTab] = useState('proposals');
@@ -220,6 +254,7 @@ const CommunityManagement = () => {
     // States for Modals
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [transModalOpen, setTransModalOpen] = useState(false);
+    const [historyModalOpen, setHistoryModalOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     
     // Form State Extendido
@@ -260,17 +295,12 @@ const CommunityManagement = () => {
             let imgUrl = formData.image_url;
             if (imageFile) imgUrl = await uploadImage();
 
-            // Preparar payload base
             const payload = { ...formData, image_url: imgUrl };
             
-            // Lógica específica para Propuestas
             if (activeTab === 'proposals') {
                 const validOptions = formOptions.filter(o => o.trim() !== "");
                 if (validOptions.length < 2) throw new Error("Please add at least 2 voting options.");
                 payload.options = validOptions; 
-                
-                // --- CORRECCIÓN CRÍTICA DE FECHAS (Error 22007) ---
-                // Si la fecha no es válida o está vacía, enviamos NULL para evitar error de sintaxis en Postgres
                 payload.start_date = payload.start_date ? new Date(payload.start_date).toISOString() : null;
                 payload.end_date = payload.end_date ? new Date(payload.end_date).toISOString() : null;
             }
@@ -280,11 +310,8 @@ const CommunityManagement = () => {
             let query;
             const table = activeTab === 'proposals' ? 'proposals' : activeTab === 'news' ? 'news_items' : 'roadmap_items';
 
-            if (selectedItem?.id) {
-                query = supabase.from(table).update(payload).eq('id', selectedItem.id);
-            } else {
-                query = supabase.from(table).insert(payload);
-            }
+            if (selectedItem?.id) query = supabase.from(table).update(payload).eq('id', selectedItem.id);
+            else query = supabase.from(table).insert(payload);
 
             const { error } = await query;
             if (error) throw error;
@@ -293,7 +320,6 @@ const CommunityManagement = () => {
             setEditModalOpen(false);
             fetchItems();
         } catch (e) {
-            console.error("Save error:", e);
             toast({ variant: "destructive", title: "Error", description: e.message });
         } finally {
             setUploading(false);
@@ -301,7 +327,7 @@ const CommunityManagement = () => {
     };
 
     const handleDelete = async (id) => {
-        if (!confirm("Delete this item?")) return;
+        if (!window.confirm("Delete this item?")) return;
         const table = activeTab === 'proposals' ? 'proposals' : activeTab === 'news' ? 'news_items' : 'roadmap_items';
         await supabase.from(table).delete().eq('id', id);
         fetchItems();
@@ -311,56 +337,30 @@ const CommunityManagement = () => {
         setSelectedItem(item);
         if (item) {
             setFormData({ ...item });
-            if (activeTab === 'proposals') {
-                setFormOptions(Array.isArray(item.options) ? item.options : ['Option A', 'Option B']);
-            }
+            if (activeTab === 'proposals') setFormOptions(Array.isArray(item.options) ? item.options : ['Option A', 'Option B']);
         } else {
-            // Inicialización con valores por defecto para evitar fechas vacías
             if (activeTab === 'proposals') {
                 const now = new Date();
-                const nextWeek = new Date(now);
-                nextWeek.setDate(now.getDate() + 7);
-
-                setFormData({ 
-                    title: '', 
-                    description: '', 
-                    status: 'active', 
-                    // Inicializamos fechas válidas en ISO string
-                    start_date: now.toISOString(),
-                    end_date: nextWeek.toISOString()
-                });
+                const nextWeek = new Date(now); nextWeek.setDate(now.getDate() + 7);
+                setFormData({ title: '', description: '', status: 'active', start_date: now.toISOString(), end_date: nextWeek.toISOString() });
                 setFormOptions(['', '']); 
             }
-            else if (activeTab === 'news') {
-                setFormData({ title: '', description: '', category: 'Milestone', image_url: '' });
-            }
-            else {
-                setFormData({ title: '', description: '', date_display: '', status: 'pending', completion_percentage: 0 });
-            }
+            else if (activeTab === 'news') setFormData({ title: '', description: '', category: 'Milestone', image_url: '' });
+            else setFormData({ title: '', description: '', date_display: '', status: 'pending', completion_percentage: 0 });
         }
         setImageFile(null);
         setEditModalOpen(true);
     };
 
-    // Funciones para manejar opciones dinámicas
-    const handleOptionChange = (idx, value) => {
-        const newOpts = [...formOptions];
-        newOpts[idx] = value;
-        setFormOptions(newOpts);
-    };
-
+    const handleOptionChange = (idx, value) => { const newOpts = [...formOptions]; newOpts[idx] = value; setFormOptions(newOpts); };
     const addOption = () => setFormOptions([...formOptions, '']);
-    
-    const removeOption = (idx) => {
-        if (formOptions.length <= 2) return;
-        setFormOptions(formOptions.filter((_, i) => i !== idx));
-    };
+    const removeOption = (idx) => { if (formOptions.length <= 2) return; setFormOptions(formOptions.filter((_, i) => i !== idx)); };
 
     return (
         <div className="space-y-6">
             <div>
-                <h2 className="text-2xl font-bold tracking-tight">Community Management</h2>
-                <p className="text-muted-foreground">Manage Governance (Voting), News, and Roadmap content dynamically.</p>
+                <h2 className="text-2xl font-bold tracking-tight">Founders Area Content</h2>
+                <p className="text-muted-foreground">Manage Governance (Voting), News, and Roadmap for Founding Pioneers.</p>
             </div>
 
             <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
@@ -404,7 +404,6 @@ const CommunityManagement = () => {
                                             {activeTab === 'proposals' && (
                                                 <div className="flex flex-col gap-1">
                                                     <Badge className={item.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}>{item.status}</Badge>
-                                                    <span className="text-xs text-slate-400">Ends: {item.end_date ? format(new Date(item.end_date), 'PP') : '-'}</span>
                                                 </div>
                                             )}
                                             {activeTab === 'news' && <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">{item.category}</span>}
@@ -417,6 +416,12 @@ const CommunityManagement = () => {
                                         )}
                                         <TableCell className="text-right">
                                             <div className="flex justify-end gap-2">
+                                                {/* BOTÓN PARA VER HISTORIAL DE VOTOS */}
+                                                {activeTab === 'proposals' && (
+                                                    <Button variant="ghost" size="icon" onClick={() => {setSelectedItem(item); setHistoryModalOpen(true);}} title="View Voters">
+                                                        <Eye className="w-4 h-4 text-emerald-600"/>
+                                                    </Button>
+                                                )}
                                                 <Button variant="ghost" size="icon" onClick={() => {setSelectedItem(item); setTransModalOpen(true);}} title="Translate"><Globe className="w-4 h-4 text-blue-500"/></Button>
                                                 <Button variant="ghost" size="icon" onClick={() => openEdit(item)}><Edit className="w-4 h-4 text-slate-500"/></Button>
                                                 <Button variant="ghost" size="icon" onClick={() => handleDelete(item.id)}><Trash2 className="w-4 h-4 text-red-500"/></Button>
@@ -430,12 +435,9 @@ const CommunityManagement = () => {
                 </Card>
             </Tabs>
 
-            {/* EDIT DIALOG */}
             <Dialog open={editModalOpen} onOpenChange={setEditModalOpen}>
                 <DialogContent className="max-w-lg max-h-[90vh] overflow-auto">
-                    <DialogHeader>
-                        <DialogTitle>{selectedItem ? 'Edit Item' : 'Create Item'}</DialogTitle>
-                    </DialogHeader>
+                    <DialogHeader><DialogTitle>{selectedItem ? 'Edit Item' : 'Create Item'}</DialogTitle></DialogHeader>
                     <div className="space-y-4 py-4">
                         <div className="space-y-2">
                             <Label>Title (English/Default)</Label>
@@ -446,7 +448,6 @@ const CommunityManagement = () => {
                             <Textarea value={formData.description || ''} onChange={e => setFormData({...formData, description: e.target.value})} />
                         </div>
                         
-                        {/* 1. PROPOSALS FORM */}
                         {activeTab === 'proposals' && (
                             <>
                                 <div className="grid grid-cols-2 gap-4">
@@ -454,98 +455,37 @@ const CommunityManagement = () => {
                                         <Label>Status</Label>
                                         <Select value={formData.status || 'draft'} onValueChange={v => setFormData({...formData, status: v})}>
                                             <SelectTrigger><SelectValue/></SelectTrigger>
-                                            <SelectContent>
-                                                <SelectItem value="draft">Draft</SelectItem>
-                                                <SelectItem value="active">Active</SelectItem>
-                                                <SelectItem value="closed">Closed</SelectItem>
-                                            </SelectContent>
+                                            <SelectContent><SelectItem value="draft">Draft</SelectItem><SelectItem value="active">Active</SelectItem><SelectItem value="closed">Closed</SelectItem></SelectContent>
                                         </Select>
                                     </div>
                                     <div className="space-y-2">
                                         <Label>End Date</Label>
-                                        <Input 
-                                            type="datetime-local" 
-                                            // Corrección visual: convertir ISO UTC a formato local para el input
-                                            value={formData.end_date ? new Date(formData.end_date).toISOString().slice(0, 16) : ''} 
-                                            onChange={e => {
-                                                // Corrección lógica: guardar como ISO completo para la DB
-                                                const val = e.target.value ? new Date(e.target.value).toISOString() : '';
-                                                setFormData({...formData, end_date: val});
-                                            }} 
-                                        />
+                                        <Input type="datetime-local" value={formData.end_date ? new Date(formData.end_date).toISOString().slice(0, 16) : ''} onChange={e => setFormData({...formData, end_date: e.target.value ? new Date(e.target.value).toISOString() : ''})} />
                                     </div>
                                 </div>
-
                                 <div className="space-y-2 border-t pt-4">
-                                    <Label className="flex justify-between items-center">
-                                        <span>Voting Options</span>
-                                        <Button type="button" size="sm" variant="outline" onClick={addOption}><Plus className="w-3 h-3 mr-1"/>Add</Button>
-                                    </Label>
+                                    <Label className="flex justify-between items-center"><span>Voting Options</span><Button type="button" size="sm" variant="outline" onClick={addOption}><Plus className="w-3 h-3 mr-1"/>Add</Button></Label>
                                     <div className="space-y-2 max-h-[150px] overflow-y-auto pr-2">
                                         {formOptions.map((opt, idx) => (
                                             <div key={idx} className="flex gap-2">
                                                 <Input value={opt} onChange={(e) => handleOptionChange(idx, e.target.value)} placeholder={`Option ${idx + 1}`} />
-                                                <Button type="button" size="icon" variant="ghost" onClick={() => removeOption(idx)} disabled={formOptions.length <= 2}>
-                                                    <X className="w-4 h-4 text-red-400"/>
-                                                </Button>
+                                                <Button type="button" size="icon" variant="ghost" onClick={() => removeOption(idx)} disabled={formOptions.length <= 2}><X className="w-4 h-4 text-red-400"/></Button>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
-                                <div className="space-y-2 pt-2">
-                                    <Label>Proposal Image (Optional)</Label>
-                                    <Input type="file" onChange={handleFileChange} accept="image/*" />
-                                </div>
+                                <div className="space-y-2 pt-2"><Label>Proposal Image (Optional)</Label><Input type="file" onChange={handleFileChange} accept="image/*" /></div>
                             </>
                         )}
-
-                        {/* 2. NEWS FORM */}
                         {activeTab === 'news' && (
-                            <>
-                                <div className="space-y-2">
-                                    <Label>Category</Label>
-                                    <Select value={formData.category || 'Milestone'} onValueChange={v => setFormData({...formData, category: v})}>
-                                        <SelectTrigger><SelectValue/></SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="Milestone">Milestone</SelectItem>
-                                            <SelectItem value="Tech">Tech</SelectItem>
-                                            <SelectItem value="Business">Business</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>News Image</Label>
-                                    <Input type="file" onChange={handleFileChange} accept="image/*" />
-                                </div>
-                            </>
+                            <><div className="space-y-2"><Label>Category</Label><Select value={formData.category || 'Milestone'} onValueChange={v => setFormData({...formData, category: v})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="Milestone">Milestone</SelectItem><SelectItem value="Tech">Tech</SelectItem><SelectItem value="Business">Business</SelectItem></SelectContent></Select></div><div className="space-y-2"><Label>News Image</Label><Input type="file" onChange={handleFileChange} accept="image/*" /></div></>
                         )}
-
-                        {/* 3. ROADMAP FORM */}
                         {activeTab === 'roadmap' && (
                             <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-2">
-                                    <Label>Date Display (e.g. Q1 2026)</Label>
-                                    <Input value={formData.date_display || ''} onChange={e => setFormData({...formData, date_display: e.target.value})} />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>Status</Label>
-                                    <Select value={formData.status || 'pending'} onValueChange={v => setFormData({...formData, status: v})}>
-                                        <SelectTrigger><SelectValue/></SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="completed">Completed</SelectItem>
-                                            <SelectItem value="current">Current</SelectItem>
-                                            <SelectItem value="pending">Pending</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>Progress (%)</Label>
-                                    <Input type="number" min="0" max="100" value={formData.completion_percentage || 0} onChange={e => setFormData({...formData, completion_percentage: e.target.value})} />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>Order</Label>
-                                    <Input type="number" value={formData.display_order || 0} onChange={e => setFormData({...formData, display_order: e.target.value})} />
-                                </div>
+                                <div className="space-y-2"><Label>Date Display (e.g. Q1 2026)</Label><Input value={formData.date_display || ''} onChange={e => setFormData({...formData, date_display: e.target.value})} /></div>
+                                <div className="space-y-2"><Label>Status</Label><Select value={formData.status || 'pending'} onValueChange={v => setFormData({...formData, status: v})}><SelectTrigger><SelectValue/></SelectTrigger><SelectContent><SelectItem value="completed">Completed</SelectItem><SelectItem value="current">Current</SelectItem><SelectItem value="pending">Pending</SelectItem></SelectContent></Select></div>
+                                <div className="space-y-2"><Label>Progress (%)</Label><Input type="number" min="0" max="100" value={formData.completion_percentage || 0} onChange={e => setFormData({...formData, completion_percentage: e.target.value})} /></div>
+                                <div className="space-y-2"><Label>Order</Label><Input type="number" value={formData.display_order || 0} onChange={e => setFormData({...formData, display_order: e.target.value})} /></div>
                             </div>
                         )}
                     </div>
@@ -558,12 +498,8 @@ const CommunityManagement = () => {
                 </DialogContent>
             </Dialog>
 
-            <TranslationModal 
-                isOpen={transModalOpen} 
-                onClose={() => setTransModalOpen(false)} 
-                itemId={selectedItem?.id} 
-                tableType={activeTab} 
-            />
+            <TranslationModal isOpen={transModalOpen} onClose={() => setTransModalOpen(false)} itemId={selectedItem?.id} tableType={activeTab} />
+            <ProposalVotesModal isOpen={historyModalOpen} onClose={() => setHistoryModalOpen(false)} proposal={selectedItem} />
         </div>
     );
 };
