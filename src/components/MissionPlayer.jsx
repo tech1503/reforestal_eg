@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
-// Importamos los componentes del Modal
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Loader2, ArrowLeft, ArrowRight, CheckCircle2, Trophy, Lightbulb, Zap, Check, SkipForward, Star, Shield, ExternalLink, Sparkles, Leaf, Instagram, Youtube, Info, PlayCircle, Users, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -134,12 +133,10 @@ const MissionPlayer = () => {
   const [result, setResult] = useState(null); 
   const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight });
 
-  // ESTADOS DE PENALIZACIÓN
   const [accumulatedPenalty, setAccumulatedPenalty] = useState(0);
   const [penalizedSteps, setPenalizedSteps] = useState(new Set()); 
   const [earnedCredits, setEarnedCredits] = useState(0);
 
-  // NUEVO ESTADO PARA EL MODAL DE REINICIO
   const [isRestartModalOpen, setIsRestartModalOpen] = useState(false);
 
   useEffect(() => {
@@ -148,7 +145,6 @@ const MissionPlayer = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // AUTO-SAVE PROGRESS (Hidratación desde Memoria)
   useEffect(() => {
     if (id && currentStepIndex !== -1 && !result) {
         sessionStorage.setItem(`mission_progress_${id}`, JSON.stringify({
@@ -160,7 +156,6 @@ const MissionPlayer = () => {
     }
   }, [currentStepIndex, stepAnswers, accumulatedPenalty, penalizedSteps, id, result]);
 
-  // LIMPIEZA AL ABANDONAR LA PÁGINA
   useEffect(() => {
       return () => {
           sessionStorage.removeItem(`mission_progress_${id}`);
@@ -173,12 +168,10 @@ const MissionPlayer = () => {
       navigate(basePath);
   }, [location.pathname, navigate, id]);
 
-  // FUNCIÓN QUE ABRE EL MODAL DE REINICIO
   const handleRestartClick = () => {
       setIsRestartModalOpen(true);
   };
 
-  // FUNCIÓN QUE EJECUTA EL REINICIO
   const confirmRestart = () => {
       sessionStorage.removeItem(`mission_progress_${id}`);
       setCurrentStepIndex(-1);
@@ -283,7 +276,6 @@ const MissionPlayer = () => {
 
       setMission(processedMission);
 
-      // HIDRATACIÓN DE DATOS
       const savedStateStr = sessionStorage.getItem(`mission_progress_${id}`);
       let savedState = null;
       if (savedStateStr) {
