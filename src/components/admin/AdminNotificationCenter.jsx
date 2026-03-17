@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Loader2, Bell, Check, Trash2, User, Trophy, AlertCircle, MessageSquare, Send } from 'lucide-react';
+import { Loader2, Bell, Check, Trash2, User, Trophy, AlertCircle, MessageSquare, Send, Mail } from 'lucide-react';
 import { format } from 'date-fns';
 import { useToast } from '@/components/ui/use-toast';
 import { useTranslation } from 'react-i18next';
@@ -84,7 +84,6 @@ const AdminNotificationCenter = () => {
         setSendingReply(true);
 
         try {
-            // AHORA USAMOS EL SISTEMA MULTILINGÜE PARA EL MENSAJE MANUAL DEL ADMIN
             await createNotification(
                 selectedNotification.user_id,
                 'notifications.admin_direct_reply.title', 
@@ -168,7 +167,6 @@ const AdminNotificationCenter = () => {
                             const styles = getTypeStyles(n.notification_type);
                             const badgeLabel = t(styles.labelKey, n.notification_type?.replace(/_/g, ' ') || 'System');
 
-                            // PARSEO DE METADATA IGUAL QUE EN EL DASHBOARD DE USUARIO
                             let meta = {};
                             if (typeof n.metadata === 'string') {
                                 try { meta = JSON.parse(n.metadata); } catch(e) { }
@@ -184,8 +182,8 @@ const AdminNotificationCenter = () => {
 
                                     <div className="flex-1 space-y-1">
                                         <div className="flex justify-between items-start">
-                                            {/* APLICAMOS TRADUCCIÓN A TÍTULO */}
                                             <h4 className={`text-sm ${n.is_read ? 'font-medium text-slate-700' : 'font-bold text-slate-900'}`}>
+                                                {/* Permite interpretar retornos de carro si el título trae tags */}
                                                 {t(n.title, meta)}
                                             </h4>
                                             <span className="text-xs text-slate-400 whitespace-nowrap ml-4 font-mono">
@@ -193,8 +191,7 @@ const AdminNotificationCenter = () => {
                                             </span>
                                         </div>
 
-                                        {/* APLICAMOS TRADUCCIÓN A MENSAJE */}
-                                        <p className="text-sm text-slate-600 leading-relaxed max-w-3xl">
+                                        <p className="text-sm text-slate-600 leading-relaxed max-w-3xl whitespace-pre-line">
                                             {t(n.message, meta)}
                                         </p>
 
@@ -213,16 +210,23 @@ const AdminNotificationCenter = () => {
                                                             <span className="text-slate-400 font-normal"> ({n.profile.name || 'No Name'})</span>
                                                         </span>
                                                     ) : (
-                                                        <span className="text-slate-400 italic">User: {n.user_id?.slice(0,6)}...</span>
+                                                        <span className="text-slate-400 italic">Contacto Externo / Visitante</span>
                                                     )}
                                                 </div>
                                             </div>
 
                                             <div className="flex gap-2 opacity-80 hover:opacity-100 transition-opacity">
-                                                <Button size="sm" variant="outline" className="h-7 px-2 text-xs gap-1" onClick={() => openReplyModal(n)}>
-                                                    <MessageSquare className="w-3 h-3" /> 
-                                                    {t('admin.notifications.actions.reply', 'Reply')}
-                                                </Button>
+                                                {/* CONDICIONAL: SI HAY USUARIO, BOTÓN DE RESPUESTA, SI NO, BOTÓN VISUAL INACTIVO */}
+                                                {n.user_id ? (
+                                                    <Button size="sm" variant="outline" className="h-7 px-2 text-xs gap-1" onClick={() => openReplyModal(n)}>
+                                                        <MessageSquare className="w-3 h-3" /> 
+                                                        {t('admin.notifications.actions.reply', 'Reply')}
+                                                    </Button>
+                                                ) : (
+                                                    <Badge variant="secondary" className="h-7 px-2 text-xs font-normal gap-1 bg-slate-100 text-slate-500 cursor-help" title="Usuario externo. Responde al contacto provisto en el mensaje.">
+                                                        <Mail className="w-3 h-3" /> Responder por Email
+                                                    </Badge>
+                                                )}
 
                                                 {!n.is_read && (
                                                     <Button size="sm" variant="ghost" className="h-7 px-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50" onClick={() => markAsRead(n.id)} title={t('admin.notifications.actions.mark_read')}>

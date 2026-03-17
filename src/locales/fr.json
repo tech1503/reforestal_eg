@@ -1014,7 +1014,8 @@
   "email_label": "Écrivez-nous",
   "phone_label": "Appelez-nous",
   "faq_title": "Besoin de réponses rapides?",
-  "visit_faq": "Visitez notre centre d'aide",
+  "faq_description": "Consultez notre Centre d'Aide pour obtenir des réponses immédiates aux questions les plus fréquentes sur les Land Dollars et les Points de Bonus.",
+  "visit_faq": "Contactez notre centre d'aide",
   "form_name": "Votre nom",
   "form_email": "Adresse e-mail",
   "form_subject": "Objet",
@@ -1256,5 +1257,32 @@
         },
         "delete_warning": "Êtes-vous sûr ? Cette action ne peut pas être annulée et peut affecter l’affichage des enregistrements historiques."
       } 
+  },
+  "faq_pioneers": {
+    "badge_knowledge": "Base de Connaissances",
+    "faq_title": "Foire Aux Questions",
+    "faq_subtitle": "Comprenez comment nous transformons la conservation en un modèle économique véritablement durable.",
+    "faq_q1": "Pourquoi le bénévolat et les dons ne suffisent-ils pas à sauver l'Amazonie ?",
+    "faq_a1": "La déforestation n'est pas seulement un problème de manque de conscience environnementale ; c'est une question de survie économique. Les gardiens de la forêt font face à un dilemme extrême : vivre avec 20 dollars par mois ou accepter des offres extractivistes de 10 000 dollars. Chez Reforestal, nous comprenons qu'on ne peut protéger la jungle sans protéger l'économie de ceux qui y vivent.",
+    "faq_q2": "Qu'est-ce que le Chakra amazonien et comment génère-t-il de la rentabilité ?",
+    "faq_a2": "Le Chakra est un écosystème productif résilient où des espèces comme le cacao et la vanille poussent aux côtés de plantes qui régénèrent la forêt. La rentabilité découle de la productivité biologique : une grande biodiversité se traduit par une stabilité économique.",
+    "faq_q3": "Comment garantissez-vous la transparence et minimisez-vous les risques ?",
+    "faq_a3": "Nous opérons sous le statut de coopérative allemande (eG), ce qui exige des audits externes et garantit que chaque membre a voix au chapitre. Nous atténuons les risques climatiques, biologiques, financiers et sociaux.",
+    "faq_q4": "Comment l'impact réel de Reforestal est-il mesuré ?",
+    "faq_a4": "Notre mesure de succès n'est pas de compter les arbres individuels qui pourraient être coupés plus tard. Au lieu de cela, nous mesurons l'étendue totale de l'écosystème en régénération, validé en externe.",
+    "faq_q5": "Qu'est-ce que le Land-Dollar ?",
+    "faq_a5": "C'est le symbole numérique de notre économie régénérative et votre clé d'accès à notre plateforme de cocréation. C'est le pont numérique qui vous permet de participer aux décisions.",
+    
+    "pioneers_badge": "Édition Limitée",
+    "pioneers_title": "Les 10 Pionniers Fondateurs",
+    "pioneers_text1": "Avec les fonds de Startnext, nous jetterons les bases juridiques de la coopérative. Chez Reforestal, nous préférons offrir des parts plutôt que de payer pour de la publicité.",
+    "pioneers_sub1": "Plus que donner, co-fonder",
+    "pioneers_sub1_text": "Faites partie de la structure juridique dès le premier jour et construisez avec nous.",
+    "pioneers_role_title": "Votre Rôle et vos Récompenses",
+    "pioneers_role_text": "Nous recherchons les 10 utilisateurs les plus engagés pour leur accorder un statut spécial, une plus grande participation et un droit de vote dans les décisions stratégiques.",
+    "pioneers_list_1": "Droit de Vote Actif",
+    "pioneers_list_2": "Participation Directe",
+    "pioneers_list_3": "Accès Exclusif aux Décisions",
+    "pioneers_cta": "Découvrez les Forfaits"
   }
-  }
+}

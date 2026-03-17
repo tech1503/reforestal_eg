@@ -10,6 +10,7 @@ import heroImg from '@/assets/hero-reforestal.webp';
 import heroImg1 from '@/assets/hero-home-reforestal.webp';
 import logoLandDollar from '@/assets/land-dollar-base.webp';
 import vegReforest from '@/assets/vegetacion-reforestal.webp';
+import InfoSections from '@/pages/InfoSections';
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -288,9 +289,12 @@ const HomePage = () => {
             </div>
         </section>
 
-        <section className="bg-darkBgDeep text-white relative overflow-hidden py-24 md:py-32">
+        {/* NUEVA SECCIÓN FAQ Y 10 PIONEROS */}
+        <InfoSections />
+
+        <section className="bg-white text-[#063127] relative overflow-hidden py-24 md:py-32">
           <div className="container mx-auto px-6 text-center relative z-10">
-            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-4xl md:text-5xl font-bold mb-16 tracking-tight drop-shadow-lg">
+            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-4xl md:text-5xl font-bold mb-16 tracking-tight drop-shadow-sm">
                 {t('home.cta_final_title')}
             </motion.h2>
 
@@ -302,14 +306,14 @@ const HomePage = () => {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: idx * 0.1 }}
-                        className="flex items-start gap-4 md:gap-6 p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-colors group"
+                        className="flex items-start gap-4 md:gap-6 p-6 rounded-2xl bg-slate-50 backdrop-blur-sm border border-slate-200 hover:bg-emerald-50/50 transition-colors group"
                     >
-                        <div className="bg-emerald-500/20 p-3 rounded-full shrink-0 mt-1 group-hover:bg-emerald-500/30 transition-colors">
-                            <Check className="w-5 h-5 md:w-6 md:h-6 text-emerald-400 group-hover:text-emerald-300" />
+                        <div className="bg-emerald-100 p-3 rounded-full shrink-0 mt-1 group-hover:bg-emerald-200 transition-colors">
+                            <Check className="w-5 h-5 md:w-6 md:h-6 text-[#063127] group-hover:text-[#4c6e5e]" />
                         </div>
                         <div>
-                            <h4 className="text-xl md:text-2xl font-bold text-white mb-2">{point.title}</h4>
-                            <p className="text-slate-300 font-light text-base md:text-lg leading-relaxed">{point.text}</p>
+                            <h4 className="text-xl md:text-2xl font-bold text-[#063127] mb-2">{point.title}</h4>
+                            <p className="text-slate-600 font-light text-base md:text-lg leading-relaxed">{point.text}</p>
                         </div>
                     </motion.div>
                 ))}
@@ -317,7 +321,7 @@ const HomePage = () => {
 
             <Button 
                 onClick={() => navigate('/genesis-quest')} 
-                className="h-auto w-full sm:w-auto text-lg md:text-xl px-10 py-6 rounded-full bg-gradient-to-r from-[#053127] to-[#5b8370] text-[#c2d2c1] hover:opacity-90 border-none shadow-glow-lg hover:scale-105 transition-transform whitespace-normal"
+                className="h-auto w-full sm:w-auto text-lg md:text-xl px-10 py-6 rounded-full bg-gradient-to-r from-[#063127] to-[#5b8370] text-[#c2d2c1] hover:opacity-90 border-none shadow-lg hover:scale-105 transition-transform whitespace-normal"
             >
                 {t('home.cta_final_button')}
             </Button>

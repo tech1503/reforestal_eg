@@ -1018,7 +1018,8 @@
     "email_label": "Email Us",
     "phone_label": "Call Us",
     "faq_title": "Need quick answers?",
-    "visit_faq": "Visit Help Center",
+    "faq_description": "Check our Help Center for immediate answers to common questions about Land Dollars and Bonus Points.",
+    "visit_faq": "Contact our Help Center",
     "form_name": "Your Name",
     "form_email": "Email Address",
     "form_subject": "Subject",
@@ -1260,5 +1261,32 @@
       },
       "delete_warning": "Are you sure? This action cannot be undone and may affect the display of historical records."
     }
+  }, 
+  "faq_pioneers": {
+    "badge_knowledge": "Knowledge Base",
+    "faq_title": "Frequently Asked Questions",
+    "faq_subtitle": "Understand how we are transforming conservation into a truly sustainable economic model.",
+    "faq_q1": "Why aren't volunteering and donations enough to save the Amazon?",
+    "faq_a1": "Deforestation is not just a problem of lack of environmental awareness; it is a matter of economic survival. The forest guardians in Pastaza (Kichwa, Shuar, and Waorani families) face an extreme dilemma: live on $20 a month or accept extractivist offers of $10,000 for their land. At Reforestal, we understand that you cannot protect the jungle if you do not protect the economy of those who live in it.",
+    "faq_q2": "What is the Amazon Chakra and how does it generate profitability without extracting?",
+    "faq_a2": "The Chakra is a resilient productive ecosystem where species like cocoa and vanilla grow alongside plants that regenerate the forest. Profitability arises from organic productivity: high biodiversity translates into economic stability, protecting crops against pests. Initially, income comes from local raw materials, but the future direction is to export value-added products.",
+    "faq_q3": "How do you ensure transparency and minimize project risks?",
+    "faq_a3": "We operate under a German Cooperative (eG), which requires mandatory external audits and ensures every member has a voice and a vote. Furthermore, we mitigate climate risks (water storage), biological risks (biochar), financial, and social risks (alliances with local communities).",
+    "faq_q4": "How is the real impact of Reforestal measured?",
+    "faq_a4": "Our success metric is not counting individual trees that could be cut down later. Instead, we measure the total extent of the regenerating ecosystem, an impact that is also externally validated by local universities.",
+    "faq_q5": "What is the Land-Dollar?",
+    "faq_a5": "It is the digital symbol of our regenerative economy and your access key to our co-creation platform. It is the digital bridge that allows you to closely follow the impact and participate in the decisions that will shape the future of our cooperative.",
+    
+    "pioneers_badge": "Limited Edition",
+    "pioneers_title": "The 10 Founding Pioneers",
+    "pioneers_text1": "With the funds from our Startnext campaign, we will begin laying the legal foundation to establish the cooperative this summer. At Reforestal, we prefer to give away participation rather than give away advertising to get clients.",
+    "pioneers_sub1": "More than donating, co-founding",
+    "pioneers_sub1_text": "Be part of the legal structure from day 1 and build the foundation with us.",
+    "pioneers_role_title": "Your Role and Rewards",
+    "pioneers_role_text": "We are looking for the 10 most committed users to grant them special status, granting greater participation and voting rights in strategic decisions.",
+    "pioneers_list_1": "Active Voting Rights",
+    "pioneers_list_2": "Direct Participation",
+    "pioneers_list_3": "Exclusive Access to Decisions",
+    "pioneers_cta": "Discover the Packages"
   }
 }
