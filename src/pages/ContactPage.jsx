@@ -33,7 +33,6 @@ const ContactPage = () => {
   const [loading, setLoading] = useState(false);
   const [helpLoading, setHelpLoading] = useState(false);
 
-  // Estado para capturar el correo o teléfono rápido
   const [quickContactInfo, setQuickContactInfo] = useState('');
 
   const [formData, setFormData] = useState({
@@ -59,9 +58,7 @@ const ContactPage = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // --- FUNCIÓN PARA EL BOTÓN DE AYUDA RÁPIDA ---
   const handleQuickHelpAlert = async () => {
-    // Validar que tengamos algún medio de contacto
     if (!quickContactInfo.trim() && !user?.email) {
       toast({ 
         variant: "destructive", 
@@ -73,18 +70,25 @@ const ContactPage = () => {
 
     setHelpLoading(true);
     try {
-      // Detectamos el idioma actual del usuario (Ej: ES, EN, DE, FR)
-      const lang = i18n.language ? i18n.language.split('-')[0].toUpperCase() : 'EN';
+      const lang = i18n.language ? i18n.language.split('-')[0].toUpperCase() : 'ES';
       const contactMethod = quickContactInfo.trim() || formData.email || 'No especificado';
       const userName = formData.name || 'Visitante';
 
-      // Inserta en la tabla 'notifications' para el Dashboard del Admin
       const { error } = await supabase.from('notifications').insert({
-        user_id: user?.id || null, // Nulo si es un visitante
+        user_id: user?.id || null,
         title: `[${lang}] ¡Asistencia Rápida Requerida!`,
         message: `Usuario: ${userName}\nContacto: ${contactMethod}\nIdioma: ${lang}\nSolicita asistencia rápida desde la página de contacto.`,
         notification_type: 'admin_alert', 
-        is_read: false
+        is_read: false,
+
+        metadata: {
+          name: userName,
+          email: contactMethod,
+          subject: 'Asistencia Rápida Reforestal eG',
+          raw_message: 'El usuario ha solicitado asistencia rápida mediante el botón de alerta.',
+          language: lang,
+          source: 'quick_alert'
+        }
       });
 
       if (error) throw error;
@@ -95,7 +99,7 @@ const ContactPage = () => {
         className: "bg-primary text-primary-foreground border-none shadow-lg"
       });
       
-      setQuickContactInfo('');
+      setQuickContactInfo(''); 
 
     } catch (err) {
       console.error(err);
@@ -105,28 +109,32 @@ const ContactPage = () => {
     }
   };
 
-  // --- FUNCIÓN PARA EL FORMULARIO COMPLETO ---
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const lang = i18n.language ? i18n.language.split('-')[0].toUpperCase() : 'EN';
+      const lang = i18n.language ? i18n.language.split('-')[0].toUpperCase() : 'ES';
       const userName = formData.name || 'Visitante';
 
-      // 1. Notificar al Admin en el Dashboard (Añadiendo el Idioma)
       const { error } = await supabase.from('notifications').insert({
         user_id: user?.id || null,
         notification_type: 'admin_alert', 
         title: `[${lang}] Nuevo mensaje de: ${userName}`,
         message: `Email: ${formData.email}\nAsunto: ${formData.subject}\nMensaje: ${formData.message}\nIdioma: ${lang}`,
-        is_read: false
+        is_read: false,
+
+        metadata: {
+          name: userName,
+          email: formData.email,
+          subject: formData.subject,
+          raw_message: formData.message,
+          language: lang,
+          source: 'contact_form'
+        }
       });
 
       if (error) throw error;
-      
-      // 2. Opcional: Llamada a Supabase Edge Functions para enviar email a support@reforest.al
-      // await supabase.functions.invoke('send-contact-email', { body: formData });
 
       toast({
         title: t('contact.success_title', "Message Sent!"),
@@ -151,7 +159,6 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground pb-20">
       
-      {/* --- HEADER DE NAVEGACIÓN --- */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border h-16">
         <div className="container mx-auto px-4 h-full flex justify-between items-center">
           
@@ -177,7 +184,6 @@ const ContactPage = () => {
         </div>
       </header>
 
-      {/* --- CONTENIDO PRINCIPAL --- */}
       <main className="container mx-auto px-4 pt-32">
         
         <motion.div 
@@ -195,7 +201,6 @@ const ContactPage = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           
-          {/* COLUMNA IZQUIERDA */}
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -227,13 +232,12 @@ const ContactPage = () => {
                   <div className="p-3 bg-primary/10 rounded-xl text-primary"><Phone className="w-6 h-6" /></div>
                   <div>
                     <h3 className="font-bold text-foreground mb-1">{t('contact.phone_label', 'Call Us')}</h3>
-                    <p className="text-sm text-muted-foreground">+49 163 8736419</p>
+                    <p className="text-sm text-muted-foreground">+49</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* SECCIÓN PREGUNTAS FRECUENTES / ALERTA RÁPIDA */}
             <Card className="bg-primary text-primary-foreground border-none shadow-lg">
               <CardContent className="p-6">
                 <h3 className="font-bold text-lg mb-2 flex items-center gap-2">
@@ -241,7 +245,7 @@ const ContactPage = () => {
                   {t('contact.faq_title', 'Need quick answers?')}
                 </h3>
                 <p className="text-primary-foreground/80 text-sm mb-4">
-                  {t('contact.faq_description', 'Send a quick alert to our administrators. Leave your email or phone so we can reach you.')}
+                  {t('contact.faq_description', 'Check our Help Center for immediate answers to common questions about Land Dollars and Bonus Points.')}
                 </p>
                 
                 <div className="space-y-3">
@@ -266,7 +270,6 @@ const ContactPage = () => {
             </Card>
           </motion.div>
 
-          {/* COLUMNA DERECHA: Formulario */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
