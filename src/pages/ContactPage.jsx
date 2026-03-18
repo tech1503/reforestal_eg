@@ -84,7 +84,7 @@ const ContactPage = () => {
         metadata: {
           name: userName,
           email: contactMethod,
-          subject: 'Asistencia Rápida Reforestal eG',
+          subject: 'Asistencia Rápida Reforestal eG - Página de Contacto',
           raw_message: 'El usuario ha solicitado asistencia rápida mediante el botón de alerta.',
           language: lang,
           source: 'quick_alert'
@@ -120,7 +120,7 @@ const ContactPage = () => {
       const { error } = await supabase.from('notifications').insert({
         user_id: user?.id || null,
         notification_type: 'admin_alert', 
-        title: `[${lang}] Nuevo mensaje de: ${userName}`,
+        title: `[${lang}] Nuevo mensaje de Formulario de contacto de: ${userName}`,
         message: `Email: ${formData.email}\nAsunto: ${formData.subject}\nMensaje: ${formData.message}\nIdioma: ${lang}`,
         is_read: false,
 
