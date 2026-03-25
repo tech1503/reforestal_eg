@@ -891,6 +891,7 @@
       "roadmap": "Progrès de la Feuille de Route"
     },
     "governance": {
+      "no_active": "Aucune décision n'est en cours pour le moment.",
       "active_decisions": "Décisions Actives",
       "past_decisions": "Décisions Passées",
       "ends": "Se termine",

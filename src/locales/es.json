@@ -893,6 +893,7 @@
       "roadmap": "Progreso del Roadmap"
     },
     "governance": {
+      "no_active": "No hay decisiones activas en este momento.",
       "active_decisions": "Decisiones Activas",
       "past_decisions": "Decisiones Pasadas",
       "ends": "Finaliza",

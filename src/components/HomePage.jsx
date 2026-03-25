@@ -295,7 +295,7 @@ const HomePage = () => {
         <section className="bg-white text-[#063127] relative overflow-hidden py-24 md:py-32">
           <div className="container mx-auto px-6 text-center relative z-10">
             <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-4xl md:text-5xl font-bold mb-16 tracking-tight drop-shadow-sm">
-                {t('home.cta_final_title')}
+                {t('home.cta_final_title')} 
             </motion.h2>
 
             <div className="max-w-4xl mx-auto mb-20 grid gap-6 text-left">

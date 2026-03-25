@@ -6,7 +6,7 @@ import { useI18n } from '@/contexts/I18nContext';
 import { useTranslation } from 'react-i18next'; 
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Loader2, Trees, Calendar, CreditCard, Leaf, Wallet, Coins, Lock, ShieldCheck, Clock, Package } from 'lucide-react';
+import { Loader2, Trees, Calendar, CreditCard, Leaf, Wallet, Coins, Lock, ShieldCheck, Clock } from 'lucide-react';
 import BenefitsDisplay from '@/components/ui/BenefitsDisplay';
 import { format } from 'date-fns';
 import LandDollarDisplay from '@/components/LandDollarDisplay';
@@ -71,8 +71,8 @@ const StartnextUserDashboard = () => {
        </motion.div>
 
        {/* HERO WELCOME */}
-       <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="relative overflow-hidden rounded-3xl shadow-premium p-10 bg-gradient-to-r from-emerald-500 to-teal-500 text-white">
-          <div className="absolute top-0 right-0 w-2/3 h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 pointer-events-none" />
+       <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="relative overflow-hidden rounded-3xl shadow-premium p-10 bg-gradient-to-r from-[#0a4d38]/80 to-[#063127] text-white">
+          <div className="absolute top-0 right-0 w-2/3 h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-60 pointer-events-none" />
           <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
               <div>
                  <div className="flex items-center gap-3 mb-4">
