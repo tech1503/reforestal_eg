@@ -47,8 +47,6 @@ const PROFILE_ICONS = {
 };
 
 const Question = ({ questionData, onSelect, selectedOptionType }) => {
-  // Solución profesional ESLint: Convertimos el objeto complejo a un string primitivo.
-  // Esto permite que el Hook lo inspeccione sin lanzar warnings y mantiene la lógica intacta.
   const optionsString = JSON.stringify(questionData?.options || []);
   
   const randomizedOptions = useMemo(() => {
@@ -149,7 +147,7 @@ const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
             <DialogContent className="fixed left-[50%] top-[50%] z-[9999] w-[95vw] sm:w-full max-w-md translate-x-[-50%] translate-y-[-50%] border border-[#5b8370]/50 bg-[#063127] shadow-2xl p-0 outline-none sm:max-w-lg rounded-3xl">
                 <DialogHeader className="sr-only">
                     <DialogTitle>Genesis Quest Result</DialogTitle>
-                    <DialogDescription>Your assigned investor profile.</DialogDescription>
+                    <DialogDescription>Your assigned social profile.</DialogDescription>
                 </DialogHeader>
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8, y: 30 }}
@@ -243,7 +241,6 @@ const GenesisQuest = ({ forceShowResult = false }) => {
   const handleSelectOption = (optionType) => {
     setAnswers(prev => ({ ...prev, [currentQuestionIndex]: optionType }));
     
-    // Transición rápida entre preguntas
     setTimeout(() => {
       if (currentQuestionIndex < questData.length - 1) {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
