@@ -188,7 +188,22 @@
   },
   "admin": {
     "title": "Admin Panel",
-    "community": "Founders Area",
+    "communityy": "Founders Area",
+    "community": {
+    "title": "Community Management",
+    "subtitle": "Manage Gamified Governance, News and Roadmap for Pioneers.",
+    "live_dashboard": "LIVE DASHBOARD",
+    "table_title": "Title",
+    "table_status": "Status / Details",
+    "table_image": "Image",
+    "table_actions": "Actions",
+    "add_new": "Add New",
+    "edit_item": "Edit Item",
+    "create_item": "Create Item",
+    "manage_translations": "Manage Translations",
+    "voting_history": "Voting History",
+    "no_items": "No items found."
+  },
     "mlm": "Referrals (MLM)",
     "quest_moderation": "Quest Engine",
     "audience": {
@@ -831,6 +846,22 @@
       "access_granted_desc": "Welcome to the Pioneer Lounge.",
       "vote_success": "Vote Submitted!",
       "vote_thanks": "Thank you for participating."
+    },
+      "budget_vote": {
+      "average_allocation": "Average Allocation",
+      "allocate_points": "Allocate Points",
+      "pts_left": "Points Left",
+      "confirm_allocation": "Confirm Allocation"
+    },
+    "discussion": {
+      "title": "Pioneer Discussion",
+      "placeholder": "Share your perspective with other founders...",
+      "post_btn": "Post",
+      "first_to_share": "Be the first to share an opinion."
+    },
+    "live_activity": {
+    "title": "Live Activity",
+    "no_signals": "Activity for Founding Pioneer"
     },
     "notification": {
       "evaluation_title": "Access Under Evaluation",

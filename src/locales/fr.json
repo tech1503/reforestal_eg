@@ -187,7 +187,22 @@
   },
   "admin": {
     "title": "Panneau d'Administration",
-    "community": "Espace Fondateurs",
+    "communityy": "Espace des fondateurs",
+    "community": {
+    "title": "Contenu de l'Espace des fondateurs",
+    "subtitle": "Gérer la gouvernance ludique, les actualités et la feuille de route des pionniers.",
+    "live_dashboard": "PANNEAU DE RÉSULTATS EN DIRECT",
+    "table_title": "Titre",
+    "table_status": "Statut / Détails",
+    "table_image": "Image",
+    "table_actions": "Actions",
+    "add_new": "Ajouter",
+    "edit_item": "Modifier l'élément",
+    "create_item": "Créer un élément",
+    "manage_translations": "Gérer les traductions",
+    "voting_history": "Historique des votes",
+    "no_items": "Aucun élément trouvé."
+    },
     "mlm": "Parrainages (MLM)",
     "quest_moderation": "Moteur de missions",
     "audience": {
@@ -827,6 +842,22 @@
       "access_granted_desc": "Bienvenue dans le Salon des Pionniers.",
       "vote_success": "Vote soumis !",
       "vote_thanks": "Merci de votre participation."
+    },
+    "budget_vote": {
+    "average_allocation": "Allocation moyenne de la communauté",
+    "allocate_points": "Allocation des points",
+    "pts_left": "Points restants",
+    "confirm_allocation": "Confirmer l'allocation"
+    },
+    "discussion": {
+    "title": "Discussion des fondateurs",
+    "placeholder": "Partagez votre point de vue avec les autres fondateurs...",
+    "post_btn": "Publier",
+    "first_to_share": "Soyez le premier à partager votre opinion."
+    },
+    "live_activity": {
+    "title": "Activité en direct",
+    "no_signals": "Activité pour le pionnier fondateur"
     },
     "notification": {
       "evaluation_title": "Accès en cours d'évaluation",

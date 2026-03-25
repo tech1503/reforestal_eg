@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import PendingImpactCredits from '@/components/admin/PendingImpactCredits';
 import { getSupportLevelByAmount, calculateDynamicCredits } from '@/utils/tierLogicUtils';
 import { createNotification } from '@/utils/notificationUtils'; 
@@ -17,6 +18,8 @@ const PendingRegistrations = () => {
     const [processing, setProcessing] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [confirmAction, setConfirmAction] = useState(null); 
+    
+    const [rowPioneerStatus, setRowPioneerStatus] = useState({});
 
     const fetchRegistrations = useCallback(async () => {
         setLoading(true);
@@ -116,16 +119,10 @@ const PendingRegistrations = () => {
                 });
             }
 
-            const { data: currentMetrics } = await supabase
-                .from('founding_pioneer_metrics')
-                .select('founding_pioneer_access_status, total_impact_credits_earned')
-                .eq('user_id', item.user_id)
-                .maybeSingle();
-
             const { data: allCredits } = await supabase.from('impact_credits').select('amount').eq('user_id', item.user_id);
             const totalScore = allCredits?.reduce((sum, c) => sum + Number(c.amount), 0) || correctCredits;
 
-            const pioneerStatus = currentMetrics?.founding_pioneer_access_status || 'pending';
+            const pioneerStatus = rowPioneerStatus[item.id] || 'pending';
 
             await supabase.from('founding_pioneer_metrics').upsert({
                 user_id: item.user_id,
@@ -144,7 +141,7 @@ const PendingRegistrations = () => {
 
             await supabase.from('pending_startnext_registrations').update({ status: 'approved' }).eq('id', item.id);
 
-            toast({ title: "Approved", description: `${item.name} role updated. Credits adjusted to ${correctCredits}. Pioneer status: ${pioneerStatus}.` });
+            toast({ title: "Approved", description: `${item.name} role updated. Credits: ${correctCredits}. Pioneer status: ${pioneerStatus}.` });
             setConfirmAction(null);
             fetchRegistrations();
 
@@ -231,7 +228,7 @@ const PendingRegistrations = () => {
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pioneer Access</th>
                                     <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                                 </tr>
                             </thead>
@@ -258,7 +255,21 @@ const PendingRegistrations = () => {
                                                     {reg.message && <div className="bg-gray-100 p-2 rounded text-xs italic max-w-xs break-words">"{reg.message}"</div>}
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4 text-sm text-gray-500">{new Date(reg.created_at).toLocaleDateString()}</td>
+                                            <td className="px-6 py-4">
+                                                <Select 
+                                                    value={rowPioneerStatus[reg.id] || 'pending'} 
+                                                    onValueChange={(val) => setRowPioneerStatus(prev => ({...prev, [reg.id]: val}))}
+                                                >
+                                                    <SelectTrigger className="h-8 text-xs bg-white w-[130px] font-bold">
+                                                        <SelectValue />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem value="pending">Pending</SelectItem>
+                                                        <SelectItem value="approved">Approved</SelectItem>
+                                                        <SelectItem value="rejected">Rejected</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </td>
                                             <td className="px-6 py-4 text-right space-x-2">
                                                 <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700 text-white" onClick={() => setConfirmAction({ type: 'approve', item: reg })} disabled={processing === reg.id}><CheckCircle className="w-4 h-4 mr-1" /> Approve</Button>
                                                 <Button size="sm" variant="outline" className="border-red-200 text-red-600 hover:bg-red-50" onClick={() => setConfirmAction({ type: 'reject', item: reg })} disabled={processing === reg.id}><XCircle className="w-4 h-4" /></Button>
@@ -280,11 +291,12 @@ const PendingRegistrations = () => {
                     <DialogHeader>
                         <DialogTitle>Confirm Action</DialogTitle>
                         <DialogDescription>
-                            {confirmAction?.type === 'approve' && <span>Are you sure you want to approve <strong>{confirmAction.item.name}</strong>? This will grant Startnext Supporter status (Land Dollar + BP). <strong>Pioneer Access requires separate evaluation.</strong></span>}
+                            {confirmAction?.type === 'approve' && <span>Are you sure you want to approve <strong>{confirmAction.item.name}</strong>? This will grant Startnext Supporter status (Land Dollar + BP).</span>}
                             {confirmAction?.type === 'reject' && <span>Are you sure you want to reject this request from <strong>{confirmAction.item.name}</strong>?</span>}
                             {confirmAction?.type === 'delete' && <span>Are you sure you want to permanently delete this record?</span>}
                         </DialogDescription>
                     </DialogHeader>
+
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setConfirmAction(null)}>Cancel</Button>
                         <Button 

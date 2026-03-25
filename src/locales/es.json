@@ -187,7 +187,22 @@
   },
   "admin": {
     "title": "Panel de Administración",
-    "community": "Área Fundadores",
+    "communityy": "Área Pioneros Fundadores",
+    "community": {
+    "title": "Contenido del Área de Fundadores",
+    "subtitle": "Gestiona la Gobernanza Gamificada, Noticias y Roadmap para los Pioneros.",
+    "live_dashboard": "PANEL DE RESULTADOS EN VIVO",
+    "table_title": "Título",
+    "table_status": "Estado / Detalles",
+    "table_image": "Imagen",
+    "table_actions": "Acciones",
+    "add_new": "Añadir Nuevo",
+    "edit_item": "Editar Elemento",
+    "create_item": "Crear Elemento",
+    "manage_translations": "Gestionar Traducciones",
+    "voting_history": "Historial de Votación",
+    "no_items": "No se encontraron elementos."
+  },
     "mlm": "Referidos (MLM)",
     "quest_moderation": "Motor de misiones",
     "audience": {
@@ -829,6 +844,22 @@
       "access_granted_desc": "Bienvenido al Acceso Pionero.",
       "vote_success": "¡Voto Enviado!",
       "vote_thanks": "Gracias por participar."
+    },
+      "budget_vote": {
+      "average_allocation": "Asignación Promedio de la Comunidad",
+      "allocate_points": "Asigna Puntos",
+      "pts_left": "Pts Restantes",
+      "confirm_allocation": "Confirmar Asignación"
+    },
+    "discussion": {
+      "title": "Discusión Pionera",
+      "placeholder": "Comparte tu perspectiva con otros fundadores...",
+      "post_btn": "Publicar",
+      "first_to_share": "Sé el primero en compartir una opinión."
+    },
+    "live_activity": {
+      "title": "Actividad en Vivo",
+      "no_signals": "Actividad para Pionero Fundador"
     },
     "notification": {
       "evaluation_title": "Acceso bajo Evaluación",

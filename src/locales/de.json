@@ -187,7 +187,22 @@
   },
   "admin": {
     "title": "Admin-Panel",
-    "community": "Gründerbereich",
+    "communityy": "Gründerbereich",
+    "community": {
+    "title": "Community-Management",
+    "subtitle": "Gamifizierte Governance, Neuigkeiten und Roadmap für Pioniere verwalten.",
+    "live_dashboard": "Live-Ergebnisübersicht",
+    "table_title": "Titel",
+    "table_status": "Status / Details",
+    "table_image": "Bild",
+    "table_actions": "Aktionen",
+    "add_new": "Neu hinzufügen",
+    "edit_item": "Element bearbeiten",
+    "create_item": "Element erstellen",
+    "manage_translations": "Übersetzungen verwalten",
+    "voting_history": "Abstimmungsverlauf",
+    "no_items": "Keine Elemente gefunden."
+    },
     "mlm": "Empfehlungen (MLM)",
     "quest_moderation": "Missions-Engine",
     "audience": {
@@ -830,6 +845,22 @@
       "access_granted_desc": "Willkommen in der Pioneer Lounge.",
       "vote_success": "Stimme abgegeben!",
       "vote_thanks": "Danke für deine Teilnahme."
+    },
+    "budget_vote": {
+    "average_allocation": "Durchschnittliche Zuteilung an die Community",
+    "allocate_points": "Punkte zuweisen",
+    "pts_left": "Verbleibende Punkte",
+    "confirm_allocation": "Zuteilung bestätigen"
+    },
+    "discussion": {
+    "title": "Gründerdiskussion",
+    "placeholder": "Teile deine Perspektive mit anderen Gründern...",
+    "post_btn": "Beitrag verfassen",
+    "first_to_share": "Sei der Erste, der seine Meinung teilt."
+    },
+    "live_activity": {
+      "title": "Live-Aktivität",
+      "no_signals": "Aktivität für den Gründungspionier"
     },
     "notification": {
       "evaluation_title": "Zugang wird derzeit geprüft",

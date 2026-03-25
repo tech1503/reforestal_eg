@@ -1,10 +1,8 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
-  LayoutDashboard, Users, Sprout, Wallet, Gamepad2, ScrollText, Database, Activity,
-  LogOut, Menu, X, Settings, Globe, Share2, Layers, LineChart, Loader2, ClipboardCheck,
-  FlaskConical, CheckSquare, Search, ChevronDown, UserPlus, Award, ListChecks, Trophy, Bell,
-  Banknote, BarChart4, Shield
+  LayoutDashboard, Users, Sprout, Wallet, Gamepad2, ScrollText, Database, Activity, X, Settings, Globe, Share2, Layers, LineChart, Loader2, ClipboardCheck,
+  FlaskConical, CheckSquare, Search, ChevronDown, UserPlus, Award, ListChecks, Trophy, Bell, Shield
 } from 'lucide-react';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { Button } from '@/components/ui/button';
@@ -98,7 +96,7 @@ const AdminDashboard = () => {
       ]
     },
     { id: 'users', label: t('admin.user_management', 'Users'), icon: Users, component: UserManagement },
-    { id: 'community', label: t('admin.community', 'Community'), icon: Globe, component: CommunityManagement },
+    { id: 'community', label: t('admin.communityy', 'Community'), icon: Globe, component: CommunityManagement },
     { id: 'financials', label: t('admin.financials.title', 'Financials'), icon: Wallet, component: FinancialsManagement },
     { id: 'tiers', label: t('admin.startnext.tier', 'Tiers'), icon: Layers, component: TierManagement },
     { id: 'mlm', label: t('admin.mlm', 'Referrals (MLM)'), icon: Share2, component: MlmManagement },

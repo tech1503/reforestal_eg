@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Search, Edit, Trash2, Download, RefreshCw, Loader2, Leaf, Coins, Wallet, Ban, Award, Users, Shield, XCircle, AlertTriangle } from 'lucide-react';
+import { Search, Edit, Trash2, Download, RefreshCw, Loader2, Leaf, Coins, Wallet, Ban, Users, Shield, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/lib/customSupabaseClient';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
@@ -29,11 +29,6 @@ const UserManagement = () => {
   const [deletingUser, setDeletingUser] = useState(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [processing, setProcessing] = useState(false);
-
-  // Pioneer Management State
-  const [pioneerActionUser, setPioneerActionUser] = useState(null);
-  const [isPioneerModalOpen, setIsPioneerModalOpen] = useState(false);
-  const [pioneerActionType, setPioneerActionType] = useState('approve'); 
 
   // System Data
   const [availableTiers, setAvailableTiers] = useState([]);
@@ -132,12 +127,42 @@ const UserManagement = () => {
     setFilteredUsers(filtered);
   }, [searchTerm, users]);
 
+  const handleInlinePioneerStatusChange = async (userObj, newStatus) => {
+      setProcessing(true);
+      try {
+          const { error } = await supabase.from('founding_pioneer_metrics').upsert({
+              user_id: userObj.id,
+              founding_pioneer_access_status: newStatus,
+              updated_at: new Date().toISOString()
+          }, { onConflict: 'user_id' });
+          
+          if (error) throw error;
+          
+          if (newStatus === 'approved') {
+              await supabase.from('profiles').update({ role: 'startnext_user' }).eq('id', userObj.id);
+          }
+          
+          toast({ 
+              title: "Status Updated", 
+              description: `${userObj.name || 'User'} is now ${newStatus}.`, 
+              className: newStatus === 'approved' ? "bg-emerald-600 text-white" : "" 
+          });
+          
+          fetchAllData();
+      } catch (error) {
+          toast({ variant: "destructive", title: t('common.error'), description: error.message });
+      } finally {
+          setProcessing(false);
+      }
+  };
+
   const handleEditClick = (user) => {
     setEditingUser({ 
         ...user, 
         selectedTier: user.tier_id || 'none',
         editLandDollarStatus: user.land_dollar_status === 'none' ? 'active' : user.land_dollar_status,
-        referral_code: user.referral_code || '' 
+        referral_code: user.referral_code || '',
+        pioneer_status: user.founding_pioneer_access_status || 'pending'
     }); 
     setIsEditOpen(true);
   };
@@ -157,6 +182,13 @@ const UserManagement = () => {
         }).eq('id', editingUser.id);
       
       if (profileErr) throw new Error(profileErr.message);
+
+      const { data: existMetric } = await supabase.from('founding_pioneer_metrics').select('id').eq('user_id', editingUser.id).maybeSingle();
+      if (existMetric) {
+          await supabase.from('founding_pioneer_metrics').update({ founding_pioneer_access_status: editingUser.pioneer_status }).eq('user_id', editingUser.id);
+      } else {
+          await supabase.from('founding_pioneer_metrics').insert({ user_id: editingUser.id, founding_pioneer_access_status: editingUser.pioneer_status });
+      }
 
       const linkRefToUse = safeReferralCode || `REF-${editingUser.id.substring(0,6).toUpperCase()}`;
       const newQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://reforest.al/${linkRefToUse}`;
@@ -306,36 +338,6 @@ const UserManagement = () => {
     }
   };
 
-  const handlePioneerAction = (user, type) => {
-      setPioneerActionUser(user);
-      setPioneerActionType(type);
-      setIsPioneerModalOpen(true);
-  };
-
-  const confirmPioneerAction = async () => {
-    if (!pioneerActionUser) return;
-    setProcessing(true);
-    
-    try {
-      const newStatus = pioneerActionType === 'approve' ? 'approved' : 'revoked';
-      const { error: updateError } = await supabase.from('founding_pioneer_metrics').update({ founding_pioneer_access_status: newStatus }).eq('user_id', pioneerActionUser.id);
-      if (updateError) throw updateError;
-      
-      if (pioneerActionType === 'approve') {
-          await supabase.from('profiles').update({ role: 'startnext_user' }).eq('id', pioneerActionUser.id);
-      }
-      
-      toast({ title: pioneerActionType === 'approve' ? "Pioneer Approved!" : "Access Revoked", className: pioneerActionType === 'approve' ? "bg-emerald-600 text-white" : "bg-red-600 text-white" });
-      setIsPioneerModalOpen(false);
-      fetchAllData();
-    } catch (error) {
-      toast({ variant: "destructive", title: t('common.error'), description: error.message });
-    } finally {
-      setProcessing(false);
-      setPioneerActionUser(null);
-    }
-  };
-
   const handleExportCSV = () => {
     if (!users.length) return;
     const csvContent = [['ID', 'Name', 'Email', 'Apodo', 'Role', 'Genesis', 'Tier', 'IC', 'LD Status', 'Pioneer Status'].join(",") + "\n" + users.map(u => [u.id, u.name, u.email, u.referral_code || 'N/A', u.role, u.genesis_profile, u.tier_name, u.ic_balance, u.land_dollar_status, u.founding_pioneer_access_status].join(",")).join("\n")];
@@ -392,7 +394,25 @@ const UserManagement = () => {
                         <td className="p-4"><span className="font-mono text-emerald-700 bg-emerald-50 px-2 py-1 rounded">@{user.referral_code || 'N/A'}</span></td>
                         <td className="p-4"><Badge variant="outline" className={`gap-1 pr-3 capitalize ${badgeClass}`}>{ProfileIcon && <ProfileIcon className="w-3 h-3" />}{user.genesis_profile || 'None'}</Badge></td>
                         <td className="p-4"><Badge variant="outline">{user.role}</Badge></td>
-                        <td className="p-4">{user.founding_pioneer_access_status ? <Badge className={`${isPioneerApproved ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'} border-0 capitalize`}>{user.founding_pioneer_access_status}</Badge> : <span className="text-gray-300">-</span>}</td>
+                        
+                        <td className="p-4">
+                            <Select 
+                                value={user.founding_pioneer_access_status || 'pending'} 
+                                onValueChange={(val) => handleInlinePioneerStatusChange(user, val)}
+                                disabled={processing}
+                            >
+                                <SelectTrigger className={`h-8 text-xs font-bold capitalize w-[115px] ${isPioneerApproved ? 'bg-emerald-100 text-emerald-800 border-emerald-200' : 'bg-amber-100 text-amber-800 border-amber-200'}`}>
+                                    <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="pending">Pending</SelectItem>
+                                    <SelectItem value="approved">Approved</SelectItem>
+                                    <SelectItem value="rejected">Rejected</SelectItem>
+                                    <SelectItem value="revoked">Revoked</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </td>
+
                         <td className="p-4"><div className="flex items-center gap-1"><Leaf className="w-3 h-3 text-emerald-500"/><span className="text-emerald-700 font-medium">{user.tier_name}</span></div></td>
                         <td className="p-4"><div className="flex items-center gap-1 font-mono"><Coins className="w-3 h-3 text-amber-500"/>{user.ic_balance}</div></td>
                         
@@ -412,18 +432,6 @@ const UserManagement = () => {
                         
                         <td className="p-4 text-right">
                           <div className="flex justify-end gap-1 items-center">
-                            {user.role === 'startnext_user' && (
-                                isPioneerApproved ? (
-                                    <Button onClick={() => handlePioneerAction(user, 'revoke')} disabled={processing} className="bg-red-50 hover:bg-red-100 text-white h-8 px-2 rounded text-xs mr-1 border border-red-200" size="sm" title="Revoke Pioneer Access">
-                                        <XCircle className="w-3 h-3 mr-1" /> Revoke
-                                    </Button>
-                                ) : (
-                                    <Button onClick={() => handlePioneerAction(user, 'approve')} disabled={processing} className="bg-emerald-600 hover:bg-emerald-700 text-white h-8 px-3 rounded text-sm mr-1" size="sm" title="Approve Pioneer Access">
-                                        <Award className="w-3 h-3 mr-1" /> Approve
-                                    </Button>
-                                )
-                            )}
-
                             <Button onClick={() => handleEditClick(user)} variant="ghost" size="icon" className="h-8 w-8 text-blue-500"><Edit className="w-4 h-4" /></Button>
                             <Button onClick={() => handleDeleteClick(user)} variant="ghost" size="icon" className="h-8 w-8 text-red-500"><Trash2 className="w-4 h-4" /></Button>
                           </div>
@@ -447,7 +455,6 @@ const UserManagement = () => {
                   <div className="space-y-2"><Label>{t('auth.email_label')}</Label><Input disabled value={editingUser.email || ''} /></div>
               </div>
 
-              {/* NUEVO CAMPO DE APODO */}
               <div className="space-y-2">
                   <Label className="text-emerald-700 font-bold">Apodo (URL / Código de Referido)</Label>
                   <Input 
@@ -475,16 +482,31 @@ const UserManagement = () => {
                   </Select>
               </div>
 
-              <div className="space-y-2">
-                  <Label>Role</Label>
-                  <Select value={editingUser.role} onValueChange={(val) => setEditingUser({...editingUser, role: val})}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="user">User Common</SelectItem>
-                        <SelectItem value="startnext_user">Startnext User</SelectItem>
-                        <SelectItem value="admin">Admin</SelectItem>
-                    </SelectContent>
-                  </Select>
+              <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                      <Label>Role</Label>
+                      <Select value={editingUser.role} onValueChange={(val) => setEditingUser({...editingUser, role: val})}>
+                        <SelectTrigger><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="user">User Common</SelectItem>
+                            <SelectItem value="startnext_user">Startnext User</SelectItem>
+                            <SelectItem value="admin">Admin</SelectItem>
+                        </SelectContent>
+                      </Select>
+                  </div>
+                  
+                  <div className="space-y-2">
+                      <Label className="text-blue-700 font-bold">Pioneer Access Status</Label>
+                      <Select value={editingUser.pioneer_status} onValueChange={(val) => setEditingUser({...editingUser, pioneer_status: val})}>
+                        <SelectTrigger><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="pending">Pending</SelectItem>
+                            <SelectItem value="approved">Approved</SelectItem>
+                            <SelectItem value="rejected">Rejected</SelectItem>
+                            <SelectItem value="revoked">Revoked</SelectItem>
+                        </SelectContent>
+                      </Select>
+                  </div>
               </div>
               
               <div className="space-y-2">
@@ -519,18 +541,18 @@ const UserManagement = () => {
                     <AlertTriangle className="w-5 h-5" /> 
                     Delete User in Cascade?
                 </DialogTitle>
-                <DialogDescription className="pt-3 space-y-2">
-                    <p>You are about to permanently delete <strong>{deletingUser?.email}</strong>.</p>
-                    <p>This action will destroy:</p>
-                    <ul className="list-disc pl-5 text-sm text-slate-600">
-                        <li>Authentication record</li>
-                        <li>Land Dollars & Impact Credits</li>
-                        <li>MLM / Gamification History</li>
-                        <li>Startnext Contributions</li>
-                    </ul>
-                    <p className="font-bold text-red-600 mt-2">This cannot be undone.</p>
-                </DialogDescription>
             </DialogHeader>
+            <div className="pt-3 space-y-2 text-sm text-slate-600">
+                <p>You are about to permanently delete <strong>{deletingUser?.email}</strong>.</p>
+                <p>This action will destroy:</p>
+                <ul className="list-disc pl-5">
+                    <li>Authentication record</li>
+                    <li>Land Dollars & Impact Credits</li>
+                    <li>MLM / Gamification History</li>
+                    <li>Startnext Contributions</li>
+                </ul>
+                <p className="font-bold text-red-600 mt-2">This cannot be undone.</p>
+            </div>
             <DialogFooter>
                 <Button variant="outline" onClick={() => setIsDeleteOpen(false)} disabled={processing}>{t('common.cancel')}</Button>
                 <Button variant="destructive" onClick={confirmDelete} disabled={processing}>
@@ -541,28 +563,6 @@ const UserManagement = () => {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={isPioneerModalOpen} onOpenChange={setIsPioneerModalOpen}>
-        <DialogContent>
-            <DialogHeader>
-                <DialogTitle>{pioneerActionType === 'approve' ? 'Approve Founding Pioneer' : 'Revoke Pioneer Access'}</DialogTitle>
-                <DialogDescription>
-                    {pioneerActionType === 'approve' 
-                        ? 'This will unlock the Founding Members section for this user.' 
-                        : 'This will lock the Founding Members section. The user will still have Land Dollars and Credits.'}
-                </DialogDescription>
-            </DialogHeader>
-            <DialogFooter>
-                <Button variant="outline" onClick={() => setIsPioneerModalOpen(false)}>{t('common.cancel')}</Button>
-                <Button 
-                    className={pioneerActionType === 'approve' ? "bg-emerald-600 text-white" : "bg-red-600 text-white"} 
-                    onClick={confirmPioneerAction} 
-                    disabled={processing}
-                >
-                    {pioneerActionType === 'approve' ? 'Confirm Approval' : 'Confirm Revoke'}
-                </Button>
-            </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };
