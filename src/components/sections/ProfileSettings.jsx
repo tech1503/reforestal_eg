@@ -9,8 +9,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
-import { Loader2, ArrowLeft, User, Save, Sparkles, MapPin, Phone, Mail, Camera, Upload } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Loader2, User, Save, Sparkles, MapPin, Phone, Mail, Camera, Upload } from 'lucide-react';
+//import { useNavigate } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
@@ -21,7 +21,7 @@ const ProfileSettings = () => {
     const { profile, user, fetchProfile } = useAuth();
     const { refreshFinancials } = useFinancial(); 
     const { toast } = useToast();
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     
     const [avatarFile, setAvatarFile] = useState(null);

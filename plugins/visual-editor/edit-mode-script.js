@@ -93,7 +93,6 @@ function handleGlobalEvent(event) {
 		return;
 	}
 
-	// Don't handle if selection mode is active
 	if (document.getElementById("root")?.getAttribute("data-selection-mode-enabled") === "true") {
 		return;
 	}
@@ -155,7 +154,6 @@ function getParentOrigin() {
 
 async function handleEditSave(updatedText) {
 	const newText = updatedText
-		// Replacing characters that cause Babel parser to crash
 		.replace(/</g, "&lt;")
 		.replace(/>/g, "&gt;")
 		.replace(/{/g, "&#123;")
@@ -231,7 +229,6 @@ function showDisabledTooltip(targetElement, isImage = false) {
 	const tooltipHeight = disabledTooltipElement.offsetHeight;
 	const rect = targetElement.getBoundingClientRect();
 
-	// Ensures that tooltip is not off the screen with 5px margin
 	let newLeft = rect.left + window.scrollX + rect.width / 2 - tooltipWidth / 2;
 	let newTop = rect.bottom + window.scrollY + 5;
 
@@ -285,7 +282,6 @@ function handleDisabledGlobalHover(event) {
 }
 
 function enableEditMode() {
-	// Don't enable if selection mode is active
 	if (document.getElementById("root")?.getAttribute("data-selection-mode-enabled") === "true") {
 		console.warn("[EDIT MODE] Cannot enable edit mode while selection mode is active");
 		return;

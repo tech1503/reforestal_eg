@@ -143,7 +143,6 @@ const StartnextUserDashboard = () => {
                  <div className="p-2.5 bg-gradient-gold rounded-xl shadow-glow">
                      <CheckCircle2 className="w-6 h-6 text-[#063127]" />
                  </div>
-                 {/* Aquí el texto queda como text-foreground para que responda al modo claro/oscuro fuera de la tarjeta */}
                  <h3 className="text-2xl font-bold text-foreground">
                      {t('dashboard.benefits.title', 'Your Startnext Benefits')}
                  </h3>

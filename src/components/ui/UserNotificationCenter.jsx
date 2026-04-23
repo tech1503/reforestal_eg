@@ -79,7 +79,7 @@ const UserNotificationCenter = () => {
                     <div className="flex justify-between items-center">
                         <SheetTitle className="flex items-center gap-2 text-foreground">
                             {t('common.notifications', 'Notifications')} 
-                            {/* AQUÍ HICIMOS EL BADGE MÁS PEQUEÑO */}
+                            
                             {unreadCount > 0 && <Badge className="bg-red-500 text-white shadow-sm border-none text-[10px] px-1.5 py-0 h-5 flex items-center">{unreadCount} {t('user_notifications.new', 'New')}</Badge>}
                         </SheetTitle>
                         {unreadCount > 0 && (
