@@ -10,6 +10,7 @@ import { supabase } from '@/lib/customSupabaseClient';
 import LandDollarDisplay from '@/components/LandDollarDisplay'; 
 import { useTranslation } from 'react-i18next';
 import { Skeleton } from '@/components/ui/skeleton';
+import { formatNumber } from '@/lib/utils';
 
 const ReferralSection = () => {
   const { user, profile, loading: authLoading } = useAuth();
@@ -124,7 +125,7 @@ const ReferralSection = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-muted-foreground text-sm font-medium uppercase tracking-wide">{stat.title}</p>
-                  <p className="text-3xl font-bold text-[#053127] dark:text-[#c2d2c1] mt-1">{statsLoading ? <Loader2 className="h-6 w-6 animate-spin text-[#5b8370]" /> : stat.value}</p>
+                  <p className="text-3xl font-black text-gradient-gold drop-shadow-md mt-1">{statsLoading ? <Loader2 className="h-6 w-6 animate-spin text-[#5b8370]" /> : formatNumber(stat.value)}</p>
                 </div>
                 <div className={`p-3 rounded-xl bg-muted`}><Icon className={`w-6 h-6 text-${stat.color}-600`} /></div>
               </div>
@@ -146,7 +147,7 @@ const ReferralSection = () => {
               <div className="inline-flex items-center justify-center gap-2 text-red-200 font-bold bg-red-900/30 p-2 rounded-lg px-6"><AlertCircle className="w-5 h-5"/> ACCOUNT SUSPENDED</div>
           ) : (
               <div className="flex justify-center gap-3">
-                  <Button onClick={handleCopyLink} className="bg-[#c2d2c1] text-[#053127] hover:bg-white font-bold min-w-[200px] border-none shadow-md">
+                  <Button onClick={handleCopyLink} className="bg-[#c2d2c1] text-white hover:bg-white font-bold min-w-[200px] border-none shadow-md">
                     {copied ? <Check className="w-4 h-4 mr-2" /> : <Share2 className="w-4 h-4 mr-2" />} {copied ? t('common.success', 'Copied!') : t('dashboard.referrals.copy_link', 'Copy Link')}
                   </Button>
               </div>

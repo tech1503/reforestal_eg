@@ -1,12 +1,14 @@
 import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import { useI18n } from '@/contexts/I18nContext';
-import { useTranslation } from 'react-i18next'; // IMPORTADO
+import { useTranslation } from 'react-i18next';
 import { Leaf, Award, Globe, Zap } from 'lucide-react';
+import { calculateDynamicCredits } from '@/utils/tierLogicUtils';
+import { formatNumber } from '@/lib/utils';
 
 const TierBenefitsPreview = ({ tier, amount }) => {
   const { currentLanguage } = useI18n();
-  const { t } = useTranslation(); // HOOK
+  const { t } = useTranslation(); 
 
   if (!amount || amount < 5) {
      return (
@@ -25,7 +27,6 @@ const TierBenefitsPreview = ({ tier, amount }) => {
       );
   }
 
-  // Helper to get translated string
   const getTrans = (translations, field) => {
       const tVal = translations?.find(x => x.language_code === currentLanguage) 
               || translations?.find(x => x.language_code === 'en');
@@ -34,6 +35,8 @@ const TierBenefitsPreview = ({ tier, amount }) => {
 
   const tierName = getTrans(tier.support_level_translations, 'name');
   const tierDesc = getTrans(tier.support_level_translations, 'description');
+  
+  const dynamicCredits = calculateDynamicCredits(amount);
 
   return (
     <div className="bg-gradient-to-br from-white to-emerald-50/50 border border-emerald-100 rounded-xl p-5 shadow-sm space-y-4">
@@ -57,7 +60,7 @@ const TierBenefitsPreview = ({ tier, amount }) => {
                    </div>
                    <div className="flex justify-between text-sm">
                        <span className="text-slate-600">{t('dashboard.impact_credits')}:</span>
-                       <span className="font-mono font-bold text-blue-600">{tier.impact_credits_reward}</span>
+                       <span className="font-mono font-bold text-blue-600">{formatNumber(dynamicCredits)}</span>
                    </div>
                </div>
            </div>
@@ -65,7 +68,7 @@ const TierBenefitsPreview = ({ tier, amount }) => {
            <div className="bg-white/60 p-3 rounded-lg border border-emerald-100/50">
                <span className="text-xs font-semibold text-emerald-800 uppercase tracking-wider block mb-2">Benefits</span>
                <ul className="space-y-1.5">
-                   {tier.support_benefits?.map((benefit, i) => {
+                   {tier.support_benefits?.filter(b => b.is_active === true && b.icon_name !== 'credit' && b.icon_name !== 'star').map((benefit, i) => {
                        const desc = getTrans(benefit.support_benefit_translations, 'description');
                        return (
                            <li key={i} className="text-xs text-slate-700 flex items-start gap-1.5">
@@ -74,7 +77,7 @@ const TierBenefitsPreview = ({ tier, amount }) => {
                            </li>
                        );
                    })}
-                   {(!tier.support_benefits || tier.support_benefits.length === 0) && (
+                   {(!tier.support_benefits || tier.support_benefits.filter(b => b.is_active).length === 0) && (
                        <li className="text-xs text-slate-400 italic">No specific benefits listed.</li>
                    )}
                </ul>

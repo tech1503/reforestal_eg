@@ -23,18 +23,14 @@ const UserManagement = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   
-  // Edit State
   const [editingUser, setEditingUser] = useState(null);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [deletingUser, setDeletingUser] = useState(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [processing, setProcessing] = useState(false);
 
-  // System Data
   const [availableTiers, setAvailableTiers] = useState([]);
-  const [gamificationRules, setGamificationRules] = useState([]);
 
-  // Iconos para perfiles
   const profileIcons = { lena: Leaf, markus: Shield, david: Users };
   const profileColors = {
     lena: 'bg-emerald-100 text-emerald-800 border-emerald-200',
@@ -56,17 +52,12 @@ const UserManagement = () => {
 
       const { data: tiers } = await supabase.from('support_levels').select('*').order('min_amount');
       const { data: benefits } = await supabase.from('user_benefits').select('*').eq('status', 'active').order('assigned_date', { ascending: false });
-      
       const { data: metrics } = await supabase.from('founding_pioneer_metrics').select('user_id, total_impact_credits_earned, founding_pioneer_access_status');
       
       let landDollars = [];
       try { const { data: ld } = await supabase.from('land_dollars').select('*'); landDollars = ld || []; } catch (e) {}
 
-      let gameRules = [];
-      try { const { data: gr } = await supabase.from('gamification_actions').select('*').eq('is_active', true); gameRules = gr || []; } catch (e) {}
-      
       setAvailableTiers(tiers || []);
-      setGamificationRules(gameRules);
 
       const mergedUsers = (profiles || []).map(user => {
         const userBenefit = benefits?.find(b => b.user_id === user.id);
@@ -81,7 +72,6 @@ const UserManagement = () => {
           ...user,
           tier_name: tierInfo ? formatTierName(tierInfo.slug) : 'Standard',
           tier_id: tierInfo ? tierInfo.id : 'none',
-          benefit_row_id: userBenefit ? userBenefit.id : null,
           ic_balance: metric ? metric.total_impact_credits_earned : 0,
           founding_pioneer_access_status: metric ? metric.founding_pioneer_access_status : 'pending',
           has_land_dollar: !!userLandDollar,
@@ -145,7 +135,7 @@ const UserManagement = () => {
           toast({ 
               title: "Status Updated", 
               description: `${userObj.name || 'User'} is now ${newStatus}.`, 
-              className: newStatus === 'approved' ? "bg-emerald-600 text-white" : "" 
+              className: newStatus === 'approved' ? "bg-emerald-600 text-white border-none" : "" 
           });
           
           fetchAllData();
@@ -171,7 +161,6 @@ const UserManagement = () => {
     if (!editingUser) return;
     setProcessing(true);
     try {
-      
       const safeReferralCode = editingUser.referral_code.trim() === '' ? null : editingUser.referral_code.trim().toLowerCase();
 
       const { error: profileErr } = await supabase.from('profiles').update({ 
@@ -179,29 +168,47 @@ const UserManagement = () => {
           role: editingUser.role,
           genesis_profile: editingUser.genesis_profile,
           referral_code: safeReferralCode
-        }).eq('id', editingUser.id);
+      }).eq('id', editingUser.id);
       
-      if (profileErr) throw new Error(profileErr.message);
+      if (profileErr) throw profileErr;
 
-      const { data: existMetric } = await supabase.from('founding_pioneer_metrics').select('id').eq('user_id', editingUser.id).maybeSingle();
-      if (existMetric) {
-          await supabase.from('founding_pioneer_metrics').update({ founding_pioneer_access_status: editingUser.pioneer_status }).eq('user_id', editingUser.id);
+      const isNewTier = editingUser.selectedTier !== editingUser.tier_id;
+      const isFundsEmpty = Number(editingUser.land_dollar_amount) === 0;
+
+      if (editingUser.selectedTier && editingUser.selectedTier !== 'none' && (isNewTier || isFundsEmpty)) {
+          let tierData = availableTiers.find(t => t.id === editingUser.selectedTier);
+          if (tierData) {
+              const { data: rpcData, error: rpcError } = await supabase.rpc('admin_process_startnext_contribution', {
+                  p_user_id: editingUser.id,
+                  p_amount: tierData.min_amount,
+                  p_notes: 'Admin manual tier assignment',
+                  p_pioneer_status: editingUser.pioneer_status
+              });
+              if (rpcError) throw rpcError;
+          }
       } else {
-          await supabase.from('founding_pioneer_metrics').insert({ user_id: editingUser.id, founding_pioneer_access_status: editingUser.pioneer_status });
+          const { data: existMetric } = await supabase.from('founding_pioneer_metrics').select('id').eq('user_id', editingUser.id).maybeSingle();
+          if (existMetric) {
+              await supabase.from('founding_pioneer_metrics').update({ founding_pioneer_access_status: editingUser.pioneer_status }).eq('user_id', editingUser.id);
+          } else {
+              await supabase.from('founding_pioneer_metrics').insert({ user_id: editingUser.id, founding_pioneer_access_status: editingUser.pioneer_status });
+          }
       }
 
       const linkRefToUse = safeReferralCode || `REF-${editingUser.id.substring(0,6).toUpperCase()}`;
       const newQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://reforest.al/${linkRefToUse}`;
 
-      if (editingUser.land_dollar_id) {
+      const { data: ldExist } = await supabase.from('land_dollars').select('id').eq('user_id', editingUser.id).maybeSingle();
+
+      if (ldExist) {
           await supabase.from('land_dollars').update({ 
               status: editingUser.editLandDollarStatus,
               is_active: editingUser.editLandDollarStatus === 'active' || editingUser.editLandDollarStatus === 'issued',
               link_ref: linkRefToUse,
               qr_code_url: newQrUrl
-          }).eq('id', editingUser.land_dollar_id);
+          }).eq('id', ldExist.id);
       } else if (editingUser.editLandDollarStatus === 'active') {
-           await supabase.from('land_dollars').insert({
+          await supabase.from('land_dollars').insert({
                user_id: editingUser.id,
                amount: 0,
                status: 'active',
@@ -212,97 +219,7 @@ const UserManagement = () => {
            });
       }
 
-      if (editingUser.selectedTier && editingUser.selectedTier !== 'none' && editingUser.selectedTier !== editingUser.tier_id) { 
-          let tierData = availableTiers.find(t => t.id === editingUser.selectedTier);
-          let prettyTierName = 'Standard';
-          let creditsToAward = 0;
-
-          if (tierData) {
-             prettyTierName = `Explorer / ${formatTierName(tierData.slug)}`;
-             creditsToAward = Number(tierData.impact_credits_reward);
-             
-             let bonusPoints = 0;
-             const { data: existingContrib } = await supabase.from('startnext_contributions')
-                  .select('id, contribution_amount')
-                  .eq('user_id', editingUser.id)
-                  .order('contribution_date', { ascending: false }).limit(1).maybeSingle();
-              
-             let contributionId = existingContrib?.id;
-
-             if (existingContrib) {
-                  if (Number(tierData.min_amount) > Number(existingContrib.contribution_amount || 0)) {
-                      const rule = gamificationRules.find(r => r.action_name === 'contribution_upgrade');
-                      if (rule) bonusPoints = Number(rule.impact_credits_value || 0);
-                  }
-                  await supabase.from('startnext_contributions').update({
-                      contribution_amount: tierData.min_amount, 
-                      benefit_level: prettyTierName,
-                      new_support_level_id: editingUser.selectedTier
-                  }).eq('id', existingContrib.id);
-             } else {
-                  const { data: newContrib } = await supabase.from('startnext_contributions').insert({
-                      user_id: editingUser.id, 
-                      contribution_amount: tierData.min_amount, 
-                      contribution_date: new Date().toISOString(),
-                      notes: 'Admin Allocation', 
-                      benefit_assigned: true, 
-                      benefit_level: prettyTierName, 
-                      new_support_level_id: editingUser.selectedTier
-                  }).select().single();
-                  contributionId = newContrib.id;
-             }
-
-             const bPayload = { 
-                  user_id: editingUser.id, 
-                  new_support_level_id: editingUser.selectedTier, 
-                  benefit_level_id: null, 
-                  contribution_id: contributionId,
-                  status: 'active', 
-                  assigned_date: new Date().toISOString() 
-             };
-              
-             if (editingUser.benefit_row_id) {
-                 await supabase.from('user_benefits').update(bPayload).eq('id', editingUser.benefit_row_id);
-             } else {
-                 const { data: existingBen } = await supabase.from('user_benefits').select('id').eq('user_id', editingUser.id).limit(1).maybeSingle();
-                 if (existingBen) await supabase.from('user_benefits').update(bPayload).eq('id', existingBen.id);
-                 else await supabase.from('user_benefits').insert(bPayload);
-             }
-
-             const totalAward = creditsToAward + bonusPoints;
-             if (totalAward > 0) {
-                 await supabase.from('impact_credits').insert({ 
-                    user_id: editingUser.id, 
-                    amount: totalAward, 
-                    source: 'tier_assignment', 
-                    description: `Tier Update: ${prettyTierName} (Admin Set)`,
-                    issued_date: new Date().toISOString(),
-                    related_support_level_id: editingUser.selectedTier
-                 });
-
-                 const { data: currentMetric } = await supabase.from('founding_pioneer_metrics').select('total_impact_credits_earned').eq('user_id', editingUser.id).maybeSingle();
-                 const currentTotal = currentMetric?.total_impact_credits_earned || 0;
-                 
-                 await supabase.from('founding_pioneer_metrics').upsert({
-                     user_id: editingUser.id, 
-                     total_impact_credits_earned: currentTotal + totalAward,
-                     last_activity_date: new Date().toISOString()
-                 }, { onConflict: 'user_id' });
-             }
-
-             const ldPayload = {
-                  user_id: editingUser.id, 
-                  amount: tierData.min_amount, 
-                  status: editingUser.editLandDollarStatus || 'active',
-                  link_ref: linkRefToUse, 
-                  related_support_level_id: editingUser.selectedTier,
-                  land_dollar_url: '/assets/land-dollar-base.webp',
-             };
-             await supabase.from('land_dollars').upsert(ldPayload, { onConflict: 'user_id' });
-          }
-      }
-
-      toast({ title: t('common.success'), description: "Usuario y Apodo actualizados exitosamente." });
+      toast({ title: t('common.success'), description: "Usuario actualizado exitosamente." });
       setIsEditOpen(false);
       await fetchAllData();
     } catch (error) {

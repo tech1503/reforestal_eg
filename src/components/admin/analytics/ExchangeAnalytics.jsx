@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { formatNumber } from '@/lib/utils'; 
 
 const ExchangeAnalytics = () => {
   const { t } = useTranslation();
@@ -66,22 +67,23 @@ const ExchangeAnalytics = () => {
 
             <Card>
                 <CardHeader>
-                    {/* Exchange Overview */}
                     <CardTitle>{t('exchange.title')} Overview</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="space-y-4">
                         <div className="p-4 bg-blue-50 rounded-lg">
                             <p className="text-sm text-blue-600 font-medium">{t('exchange.labels.total')} Credits Spent</p>
-                            <p className="text-3xl font-bold text-blue-900">{stats.totalRev.toLocaleString()} </p>
+       
+                            <p className="text-3xl font-bold text-blue-900">{formatNumber(stats.totalRev)} </p>
                         </div>
                         <div className="p-4 bg-slate-50 rounded-lg">
                             <p className="text-sm text-slate-500 font-medium">Avg. Purchase Value</p>
-                            <p className="text-2xl font-bold text-slate-800">{stats.avgPurchase.toFixed(0)} </p>
+                 
+                            <p className="text-2xl font-bold text-slate-800">{formatNumber(stats.avgPurchase)} </p>
                         </div>
                         <div className="p-4 bg-slate-50 rounded-lg">
                             <p className="text-sm text-slate-500 font-medium">{t('exchange.labels.total')} Transactions</p>
-                            <p className="text-2xl font-bold text-slate-800">{purchases.length}</p>
+                            <p className="text-2xl font-bold text-slate-800">{formatNumber(purchases.length)}</p>
                         </div>
                     </div>
                 </CardContent>

@@ -8,17 +8,17 @@ import { supabase } from '@/lib/customSupabaseClient';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import PendingImpactCredits from '@/components/admin/PendingImpactCredits';
-import { getSupportLevelByAmount, calculateDynamicCredits } from '@/utils/tierLogicUtils';
 import { createNotification } from '@/utils/notificationUtils'; 
+import { useTranslation } from 'react-i18next';
 
 const PendingRegistrations = () => {
     const { toast } = useToast();
+    const { t } = useTranslation();
     const [registrations, setRegistrations] = useState([]);
     const [loading, setLoading] = useState(true);
     const [processing, setProcessing] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [confirmAction, setConfirmAction] = useState(null); 
-    
     const [rowPioneerStatus, setRowPioneerStatus] = useState({});
 
     const fetchRegistrations = useCallback(async () => {
@@ -60,88 +60,35 @@ const PendingRegistrations = () => {
         setProcessing(item.id);
 
         try {
-            const { data: roleData } = await supabase.from('roles').select('id').eq('name', 'startnext_user').single();
-            if (!roleData) throw new Error("Role 'startnext_user' not found.");
+            const p_status = rowPioneerStatus[item.id] || 'pending';
 
-            await supabase.from('users_roles').upsert({ user_id: item.user_id, role_id: roleData.id }, { onConflict: 'user_id,role_id' });
-            await supabase.from('profiles').update({ role: 'startnext_user' }).eq('id', item.user_id);
+            const { data, error } = await supabase.rpc('admin_process_startnext_contribution', {
+                p_user_id: item.user_id,
+                p_amount: item.amount,
+                p_notes: item.message || 'Approved from pending request',
+                p_pending_req_id: item.id,
+                p_city: item.city,
+                p_country: item.country,
+                p_pioneer_status: p_status
+            });
 
-            const supportLevelId = await getSupportLevelByAmount(item.amount);
-            
-            if (supportLevelId) {
-                await supabase.from('user_benefits').upsert({
-                    user_id: item.user_id,
-                    new_support_level_id: supportLevelId,
-                    status: 'active',
-                    assigned_date: new Date().toISOString()
-                }, { onConflict: 'user_id' });
-            }
-
-            const { data: contrib, error: contribError } = await supabase.from('startnext_contributions').insert({
-                user_id: item.user_id,
-                contribution_amount: item.amount,
-                new_support_level_id: supportLevelId,
-                benefit_assigned: true,
-                notes: item.message || 'Approved from pending request'
-            }).select().single();
-
-            if (contribError) throw contribError;
-
-            const correctCredits = calculateDynamicCredits(item.amount); 
-            
-            const { data: existingCredits } = await supabase
-                .from('impact_credits')
-                .select('id, amount')
-                .eq('contribution_id', contrib.id);
-
-            if (existingCredits && existingCredits.length > 0) {
-                const firstCredit = existingCredits[0];
-                
-                await supabase.from('impact_credits')
-                    .update({ 
-                        amount: correctCredits, 
-                        description: `Startnext Contribution (Verified x200)`
-                    })
-                    .eq('id', firstCredit.id);
-                
-                if (existingCredits.length > 1) {
-                    const idsToDelete = existingCredits.slice(1).map(c => c.id);
-                    await supabase.from('impact_credits').delete().in('id', idsToDelete);
-                }
-            } else {
-                await supabase.from('impact_credits').insert({
-                    user_id: item.user_id,
-                    amount: correctCredits,
-                    source: 'startnext',
-                    description: 'Startnext Contribution (Manual Verify)',
-                    contribution_id: contrib.id,
-                    related_support_level_id: supportLevelId
-                });
-            }
-
-            const { data: allCredits } = await supabase.from('impact_credits').select('amount').eq('user_id', item.user_id);
-            const totalScore = allCredits?.reduce((sum, c) => sum + Number(c.amount), 0) || correctCredits;
-
-            const pioneerStatus = rowPioneerStatus[item.id] || 'pending';
-
-            await supabase.from('founding_pioneer_metrics').upsert({
-                user_id: item.user_id,
-                total_impact_credits_earned: totalScore,
-                founding_pioneer_access_status: pioneerStatus, 
-                updated_at: new Date().toISOString()
-            }, { onConflict: 'user_id' });
+            if (error) throw error;
+            if (!data.success) throw new Error(data.error);
 
             await createNotification(
                 item.user_id,
                 'notifications.contribution_verified.title',
                 'notifications.contribution_verified.message',
-                { amount: item.amount, credits: correctCredits },
+                { amount: item.amount, credits: data.credits_awarded },
                 'success'
             );
 
-            await supabase.from('pending_startnext_registrations').update({ status: 'approved' }).eq('id', item.id);
-
-            toast({ title: "Approved", description: `${item.name} role updated. Credits: ${correctCredits}. Pioneer status: ${pioneerStatus}.` });
+            toast({ 
+                title: "Approved", 
+                description: `${item.name} role updated. Credits: ${data.credits_awarded}. Pioneer status: ${data.pioneer_status}.`,
+                className: "bg-emerald-600 text-white border-none"
+            });
+            
             setConfirmAction(null);
             fetchRegistrations();
 
@@ -207,12 +154,7 @@ const PendingRegistrations = () => {
                     <div className="flex items-center gap-2">
                          <div className="relative">
                             <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
-                            <Input 
-                                placeholder="Search..." 
-                                className="pl-9 w-48 bg-white h-9 text-sm" 
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                            />
+                            <Input placeholder="Search..." className="pl-9 w-48 bg-white h-9 text-sm" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                         </div>
                         <Button variant="outline" size="sm" onClick={fetchRegistrations} disabled={loading}>
                             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />

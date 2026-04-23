@@ -81,7 +81,7 @@
       "support_button": "Apoyar en Startnext"
     },
     "land_dollar": {
-      "title": "Land Dollar Digital",
+      "title": "Acceso Premium",
       "certificate_text": "\"Tu Land Dollar es tu certificado\"",
       "download": "Descargar",
       "share": "Compartir",
@@ -104,9 +104,9 @@
       "locked_title": "Bonos Startnext"
     },
     "benefits": {
-      "title": "Tus Beneficios Startnext",
+      "title": "Tus Beneficios",
       "no_benefits": "No se encontraron beneficios.",
-      "locked_title": "Beneficios Startnext"
+      "locked_title": "Beneficios"
     },
     "pioneers": {
       "title": "¡Gracias por ser un Pionero!",
@@ -919,6 +919,7 @@
       }
     },
     "news": {
+      "no_news": "No hay noticias recientes. Mantente atento a las actualizaciones exclusivas para fundadores.",
       "official_tag": "Anuncio Oficial",
       "today_time": "Hoy, 10:00 AM",
       "read_more": "Leer artículo completo",
@@ -945,6 +946,7 @@
       }
     },
     "roadmap": {
+      "no_roadmap": "El roadmap se actualizará pronto. Mantente atento a los hitos clave y eventos exclusivos para fundadores.",
       "phase1_title": "Fase 1: Génesis",
       "phase1_obj": "Objetivo: Adquisición de Tierras y Primeros 500 Árboles",
       "items": {

@@ -51,24 +51,50 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
 
-        // --- NUEVA PALETA ESMERALD ---
-        esmerald: {
-          100: '#cdd090', // Tono amarillento/lima suave
-          300: '#82c6ba', // Verde agua claro
-          500: '#17a277', // Esmeralda vibrante (Principal)
-          700: '#055b4f', // Esmeralda profundo/oscuro
+        // --- PALETA ESMERALD ---
+        emerald: {
+          100: '#cdd090', 
+          300: '#82c6ba', 
+          500: '#17a277', 
+          700: '#055b4f', 
         },
 
-        // Reforestal Custom Palette (Futuristic Restyle)
+        yellow: {
+          DEFAULT: '#C59B27',
+          100: '#FEF1A7',
+          200: '#FEF1A7',
+          300: '#C59B27',
+          400: '#C59B27',
+          500: '#C59B27', 
+          600: '#8F6B19', 
+          700: '#8F6B19',
+          800: '#5B3B04',
+          900: '#5B3B04',
+        },
+        amber: {
+          DEFAULT: '#C59B27',
+          100: '#FEF1A7',
+          200: '#FEF1A7',
+          300: '#C59B27',
+          400: '#C59B27',
+          500: '#C59B27', 
+          600: '#8F6B19',
+          700: '#8F6B19',
+          800: '#5B3B04',
+          900: '#5B3B04',
+        },
+
+        // Reforestal Custom Palette
         white: '#FFFFFF',
         light: '#EDEDED',
         olive: '#4E614E',
         forest: '#243524',
         gold: {
-          DEFAULT: '#E9B600',
-          500: '#E9B600',
-          600: '#CB9F00',
-          200: '#ffedaa',
+          DEFAULT: '#C59B27',
+          500: '#C59B27',
+          600: '#8F6B19',
+          700: '#5B3B04',
+          200: '#FEF1A7',
         },
         darkBg: '#022402',
         darkBgDeep: '#011101',
@@ -80,10 +106,14 @@ module.exports = {
           textPrimaryLight: '#022402',
           textPrimaryDark: '#EDEDED',
           textSecondary: '#4E614E',
-          accentPrimary: '#E9B600',
-          accentSecondary: '#CB9F00',
+          accentPrimary: '#C59B27',
+          accentSecondary: '#8F6B19',
           border: '#4E614E',
         }
+      },
+      backgroundImage: {
+        'gradient-gold': 'linear-gradient(to bottom, #734b07 0%, #cf9c2a 25%, #fef1a7 50%, #cf9c2a 75%, #734b07 100%)',
+        'gradient-gold-radial': 'radial-gradient(circle at center, #fef1a7 0%, #cf9c2a 40%, #734b07 100%)',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -96,8 +126,8 @@ module.exports = {
       boxShadow: {
         'soft': '0 2px 8px rgba(0, 0, 0, 0.08)',
         'premium': '0 8px 24px rgba(0, 0, 0, 0.12)',
-        'glow': '0 0 20px rgba(233, 182, 0, 0.15)',
-        'glow-lg': '0 0 40px rgba(233, 182, 0, 0.2)',
+        'glow': '0 0 20px rgba(197, 155, 39, 0.25)', 
+        'glow-lg': '0 0 40px rgba(197, 155, 39, 0.4)',
       },
       transitionDuration: {
         'fast': '200ms',
@@ -122,8 +152,8 @@ module.exports = {
           "100%": { transform: 'translateY(0)', opacity: 1 },
         },
         "pulse-glow": {
-          "0%, 100%": { boxShadow: '0 0 20px rgba(233, 182, 0, 0.15)' },
-          "50%": { boxShadow: '0 0 40px rgba(233, 182, 0, 0.3)' },
+          "0%, 100%": { boxShadow: '0 0 20px rgba(197, 155, 39, 0.2)' },
+          "50%": { boxShadow: '0 0 40px rgba(197, 155, 39, 0.5)' },
         },
         "float": {
           "0%, 100%": { transform: "translateY(0)" },

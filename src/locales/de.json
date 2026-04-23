@@ -81,7 +81,7 @@
       "support_button": "Auf Startnext unterstützen"
     },
     "land_dollar": {
-      "title": "Digitaler Land Dollar",
+      "title": "Premium-Zugang",
       "certificate_text": "\"Ihr Land Dollar ist Ihr Zertifikat\"",
       "download": "Herunterladen",
       "share": "Teilen",
@@ -104,9 +104,9 @@
       "locked_title": "Startnext Bonuspunkte"
     },
     "benefits": {
-      "title": "Deine Startnext-Vorteile",
+      "title": "Deine Vorteile",
       "no_benefits": "Nichts gefunden.",
-      "locked_title": "Startnext-Vorteile"
+      "locked_title": "Vorteile"
     },
     "pioneers": {
       "title": "Danke, dass du ein Pionier bist!",
@@ -920,6 +920,7 @@
       }
     },
     "news": {
+      "no_news": "Keine aktuellen Neuigkeiten. Bleiben Sie dran für exklusive Gründer-Updates.",
       "official_tag": "Offizielle Ankündigung",
       "today_time": "Heute, 10:00 Uhr",
       "read_more": "Vollständigen Artikel lesen",
@@ -946,6 +947,7 @@
       }
     },
     "roadmap": {
+      "no_roadmap": "Bleiben Sie gespannt auf wichtige Meilensteine ​​und exklusive Gründerveranstaltungen.",
       "phase1_title": "Phase 1: Genesis",
       "phase1_obj": "Ziel: Landerwerb und erste 500 Bäume",
       "items": {

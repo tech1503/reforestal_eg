@@ -26,6 +26,8 @@ const ProfileSettings = () => {
     
     const [avatarFile, setAvatarFile] = useState(null);
     const [avatarPreview, setAvatarPreview] = useState('');
+    
+    const [rewardClaimed, setRewardClaimed] = useState(false);
 
     const [formData, setFormData] = useState({
         full_name: '',
@@ -50,6 +52,25 @@ const ProfileSettings = () => {
             setAvatarPreview(profile.avatar_url || '');
         }
     }, [profile, user]);
+
+    useEffect(() => {
+        if (user?.id) {
+            const checkRewardStatus = async () => {
+                const { data } = await supabase
+                    .from('gamification_history')
+                    .select('id')
+                    .eq('user_id', user.id)
+                    .eq('action_type', 'Profile')
+                    .limit(1)
+                    .maybeSingle();
+
+                if (data) {
+                    setRewardClaimed(true);
+                }
+            };
+            checkRewardStatus();
+        }
+    }, [user?.id]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -147,17 +168,18 @@ const ProfileSettings = () => {
             );
 
             if (result.success) {
+                setRewardClaimed(true); 
                 await refreshFinancials(); 
                 toast({
                     title: t('common.success'), 
                     description: `Profile updated! You earned +${result.creditsAwarded} Bonus Points.`, 
-                    className: "bg-[#5b8370] text-white border-none"
+                    className: "bg-card text-card-foreground border-gold/30"
                 });
             } else {
                 toast({
                     title: t('common.success'),
                     description: t('profile.toasts.success_desc', 'Profile updated successfully.'),
-                    className: "bg-slate-800 text-white border-none"
+                    className: "bg-card text-card-foreground border-gold/30"
                 });
             }
 
@@ -176,28 +198,28 @@ const ProfileSettings = () => {
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="relative w-full bg-gradient-to-br from-[#063127] to-[#5b8370] pb-32 pt-10 px-6 rounded-3xl shadow-lg mb-[-5rem] overflow-hidden"
+                className="relative w-full bg-card pb-32 pt-10 px-6 rounded-3xl shadow-lg border border-gold/30 mb-[-5rem] overflow-hidden"
             >
-                <div className="absolute top-0 right-0 -mt-10 -mr-10 h-64 w-64 rounded-full bg-white/10 blur-3xl pointer-events-none" />
-                <div className="absolute bottom-0 left-0 -mb-10 -ml-10 h-40 w-40 rounded-full bg-[#c4d1c0]/20 blur-2xl pointer-events-none" />
+                <div className="absolute top-0 right-0 -mt-10 -mr-10 h-64 w-64 rounded-full bg-gold/10 blur-3xl pointer-events-none" />
+                <div className="absolute bottom-0 left-0 -mb-10 -ml-10 h-40 w-40 rounded-full bg-white/5 blur-2xl pointer-events-none" />
 
                 <div className="relative z-10 max-w-7xl mx-auto">
                     <div className="flex flex-col gap-2">
-                        <Button
+                        {/*<Button
                             variant="ghost"
                             size="sm"
-                            className="w-fit text-white/80 hover:text-white hover:bg-white/10 mb-2 pl-0 transition-colors"
+                            className="w-fit text-card-foreground/70 hover:text-gold hover:bg-white/10 mb-2 pl-0 transition-colors"
                             onClick={() => navigate(-1)}
                         >
                             <ArrowLeft className="w-4 h-4 mr-2" /> {t('common.back', 'Back')}
-                        </Button>
+                        </Button> */}
 
                         <div className="flex items-center gap-3">
-                            <Badge className="bg-[#FCD34D] text-[#063127] hover:bg-[#FCD34D]/90 border-0 px-2 py-0.5 font-bold text-xs shadow-sm">
+                            <Badge className="bg-gradient-gold text-[#063127] border-none px-2 py-0.5 font-black text-xs shadow-glow">
                                 {t('navigation.settings', 'Settings')}
                             </Badge>
                         </div>
-                        <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                        <h1 className="text-3xl md:text-4xl font-black text-white tracking-tight drop-shadow-md">
                             {t('profile.title', 'Profile Settings')}
                         </h1>
                     </div>
@@ -211,16 +233,16 @@ const ProfileSettings = () => {
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.1 }}
                 >
-                    <Card className="bg-card shadow-xl border-0 rounded-2xl overflow-hidden min-h-[500px]">
+                    <Card className="bg-card shadow-2xl border border-gold/20 rounded-2xl overflow-hidden min-h-[500px]">
 
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-0">
 
                             {/* COLUMNA IZQUIERDA (FOTO Y RESUMEN) */}
-                            <div className="md:col-span-5 lg:col-span-4 bg-muted/30 p-8 flex flex-col items-center text-center border-b md:border-b-0 md:border-r border-border">
+                            <div className="md:col-span-5 lg:col-span-4 bg-black/20 p-8 flex flex-col items-center text-center border-b md:border-b-0 md:border-r border-gold/10 rounded-2xl md:rounded-r-none">
                                 
                                 {/* COMPONENTE DE SUBIDA DE FOTO */}
                                 <div className="relative group mt-4">
-                                    <div className="absolute -inset-1 bg-gradient-to-tr from-[#5b8370] to-[#063127] rounded-full blur opacity-30 group-hover:opacity-60 transition duration-500"></div>
+                                    <div className="absolute -inset-1 bg-gradient-gold rounded-full blur opacity-30 group-hover:opacity-60 transition duration-500 shadow-glow"></div>
                                     
                                     <label htmlFor="avatar-upload" className="cursor-pointer block relative">
                                         <Avatar className="w-40 h-40 border-[6px] border-card shadow-xl bg-white transition-transform group-hover:scale-105">
@@ -234,7 +256,7 @@ const ProfileSettings = () => {
                                             <Camera className="w-10 h-10 text-white drop-shadow-md" />
                                         </div>
 
-                                        <div className="absolute bottom-2 right-2 bg-[#5b8370] text-white p-2.5 rounded-full shadow-lg border-2 border-card hover:bg-[#063127] transition-colors">
+                                        <div className="absolute bottom-2 right-2 bg-gradient-gold text-[#063127] p-2.5 rounded-full shadow-glow border-2 border-card hover:scale-110 transition-transform">
                                             <Upload className="w-4 h-4" />
                                         </div>
                                     </label>
@@ -250,19 +272,19 @@ const ProfileSettings = () => {
                                     />
                                 </div>
 
-                                <p className="text-xs text-muted-foreground mt-4 font-medium">
+                                <p className="text-xs text-card-foreground/60 mt-4 font-medium">
                                     {t('profile.change_image_hint', 'Click image to change (Max 5MB)')}
                                 </p>
 
-                                <h2 className="text-xl font-bold text-foreground mt-6 mb-1">
+                                <h2 className="text-xl font-bold text-card-foreground mt-6 mb-1">
                                     {formData.full_name || t('profile.placeholders.name', 'Your Name')}
                                 </h2>
-                                <p className="text-muted-foreground text-sm mb-6 flex items-center justify-center gap-1">
+                                <p className="text-card-foreground/70 text-sm mb-6 flex items-center justify-center gap-1">
                                     <Mail className="w-3 h-3" /> {formData.email}
                                 </p>
 
                                 <div className="flex flex-wrap gap-2 justify-center mb-8">
-                                    <Badge variant="secondary" className="bg-muted text-muted-foreground capitalize">
+                                    <Badge variant="secondary" className="bg-white/10 text-card-foreground border-white/20 capitalize">
                                         {profile?.role?.replace('_', ' ') || 'User'}
                                     </Badge>
                                     {profile?.genesis_profile && (() => {
@@ -271,31 +293,34 @@ const ProfileSettings = () => {
                                         const label = t(`genesisQuest.profiles.genesis.${slug}.title`, pData?.title || `${profile.genesis_profile} Profile`);
                                         
                                         return (
-                                            <Badge className="bg-indigo-100 text-indigo-700 border-0 capitalize">
+                                            <Badge className="bg-gold/10 text-gold border border-gold/30 capitalize">
                                                 {label}
                                             </Badge>
                                         );
                                     })()}
                                 </div>
 
-                                <div className="mt-auto w-full bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-900/30 rounded-xl p-4 text-left shadow-sm">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <Sparkles className="w-4 h-4 text-amber-500" />
-                                        <span className="text-xs font-bold text-amber-800 dark:text-amber-200 uppercase tracking-wide">
-                                            {t('profile.gamification_card.tip_label', 'Reward')}
-                                        </span>
+                                {/* CONDICIONAL DEL PREMIO (Se oculta si ya fue reclamado) */}
+                                {!rewardClaimed && (
+                                    <div className="mt-auto w-full bg-gold/5 border border-gold/20 rounded-xl p-4 text-left shadow-inner">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <Sparkles className="w-4 h-4 text-gold" />
+                                            <span className="text-xs font-bold text-gold uppercase tracking-wide">
+                                                {t('profile.gamification_card.tip_label', 'Reward')}
+                                            </span>
+                                        </div>
+                                        <p className="text-xs text-card-foreground/80 leading-relaxed">
+                                            {t('profile.gamification_card.reward_text', 'Update your profile details to earn bonus credits.')}
+                                        </p>
                                     </div>
-                                    <p className="text-xs text-amber-700 dark:text-amber-300/80 leading-relaxed">
-                                        {t('profile.gamification_card.reward_text', 'Update your profile details to earn bonus credits.')}
-                                    </p>
-                                </div>
+                                )}
                             </div>
 
                             {/* COLUMNA DERECHA: FORMULARIO */}
-                            <div className="md:col-span-7 lg:col-span-8 p-8 md:p-12">
+                            <div className="md:col-span-7 lg:col-span-8 p-8 md:p-12 bg-card">
                                 <div className="flex items-center justify-between mb-8">
-                                    <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
-                                        <User className="w-5 h-5 text-[#5b8370]" />
+                                    <h3 className="text-xl font-bold text-card-foreground flex items-center gap-2">
+                                        <User className="w-5 h-5 text-gold" />
                                         {t('profile.edit_details', 'Edit Details')}
                                     </h3>
                                 </div>
@@ -305,21 +330,21 @@ const ProfileSettings = () => {
                                     {/* 1. INFORMACIÓN PERSONAL */}
                                     <div className="grid gap-6 md:grid-cols-2">
                                         <div className="space-y-2">
-                                            <label className="text-sm font-semibold text-foreground">
+                                            <label className="text-sm font-semibold text-card-foreground">
                                                 {t('profile.labels.full_name', 'Full Name')} <span className="text-red-500">*</span>
                                             </label>
                                             <Input
                                                 name="full_name"
                                                 value={formData.full_name}
                                                 onChange={handleChange}
-                                                className="h-11 bg-background focus-visible:ring-[#5b8370]"
+                                                className="h-11 bg-background text-foreground focus-visible:ring-gold focus-visible:border-gold border-white/20"
                                                 placeholder={t('profile.placeholders.name', 'Your Name')}
                                                 required
                                             />
                                         </div>
 
                                         <div className="space-y-2">
-                                            <label className="text-sm font-semibold text-foreground">
+                                            <label className="text-sm font-semibold text-card-foreground">
                                                 {t('profile.labels.phone', 'Phone Number')}
                                             </label>
                                             <div className="relative">
@@ -328,7 +353,7 @@ const ProfileSettings = () => {
                                                     name="phone"
                                                     value={formData.phone}
                                                     onChange={handleChange}
-                                                    className="h-11 pl-10 bg-background focus-visible:ring-[#5b8370]"
+                                                    className="h-11 pl-10 bg-background text-foreground focus-visible:ring-gold focus-visible:border-gold border-white/20"
                                                     placeholder={t('profile.placeholders.phone', '+1 234 567 890')}
                                                 />
                                             </div>
@@ -338,7 +363,7 @@ const ProfileSettings = () => {
                                     {/* 2. UBICACIÓN */}
                                     <div className="grid gap-6 md:grid-cols-2">
                                         <div className="space-y-2">
-                                            <label className="text-sm font-semibold text-foreground">
+                                            <label className="text-sm font-semibold text-card-foreground">
                                                 {t('profile.labels.city', 'City')}
                                             </label>
                                             <div className="relative">
@@ -347,21 +372,21 @@ const ProfileSettings = () => {
                                                     name="city"
                                                     value={formData.city}
                                                     onChange={handleChange}
-                                                    className="h-11 pl-10 bg-background focus-visible:ring-[#5b8370]"
+                                                    className="h-11 pl-10 bg-background text-foreground focus-visible:ring-gold focus-visible:border-gold border-white/20"
                                                     placeholder={t('profile.placeholders.city', 'e.g. Berlin')}
                                                 />
                                             </div>
                                         </div>
 
                                         <div className="space-y-2">
-                                            <label className="text-sm font-semibold text-foreground">
+                                            <label className="text-sm font-semibold text-card-foreground">
                                                 {t('profile.labels.country', 'Country')}
                                             </label>
                                             <Input
                                                 name="country"
                                                 value={formData.country}
                                                 onChange={handleChange}
-                                                className="h-11 bg-background focus-visible:ring-[#5b8370]"
+                                                className="h-11 bg-background text-foreground focus-visible:ring-gold focus-visible:border-gold border-white/20"
                                                 placeholder={t('profile.placeholders.country', 'e.g. Germany')}
                                             />
                                         </div>
@@ -369,29 +394,29 @@ const ProfileSettings = () => {
 
                                     {/* 3. BIOGRAFÍA */}
                                     <div className="space-y-2">
-                                        <label className="text-sm font-semibold text-foreground">
+                                        <label className="text-sm font-semibold text-card-foreground">
                                             {t('profile.labels.bio', 'Bio')}
                                         </label>
                                         <Textarea
                                             name="bio"
                                             value={formData.bio}
                                             onChange={handleChange}
-                                            className="resize-none min-h-[100px] bg-background p-4 leading-relaxed border-input focus-visible:ring-[#5b8370]"
+                                            className="resize-none min-h-[100px] bg-background text-foreground p-4 leading-relaxed border-white/20 focus-visible:ring-gold focus-visible:border-gold"
                                             placeholder={t('profile.placeholders.bio', 'Tell us about yourself...')}
                                             maxLength={500}
                                         />
                                         <div className="flex justify-end">
-                                            <span className="text-xs text-muted-foreground font-medium">
+                                            <span className="text-xs text-card-foreground/50 font-medium">
                                                 {formData.bio.length}/500 {t('profile.character_count', 'characters')}
                                             </span>
                                         </div>
                                     </div>
 
-                                    <div className="flex justify-end pt-4 border-t border-border">
+                                    <div className="flex justify-end pt-4 border-t border-gold/10">
                                         <Button
                                             type="submit"
                                             disabled={loading}
-                                            className="px-8 h-12 text-base font-semibold bg-[#063127] hover:bg-[#5b8370] text-[#c4d1c0] hover:text-white shadow-lg shadow-[#063127]/20 hover:shadow-[#5b8370]/40 transition-all hover:-translate-y-0.5 rounded-xl border-none"
+                                            className="px-8 h-12 text-base font-black bg-gradient-gold text-white shadow-glow hover:scale-105 hover:opacity-90 transition-all rounded-xl border-none"
                                         >
                                             {loading ? <Loader2 className="w-5 h-5 animate-spin mr-2" /> : <Save className="w-5 h-5 mr-2" />}
                                             {loading ? t('profile.buttons.saving', 'Saving...') : t('profile.buttons.save', 'Save Changes')}
