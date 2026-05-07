@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { executeGamificationAction } from '@/utils/gamificationEngine';
 import { cn } from '@/lib/utils';
 import { createNotification } from '@/utils/notificationUtils';
-import LeafBackground from '@/components/ui/LeafBackground';
+//import LeafBackground from '@/components/ui/LeafBackground';
 
 const YouTubeEmbed = ({ videoId }) => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -564,7 +564,7 @@ const MissionPlayer = () => {
   return (
     <div className="w-full flex flex-col items-center relative min-h-[90vh] font-sans pb-10">
       
-      <LeafBackground />
+      {/*<LeafBackground />*/}
       
       {result === 'success' && <ReactConfetti width={windowSize.width} height={windowSize.height} recycle={false} numberOfPieces={300} gravity={0.2} style={{ position: 'fixed', top: 0, left: 0, zIndex: 100 }} />}
 

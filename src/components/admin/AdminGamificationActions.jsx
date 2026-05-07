@@ -95,18 +95,18 @@ const AdminGamificationActions = () => {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <div>
-                    <h3 className="text-lg font-bold text-gray-800">Gamification Actions</h3>
-                    <p className="text-sm text-gray-500">Configure point values.</p>
+                    <h3 className="text-lg font-bold text-foreground">Gamification Actions</h3>
+                    <p className="text-sm text-muted-foreground">Configure point values.</p>
                 </div>
                 <Button onClick={() => { setEditingAction(null); setIsModalOpen(true); }} className="bg-emerald-600 hover:bg-emerald-700 text-white">
                     <Plus className="w-4 h-4 mr-2" /> Add New Action
                 </Button>
             </div>
 
-            <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
+            <div className="bg-background rounded-lg border shadow-sm overflow-hidden">
                 <Table>
                     <TableHeader>
-                        <TableRow className="bg-gray-50/50">
+                        <TableRow className="bg-background">
                             <TableHead>Action Name</TableHead>
                             <TableHead>Type</TableHead>
                             <TableHead>Value</TableHead>

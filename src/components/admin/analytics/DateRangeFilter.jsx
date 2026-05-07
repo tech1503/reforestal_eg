@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
 import { format, subDays } from 'date-fns';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useTranslation } from 'react-i18next'; // IMPORTADO
+import { useTranslation } from 'react-i18next'; 
 
 const DateRangeFilter = ({ range, setRange, onExport }) => {
   const { t } = useTranslation();
@@ -16,7 +16,7 @@ const DateRangeFilter = ({ range, setRange, onExport }) => {
   ];
 
   return (
-    <div className="flex flex-col sm:flex-row gap-2 items-center bg-white p-2 rounded-lg border shadow-sm">
+    <div className="flex flex-col sm:flex-row gap-2 items-center bg-background p-2 rounded-lg border shadow-sm">
       <Select 
         defaultValue="30" 
         onValueChange={(val) => {
@@ -37,7 +37,7 @@ const DateRangeFilter = ({ range, setRange, onExport }) => {
         </SelectContent>
       </Select>
       
-      <div className="text-xs text-slate-500 font-medium px-2">
+      <div className="text-xs text-foreground font-medium px-2">
          {range.from ? format(range.from, 'MMM d, yyyy') : 'Start'} - {range.to ? format(range.to, 'MMM d, yyyy') : 'End'}
       </div>
 

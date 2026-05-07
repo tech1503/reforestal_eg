@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/public/assets/icono-navbar.png" />
+    <link rel="icon" type="image/svg+xml" href="/public/assets/Logo-Reforestal-1.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <meta http-equiv="Content-Security-Policy" content="
@@ -11,13 +11,13 @@
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://www.gstatic.com;
       font-src 'self' https://fonts.gstatic.com data:; 
       img-src 'self' data: https: blob: https://images.unsplash.com https://i.ytimg.com https://img.youtube.com; 
-      connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.hostingersite.com http://localhost:*; 
+      connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.hostingersite.com http://localhost:* https://n8n.reforestal.cloud; 
       frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com; 
       object-src 'none';
     ">
     
     <script>
-      console.log("CSP configured for Supabase Auth and YouTube Embebs");
+      console.log("CSP configured for Supabase Auth, YouTube Embeds and n8n webhook");
     </script>
     
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />

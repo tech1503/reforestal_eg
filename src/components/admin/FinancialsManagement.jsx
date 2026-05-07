@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Loader2, BarChart3, CheckCircle, Coins, Users } from 'lucide-react';
-import { useTranslation } from 'react-i18next'; // IMPORTADO
+import { useTranslation } from 'react-i18next'; 
 
 // Lazy load heavy components
 const AnalyticsLandDollarsIC = lazy(() => import('@/components/admin/AnalyticsLandDollarsIC'));
@@ -11,29 +11,29 @@ const ImpactCreditsMLM = lazy(() => import('@/components/admin/financials/Impact
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center py-12">
-    <Loader2 className="w-8 h-8 animate-spin text-emerald-500" />
+    <Loader2 className="w-8 h-8 animate-spin text-gold" />
   </div>
 );
 
 const FinancialsManagement = () => {
-  const { t } = useTranslation(); // HOOK
+  const { t } = useTranslation(); 
 
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
+        <h2 className="text-2xl font-bold tracking-tight text-foreground">
           {t('admin.financials.title')}
         </h2>
-        <p className="text-slate-500 dark:text-slate-400">
+        <p className="text-muted-foreground">
           Comprehensive control center for all platform currencies and transactions
         </p>
       </div>
 
       <Tabs defaultValue="analytics" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-1 rounded-lg">
+        <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 bg-muted/50 border border-border p-1 rounded-xl gap-1 h-auto">
           <TabsTrigger 
             value="analytics" 
-            className="data-[state=active]:bg-emerald-100 dark:data-[state=active]:bg-emerald-900/30 data-[state=active]:text-emerald-700 dark:data-[state=active]:text-emerald-300"
+            className="py-2 rounded-lg data-[state=active]:bg-gradient-gold data-[state=active]:text-[#063127] data-[state=active]:shadow-glow data-[state=active]:font-bold text-muted-foreground hover:text-foreground transition-all"
           >
             <BarChart3 className="w-4 h-4 mr-2" />
             {t('admin.financials.tabs.overview')}
@@ -41,7 +41,7 @@ const FinancialsManagement = () => {
           
           <TabsTrigger 
             value="approvals" 
-            className="data-[state=active]:bg-violet-100 dark:data-[state=active]:bg-violet-900/30 data-[state=active]:text-violet-700 dark:data-[state=active]:text-violet-300"
+            className="py-2 rounded-lg data-[state=active]:bg-gradient-gold data-[state=active]:text-[#063127] data-[state=active]:shadow-glow data-[state=active]:font-bold text-muted-foreground hover:text-foreground transition-all"
           >
             <CheckCircle className="w-4 h-4 mr-2" />
             {t('admin.financials.tabs.startnext')}
@@ -49,7 +49,7 @@ const FinancialsManagement = () => {
           
           <TabsTrigger 
             value="land-dollars" 
-            className="data-[state=active]:bg-green-100 dark:data-[state=active]:bg-green-900/30 data-[state=active]:text-green-700 dark:data-[state=active]:text-green-300"
+            className="py-2 rounded-lg data-[state=active]:bg-gradient-gold data-[state=active]:text-[#063127] data-[state=active]:shadow-glow data-[state=active]:font-bold text-muted-foreground hover:text-foreground transition-all"
           >
             <Coins className="w-4 h-4 mr-2" />
             {t('admin.financials.tabs.land_dollars')}
@@ -57,7 +57,7 @@ const FinancialsManagement = () => {
           
           <TabsTrigger 
             value="impact-credits" 
-            className="data-[state=active]:bg-amber-100 dark:data-[state=active]:bg-amber-900/30 data-[state=active]:text-amber-700 dark:data-[state=active]:text-amber-300"
+            className="py-2 rounded-lg data-[state=active]:bg-gradient-gold data-[state=active]:text-[#063127] data-[state=active]:shadow-glow data-[state=active]:font-bold text-muted-foreground hover:text-foreground transition-all"
           >
             <Users className="w-4 h-4 mr-2" />
             {t('admin.financials.tabs.impact_credits')}

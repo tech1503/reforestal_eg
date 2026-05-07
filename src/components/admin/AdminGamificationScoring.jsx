@@ -69,8 +69,8 @@ const AdminGamificationScoring = () => {
         <div className="space-y-6">
             <div className="flex flex-col md:flex-row justify-between gap-4">
                 <div>
-                    <h3 className="text-lg font-bold text-gray-800">User Scoring & Ranking</h3>
-                    <p className="text-sm text-gray-500">Founding Pioneer Metrics Table.</p>
+                    <h3 className="text-lg font-bold text-foreground">User Scoring & Ranking</h3>
+                    <p className="text-sm text-muted-foreground">Founding Pioneer Metrics Table.</p>
                 </div>
                 <div className="relative w-full md:w-64">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -78,10 +78,10 @@ const AdminGamificationScoring = () => {
                 </div>
             </div>
 
-            <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
+            <div className="bg-background rounded-lg border shadow-sm overflow-hidden">
                 <Table>
                     <TableHeader>
-                        <TableRow className="bg-gray-50/50">
+                        <TableRow className="bg-background">
                             <TableHead>Rank</TableHead>
                             <TableHead>User</TableHead>
                             <TableHead className="text-center">Total Credits</TableHead>

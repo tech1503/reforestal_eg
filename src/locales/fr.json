@@ -885,6 +885,13 @@
       "title": "Centre de Commandement Pionnier",
       "subtitle": "Bienvenue au cœur de Reforestal. Ici, vous façonnez l'avenir, accédez à des mises à jour confidentielles et suivez notre impact en temps réel."
     },
+    "scale_vote": {
+      "titre": "ScaleVote",
+      "prompt": "Évaluez votre niveau d'accord",
+      "le plus bas": "Le plus bas",
+      "le plus élevé": "Le plus élevé",
+      "confirm": "Confirmer l'allocation"
+    },
     "tabs": {
       "governance": "Gouvernance & Vote",
       "news": "Centre d'Actualités",
@@ -1095,6 +1102,7 @@
   "footer": {
     "privacy": "Confidentialité",
     "terms": "Conditions Générales",
+    "cookies": "Politique de Cookies",
     "contact": "Contactez-nous",
     "copyright": "Reforestal eG © 2026",
     "socials": {
@@ -1318,5 +1326,246 @@
     "pioneers_list_2": "Participation Directe",
     "pioneers_list_3": "Accès Exclusif aux Décisions",
     "pioneers_cta": "Découvrez les Forfaits"
+  },
+  "terms": {
+    "title": "Reforestal – Conditions d'Utilisation & Droits de Souscription",
+    "subtitle": "Hé ! Nous sommes ravis que vous fassiez partie du mouvement. Avant de sauver ensemble la forêt tropicale, nous devons établir quelques règles de base. Ces conditions régissent la relation entre vous et moi (Peter) pendant la phase de développement actuelle de Reforestal.",
+    "s1": {
+      "title": "1. Qui nous sommes et qui est votre partenaire",
+      "p1": "Actuellement, Reforestal est mon projet, Peter Rosinski. Comme nous sommes en train de fonder officiellement la Reforestal eG (une coopérative), je serai votre contact légal jusqu'à la fin de ce processus.",
+      "p2": "Dès que Reforestal eG sera inscrite au registre des coopératives, tous les droits et obligations découlant de cet accord seront automatiquement transférés à la coopérative. Vous en serez bien sûr informé."
+    },
+    "s2": {
+      "title": "2. Vos droits de souscription : Préparer l'Impact",
+      "p1": "Pour le moment, aucun achat réel de parts n'a lieu sur la plateforme et aucun argent n'est échangé. En vous inscrivant, vous vous assurez un droit de souscription. Cela signifie :",
+      "l1": "Vous devenez membre de la communauté et pouvez réserver dès maintenant votre place pour une future adhésion.",
+      "l2": "Tout ce que vous voyez actuellement sur le tableau de bord (m², arbres, statistiques) est virtuel. Cela ne crée pas encore de droits de propriété ou d'adhésion.",
+      "l3": "L'adhésion réelle à la coopérative et l'acquisition de parts n'ont lieu qu'après la création, par une déclaration formelle d'adhésion de votre part."
+    },
+    "s3": {
+      "title": "3. Points Bonus : L'activité porte ses fruits",
+      "p1": "Vous pouvez gagner des points bonus sur la plateforme en répondant à des quiz, en complétant votre profil ou en parrainant des amis.",
+      "l1": "Aucun droit légal : Les points bonus sont un remerciement volontaire de notre part. Il n'y a aucun droit légal au crédit ou à un paiement spécifique.",
+      "l2": "Vesting (48 mois) : Comme nous sommes une coopérative, nous ne pouvons distribuer de la valeur qu'à partir de bénéfices réels. Par conséquent, vos points bonus sont soumis à une libération progressive (vesting) sur 48 mois.",
+      "l3": "Conversion : L'assemblée générale de la future coopérative déterminera le taux de change auquel les points bonus pourront ensuite être convertis en véritables parts de la coopérative."
+    },
+    "s4": {
+      "title": "4. Le futur modèle d'abonnement et l'indice de prospérité",
+      "p1": "Quand nous démarrerons vraiment, nous voulons offrir un modèle équitable :",
+      "l1": "Parts coopératives : Une part correspond à la reforestation d'un mètre carré de forêt tropicale.",
+      "l2": "Indice de prospérité (Prime) : En raison de l'inflation et de la sécurité croissante du projet, le prix des nouvelles parts peut augmenter (la soi-disant prime).",
+      "l3": "Votre décision : Si les coûts augmentent, vous avez le choix : soit vous ajustez votre contribution mensuelle, soit vous continuez à payer le même montant. Dans le second cas, vous \"économisez\" simplement votre crédit jusqu'à ce qu'il suffise pour la prochaine part complète (plus chère). Vous recevrez alors simplement moins de parts par mois au fil du temps, mais vous respecterez votre budget."
+    },
+    "s5": {
+      "title": "5. Votre mètre carré de forêt tropicale : La dynamique de la nature",
+      "p1": "Nous attribuons un mètre carré de terrain spécifique à chaque part.",
+      "l1": "Durée : Un mètre carré vous est réservé pendant environ 25 à 30 ans. Ensuite, la zone devient la propriété commune de la coopérative pour assurer une protection à long terme, et votre part est transférée sur un nouveau mètre carré.",
+      "l2": "Risque écologique : La nature est imprévisible. Si une zone est détruite par des catastrophes naturelles (incendie, tempête, etc.), vous partagez ce risque en tant que membre de la communauté. Cependant, nous travaillons à trouver des protections communes ou des assurances à l'avenir."
+    },
+    "s6": {
+      "title": "6. Plateforme & Responsabilité",
+      "p1": "Nous mettons tout en œuvre pour garantir une disponibilité à 100 % de votre tableau de bord. Cependant :",
+      "l1": "Aucune garantie : Nous ne sommes pas responsables des pannes techniques, des travaux de maintenance ou de la perte de données, sauf en cas de négligence grave ou de faute intentionnelle de notre part.",
+      "l2": "Pas de conseil en investissement : Toutes les informations sur ce site sont à des fins d'information concernant notre objectif écologique. Nous ne fournissons pas de conseils financiers."
+    },
+    "s7": {
+      "title": "7. Dispositions Finales",
+      "p1": "Les lois de la République fédérale d'Allemagne s'appliquent. Si l'une de ces règles devait être jugée invalide, le reste restera valable. Nous trouverons alors ensemble une solution qui reflète au mieux l'esprit de Reforestal.",
+      "outro": "Prêt ? Alors allons-y !"
+    }
+  },
+  "privacy": {
+    "title": "Politique de Confidentialité (Datenschutzerklärung)",
+    "subtitle": "Chez Reforestal eG, la protection de vos données personnelles est un pilier fondamental de confiance pour notre communauté coopérative. Cette politique détaille la façon dont nous traitons vos informations lorsque vous utilisez notre plateforme et participez en tant que Partenaire ou Allié Gardien dans nos projets d'économie régénérative.",
+    "s1": {
+      "title": "1. Interprétation et définitions",
+      "l1": "Responsable du traitement : Reforestal eG (i.G. - en formation), représenté par Peter Rosinski.",
+      "l2": "Allié Gardien / Partenaire : Toute personne physique ou morale qui possède un compte actif et participe à l'écosystème de reforestation.",
+      "l3": "Land-Dollar : Certificat d'impact numérique servant de clé d'accès à la plateforme.",
+      "l4": "Points Bonus : Mesures de gamification sans valeur fiduciaire."
+    },
+    "s2": {
+      "title": "2. Responsable du traitement des données",
+      "p1": "Conformément au Règlement général sur la protection des données (RGPD), le responsable du traitement est :",
+      "l1": "Reforestal eG (i.G.)",
+      "l2": "Adresse : [Insérez l'adresse du siège en Allemagne]",
+      "l3": "E-mail de contact : info@reforest.al",
+      "l4": "Représentant : Peter Rosinski (Vorstand / Directeur Exécutif)."
+    },
+    "s3": {
+      "title": "3. Données que nous collectons",
+      "sub1": "3.1. Données fournies par vous",
+      "l1": "Inscription de l'utilisateur : Nom complet, adresse e-mail et identifiants d'accès cryptés.",
+      "l2": "Données du partenaire coopératif : Pour nous conformer à la réglementation des coopératives allemandes, nous pouvons exiger une adresse postale, une date de naissance et une nationalité.",
+      "l3": "Profil et Gamification : Informations sur votre progression, votre niveau de soutien (Tier), vos réalisations dans les \"Quêtes\" et vos réponses dans les missions interactives.",
+      "sub2": "3.2. Données provenant de sources externes",
+      "l4": "Startnext (Crowdfunding) : Nous recevons votre nom, e-mail, montant de la contribution et récompense sélectionnée pour attribuer vos droits numériques. Nous ne traitons pas directement vos données bancaires à partir de cette plateforme.",
+      "sub3": "3.3. Données techniques et de navigation",
+      "l5": "Métadonnées : Adresse IP, type de navigateur et système d'exploitation pour assurer la sécurité du réseau.",
+      "l6": "Cookies : Nous utilisons des cookies essentiels pour maintenir votre session ouverte et mémoriser vos préférences linguistiques."
+    },
+    "s4": {
+      "title": "4. Infrastructure technologique et durabilité",
+      "p1": "Nous priorisons la souveraineté des données et l'impact environnemental dans notre architecture technique.",
+      "l1": "Hébergement vert (Green Hosting) : Notre site Web est hébergé sur Hostinger à l'aide de VPS européens dotés de mesures d'efficacité énergétique et de compensation carbone.",
+      "l2": "Base de données et sécurité (Supabase) : Les données critiques sont hébergées à Francfort, en Allemagne (région AWS eu-central-1). Nous utilisons des politiques de sécurité au niveau des lignes (RLS) pour garantir qu'aucun utilisateur ne peut accéder aux informations privées d'un autre partenaire.",
+      "l3": "Intégration de Google Wallet : Si vous choisissez d'ajouter votre \"Land Dollar\", Google agit en tant que contrôleur indépendant des données stockées dans votre compte Google."
+    },
+    "s5": {
+      "title": "5. Finalité et base juridique",
+      "th1": "Finalité",
+      "th2": "Base légale (RGPD)",
+      "r1c1": "Gestion des partenaires",
+      "r1c2": "Art. 6(1)(b) : Exécution de l'accord de coopérative.",
+      "r2c1": "Émission d'actifs numériques",
+      "r2c2": "Art. 6(1)(b) : Prestation d'avantages pour votre contribution.",
+      "r3c1": "Sécurité et prévention de la fraude",
+      "r3c2": "Art. 6(1)(c) : Respect des obligations légales.",
+      "r4c1": "Exécution en Équateur",
+      "r4c2": "Art. 6(1)(b) : Gestion légale de l'achat de terres."
+    },
+    "s6": {
+      "title": "6. Transferts internationaux",
+      "p1": "Étant donné que notre mission est de protéger l'Amazonie dans la province de Pastaza, en Équateur, il existe des flux de données spécifiques en dehors de l'EEE :",
+      "l1": "Transfert vers l'Équateur : Les données d'identification peuvent être partagées avec le registre foncier et les notaires locaux pour assurer la traçabilité juridique des terres protégées. Ce transfert est nécessaire à l'exécution du contrat entre le partenaire et la Coopérative (Art. 49(1)(b) RGPD).",
+      "l2": "Garanties : Les prestataires de services techniques opèrent en vertu des clauses contractuelles types (CCT) approuvées par la Commission européenne."
+    },
+    "s7": {
+      "title": "7. Vos droits et conservation",
+      "sub1": "7.1. Vos droits (RGPD)",
+      "p1": "Vous avez le droit de :",
+      "l1": "Accès et portabilité : Obtenir une copie de vos données depuis votre tableau de bord.",
+      "l2": "Rectification : Corriger les informations dans votre profil Genesis.",
+      "l3": "Effacement : Demander la suppression de votre compte.",
+      "note": "Remarque : Nous conserverons les registres des contributions financières pendant 10 ans conformément à la législation fiscale allemande (HGB/AO).",
+      "sub2": "7.2. Conservation",
+      "l4": "Données des partenaires : Tant que dure la relation avec la coopérative.",
+      "l5": "Journaux techniques : Automatiquement anonymisés après 30 jours."
+    },
+    "s8": {
+      "title": "8. Confidentialité des enfants",
+      "p1": "Notre service ne s'adresse pas aux enfants de moins de 13 ans. Nous ne collectons pas sciemment d'informations auprès de mineurs. Si nous détectons des données provenant d'un mineur sans le consentement de ses parents, nous procéderons à leur suppression immédiate."
+    },
+    "contact": {
+      "title": "9. Contact",
+      "p1": "Pour exercer vos droits ou pour toute question concernant le traitement de vos données :",
+      "p2": "Reforestal eG",
+      "p3": "E-mail : info@reforest.al",
+      "p4": "Téléphone : +49 163 8736419",
+      "last_updated": "Dernière mise à jour : Avril 2026"
+    }
+  },
+  "cookies": {
+    "title": "Reforestal – Des miettes pour la protection du Climat (Politique relative aux cookies)",
+    "subtitle": "Hé ! Pour nous assurer que vous, en tant qu'Aliado Guardián (Partenaire Gardien) en Amazonie, ayez une vue d'ensemble complète et que votre tableau de bord fonctionne sans problème, nous utilisons des cookies et des technologies similaires (comme le stockage local). Voici un bref aperçu de ce qui se passe sur votre appareil lorsque vous utilisez Reforestal.",
+    "intro": "Vous trouverez ici un bref aperçu de ce qui se passe sur votre appareil lorsque vous utilisez Reforestal.",
+    "s1": {
+      "title": "1. Que sont les cookies et les technologies similaires ?",
+      "p1": "Les cookies sont de petits fichiers texte que votre navigateur enregistre. Ils nous aident à vous reconnaître afin que vous n'ayez pas à vous connecter à chaque fois ou à perdre vos paramètres linguistiques. Nous utilisons également le \"stockage local\" (local storage) - c'est comme un petit bloc-notes dans votre navigateur où nous enregistrons des choses comme votre progression dans les quêtes."
+    },
+    "s2": {
+      "title": "2. Outils techniquement nécessaires (Toujours actifs)",
+      "p1": "Ces technologies sont l'\"oxygénateur\" de notre plateforme. Reforestal ne fonctionnerait pas sans elles. Par conséquent, vous ne pouvez pas les désactiver si vous souhaitez utiliser le site :",
+      "l1": "Supabase (Auth & Session) : C'est notre système de base à Francfort. Il garantit que vous restez connecté en toute sécurité et que vous seul avez accès à votre \"Land Dollar\" et à votre profil.",
+      "l2": "Sélection de la langue : Pour nous assurer que le site sait s'il doit dire \"Hallo\", \"Hello\" ou \"Hola\", nous mémorisons votre langue.",
+      "l3": "Sécurité (RLS) : Nous utilisons des filtres techniques pour garder vos données privées et empêcher tout accès non autorisé."
+    },
+    "s3": {
+      "title": "3. Fonctionnalités de confort (Votre Choix)",
+      "p1": "Ces fonctionnalités améliorent votre expérience mais ne sont pas essentielles. C'est vous qui décidez si nous sommes autorisés à les utiliser :",
+      "l1": "Mode sombre / Design : Nous nous souvenons si vous préférez le côté clair ou obscur de la Force.",
+      "l2": "Progression de quête et profil : Nous stockons localement sur votre appareil le type d'impact que vous avez obtenu dans la \"Mission Génesis\" afin que le tableau de bord soit personnalisé pour vous.",
+      "l3": "Code de parrainage : Si vous êtes venu chez nous via le lien d'un autre pionnier, nous stockons temporairement ce code afin de pouvoir attribuer correctement l'impact."
+    },
+    "s4": {
+      "title": "4. Fournisseurs tiers et intégration de Google",
+      "p1": "Nous nous engageons à minimiser les données. Par conséquent, les données ne sont partagées avec Google que lorsque vous donnez votre consentement explicite :",
+      "l1": "Google Wallet & Connexion : Une connexion à Google n'est établie que lorsque vous cliquez activement sur \"Se connecter avec Google\" ou \"Enregistrer dans Wallet\". À ce moment-là, la politique de confidentialité de Google s'applique.",
+      "l2": "Hostinger (Hébergement) : Nos serveurs sont hébergés chez Hostinger en Europe. Là, des mesures purement techniques (telles que la charge) sont mesurées de manière anonyme pour s'assurer que le site ne plante pas sous la pression de nombreux nouveaux planteurs d'arbres."
+    },
+    "s5": {
+      "title": "5. Comment garder le contrôle",
+      "p1": "Vous pouvez supprimer ou bloquer tous les cookies dans les paramètres de votre navigateur à tout moment. Cependant, veuillez noter : Si vous bloquez les cookies techniques de Supabase, vous ne pourrez plus vous connecter et votre tableau de bord de la forêt tropicale restera vide."
+    },
+    "contact": {
+      "title": "6. Qui est responsable ?",
+      "p1": "Tant que nous sommes encore dans la phase de fondation, je suis votre personne de contact :",
+      "p2": "Peter Rosinski (plus tard Reforestal eG)",
+      "p3": "Email : info@reforest.al",
+      "p4": "Tél : +49 163 8736419",
+      "last_updated": "Statut : Avril 2026"
+    }
+  },
+  "economy": {
+    "title": "Mission : La Régénération comme Moteur de Développement",
+    "subtitle": "De l'éco-anxiété à l'éco-action. Découvrez comment cette alliance bioculturelle initiée en 2024 fusionne la science moderne, la technologie et l'innovation avec les savoirs indigènes ancestraux pour générer une voie régénérative et rentable pour tous ses partenaires.",
+    "s1": {
+      "title": "L'Architecture du Chakra",
+      "p1": "Nous inversons les dommages causés par l'exploitation minière et la monoculture à travers le Chakra amazonien. Notre modèle productif abandonne la monoculture et adopte une structure qui s'intègre parfaitement, agissant comme un connecteur biologique de la diversité présente dans les fragments de forêt amazonienne.",
+      "p2": "En nous rapprochant de la structure de la forêt tropicale grâce à la stratification des espèces, nous créons un système dynamique qui non seulement préserve l'habitat mais génère des rendements financiers mathématiquement prévisibles. La diversification structurelle réduit considérablement le risque de fluctuations du marché et de pertes dues aux parasites, assurant la stabilité économique à long terme."
+    },
+    "s2": {
+      "title": "Structure des Coûts et Synergies Agronomiques",
+      "p1": "La conception du Chakra optimise l'espace tridimensionnel en intégrant différentes strates botaniques :",
+      "l1": "Strate Herbacée et Liane : Ananas, Manioc (Yuca), Oignon, Vanille.",
+      "l2": "Strate Arbustive : Banane, Cacao, Achotillo.",
+      "l3": "Strate Arborée (Inférieure et Moyenne) : Corossol, Goyave, Orange, Guaba.",
+      "l4": "Géants : Arbres forestiers tels que le Guayacán jaune, le Balsa, le Laurier côtier et le Cèdre.",
+      "p2": "Efficacité Opérationnelle : Nous tirons parti des synergies biologiques pour minimiser les frais de maintenance. L'intégration d'arbres légumineux (comme Inga edulis ou Guaba) fixe l'azote dans le sol naturellement, tandis que l'incorporation de biochar stocke les nutriments et l'eau, réduisant considérablement la dépendance et l'achat d'engrais externes. De plus, l'apiculture intégrée améliore les taux de pollinisation, stimulant la productivité du cacao, de la vanille et de la goyave.",
+      "pilot_title": "Napo, Équateur : De la Vision à la Réalité du Terrain",
+      "pilot_desc": "Au cours de la dernière année, aux côtés de familles locales, nous avons validé la symbiose entre le cacao et la vanille. Les résultats de ce projet pilote témoignent d'une combinaison efficace : Résilience biologique (survie >90 %), Croissance optimale (125 cm de développement en seulement 8 mois), et Autosuffisance hydrique (élimination totale de l'arrosage initial grâce à l'équilibre de l'écosystème)."
+    },
+    "s3": {
+      "title": "Projection de Rentabilité : Flux de Trésorerie Échelonné",
+      "p1": "Notre stratégie financière est divisée en trois horizons temporels de liquidité, garantissant que les contributions initiales génèrent des flux de revenus pendant que les actifs de grande valeur mûrissent :",
+      "phase1": {
+        "title": "Phase 1 : Liquidité Précoce et Cycles Courts (Années 1-3)",
+        "desc": "Dans les premières étapes, le système génère des flux de trésorerie immédiats pour couvrir les coûts opérationnels et stabiliser le sol grâce à des cultures à croissance rapide et rotatives (Maïs trimestriel, Manioc et Oignon).",
+        "projection": "Le fruit de la passion peut générer des gains moyens de 2 352 $ par an pour 10 hectares incorporés, tandis que des fruits comme le corossol commencent à fournir des gains moyens de 168 $ dès la première année."
+      },
+      "phase2": {
+        "title": "Phase 2 : Haute Valeur Ajoutée et Croissance Exponentielle (Années 3-5)",
+        "desc": "À moyen terme, nos espèces les plus rentables au mètre carré entrent dans leur phase productive : la Vanille et le Cacao. Ils forment une alliance symbiotique parfaite : le cacao agit comme un tuteur naturel et fournit l'ombre idéale pour la vanille, maximisant l'utilisation de l'espace sans réduire la productivité de l'une ou l'autre plante.",
+        "projection": "Dans un scénario de production moyenne sur 10 hectares, le Cacao prévoit des revenus annuels de 15 375 $, tandis que la Vanille mène la productivité économique du système avec des gains moyens projetés de 34 616 $ par an."
+      },
+      "phase3": {
+        "title": "Phase 3 : Patrimoine Biologique et Rendements à Long Terme (Années 10+)",
+        "desc": "Une fois la canopée des arbres consolidée, le système atteint sa capacité maximale de génération de richesse stable grâce aux Fruits Vivaces et aux Réserves de Capital (Bois d'œuvre).",
+        "projection": "La Guaba de bejuco et la Guaba traditionnelle prévoient des gains moyens de 5 797 $ et 4 710 $ par an respectivement. Le bois (Cèdre, Acajou) agit comme un fonds d'épargne à long terme, consolidant le patrimoine économique de la coopérative."
+      }
+    },
+    "s4": {
+      "title": "Pluralité Culturelle et le Triple Impact",
+      "p1": "Nous sommes un réseau de collaborateurs d'Europe et d'Amérique latine cherchant à stimuler la capacité régénératrice du territoire amazonien en alliance avec ses gardiens ancestraux. En soutenant Reforestal eG, vous devenez un acteur clé dans une transition qui crée une valeur durable :",
+      "l1_title": "Régénération Écologique :",
+      "l1_desc": "Les fragments de forêt se transforment en écosystèmes robustes, restaurant la fertilité des sols, conservant l'eau et augmentant la résilience climatique.",
+      "l2_title": "Stabilité Sociale :",
+      "l2_desc": "Au-delà du travail saisonnier, les communautés locales ont accès à des salaires équitables et à des emplois permanents, intégrant leurs connaissances ancestrales à l'innovation technique.",
+      "l3_title": "Solidité Économique :",
+      "l3_desc": "Un portefeuille de produits hautement diversifié garantit des flux de revenus résilients au fil des décennies.",
+      "p2": "Ensemble, nous transformons la gestion des terres en modèles de prospérité consciente : des systèmes où la viabilité du capital et la santé de l'écosystème sont inséparables. Vous recevrez des rapports transparents sur le nombre exact d'espèces plantées et l'évolution financière."
+    },
+    "s5": {
+      "title": "HORIZON 2027 : 20 HECTARES DE VIE",
+      "p1": "Notre objectif pour le premier semestre est de consolider la garde des 20 premiers hectares de territoire dégradé pour activer la phase initiale de régénération systémique.",
+      "p2": "Nous recherchons des alliés déterminés à co-diriger l'origine de ce modèle. Nous vous offrons la possibilité d'agir, de devenir un Allié Gardien grâce à la garde de m² spécifiques de la forêt amazonienne : un engagement vivant envers la biosphère qui construit votre propre sécurité économique. Il est temps de passer à l'action."
+    }
+  },
+  "cookie_banner": {
+    "title": "Grandissons ensemble ! 🌳",
+    "desc": "Hé ! Pour que votre tableau de bord fonctionne de manière fluide et que nous puissions nous souvenir de la langue que vous parlez, nous utilisons quelques outils numériques. Les plus importants sont techniquement nécessaires pour vous connecter. Pour les autres (comme le mode sombre ou votre progression), c'est vous qui décidez si nous devons les activer.",
+    "link": "Plus de détails dans la Politique relative aux cookies",
+    "accept_all": "Tout accepter",
+    "accept_essential": "Uniquement le nécessaire",
+    "settings": "Ajuster les paramètres",
+    "settings_title": "Paramètres des cookies",
+    "settings_desc": "Choisissez les cookies que vous souhaitez autoriser. Vous pouvez modifier cela à tout moment.",
+    "essential_title": "Strictement nécessaires",
+    "essential_desc": "Pour la connexion et la sécurité (toujours actifs).",
+    "functional_title": "Fonctionnalités et Personnalisation",
+    "functional_desc": "Enregistre votre thème (Sombre/Clair) et votre progression.",
+    "analytics_title": "Analyses et Performances",
+    "analytics_desc": "Statistiques anonymes pour améliorer Reforestal pour tous.",
+    "save_settings": "Enregistrer la sélection"
   }
 }

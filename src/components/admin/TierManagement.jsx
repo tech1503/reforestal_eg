@@ -9,8 +9,10 @@ const TierManagement = () => {
   return (
     <div className="space-y-6">
        <div>
-            <h2 className="text-2xl font-bold tracking-tight text-slate-900">Tiers & Benefits</h2>
-            <p className="text-slate-500">Manage support levels, multilingual translations, and user assignments.</p>
+            <h2 className="text-2xl font-bold tracking-tight text-foreground">Tiers & Benefits</h2>
+            <p className="text-foreground">
+              Manage support levels, multilingual translations, and user assignments.
+            </p>
        </div>
 
        <Tabs defaultValue="levels" className="space-y-6">

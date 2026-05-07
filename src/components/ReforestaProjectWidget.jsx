@@ -2,7 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { ExternalLink } from 'lucide-react';
-import { STARTNEXT_PROJECT_URL, PROJECT_BANNER_IMAGE_URL } from '@/constants/urls';
+import { STARTNEXT_PROJECT_URL } from '@/constants/urls';
+import projectImage from '@/assets/logo-proyecto-startnext.webp';
 
 const ReforestaProjectWidget = () => {
   const { t } = useTranslation();
@@ -12,7 +13,7 @@ const ReforestaProjectWidget = () => {
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-        style={{ backgroundImage: `url(${PROJECT_BANNER_IMAGE_URL})` }}
+        style={{ backgroundImage: `url(${projectImage})` }}
       >
         {/* Soft Gradient Overlay for text readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-900/60 to-transparent" />

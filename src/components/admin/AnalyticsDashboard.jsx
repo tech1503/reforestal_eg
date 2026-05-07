@@ -4,7 +4,7 @@ import FinancialReports from './analytics/FinancialReports';
 import ExchangeAnalytics from './analytics/ExchangeAnalytics';
 import AnalyticsLandDollarsIC from './AnalyticsLandDollarsIC';
 import { BarChart3, ShoppingCart, Coins } from 'lucide-react';
-import { useTranslation } from 'react-i18next'; // IMPORTADO
+import { useTranslation } from 'react-i18next'; 
 
 const AnalyticsDashboard = () => {
   const { t } = useTranslation();
@@ -13,8 +13,10 @@ const AnalyticsDashboard = () => {
     <div className="space-y-6">
        <div>
             {/* admin.analytics.title = "Analytics & Reporting" */}
-            <h2 className="text-2xl font-bold tracking-tight text-slate-900">{t('admin.analytics.title')}</h2>
-            <p className="text-slate-500">In-depth insights into financial performance and user engagement.</p>
+            <h2 className="text-2xl font-bold tracking-tight text-foreground">{t('admin.analytics.title')}</h2>
+            <p className="text-muted-foreground">
+                In-depth insights into financial performance and user engagement.
+            </p>
        </div>
 
        <Tabs defaultValue="financials" className="space-y-6">

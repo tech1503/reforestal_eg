@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input'; // Importante: Componente Input para edición
+import { Input } from '@/components/ui/input'; 
 import { useToast } from '@/components/ui/use-toast';
 import { Loader2, List, Globe, Users } from 'lucide-react';
 import { useI18n } from '@/contexts/I18nContext';
@@ -83,20 +83,20 @@ const SupportLevelsManager = () => {
 
     } catch (err) {
       toast({ variant: "destructive", title: "Error", description: err.message });
-      fetchLevels(); // Revertir en caso de error
+      fetchLevels(); 
     }
   };
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-         <h2 className="text-xl font-bold text-slate-800">Support Tiers & Rewards</h2>
+         <h2 className="text-xl font-bold text-foreground">Support Tiers & Rewards</h2>
       </div>
 
       <div className="bg-white rounded-lg border overflow-hidden shadow-sm">
-        <Table>
+        <Table className="bg-background">
             <TableHeader>
-                <TableRow className="bg-slate-50">
+                <TableRow className="bg-background">
                     <TableHead>Order</TableHead>
                     <TableHead>Level Name ({currentLanguage.toUpperCase()})</TableHead>
                     <TableHead>Min Entry (€)</TableHead>
@@ -110,37 +110,37 @@ const SupportLevelsManager = () => {
                     <TableRow><TableCell colSpan={6} className="text-center p-8"><Loader2 className="animate-spin mx-auto text-slate-400"/></TableCell></TableRow>
                 ) : levels.map(level => (
                     <TableRow key={level.id}>
-                        <TableCell className="font-mono text-xs text-slate-500">{level.display_order}</TableCell>
+                        <TableCell className="font-mono text-xs text-foreground">{level.display_order}</TableCell>
                         
                         <TableCell>
-                            <div className="font-medium text-slate-900">{level.displayName}</div>
-                            <div className="text-[10px] text-slate-400 font-mono">{level.slug}</div>
+                            <div className="font-medium text-foreground">{level.displayName}</div>
+                            <div className="text-[10px] text-muted-foreground font-mono">{level.slug}</div>
                         </TableCell>
                         
-                        <TableCell className="font-bold text-emerald-700">
+                        <TableCell className="font-bold text-foreground">
                             €{level.min_amount}
                         </TableCell>
                         
                         {/* CELDAS EDITABLES PARA RECOMPENSAS */}
-                        <TableCell className="min-w-[200px]">
-                             <div className="flex items-center gap-4">
+                        <TableCell className="min-w-[200px] bg-background">
+                             <div className="flex items-center gap-4 text-foreground">
                                 <div className="flex flex-col gap-1">
-                                  <label className="text-[10px] font-bold text-purple-600 uppercase">Credits</label>
+                                  <label className="text-[10px] font-bold text-foreground uppercase">Credits</label>
                                   <div className="relative">
                                     <Input 
                                         type="number" 
-                                        className="h-8 w-24 text-xs font-mono bg-purple-50/50 border-purple-100 focus:border-purple-300" 
+                                        className="h-8 w-24 text-xs text-foreground font-mono bg-background border-purple-100 focus:border-purple-300" 
                                         defaultValue={level.impact_credits_reward}
                                         onBlur={(e) => handleUpdateCredits(level.id, 'impact_credits_reward', e.target.value)}
                                     />
                                   </div>
                                 </div>
                                 <div className="flex flex-col gap-1">
-                                  <label className="text-[10px] font-bold text-green-600 uppercase">Land Dollars</label>
+                                  <label className="text-[10px] font-bold text-foreground uppercase">Land Dollars</label>
                                   <div className="relative">
                                     <Input 
                                         type="number" 
-                                        className="h-8 w-24 text-xs font-mono bg-green-50/50 border-green-100 focus:border-green-300" 
+                                        className="h-8 w-24 text-xs font-mono bg-background border-green-100 focus:border-green-300" 
                                         defaultValue={level.land_dollars_reward}
                                         onBlur={(e) => handleUpdateCredits(level.id, 'land_dollars_reward', e.target.value)}
                                     />
@@ -149,22 +149,22 @@ const SupportLevelsManager = () => {
                              </div>
                         </TableCell>
                         
-                        <TableCell>
+                        <TableCell className="bg-background">
                             <Badge variant={level.is_active ? 'default' : 'secondary'} className={level.is_active ? 'bg-green-600' : ''}>
                                 {level.is_active ? 'Active' : 'Inactive'}
                             </Badge>
                         </TableCell>
                         
-                        <TableCell className="text-right">
+                        <TableCell className="text-right bg-background">
                             <div className="flex justify-end gap-2">
                                 <Button variant="ghost" size="icon" onClick={() => setEditingLevel(level)} title="Edit Translations">
-                                    <Globe className="w-4 h-4 text-blue-600" />
+                                    <Globe className="w-4 h-4 text-foreground" />
                                 </Button>
                                 <Button variant="ghost" size="icon" onClick={() => setViewingBenefitsFor(level)} title="Manage Benefits">
-                                    <List className="w-4 h-4 text-slate-600" />
+                                    <List className="w-4 h-4 text-foreground" />
                                 </Button>
                                 <Button variant="ghost" size="icon" onClick={() => setViewingUsersFor(level)} title="View Users">
-                                    <Users className="w-4 h-4 text-slate-600" />
+                                    <Users className="w-4 h-4 text-foreground" />
                                 </Button>
                             </div>
                         </TableCell>

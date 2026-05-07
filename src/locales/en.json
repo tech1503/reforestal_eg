@@ -889,6 +889,13 @@
       "title": "Pioneer Command Center",
       "subtitle": "Welcome to the core of Reforestal. Here you shape the future, access confidential updates, and track our impact in real-time."
     },
+    "scale_vote": {
+      "title": "Scale Vote",
+      "prompt": "Rate your level of agreement",
+      "lowest": "Lowest",
+      "highest": "Highest",
+      "confirm": "Confirm Allocation"
+    },
     "tabs": {
       "governance": "Governance & Voting",
       "news": "News Center",
@@ -1100,6 +1107,7 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "contact": "Contact Us",
+    "cookies": "Cookies Policy",
     "copyright": "Reforestal eG © 2026",
     "socials": {
       "instagram": "Visit our Instagram"
@@ -1322,5 +1330,338 @@
     "pioneers_list_2": "Direct Participation",
     "pioneers_list_3": "Exclusive Access to Decisions",
     "pioneers_cta": "Discover the Packages"
+  },
+  "terms": {
+    "title": "Reforestal – Terms of Use & Pre-emption",
+    "subtitle": "Hey! We're so glad you're part of the movement. Before we save the rainforest together, we need to establish a few ground rules. These terms govern the relationship between you and me (Peter) during Reforestal's current development phase.",
+    "s1": {
+      "title": "1. Who We Are & Who Your Partner Is",
+      "p1": "Reforestal is currently a project of mine, Peter Rosinski. Since we are in the process of officially establishing Reforestal eG (a cooperative), I will be your legal contact until this process is complete.",
+      "p2": "Once Reforestal eG is registered in the cooperative register, all rights and obligations arising from this agreement will automatically transfer to the cooperative. You will, of course, be informed about this."
+    },
+    "s2": {
+      "title": "2. Your Pre-emption: Preparing for Impact",
+      "p1": "At the moment, no actual purchase of shares takes place on the platform, and no money changes hands. By registering, you secure a pre-emption. This means:",
+      "l1": "You become part of the community and can reserve your spot for future membership now.",
+      "l2": "Everything you currently see on the dashboard (m², trees, statistics) is virtual. This does not yet create any ownership or membership rights.",
+      "l3": "Actual membership in the cooperative and the acquisition of shares only occur after its founding through a separate, formal declaration of membership from you."
+    },
+    "s3": {
+      "title": "3. Bonus Points: Activity Pays Off",
+      "p1": "You can earn bonus points on the platform by taking quizzes, completing your profile, or referring friends.",
+      "l1": "No Legal Entitlement: Bonus points are a voluntary thank you from us. There is no legal entitlement to the credit or a specific payout.",
+      "l2": "Vesting (48 Months): As we are a cooperative, we are only permitted to distribute value from actual profits. Therefore, your bonus points are subject to a phased release (vesting) over 48 months.",
+      "l3": "Conversion: The general meeting of the future cooperative will determine the exchange rate at which bonus points can later be converted into actual cooperative shares."
+    },
+    "s4": {
+      "title": "4. The Future Subscription Model & the Prosperity Index",
+      "p1": "When we really get going, we want to offer a fair model:",
+      "l1": "Cooperative Shares: One share corresponds to the reforestation of one square meter of rainforest.",
+      "l2": "Prosperity Index (Premium): Due to inflation and the increasing security of the project, the price of new shares can rise (the so-called premium).",
+      "l3": "Your Decision: If costs increase, you have a choice: Either you adjust your monthly contribution or you continue paying the same amount. In the second case, you simply \"save\" your credit until it's sufficient for the next (more expensive) full share. You will then simply receive fewer shares per month over time, but you will stay within your budget."
+    },
+    "s5": {
+      "title": "5. Your Square Meter of Rainforest: The Dynamics of Nature",
+      "p1": "We allocate a specific square meter of land to each share.",
+      "l1": "Term: One square meter is reserved for you for approximately 25-30 years. Afterward, the area becomes the communal property of the cooperative to ensure long-term protection, and your share is transferred to a new square meter.",
+      "l2": "Ecological Risk: Nature is unpredictable. Should an area be destroyed by natural disasters (fire, storm, etc.), you share this risk as part of the community. However, we are working on finding joint safeguards or insurance for this in the future."
+    },
+    "s6": {
+      "title": "6. Platform & Liability",
+      "p1": "We do everything we can to ensure 100% availability of your dashboard. However:",
+      "l1": "No Guarantee: We are not liable for technical failures, maintenance work, or data loss unless caused by gross negligence or willful misconduct on our part.",
+      "l2": "No Investment Advice: All information on this site is for informational purposes regarding our ecological goals. We do not provide financial advice."
+    },
+    "s7": {
+      "title": "7. Final Provisions",
+      "p1": "The laws of the Federal Republic of Germany apply. Should any of these rules be deemed invalid, the remaining provisions shall remain in full force and effect. We will then work together to find a solution that best reflects the spirit of Reforestal.",
+      "outro": "Ready? Then let's get started!"
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy (Datenschutzerklärung)",
+    "intro": [
+      "We are very pleased about your interest in our enterprise. Data protection is of a particularly high priority for Peter (later Reforestal eG). The use of the Internet pages of Peter (later Reforestal eG) is possible without any indication of personal data; however, if a data subject wants to use special enterprise services via our website, processing of personal data could become necessary. If the processing of personal data is necessary and there is no statutory basis for such processing, we generally obtain consent from the data subject.",
+      "The processing of personal data, such as the name, address, e-mail address, or telephone number of a data subject shall always be in line with the General Data Protection Regulation (GDPR), and in accordance with the country-specific data protection regulations applicable to Peter (later Reforestal eG). By means of this data protection declaration, our enterprise would like to inform the general public of the nature, scope, and purpose of the personal data we collect, use and process. Furthermore, data subjects are informed, by means of this data protection declaration, of the rights to which they are entitled.",
+      "As the controller, Peter (later Reforestal eG) has implemented numerous technical and organizational measures to ensure the most complete protection of personal data processed through this website. However, Internet-based data transmissions may in principle have security gaps, so absolute protection may not be guaranteed. For this reason, every data subject is free to transfer personal data to us via alternative means, e.g. by telephone."
+    ],
+    "s1": {
+      "title": "1. Definitions",
+      "body": [
+        "The data protection declaration of Peter (later Reforestal eG) is based on the terms used by the European legislator for the adoption of the General Data Protection Regulation (GDPR). Our data protection declaration should be legible and understandable for the general public, as well as our customers and business partners. To ensure this, we would like to first explain the terminology used.",
+        "In this data protection declaration, we use, inter alia, the following terms:"
+      ],
+      "list": [
+        "a) Personal data: Any information relating to an identified or identifiable natural person ('data subject').",
+        "b) Data subject: Any identified or identifiable natural person whose personal data is processed by the controller.",
+        "c) Processing: Any operation or set of operations performed on personal data or on sets of personal data.",
+        "d) Restriction of processing: The marking of stored personal data with the aim of limiting their processing in the future.",
+        "e) Profiling: Any form of automated processing of personal data consisting of the use of personal data to evaluate certain personal aspects relating to a natural person.",
+        "f) Pseudonymisation: The processing of personal data in such a manner that the personal data can no longer be attributed to a specific data subject without the use of additional information.",
+        "g) Controller: The natural or legal person, public authority, agency or other body which, alone or jointly with others, determines the purposes and means of the processing of personal data.",
+        "h) Processor: A natural or legal person, public authority, agency or other body which processes personal data on behalf of the controller.",
+        "i) Recipient: A natural or legal person, public authority, agency or another body, to which the personal data are disclosed.",
+        "j) Third party: A natural or legal person, public authority, agency or body other than the data subject, controller, processor and persons who, under the direct authority of the controller or processor, are authorised to process personal data.",
+        "k) Consent: Any freely given, specific, informed and unambiguous indication of the data subject's wishes."
+      ]
+    },
+    "s2": {
+      "title": "2. Name and Address of the controller",
+      "body": [
+        "Controller for the purposes of the General Data Protection Regulation (GDPR), other data protection laws applicable in Member states of the European Union and other provisions related to data protection is:",
+        "Peter Rosinski (later Reforestal eG)\nRotenbergstr. 27\n66111 Saarbrücken\nGermany\nTel.: +491638736419\nE-Mail: peter@reforest.al\nWebsite: www.reforest.al"
+      ]
+    },
+    "s3": {
+      "title": "3. Cookies",
+      "body": [
+        "The Internet pages of Peter (later Reforestal eG) use cookies. Cookies are text files that are stored in a computer system via an Internet browser.",
+        "Many Internet sites and servers use cookies. Many cookies contain a so-called cookie ID. A cookie ID is a unique identifier of the cookie. Through the use of cookies, Peter (later Reforestal eG) can provide the users of this website with more user-friendly services that would not be possible without the cookie setting.",
+        "The data subject may, at any time, prevent the setting of cookies through our website by means of a corresponding setting of the Internet browser used, and may thus permanently deny the setting of cookies. Furthermore, already set cookies may be deleted at any time via an Internet browser."
+      ]
+    },
+    "s4": {
+      "title": "4. Collection of general data and information",
+      "body": [
+        "The website of Peter (later Reforestal eG) collects a series of general data and information when a data subject or automated system calls up the website. This general data and information are stored in the server log files.",
+        "When using these general data and information, Peter (later Reforestal eG) does not draw any conclusions about the data subject. Rather, this information is needed to (1) deliver the content of our website correctly, (2) optimize the content of our website as well as its advertisement, (3) ensure the long-term viability of our information technology systems, and (4) provide law enforcement authorities with the information necessary for criminal prosecution in case of a cyber-attack."
+      ]
+    },
+    "s5": {
+      "title": "5. Registration on our website",
+      "body": [
+        "The data subject has the possibility to register on the website of the controller with the indication of personal data. The personal data entered by the data subject are collected and stored exclusively for internal use by the controller, and for his own purposes.",
+        "By registering on the website of the controller, the IP address—assigned by the Internet service provider (ISP) and used by the data subject—date, and time of the registration are also stored. The storage of this data takes place against the background that this is the only way to prevent the misuse of our services, and, if necessary, to make it possible to investigate committed offenses."
+      ]
+    },
+    "s6": {
+      "title": "6. Subscription to our newsletters",
+      "body": [
+        "On the website of Peter (later Reforestal eG), users are given the opportunity to subscribe to our enterprise's newsletter. The input mask used for this purpose determines what personal data are transmitted.",
+        "For legal reasons, a confirmation e-mail will be sent to the e-mail address registered by a data subject for the first time for newsletter shipping, in the double opt-in procedure."
+      ]
+    },
+    "s7": {
+      "title": "7. Newsletter-Tracking",
+      "body": [
+        "The newsletter of Peter (later Reforestal eG) contains so-called tracking pixels. A tracking pixel is a miniature graphic embedded in such e-mails, which are sent in HTML format to enable log file recording and analysis. This allows a statistical analysis of the success or failure of online marketing campaigns."
+      ]
+    },
+    "s8": {
+      "title": "8. Contact possibility via the website",
+      "body": [
+        "The website of Peter (later Reforestal eG) contains information that enables a quick electronic contact to our enterprise, as well as direct communication with us. If a data subject contacts the controller by e-mail or via a contact form, the personal data transmitted by the data subject are automatically stored."
+      ]
+    },
+    "s9": {
+      "title": "9. Routine erasure and blocking of personal data",
+      "body": [
+        "The data controller shall process and store the personal data of the data subject only for the period necessary to achieve the purpose of storage, or as far as this is granted by the European legislator or other legislators in laws or regulations to which the controller is subject to."
+      ]
+    },
+    "s10": {
+      "title": "10. Rights of the data subject",
+      "body": [
+        "The data subject has several rights granted by the European legislator. If a data subject wishes to exercise any of these rights, they may, at any time, contact any employee of the controller."
+      ],
+      "list": [
+        "a) Right of confirmation",
+        "b) Right of access",
+        "c) Right to rectification",
+        "d) Right to erasure (Right to be forgotten)",
+        "e) Right of restriction of processing",
+        "f) Right to data portability",
+        "g) Right to object",
+        "h) Automated individual decision-making, including profiling",
+        "i) Right to withdraw data protection consent"
+      ]
+    },
+    "s11": {
+      "title": "11. Data protection provisions about the application and use of Facebook",
+      "body": [
+        "On this website, the controller has integrated components of the enterprise Facebook. Facebook is a social network."
+      ]
+    },
+    "s12": {
+      "title": "12. Data protection provisions about the application and use of Google AdSense",
+      "body": [
+        "On this website, the controller has integrated Google AdSense. Google AdSense is an online service which allows the placement of advertising on third-party sites."
+      ]
+    },
+    "s13": {
+      "title": "13. Data protection provisions about the application and use of Google Analytics",
+      "body": [
+        "On this website, the controller has integrated the component of Google Analytics (with the anonymizer function). Google Analytics is a web analytics service."
+      ]
+    },
+    "s14": {
+      "title": "14. Data protection provisions about the application and use of Google AdWords",
+      "body": [
+        "On this website, the controller has integrated Google AdWords. Google AdWords is a service for Internet advertising."
+      ]
+    },
+    "s15": {
+      "title": "15. Data protection provisions about the application and use of Instagram",
+      "body": [
+        "On this website, the controller has integrated components of the service Instagram. Instagram is a service that may be qualified as an audiovisual platform."
+      ]
+    },
+    "s16": {
+      "title": "16. Data protection provisions about the application and use of LinkedIn",
+      "body": [
+        "The controller has integrated components of the LinkedIn Corporation on this website. LinkedIn is a web-based social network."
+      ]
+    },
+    "s17": {
+      "title": "17. Data protection provisions about the application and use of YouTube",
+      "body": [
+        "On this website, the controller has integrated components of YouTube. YouTube is an Internet video portal."
+      ]
+    },
+    "s18": {
+      "title": "18. Legal basis for the processing",
+      "body": [
+        "Art. 6(1) lit. a GDPR serves as the legal basis for processing operations for which we obtain consent for a specific processing purpose. If the processing of personal data is necessary for the performance of a contract to which the data subject is party, the processing is based on Art. 6(1) lit. b GDPR."
+      ]
+    },
+    "s19": {
+      "title": "19. The legitimate interests pursued by the controller or by a third party",
+      "body": [
+        "Where the processing of personal data is based on Article 6(1) lit. f GDPR our legitimate interest is to carry out our business in favor of the well-being of all our employees and the shareholders."
+      ]
+    },
+    "s20": {
+      "title": "20. Period for which the personal data will be stored",
+      "body": [
+        "The criteria used to determine the period of storage of personal data is the respective statutory retention period. After expiration of that period, the corresponding data is routinely deleted."
+      ]
+    },
+    "s21": {
+      "title": "21. Provision of personal data as statutory or contractual requirement",
+      "body": [
+        "We clarify that the provision of personal data is partly required by law (e.g. tax regulations) or can also result from contractual provisions."
+      ]
+    },
+    "s22": {
+      "title": "22. Existence of automated decision-making",
+      "body": [
+        "As a responsible company, we do not use automatic decision-making or profiling."
+      ]
+    },
+    "footer_note": "This Privacy Policy has been generated by the Privacy Policy Generator of the DGD - Your External DPO that was developed in cooperation with German Lawyers from WILDE BEUGER SOLMECKE, Cologne."
+  },
+  "cookies": {
+    "title": "Reforestal – Crumbs for Climate Protection (Cookie Policy)",
+    "subtitle": "Hey! To ensure you, as an Aliado Guardián (Guardian Partner) in the Amazon, have a complete overview and your dashboard functions smoothly, we use cookies and similar technologies (such as local storage). Here's a brief overview of what happens on your device when you use Reforestal.",
+    "intro": "Here you can find a brief overview of what happens on your device when you use Reforestal.",
+    "s1": {
+      "title": "1. What are cookies and similar technologies?",
+      "p1": "Cookies are small text files that your browser saves. They help us recognize you so you don't have to log in every time or lose your language settings. We also use \"local storage\"—it's like a small notepad in your browser where we record things like your progress on quests."
+    },
+    "s2": {
+      "title": "2. Technically necessary tools (Always active)",
+      "p1": "These technologies are the \"oxygenator\" of our platform. Reforestal wouldn't work without them. Therefore, you cannot deactivate them if you wish to use the site:",
+      "l1": "Supabase (Auth & Session): This is our core system in Frankfurt. It ensures that you remain securely logged in and that only you have access to your \"Land Dollar\" and your profile.",
+      "l2": "Language Selection: To ensure the site knows whether to say \"Hallo,\" \"Hello,\" or \"Hola,\" we remember your language.",
+      "l3": "Security (RLS): We use technical filters to keep your data private and prevent unauthorized access."
+    },
+    "s3": {
+      "title": "3. Convenience Features (Your Choice)",
+      "p1": "These features enhance your experience but are not essential. You decide whether we are allowed to use them:",
+      "l1": "Dark Mode / Design: We remember whether you prefer the light or dark side of the Force.",
+      "l2": "Quest Progress & Profile: We store locally on your device the Impact type you achieved in \"Mission Génesis\" so that the dashboard is personalized for you.",
+      "l3": "Referral Code: If you came to us via another pioneer's link, we temporarily store this code so we can correctly attribute the impact."
+    },
+    "s4": {
+      "title": "4. Third-Party Providers & Google Integration",
+      "p1": "We are committed to data minimization. Therefore, data is only shared with Google when you explicitly consent:",
+      "l1": "Google Wallet & Login: A connection to Google is only established when you actively click \"Sign in with Google\" or \"Save to Wallet.\" At that moment, Google's privacy policy applies.",
+      "l2": "Hostinger (Hosting): Our servers are located with Hostinger in Europe. There, purely technical metrics (such as load) are measured anonymously to ensure the site doesn't crash under the strain of many new tree planters."
+    },
+    "s5": {
+      "title": "5. How to Stay in Control",
+      "p1": "You can delete or block all cookies in your browser settings at any time. However, please note: If you block Supabase's technical cookies, you will no longer be able to log in, and your rainforest dashboard will remain empty."
+    },
+    "contact": {
+      "title": "6. Who is Responsible?",
+      "p1": "While we are still in the founding phase, I am your contact person:",
+      "p2": "Peter Rosinski (later Reforestal eG)",
+      "p3": "Email: info@reforest.al",
+      "p4": "Tel: +49 163 8736419",
+      "last_updated": "Status: April 2026"
+    }
+  },
+  "economy": {
+    "title": "Mission: Regeneration as an Engine of Development",
+    "subtitle": "From eco-anxiety to eco-agency. Discover how this biocultural alliance, launched in 2024, fuses modern science, technology, and innovation with ancestral indigenous knowledge to generate a regenerative and profitable path for all its partners.",
+    "s1": {
+      "title": "The Architecture of the Chakra",
+      "p1": "We reverse the damage caused by mining and monoculture through the Amazonian Chakra. Our productive model abandons monoculture and adopts a structure that integrates seamlessly, acting as a biological connector for the diversity present in Amazonian forest fragments.",
+      "p2": "By approximating the structure of the tropical rainforest through species stratification, we create a dynamic system that not only preserves the habitat but generates mathematically projectable financial returns. Structural diversification drastically reduces the risk of market fluctuations and pest losses, ensuring long-term economic stability."
+    },
+    "s2": {
+      "title": "Cost Structure and Agronomic Synergies",
+      "p1": "The Chakra's design optimizes three-dimensional space by integrating different botanical strata:",
+      "l1": "Herbaceous and Vines Stratum: Pineapple, Cassava (Yuca), Onion, Vanilla.",
+      "l2": "Shrub Stratum: Banana, Cocoa, Achotillo.",
+      "l3": "Tree Stratum (Lower and Middle): Soursop, Guava, Orange, Guaba.",
+      "l4": "Giants: Timber trees such as Yellow Guayacán, Balsa, Coastal Laurel, and Cedar.",
+      "p2": "Operational Efficiency: We leverage biological synergies to minimize maintenance costs. The integration of leguminous trees (like Inga edulis) fixes nitrogen in the soil naturally, while the incorporation of biochar stores nutrients and water, drastically reducing the dependence on external fertilizers. Additionally, integrated beekeeping improves pollination rates, skyrocketing the productivity of cocoa, vanilla, and guava.",
+      "pilot_title": "Napo, Ecuador: From Vision to Field Reality",
+      "pilot_desc": "In the past year, alongside local families, we have validated the symbiosis between cocoa and vanilla. The results of this pilot are a testament to an effective combination: Biological resilience (survival >90%), Optimal growth (125 cm of development in just 8 months), and Water self-sufficiency (Total elimination of initial watering thanks to ecosystem balance)."
+    },
+    "s3": {
+      "title": "Profitability Projection: Stepped Cash Flow",
+      "p1": "Our financial strategy is divided into three liquidity time horizons, ensuring that early contributions generate income streams while high-value assets mature:",
+      "phase1": {
+        "title": "Phase 1: Early Liquidity & Short Cycles (Years 1-3)",
+        "desc": "In the early stages, the system generates immediate cash flow to cover operational costs and stabilize the soil through fast-growing rotational crops (Quarterly Corn, Cassava, and Onion).",
+        "projection": "Passion fruit can generate average earnings of $2,352 annually per 10 hectares incorporated, while fruits like soursop start providing average earnings of $168 in the first year."
+      },
+      "phase2": {
+        "title": "Phase 2: High Added Value & Exponential Growth (Years 3-5)",
+        "desc": "In the medium term, our most profitable species per square meter enter their productive phase: Vanilla and Cocoa. They form a perfect symbiotic alliance: cocoa acts as a natural tutor and provides the ideal shade for vanilla, maximizing space usage without reducing the productivity of either plant.",
+        "projection": "In an average production scenario across 10 hectares, Cocoa projects annual revenues of $15,375, while Vanilla leads the system's economic productivity with projected average earnings of $34,616 annually."
+      },
+      "phase3": {
+        "title": "Phase 3: Biological Heritage & Long-Term Yields (Years 10+)",
+        "desc": "Once the tree canopy is consolidated, the system reaches its maximum capacity for stable wealth generation through Perennial Fruits and Capital Reserves (Timber).",
+        "projection": "Guaba de bejuco and traditional Guaba project average earnings of $5,797 and $4,710 annually, respectively. Timber acts as a long-term savings fund, consolidating the cooperative's economic heritage."
+      }
+    },
+    "s4": {
+      "title": "Cultural Plurality and the Triple Impact",
+      "p1": "We are a network of collaborators from Europe and Latin America seeking to boost the regenerative capacity of the Amazon territory in alliance with its ancestral guardians. By supporting Reforestal eG, you become a key player in a transition that creates lasting value:",
+      "l1_title": "Ecological Regeneration:",
+      "l1_desc": "Forest fragments are transformed into robust ecosystems, restoring soil fertility, conserving water, and increasing climate resilience.",
+      "l2_title": "Social Stability:",
+      "l2_desc": "Beyond seasonal work, local communities access fair wages and permanent jobs, integrating their ancestral knowledge with technical innovation.",
+      "l3_title": "Economic Solidity:",
+      "l3_desc": "A highly diversified product portfolio ensures resilient income streams over decades.",
+      "p2": "Together, we transform land management into models of conscious prosperity: systems where capital viability and ecosystem health are inseparable. You will receive transparent reports on the exact number of planted species and financial evolution."
+    },
+    "s5": {
+      "title": "HORIZON 2027: 20 HECTARES OF LIFE",
+      "p1": "Our goal for the first semester is to consolidate the custody of the first 20 hectares of degraded territory to activate the initial phase of systemic regeneration.",
+      "p2": "We seek allies determined to co-lead the origin of this model. We offer you the ability to act, to become a Guardian Ally by taking custody of specific m² of the Amazon rainforest: a living commitment to the biosphere that builds your own economic security. It's time to take action."
+    }
+  },
+  "cookie_banner": {
+    "title": "Let's grow together! 🌳",
+    "desc": "Hey! To ensure your dashboard runs smoothly and we can remember your language, we use a few digital tools. The most important ones are technically necessary for you to log in. For the others (like Dark Mode or your mission progress), you decide whether we should activate them.",
+    "link": "More details in the Cookie Policy",
+    "accept_all": "Accept all",
+    "accept_essential": "Only the essentials",
+    "settings": "Adjust settings",
+    "settings_title": "Cookie Settings",
+    "settings_desc": "Choose which cookies you want to allow. You can change this at any time.",
+    "essential_title": "Strictly necessary",
+    "essential_desc": "For platform login and security (always active).",
+    "functional_title": "Functional & Personalization",
+    "functional_desc": "Saves your theme (Dark/Light) and your mission progress.",
+    "analytics_title": "Analytics & Performance",
+    "analytics_desc": "Anonymous statistics to improve Reforestal for everyone.",
+    "save_settings": "Save selection"
   }
 }
+

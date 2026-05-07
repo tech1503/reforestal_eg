@@ -214,7 +214,7 @@ const UserManagement = () => {
                status: 'active',
                is_active: true,
                link_ref: linkRefToUse,
-               land_dollar_url: '/assets/land-dollar-base.webp',
+               land_dollar_url: '/assets/land-dollar-base1.webp',
                qr_code_url: newQrUrl
            });
       }
@@ -279,8 +279,8 @@ const UserManagement = () => {
 
       <div className="rounded-xl border bg-card shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="bg-muted/50 border-b">
+          <table className="w-full bg-background text-sm">
+            <thead className="bg-muted border-b">
               <tr>
                 <th className="text-left p-4 font-medium text-muted-foreground">{t('admin.startnext.user')}</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">Apodo</th>
@@ -330,13 +330,13 @@ const UserManagement = () => {
                             </Select>
                         </td>
 
-                        <td className="p-4"><div className="flex items-center gap-1"><Leaf className="w-3 h-3 text-emerald-500"/><span className="text-emerald-700 font-medium">{user.tier_name}</span></div></td>
+                        <td className="p-4"><div className="flex items-center gap-1"><Leaf className="w-3 h-3 text-emerald-500"/><span className="text-foreground font-medium">{user.tier_name}</span></div></td>
                         <td className="p-4"><div className="flex items-center gap-1 font-mono"><Coins className="w-3 h-3 text-amber-500"/>{user.ic_balance}</div></td>
                         
                         <td className="p-4 text-center">
                             {user.has_land_dollar ? (
                                 <div className="flex flex-col items-center gap-1">
-                                    <div className="flex items-center gap-1 font-bold text-emerald-800">
+                                    <div className="flex items-center gap-1 font-bold text-foreground">
                                         <Wallet className="w-3 h-3"/> €{parseFloat(user.land_dollar_amount).toFixed(2)}
                                     </div>
                                     <Badge variant={['active','issued'].includes(user.land_dollar_status) ? "default" : "destructive"} 

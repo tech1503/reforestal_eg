@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
-import { Loader2, Trash2, Plus, Edit, Globe, Vote, Newspaper, TrendingUp, Image as ImageIcon, X, BarChart3, Eye, Users, Swords, PieChart, MessageSquare, ThumbsUp, ThumbsDown, Paperclip, Send } from 'lucide-react';
+import { Loader2, Trash2, Plus, Edit, Globe, Vote, Newspaper, TrendingUp, Image as ImageIcon, X, BarChart3, Eye, Users, Swords, PieChart, MessageSquare, ThumbsUp, ThumbsDown, Paperclip, Send, Sparkles, Star } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -66,18 +66,18 @@ const ProposalVotesModal = ({ isOpen, onClose, proposal }) => {
                     <TabsContent value="votes" className="flex-1 overflow-auto border border-[#5b8370]/20 rounded-xl mt-2">
                         <div className="overflow-x-auto">
                             <Table className="min-w-[400px]">
-                                <TableHeader><TableRow className="bg-[#5b8370]/5 sticky top-0"><TableHead className="text-[#063127] font-bold">Pioneer</TableHead><TableHead className="text-[#063127] font-bold">Vote Details</TableHead><TableHead className="text-right text-[#063127] font-bold">Date</TableHead></TableRow></TableHeader>
+                                <TableHeader><TableRow className="bg-[#5b8370]/5 sticky top-0"><TableHead className="text-muted-foreground font-bold">Pioneer</TableHead><TableHead className="text-muted-foreground font-bold">Vote Details</TableHead><TableHead className="text-right text-muted-foreground font-bold">Date</TableHead></TableRow></TableHeader>
                                 <TableBody>
                                     {loading ? <TableRow><TableCell colSpan={3} className="text-center py-8"><Loader2 className="animate-spin mx-auto text-amber-500"/></TableCell></TableRow> : votes.length === 0 ? <TableRow><TableCell colSpan={3} className="text-center py-8 text-muted-foreground">{t('admin.community.no_items', 'No votes yet.')}</TableCell></TableRow> : votes.map(v => (
                                         <TableRow key={v.id} className="hover:bg-[#5b8370]/5 transition-colors border-b border-[#5b8370]/10">
-                                            <TableCell><div className="font-bold text-sm text-[#063127]">{v.profiles?.name || 'Unknown'}</div><div className="text-[10px] sm:text-xs text-muted-foreground">{v.profiles?.email}</div></TableCell>
+                                            <TableCell><div className="font-bold text-sm text-foreground">{v.profiles?.name || 'Unknown'}</div><div className="text-[10px] sm:text-xs text-muted-foreground">{v.profiles?.email}</div></TableCell>
                                             <TableCell>
                                                 {proposal.vote_type === 'budget' ? (
-                                                    <div className="text-xs space-y-1 text-[#063127]">
+                                                    <div className="text-xs space-y-1 text-foreground">
                                                         {Object.entries(v.vote_data || {}).map(([k, val]) => <div key={k}><span className="font-semibold text-[#5b8370]">{k}:</span> {val} BP</div>)}
                                                     </div>
                                                 ) : (
-                                                    <Badge variant="outline" className="bg-[#5b8370]/10 text-[#063127] border-[#5b8370]/30 font-bold">{v.vote_data?.choice || v.vote}</Badge>
+                                                    <Badge variant="outline" className="bg-[#5b8370]/10 text-foreground border-[#5b8370]/30 font-bold">{v.vote_data?.choice || v.vote}</Badge>
                                                 )}
                                             </TableCell>
                                             <TableCell className="text-right text-[10px] sm:text-xs text-[#5b8370] font-medium">{format(new Date(v.created_at), 'PP p')}</TableCell>
@@ -168,7 +168,7 @@ const VotingAnalytics = ({ proposals }) => {
                             <div className="w-full sm:w-auto overflow-hidden">
                                 <CardTitle className="text-sm sm:text-base font-bold truncate pr-4 text-[#063127] dark:text-[#c4d1c0]">{prop.title}</CardTitle>
                                 <CardDescription className="text-[10px] sm:text-xs uppercase flex items-center gap-1 mt-1 text-[#5b8370]">
-                                    {stat.type === 'budget' ? <PieChart className="w-3 h-3 text-amber-500"/> : stat.type === 'comparative' ? <Swords className="w-3 h-3 text-amber-500"/> : <Vote className="w-3 h-3 text-amber-500"/>}
+                                    {stat.type === 'budget' ? <PieChart className="w-3 h-3 text-amber-500"/> : stat.type === 'comparative' ? <Swords className="w-3 h-3 text-amber-500"/> : stat.type === 'scale_5' ? <Star className="w-3 h-3 text-amber-500"/> : <Vote className="w-3 h-3 text-amber-500"/>}
                                     {stat.type} Vote
                                 </CardDescription>
                             </div>
@@ -229,7 +229,6 @@ const TranslationModal = ({ isOpen, onClose, item, tableType }) => {
             }
         });
 
-        // Inicializar arreglos de opciones en blanco si es necesario
         if (tableType === 'proposals' && item.options) {
             ['es', 'de', 'fr'].forEach(lang => {
                 const baseLen = item.options.length;
@@ -253,7 +252,7 @@ const TranslationModal = ({ isOpen, onClose, item, tableType }) => {
             title: data[lang].title, 
             description: data[lang].description,
             ...(tableType === 'roadmap' ? { date_display: data[lang].date_display } : {}),
-            ...(tableType === 'proposals' ? { options: data[lang].options } : {})
+            ...(tableType === 'proposals' && item.vote_type !== 'scale_5' ? { options: data[lang].options } : {})
         }));
 
         const { error } = await supabase.from(conf.table).upsert(upserts, { onConflict: `${conf.fk}, language_code` });
@@ -261,6 +260,59 @@ const TranslationModal = ({ isOpen, onClose, item, tableType }) => {
         else { toast({ title: t('common.success'), description: "Translations saved." }); onClose(); }
         setLoading(false);
     };
+
+    // ====== LÓGICA DE AUTO-TRADUCCIÓN POR IA ======
+    const handleAutoTranslate = async () => {
+        setLoading(true);
+        try {
+            const payload = {
+                tableType: tableType,
+                original: {
+                    title: item?.title || '',
+                    description: item?.description || '',
+                    date_display: item?.date_display || '',
+                    options: item?.vote_type === 'scale_5' ? [] : (item?.options || [])
+                },
+                targetLangs: ['es', 'de', 'fr']
+            };
+
+            const webhookUrl = 'https://n8n.reforestal.cloud/webhook/translate-content';
+            
+            if (webhookUrl.includes('TU_WEBHOOK')) {
+                toast({ 
+                    title: "Action Required", 
+                    description: "Debes configurar la URL de tu Webhook en CommunityManagement.jsx.", 
+                    variant: "destructive" 
+                });
+                setLoading(false);
+                return;
+            }
+
+            const response = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) throw new Error("Translation webhook failed");
+            const result = await response.json();
+
+            if (result) {
+                setData(prev => ({
+                    ...prev,
+                    es: { ...prev.es, ...result.es },
+                    de: { ...prev.de, ...result.de },
+                    fr: { ...prev.fr, ...result.fr }
+                }));
+                toast({ title: "🪄 Magia completada", description: "Textos traducidos por IA. Revisa y guarda.", className: "bg-card text-foreground border-gold/30" });
+            }
+        } catch (error) {
+            toast({ variant: "destructive", title: "Error", description: error.message });
+        } finally {
+            setLoading(false);
+        }
+    };
+    // ==============================================
 
     const update = (field, val) => setData(p => ({ ...p, [activeLang]: { ...p[activeLang], [field]: val } }));
     
@@ -277,7 +329,7 @@ const TranslationModal = ({ isOpen, onClose, item, tableType }) => {
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
             <DialogContent className="w-[95vw] sm:max-w-xl max-h-[90vh] overflow-y-auto p-4 sm:p-6 border border-[#5b8370]/50 rounded-3xl">
-                <DialogHeader><DialogTitle className="text-[#063127] dark:text-[#c4d1c0] font-bold">{t('admin.community.manage_translations', 'Manage Translations')} ({tableType})</DialogTitle></DialogHeader>
+                <DialogHeader><DialogTitle className="text-foreground dark:text-[#c4d1c0] font-bold">{t('admin.community.manage_translations', 'Manage Translations')} ({tableType})</DialogTitle></DialogHeader>
                 <Tabs value={activeLang} onValueChange={setActiveLang}>
                     <TabsList className="grid w-full grid-cols-3 bg-[#5b8370]/10 rounded-xl p-1">
                         <TabsTrigger value="es" className="rounded-lg data-[state=active]:bg-[#063127] data-[state=active]:text-white transition-all">Español</TabsTrigger>
@@ -286,28 +338,28 @@ const TranslationModal = ({ isOpen, onClose, item, tableType }) => {
                     </TabsList>
                     <div className="py-4 space-y-4">
                         <div className="space-y-2">
-                            <Label className="text-[#063127] font-bold">Title ({activeLang})</Label>
+                            <Label className="text-foreground font-bold">Title ({activeLang})</Label>
                             <Input value={data[activeLang].title} onChange={e => update('title', e.target.value)} className="border-[#5b8370]/30 focus-visible:ring-amber-500" />
                         </div>
                         <div className="space-y-2">
-                            <Label className="text-[#063127] font-bold">Description ({activeLang})</Label>
+                            <Label className="text-foreground font-bold">Description ({activeLang})</Label>
                             <Textarea value={data[activeLang].description} onChange={e => update('description', e.target.value)} className="border-[#5b8370]/30 focus-visible:ring-amber-500" />
                         </div>
-                        {tableType === 'roadmap' && <div className="space-y-2"><Label className="text-[#063127] font-bold">Date Display ({activeLang})</Label><Input value={data[activeLang].date_display} onChange={e => update('date_display', e.target.value)} className="border-[#5b8370]/30 focus-visible:ring-amber-500" /></div>}
+                        {tableType === 'roadmap' && <div className="space-y-2"><Label className="text-foreground font-bold">Date Display ({activeLang})</Label><Input value={data[activeLang].date_display} onChange={e => update('date_display', e.target.value)} className="border-[#5b8370]/30 focus-visible:ring-amber-500" /></div>}
                         
-                        {tableType === 'proposals' && item?.options && (
+                        {tableType === 'proposals' && item?.options && item?.vote_type !== 'scale_5' && (
                             <div className="space-y-3 pt-4 border-t border-[#5b8370]/20">
-                                <Label className="text-[#063127] font-bold">Voting Options ({activeLang})</Label>
+                                <Label className="text-foreground font-bold">Voting Options ({activeLang})</Label>
                                 {item.options.map((baseOpt, idx) => {
                                     const baseLabel = typeof baseOpt === 'object' ? baseOpt.label : baseOpt;
                                     return (
                                         <div key={idx} className="space-y-1 bg-[#5b8370]/5 p-3 rounded-xl border border-[#5b8370]/10">
-                                            <span className="text-[10px] text-[#5b8370] uppercase font-bold tracking-wider">Original: {baseLabel}</span>
+                                            <span className="text-[10px] text-foreground uppercase font-bold tracking-wider">Original: {baseLabel}</span>
                                             <Input 
                                                 value={data[activeLang].options?.[idx] || ''} 
                                                 onChange={e => updateOption(idx, e.target.value)} 
                                                 placeholder={`Translation for "${baseLabel}"`}
-                                                className="border-[#5b8370]/30 focus-visible:ring-amber-500 bg-white"
+                                                className="border-[#5b8370]/30 focus-visible:ring-amber-500 bg-background"
                                             />
                                         </div>
                                     )
@@ -316,10 +368,19 @@ const TranslationModal = ({ isOpen, onClose, item, tableType }) => {
                         )}
                     </div>
                 </Tabs>
-                <DialogFooter>
-                    <Button onClick={handleSave} disabled={loading} className="bg-[#063127] hover:bg-transparent text-white hover:text-[#063127] border border-transparent hover:border-[#063127] transition-all w-full sm:w-auto rounded-xl">
-                        {loading ? <Loader2 className="animate-spin mr-2"/> : <Send className="w-4 h-4 mr-2 text-amber-500"/>} {t('common.save')}
-                    </Button>
+                <DialogFooter className="mt-4 flex flex-col sm:flex-row gap-3 sm:justify-between">
+                    <div className="w-full sm:w-auto">
+                        <Button type="button" onClick={handleAutoTranslate} disabled={loading} className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white shadow-glow border-none transition-transform active:scale-95 rounded-xl">
+                            {loading ? <Loader2 className="animate-spin mr-2 w-4 h-4"/> : <Sparkles className="w-4 h-4 mr-2 text-yellow-300"/>} 
+                            Auto-Translate (AI)
+                        </Button>
+                    </div>
+                    <div className="flex gap-2 w-full sm:w-auto">
+                        <Button variant="outline" className="flex-1 sm:flex-none border-[#5b8370] text-[#5b8370] hover:bg-[#5b8370] hover:text-white rounded-xl" onClick={onClose}>{t('common.cancel', 'Cancel')}</Button>
+                        <Button onClick={handleSave} disabled={loading} className="flex-1 sm:flex-none bg-[#063127] hover:bg-transparent text-white hover:text-[#063127] border border-transparent hover:border-[#063127] rounded-xl shadow-lg transition-all">
+                             {loading ? <Loader2 className="animate-spin mr-2 w-4 h-4"/> : <Send className="w-4 h-4 mr-2 text-amber-500"/>} {t('common.save', 'Save')}
+                        </Button>
+                    </div>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
@@ -383,19 +444,31 @@ const CommunityManagement = () => {
             const payload = { ...formData, image_url: imgUrl };
             
             if (activeTab === 'proposals') {
-                // Subir archivos de las opciones si existen
-                const uploadedOptions = await Promise.all(formOptions.map(async (opt) => {
-                    if (opt.file) {
-                        const url = await uploadFile(opt.file);
-                        return { label: opt.label, media_url: url };
-                    }
-                    return { label: opt.label, media_url: opt.media_url || '' };
-                }));
+                if (formData.vote_type === 'scale_5') {
+                    // Para rating del 1 al 5, no necesitamos opciones cargadas manualmente
+                    payload.options = [
+                        { label: '1', media_url: '' },
+                        { label: '2', media_url: '' },
+                        { label: '3', media_url: '' },
+                        { label: '4', media_url: '' },
+                        { label: '5', media_url: '' }
+                    ];
+                } else {
+                    // Subir archivos de las opciones si existen (flujo normal)
+                    const uploadedOptions = await Promise.all(formOptions.map(async (opt) => {
+                        if (opt.file) {
+                            const url = await uploadFile(opt.file);
+                            return { label: opt.label, media_url: url };
+                        }
+                        return { label: opt.label, media_url: opt.media_url || '' };
+                    }));
 
-                const validOptions = uploadedOptions.filter(o => o.label.trim() !== "");
-                if (validOptions.length < 2) throw new Error("Please add at least 2 voting options.");
+                    const validOptions = uploadedOptions.filter(o => o.label.trim() !== "");
+                    if (validOptions.length < 2) throw new Error("Please add at least 2 voting options.");
+                    
+                    payload.options = validOptions; 
+                }
                 
-                payload.options = validOptions; 
                 payload.start_date = payload.start_date ? new Date(payload.start_date).toISOString() : null;
                 payload.end_date = payload.end_date ? new Date(payload.end_date).toISOString() : null;
             }
@@ -488,7 +561,7 @@ const CommunityManagement = () => {
 
                 {activeTab === 'proposals' && (
                     <div className="bg-[#5b8370]/5 p-4 rounded-2xl border border-[#5b8370]/20">
-                        <h3 className="text-sm font-bold text-[#063127] mb-4 flex items-center gap-2">
+                        <h3 className="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
                             <BarChart3 className="w-4 h-4 text-amber-500" /> {t('admin.community.live_dashboard', 'LIVE RESULTS DASHBOARD')}
                         </h3>
                         <VotingAnalytics proposals={items.filter(i => i.status !== 'draft')} />
@@ -496,21 +569,21 @@ const CommunityManagement = () => {
                 )}
 
                 <div className="flex justify-end">
-                    <Button onClick={() => openEdit(null)} className="bg-[#063127] hover:bg-transparent text-white hover:text-[#063127] border border-transparent hover:border-[#063127] transition-all w-full sm:w-auto rounded-xl shadow-md">
+                    <Button onClick={() => openEdit(null)} className="bg-background hover:bg-transparent text-foreground hover:text-[#063127] border border-transparent hover:border-[#063127] transition-all w-full sm:w-auto rounded-xl shadow-md">
                         <Plus className="w-4 h-4 mr-2 text-amber-500"/> {t('admin.community.add_new', 'Add New')}
                     </Button>
                 </div>
 
-                <Card className="border-[#5b8370]/20 shadow-sm rounded-3xl overflow-hidden">
+                <Card className="border-[#5b8370]/20 bg-background shadow-sm rounded-3xl overflow-hidden">
                     <CardContent className="p-0">
                         <div className="overflow-x-auto">
                             <Table className="min-w-[600px]">
                                 <TableHeader>
                                     <TableRow className="bg-[#5b8370]/10 hover:bg-[#5b8370]/10 border-b border-[#5b8370]/20">
-                                        <TableHead className="text-[#063127] font-bold">{t('admin.community.table_title', 'Title')}</TableHead>
-                                        <TableHead className="text-[#063127] font-bold">{t('admin.community.table_status', 'Status / Details')}</TableHead>
-                                        {(activeTab === 'news' || activeTab === 'proposals') && <TableHead className="text-[#063127] font-bold">{t('admin.community.table_image', 'Image')}</TableHead>}
-                                        <TableHead className="text-right text-[#063127] font-bold">{t('admin.community.table_actions', 'Actions')}</TableHead>
+                                        <TableHead className="text-foreground font-bold">{t('admin.community.table_title', 'Title')}</TableHead>
+                                        <TableHead className="text-foreground font-bold">{t('admin.community.table_status', 'Status / Details')}</TableHead>
+                                        {(activeTab === 'news' || activeTab === 'proposals') && <TableHead className="text-foreground font-bold">{t('admin.community.table_image', 'Image')}</TableHead>}
+                                        <TableHead className="text-right text-foreground font-bold">{t('admin.community.table_actions', 'Actions')}</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -518,16 +591,16 @@ const CommunityManagement = () => {
                                     items.length === 0 ? <TableRow><TableCell colSpan={4} className="text-center p-8 text-muted-foreground">{t('admin.community.no_items', 'No items found.')}</TableCell></TableRow> :
                                     items.map(item => (
                                         <TableRow key={item.id} className="hover:bg-[#5b8370]/5 transition-colors border-b border-[#5b8370]/10">
-                                            <TableCell className="font-bold text-sm max-w-[200px] truncate text-[#063127]" title={item.title}>{item.title}</TableCell>
+                                            <TableCell className="font-bold text-sm max-w-[200px] truncate text-foreground" title={item.title}>{item.title}</TableCell>
                                             <TableCell>
                                                 {activeTab === 'proposals' && (
                                                     <div className="flex flex-col gap-1">
-                                                        <Badge className={item.status === 'active' ? 'bg-[#5b8370]/20 text-[#063127] border-0 w-fit font-bold' : 'bg-gray-100 text-gray-800 w-fit border-0 font-bold'}>{item.status}</Badge>
-                                                        <Badge variant="outline" className="uppercase text-[10px] w-fit border-[#5b8370]/30 text-[#5b8370] bg-white">{item.vote_type}</Badge>
+                                                        <Badge className={item.status === 'active' ? 'bg-[#5b8370]/20 text-foreground border-0 w-fit font-bold' : 'bg-gray-100 text-gray-800 w-fit border-0 font-bold'}>{item.status}</Badge>
+                                                        <Badge variant="outline" className="uppercase text-[10px] w-fit border-[#5b8370]/30 text-muted-foreground bg-white">{item.vote_type}</Badge>
                                                     </div>
                                                 )}
-                                                {activeTab === 'news' && <span className="text-xs bg-amber-500 text-[#063127] font-bold px-2 py-1 rounded-md">{item.category}</span>}
-                                                {activeTab === 'roadmap' && <span className="text-xs font-bold text-[#5b8370] whitespace-nowrap">{item.date_display} ({item.completion_percentage}%)</span>}
+                                                {activeTab === 'news' && <span className="text-xs bg-amber-500 text-foreground font-bold px-2 py-1 rounded-md">{item.category}</span>}
+                                                {activeTab === 'roadmap' && <span className="text-xs font-bold text-muted-foreground whitespace-nowrap">{item.date_display} ({item.completion_percentage}%)</span>}
                                             </TableCell>
                                             {(activeTab === 'news' || activeTab === 'proposals') && (
                                                 <TableCell>
@@ -557,14 +630,14 @@ const CommunityManagement = () => {
 
             <Dialog open={editModalOpen} onOpenChange={setEditModalOpen}>
                 <DialogContent className="w-[95vw] sm:max-w-xl max-h-[90vh] overflow-y-auto p-4 sm:p-6 border border-[#5b8370]/50 rounded-3xl">
-                    <DialogHeader><DialogTitle className="text-[#063127] font-bold text-xl">{selectedItem ? t('admin.community.edit_item', 'Edit Item') : t('admin.community.create_item', 'Create Item')}</DialogTitle></DialogHeader>
+                    <DialogHeader><DialogTitle className="text-foreground font-bold text-xl">{selectedItem ? t('admin.community.edit_item', 'Edit Item') : t('admin.community.create_item', 'Create Item')}</DialogTitle></DialogHeader>
                     <div className="space-y-4 py-4">
                         <div className="space-y-2">
-                            <Label className="text-[#063127] font-bold">Title (English/Default)</Label>
+                            <Label className="text-foreground font-bold">Title (English/Default)</Label>
                             <Input value={formData.title || ''} onChange={e => setFormData({...formData, title: e.target.value})} className="border-[#5b8370]/30 focus-visible:ring-amber-500" />
                         </div>
                         <div className="space-y-2">
-                            <Label className="text-[#063127] font-bold">Description (English/Default)</Label>
+                            <Label className="text-foreground font-bold">Description (English/Default)</Label>
                             <Textarea value={formData.description || ''} onChange={e => setFormData({...formData, description: e.target.value})} className="border-[#5b8370]/30 focus-visible:ring-amber-500" />
                         </div>
                         
@@ -572,64 +645,76 @@ const CommunityManagement = () => {
                             <>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label className="text-[#063127] font-bold">Status</Label>
+                                        <Label className="text-foreground font-bold">Status</Label>
                                         <Select value={formData.status || 'draft'} onValueChange={v => setFormData({...formData, status: v})}>
                                             <SelectTrigger className="border-[#5b8370]/30 focus:ring-amber-500"><SelectValue/></SelectTrigger>
                                             <SelectContent><SelectItem value="draft">Draft</SelectItem><SelectItem value="active">Active</SelectItem><SelectItem value="closed">Closed</SelectItem></SelectContent>
                                         </Select>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label className="text-[#063127] font-bold">Voting Type (Gamification)</Label>
+                                        <Label className="text-foreground font-bold">Voting Type (Gamification)</Label>
                                         <Select value={formData.vote_type || 'classic'} onValueChange={v => setFormData({...formData, vote_type: v})}>
-                                            <SelectTrigger className="bg-[#5b8370]/10 text-[#063127] border-[#5b8370]/30 font-bold focus:ring-amber-500"><SelectValue/></SelectTrigger>
+                                            <SelectTrigger className="bg-[#5b8370]/10 text-foreground border-[#5b8370]/30 font-bold focus:ring-amber-500"><SelectValue/></SelectTrigger>
                                             <SelectContent>
                                                 <SelectItem value="classic">Classic (Bars)</SelectItem>
                                                 <SelectItem value="comparative">Comparative (A vs B Duel)</SelectItem>
                                                 <SelectItem value="budget">Budget Allocation (Mini-game)</SelectItem>
+                                                <SelectItem value="scale_5">1 to 5 Scale (Rating)</SelectItem>
                                             </SelectContent>
                                         </Select>
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-[#063127] font-bold">End Date</Label>
+                                    <Label className="text-foreground font-bold">End Date</Label>
                                     <Input type="datetime-local" value={formData.end_date ? new Date(formData.end_date).toISOString().slice(0, 16) : ''} onChange={e => setFormData({...formData, end_date: e.target.value ? new Date(e.target.value).toISOString() : ''})} className="border-[#5b8370]/30 focus-visible:ring-amber-500" />
                                 </div>
-                                <div className="space-y-3 border-t border-[#5b8370]/20 pt-4">
-                                    <Label className="flex justify-between items-center text-[#063127] font-bold text-base">
-                                        <span>Voting Options</span>
-                                        <Button type="button" size="sm" variant="outline" onClick={addOption} className="border-[#5b8370] text-[#5b8370] hover:bg-[#5b8370] hover:text-white rounded-lg"><Plus className="w-3 h-3 mr-1 text-amber-500"/>Add</Button>
-                                    </Label>
-                                    <div className="space-y-3 max-h-[300px] overflow-y-auto pr-2">
-                                        {formOptions.map((opt, idx) => (
-                                            <div key={idx} className="flex flex-col gap-2 p-4 bg-[#5b8370]/5 border border-[#5b8370]/20 rounded-xl shadow-sm">
-                                                <div className="flex gap-2">
-                                                    <Input 
-                                                        value={opt.label} 
-                                                        onChange={(e) => handleOptionChange(idx, 'label', e.target.value)} 
-                                                        placeholder={`Option label ${idx + 1}`} 
-                                                        className="border-[#5b8370]/30 focus-visible:ring-amber-500 bg-white"
-                                                    />
-                                                    <Button type="button" size="icon" variant="ghost" className="hover:bg-red-50 rounded-lg shrink-0" onClick={() => removeOption(idx)} disabled={formOptions.length <= 2}>
-                                                        <X className="w-4 h-4 text-red-500"/>
-                                                    </Button>
+                                
+                                {formData.vote_type !== 'scale_5' && (
+                                    <div className="space-y-3 border-t border-[#5b8370]/20 pt-4">
+                                        <Label className="flex justify-between items-center text-foreground font-bold text-base">
+                                            <span>Voting Options</span>
+                                            <Button type="button" size="sm" variant="outline" onClick={addOption} className="border-[#5b8370] text-[#5b8370] hover:bg-[#5b8370] hover:text-white rounded-lg"><Plus className="w-3 h-3 mr-1 text-amber-500"/>Add</Button>
+                                        </Label>
+                                        <div className="space-y-3 max-h-[300px] overflow-y-auto pr-2">
+                                            {formOptions.map((opt, idx) => (
+                                                <div key={idx} className="flex flex-col gap-2 p-4 bg-[#5b8370]/5 border border-[#5b8370]/20 rounded-xl shadow-sm">
+                                                    <div className="flex gap-2">
+                                                        <Input 
+                                                            value={opt.label} 
+                                                            onChange={(e) => handleOptionChange(idx, 'label', e.target.value)} 
+                                                            placeholder={`Option label ${idx + 1}`} 
+                                                            className="border-[#5b8370]/30 focus-visible:ring-amber-500 bg-background"
+                                                        />
+                                                        <Button type="button" size="icon" variant="ghost" className="hover:bg-red-50 rounded-lg shrink-0" onClick={() => removeOption(idx)} disabled={formOptions.length <= 2}>
+                                                            <X className="w-4 h-4 text-red-500"/>
+                                                        </Button>
+                                                    </div>
+                                                    <div className="flex items-center gap-3 mt-1">
+                                                        <Label className="cursor-pointer bg-white border border-[#5b8370]/30 px-3 py-2 rounded-lg text-xs hover:bg-[#5b8370]/10 flex items-center gap-2 font-bold text-card transition-colors shadow-sm">
+                                                            <Paperclip className="w-3.5 h-3.5 text-foreground" />
+                                                            {opt.file ? "File Selected" : "Attach Image/Video"}
+                                                            <input type="file" accept="image/*,video/*" className="hidden" onChange={(e) => handleOptionFileChange(idx, e.target.files[0])} />
+                                                        </Label>
+                                                        {opt.media_url && !opt.file && (
+                                                            <a href={opt.media_url} target="_blank" rel="noreferrer" className="text-xs text-[#5b8370] font-bold hover:underline flex items-center gap-1">
+                                                                <Eye className="w-3 h-3"/> View Current Media
+                                                            </a>
+                                                        )}
+                                                        {opt.file && <span className="text-xs text-emerald-600 font-bold truncate max-w-[150px]">{opt.file.name}</span>}
+                                                    </div>
                                                 </div>
-                                                <div className="flex items-center gap-3 mt-1">
-                                                    <Label className="cursor-pointer bg-white border border-[#5b8370]/30 px-3 py-2 rounded-lg text-xs hover:bg-[#5b8370]/10 flex items-center gap-2 font-bold text-[#063127] transition-colors shadow-sm">
-                                                        <Paperclip className="w-3.5 h-3.5 text-amber-500" />
-                                                        {opt.file ? "File Selected" : "Attach Image/Video"}
-                                                        <input type="file" accept="image/*,video/*" className="hidden" onChange={(e) => handleOptionFileChange(idx, e.target.files[0])} />
-                                                    </Label>
-                                                    {opt.media_url && !opt.file && (
-                                                        <a href={opt.media_url} target="_blank" rel="noreferrer" className="text-xs text-[#5b8370] font-bold hover:underline flex items-center gap-1">
-                                                            <Eye className="w-3 h-3"/> View Current Media
-                                                        </a>
-                                                    )}
-                                                    {opt.file && <span className="text-xs text-emerald-600 font-bold truncate max-w-[150px]">{opt.file.name}</span>}
-                                                </div>
-                                            </div>
-                                        ))}
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
+                                )}
+                                {formData.vote_type === 'scale_5' && (
+                                    <div className="space-y-3 border-t border-[#5b8370]/20 pt-4">
+                                        <div className="bg-muted/30 p-4 rounded-xl border border-border text-muted-foreground text-sm text-center">
+                                            {t('admin.community.scale_5_note', 'A 1 to 5 rating scale will be automatically generated. No manual options needed.')}
+                                        </div>
+                                    </div>
+                                )}
+
                                 <div className="space-y-2 pt-4 border-t border-[#5b8370]/20">
                                     <Label className="text-[#063127] font-bold">Proposal Main Image (Optional)</Label>
                                     <Input type="file" onChange={handleFileChange} accept="image/*" className="border-[#5b8370]/30" />

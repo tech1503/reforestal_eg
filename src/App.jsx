@@ -13,6 +13,13 @@ import GenesisQuest from '@/components/GenesisQuest';
 import HomePage from '@/components/HomePage';
 import UpdatePassword from '@/components/UpdatePassword';
 import ContactPage from '@/pages/ContactPage';
+import TermsAndConditions from '@/pages/TermsAndConditions';
+import PrivacyPolicy from '@/pages/PrivacyPolicy';
+import CookiesPolicy from '@/pages/CookiesPolicy'; 
+import RegenerativeEconomy from '@/pages/RegenerativeEconomy';
+
+// Banners Cookies
+import CookieBanner from './components/ui/CookieBanner';
 
 // Contextos y Hooks
 import { useAuth } from '@/contexts/SupabaseAuthContext';
@@ -55,26 +62,34 @@ const AppContent = () => {
   if (loading) return <div className="flex items-center justify-center h-screen"><Loader className="w-12 h-12 animate-spin text-emerald-500" /></div>;
 
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/auth" element={<AuthScreen />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/genesis-quest" element={<GenesisQuest />} />
-        <Route path="/update-password" element={<UpdatePassword />} />
-        
-        {/* Dashboards con Rutas Protegidas */}
-        <Route path="/admin/*" element={profile?.role === 'admin' ? <AdminDashboard /> : <Navigate to="/auth" />} />
-        <Route path="/dashboard/*" element={session ? <Dashboard /> : <Navigate to="/auth" />} />
-        <Route path="/startnext/*" element={profile?.role === 'startnext_user' ? <Dashboard /> : <Navigate to="/auth" />} />
+    <>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/auth" element={<AuthScreen />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/genesis-quest" element={<GenesisQuest />} />
+          <Route path="/update-password" element={<UpdatePassword />} />
+          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/cookies-policy" element={<CookiesPolicy />} />
+          <Route path="/regenerative-economy" element={<RegenerativeEconomy />} />
 
-        {/* Captura de Referidos */}
-        <Route path="/ref/:username" element={<ReferralHandler />} />
-        <Route path="/:username" element={<ReferralHandler />} />
+          {/* Dashboards con Rutas Protegidas */}
+          <Route path="/admin/*" element={profile?.role === 'admin' ? <AdminDashboard /> : <Navigate to="/auth" />} />
+          <Route path="/dashboard/*" element={session ? <Dashboard /> : <Navigate to="/auth" />} />
+          <Route path="/startnext/*" element={profile?.role === 'startnext_user' ? <Dashboard /> : <Navigate to="/auth" />} />
 
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </AnimatePresence>
+          {/* Captura de Referidos */}
+          <Route path="/ref/:username" element={<ReferralHandler />} />
+          <Route path="/:username" element={<ReferralHandler />} />
+
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </AnimatePresence>
+      
+      <CookieBanner />
+    </>
   );
 };
 

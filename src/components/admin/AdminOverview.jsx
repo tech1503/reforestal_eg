@@ -135,9 +135,9 @@ const AdminOverview = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="bg-white rounded-xl p-6 shadow-sm border">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="bg-background rounded-xl p-6 shadow-sm border">
           <h3 className="text-lg font-semibold mb-4 flex items-center">
-              <Activity className="w-5 h-5 mr-2 text-green-600" /> 
+              <Activity className="w-5 h-5 mr-2 text-foreground" /> 
               {t('admin.financials.tabs.startnext')} Trends
           </h3>
           <ResponsiveContainer width="100%" height={300}>
@@ -152,8 +152,8 @@ const AdminOverview = () => {
           </ResponsiveContainer>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="bg-white rounded-xl p-6 shadow-sm border">
-          <h3 className="text-lg font-semibold mb-4">Benefit Level Distribution</h3>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="bg-background rounded-xl p-6 shadow-sm border">
+          <h3 className="text-lg text-foreground font-semibold mb-4">Benefit Level Distribution</h3>
           {benefitDistribution.length > 0 ? (
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>

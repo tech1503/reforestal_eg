@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Leaf, Award, Users, TrendingUp, Instagram, Check, Maximize2, Heart, ArrowRight } from 'lucide-react';
+import { Award, Users, TrendingUp, Instagram, Check, Maximize2, Heart, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -8,9 +8,10 @@ import { Badge } from '@/components/ui/badge';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher'; 
 import heroImg from '@/assets/hero-reforestal.webp';
 import heroImg1 from '@/assets/hero-home-reforestal.webp';
-import logoLandDollar from '@/assets/land-dollar-base.webp';
+import logoLandDollar from '@/assets/land-dollar-base1.webp';
 import vegReforest from '@/assets/vegetacion-reforestal.webp';
 import InfoSections from '@/pages/InfoSections';
+import logoReforestal from '@/assets/icons/logo-blanco.png';
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -41,30 +42,31 @@ const HomePage = () => {
   const scrollTo = id => { const element = document.getElementById(id); if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
 
   return (
-    <div className="bg-light dark:bg-darkBgDeep text-forest font-sans selection:bg-gold selection:text-darkBgDeep overflow-x-hidden">
+    <div className="bg-light dark:bg-darkBgDeep text-foreground font-sans selection:bg-gold selection:text-darkBgDeep overflow-x-hidden">
       
       {/* --- HEADER --- */}
       <motion.header 
         initial={{ y: -100 }} 
         animate={{ y: 0 }} 
         transition={{ duration: 0.5, ease: 'easeOut' }} 
-        className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-darkBgDeep/90 backdrop-blur-xl border-b border-olive/10 shadow-soft"
+        className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-background backdrop-blur-xl border-b border-olive/10 shadow-soft"
       >
         <div className="container mx-auto px-4 md:px-6 py-3 md:py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-2 md:space-x-3">
-            <div className="bg-gradient-to-br from-[#5b8370] to-[#063127] dark:from-[#c4d1c0] dark:to-[#5b8370] p-2 md:p-2.5 rounded-xl text-[#c4d1c0] dark:text-[#063127] shadow-glow">
-               <Leaf className="w-5 h-5 md:w-6 md:h-6" />
-            </div>
-            <span className="text-lg md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#063127] to-[#5b8370] dark:from-[#c4d1c0] dark:to-[#5b8370] tracking-tight">
-                Reforestal eG
-            </span>
+          <div className="flex items-center space-x-2 md:space-x-3 cursor-pointer" onClick={() => navigate('/')}>
+
+            <img 
+                src={logoReforestal} 
+                alt="Reforestal eG Logo" 
+                className="h-12 md:h-16 lg:h-20 w-auto object-contain" 
+            />
+            
           </div>
           
           <div className="flex items-center space-x-2 md:space-x-3">
-            <LanguageSwitcher className="text-olive hover:bg-light rounded-full transition-fast" />
+            <LanguageSwitcher className="text-foreground hover:bg-light rounded-full transition-fast" />
             <Button 
                 onClick={() => navigate('/auth')} 
-                className="rounded-full px-5 md:px-8 h-auto min-h-[2.5rem] md:h-12 text-sm md:text-base bg-gradient-to-r from-[#053127] to-[#5b8370] text-[#c2d2c1] hover:scale-105 border-none shadow-glow whitespace-nowrap py-2"
+                className="rounded-full px-5 md:px-8 h-auto min-h-[2.5rem] md:h-12 text-sm md:text-base bg-gradient-to-r text-foreground hover:scale-105 border-none shadow-glow whitespace-nowrap py-2"
             >
                 {t('auth.sign_in')}
             </Button>
@@ -127,7 +129,7 @@ const HomePage = () => {
         </section>
 
         {/* 2. REAL IMPACT METRICS (M2) */}
-        <section className="py-20 md:py-24 bg-darkBgDeep relative overflow-hidden flex items-center">
+        <section className="py-20 md:py-24 bg-background/70 relative overflow-hidden flex items-center">
             <div className="absolute top-0 left-0 w-full h-full" style={{backgroundImage: `url(${IMAGES.patterns.cubes})`, opacity: 0.05}}></div>
             
             <div className="hidden md:block absolute top-1/4 -left-64 w-[600px] h-[600px] bg-emerald-600/10 rounded-full blur-[120px] animate-pulse-glow"></div>
@@ -213,9 +215,9 @@ const HomePage = () => {
         </section>
 
         {/* 4. GENESIS REVOLUTION SECTION */}
-        <section id="genesis-section" className="py-24 md:py-32 bg-forest relative overflow-hidden flex flex-col items-center justify-center text-center">
+        <section id="genesis-section" className="py-24 md:py-32 bg-background/70 relative overflow-hidden flex flex-col items-center justify-center text-center">
             <div className="absolute inset-0" style={{backgroundImage: `url(${IMAGES.patterns.stardust})`, opacity: 0.3}}></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-900/50 to-darkBgDeep"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background to-darkBgDeep"></div>
             
             <div className="container mx-auto px-4 relative z-10 max-w-4xl">
                 <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
@@ -330,41 +332,46 @@ const HomePage = () => {
       </main>
 
       {/* FOOTER */}
-      <footer className="bg-darkBgDeep text-olive border-t border-olive/10 py-12 md:py-16">
-        <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+      <footer className="bg-background text-muted-foreground border-t border-border py-12 md:py-16">
+        <div className="container mx-auto px-6 flex flex-col items-center justify-center text-center gap-10">
             
-            {/* Copyright */}
-            <div className="flex items-center space-x-3">
-              <div className="bg-olive/20 p-2 rounded-lg">
-                  <Leaf className="w-6 h-6 text-emerald-500" />
+            {/* Logo */}
+            <div className="flex flex-col items-center justify-center">
+              <div className="p-2 rounded-lg flex items-center justify-center">
+                <img 
+                  src={logoReforestal} 
+                  alt="Reforestal eG Logo" 
+                  className="h-12 md:h-16 lg:h-20 w-auto object-contain" 
+                />
               </div>
-              <span className="text-light/80 font-semibold text-lg">
-                  Reforestal eG &copy; 2026
-              </span>
             </div>
 
-            <div className="flex gap-6 md:gap-8 text-sm font-medium">
-              <a href="#" className="hover:text-gold transition-colors">
+            {/* Enlaces (Políticas, T&C, Cookies, Contacto) */}
+            <div className="flex flex-col md:flex-row flex-wrap items-center justify-center gap-5 md:gap-8 text-sm font-medium w-full">
+              <a href="/privacy-policy" className="hover:text-gold transition-colors text-center w-full md:w-auto">
                   {t('footer.privacy')}
               </a>
-              <a href="#" className="hover:text-gold transition-colors">
+              <a href="/terms-and-conditions" className="hover:text-gold transition-colors text-center w-full md:w-auto">
                   {t('footer.terms')}
               </a>
-              <button onClick={() => navigate('/contact')} className="hover:text-gold transition-colors">
+              <a href="/cookies-policy" className="hover:text-gold transition-colors text-center w-full md:w-auto">
+                  {t('footer.cookies')}
+              </a>
+              <button onClick={() => navigate('/contact')} className="hover:text-gold transition-colors text-center w-full md:w-auto">
                   {t('footer.contact')}
               </button>
             </div>
 
             {/* Redes Sociales - Instagram */}
-            <div className="flex space-x-6">
+            <div className="flex items-center justify-center">
               <a 
                 href="https://www.instagram.com/reforestal" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="text-light/60 hover:text-white hover:bg-olive/30 p-2 rounded-full transition-all"
+                className="text-muted-foreground hover:text-foreground hover:bg-muted p-3 rounded-full transition-all flex items-center justify-center"
                 aria-label={t('footer.socials.instagram')} 
               >
-                <Instagram className="w-5 h-5" />
+                <Instagram className="w-5 h-5 md:w-6 md:h-6" />
               </a>
             </div>
             

@@ -26,12 +26,12 @@ const StatsCard = ({ title, value, change, icon: Icon, color }) => {
   return (
     <motion.div
       whileHover={{ y: -2 }}
-      className="bg-white rounded-xl p-6 shadow-sm border border-green-100 card-hover"
+      className="bg-background rounded-xl p-6 shadow-sm border border-border card-hover"
     >
       <div className="flex items-center justify-between">
         <div className="flex-1">
-          <p className="text-gray-600 text-sm mb-1">{title}</p>
-          <p className="text-2xl font-bold text-slate-900">{value}</p>
+          <p className="text-foreground text-sm mb-1">{title}</p>
+          <p className="text-2xl font-bold text-foreground">{value}</p>
           
           {/* Only render footer if change prop exists */}
           {hasChange && (
@@ -40,7 +40,7 @@ const StatsCard = ({ title, value, change, icon: Icon, color }) => {
               {isNegative && <TrendingDown className="w-4 h-4 text-red-500 mr-1" />}
               
               <span className={`text-sm font-medium ${
-                isPositive ? 'text-green-600' : isNegative ? 'text-red-600' : 'text-gray-500'
+                isPositive ? 'text-green-600' : isNegative ? 'text-red-600' : 'text-gray-600'
               }`}>
                 {change}
               </span>

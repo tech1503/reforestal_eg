@@ -5,12 +5,12 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Loader2 } from 'lucide-react';
 import DateRangeFilter from './DateRangeFilter';
 import { subDays, format, isWithinInterval } from 'date-fns';
-import { useTranslation } from 'react-i18next'; // IMPORTADO
+import { useTranslation } from 'react-i18next'; 
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
 
 const FinancialReports = () => {
-  const { t } = useTranslation(); // HOOK
+  const { t } = useTranslation(); 
   const [loading, setLoading] = useState(true);
   const [dateRange, setDateRange] = useState({ from: subDays(new Date(), 30), to: new Date() });
   
@@ -119,7 +119,7 @@ const FinancialReports = () => {
     <div className="space-y-6">
        <div className="flex justify-between items-center">
            {/* admin.financials.title = "Financial Management" */}
-           <h2 className="text-2xl font-bold tracking-tight text-slate-900">{t('admin.financials.title')} Reports</h2>
+           <h2 className="text-2xl font-bold tracking-tight text-foreground">{t('admin.financials.title')} Reports</h2>
        </div>
 
        <DateRangeFilter range={dateRange} setRange={setDateRange} onExport={handleExport} />
@@ -197,28 +197,28 @@ const FinancialReports = () => {
                </CardHeader>
                <CardContent>
                    <div className="grid grid-cols-2 gap-4">
-                       <div className="p-4 bg-slate-50 rounded-lg">
-                           <p className="text-sm text-slate-500">{t('admin.quick_stats.total_revenue')}</p>
-                           <p className="text-2xl font-bold text-emerald-700">
+                       <div className="p-4 bg-background rounded-lg">
+                           <p className="text-sm text-foreground">{t('admin.quick_stats.total_revenue')}</p>
+                           <p className="text-2xl font-bold text-gold-600">
                                €{filteredData.c.reduce((sum, item) => sum + parseFloat(item.contribution_amount), 0).toLocaleString()}
                            </p>
                        </div>
-                       <div className="p-4 bg-slate-50 rounded-lg">
-                           <p className="text-sm text-slate-500">Credits Issued</p>
-                           <p className="text-2xl font-bold text-violet-700">
+                       <div className="p-4 bg-background rounded-lg">
+                           <p className="text-sm text-foreground">Credits Issued</p>
+                           <p className="text-2xl font-bold text-gold-600">
                                {filteredData.i.reduce((sum, item) => sum + parseFloat(item.amount), 0).toLocaleString()} 
                            </p>
                        </div>
-                       <div className="p-4 bg-slate-50 rounded-lg">
+                       <div className="p-4 bg-background rounded-lg">
                            {/* admin.financials.tabs.land_dollars */}
-                           <p className="text-sm text-slate-500">{t('admin.financials.tabs.land_dollars')} Issued</p>
-                           <p className="text-2xl font-bold text-green-700">
+                           <p className="text-sm text-foreground">{t('admin.financials.tabs.land_dollars')} Issued</p>
+                           <p className="text-2xl font-bold text-gold-600">
                                {filteredData.l.length}
                            </p>
                        </div>
-                       <div className="p-4 bg-slate-50 rounded-lg">
-                           <p className="text-sm text-slate-500">Avg. Contribution</p>
-                           <p className="text-2xl font-bold text-slate-700">
+                       <div className="p-4 bg-background rounded-lg">
+                           <p className="text-sm text-foreground">Avg. Contribution</p>
+                           <p className="text-2xl font-bold text-gold-600">
                                €{(filteredData.c.reduce((sum, item) => sum + parseFloat(item.contribution_amount), 0) / (filteredData.c.length || 1)).toFixed(2)}
                            </p>
                        </div>

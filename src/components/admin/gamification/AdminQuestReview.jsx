@@ -303,13 +303,13 @@ const AdminQuestReview = () => {
             }
 
             return (
-                <div key={idx} className="mb-4 bg-slate-50 p-4 rounded-2xl border border-slate-100 shadow-sm">
+                <div key={idx} className="mb-4 bg-background p-4 rounded-2xl border border-slate-100 shadow-sm">
                     <div className="flex justify-between items-center mb-2">
-                        <p className="text-xs font-black text-slate-400 uppercase">{t('admin.quest_review.modal.step', 'Paso')} {idx + 1}</p>
-                        <Badge variant="outline" className="text-[10px] uppercase text-slate-400 bg-white">{step.ui_type.replace('_', ' ')}</Badge>
+                        <p className="text-xs font-black text-foreground uppercase">{t('admin.quest_review.modal.step', 'Paso')} {idx + 1}</p>
+                        <Badge variant="outline" className="text-[10px] uppercase text-slate-400 bg-background">{step.ui_type.replace('_', ' ')}</Badge>
                     </div>
                     <p className="font-bold text-slate-800 mb-2">{step.content}</p>
-                    <div className="p-3 bg-white rounded-xl border border-slate-200 text-sm text-slate-700 font-medium whitespace-pre-wrap">
+                    <div className="p-3 bg-background rounded-xl border border-slate-200 text-sm text-slate-700 font-medium whitespace-pre-wrap">
                         {display || t('admin.quest_review.modal.no_answer', 'Sin respuesta')}
                     </div>
                 </div>
@@ -329,19 +329,19 @@ const AdminQuestReview = () => {
 
     return (
         <div className="space-y-6 pb-10">
-            <Card className="border-0 shadow-xl bg-white rounded-[2rem] overflow-hidden">
-                <CardHeader className="bg-slate-50/50 border-b border-slate-100 p-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <Card className="border-b shadow-xl bg-background rounded-[2rem] overflow-hidden">
+                <CardHeader className="bg-background border-b border-gold-700 p-8 flex flex-col md:flex-row justify-between items-center gap-4">
                     <div className="flex items-center gap-4">
                         <div className="p-3 bg-emerald-100 rounded-2xl text-emerald-600 shadow-inner">
                             <PieChartIcon className="w-8 h-8" />
                         </div>
                         <div>
-                            <CardTitle className="text-2xl font-black text-slate-800">{t('admin.quest_review.analytics_title', 'Analítica de Participación')}</CardTitle>
-                            <CardDescription className="font-medium text-slate-500">{t('admin.quest_review.analytics_desc', 'Métricas reales por rol de usuario')}</CardDescription>
+                            <CardTitle className="text-2xl font-black text-foreground">{t('admin.quest_review.analytics_title', 'Analítica de Participación')}</CardTitle>
+                            <CardDescription className="font-medium text-foreground">{t('admin.quest_review.analytics_desc', 'Métricas reales por rol de usuario')}</CardDescription>
                         </div>
                     </div>
                     <Select value={selectedMissionChart} onValueChange={setSelectedMissionChart}>
-                        <SelectTrigger className="w-full md:w-72 h-12 rounded-xl bg-white border-slate-200 shadow-sm font-bold">
+                        <SelectTrigger className="w-full md:w-72 h-12 rounded-xl bg-background border-slate-200 shadow-sm font-bold">
                             <SelectValue placeholder="Filtrar misiones" />
                         </SelectTrigger>
                         <SelectContent className="rounded-xl font-medium">
@@ -359,7 +359,7 @@ const AdminQuestReview = () => {
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-2 gap-4">
                 <div>
-                    <h2 className="text-3xl font-black text-slate-900 tracking-tight">{t('admin.quest_review.title', 'Moderación de Misiones')}</h2>
+                    <h2 className="text-3xl font-black text-foreground tracking-tight">{t('admin.quest_review.title', 'Moderación de Misiones')}</h2>
                     <p className="text-slate-500 font-medium">{t('admin.quest_review.subtitle', 'Supervisa y recompensa el compromiso de la comunidad.')}</p>
                 </div>
                 
@@ -367,36 +367,36 @@ const AdminQuestReview = () => {
                 <Button 
                     onClick={handleExportCSV} 
                     variant="outline" 
-                    className="gap-2 font-bold bg-white text-emerald-700 border-emerald-200 hover:bg-emerald-50 shadow-sm rounded-xl"
+                    className="gap-2 font-bold bg-background text-foreground border-emerald-200 hover:bg-background shadow-sm rounded-xl"
                 >
                     <Download className="w-4 h-4" /> Exportar Respuestas a Excel
                 </Button>
             </div>
 
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                <TabsList className="bg-slate-100 p-1 rounded-2xl mb-6 h-14">
-                    <TabsTrigger value="pending" className="rounded-xl font-black text-sm data-[state=active]:bg-white data-[state=active]:shadow-sm">
+                <TabsList className="bg-background p-1 rounded-2xl mb-6 h-14">
+                    <TabsTrigger value="pending" className="rounded-xl font-black text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">
                         <Clock className="w-4 h-4 mr-2" /> {t('admin.quest_review.tabs.pending', 'REVISIÓN PENDIENTE')}
-                        {pendingReviews.length > 0 && <Badge className="ml-2 bg-blue-500 text-white border-0">{pendingReviews.length}</Badge>}
+                        {pendingReviews.length > 0 && <Badge className="ml-2 bg-blue-500 text-foreground border-0">{pendingReviews.length}</Badge>}
                     </TabsTrigger>
-                    <TabsTrigger value="history" className="rounded-xl font-black text-sm data-[state=active]:bg-white data-[state=active]:shadow-sm">
+                    <TabsTrigger value="history" className="rounded-xl font-black text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">
                         <CheckCircle className="w-4 h-4 mr-2" /> {t('admin.quest_review.tabs.history', 'HISTORIAL COMPLETO')}
                     </TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="pending" className="bg-white rounded-3xl border border-slate-100 shadow-xl overflow-hidden">
+                <TabsContent value="pending" className="bg-background rounded-3xl border border-slate-100 shadow-xl overflow-hidden">
                     <Table>
                         <TableHeader className="bg-slate-50/50">
                             <TableRow className="border-0">
-                                <TableHead className="font-black text-slate-400 py-6 px-8">{t('admin.quest_review.table.user', 'USUARIO')}</TableHead>
-                                <TableHead className="font-black text-slate-400">{t('admin.quest_review.table.mission', 'MISIÓN')}</TableHead>
-                                <TableHead className="font-black text-slate-400">{t('admin.quest_review.table.reward', 'RECOMPENSA')}</TableHead>
-                                <TableHead className="font-black text-slate-400 text-right pr-8">{t('admin.quest_review.table.action', 'ACCIÓN')}</TableHead>
+                                <TableHead className="font-black text-foreground py-6 px-8">{t('admin.quest_review.table.user', 'USUARIO')}</TableHead>
+                                <TableHead className="font-black text-foreground">{t('admin.quest_review.table.mission', 'MISIÓN')}</TableHead>
+                                <TableHead className="font-black text-foreground">{t('admin.quest_review.table.reward', 'RECOMPENSA')}</TableHead>
+                                <TableHead className="font-black text-foreground text-right pr-8">{t('admin.quest_review.table.action', 'ACCIÓN')}</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {loading ? <TableRow><TableCell colSpan={4} className="py-20 text-center"><Loader2 className="animate-spin mx-auto h-10 w-10 text-blue-500" /></TableCell></TableRow> :
-                             pendingReviews.length === 0 ? <TableRow><TableCell colSpan={4} className="py-20 text-center text-slate-400 font-bold italic">{t('admin.quest_review.no_pending', 'No hay misiones esperando revisión.')}</TableCell></TableRow> :
+                             pendingReviews.length === 0 ? <TableRow><TableCell colSpan={4} className="py-20 text-center text-foreground font-bold italic">{t('admin.quest_review.no_pending', 'No hay misiones esperando revisión.')}</TableCell></TableRow> :
                              pendingReviews.map(r => (
                                 <TableRow key={r.id} className="hover:bg-slate-50/80 border-slate-50 transition-colors">
                                     <TableCell className="py-6 px-8">
@@ -404,7 +404,7 @@ const AdminQuestReview = () => {
                                         <div className="text-xs font-bold text-slate-400">{r.profiles?.email}</div>
                                     </TableCell>
                                     <TableCell><div className="flex items-center gap-2 font-bold text-slate-700"><FileText className="w-4 h-4 text-purple-500" /> {r.genesis_missions?.title}</div></TableCell>
-                                    <TableCell><div className="flex gap-2"><Badge className="bg-emerald-50 text-emerald-700 border-emerald-100 shadow-none font-black">+{r.credits_awarded} BP</Badge></div></TableCell>
+                                    <TableCell><div className="flex gap-2"><Badge className="bg-background text-emerald-700 border-emerald-100 shadow-none font-black">+{r.credits_awarded} BP</Badge></div></TableCell>
                                     <TableCell className="text-right pr-8"><Button onClick={() => { setSelectedReview(r); setAdminFeedback(''); }} className="bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl px-6 h-11">{t('admin.quest_review.evaluate_btn', 'EVALUAR')}</Button></TableCell>
                                 </TableRow>
                              ))}
@@ -412,19 +412,19 @@ const AdminQuestReview = () => {
                     </Table>
                 </TabsContent>
 
-                <TabsContent value="history" className="bg-white rounded-3xl border border-slate-100 shadow-xl overflow-hidden">
+                <TabsContent value="history" className="bg-background rounded-3xl border border-slate-100 shadow-xl overflow-hidden">
                     <Table>
                         <TableHeader className="bg-slate-50/50">
                             <TableRow className="border-0">
-                                <TableHead className="font-black text-slate-400 py-6 px-8">{t('admin.quest_review.table.user', 'USUARIO')}</TableHead>
-                                <TableHead className="font-black text-slate-400">{t('admin.quest_review.table.mission', 'MISIÓN')}</TableHead>
-                                <TableHead className="font-black text-slate-400">{t('admin.quest_review.table.status', 'ESTADO')}</TableHead>
-                                <TableHead className="font-black text-slate-400 text-right pr-8">{t('admin.quest_review.table.details', 'DETALLE')}</TableHead>
+                                <TableHead className="font-black text-foreground py-6 px-8">{t('admin.quest_review.table.user', 'USUARIO')}</TableHead>
+                                <TableHead className="font-black text-foreground">{t('admin.quest_review.table.mission', 'MISIÓN')}</TableHead>
+                                <TableHead className="font-black text-foreground">{t('admin.quest_review.table.status', 'ESTADO')}</TableHead>
+                                <TableHead className="font-black text-foreground text-right pr-8">{t('admin.quest_review.table.details', 'DETALLE')}</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {loadingHistory ? <TableRow><TableCell colSpan={4} className="py-20 text-center"><Loader2 className="animate-spin h-10 w-10 mx-auto text-emerald-500" /></TableCell></TableRow> :
-                             historyResponses.length === 0 ? <TableRow><TableCell colSpan={4} className="py-20 text-center text-slate-400 font-bold italic">{t('admin.quest_review.no_history', 'Historial vacío.')}</TableCell></TableRow> :
+                             historyResponses.length === 0 ? <TableRow><TableCell colSpan={4} className="py-20 text-center text-foreground font-bold italic">{t('admin.quest_review.no_history', 'Historial vacío.')}</TableCell></TableRow> :
                              historyResponses.map(r => (
                                 <TableRow key={r.id} className="hover:bg-slate-50/80 border-slate-50 transition-colors">
                                     <TableCell className="py-6 px-8">
@@ -460,7 +460,7 @@ const AdminQuestReview = () => {
                             </div>
                             <div className="text-right flex flex-col items-end gap-2">
                                 {isReadOnlyMode && getStatusBadge(selectedReview?.review_status)}
-                                <div className="bg-white p-3 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3">
+                                <div className="bg-background p-3 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3">
                                     <Zap className={`w-6 h-6 ${isReadOnlyMode ? 'text-slate-400 fill-slate-200' : 'text-emerald-500 fill-emerald-500'}`} />
                                     <span className="text-2xl font-black text-slate-800">
                                         +{selectedReview?.credits_awarded || 0} 

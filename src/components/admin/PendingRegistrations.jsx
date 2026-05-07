@@ -139,22 +139,22 @@ const PendingRegistrations = () => {
         <div className="space-y-8 animate-in fade-in duration-500">
             <div className="flex justify-between items-center">
                 <div>
-                    <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                    <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
                         <UserPlus className="w-8 h-8 text-emerald-600" /> User Registrations & Requests
                     </h2>
-                    <p className="text-gray-500">Manage incoming Startnext support claims and credit redemption requests.</p>
+                    <p className="text-foreground">Manage incoming Startnext support claims and credit redemption requests.</p>
                 </div>
             </div>
 
             <div className="space-y-4">
                 <div className="flex justify-between items-center border-b pb-4">
-                     <h3 className="text-lg font-bold text-gray-700 flex items-center gap-2">
+                     <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
                         <Clock className="w-5 h-5 text-amber-500" /> Startnext Support Claims
                     </h3>
                     <div className="flex items-center gap-2">
                          <div className="relative">
                             <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
-                            <Input placeholder="Search..." className="pl-9 w-48 bg-white h-9 text-sm" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                            <Input placeholder="Search..." className="pl-9 w-48 bg-background h-9 text-sm" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                         </div>
                         <Button variant="outline" size="sm" onClick={fetchRegistrations} disabled={loading}>
                             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -162,39 +162,39 @@ const PendingRegistrations = () => {
                     </div>
                 </div>
 
-                <div className="bg-white rounded-lg shadow border overflow-hidden">
+                <div className="bg-background rounded-lg shadow border overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full">
-                            <thead className="bg-gray-50 border-b">
+                            <thead className="bg-background border-b">
                                 <tr>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pioneer Access</th>
-                                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider">User</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider">Amount</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider">Details</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider">Pioneer Access</th>
+                                    <th className="px-6 py-3 text-right text-xs font-medium text-foreground uppercase tracking-wider">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200">
                                 {filtered.length === 0 ? (
-                                    <tr><td colSpan="5" className="px-6 py-8 text-center text-gray-500">No pending Startnext registrations found.</td></tr>
+                                    <tr><td colSpan="5" className="px-6 py-8 text-center text-foreground">No pending Startnext registrations found.</td></tr>
                                 ) : (
                                     filtered.map((reg) => (
-                                        <tr key={reg.id} className="hover:bg-gray-50">
+                                        <tr key={reg.id} className="hover:bg-background">
                                             <td className="px-6 py-4">
                                                 <div className="flex flex-col">
-                                                    <span className="font-medium text-gray-900">{reg.name}</span>
-                                                    <span className="text-sm text-gray-500 flex items-center gap-1"><Mail className="w-3 h-3" /> {reg.email}</span>
+                                                    <span className="font-medium text-foreground">{reg.name}</span>
+                                                    <span className="text-sm text-foreground flex items-center gap-1"><Mail className="w-3 h-3" /> {reg.email}</span>
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4">
-                                                <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200 text-sm">€{reg.amount}</Badge>
+                                                <Badge variant="outline" className="bg-emerald-100 text-emerald-700 border-emerald-200 text-sm">€{reg.amount}</Badge>
                                             </td>
                                             <td className="px-6 py-4">
-                                                <div className="space-y-1 text-sm text-gray-600">
+                                                <div className="space-y-1 text-sm text-foreground">
                                                     {(reg.city || reg.country) && (
-                                                        <div className="flex items-center gap-1"><MapPin className="w-3 h-3 text-gray-400" />{reg.city}{reg.city && reg.country ? ', ' : ''}{reg.country}</div>
+                                                        <div className="flex items-center gap-1"><MapPin className="w-3 h-3 text-foreground" />{reg.city}{reg.city && reg.country ? ', ' : ''}{reg.country}</div>
                                                     )}
-                                                    {reg.message && <div className="bg-gray-100 p-2 rounded text-xs italic max-w-xs break-words">"{reg.message}"</div>}
+                                                    {reg.message && <div className="bg-background p-2 rounded text-xs italic max-w-xs break-words">"{reg.message}"</div>}
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4">
@@ -202,7 +202,7 @@ const PendingRegistrations = () => {
                                                     value={rowPioneerStatus[reg.id] || 'pending'} 
                                                     onValueChange={(val) => setRowPioneerStatus(prev => ({...prev, [reg.id]: val}))}
                                                 >
-                                                    <SelectTrigger className="h-8 text-xs bg-white w-[130px] font-bold">
+                                                    <SelectTrigger className="h-8 text-xs bg-background w-[130px] font-bold">
                                                         <SelectValue />
                                                     </SelectTrigger>
                                                     <SelectContent>

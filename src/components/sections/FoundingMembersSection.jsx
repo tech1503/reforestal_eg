@@ -118,7 +118,7 @@ const ClassicVote = ({ proposal, onVote, hasVoted }) => {
 };
 
 const ComparativeVote = ({ proposal, onVote, hasVoted }) => {
-    const { t } = useTranslation();
+    //const { t } = useTranslation();
     const optA = proposal.options[0] || { label: 'A' };
     const optB = proposal.options[1] || { label: 'B' };
     
@@ -230,6 +230,72 @@ const BudgetVote = ({ proposal, onVote, hasVoted }) => {
             <Button onClick={() => onVote(proposal.id, allocations)} disabled={remaining !== 0} className="w-full mt-8 h-12 sm:h-14 text-sm sm:text-lg font-black bg-[#5b8370] border-gold/50 text-white hover:bg-transparent hover:text-white rounded-xl shadow-lg hover:border-gold transition-all hover:shadow-glow active:scale-95 relative z-10">
                 {t('pioneer.budget_vote.confirm_allocation', 'Confirm Allocation')}
             </Button>
+        </div>
+    );
+};
+
+// ============================================================================
+// NUEVO MÓDULO: RATING SCALE ESTRELLAS (1 TO 5)
+// ============================================================================
+const ScaleVote = ({ proposal, onVote, hasVoted }) => {
+    const { t } = useTranslation();
+    const [hoveredStar, setHoveredStar] = useState(0);
+    
+    if (hasVoted) {
+        return (
+            <div className="mt-6 space-y-4 p-5 sm:p-6 bg-[#063127] dark:bg-[#063127]/40 rounded-2xl sm:rounded-[2rem] border border-gold/30 shadow-inner">
+                <h4 className="text-center font-black text-white text-xs sm:text-sm mb-5 sm:mb-6 uppercase tracking-wider">{t('pioneer.scale_vote.results', 'Rating Results')}</h4>
+                {proposal.stats.map((s, i) => (
+                    <div key={i} className="mb-2">
+                        <div className="flex justify-between text-xs sm:text-sm font-bold text-[#c4d1c0] mb-1.5 sm:mb-2">
+                            <span className="flex items-center gap-1">{s.label} <Star className="w-3 h-3 text-gold fill-gold" /></span>
+                            <span className="text-gradient-gold drop-shadow-sm">{s.percent}%</span>
+                        </div>
+                        <Progress value={s.percent} className="h-2.5 sm:h-3 bg-[#063127] border border-gold/20 [&>div]:bg-gradient-gold rounded-full" />
+                    </div>
+                ))}
+                <div className="mt-5 p-4 bg-gold/10 border border-gold/50 rounded-xl text-[#c4d1c0] text-center text-xs font-bold flex items-center justify-center gap-2 shadow-sm">
+                    <CheckCircle2 className="w-4 h-4 text-gold"/> {t('pioneer.toasts.vote_success', 'Vote Submitted!')}
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="mt-6 flex flex-col items-center gap-6 p-6 sm:p-8 bg-[#063127] dark:bg-[#063127]/40 border border-gold/30 rounded-[1.5rem] sm:rounded-[2rem] shadow-sm relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 sm:w-32 sm:h-32 bg-gold/10 blur-[40px] rounded-full pointer-events-none"/>
+            
+            <h4 className="font-black text-white text-sm sm:text-lg flex items-center gap-2 relative z-10">
+                <Star className="w-4 h-4 sm:w-5 sm:h-5 text-gold fill-gold"/> {t('pioneer.scale_vote.prompt', 'Rate your level of agreement')}
+            </h4>
+            
+            <div className="flex justify-center gap-1 sm:gap-2 relative z-10 w-full" onMouseLeave={() => setHoveredStar(0)}>
+                {[1, 2, 3, 4, 5].map((rating) => {
+                    const isHovered = hoveredStar >= rating;
+                    return (
+                        <button 
+                            key={rating} 
+                            onMouseEnter={() => setHoveredStar(rating)}
+                            onClick={() => onVote(proposal.id, { choice: rating.toString() })} 
+                            className={`relative p-1 sm:p-2 rounded-2xl transition-all duration-300 transform outline-none focus:outline-none ${isHovered ? 'scale-110 sm:scale-125 drop-shadow-[0_0_15px_rgba(251,191,36,0.6)]' : 'scale-100 hover:scale-110 opacity-70 hover:opacity-100'}`}
+                        >
+                            <Star 
+                                className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 transition-all duration-300 ${isHovered ? 'text-gold fill-gold' : 'text-gold/30 fill-transparent'}`} 
+                                strokeWidth={isHovered ? 1.5 : 1}
+                            />
+                            {isHovered && (
+                                <span className="absolute -bottom-4 left-1/2 -translate-x-1/2 text-gold font-black text-xs sm:text-sm animate-in slide-in-from-bottom-2 fade-in">
+                                    {rating}
+                                </span>
+                            )}
+                        </button>
+                    );
+                })}
+            </div>
+            <div className="flex justify-between w-full max-w-[350px] text-[10px] sm:text-xs font-bold text-gold/60 uppercase tracking-widest relative z-10 mt-6">
+                <span>{t('pioneer.scale_vote.lowest', 'Lowest')}</span>
+                <span>{t('pioneer.scale_vote.highest', 'Highest')}</span>
+            </div>
         </div>
     );
 };
@@ -625,7 +691,7 @@ const FoundingMembersSection = () => {
                                             <div className="absolute bottom-4 sm:bottom-5 left-4 sm:left-6 right-4 sm:right-6 flex justify-between items-end gap-2">
                                                 <Badge className="bg-gradient-gold shadow-glow text-[#063127] font-black border-0 uppercase tracking-widest text-[9px] sm:text-[10px] px-2 sm:px-3 py-1 sm:py-1.5 animate-pulse shrink-0">{t('pioneer.badges.live_voting', 'Live Decision')}</Badge>
                                                 <div className="flex items-center gap-1.5 sm:gap-2 text-white font-black text-xs sm:text-sm bg-[#063127]/50 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full backdrop-blur-md border border-gold/50 shadow-lg shrink-0">
-                                            
+                                                    
                                                     <Users className="w-3 h-3 sm:w-4 sm:h-4 text-gold"/> {formatNumber(prop.totalVotes)}
                                                 </div>
                                             </div>
@@ -638,6 +704,7 @@ const FoundingMembersSection = () => {
 
                                         {prop.vote_type === 'comparative' && <ComparativeVote proposal={prop} onVote={handleVote} hasVoted={hasVoted} />}
                                         {prop.vote_type === 'budget' && <BudgetVote proposal={prop} onVote={handleVote} hasVoted={hasVoted} />}
+                                        {prop.vote_type === 'scale_5' && <ScaleVote proposal={prop} onVote={handleVote} hasVoted={hasVoted} />}
                                         {(!prop.vote_type || prop.vote_type === 'classic' || prop.vote_type === 'simple') && <ClassicVote proposal={prop} onVote={handleVote} hasVoted={hasVoted} />}
 
                                         {hasVoted && <DiscussionThread proposalId={prop.id} currentUserId={user.id} />}
