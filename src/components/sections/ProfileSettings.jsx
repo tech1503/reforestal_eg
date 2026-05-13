@@ -15,6 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
 import { getInvestorProfileBySlug } from '@/constants/investorProfiles';
+import ImpactProfileProgress from '@/components/ui/ImpactProfileProgress';
 
 const ProfileSettings = () => {
     const { t } = useTranslation();
@@ -283,10 +284,13 @@ const ProfileSettings = () => {
                                     <Mail className="w-3 h-3" /> {formData.email}
                                 </p>
 
-                                <div className="flex flex-wrap gap-2 justify-center mb-8">
+                                <div className="flex flex-wrap gap-2 justify-center mb-6">
+                                    {/*
                                     <Badge variant="secondary" className="bg-white/10 text-card-foreground border-white/20 capitalize">
                                         {profile?.role?.replace('_', ' ') || 'User'}
                                     </Badge>
+                                    
+                                     SE COMENTA EL BADGE DEL PERFIL ESTÁTICO (LENA/MARKUS/DAVID) PARA DAR LUGAR A LOS PORCENTAJES
                                     {profile?.genesis_profile && (() => {
                                         const slug = profile.genesis_profile.toLowerCase();
                                         const pData = getInvestorProfileBySlug(slug);
@@ -298,6 +302,12 @@ const ProfileSettings = () => {
                                             </Badge>
                                         );
                                     })()}
+                                    */}
+                                </div>
+
+                                {/* AQUI ESTÁ EL NUEVO COMPONENTE DE BARRAS DE PROGRESO */}
+                                <div className="w-full mb-8 text-left">
+                                    <ImpactProfileProgress profile={profile} />
                                 </div>
 
                                 {/* CONDICIONAL DEL PREMIO (Se oculta si ya fue reclamado) */}

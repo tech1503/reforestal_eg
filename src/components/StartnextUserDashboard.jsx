@@ -6,12 +6,16 @@ import { useI18n } from '@/contexts/I18nContext';
 import { useTranslation } from 'react-i18next'; 
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Loader2, Trees, CreditCard, Leaf, Wallet, Coins, Lock, ShieldCheck, X, Clock,CheckCircle2, Zap } from 'lucide-react';
+
+// Lista de iconos completa
+import { Loader2, Trees, CreditCard, Leaf, Wallet, Coins, Lock, ShieldCheck, X, Clock, CheckCircle2, Zap, Calendar } from 'lucide-react';
+
 import LandDollarDisplay from '@/components/LandDollarDisplay';
 import ReforestaProjectWidget from '@/components/ReforestaProjectWidget';
 import { supabase } from '@/lib/customSupabaseClient';
 import { formatNumber, formatCurrency } from '@/lib/utils';
 import { calculateDynamicCredits } from '@/utils/tierLogicUtils';
+import { format, differenceInDays } from 'date-fns';
 
 const StartnextUserDashboard = () => {
   const { profile, user } = useAuth();
@@ -21,6 +25,7 @@ const StartnextUserDashboard = () => {
   const { userTier, tierBenefits, impactCredits, landDollar, contributions, loading } = useFinancial();
   const [pioneerStatus, setPioneerStatus] = useState('pending');
   const [showWelcome, setShowWelcome] = useState(true);
+  const [userBenefit, setUserBenefit] = useState(null); 
 
   useEffect(() => {
     if (user?.id) {
@@ -28,7 +33,22 @@ const StartnextUserDashboard = () => {
             const { data } = await supabase.from('founding_pioneer_metrics').select('founding_pioneer_access_status').eq('user_id', user.id).maybeSingle();
             setPioneerStatus(data?.founding_pioneer_access_status || 'pending');
         };
+        
+        const fetchBenefitData = async () => {
+            const { data } = await supabase
+                .from('user_benefits')
+                .select('assigned_date, expires_at')
+                .eq('user_id', user.id)
+                .eq('status', 'active')
+                .maybeSingle();
+            
+            if (data) {
+                setUserBenefit(data);
+            }
+        };
+
         checkStatus();
+        fetchBenefitData();
     }
   }, [user]);
 
@@ -48,12 +68,11 @@ const StartnextUserDashboard = () => {
   const snxId = contributions?.imported_user_id ? 'SNX-IMP' : 'SNX-ACT';
   const tierName = userTier?.displayName || 'Explorer Standard';
   
- 
   const dynamicCredits = contributions?.contribution_amount ? calculateDynamicCredits(contributions.contribution_amount) : 0;
 
   const baseBenefits = tierBenefits.filter(b => b.icon_name !== 'credit' && b.icon_name !== 'star').map(b => {
-      const trans = b.support_benefit_translations?.find(t => t.language_code === currentLanguage) 
-                || b.support_benefit_translations?.find(t => t.language_code === 'en');
+      const trans = b.support_benefit_translations?.find(trans => trans.language_code === currentLanguage) 
+                || b.support_benefit_translations?.find(trans => trans.language_code === 'en');
       return {
           ...b,
           translated_desc: trans?.description || t('dashboard.startnext_dash.benefit_available')
@@ -70,15 +89,12 @@ const StartnextUserDashboard = () => {
   ];
 
   const landDollarDisplayValue = landDollar ? t('dashboard.startnext_dash.active_asset') : t('dashboard.startnext_dash.pending');
-
   const isPioneerApproved = pioneerStatus === 'approved';
   const firstName = profile?.name ? profile.name.trim().split(' ')[0] : 'Explorer';
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8 py-4">
        
-       
-
        <AnimatePresence>
          {showWelcome && (
            <motion.div 
@@ -129,13 +145,32 @@ const StartnextUserDashboard = () => {
          )}
        </AnimatePresence>
 
-       <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <StatCard icon={CreditCard} iconColor="text-[#063127]" bgColor="bg-gradient-gold shadow-glow" label={t('dashboard.startnext_dash.total_contribution')} value={formatCurrency(contributions?.contribution_amount)} highlight />
-          <StatCard icon={Wallet} iconColor="text-[#063127]" bgColor="bg-gradient-gold shadow-glow" label={t('dashboard.land_dollar.title')} value={landDollarDisplayValue} highlight />
-          <StatCard icon={Coins} iconColor="text-[#063127]" bgColor="bg-gradient-gold shadow-glow" label={t('dashboard.impact_credits')} value={formatNumber(impactCredits)} highlight />
+       {/* FILA SUPERIOR REDISEÑADA: Todas las tarjetas con estilo Premium */}
+       <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+          
+          {/* Tarjeta de Contribución Total */}
+          <StatCard 
+            icon={CreditCard} 
+            iconColor="text-[#063127]" 
+            bgColor="bg-gradient-gold shadow-glow" 
+            label={t('dashboard.startnext_dash.total_contribution')} 
+            value={formatCurrency(contributions?.contribution_amount)} 
+            highlight 
+          />
+          
+          {/* Reloj Contador (Centro) */}
+          <PremiumCountdown benefitData={userBenefit} t={t} />
+          
+          {/* Tarjeta de Bonos (Bonus Points) */}
+          <StatCard 
+            icon={Coins} 
+            iconColor="text-[#063127]" 
+            bgColor="bg-gradient-gold shadow-glow" 
+            label={t('dashboard.impact_credits')} 
+            value={formatNumber(impactCredits)} 
+            highlight 
+          />
        </motion.div>
-
-       
 
        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
@@ -149,7 +184,6 @@ const StartnextUserDashboard = () => {
              </div>
              
              <Card className="border-gold/30 bg-[#063127] shadow-lg overflow-hidden">
-             
                 <CardContent className="p-0">
                    <ul className="divide-y divide-gold/10">
                       {displayBenefits.length === 0 ? (
@@ -211,7 +245,6 @@ const StartnextUserDashboard = () => {
                        </div>
                     </CardContent>
                  </Card>
-                 
              </motion.div>
              
              <ReforestaProjectWidget />
@@ -221,18 +254,127 @@ const StartnextUserDashboard = () => {
   );
 };
 
+// ==========================================
+// COMPONENTE: StatCard (Rediseño Premium)
+// ==========================================
 const StatCard = ({ icon: Icon, iconColor, bgColor, label, value, highlight }) => (
-  <Card variant="premium" className={`group bg-[#063127] border-gold/30 shadow-lg hover:shadow-glow transition-all`}>
-     <CardContent className="flex items-center justify-between p-4">
-       <div>
-          <p className="text-sm font-medium text-white/70 mb-1">{label}</p>
-          <h3 className={`${highlight ? 'text-2xl font-black text-gradient-gold drop-shadow-md mt-1' : 'text-2xl font-bold text-white'}`}>{value}</h3>
+  <Card variant="premium" className="group relative overflow-hidden bg-[#063127] border-gold/30 shadow-lg hover:shadow-glow transition-all flex flex-col justify-center h-full min-h-[160px]">
+     {/* Textura de fondo */}
+     <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none" />
+     
+     {/* Icono de fondo gigante */}
+     <div className="absolute -top-6 -right-6 opacity-10 group-hover:opacity-20 transition-all duration-700 pointer-events-none rotate-12">
+        <Icon className="w-36 h-36 text-gold" />
+     </div>
+
+     <CardContent className="relative z-10 p-5 flex flex-col justify-between h-full">
+       <div className="flex items-center justify-between mb-4">
+          <div className={`p-3 rounded-2xl ${bgColor} border border-gold/20 group-hover:scale-110 transition-all duration-500 shadow-glow`}>
+              <Icon className={`w-6 h-6 ${iconColor}`}/>
+          </div>
+          {/* Elemento decorativo */}
+          <div className="h-1 w-12 bg-gold/20 rounded-full overflow-hidden">
+             <div className="h-full bg-gold/40 w-2/3 rounded-full" />
+          </div>
        </div>
-       <div className={`p-3 rounded-xl ${bgColor} group-hover:scale-110 transition-normal shadow-sm`}>
-           <Icon className={`w-6 h-6 ${iconColor}`}/>
+
+       <div>
+          <p className="text-[10px] font-black text-gold uppercase tracking-[0.2em] mb-1 opacity-80">{label}</p>
+          <h3 className="text-3xl font-black text-white drop-shadow-md tracking-tight">
+            {value}
+          </h3>
        </div>
      </CardContent>
   </Card>
 );
+
+// ==========================================
+// COMPONENTE: PremiumCountdown (Mezcla Visual)
+// ==========================================
+const PremiumCountdown = ({ benefitData, t }) => {
+    // Si no hay datos, mostramos una versión "Pendiente" con el mismo estilo
+    if (!benefitData?.expires_at || !benefitData?.assigned_date) {
+        return (
+            <StatCard 
+                icon={Wallet} 
+                iconColor="text-[#063127]" 
+                bgColor="bg-gradient-gold" 
+                label={t('dashboard.land_dollar.title', 'Acceso Premium')} 
+                value={t('dashboard.startnext_dash.pending', 'Pendiente')}
+            />
+        );
+    }
+  
+    const startDate = new Date(benefitData.assigned_date);
+    const endDate = new Date(benefitData.expires_at);
+    const today = new Date();
+  
+    const daysRemaining = Math.max(0, differenceInDays(endDate, today));
+    const totalDays = Math.max(1, differenceInDays(endDate, startDate));
+    const percentage = Math.min(100, Math.max(0, ((totalDays - daysRemaining) / totalDays) * 100));
+  
+    if (daysRemaining === 0) {
+      return (
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="h-full">
+            <Card variant="soft" className="relative overflow-hidden border-l-4 border-l-red-500 bg-[#063127] shadow-lg border-red-500/20 h-full flex flex-col justify-center min-h-[160px]">
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none" />
+                <CardContent className="pt-6">
+                    <p className="text-red-400 font-bold text-center">
+                        {t('dashboard.premium_countdown.expired_message', 'Tu acceso Premium ha expirado.')}
+                    </p>
+                </CardContent>
+            </Card>
+        </motion.div>
+      );
+    }
+  
+    return (
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4 }} className="h-full">
+            <Card variant="premium" className="relative overflow-hidden bg-[#063127] border-gold/30 shadow-glow h-full flex flex-col justify-center min-h-[160px]">
+                {/* Textura e Icono de fondo */}
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none" />
+                <div className="absolute -top-6 -right-6 opacity-10 pointer-events-none rotate-12">
+                    <Clock className="w-36 h-36 text-gold" />
+                </div>
+                
+                <CardContent className="relative z-10 p-5 flex flex-col justify-between h-full">
+                    <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                            <ShieldCheck className="w-5 h-5 text-gold" />
+                            <h3 className="text-[10px] font-black text-transparent bg-clip-text bg-gradient-to-r from-gold to-yellow-200 uppercase tracking-[0.15em]">
+                                {t('dashboard.land_dollar.title', 'Acceso Premium')}
+                            </h3>
+                        </div>
+                        <Badge className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 text-[9px] px-2 py-0 uppercase font-bold">
+                            {t('common.active', 'Activo')}
+                        </Badge>
+                    </div>
+                    
+                    <div className="flex items-baseline gap-2 mt-2">
+                        <span className="text-3xl font-black text-white drop-shadow-md">{daysRemaining}</span>
+                        <span className="text-[10px] text-white/60 font-bold uppercase tracking-wider">
+                            {t('dashboard.premium_countdown.days_remaining_end', 'días restantes')}
+                        </span>
+                    </div>
+
+                    <div className="flex items-center gap-1.5 text-[9px] text-white/40 mb-3 font-bold uppercase tracking-tight">
+                        <Calendar className="w-3 h-3" />
+                        <span>{t('dashboard.premium_countdown.expires_on', 'Vence el {{date}}', { date: format(endDate, 'dd/MM/yyyy') })}</span>
+                    </div>
+                    
+                    {/* Barra de Progreso Inyectada */}
+                    <div className="w-full bg-black/50 rounded-full h-1.5 border border-white/5 overflow-hidden shadow-inner mt-auto">
+                        <div 
+                            className="bg-gradient-to-r from-emerald-500 via-emerald-400 to-gold h-full rounded-full transition-all duration-1000 relative" 
+                            style={{ width: `${100 - percentage}%` }}
+                        >
+                            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-30"></div>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+        </motion.div>
+    );
+};
 
 export default StartnextUserDashboard;

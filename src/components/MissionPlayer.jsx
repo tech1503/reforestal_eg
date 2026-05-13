@@ -185,7 +185,7 @@ const MissionPlayer = () => {
       });
       setStepAnswers(initialAnswers);
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      setIsRestartModalOpen(false); // Cierra el modal
+      setIsRestartModalOpen(false);
   };
 
   const fetchMission = useCallback(async () => {
@@ -805,9 +805,9 @@ const MissionPlayer = () => {
                             {/* CONTENEDOR DE ACCIONES (BOTTOM - COMPACTO Y CON BOTONES JUNTOS) */}
                             <div className="mt-6 flex flex-col-reverse sm:flex-row justify-between items-center border-t border-slate-200 dark:border-white/10 pt-4 gap-3">
                                 <div className="flex gap-2 w-full sm:w-auto justify-between sm:justify-start">
-                                    <Button variant="ghost" onClick={goBack} className="text-muted-foreground hover:text-foreground font-semibold px-3 h-10 border border-slate-200 dark:border-white/10 bg-white/5 hover:bg-black/5 dark:hover:bg-white/10 flex-1 sm:flex-none">
+                                    {/*<Button variant="ghost" onClick={goBack} className="text-muted-foreground hover:text-foreground font-semibold px-3 h-10 border border-slate-200 dark:border-white/10 bg-white/5 hover:bg-black/5 dark:hover:bg-white/10 flex-1 sm:flex-none">
                                         <ArrowLeft className="w-4 h-4 mr-1.5" /> {t('common.back')}
-                                    </Button>
+                                    </Button>*/}
 
                                     {/* BOTÓN DE REINICIAR LA MISIÓN QUE ABRE EL MODAL */}
                                     <Button variant="ghost" onClick={handleRestartClick} className="text-amber-600 dark:text-amber-500 hover:text-amber-700 dark:hover:text-amber-400 font-semibold px-3 h-10 border border-slate-200 dark:border-white/10 bg-white/5 hover:bg-amber-50 dark:hover:bg-amber-500/10 flex-1 sm:flex-none">

@@ -11,7 +11,7 @@ import heroImg1 from '@/assets/hero-home-reforestal.webp';
 import logoLandDollar from '@/assets/land-dollar-base1.webp';
 import vegReforest from '@/assets/vegetacion-reforestal.webp';
 import InfoSections from '@/pages/InfoSections';
-import logoReforestal from '@/assets/icons/logo-blanco.png';
+import logoReforestal from '@/assets/icons/logo-dorado.png';
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -137,18 +137,18 @@ const HomePage = () => {
 
             <div className="container mx-auto px-6 relative z-10 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
                 <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-                    <div className="flex items-center gap-3 mb-4 md:mb-6 text-emerald-400">
+                    <div className="flex items-center gap-3 mb-4 md:mb-6 text-foreground">
                         <Maximize2 className="w-5 h-5 md:w-6 md:h-6" />
                         <span className="uppercase tracking-widest font-bold text-xs md:text-sm">
                             {t('home.m2_section.label')}
                         </span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-black mb-6 md:mb-8 leading-tight text-white">
-                        <span className="bg-gradient-to-r from-emerald-400 via-teal-200 to-gold bg-clip-text text-transparent animate-gradient-x">
+                        <span className="bg-gradient-to-r from-foreground via-foreground/70 to-gold-500 bg-clip-text text-transparent animate-gradient-x">
                             {t('home.m2_section.title')}
                         </span>
                     </h2>
-                    <p className="text-lg md:text-xl text-gray-300 font-light leading-relaxed">
+                    <p className="text-lg md:text-xl text-foreground font-light leading-relaxed">
                         {t('home.m2_section.body')}
                     </p>
                 </motion.div>
@@ -221,13 +221,13 @@ const HomePage = () => {
             
             <div className="container mx-auto px-4 relative z-10 max-w-4xl">
                 <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                    <span className="text-emerald-300 font-mono text-xs md:text-sm tracking-[0.3em] uppercase mb-4 block animate-pulse">
+                    <span className="text-gold-600 font-mono text-xs md:text-sm tracking-[0.3em] uppercase mb-4 block animate-pulse">
                         {t('home.genesis_section.badge')}
                     </span>
-                    <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 md:mb-8 tracking-tighter leading-tight drop-shadow-2xl">
+                    <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-muted-foreground mb-6 md:mb-8 tracking-tighter leading-tight drop-shadow-2xl">
                         {t('home.genesis_section.intro')}
                     </h2>
-                    <p className="text-xl md:text-2xl text-emerald-100/90 font-light mb-10 md:mb-12 leading-relaxed px-4">
+                    <p className="text-xl md:text-2xl text-foreground/90 font-light mb-10 md:mb-12 leading-relaxed px-4">
                         {t('home.genesis_section.hook')}
                     </p>
                     

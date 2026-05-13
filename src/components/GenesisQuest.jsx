@@ -82,21 +82,21 @@ const Question = ({ questionData, onSelect, selectedOptionType }) => {
               className={`
                 w-full text-left p-3 sm:p-5 rounded-2xl border transition-all duration-200 relative overflow-hidden group
                 ${isSelected 
-                  ? 'bg-[#5b8370]/40 border-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.2)]' 
+                  ? 'bg-[#5b8370]/40 border-gold-500 shadow-[0_0_15px_rgba(245,158,11,0.2)]' 
                   : 'bg-[#063127]/60 border-[#5b8370]/50 hover:bg-transparent hover:border-white'
                 }
               `}
             >
               {isSelected && (
-                 <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 to-transparent pointer-events-none" />
+                 <div className="absolute inset-0 bg-gradient-to-r from-gold-500/5 to-transparent pointer-events-none" />
               )}
 
               <div className="relative z-10 flex gap-3 sm:gap-4 items-center">
                 <div className={`
                     shrink-0 flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full font-bold text-sm sm:text-base border transition-colors duration-300
                     ${isSelected 
-                        ? 'bg-amber-500 text-[#063127] border-amber-500' 
-                        : 'bg-transparent text-[#c4d1c0] border-[#5b8370] group-hover:border-white group-hover:text-white'
+                        ? 'bg-gold-500 text-[#063127] border-gold-500' 
+                        : 'bg-transparent text-[#c4d1c0] border-foreground group-hover:border-white group-hover:text-white'
                     }
                 `}>
                   {isSelected ? <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-[#063127]" /> : visualLabel}
@@ -119,17 +119,11 @@ const Question = ({ questionData, onSelect, selectedOptionType }) => {
   );
 };
 
+// Modal visualmente modificado para mantener el perfil oculto y mostrar una vista general
 const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const { user } = useAuth();
-    
-    const normalizedSlug = profileSlug ? profileSlug.toLowerCase() : 'markus';
-    const profile = getInvestorProfileBySlug(normalizedSlug);
-    const Icon = PROFILE_ICONS[normalizedSlug] || Leaf;
-
-    const title = t(`genesisQuest.profiles.genesis.${normalizedSlug}.title`, profile?.title || 'Unknown Profile');
-    const description = t(`genesisQuest.profiles.genesis.${normalizedSlug}.description`, profile?.description || '');
 
     const handleContinue = () => {
         onClose();
@@ -146,8 +140,8 @@ const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
             
             <DialogContent className="fixed left-[50%] top-[50%] z-[9999] w-[95vw] sm:w-full max-w-md translate-x-[-50%] translate-y-[-50%] border border-[#5b8370]/50 bg-[#063127] shadow-2xl p-0 outline-none sm:max-w-lg rounded-3xl">
                 <DialogHeader className="sr-only">
-                    <DialogTitle>Genesis Quest Result</DialogTitle>
-                    <DialogDescription>Your assigned social profile.</DialogDescription>
+                    <DialogTitle>Impact Quest Result</DialogTitle>
+                    <DialogDescription>Your assigned impact preferences.</DialogDescription>
                 </DialogHeader>
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8, y: 30 }}
@@ -155,20 +149,21 @@ const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
                     transition={{ duration: 0.4, type: "spring", bounce: 0.4 }}
                     className="relative overflow-hidden rounded-3xl p-6 sm:p-8 text-white"
                 >
-                    <div className="absolute -top-20 -left-20 w-48 sm:w-60 h-48 sm:h-60 bg-amber-500/10 rounded-full blur-[80px] pointer-events-none" />
+                    <div className="absolute -top-20 -left-20 w-48 sm:w-60 h-48 sm:h-60 bg-gold-500/10 rounded-full blur-[80px] pointer-events-none" />
                     
                     <div className="relative z-10 flex flex-col items-center text-center">
-                        <div className="mb-4 sm:mb-6 rounded-full bg-[#5b8370]/20 px-3 sm:px-4 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-amber-500 border border-amber-500/30">
-                            {t('genesisQuest.profile_unlocked', 'Profile Unlocked')}
+                        <div className="mb-4 sm:mb-6 rounded-full bg-[#5b8370]/20 px-3 sm:px-4 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-gold-500 border border-gold-500/30">
+                            {t('impactQuest.profile_unlocked', 'Perfil de Impacto Desbloqueado')}
                         </div>
                         <motion.div
                             initial={{ scale: 0, rotate: -180 }}
                             animate={{ scale: 1, rotate: 0 }}
                             transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
-                            className={`w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 p-1 mb-4 sm:mb-6 shadow-2xl`}
+                            className={`w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 p-1 mb-4 sm:mb-6 shadow-2xl`}
                         >
-                            <div className="w-full h-full bg-[#063127] rounded-full flex items-center justify-center border-4 border-[#063127]">
-                                <Icon className={`w-10 h-10 sm:w-14 sm:h-14 text-amber-500 drop-shadow-md`} />
+                            <div className="w-full h-full bg-background rounded-full flex items-center justify-center border-4 border-[#063127]">
+                                {/* Icono neutral (hoja) para todos los usuarios */}
+                                <Leaf className={`w-10 h-10 sm:w-14 sm:h-14 text-gold-500 drop-shadow-md`} />
                             </div>
                         </motion.div>
                         <div className="mb-4 sm:mb-6 space-y-2">
@@ -178,9 +173,9 @@ const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
                                 transition={{ delay: 0.2 }}
                                 className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight text-white leading-tight"
                             >
-                                {title}
+                                {t('impactQuest.discovery_complete', '¡Descubrimiento completado!')}
                             </motion.h2>
-                            <div className="h-1.5 w-16 sm:w-20 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full mx-auto" />
+                            <div className="h-1.5 w-16 sm:w-20 bg-gradient-to-r from-gold-400 to-gold-600 rounded-full mx-auto" />
                         </div>
                         <motion.p 
                             initial={{ opacity: 0 }}
@@ -188,13 +183,13 @@ const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
                             transition={{ delay: 0.3 }}
                             className="text-[#c4d1c0] mb-6 sm:mb-8 text-sm sm:text-base leading-relaxed font-medium"
                         >
-                            {description}
+                            {t('impactQuest.generic_description', 'Tus respuestas nos ayudan a personalizar tu experiencia y alinear tus intereses con nuestros proyectos de impacto.')}
                         </motion.p>
                         <div className="w-full space-y-3 sm:space-y-4">
                              <Button 
                                 onClick={handleContinue} 
                                 size="lg" 
-                                className="w-full h-12 sm:h-14 bg-amber-500 hover:bg-transparent text-[#063127] hover:text-amber-500 font-bold text-sm sm:text-base rounded-xl shadow-lg border border-transparent hover:border-amber-500 transition-all hover:scale-[1.02] active:scale-95"
+                                className="w-full h-12 sm:h-14 bg-gold-500 hover:bg-transparent text-foreground hover:text-gold-500 font-bold text-sm sm:text-base rounded-xl shadow-lg border border-transparent hover:border-gold-500 transition-all hover:scale-[1.02] active:scale-95"
                              >
                                 <span className="drop-shadow-sm flex items-center justify-center gap-2">
                                     {user ? t('genesis.continue_dashboard', 'Continue to Dashboard') : t('genesis.create_account', 'Claim Profile & Register')}
@@ -202,7 +197,7 @@ const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
                                 </span>
                              </Button>
                              {!user && (
-                                <p className="text-[10px] sm:text-xs text-[#5b8370] mt-2 font-medium">
+                                <p className="text-[10px] sm:text-xs text-foreground mt-2 font-medium">
                                     {t('genesis.save_profile_hint', 'Save your profile to secure your status.')}
                                 </p>
                              )}
@@ -248,6 +243,7 @@ const GenesisQuest = ({ forceShowResult = false }) => {
     }, 250); 
   };
   
+  // Mantiene la compatibilidad para el panel de Admin
   const calculateProfile = () => {
     const counts = Object.values(answers).reduce((acc, type) => {
       acc[type] = (acc[type] || 0) + 1;
@@ -268,6 +264,22 @@ const GenesisQuest = ({ forceShowResult = false }) => {
 
   const handleQuizComplete = async () => {
     setLoading(true);
+
+    // --- NUEVA LÓGICA: Cálculo de Porcentajes ---
+    const totalAnswers = Object.keys(answers).length;
+    const counts = Object.values(answers).reduce((acc, type) => {
+      acc[type] = (acc[type] || 0) + 1;
+      return acc;
+    }, {});
+    
+    const percentages = {
+      lena: totalAnswers > 0 ? Math.round(((counts['lena'] || 0) / totalAnswers) * 100) : 0,
+      markus: totalAnswers > 0 ? Math.round(((counts['markus'] || 0) / totalAnswers) * 100) : 0,
+      david: totalAnswers > 0 ? Math.round(((counts['david'] || 0) / totalAnswers) * 100) : 0,
+    };
+    // ----------------------------------------------
+
+    // Lógica original conservada
     const resultSlug = calculateProfile();
     setFinalProfileSlug(resultSlug);
     
@@ -276,6 +288,7 @@ const GenesisQuest = ({ forceShowResult = false }) => {
 
     if (!user) {
         localStorage.setItem('pending_genesis_profile', resultSlug);
+        localStorage.setItem('pending_profile_percentages', JSON.stringify(percentages)); // Guardado local de %
         toast({
             title: t('genesis.profile_saved_locally', 'Profile Saved Locally'),
             description: t('genesis.redirect_to_register', 'Please register to save your progress.'),
@@ -285,9 +298,13 @@ const GenesisQuest = ({ forceShowResult = false }) => {
         setShowResultModal(true); 
     } else {
         try {
+            // Guardamos ambos en Supabase: Perfil Principal + JSON de porcentajes
             const { error: profileError } = await supabase
                 .from('profiles')
-                .update({ genesis_profile: resultSlug })
+                .update({ 
+                    genesis_profile: resultSlug,
+                    profile_percentages: percentages
+                })
                 .eq('id', user.id);
 
             if (profileError) throw profileError;
@@ -399,7 +416,7 @@ const GenesisQuest = ({ forceShowResult = false }) => {
                     className="text-center mb-1 sm:mb-8 px-1"
                 >
                     <span className="text-amber-500 font-bold tracking-widest text-[9px] sm:text-[10px] uppercase mb-0.5 sm:mb-1 block drop-shadow-md">
-                        {t('genesisQuest.onboarding_label', 'Genesis Onboarding')}
+                        {t('genesisQuest.onboarding_label', 'Impact Quest')}
                     </span>
                     <h1 className="text-xl sm:text-3xl md:text-4xl font-extrabold text-white drop-shadow-lg leading-tight">
                        {t('genesisQuest.title', 'Discover Your Impact Profile')}

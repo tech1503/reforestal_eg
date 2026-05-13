@@ -183,7 +183,14 @@
       "growth": "croissance",
       "trees": "Arbres",
       "trees_planted": "Arbres Plantés"
-    }
+    },
+    "premium_countdown": {
+      "title": "Pass Premium actif",
+      "days_remaining_start": "Il vous reste",
+      "days_remaining_end": "jours d'accès.",
+      "expires_on": "Expire le {{date}}.",
+      "expired_message": "Votre accès Premium a expiré."
+  }
   },
   "admin": {
     "title": "Panneau d'Administration",
@@ -534,8 +541,8 @@
   },
   "genesisQuest": {
     "title": "Découvrez Votre Profil d'Impact",
-    "onboarding_label": "Intégration Genesis",
-    "finish_quest": "Révéler Mon Profil",
+    "onboarding_label": "Intégration",
+    "finish_quest": "Mission accomplie",
     "profile_unlocked": "Profil déverrouillé", 
     "profiles.genesis": { 
       "lena": {
@@ -563,68 +570,67 @@
     "questions": [
       {
         "id": 1,
-        "question": "L'avenir de notre climat est actuellement instable. Quel est le premier pilier que vous souhaitez bâtir pour y remédier ?",
+        "question": "Quel est le fondement le plus important de notre projet ?",
         "options": [
           {
             "type": "lena",
-            "main": "Restauration des forêts",
-            "dropdown": "Une accélération radicale de la restauration des forêts pour assurer un avenir stable aux générations futures."
+            "main": "Je veux créer des mètres carrés réels et mesurables de jungle et de biodiversité.",
+            "dropdown": ""
           },
           {
             "type": "markus",
-            "main": "Fondation de transparence",
-            "dropdown": "Une fondation solide, gérée par ses membres, garantissant que chaque centime est administré avec une transparence professionnelle."
-          },
-          {
-            "type": "david",
-            "main": "Écosystème dynamique",
-            "dropdown": "Un écosystème dynamique où la participation de chacun se multiplie pour remporter une victoire environnementale partagée."
+            "main": "Je veux une transparence financière absolue et un système professionnel.",
+            "dropdown": ""
           }
         ]
       },
       {
         "id": 2,
-        "question": "Un véritable bâtisseur d'avenir ne reste pas sur le changement. Quel rôle actif souhaitez-vous assumer dans cette mission ?",
+        "question": "Quand avez-vous le sentiment d'avoir vraiment bien investi votre temps ?",
         "options": [
           {
-            "type": "lena",
-            "main": "Témoin de la biodiversité",
-            "dropdown": "En sachant exactement quels mètres carrés sont reboisés et en voyant la biodiversité renaître."
-          },
-          {
             "type": "markus",
-            "main": "Vérification des normes",
-            "dropdown": "En cogérer les normes juridiques et éthiques d'une coopérative qui m'appartient, ainsi qu'à mes pairs."
+            "main": "Quand j'ai des faits clairs et des chiffres fiables sous les yeux à la fin.",
+            "dropdown": ""
           },
           {
             "type": "david",
-            "main": "Connexion numérique",
-            "dropdown": "En utilisant des outils numériques pour se connecter aux autres et exécuter des efforts collectifs qui amplifient notre impact environnemental positif."
+            "main": "Quand j'ai cliqué J'ai surmonté de petits défis et j'ai appris quelque chose en chemin.",
+            "dropdown": ""
           }
         ]
       },
       {
         "id": 3,
-        "question": "Dans un an, quel résultat vous apporterait la plus grande satisfaction ?",
+        "question": "Dans un an, de quoi serez-vous le plus fier ?",
         "options": [
           {
             "type": "lena",
-            "main": "Forêt récupérée",
-            "dropdown": "D'avoir récupéré des mètres carrés réels de forêt, redonnant vie et biodiversité à des zones critiques de l'Amazonie."
-          },
-          {
-            "type": "markus",
-            "main": "Coopérative professionnelle",
-            "dropdown": "D'avoir bâti une coopérative professionnelle qui fournit les ressources nécessaires aux gardiens indigènes, agissant comme leur bouclier juridique et financier."
+            "main": "e vois très concrètement comment la vie a repris ses droits dans nos espaces.",
+            "dropdown": ""
           },
           {
             "type": "david",
-            "main": "Communauté moderne",
-            "dropdown": "Faire partie d'une communauté moderne où la participation numérique nous connecte directement au terrain, transformant notre mission en un succès partagé."
+            "main": "Je fais partie d'une immense communauté numérique qui a accompli beaucoup de choses ensemble.",
+            "dropdown": ""
           }
         ]
       }
     ]
+  },
+    "impactQuest": {
+      "title": "Découvrez votre profil d'impact",
+      "discovery_complete": "Découverte terminée !",
+      "profile_unlocked": "Profil débloqué !",
+      "generic_description": "Vos réponses nous aident à personnaliser votre expérience et à aligner vos intérêts avec nos projets d'impact.",
+      "your_impact_focus": "Votre profil d'impact",
+      "invite_desc": "Terminez notre quête pour découvrir comment vos intérêts s'alignent sur nos projets.",
+      "start_quest": "Commencer la quête",
+      "profiles": {
+        "lena": "Écologie",
+        "markus": "Structure",
+        "david": "Communauté"
+      }
   },
   "quest": {
     "title": "Quêtes",
@@ -751,7 +757,7 @@
     "next_step": "Étape suivante",
     "required_action": "Action requise",
     "continue_dashboard": "Continuer vers le tableau de bord",
-    "create_account": "Créer un compte pour sauvegarder"
+    "create_account": "Créez votre compte"
   },
   "exchange": {
     "title": "Échange de Points Bonus",
@@ -1046,7 +1052,11 @@
     "contribution_verified": {
       "title": "Contribution vérifiée",
       "message": "Votre contribution de €{{amount}} est confirmée. {{credits}} points bonus ont été ajoutés."
-    }
+    },
+    "premium_unlocked": {
+      "title": "Accès Premium débloqué",
+      "message": "Vous avez reçu {{months}} mois d'accès Premium et {{points}} points bonus grâce à votre ami."
+  }
   },
   "contact": {
   "title": "Contactez-nous",

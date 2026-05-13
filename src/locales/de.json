@@ -183,7 +183,14 @@
       "growth": "Wachstum",
       "trees": "Bäume",
       "trees_planted": "Gepflanzte Bäume"
-    }
+    },
+    "premium_countdown": {
+      "title": "Aktiver Premium-Pass",
+      "days_remaining_start": "Sie haben",
+      "days_remaining_end": "Tage Zugriff.",
+      "expires_on": "Läuft ab am {{date}}.",
+      "expired_message": "Ihr Premium-Zugang ist abgelaufen."
+  }
   },
   "admin": {
     "title": "Admin-Panel",
@@ -536,8 +543,8 @@
   },
   "genesisQuest": {
     "title": "Entdecke dein Impact-Profil",
-    "onboarding_label": "Genesis Onboarding",
-    "finish_quest": "Mein Profil enthüllen",
+    "onboarding_label": "Onboarding",
+    "finish_quest": "Mission abgeschlossen",
     "profile_unlocked": "Profil Freigeschaltet", 
     "profiles.genesis": { 
       "lena": {
@@ -565,68 +572,67 @@
     "questions": [
       {
         "id": 1,
-        "question": "Die Zukunft unseres Klimas ist derzeit instabil. Was ist die erste Säule, die du aufbauen möchtest, um dies zu ändern?",
+        "question": "Was ist für dich das wichtigste Fundament für unser Projekt?",
         "options": [
           {
             "type": "lena",
-            "main": "Waldregeneration",
-            "dropdown": "Eine radikale Beschleunigung der Waldregeneration, um eine stabile Zukunft für die nächsten Generationen zu sichern."
+            "main": "Ich möchte echte, messbare Quadratmeter Dschungel und Artenvielfalt schaffen.",
+            "dropdown": ""
           },
           {
             "type": "markus",
-            "main": "Transparenz-Fundament",
-            "dropdown": "Ein solides, mitgliedergeführtes Fundament, das sicherstellt, dass jeder Cent mit professioneller Transparenz verwaltet wird."
-          },
-          {
-            "type": "david",
-            "main": "Dynamisches Ökosystem",
-            "dropdown": "Ein dynamisches Ökosystem, in dem sich die Beteiligung jedes Einzelnen vervielfacht, um einen gemeinsamen Sieg für die Umwelt zu erringen."
+            "main": "Ich möchte absolute finanzielle Transparenz und ein professionelles System.",
+            "dropdown": ""
           }
         ]
       },
       {
         "id": 2,
-        "question": "Ein echter Zukunftsgestalter wartet nicht auf Veränderung. Welche Rolle möchtest du dabei übernehmen?",
+        "question": "Wann hast du das Gefühl, dass du deine Zeit richtig gut investiert hast?",
         "options": [
           {
-            "type": "lena",
-            "main": "Biodiversität Erleben",
-            "dropdown": "Indem ich genau weiß, welche Quadratmeter wiederbewaldet werden, und sehe, wie die Artenvielfalt zurückkehrt."
-          },
-          {
             "type": "markus",
-            "main": "Standardprüfung",
-            "dropdown": "Durch die Mitbestimmung der rechtlichen und ethischen Standards der Genossenschaft, die mir und meinen Mitstreitern gehört."
+            "main": "Wenn ich am Ende klare Fakten und verlässliche Zahlen vor mir habe.",
+            "dropdown": ""
           },
           {
             "type": "david",
-            "main": "Digitale Vernetzung",
-            "dropdown": "Indem ich digitale Werkzeuge nutze, um mich mit anderen zu vernetzen und gemeinsame Aktionen durchzuführen, die unsere positive Wirkung auf die Umwelt verstärken."
+            "main": "Wenn ich mich durch kleine Herausforderungen geklickt und dabei etwas gewonnen habe.",
+            "dropdown": ""
           }
         ]
       },
       {
         "id": 3,
-        "question": "Wenn du in einem Jahr auf deine Zeit bei uns zurückblickst, welches Ergebnis würde dich am stolzesten machen?",
+        "question": "Wenn du in einem Jahr zurückblickst, was macht dich am stolzesten?",
         "options": [
           {
             "type": "lena",
-            "main": "Wiederbelebter Regenwald",
-            "dropdown": "Dass ich echte Quadratmeter Regenwald zurückgewonnen und die Artenvielfalt in kritischen Gebieten des Amazonas wiederbelebt habe."
-          },
-          {
-            "type": "markus",
-            "main": "Professioneller Schutzschild",
-            "dropdown": "Dass ich eine professionelle Genossenschaft mitaufgebaut habe, welche die indigenen Hüter mit den nötigen Mitteln versorgt und als ihr rechtlicher und finanzieller Schutzschild fungiert."
+            "main": "Ich sehe ganz konkret, wie das Leben auf unsere Flächen zurückgekehrt ist.",
+            "dropdown": ""
           },
           {
             "type": "david",
-            "main": "Moderne Gemeinschaft",
-            "dropdown": "Dass ich Teil einer modernen Gemeinschaft bin, die digitale Beteiligung direkt mit dem Projekt vor Ort verknüpft und Umweltschutz in einen gemeinsamen Erfolg verwandelt."
+            "main": "Ich bin Teil einer riesigen, digitalen Community, die gemeinsam viel bewegt hat.",
+            "dropdown": ""
           }
         ]
       }
     ]
+  },
+  "impactQuest": {
+    "title": "Entdecke dein Wirkungsprofil",
+    "discovery_complete": "Entdeckung abgeschlossen!",
+    "profile_unlocked": "Profil freigeschaltet!",
+    "generic_description": "Deine Antworten helfen uns, dein Erlebnis zu personalisieren und deine Interessen mit unseren Wirkungsprojekten in Einklang zu bringen.",
+    "your_impact_focus": "Ihr Wirkungsprofil",
+    "invite_desc": "Schließe unsere Quest ab und finde heraus, wie deine Interessen mit unseren Projekten übereinstimmen.",
+    "start_quest": "Quest starten",
+    "profiles": {
+    "lena": "Ökologie",
+    "markus": "Struktur",
+    "david": "Gemeinschaft"
+    }
   },
   "quest": {
     "title": "Misionen",
@@ -754,7 +760,7 @@
     "next_step": "Nächster Schritt",
     "required_action": "Aktion erforderlich",
     "continue_dashboard": "Weiter zum Dashboard",
-    "create_account": "Konto erstellen, um zu speichern"
+    "create_account": "Erstellen Sie Ihr Konto"
   },
   "exchange": {
     "title": "Bonuspunkte Austausch",
@@ -1049,7 +1055,11 @@
     "contribution_verified": {
       "title": "Beitrag bestätigt",
       "message": "Ihr Beitrag von €{{amount}} wurde bestätigt. {{credits}} Bonuspunkte wurden hinzugefügt."
-    }
+    },
+    "premium_unlocked": {
+      "title": "Premium-Zugang freigeschaltet",
+      "message": "Du hast {{months}} Monate Premium-Zugang und {{points}} Bonuspunkte dank deines Freundes erhalten."
+  }
   },
   "contact": {
     "title": "Kontaktieren Sie uns",

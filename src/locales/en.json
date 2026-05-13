@@ -184,6 +184,13 @@
       "growth": "growth",
       "trees": "Trees",
       "trees_planted": "Trees Planted"
+    },
+    "premium_countdown": {
+      "title": "Active Premium Pass",
+      "days_remaining_start": "You have",
+      "days_remaining_end": "days of access.",
+      "expires_on": "Expires on {{date}}.",
+      "expired_message": "Your Premium access has expired."
     }
   },
   "admin": {
@@ -537,8 +544,8 @@
   },
   "genesisQuest": {
     "title": "Discover Your Impact Profile",
-    "onboarding_label": "Genesis Onboarding",
-    "finish_quest": "Reveal My Profile",
+    "onboarding_label": "Onboarding",
+    "finish_quest": "Complete Mission",
     "profile_unlocked": "Profile Unlocked", 
     "profiles.genesis": { 
       "lena": {
@@ -566,68 +573,67 @@
     "questions": [
       {
         "id": 1,
-        "question": "The future of our climate is currently unstable. What is the first pillar you want to build to change this?",
+        "question": "What is the most important foundation for our project?",
         "options": [
           {
             "type": "lena",
-            "main": "Forest Recovery",
-            "dropdown": "A radical acceleration of forest recovery to secure a stable future for the next generations."
+            "main": "I want to create real, measurable square meters of jungle and biodiversity.",
+            "dropdown": ""
           },
           {
             "type": "markus",
-            "main": "Transparency Foundation",
-            "dropdown": "A solid, member-led foundation that ensures every cent is managed with professional transparency."
-          },
-          {
-            "type": "david",
-            "main": "Collective Ecosystem",
-            "dropdown": "A dynamic ecosystem where everyone's participation multiplies to achieve a shared environmental victory."
+            "main": "I want absolute financial transparency and a professional system.",
+            "dropdown": ""
           }
         ]
       },
       {
         "id": 2,
-        "question": "A true shaper of the future doesn't just wait for change. What is your primary role in this mission?",
+        "question": "When do you feel that you have invested your time well?",
         "options": [
           {
-            "type": "lena",
-            "main": "Witnessing Biodiversity",
-            "dropdown": "By knowing exactly which square meters are being reforested and seeing biodiversity return."
-          },
-          {
             "type": "markus",
-            "main": "Standard Verification",
-            "dropdown": "By co-creating the legal and ethical standards of the cooperative that belongs to me and my fellow members."
+            "main": "When I have clear facts and reliable figures in front of me at the end.",
+            "dropdown": ""
           },
           {
             "type": "david",
-            "main": "Digital Connection",
-            "dropdown": "By using digital tools to connect with others and execute collective efforts that amplify our positive environmental impact."
+            "main": "When I have clicked through small challenges and gained something in the process.",
+            "dropdown": ""
           }
         ]
       },
       {
         "id": 3,
-        "question": "When you look back on your time with us in one year, which result would make you feel most proud?",
+        "question": "When you look back in a year, what will make you most proud?",
         "options": [
           {
             "type": "lena",
-            "main": "Recovered Rainforest",
-            "dropdown": "That I recovered real square meters of rainforest, bringing life and biodiversity back to critical areas of the Amazon."
-          },
-          {
-            "type": "markus",
-            "main": "Professional Shield",
-            "dropdown": "That I helped build a professional cooperative that provides the necessary resources to the indigenous guardians, acting as their legal and financial shield."
+            "main": "I can see very concretely how life has returned to our plots.",
+            "dropdown": ""
           },
           {
             "type": "david",
-            "main": "Modern Community",
-            "dropdown": "That I am part of a modern community where digital participation connects us directly to the ground, turning our shared mission into a rewarding success."
+            "main": "I'm part of a huge, digital community that has accomplished a lot together.",
+            "dropdown": ""
           }
         ]
       }
     ]
+  },
+  "impactQuest": {
+    "title": "Discover Your Impact Profile",
+    "discovery_complete": "Discovery complete!",
+    "profile_unlocked": "Profile Unlocked!",
+    "generic_description": "Your answers help us personalize your experience and align your interests with our impact projects.",
+    "your_impact_focus": "Your impact profile",
+    "invite_desc": "Complete our quest to discover how your interests align with our projects.",
+    "start_quest": "Start Quest",
+    "profiles": {
+      "lena": "Ecology",
+      "markus": "Structure",
+      "david": "Community"
+    }
   },
   "quest": {
     "title": "Quests",
@@ -755,7 +761,7 @@
     "next_step": "Next Step",
     "required_action": "Action Required",
     "continue_dashboard": "Continue to Dashboard",
-    "create_account": "Create Account to Save"
+    "create_account": "Create Account"
   },
   "exchange": {
     "title": "Bonus Points Exchange",
@@ -1050,6 +1056,10 @@
     "contribution_verified": {
       "title": "Contribution Verified",
       "message": "Your contribution of €{{amount}} is confirmed. {{credits}} Bonus Points have been added."
+    },
+    "premium_unlocked": {
+      "title": "Access Premium Unlocked",
+      "message": "You have received {{months}} months of Premium access and {{points}} Bonus Points thanks to your friend."
     }
   },
     "contact": {

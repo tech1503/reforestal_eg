@@ -4,6 +4,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { useToast } from '@/components/ui/use-toast';
 import { Loader } from 'lucide-react';
 import { Routes, Route, Navigate, useLocation, useParams, useNavigate } from 'react-router-dom';
+import StartNextRedirect from '@/pages/StartNextRedirect';
 
 // Componentes
 import Dashboard from '@/components/Dashboard';
@@ -79,6 +80,8 @@ const AppContent = () => {
           <Route path="/admin/*" element={profile?.role === 'admin' ? <AdminDashboard /> : <Navigate to="/auth" />} />
           <Route path="/dashboard/*" element={session ? <Dashboard /> : <Navigate to="/auth" />} />
           <Route path="/startnext/*" element={profile?.role === 'startnext_user' ? <Dashboard /> : <Navigate to="/auth" />} />
+
+          <Route path="/$" element={<StartNextRedirect />} />
 
           {/* Captura de Referidos */}
           <Route path="/ref/:username" element={<ReferralHandler />} />

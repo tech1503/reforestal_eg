@@ -255,9 +255,27 @@ const UserManagement = () => {
     }
   };
 
+  // ACTUALIZADO: Exporta también los porcentajes individuales para analíticas en Excel
   const handleExportCSV = () => {
     if (!users.length) return;
-    const csvContent = [['ID', 'Name', 'Email', 'Apodo', 'Role', 'Genesis', 'Tier', 'IC', 'LD Status', 'Pioneer Status'].join(",") + "\n" + users.map(u => [u.id, u.name, u.email, u.referral_code || 'N/A', u.role, u.genesis_profile, u.tier_name, u.ic_balance, u.land_dollar_status, u.founding_pioneer_access_status].join(",")).join("\n")];
+    const csvContent = [
+      ['ID', 'Name', 'Email', 'Apodo', 'Role', 'Genesis', 'Lena %', 'Markus %', 'David %', 'Tier', 'IC', 'LD Status', 'Pioneer Status'].join(","),
+      ...users.map(u => [
+        u.id, 
+        u.name, 
+        u.email, 
+        u.referral_code || 'N/A', 
+        u.role, 
+        u.genesis_profile, 
+        u.profile_percentages?.lena || 0,
+        u.profile_percentages?.markus || 0,
+        u.profile_percentages?.david || 0,
+        u.tier_name, 
+        u.ic_balance, 
+        u.land_dollar_status, 
+        u.founding_pioneer_access_status
+      ].join(","))
+    ].join("\n");
     const link = document.createElement("a");
     link.href = URL.createObjectURL(new Blob([csvContent], { type: 'text/csv;charset=utf-8;' }));
     link.download = `users_export.csv`;
@@ -285,6 +303,8 @@ const UserManagement = () => {
                 <th className="text-left p-4 font-medium text-muted-foreground">{t('admin.startnext.user')}</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">Apodo</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">Partner Profile</th>
+                {/* NUEVA COLUMNA DE PORCENTAJES */}
+                <th className="text-left p-4 font-medium text-muted-foreground">Impact %</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">Role</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">Pioneer Status</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">{t('admin.startnext.tier')}</th>
@@ -295,9 +315,9 @@ const UserManagement = () => {
             </thead>
             <tbody className="divide-y">
               {loading ? (
-                <tr><td colSpan="9" className="p-8 text-center"><Loader2 className="w-6 h-6 animate-spin mx-auto" /></td></tr>
+                <tr><td colSpan="10" className="p-8 text-center"><Loader2 className="w-6 h-6 animate-spin mx-auto" /></td></tr>
               ) : filteredUsers.length === 0 ? (
-                 <tr><td colSpan="9" className="p-8 text-center text-muted-foreground">No users found.</td></tr>
+                 <tr><td colSpan="10" className="p-8 text-center text-muted-foreground">No users found.</td></tr>
               ) : (
                 filteredUsers.map((user) => {
                     const profileKey = user.genesis_profile ? user.genesis_profile.toLowerCase() : 'none';
@@ -310,6 +330,25 @@ const UserManagement = () => {
                         <td className="p-4"><div className="flex flex-col"><span className="font-semibold">{user.name || 'Unnamed'}</span><span className="text-xs text-muted-foreground">{user.email}</span></div></td>
                         <td className="p-4"><span className="font-mono text-emerald-700 bg-emerald-50 px-2 py-1 rounded">@{user.referral_code || 'N/A'}</span></td>
                         <td className="p-4"><Badge variant="outline" className={`gap-1 pr-3 capitalize ${badgeClass}`}>{ProfileIcon && <ProfileIcon className="w-3 h-3" />}{user.genesis_profile || 'None'}</Badge></td>
+                        
+                        {/* NUEVO CONTENIDO: VISTA DE PORCENTAJES COMPACTA */}
+                        <td className="p-4">
+                            <div className="flex flex-col gap-1 text-[10px]">
+                                <div className="flex items-center justify-between gap-2 w-16">
+                                    <span className="text-emerald-600 font-bold">L:</span>
+                                    <span>{user.profile_percentages?.lena || 0}%</span>
+                                </div>
+                                <div className="flex items-center justify-between gap-2 w-16">
+                                    <span className="text-blue-600 font-bold">M:</span>
+                                    <span>{user.profile_percentages?.markus || 0}%</span>
+                                </div>
+                                <div className="flex items-center justify-between gap-2 w-16">
+                                    <span className="text-orange-600 font-bold">D:</span>
+                                    <span>{user.profile_percentages?.david || 0}%</span>
+                                </div>
+                            </div>
+                        </td>
+
                         <td className="p-4"><Badge variant="outline">{user.role}</Badge></td>
                         
                         <td className="p-4">

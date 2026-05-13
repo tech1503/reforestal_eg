@@ -183,7 +183,14 @@
       "growth": "crecimiento",
       "trees": "Árboles",
       "trees_planted": "Árboles Plantados"
-    }
+    },
+    "premium_countdown": {
+      "title": "Pase Premium Activo",
+      "days_remaining_start": "Te quedan",
+      "days_remaining_end": "días de acceso.",
+      "expires_on": "Caduca el {{date}}.",
+      "expired_message": "Tu acceso a Premium ha caducado."
+  }
   },
   "admin": {
     "title": "Panel de Administración",
@@ -536,8 +543,8 @@
   },
   "genesisQuest": {
     "title": "Descubre tu Perfil de Impacto",
-    "onboarding_label": "Onboarding Génesis",
-    "finish_quest": "Revelar Mi Perfil",
+    "onboarding_label": "Onboarding",
+    "finish_quest": "Completar Misión",
     "profile_unlocked": "Perfil Desbloqueado", 
     "profiles.genesis": { 
       "lena": {
@@ -565,68 +572,67 @@
     "questions": [
       {
         "id": 1,
-        "question": "El futuro de nuestro clima es actualmente inestable. ¿Cuál es el primer pilar que quieres construir para solucionarlo?",
+        "question": "¿Cuál es el fundamento más importante para nuestro proyecto?",
         "options": [
           {
             "type": "lena",
-            "main": "Recuperación de Selva",
-            "dropdown": "Una aceleración radical de la recuperación de la selva para asegurar un futuro estable para las próximas generaciones."
+            "main": "Quiero crear metros cuadrados reales y medibles de selva y biodiversidad.",
+            "dropdown": ""
           },
           {
             "type": "markus",
-            "main": "Base de Transparencia",
-            "dropdown": "Una base sólida, propiedad de sus miembros, que garantice que cada centavo se gestione con transparencia profesional."
-          },
-          {
-            "type": "david",
-            "main": "Ecosistema Dinámico",
-            "dropdown": "Un ecosistema dinámico donde la participación de cada persona se multiplique para lograr una victoria ambiental compartida."
+            "main": "Quiero total transparencia financiera y un sistema profesional.",
+            "dropdown": ""
           }
         ]
       },
       {
         "id": 2,
-        "question": "Un verdadero gestor del futuro no se limita a esperar a cambio. ¿Qué papel activo quieres desempeñar en esta misión?",
+        "question": "¿Cuándo sientes que has invertido bien tu tiempo?",
         "options": [
           {
-            "type": "lena",
-            "main": "Testigo de Biodiversidad",
-            "dropdown": "Sabiendo exactamente qué metros cuadrados están siendo reforestados y viendo cómo regresa la biodiversidad."
-          },
-          {
             "type": "markus",
-            "main": "Verificación de Estándares",
-            "dropdown": "Cogestionar los estándares legales y éticos de la cooperativa que nos pertenece a mí y a mis compañeros."
+            "main": "Cuando al final tengo datos claros y cifras fiables.",
+            "dropdown": ""
           },
           {
             "type": "david",
-            "main": "Conexión Digital",
-            "dropdown": "Usando herramientas digitales para conectar con otros y ejecutar esfuerzos colectivos que amplifican nuestro impacto ambiental positivo."
+            "main": "Cuando he superado pequeños retos y he aprendido algo en el proceso.",
+            "dropdown": ""
           }
         ]
       },
       {
         "id": 3,
-        "question": "Al mirar atrás dentro de un año, ¿qué resultado te haría sentir más satisfecho?",
+        "question": "Cuando mires atrás dentro de un año, ¿qué te hará sentir más orgulloso/a?",
         "options": [
           {
             "type": "lena",
-            "main": "Selva Recuperada",
-            "dropdown": "Haber recuperado metros cuadrados reales de selva, devolviendo la vida y la biodiversidad a áreas críticas del Amazonas."
-          },
-          {
-            "type": "markus",
-            "main": "Cooperativa Profesional",
-            "dropdown": "Haber construido una cooperativa profesional que provee los recursos necesarios a los guardianes indígenas, actuando como su escudo legal y financiero."
+            "main": "Veo con total claridad cómo la vida ha regresado a nuestra tierra.",
+            "dropdown": ""
           },
           {
             "type": "david",
-            "main": "Comunidad Moderna",
-            "dropdown": "Ser parte de una comunidad moderna donde la participación digital nos conecta directamente con el terreno, convirtiendo nuestra misión en un éxito compartido."
+            "main": "Formo parte de una enorme comunidad digital que ha logrado mucho en conjunto.",
+            "dropdown": ""
           }
         ]
       }
     ]
+  },
+  "impactQuest": {
+    "title": "Descubre tu Perfil de Impacto",
+    "discovery_complete": "¡Descubrimiento completado!",
+    "profile_unlocked": "¡Perfil Desbloqueado!",
+    "generic_description": "Tus respuestas nos ayudan a personalizar tu experiencia y alinear tus intereses con nuestros proyectos de impacto.",
+    "your_impact_focus": "Tu perfil de impacto",
+    "invite_desc": "Completa nuestro cuestionario para descubrir cómo alinear tus intereses con nuestros proyectos.",
+    "start_quest": "Iniciar Misión",
+    "profiles": {
+      "lena": "Ecología",
+      "markus": "Estructura",
+      "david": "Comunidad"
+    }
   },
   "quest": {
     "title": "Misiones",
@@ -754,7 +760,7 @@
     "next_step": "Siguiente Paso",
     "required_action": "Acción Requerida",
     "continue_dashboard": "Continuar al Panel de Control",
-    "create_account": "Crear Cuenta para Guardar"
+    "create_account": "Crea tu cuenta"
   },
   "exchange": {
     "title": "Intercambio de Bonos",
@@ -1048,7 +1054,11 @@
     "contribution_verified": {
       "title": "Contribución Verificada",
       "message": "Tu contribución de €{{amount}} está confirmada. Se han añadido {{credits}} Bonos."
-    }
+    },
+    "premium_unlocked": {
+      "title": "Acceso Premium desbloqueado",
+      "message": "Has recibido {{months}} meses de acceso Premium y {{points}} puntos de bonificación gracias a tu amigo."
+  }
   },
     "contact": {
     "title": "Contáctanos",

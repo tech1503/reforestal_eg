@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Info, CheckCircle, ShieldCheck, Package, ExternalLink, Coins, Leaf, Zap ,Calendar, Wallet } from 'lucide-react';
+import { Info, CheckCircle, ShieldCheck, Package, ExternalLink, Coins, Leaf, Zap, Calendar, Wallet } from 'lucide-react';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useFinancial } from '@/contexts/FinancialContext'; 
@@ -33,6 +33,7 @@ const DashboardSection = () => {
   const { landDollar, impactCredits, loading: financialLoading } = useFinancial();
 
   const [startnextData, setStartnextData] = useState(null);
+  const [userBenefit, setUserBenefit] = useState(null);
   const [localLoading, setLocalLoading] = useState(true);
 
   const [simAmount, setSimAmount] = useState('');
@@ -44,6 +45,7 @@ const DashboardSection = () => {
     const fetchData = async () => {
       if (!user) return;
       try {
+        // Fetch contribuciones Startnext
         const { data } = await supabase
             .from('startnext_contributions')
             .select(`
@@ -65,7 +67,6 @@ const DashboardSection = () => {
        
             const dynamicCredits = calculateDynamicCredits(data.contribution_amount);
             
-       
             let processedBenefits = [
                 {
                     description: `+${formatNumber(dynamicCredits)} ${t('rewards.bonus_points', 'Bonos')} (${t('dashboard.startnext_dash.total_contribution', 'Aporte')})`,
@@ -98,6 +99,19 @@ const DashboardSection = () => {
             setStartnextData({ ...data, levelName, processedBenefits });
         }
         
+        // Fetch Beneficios Premium (Se mantiene lógica de datos por si a futuro se necesita)
+        const { data: benefitRes } = await supabase
+            .from('user_benefits')
+            .select('assigned_date, expires_at')
+            .eq('user_id', user.id)
+            .eq('status', 'active')
+            .maybeSingle();
+            
+        if (benefitRes) {
+            setUserBenefit(benefitRes);
+        }
+
+        // Fetch de niveles de soporte (simulador)
         const levels = await fetchSupportLevelsForLogic();
         const enriched = await Promise.all(levels.map(async (l) => {
             const details = await getVariantDetails(l.id, currentLanguage);
@@ -167,9 +181,12 @@ const DashboardSection = () => {
 
   if (localLoading || financialLoading) return <div className="flex justify-center h-[60vh] items-center"><Loader2 className="animate-spin w-12 h-12 text-[#5b8370]"/></div>;
 
+  // =========================================================================
+  // VISTA 1: USUARIOS NUEVOS O SIN STARTNEXT (CON SIMULADOR)
+  // =========================================================================
   if (!startnextData && !(profile?.role === 'admin')) {
     const registrationDate = user?.created_at ? format(new Date(user.created_at), 'MMM d, yyyy') : '-';
-    const landDollarStatus = landDollar ? 'Active' : 'Pending';
+    const landDollarStatus = landDollar ? t('common.active', 'Activo') : t('dashboard.startnext_dash.pending', 'Pendiente');
 
     return (
       <div className="relative w-full min-h-screen">
@@ -185,10 +202,29 @@ const DashboardSection = () => {
             </p>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <StatCard icon={Calendar} iconColor="text-blue-500" bgColor="bg-blue-50 dark:bg-blue-900/20" label="Registration Date" value={registrationDate} />
-                <StatCard icon={Wallet} iconColor="text-green-600" bgColor="bg-green-50 dark:bg-green-900/20" label={t('dashboard.land_dollar.title')} value={<span className="text-[#5b8370]">{landDollarStatus}</span>} highlight />
-                <StatCard icon={Coins} iconColor="text-gold" bgColor="bg-yellow-50 dark:bg-yellow-900/20" label={t('dashboard.impact_credits')} value={formatNumber(impactCredits)} highlight />
+            {/* FILA SUPERIOR REDISEÑADA ESTILO PREMIUM (SIN RELOJ) */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 items-stretch">
+                <StatCard 
+                    icon={Calendar} 
+                    iconColor="text-[#063127]" 
+                    bgColor="bg-gradient-gold shadow-glow" 
+                    label="Registration Date" 
+                    value={registrationDate} 
+                />
+                <StatCard 
+                    icon={Wallet} 
+                    iconColor="text-[#063127]" 
+                    bgColor="bg-gradient-gold shadow-glow" 
+                    label={t('dashboard.land_dollar.title', 'Acceso Premium')} 
+                    value={landDollarStatus} 
+                />
+                <StatCard 
+                    icon={Coins} 
+                    iconColor="text-[#063127]" 
+                    bgColor="bg-gradient-gold shadow-glow" 
+                    label={t('dashboard.impact_credits')} 
+                    value={formatNumber(impactCredits)} 
+                />
             </motion.div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
@@ -320,6 +356,10 @@ const DashboardSection = () => {
     );
   }
 
+  // =========================================================================
+  // VISTA 2: ADMIN / VISTA ALTERNATIVA 
+  // (Mantiene las tarjetas alineadas al mismo diseño, sin el contador como se indicó)
+  // =========================================================================
   const snxId = startnextData?.imported_user?.snx_id || `SNX-ACT-${user?.id?.slice(0, 4)}`;
   const tierDisplayName = startnextData?.levelName || 'Explorer';
 
@@ -409,18 +449,38 @@ const DashboardSection = () => {
   );
 };
 
-const StatCard = ({ icon: Icon, iconColor, bgColor, label, value, highlight }) => (
-    <Card variant="premium" className={`group bg-card/90 backdrop-blur-sm border-border ${highlight ? 'border-gold/50 shadow-glow' : ''}`}>
-       <CardContent className="flex items-center justify-between p-4">
-         <div>
-            <p className="text-xs font-bold text-[#5b8370] dark:text-[#c2d2c1] uppercase tracking-wide mb-1">{label}</p>
-            <h3 className={`font-bold ${highlight ? 'text-2xl text-gradient-gold font-black drop-shadow-md' : 'text-xl text-[#5b8370] dark:text-[#c2d2c1]'}`}>{value}</h3>
-         </div>
-         <div className={`p-2.5 rounded-xl ${highlight ? 'bg-gradient-gold shadow-glow border-none' : bgColor} group-hover:scale-110 transition-normal shadow-sm`}>
-             <Icon className={`w-5 h-5 ${highlight ? 'text-[#063127]' : iconColor}`}/>
-         </div>
-       </CardContent>
-    </Card>
+// ==========================================
+// COMPONENTE: StatCard (Diseño Premium Oscuro sin Reloj)
+// ==========================================
+const StatCard = ({ icon: Icon, iconColor, bgColor, label, value }) => (
+  <Card variant="premium" className="group relative overflow-hidden bg-[#063127] border-gold/30 shadow-lg hover:shadow-glow transition-all flex flex-col justify-center h-full min-h-[160px]">
+     {/* Textura de fondo */}
+     <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none" />
+     
+     {/* Icono de fondo gigante */}
+     <div className="absolute -top-6 -right-6 opacity-10 group-hover:opacity-20 transition-all duration-700 pointer-events-none rotate-12">
+        <Icon className="w-36 h-36 text-gold" />
+     </div>
+
+     <CardContent className="relative z-10 p-5 flex flex-col justify-between h-full">
+       <div className="flex items-center justify-between mb-4">
+          <div className={`p-3 rounded-2xl ${bgColor} border border-gold/20 group-hover:scale-110 transition-all duration-500 shadow-glow`}>
+              <Icon className={`w-6 h-6 ${iconColor}`}/>
+          </div>
+          {/* Elemento decorativo */}
+          <div className="h-1 w-12 bg-gold/20 rounded-full overflow-hidden">
+             <div className="h-full bg-gold/40 w-2/3 rounded-full" />
+          </div>
+       </div>
+
+       <div>
+          <p className="text-[10px] font-black text-gold uppercase tracking-[0.2em] mb-1 opacity-80">{label}</p>
+          <h3 className="text-3xl font-black text-white drop-shadow-md tracking-tight">
+            {value}
+          </h3>
+       </div>
+     </CardContent>
+  </Card>
 );
 
 export default DashboardSection;
