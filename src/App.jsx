@@ -17,6 +17,7 @@ import ContactPage from '@/pages/ContactPage';
 import TermsAndConditions from '@/pages/TermsAndConditions';
 import PrivacyPolicy from '@/pages/PrivacyPolicy';
 import CookiesPolicy from '@/pages/CookiesPolicy'; 
+import Impressum from '@/pages/Impressum';
 import RegenerativeEconomy from '@/pages/RegenerativeEconomy';
 
 // Banners Cookies
@@ -75,7 +76,7 @@ const AppContent = () => {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/cookies-policy" element={<CookiesPolicy />} />
           <Route path="/regenerative-economy" element={<RegenerativeEconomy />} />
-
+          <Route path="/impressum" element={<Impressum />} />
           {/* Dashboards con Rutas Protegidas */}
           <Route path="/admin/*" element={profile?.role === 'admin' ? <AdminDashboard /> : <Navigate to="/auth" />} />
           <Route path="/dashboard/*" element={session ? <Dashboard /> : <Navigate to="/auth" />} />

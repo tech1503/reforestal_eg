@@ -1342,224 +1342,254 @@
     "pioneers_cta": "Discover the Packages"
   },
   "terms": {
-    "title": "Reforestal – Terms of Use & Pre-emption",
-    "subtitle": "Hey! We're so glad you're part of the movement. Before we save the rainforest together, we need to establish a few ground rules. These terms govern the relationship between you and me (Peter) during Reforestal's current development phase.",
+    "title": "Reforestal – General Terms and Conditions (GTC) and Terms of Use",
+    "subtitle": "Hello! It's great that you are part of the movement. Before we save the rainforest together and build a regenerative economy, we have to establish a few ground rules. These General Terms and Conditions describe the rules for using the platform (https://reforest.al) and govern the legal relationship between you (our user, co-founder, and guardian partner) and me. By accessing this website, creating an account, or making a contribution via Startnext, you agree to these GTCs.",
     "s1": {
-      "title": "1. Who We Are & Who Your Partner Is",
-      "p1": "Reforestal is currently a project of mine, Peter Rosinski. Since we are in the process of officially establishing Reforestal eG (a cooperative), I will be your legal contact until this process is complete.",
-      "p2": "Once Reforestal eG is registered in the cooperative register, all rights and obligations arising from this agreement will automatically transfer to the cooperative. You will, of course, be informed about this."
+      "title": "1. Who we are and who your contracting party is",
+      "l1": "Your legal partner: Currently, Reforestal is a project run by me, Peter Rosinski. Since we are in the process of officially founding Reforestal eG as a cooperative, I will be your sole legal contact and the responsible party until this process is completed.",
+      "l2": "Transition: As soon as Reforestal eG is entered in the register of cooperatives, all rights and obligations from this agreement will automatically be transferred to the cooperative (eG). You will, of course, be informed about this transparently.",
+      "l3": "Company motto: In Soil We Trust."
     },
     "s2": {
-      "title": "2. Your Pre-emption: Preparing for Impact",
-      "p1": "At the moment, no actual purchase of shares takes place on the platform, and no money changes hands. By registering, you secure a pre-emption. This means:",
-      "l1": "You become part of the community and can reserve your spot for future membership now.",
-      "l2": "Everything you currently see on the dashboard (m², trees, statistics) is virtual. This does not yet create any ownership or membership rights.",
-      "l3": "Actual membership in the cooperative and the acquisition of shares only occur after its founding through a separate, formal declaration of membership from you."
+      "title": "2. Your expectancy right and the founding phase on Startnext",
+      "l1": "We prepare the impact: At the moment, there is no actual purchase of shares on the platform. With your registration or your contribution on Startnext, you secure an expectancy right (Anwartschaft). This means: You are already reserving your place for a future membership.",
+      "l2": "Startnext goals & risk acceptance: The first contributions from the crowdfunding serve exclusively to create the legal and digital foundations (statute review, infrastructure). As a Guardian Ally, you accept that these are not immediate investments, but rather structural development. The first 10 founding pioneers form the democratic foundation of our system.",
+      "l3": "Virtual dashboard: Everything you currently see on the dashboard (m², trees, statistics) is virtual and does not yet establish any legal property or membership rights. Actual accession only takes place after the official foundation through a formal declaration of accession."
     },
     "s3": {
-      "title": "3. Bonus Points: Activity Pays Off",
-      "p1": "You can earn bonus points on the platform by taking quizzes, completing your profile, or referring friends.",
-      "l1": "No Legal Entitlement: Bonus points are a voluntary thank you from us. There is no legal entitlement to the credit or a specific payout.",
-      "l2": "Vesting (48 Months): As we are a cooperative, we are only permitted to distribute value from actual profits. Therefore, your bonus points are subject to a phased release (vesting) over 48 months.",
-      "l3": "Conversion: The general meeting of the future cooperative will determine the exchange rate at which bonus points can later be converted into actual cooperative shares."
+      "title": "3. Our goal: The model of the regenerative economy",
+      "p1": "We transform the management of the Amazon biome through an economy that serves life.",
+      "l1": "The Amazon Chakra System: We rely on a species-rich ecosystem instead of monocultures. Commercial species like fine cocoa and vanilla coexist with soil-regenerating species (e.g., Inga).",
+      "l2": "Resilience: We use biochar and smart water storage systems against climate change. Biodiversity protects our project from international price fluctuations and pests.",
+      "l3": "Indigenous sovereignty: Our activities in the Pastaza province (Ecuador) strictly respect the sovereignty of the Kichwa, Shuar, and Waorani. We measure success by the total area of the regenerated ecosystem (m²), not by individual trees that could later be felled."
     },
     "s4": {
-      "title": "4. The Future Subscription Model & the Prosperity Index",
-      "p1": "When we really get going, we want to offer a fair model:",
-      "l1": "Cooperative Shares: One share corresponds to the reforestation of one square meter of rainforest.",
-      "l2": "Prosperity Index (Premium): Due to inflation and the increasing security of the project, the price of new shares can rise (the so-called premium).",
-      "l3": "Your Decision: If costs increase, you have a choice: Either you adjust your monthly contribution or you continue paying the same amount. In the second case, you simply \"save\" your credit until it's sufficient for the next (more expensive) full share. You will then simply receive fewer shares per month over time, but you will stay within your budget."
+      "title": "4. Your m² of rainforest: Duration and ecological risk",
+      "l1": "Dynamics of nature: A specific m² of land will be assigned to each future share. One m² is reserved for you for approx. 25-30 years. After that, the area passes into community property to ensure its long-term protection.",
+      "l2": "Ecological risk: Nature is unpredictable. Should an area be destroyed by natural disasters (fire, storms, etc.), you bear this risk as part of the community."
     },
     "s5": {
-      "title": "5. Your Square Meter of Rainforest: The Dynamics of Nature",
-      "p1": "We allocate a specific square meter of land to each share.",
-      "l1": "Term: One square meter is reserved for you for approximately 25-30 years. Afterward, the area becomes the communal property of the cooperative to ensure long-term protection, and your share is transferred to a new square meter.",
-      "l2": "Ecological Risk: Nature is unpredictable. Should an area be destroyed by natural disasters (fire, storm, etc.), you share this risk as part of the community. However, we are working on finding joint safeguards or insurance for this in the future."
+      "title": "5. The future subscription model & the Prosperity Index",
+      "p1": "When regular operations begin, one cooperative share will correspond to the reforestation of one m² of rainforest.",
+      "l1": "Prosperity Index (Agio): Due to inflation and the increasing security of the project, the price for new shares may rise.",
+      "l2": "Your flexibility: If costs go up, you have the choice: either you adjust your monthly contribution, or you continue paying your usual budget. In the second case, you simply save your balance until it is enough for the next full share."
     },
     "s6": {
-      "title": "6. Platform & Liability",
-      "p1": "We do everything we can to ensure 100% availability of your dashboard. However:",
-      "l1": "No Guarantee: We are not liable for technical failures, maintenance work, or data loss unless caused by gross negligence or willful misconduct on our part.",
-      "l2": "No Investment Advice: All information on this site is for informational purposes regarding our ecological goals. We do not provide financial advice."
+      "title": "6. Gamification, Quests, and Digital Assets",
+      "p1": "Our platform interacts with you through a playful system (Missions, Quests).",
+      "l1": "Land-Dollar (Impact Certificate): A digital certificate and the access key to the platform to track the impact of your m². It is expressly neither a cryptocurrency, nor a financial security, nor a speculative instrument.",
+      "l2": "Bonus points: Through quizzes, completing your profile, or via recommendations, you can collect bonus points. They are a voluntary thank-you without real cash value and there is no legal entitlement to their payout. Since we act according to cooperative principles, the bonus points are subject to a gradual release (vesting). The future General Assembly will determine the rate at which these will be converted into shares."
     },
     "s7": {
-      "title": "7. Final Provisions",
-      "p1": "The laws of the Federal Republic of Germany apply. Should any of these rules be deemed invalid, the remaining provisions shall remain in full force and effect. We will then work together to find a solution that best reflects the spirit of Reforestal.",
+      "title": "7. Right of withdrawal and digital assets",
+      "l1": "General right: According to the EU Directive 2011/83/EU, as a user residing in the EU, you generally have 14 days to revoke your contribution.",
+      "l2": "Expiration upon immediate execution: However, the right of withdrawal expires prematurely and explicitly as soon as you log in and access your digital assets (Land Dollar, Genesis Profile) on the dashboard. With this access, you agree to the immediate commencement of the digital service and waive any right to a refund."
+    },
+    "s8": {
+      "title": "8. Community, Comments, and Intellectual Property",
+      "l1": "Forums & Voting: You are solely responsible for your contributions and guarantee not to infringe on the intellectual property rights of third parties or post illegal content. By posting, you grant us a non-exclusive license to use the content. Inappropriate comments can be removed.",
+      "l2": "Intellectual property: All rights to the source code, gamification mechanics, graphics (especially of the Land-Dollar), and operating models remain with me (or later the cooperative). It is prohibited to copy, reproduce, or create iFrames around our web pages without written permission."
+    },
+    "s9": {
+      "title": "9. Platform availability, Data Protection, and Disclaimer",
+      "l1": "Data protection & Cookies: Your data is processed strictly in accordance with the GDPR. By using the site, you agree to the essential cookies that are necessary for the session and your progress.",
+      "l2": "Availability & Liability: We give our all for 100% availability, but we do not guarantee it. We are not liable for technical failures or data loss, unless we can be accused of gross negligence or intent.",
+      "l3": "No investment advice: All information serves purely ecological purposes and does not constitute financial advice."
+    },
+    "s10": {
+      "title": "10. Jurisdiction and Final Provisions",
+      "l1": "Applicable law: The law of the Federal Republic of Germany applies, excluding the UN Convention on Contracts for the International Sale of Goods (CISG). The exclusive place of jurisdiction is Germany.",
+      "l2": "Dispute resolution: For consumer disputes, the EU Commission provides the ODR platform: https://ec.europa.eu/consumers/odr/.",
+      "l3": "Severability clause: Should one of these rules be invalid, the rest remains valid. In that case, we will work together to find a solution that comes as close as possible to the spirit of Reforestal.",
       "outro": "Ready? Then let's get started!"
+    },
+    "contact": {
+      "title": "Contact Information and Legal Notice (Impressum)",
+      "company": "",
+      "board": "Peter Rosinski",
+      "address": "Headquarters: Rotenbergstr. 27, 66111 Saarbrücken, Germany",
+      "email": "Email: peter@reforest.al",
+      "phone": "Phone: +49 163 8736419",
+      "last_updated": "Last updated: May 2026"
     }
   },
   "privacy": {
-    "title": "Privacy Policy (Datenschutzerklärung)",
-    "intro": [
-      "We are very pleased about your interest in our enterprise. Data protection is of a particularly high priority for Peter (later Reforestal eG). The use of the Internet pages of Peter (later Reforestal eG) is possible without any indication of personal data; however, if a data subject wants to use special enterprise services via our website, processing of personal data could become necessary. If the processing of personal data is necessary and there is no statutory basis for such processing, we generally obtain consent from the data subject.",
-      "The processing of personal data, such as the name, address, e-mail address, or telephone number of a data subject shall always be in line with the General Data Protection Regulation (GDPR), and in accordance with the country-specific data protection regulations applicable to Peter (later Reforestal eG). By means of this data protection declaration, our enterprise would like to inform the general public of the nature, scope, and purpose of the personal data we collect, use and process. Furthermore, data subjects are informed, by means of this data protection declaration, of the rights to which they are entitled.",
-      "As the controller, Peter (later Reforestal eG) has implemented numerous technical and organizational measures to ensure the most complete protection of personal data processed through this website. However, Internet-based data transmissions may in principle have security gaps, so absolute protection may not be guaranteed. For this reason, every data subject is free to transfer personal data to us via alternative means, e.g. by telephone."
+  "title": "Privacy Policy",
+  "intro": [
+    "The protection of your personal data represents a fundamental relationship of trust with our community and is of particularly high priority for Peter Rosinski (later Reforestal eG). This privacy policy informs you about the nature, scope, and purpose of the data collected, especially if you participate as a partner in our regenerative economy projects or support us via Startnext.",
+    "The use of our web pages is generally possible without any indication of personal data. However, if a data subject wishes to use special enterprise services (such as the project dashboard) via our website, processing of personal data could become necessary. If the processing of personal data is necessary and there is no statutory basis for such processing, we generally obtain consent from the data subject."
+  ],
+  "s1": {
+    "title": "1. Definitions",
+    "body": [
+      "The privacy policy is based on the terms used by the European legislator for the adoption of the General Data Protection Regulation (GDPR). Project-specific and general terms include:"
     ],
-    "s1": {
-      "title": "1. Definitions",
-      "body": [
-        "The data protection declaration of Peter (later Reforestal eG) is based on the terms used by the European legislator for the adoption of the General Data Protection Regulation (GDPR). Our data protection declaration should be legible and understandable for the general public, as well as our customers and business partners. To ensure this, we would like to first explain the terminology used.",
-        "In this data protection declaration, we use, inter alia, the following terms:"
-      ],
-      "list": [
-        "a) Personal data: Any information relating to an identified or identifiable natural person ('data subject').",
-        "b) Data subject: Any identified or identifiable natural person whose personal data is processed by the controller.",
-        "c) Processing: Any operation or set of operations performed on personal data or on sets of personal data.",
-        "d) Restriction of processing: The marking of stored personal data with the aim of limiting their processing in the future.",
-        "e) Profiling: Any form of automated processing of personal data consisting of the use of personal data to evaluate certain personal aspects relating to a natural person.",
-        "f) Pseudonymisation: The processing of personal data in such a manner that the personal data can no longer be attributed to a specific data subject without the use of additional information.",
-        "g) Controller: The natural or legal person, public authority, agency or other body which, alone or jointly with others, determines the purposes and means of the processing of personal data.",
-        "h) Processor: A natural or legal person, public authority, agency or other body which processes personal data on behalf of the controller.",
-        "i) Recipient: A natural or legal person, public authority, agency or another body, to which the personal data are disclosed.",
-        "j) Third party: A natural or legal person, public authority, agency or body other than the data subject, controller, processor and persons who, under the direct authority of the controller or processor, are authorised to process personal data.",
-        "k) Consent: Any freely given, specific, informed and unambiguous indication of the data subject's wishes."
-      ]
-    },
-    "s2": {
-      "title": "2. Name and Address of the controller",
-      "body": [
-        "Controller for the purposes of the General Data Protection Regulation (GDPR), other data protection laws applicable in Member states of the European Union and other provisions related to data protection is:",
-        "Peter Rosinski (later Reforestal eG)\nRotenbergstr. 27\n66111 Saarbrücken\nGermany\nTel.: +491638736419\nE-Mail: peter@reforest.al\nWebsite: www.reforest.al"
-      ]
-    },
-    "s3": {
-      "title": "3. Cookies",
-      "body": [
-        "The Internet pages of Peter (later Reforestal eG) use cookies. Cookies are text files that are stored in a computer system via an Internet browser.",
-        "Many Internet sites and servers use cookies. Many cookies contain a so-called cookie ID. A cookie ID is a unique identifier of the cookie. Through the use of cookies, Peter (later Reforestal eG) can provide the users of this website with more user-friendly services that would not be possible without the cookie setting.",
-        "The data subject may, at any time, prevent the setting of cookies through our website by means of a corresponding setting of the Internet browser used, and may thus permanently deny the setting of cookies. Furthermore, already set cookies may be deleted at any time via an Internet browser."
-      ]
-    },
-    "s4": {
-      "title": "4. Collection of general data and information",
-      "body": [
-        "The website of Peter (later Reforestal eG) collects a series of general data and information when a data subject or automated system calls up the website. This general data and information are stored in the server log files.",
-        "When using these general data and information, Peter (later Reforestal eG) does not draw any conclusions about the data subject. Rather, this information is needed to (1) deliver the content of our website correctly, (2) optimize the content of our website as well as its advertisement, (3) ensure the long-term viability of our information technology systems, and (4) provide law enforcement authorities with the information necessary for criminal prosecution in case of a cyber-attack."
-      ]
-    },
-    "s5": {
-      "title": "5. Registration on our website",
-      "body": [
-        "The data subject has the possibility to register on the website of the controller with the indication of personal data. The personal data entered by the data subject are collected and stored exclusively for internal use by the controller, and for his own purposes.",
-        "By registering on the website of the controller, the IP address—assigned by the Internet service provider (ISP) and used by the data subject—date, and time of the registration are also stored. The storage of this data takes place against the background that this is the only way to prevent the misuse of our services, and, if necessary, to make it possible to investigate committed offenses."
-      ]
-    },
-    "s6": {
-      "title": "6. Subscription to our newsletters",
-      "body": [
-        "On the website of Peter (later Reforestal eG), users are given the opportunity to subscribe to our enterprise's newsletter. The input mask used for this purpose determines what personal data are transmitted.",
-        "For legal reasons, a confirmation e-mail will be sent to the e-mail address registered by a data subject for the first time for newsletter shipping, in the double opt-in procedure."
-      ]
-    },
-    "s7": {
-      "title": "7. Newsletter-Tracking",
-      "body": [
-        "The newsletter of Peter (later Reforestal eG) contains so-called tracking pixels. A tracking pixel is a miniature graphic embedded in such e-mails, which are sent in HTML format to enable log file recording and analysis. This allows a statistical analysis of the success or failure of online marketing campaigns."
-      ]
-    },
-    "s8": {
-      "title": "8. Contact possibility via the website",
-      "body": [
-        "The website of Peter (later Reforestal eG) contains information that enables a quick electronic contact to our enterprise, as well as direct communication with us. If a data subject contacts the controller by e-mail or via a contact form, the personal data transmitted by the data subject are automatically stored."
-      ]
-    },
-    "s9": {
-      "title": "9. Routine erasure and blocking of personal data",
-      "body": [
-        "The data controller shall process and store the personal data of the data subject only for the period necessary to achieve the purpose of storage, or as far as this is granted by the European legislator or other legislators in laws or regulations to which the controller is subject to."
-      ]
-    },
-    "s10": {
-      "title": "10. Rights of the data subject",
-      "body": [
-        "The data subject has several rights granted by the European legislator. If a data subject wishes to exercise any of these rights, they may, at any time, contact any employee of the controller."
-      ],
-      "list": [
-        "a) Right of confirmation",
-        "b) Right of access",
-        "c) Right to rectification",
-        "d) Right to erasure (Right to be forgotten)",
-        "e) Right of restriction of processing",
-        "f) Right to data portability",
-        "g) Right to object",
-        "h) Automated individual decision-making, including profiling",
-        "i) Right to withdraw data protection consent"
-      ]
-    },
-    "s11": {
-      "title": "11. Data protection provisions about the application and use of Facebook",
-      "body": [
-        "On this website, the controller has integrated components of the enterprise Facebook. Facebook is a social network."
-      ]
-    },
-    "s12": {
-      "title": "12. Data protection provisions about the application and use of Google AdSense",
-      "body": [
-        "On this website, the controller has integrated Google AdSense. Google AdSense is an online service which allows the placement of advertising on third-party sites."
-      ]
-    },
-    "s13": {
-      "title": "13. Data protection provisions about the application and use of Google Analytics",
-      "body": [
-        "On this website, the controller has integrated the component of Google Analytics (with the anonymizer function). Google Analytics is a web analytics service."
-      ]
-    },
-    "s14": {
-      "title": "14. Data protection provisions about the application and use of Google AdWords",
-      "body": [
-        "On this website, the controller has integrated Google AdWords. Google AdWords is a service for Internet advertising."
-      ]
-    },
-    "s15": {
-      "title": "15. Data protection provisions about the application and use of Instagram",
-      "body": [
-        "On this website, the controller has integrated components of the service Instagram. Instagram is a service that may be qualified as an audiovisual platform."
-      ]
-    },
-    "s16": {
-      "title": "16. Data protection provisions about the application and use of LinkedIn",
-      "body": [
-        "The controller has integrated components of the LinkedIn Corporation on this website. LinkedIn is a web-based social network."
-      ]
-    },
-    "s17": {
-      "title": "17. Data protection provisions about the application and use of YouTube",
-      "body": [
-        "On this website, the controller has integrated components of YouTube. YouTube is an Internet video portal."
-      ]
-    },
-    "s18": {
-      "title": "18. Legal basis for the processing",
-      "body": [
-        "Art. 6(1) lit. a GDPR serves as the legal basis for processing operations for which we obtain consent for a specific processing purpose. If the processing of personal data is necessary for the performance of a contract to which the data subject is party, the processing is based on Art. 6(1) lit. b GDPR."
-      ]
-    },
-    "s19": {
-      "title": "19. The legitimate interests pursued by the controller or by a third party",
-      "body": [
-        "Where the processing of personal data is based on Article 6(1) lit. f GDPR our legitimate interest is to carry out our business in favor of the well-being of all our employees and the shareholders."
-      ]
-    },
-    "s20": {
-      "title": "20. Period for which the personal data will be stored",
-      "body": [
-        "The criteria used to determine the period of storage of personal data is the respective statutory retention period. After expiration of that period, the corresponding data is routinely deleted."
-      ]
-    },
-    "s21": {
-      "title": "21. Provision of personal data as statutory or contractual requirement",
-      "body": [
-        "We clarify that the provision of personal data is partly required by law (e.g. tax regulations) or can also result from contractual provisions."
-      ]
-    },
-    "s22": {
-      "title": "22. Existence of automated decision-making",
-      "body": [
-        "As a responsible company, we do not use automatic decision-making or profiling."
-      ]
-    },
-    "footer_note": "This Privacy Policy has been generated by the Privacy Policy Generator of the DGD - Your External DPO that was developed in cooperation with German Lawyers from WILDE BEUGER SOLMECKE, Cologne."
+    "list": [
+      "a) GDPR Terms: Personal data, data subject, processing, profiling, controller, processor, and consent (according to Art. 4 GDPR).",
+      "b) Guardian Ally / Partner: Any natural or legal person with an active account in the reforestation ecosystem.",
+      "c) Land-Dollar: A digital impact certificate acting as an access key.",
+      "d) Bonuses: Gamification metrics with no financial value."
+    ]
   },
+  "s2": {
+    "title": "2. Name and Address of the Controller",
+    "body": [
+      "Controller for the purposes of the General Data Protection Regulation, other data protection laws applicable in Member states of the European Union, and other provisions related to data protection is:",
+      "Peter Rosinski (later Reforestal eG)",
+      "Rotenbergstr. 27",
+      "66111 Saarbrücken, Germany",
+      "Email: peter@reforest.al | Phone: +49 163 8736419",
+      "Website: www.reforest.al"
+    ]
+  },
+  "s3": {
+    "title": "3. Cookies",
+    "body": [
+      "The web pages use cookies (text files that are stored via an Internet browser) to provide users with more user-friendly services. In particular, we use necessary cookies to keep you logged in and to save your language preferences.",
+      "The data subject may, at any time, prevent the setting of cookies through our website by means of a corresponding setting of the Internet browser used, and may thus permanently deny the setting of cookies. Furthermore, already set cookies may be deleted at any time via an Internet browser."
+    ]
+  },
+  "s4": {
+    "title": "4. Collection of General Data and Information (Infrastructure & Logfiles)",
+    "body": [
+      "The website collects a series of general data and information with each call, which are stored in the server log files. Collected may be: (1) the browser types and versions used, (2) the operating system, (3) the website from which an accessing system reaches our website (referrers), (4) the sub-websites, (5) the date and time of access, (6) an Internet protocol address (IP address), (7) the Internet service provider, and (8) any other similar data used in the event of attacks on our information technology systems.",
+      "Digital Sustainability and Security: Our website is hosted on energy-efficient European VPS servers at Hostinger (Green Hosting). We manage critical data via Supabase in Frankfurt am Main (AWS region eu-central-1) using Row-Level-Security (RLS) policies to guarantee maximum data sovereignty."
+    ]
+  },
+  "s5": {
+    "title": "5. Registration on our Website & Startnext Crowdfunding",
+    "body": [
+      "You can register by providing data (name, email, encrypted credentials). For project management, we may also collect your postal address, date of birth, and nationality.",
+      "Data from external sources (Startnext): When participating in our crowdfunding, we receive your name, email, contribution amount, and the selected reward from Startnext to allocate your digital rights; we do not process bank data in this context.",
+      "Gamification & Google Wallet: We process information regarding your progress, tier levels, and quests. If you add the 'Land Dollar' to Google Wallet, Google acts as an independent controller."
+    ]
+  },
+  "s6": {
+    "title": "6. Subscription to our Newsletter",
+    "body": [
+      "We offer a newsletter that requires a valid email address and registration via the double opt-in procedure. The IP address, date, and time of registration are stored for legal reasons and misuse prevention. The subscription may be terminated at any time, and consent may be revoked."
+    ]
+  },
+  "s7": {
+    "title": "7. Newsletter Tracking",
+    "body": [
+      "Our newsletters contain tracking pixels. This allows for a statistical analysis of success (e.g., if and when an email was opened or a link was clicked). We use this data for optimization. Revocation is possible at any time by unsubscribing from the newsletter."
+    ]
+  },
+  "s8": {
+    "title": "8. Contact Possibility via the Website",
+    "body": [
+      "If a data subject contacts the controller by email or via a contact form, the personal data voluntarily transmitted are automatically stored for the purpose of processing the inquiry or contacting the data subject."
+    ]
+  },
+  "s9": {
+    "title": "9. Routine Deletion and Blocking of Personal Data",
+    "body": [
+      "The data controller processes and stores data only for the period necessary to achieve the purpose of storage. If the storage purpose is not applicable, or if a legal retention period expires, the data are routinely blocked or erased.",
+      "Specific periods: We store financial contributions according to German tax law (HGB/AO) for 10 years. Technical logs are automatically anonymized after 30 days."
+    ]
+  },
+  "s10": {
+    "title": "10. Rights of the Data Subject",
+    "body": [
+      "To exercise any of the following rights, the data subject may contact us (the controller) at any time:"
+    ],
+    "list": [
+      "a) Right of confirmation and access (Art. 15 GDPR): Available as a copy in your dashboard.",
+      "b) Right to rectification (Art. 16 GDPR): Adjustable in your Genesis Profile.",
+      "c) Right to erasure / Right to be forgotten (Art. 17 GDPR): E.g., by deleting the account.",
+      "d) Right to restriction of processing (Art. 18 GDPR) and data portability (Art. 20 GDPR).",
+      "e) Right to object (Art. 21 GDPR) and to withdraw consent (Art. 7(3) GDPR).",
+      "f) Right to lodge a complaint: You also have the right to lodge a complaint with a data protection supervisory authority (Art. 77 GDPR)."
+    ]
+  },
+  "s11": {
+    "title": "11. Data Protection Provisions about the Application and Use of Facebook",
+    "body": [
+      "We have integrated components of the enterprise Facebook. The operating company for persons outside the USA is Facebook Ireland Ltd., 4 Grand Canal Square, Dublin 2, Ireland.",
+      "If the data subject is logged in at the same time on Facebook, Facebook detects which specific subpage was visited. If you click on the 'Like' button, for instance, this information is matched with your Facebook account. To prevent this, you must log out of your Facebook account before visiting.",
+      "Further information on Facebook's data policy: https://www.facebook.com/about/privacy/"
+    ]
+  },
+  "s12": {
+    "title": "12. Data Protection Provisions about the Application and Use of Google AdSense",
+    "body": [
+      "Google AdSense is integrated on this website (Google Ireland Limited, Gordon House, Barrow Street, Dublin, Ireland).",
+      "The service places cookies and tracking pixels for ad integration and interest-based evaluation. Data may be transferred to the USA. Setting cookies can be prevented in the browser.",
+      "Further explanations: https://www.google.com/intl/en/adsense/start/"
+    ]
+  },
+  "s13": {
+    "title": "13. Data Protection Provisions about the Application and Use of Google Analytics (with anonymization function)",
+    "body": [
+      "We use Google Analytics (Google Ireland Limited). We use the suffix '_gat._anonymizeIp', which shortens and anonymizes your IP address.",
+      "The data subject may object to the collection and processing of data by Google Analytics. To do this, a browser add-on must be downloaded and installed from the following link: https://tools.google.com/dlpage/gaoptout",
+      "Further information: https://policies.google.com/privacy and https://marketingplatform.google.com/about/analytics/terms/en/"
+    ]
+  },
+  "s14": {
+    "title": "14. Data Protection Provisions about the Application and Use of Google AdWords",
+    "body": [
+      "We use Google AdWords (Google Ireland Limited). If a person reaches our website via a Google ad, a conversion cookie is filed (valid for 30 days, no personal identification) to create visit statistics.",
+      "Objection to interest-based advertising is possible here: https://myadcenter.google.com/"
+    ]
+  },
+  "s15": {
+    "title": "15. Data Protection Provisions about the Application and Use of Instagram",
+    "body": [
+      "Components of Instagram (Facebook Ireland Ltd.) are integrated on this website. If you are logged into Instagram, the visit to our page may be assigned to your Instagram account. Log out to prevent this.",
+      "Instagram privacy policy: https://help.instagram.com/155833707900388 and https://privacycenter.instagram.com/policy"
+    ]
+  },
+  "s16": {
+    "title": "16. Data Protection Provisions about the Application and Use of LinkedIn",
+    "body": [
+      "We use components of LinkedIn (LinkedIn Ireland, Wilton Place, Dublin 2, Ireland). With each access, a representation of the component is downloaded and, for logged-in users, assigned to their LinkedIn account.",
+      "LinkedIn offers the option to unsubscribe from ads: https://www.linkedin.com/psettings/guest-controls. Cookie Policy: https://www.linkedin.com/legal/cookie-policy"
+    ]
+  },
+  "s17": {
+    "title": "17. Data Protection Provisions about the Application and Use of YouTube",
+    "body": [
+      "We have integrated components of YouTube (Google Ireland Limited). When visiting a page with a YouTube video, Google gains knowledge of which page you visit, especially if you are logged into YouTube.",
+      "YouTube/Google privacy policy: https://policies.google.com/privacy"
+    ]
+  },
+  "s18": {
+    "title": "18. Legal Basis for Processing & International Data Transfer",
+    "body": [
+      "Processing is based on Art. 6(1)(a) GDPR (Consent), Art. 6(1)(b) GDPR (Performance of a contract, e.g., allocating the Land-Dollar), and Art. 6(1)(c) GDPR (Legal obligations).",
+      "International transfer to Ecuador: To protect the Amazon rainforest (Pastaza province), identifying data are transmitted to the local land registry and notaries in Ecuador (based on Art. 49(1)(b) GDPR).",
+      "Data transfer to third countries (e.g., USA): Conducted on the basis of Standard Contractual Clauses (SCCs) and the EU-US Data Privacy Framework (Adequacy Decision)."
+    ]
+  },
+  "s19": {
+    "title": "19. Legitimate Interests in Processing",
+    "body": [
+      "Where the processing of personal data is based on Article 6(1)(f) GDPR, our legitimate interest is to carry out our business operations in favor of the regenerative project goals, all our employees, and shareholders."
+    ]
+  },
+  "s20": {
+    "title": "20. Duration of Storage",
+    "body": [
+      "User/partner data are stored for the duration of your active relationship with the project. Thereafter, storage is governed by statutory retention periods. Once the period expires, the data are deleted, provided they are no longer necessary for the fulfillment of the contract."
+    ]
+  },
+  "s21": {
+    "title": "21. Legal or Contractual Requirements / Youth Protection",
+    "body": [
+      "The provision of personal data is partly required by law (e.g., tax regulations) or contractually necessary (for project participation); failure to provide this data would result in the contract not being concluded.",
+      "Youth Protection: Our service is not directed at children under 13; any inadvertently collected data from minors will be deleted immediately."
+    ]
+  },
+  "s22": {
+    "title": "22. Existence of Automated Decision-Making",
+    "body": [
+      "As a responsible project, we do not use automatic decision-making (including profiling) that produces legal effects. Gamification metrics on the platform serve purely interactive and non-discriminatory purposes."
+    ]
+  },
+  "footer_note": "Last updated: May 2026. This privacy policy was developed (in its basic legal components) using privacy policies from DGD Deutsche Gesellschaft für Datenschutz GmbH and adapted to the specific requirements of the future Reforestal eG project."
+},
   "cookies": {
     "title": "Reforestal – Crumbs for Climate Protection (Cookie Policy)",
     "subtitle": "Hey! To ensure you, as an Aliado Guardián (Guardian Partner) in the Amazon, have a complete overview and your dashboard functions smoothly, we use cookies and similar technologies (such as local storage). Here's a brief overview of what happens on your device when you use Reforestal.",
@@ -1598,7 +1628,7 @@
       "p2": "Peter Rosinski (later Reforestal eG)",
       "p3": "Email: info@reforest.al",
       "p4": "Tel: +49 163 8736419",
-      "last_updated": "Status: April 2026"
+      "last_updated": "Status: May 2026"
     }
   },
   "economy": {
@@ -1672,6 +1702,23 @@
     "analytics_title": "Analytics & Performance",
     "analytics_desc": "Anonymous statistics to improve Reforestal for everyone.",
     "save_settings": "Save selection"
-  }
+  },
+  "impressum": {
+  "title": "Legal Notice (Impressum)",
+  "platform_operator": "Platform Operator",
+  "operator_name": "Peter Rosinski (acting for Reforestal eG)",
+  "address_street": "Rotenbergstr. 27",
+  "address_city": "66111 Saarbrücken",
+  "address_country": "Germany",
+  "management": "Executive Board: Peter Rosinski",
+  "content_responsible_title": "Content Responsibility",
+  "content_responsible_name": "Peter Rosinski",
+  "project_note": "The respective project owners are responsible for the content of project pages, reachable via their legal notice or direct contact.",
+  "email": "Email: peter@reforest.al",
+  "phone": "Tel.: +49 163 8736419",
+  "further_notes_title": "Further Notes",
+  "social_media_text": "This legal notice also applies to our LinkedIn, Facebook, Threads, and Instagram profiles as well as our YouTube channel.",
+  "dispute_resolution": "We are not willing or obliged to participate in dispute resolution proceedings before a consumer arbitration board."
+}
 }
 

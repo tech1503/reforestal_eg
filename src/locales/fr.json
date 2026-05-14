@@ -1338,133 +1338,254 @@
     "pioneers_cta": "Découvrez les Forfaits"
   },
   "terms": {
-    "title": "Reforestal – Conditions d'Utilisation & Droits de Souscription",
-    "subtitle": "Hé ! Nous sommes ravis que vous fassiez partie du mouvement. Avant de sauver ensemble la forêt tropicale, nous devons établir quelques règles de base. Ces conditions régissent la relation entre vous et moi (Peter) pendant la phase de développement actuelle de Reforestal.",
+    "title": "Reforestal – Conditions Générales de Vente (CGV) et Conditions d'Utilisation",
+    "subtitle": "Bonjour ! C'est génial que vous fassiez partie du mouvement. Avant de sauver la forêt tropicale ensemble et de construire une économie régénérative, nous devons établir quelques règles de base. Ces Conditions Générales décrivent les règles d'utilisation de la plateforme (https://reforest.al) et régissent la relation juridique entre vous (notre utilisateur, co-fondateur et partenaire gardien) et moi. En accédant à ce site web, en créant un compte ou en faisant une contribution via Startnext, vous acceptez ces CGV.",
     "s1": {
-      "title": "1. Qui nous sommes et qui est votre partenaire",
-      "p1": "Actuellement, Reforestal est mon projet, Peter Rosinski. Comme nous sommes en train de fonder officiellement la Reforestal eG (une coopérative), je serai votre contact légal jusqu'à la fin de ce processus.",
-      "p2": "Dès que Reforestal eG sera inscrite au registre des coopératives, tous les droits et obligations découlant de cet accord seront automatiquement transférés à la coopérative. Vous en serez bien sûr informé."
+      "title": "1. Qui nous sommes et qui est votre co-contractant",
+      "l1": "Votre partenaire légal : Actuellement, Reforestal est un projet dirigé par moi, Peter Rosinski. Puisque nous sommes en train de fonder officiellement Reforestal eG en tant que coopérative, je serai votre seul contact légal et la partie responsable jusqu'à ce que ce processus soit terminé.",
+      "l2": "Transition : Dès que Reforestal eG sera inscrite au registre des coopératives, tous les droits et obligations de cet accord seront automatiquement transférés à la coopérative (eG). Vous en serez bien sûr informé en toute transparence.",
+      "l3": "Devise de l'entreprise : In Soil We Trust."
     },
     "s2": {
-      "title": "2. Vos droits de souscription : Préparer l'Impact",
-      "p1": "Pour le moment, aucun achat réel de parts n'a lieu sur la plateforme et aucun argent n'est échangé. En vous inscrivant, vous vous assurez un droit de souscription. Cela signifie :",
-      "l1": "Vous devenez membre de la communauté et pouvez réserver dès maintenant votre place pour une future adhésion.",
-      "l2": "Tout ce que vous voyez actuellement sur le tableau de bord (m², arbres, statistiques) est virtuel. Cela ne crée pas encore de droits de propriété ou d'adhésion.",
-      "l3": "L'adhésion réelle à la coopérative et l'acquisition de parts n'ont lieu qu'après la création, par une déclaration formelle d'adhésion de votre part."
+      "title": "2. Votre droit d'attente et la phase de fondation sur Startnext",
+      "l1": "Nous préparons l'impact : Pour le moment, il n'y a pas d'achat réel de parts sur la plateforme. Avec votre inscription ou votre contribution sur Startnext, vous vous assurez un droit d'attente (Anwartschaft). Cela signifie : Vous réservez déjà votre place pour une future adhésion.",
+      "l2": "Objectifs de Startnext et acceptation des risques : Les premières contributions issues du financement participatif servent exclusivement à créer les bases juridiques et numériques (révision des statuts, infrastructure). En tant qu'Allié Gardien (Guardian Ally), vous acceptez qu'il ne s'agit pas d'investissements immédiats, mais plutôt d'un développement structurel. Les 10 premiers pionniers fondateurs forment le fondement démocratique de notre système.",
+      "l3": "Tableau de bord virtuel : Tout ce que vous voyez actuellement sur le tableau de bord (m², arbres, statistiques) est virtuel et n'établit pas encore de droits de propriété ou d'adhésion légaux. L'adhésion effective n'a lieu qu'après la fondation officielle par le biais d'une déclaration formelle d'adhésion."
     },
     "s3": {
-      "title": "3. Points Bonus : L'activité porte ses fruits",
-      "p1": "Vous pouvez gagner des points bonus sur la plateforme en répondant à des quiz, en complétant votre profil ou en parrainant des amis.",
-      "l1": "Aucun droit légal : Les points bonus sont un remerciement volontaire de notre part. Il n'y a aucun droit légal au crédit ou à un paiement spécifique.",
-      "l2": "Vesting (48 mois) : Comme nous sommes une coopérative, nous ne pouvons distribuer de la valeur qu'à partir de bénéfices réels. Par conséquent, vos points bonus sont soumis à une libération progressive (vesting) sur 48 mois.",
-      "l3": "Conversion : L'assemblée générale de la future coopérative déterminera le taux de change auquel les points bonus pourront ensuite être convertis en véritables parts de la coopérative."
+      "title": "3. Notre objectif : Le modèle de l'économie régénérative",
+      "p1": "Nous transformons la gestion du biome amazonien à travers une économie au service de la vie.",
+      "l1": "Le système Chakra amazonien : Nous misons sur un écosystème riche en espèces plutôt que sur des monocultures. Les espèces commerciales comme le cacao fin et la vanille coexistent avec des espèces régénératrices du sol (par ex., Inga).",
+      "l2": "Résilience : Nous utilisons le biochar et des systèmes intelligents de stockage de l'eau contre le changement climatique. La biodiversité protège notre projet des fluctuations de prix internationales et des parasites.",
+      "l3": "Souveraineté indigène : Nos activités dans la province de Pastaza (Équateur) respectent strictement la souveraineté des Kichwa, Shuar et Waorani. Nous mesurons le succès par la superficie totale de l'écosystème régénéré (m²), et non par des arbres individuels qui pourraient être abattus plus tard."
     },
     "s4": {
-      "title": "4. Le futur modèle d'abonnement et l'indice de prospérité",
-      "p1": "Quand nous démarrerons vraiment, nous voulons offrir un modèle équitable :",
-      "l1": "Parts coopératives : Une part correspond à la reforestation d'un mètre carré de forêt tropicale.",
-      "l2": "Indice de prospérité (Prime) : En raison de l'inflation et de la sécurité croissante du projet, le prix des nouvelles parts peut augmenter (la soi-disant prime).",
-      "l3": "Votre décision : Si les coûts augmentent, vous avez le choix : soit vous ajustez votre contribution mensuelle, soit vous continuez à payer le même montant. Dans le second cas, vous \"économisez\" simplement votre crédit jusqu'à ce qu'il suffise pour la prochaine part complète (plus chère). Vous recevrez alors simplement moins de parts par mois au fil du temps, mais vous respecterez votre budget."
+      "title": "4. Votre m² de forêt tropicale : Durée et risque écologique",
+      "l1": "Dynamique de la nature : Un m² spécifique de terre sera attribué à chaque future part. Un m² vous est réservé pendant environ 25 à 30 ans. Ensuite, la zone passe dans la propriété commune pour assurer sa protection à long terme.",
+      "l2": "Risque écologique : La nature est imprévisible. Si une zone devait être détruite par des catastrophes naturelles (incendies, tempêtes, etc.), vous assumez ce risque en tant que membre de la communauté."
     },
     "s5": {
-      "title": "5. Votre mètre carré de forêt tropicale : La dynamique de la nature",
-      "p1": "Nous attribuons un mètre carré de terrain spécifique à chaque part.",
-      "l1": "Durée : Un mètre carré vous est réservé pendant environ 25 à 30 ans. Ensuite, la zone devient la propriété commune de la coopérative pour assurer une protection à long terme, et votre part est transférée sur un nouveau mètre carré.",
-      "l2": "Risque écologique : La nature est imprévisible. Si une zone est détruite par des catastrophes naturelles (incendie, tempête, etc.), vous partagez ce risque en tant que membre de la communauté. Cependant, nous travaillons à trouver des protections communes ou des assurances à l'avenir."
+      "title": "5. Le futur modèle d'abonnement et l'Indice de Prospérité",
+      "p1": "Lorsque les opérations régulières commenceront, une part de coopérative correspondra à la reforestation d'un m² de forêt tropicale.",
+      "l1": "Indice de Prospérité (Agio) : En raison de l'inflation et de la sécurité croissante du projet, le prix des nouvelles parts peut augmenter.",
+      "l2": "Votre flexibilité : Si les coûts augmentent, vous avez le choix : soit vous ajustez votre contribution mensuelle, soit vous continuez à payer votre budget habituel. Dans le second cas, vous épargnez simplement votre solde jusqu'à ce qu'il soit suffisant pour la prochaine part complète."
     },
     "s6": {
-      "title": "6. Plateforme & Responsabilité",
-      "p1": "Nous mettons tout en œuvre pour garantir une disponibilité à 100 % de votre tableau de bord. Cependant :",
-      "l1": "Aucune garantie : Nous ne sommes pas responsables des pannes techniques, des travaux de maintenance ou de la perte de données, sauf en cas de négligence grave ou de faute intentionnelle de notre part.",
-      "l2": "Pas de conseil en investissement : Toutes les informations sur ce site sont à des fins d'information concernant notre objectif écologique. Nous ne fournissons pas de conseils financiers."
+      "title": "6. Gamification, Quêtes et Actifs Numériques",
+      "p1": "Notre plateforme interagit avec vous à travers un système ludique (Missions, Quêtes).",
+      "l1": "Land-Dollar (Certificat d'Impact) : Un certificat numérique et la clé d'accès à la plateforme pour suivre l'impact de votre m². Ce n'est expressément ni une crypto-monnaie, ni un titre financier, ni un instrument spéculatif.",
+      "l2": "Points bonus : À travers des quiz, en complétant votre profil, ou via des recommandations, vous pouvez collecter des points bonus. Ils constituent un remerciement volontaire sans valeur monétaire réelle et il n'y a aucun droit légal à leur versement. Puisque nous agissons selon des principes coopératifs, les points bonus sont soumis à un déblocage progressif (vesting). La future Assemblée Générale déterminera le taux de conversion de ceux-ci en parts."
     },
     "s7": {
-      "title": "7. Dispositions Finales",
-      "p1": "Les lois de la République fédérale d'Allemagne s'appliquent. Si l'une de ces règles devait être jugée invalide, le reste restera valable. Nous trouverons alors ensemble une solution qui reflète au mieux l'esprit de Reforestal.",
-      "outro": "Prêt ? Alors allons-y !"
+      "title": "7. Droit de rétractation et actifs numériques",
+      "l1": "Droit général : Conformément à la directive européenne 2011/83/UE, en tant qu'utilisateur résidant dans l'UE, vous disposez généralement de 14 jours pour révoquer votre contribution.",
+      "l2": "Expiration lors de l'exécution immédiate : Cependant, le droit de rétractation expire prématurément et explicitement dès que vous vous connectez et accédez à vos actifs numériques (Land Dollar, Profil Genesis) sur le tableau de bord. Avec cet accès, vous acceptez le commencement immédiat du service numérique et renoncez à tout droit à un remboursement."
+    },
+    "s8": {
+      "title": "8. Communauté, Commentaires et Propriété Intellectuelle",
+      "l1": "Forums et Votes : Vous êtes seul responsable de vos contributions et garantissez ne pas enfreindre les droits de propriété intellectuelle de tiers ni publier de contenu illégal. En publiant, vous nous accordez une licence non exclusive pour utiliser le contenu. Les commentaires inappropriés peuvent être supprimés.",
+      "l2": "Propriété intellectuelle : Tous les droits sur le code source, les mécaniques de gamification, les graphismes (notamment ceux du Land-Dollar) et les modèles de fonctionnement restent ma propriété (ou plus tard celle de la coopérative). Il est interdit de copier, reproduire ou créer des iFrames autour de nos pages web sans autorisation écrite."
+    },
+    "s9": {
+      "title": "9. Disponibilité de la plateforme, Protection des données et Clause de non-responsabilité",
+      "l1": "Protection des données et Cookies : Vos données sont traitées en stricte conformité avec le RGPD. En utilisant le site, vous acceptez les cookies essentiels qui sont nécessaires pour la session et votre progression.",
+      "l2": "Disponibilité et Responsabilité : Nous donnons tout pour une disponibilité à 100 %, mais nous ne la garantissons pas. Nous ne sommes pas responsables des pannes techniques ou de la perte de données, à moins que nous puissions être accusés de négligence grave ou d'intention malveillante.",
+      "l3": "Pas de conseil en investissement : Toutes les informations servent à des fins purement écologiques et ne constituent pas un conseil financier."
+    },
+    "s10": {
+      "title": "10. Juridiction et Dispositions finales",
+      "l1": "Droit applicable : Le droit de la République Fédérale d'Allemagne s'applique, à l'exclusion de la Convention des Nations Unies sur les contrats de vente internationale de marchandises (CVIM). Le lieu de juridiction exclusif est l'Allemagne.",
+      "l2": "Règlement des litiges : Pour les litiges de consommation, la Commission européenne fournit la plateforme RLL (ODR) : https://ec.europa.eu/consumers/odr/.",
+      "l3": "Clause de divisibilité : Si l'une de ces règles devait être invalide, le reste demeure valable. Dans ce cas, nous travaillerons ensemble pour trouver une solution qui se rapproche le plus possible de l'esprit de Reforestal.",
+      "outro": "Prêt ? Alors c'est parti !"
+    },
+    "contact": {
+      "title": "Informations de contact et Mentions légales (Impressum)",
+      "company": "",
+      "board": "Peter Rosinski",
+      "address": "Siège social : Rotenbergstr. 27, 66111 Sarrebruck, Allemagne",
+      "email": "Email : peter@reforest.al",
+      "phone": "Téléphone : +49 163 8736419",
+      "last_updated": "Dernière mise à jour : Mai 2026"
     }
   },
   "privacy": {
-    "title": "Politique de Confidentialité (Datenschutzerklärung)",
-    "subtitle": "Chez Reforestal eG, la protection de vos données personnelles est un pilier fondamental de confiance pour notre communauté coopérative. Cette politique détaille la façon dont nous traitons vos informations lorsque vous utilisez notre plateforme et participez en tant que Partenaire ou Allié Gardien dans nos projets d'économie régénérative.",
-    "s1": {
-      "title": "1. Interprétation et définitions",
-      "l1": "Responsable du traitement : Reforestal eG (i.G. - en formation), représenté par Peter Rosinski.",
-      "l2": "Allié Gardien / Partenaire : Toute personne physique ou morale qui possède un compte actif et participe à l'écosystème de reforestation.",
-      "l3": "Land-Dollar : Certificat d'impact numérique servant de clé d'accès à la plateforme.",
-      "l4": "Points Bonus : Mesures de gamification sans valeur fiduciaire."
-    },
-    "s2": {
-      "title": "2. Responsable du traitement des données",
-      "p1": "Conformément au Règlement général sur la protection des données (RGPD), le responsable du traitement est :",
-      "l1": "Reforestal eG (i.G.)",
-      "l2": "Adresse : [Insérez l'adresse du siège en Allemagne]",
-      "l3": "E-mail de contact : info@reforest.al",
-      "l4": "Représentant : Peter Rosinski (Vorstand / Directeur Exécutif)."
-    },
-    "s3": {
-      "title": "3. Données que nous collectons",
-      "sub1": "3.1. Données fournies par vous",
-      "l1": "Inscription de l'utilisateur : Nom complet, adresse e-mail et identifiants d'accès cryptés.",
-      "l2": "Données du partenaire coopératif : Pour nous conformer à la réglementation des coopératives allemandes, nous pouvons exiger une adresse postale, une date de naissance et une nationalité.",
-      "l3": "Profil et Gamification : Informations sur votre progression, votre niveau de soutien (Tier), vos réalisations dans les \"Quêtes\" et vos réponses dans les missions interactives.",
-      "sub2": "3.2. Données provenant de sources externes",
-      "l4": "Startnext (Crowdfunding) : Nous recevons votre nom, e-mail, montant de la contribution et récompense sélectionnée pour attribuer vos droits numériques. Nous ne traitons pas directement vos données bancaires à partir de cette plateforme.",
-      "sub3": "3.3. Données techniques et de navigation",
-      "l5": "Métadonnées : Adresse IP, type de navigateur et système d'exploitation pour assurer la sécurité du réseau.",
-      "l6": "Cookies : Nous utilisons des cookies essentiels pour maintenir votre session ouverte et mémoriser vos préférences linguistiques."
-    },
-    "s4": {
-      "title": "4. Infrastructure technologique et durabilité",
-      "p1": "Nous priorisons la souveraineté des données et l'impact environnemental dans notre architecture technique.",
-      "l1": "Hébergement vert (Green Hosting) : Notre site Web est hébergé sur Hostinger à l'aide de VPS européens dotés de mesures d'efficacité énergétique et de compensation carbone.",
-      "l2": "Base de données et sécurité (Supabase) : Les données critiques sont hébergées à Francfort, en Allemagne (région AWS eu-central-1). Nous utilisons des politiques de sécurité au niveau des lignes (RLS) pour garantir qu'aucun utilisateur ne peut accéder aux informations privées d'un autre partenaire.",
-      "l3": "Intégration de Google Wallet : Si vous choisissez d'ajouter votre \"Land Dollar\", Google agit en tant que contrôleur indépendant des données stockées dans votre compte Google."
-    },
-    "s5": {
-      "title": "5. Finalité et base juridique",
-      "th1": "Finalité",
-      "th2": "Base légale (RGPD)",
-      "r1c1": "Gestion des partenaires",
-      "r1c2": "Art. 6(1)(b) : Exécution de l'accord de coopérative.",
-      "r2c1": "Émission d'actifs numériques",
-      "r2c2": "Art. 6(1)(b) : Prestation d'avantages pour votre contribution.",
-      "r3c1": "Sécurité et prévention de la fraude",
-      "r3c2": "Art. 6(1)(c) : Respect des obligations légales.",
-      "r4c1": "Exécution en Équateur",
-      "r4c2": "Art. 6(1)(b) : Gestion légale de l'achat de terres."
-    },
-    "s6": {
-      "title": "6. Transferts internationaux",
-      "p1": "Étant donné que notre mission est de protéger l'Amazonie dans la province de Pastaza, en Équateur, il existe des flux de données spécifiques en dehors de l'EEE :",
-      "l1": "Transfert vers l'Équateur : Les données d'identification peuvent être partagées avec le registre foncier et les notaires locaux pour assurer la traçabilité juridique des terres protégées. Ce transfert est nécessaire à l'exécution du contrat entre le partenaire et la Coopérative (Art. 49(1)(b) RGPD).",
-      "l2": "Garanties : Les prestataires de services techniques opèrent en vertu des clauses contractuelles types (CCT) approuvées par la Commission européenne."
-    },
-    "s7": {
-      "title": "7. Vos droits et conservation",
-      "sub1": "7.1. Vos droits (RGPD)",
-      "p1": "Vous avez le droit de :",
-      "l1": "Accès et portabilité : Obtenir une copie de vos données depuis votre tableau de bord.",
-      "l2": "Rectification : Corriger les informations dans votre profil Genesis.",
-      "l3": "Effacement : Demander la suppression de votre compte.",
-      "note": "Remarque : Nous conserverons les registres des contributions financières pendant 10 ans conformément à la législation fiscale allemande (HGB/AO).",
-      "sub2": "7.2. Conservation",
-      "l4": "Données des partenaires : Tant que dure la relation avec la coopérative.",
-      "l5": "Journaux techniques : Automatiquement anonymisés après 30 jours."
-    },
-    "s8": {
-      "title": "8. Confidentialité des enfants",
-      "p1": "Notre service ne s'adresse pas aux enfants de moins de 13 ans. Nous ne collectons pas sciemment d'informations auprès de mineurs. Si nous détectons des données provenant d'un mineur sans le consentement de ses parents, nous procéderons à leur suppression immédiate."
-    },
-    "contact": {
-      "title": "9. Contact",
-      "p1": "Pour exercer vos droits ou pour toute question concernant le traitement de vos données :",
-      "p2": "Reforestal eG",
-      "p3": "E-mail : info@reforest.al",
-      "p4": "Téléphone : +49 163 8736419",
-      "last_updated": "Dernière mise à jour : Avril 2026"
-    }
+  "title": "Politique de confidentialité",
+  "intro": [
+    "La protection de vos données personnelles est une relation de confiance fondamentale avec notre communauté et constitue une priorité particulièrement élevée pour Peter Rosinski (future Reforestal eG). Cette politique de confidentialité vous informe sur la nature, la portée et la finalité des données collectées, en particulier si vous participez en tant que partenaire à nos projets d'économie régénérative ou si vous nous soutenez via Startnext.",
+    "L'utilisation de nos pages web est généralement possible sans aucune indication de données personnelles. Toutefois, si une personne concernée souhaite utiliser des services spécifiques de notre entreprise (comme le tableau de bord du projet) via notre site web, un traitement des données personnelles pourrait s'avérer nécessaire. Si ce traitement est nécessaire et qu'il n'existe aucune base légale pour un tel traitement, nous obtenons généralement le consentement de la personne concernée."
+  ],
+  "s1": {
+    "title": "1. Définitions",
+    "body": [
+      "La politique de confidentialité est basée sur les termes utilisés par le législateur européen pour l'adoption du Règlement Général sur la Protection des Données (RGPD). Les termes généraux et spécifiques au projet incluent :"
+    ],
+    "list": [
+      "a) Termes du RGPD : Données personnelles, personne concernée, traitement, profilage, responsable du traitement, sous-traitant et consentement (selon l'art. 4 du RGPD).",
+      "b) Guardian Ally / Partenaire : Toute personne physique ou morale possédant un compte actif dans l'écosystème de reforestation.",
+      "c) Land-Dollar (Dollar de Terre) : Un certificat d'impact numérique faisant office de clé d'accès.",
+      "d) Bonus : Métriques de gamification sans valeur financière."
+    ]
   },
+  "s2": {
+    "title": "2. Nom et adresse du responsable du traitement",
+    "body": [
+      "Le responsable du traitement aux fins du Règlement Général sur la Protection des Données, d'autres lois sur la protection des données applicables dans les États membres de l'Union européenne et d'autres dispositions relatives à la protection des données est :",
+      "Peter Rosinski (future Reforestal eG)",
+      "Rotenbergstr. 27",
+      "66111 Sarrebruck, Allemagne",
+      "Email : peter@reforest.al | Tél. : +49 163 8736419",
+      "Site web : www.reforest.al"
+    ]
+  },
+  "s3": {
+    "title": "3. Cookies",
+    "body": [
+      "Les pages web utilisent des cookies (fichiers texte stockés via un navigateur Internet) pour fournir aux utilisateurs des services plus conviviaux. En particulier, nous utilisons des cookies nécessaires pour vous garder connecté et enregistrer vos préférences linguistiques.",
+      "La personne concernée peut, à tout moment, empêcher la configuration de cookies par notre site web au moyen d'un paramètre correspondant du navigateur Internet utilisé, et ainsi refuser définitivement la configuration de cookies. De plus, les cookies déjà configurés peuvent être supprimés à tout moment via un navigateur Internet."
+    ]
+  },
+  "s4": {
+    "title": "4. Collecte de données et d'informations générales (Infrastructure et fichiers journaux)",
+    "body": [
+      "Le site web collecte une série de données et d'informations générales à chaque appel, qui sont stockées dans les fichiers journaux du serveur (logfiles). Peuvent être collectés : (1) les types et versions de navigateurs utilisés, (2) le système d'exploitation, (3) le site web depuis lequel un système d'accès atteint notre site web (référents), (4) les sous-sites web, (5) la date et l'heure de l'accès, (6) une adresse de protocole Internet (adresse IP), (7) le fournisseur d'accès Internet, et (8) toute autre donnée similaire utilisée en cas d'attaques contre nos systèmes informatiques.",
+      "Durabilité et sécurité numériques : Notre site web est hébergé sur des serveurs VPS européens économes en énergie chez Hostinger (Green Hosting). Nous gérons les données critiques via Supabase à Francfort-sur-le-Main (région AWS eu-central-1) en utilisant des politiques de sécurité au niveau des lignes (RLS) pour garantir une souveraineté maximale des données."
+    ]
+  },
+  "s5": {
+    "title": "5. Inscription sur notre site web et Crowdfunding Startnext",
+    "body": [
+      "Vous pouvez vous inscrire en fournissant des données (nom, e-mail, identifiants cryptés). Pour la gestion du projet, nous pouvons également collecter votre adresse postale, votre date de naissance et votre nationalité.",
+      "Données provenant de sources externes (Startnext) : Lors de votre participation à notre crowdfunding, nous recevons votre nom, e-mail, le montant de la contribution et la récompense sélectionnée de la part de Startnext pour attribuer vos droits numériques ; nous ne traitons pas de données bancaires dans ce contexte.",
+      "Gamification et Google Wallet : Nous traitons les informations concernant votre progression, vos niveaux (tiers) et vos quêtes. Si vous ajoutez le 'Land Dollar' à Google Wallet, Google agit en tant que responsable du traitement indépendant."
+    ]
+  },
+  "s6": {
+    "title": "6. Abonnement à notre newsletter",
+    "body": [
+      "Nous proposons une newsletter qui nécessite une adresse e-mail valide et une inscription via la procédure de double opt-in. L'adresse IP, la date et l'heure de l'inscription sont stockées pour des raisons légales et pour la prévention des abus. L'abonnement peut être résilié à tout moment et le consentement peut être révoqué."
+    ]
+  },
+  "s7": {
+    "title": "7. Suivi de la newsletter (Tracking)",
+    "body": [
+      "Nos newsletters contiennent des pixels de suivi. Cela permet une analyse statistique du succès (par exemple, si et quand un e-mail a été ouvert ou si un lien a été cliqué). Nous utilisons ces données à des fins d'optimisation. La révocation est possible à tout moment en se désabonnant de la newsletter."
+    ]
+  },
+  "s8": {
+    "title": "8. Possibilité de contact via le site web",
+    "body": [
+      "Si une personne concernée contacte le responsable du traitement par e-mail ou via un formulaire de contact, les données personnelles transmises volontairement sont automatiquement stockées dans le but de traiter la demande ou de contacter la personne concernée."
+    ]
+  },
+  "s9": {
+    "title": "9. Effacement et verrouillage de routine des données personnelles",
+    "body": [
+      "Le responsable du traitement traite et stocke les données uniquement pendant la période nécessaire pour atteindre l'objectif du stockage. Si l'objectif n'est plus applicable, ou si une période de conservation légale expire, les données sont systématiquement verrouillées ou effacées.",
+      "Périodes spécifiques : Nous conservons les contributions financières conformément au droit fiscal allemand (HGB/AO) pendant 10 ans. Les journaux techniques sont automatiquement anonymisés après 30 jours."
+    ]
+  },
+  "s10": {
+    "title": "10. Droits de la personne concernée",
+    "body": [
+      "Pour exercer l'un des droits suivants, la personne concernée peut nous contacter (le responsable du traitement) à tout moment :"
+    ],
+    "list": [
+      "a) Droit de confirmation et d'accès (Art. 15 RGPD) : Disponible en tant que copie dans votre tableau de bord.",
+      "b) Droit de rectification (Art. 16 RGPD) : Modifiable dans votre Profil Genesis.",
+      "c) Droit à l'effacement / Droit à l'oubli (Art. 17 RGPD) : Par exemple, en supprimant le compte.",
+      "d) Droit à la limitation du traitement (Art. 18 RGPD) et à la portabilité des données (Art. 20 RGPD).",
+      "e) Droit d'opposition (Art. 21 RGPD) et de retrait du consentement (Art. 7(3) RGPD).",
+      "f) Droit de déposer une plainte : Vous avez également le droit de déposer une plainte auprès d'une autorité de contrôle de la protection des données (Art. 77 RGPD)."
+    ]
+  },
+  "s11": {
+    "title": "11. Dispositions relatives à la protection des données concernant l'application et l'utilisation de Facebook",
+    "body": [
+      "Nous avons intégré des composants de l'entreprise Facebook. La société d'exploitation pour les personnes en dehors des États-Unis est Facebook Ireland Ltd., 4 Grand Canal Square, Dublin 2, Irlande.",
+      "Si la personne concernée est connectée en même temps à Facebook, Facebook détecte quelle sous-page spécifique a été visitée. Si vous cliquez sur le bouton 'J'aime', par exemple, cette information est associée à votre compte Facebook. Pour l'éviter, vous devez vous déconnecter de votre compte Facebook avant votre visite.",
+      "Plus d'informations sur la politique d'utilisation des données de Facebook : https://fr-fr.facebook.com/about/privacy/"
+    ]
+  },
+  "s12": {
+    "title": "12. Dispositions relatives à la protection des données concernant l'application et l'utilisation de Google AdSense",
+    "body": [
+      "Google AdSense est intégré sur ce site web (Google Ireland Limited, Gordon House, Barrow Street, Dublin, Irlande).",
+      "Le service place des cookies et des pixels de suivi pour l'intégration d'annonces et l'évaluation basée sur les intérêts. Les données peuvent être transférées aux États-Unis. La configuration des cookies peut être empêchée dans le navigateur.",
+      "Explications supplémentaires : https://www.google.fr/intl/fr/adsense/start/"
+    ]
+  },
+  "s13": {
+    "title": "13. Dispositions relatives à la protection des données concernant l'application et l'utilisation de Google Analytics (avec fonction d'anonymisation)",
+    "body": [
+      "Nous utilisons Google Analytics (Google Ireland Limited). Nous utilisons le suffixe '_gat._anonymizeIp', qui raccourcit et anonymise votre adresse IP.",
+      "La personne concernée peut s'opposer à la collecte et au traitement des données par Google Analytics. Pour ce faire, un module complémentaire de navigateur doit être téléchargé et installé à partir du lien suivant : https://tools.google.com/dlpage/gaoptout",
+      "Plus d'informations : https://policies.google.com/privacy?hl=fr et https://marketingplatform.google.com/about/analytics/terms/fr/"
+    ]
+  },
+  "s14": {
+    "title": "14. Dispositions relatives à la protection des données concernant l'application et l'utilisation de Google AdWords",
+    "body": [
+      "Nous utilisons Google AdWords (Google Ireland Limited). Si une personne accède à notre site web via une annonce Google, un cookie de conversion est déposé (valable 30 jours, aucune identification personnelle) pour créer des statistiques de visite.",
+      "L'opposition à la publicité basée sur les centres d'intérêt est possible ici : https://myadcenter.google.com/"
+    ]
+  },
+  "s15": {
+    "title": "15. Dispositions relatives à la protection des données concernant l'application et l'utilisation d'Instagram",
+    "body": [
+      "Des composants d'Instagram (Facebook Ireland Ltd.) sont intégrés sur ce site web. Si vous êtes connecté à Instagram, la visite de notre page peut être attribuée à votre compte Instagram. Déconnectez-vous pour éviter cela.",
+      "Politique de confidentialité d'Instagram : https://help.instagram.com/155833707900388 et https://privacycenter.instagram.com/policy"
+    ]
+  },
+  "s16": {
+    "title": "16. Dispositions relatives à la protection des données concernant l'application et l'utilisation de LinkedIn",
+    "body": [
+      "Nous utilisons des composants de LinkedIn (LinkedIn Ireland, Wilton Place, Dublin 2, Irlande). À chaque accès, une représentation du composant est téléchargée et, pour les utilisateurs connectés, attribuée à leur compte LinkedIn.",
+      "LinkedIn offre la possibilité de se désabonner des publicités : https://www.linkedin.com/psettings/guest-controls. Politique relative aux cookies : https://fr.linkedin.com/legal/cookie-policy"
+    ]
+  },
+  "s17": {
+    "title": "17. Dispositions relatives à la protection des données concernant l'application et l'utilisation de YouTube",
+    "body": [
+      "Nous avons intégré des composants de YouTube (Google Ireland Limited). Lors de la visite d'une page contenant une vidéo YouTube, Google sait quelle page vous visitez, en particulier si vous êtes connecté à YouTube.",
+      "Politique de confidentialité de YouTube/Google : https://policies.google.com/privacy?hl=fr"
+    ]
+  },
+  "s18": {
+    "title": "18. Base juridique du traitement et transfert international de données",
+    "body": [
+      "Le traitement est basé sur l'art. 6(1)(a) du RGPD (Consentement), l'art. 6(1)(b) du RGPD (Exécution d'un contrat, par exemple, l'attribution du Land-Dollar), et l'art. 6(1)(c) du RGPD (Obligations légales).",
+      "Transfert international vers l'Équateur : Pour protéger la forêt amazonienne (province de Pastaza), des données d'identification sont transmises au registre foncier local et aux notaires en Équateur (sur la base de l'art. 49(1)(b) du RGPD).",
+      "Transfert de données vers des pays tiers (par exemple, États-Unis) : Effectué sur la base de Clauses Contractuelles Types (CCT) et du Cadre de Protection des Données UE-États-Unis (Décision d'adéquation)."
+    ]
+  },
+  "s19": {
+    "title": "19. Intérêts légitimes liés au traitement",
+    "body": [
+      "Lorsque le traitement des données personnelles est basé sur l'article 6(1)(f) du RGPD, notre intérêt légitime est de mener nos activités commerciales en faveur des objectifs du projet régénératif, de tous nos employés et de nos actionnaires."
+    ]
+  },
+  "s20": {
+    "title": "20. Durée de conservation",
+    "body": [
+      "Les données des utilisateurs/partenaires sont conservées pendant la durée de votre relation active avec le projet. Ensuite, le stockage est régi par les délais de conservation légaux. Une fois le délai expiré, les données sont supprimées, à condition qu'elles ne soient plus nécessaires à l'exécution du contrat."
+    ]
+  },
+  "s21": {
+    "title": "21. Exigences légales ou contractuelles / Protection des mineurs",
+    "body": [
+      "La fourniture de données personnelles est en partie requise par la loi (par exemple, réglementations fiscales) ou contractuellement nécessaire (pour la participation au projet) ; ne pas fournir ces données aurait pour conséquence de ne pas pouvoir conclure le contrat.",
+      "Protection des mineurs : Notre service ne s'adresse pas aux enfants de moins de 13 ans ; toute donnée collectée par inadvertance auprès de mineurs sera supprimée immédiatement."
+    ]
+  },
+  "s22": {
+    "title": "22. Existence d'une prise de décision automatisée",
+    "body": [
+      "En tant que projet responsable, nous n'utilisons pas de prise de décision automatisée (y compris le profilage) produisant des effets juridiques. Les métriques de gamification sur la plateforme servent à des fins purement interactives et non discriminatoires."
+    ]
+  },
+  "footer_note": "Dernière mise à jour : mai 2026. Cette politique de confidentialité a été élaborée (dans ses composantes juridiques de base) en utilisant les politiques de confidentialité de DGD Deutsche Gesellschaft für Datenschutz GmbH et adaptée aux exigences spécifiques du futur projet Reforestal eG."
+},
   "cookies": {
     "title": "Reforestal – Des miettes pour la protection du Climat (Politique relative aux cookies)",
     "subtitle": "Hé ! Pour nous assurer que vous, en tant qu'Aliado Guardián (Partenaire Gardien) en Amazonie, ayez une vue d'ensemble complète et que votre tableau de bord fonctionne sans problème, nous utilisons des cookies et des technologies similaires (comme le stockage local). Voici un bref aperçu de ce qui se passe sur votre appareil lorsque vous utilisez Reforestal.",
@@ -1503,7 +1624,7 @@
       "p2": "Peter Rosinski (plus tard Reforestal eG)",
       "p3": "Email : info@reforest.al",
       "p4": "Tél : +49 163 8736419",
-      "last_updated": "Statut : Avril 2026"
+      "last_updated": "Statut : Mai 2026"
     }
   },
   "economy": {
@@ -1577,5 +1698,22 @@
     "analytics_title": "Analyses et Performances",
     "analytics_desc": "Statistiques anonymes pour améliorer Reforestal pour tous.",
     "save_settings": "Enregistrer la sélection"
-  }
+  },
+  "impressum": {
+  "title": "Mentions Légales (Impressum)",
+  "platform_operator": "Opérateur de la plateforme",
+  "operator_name": "Peter Rosinski (agissant pour Reforestal eG)",
+  "address_street": "Rotenbergstr. 27",
+  "address_city": "66111 Sarrebruck",
+  "address_country": "Allemagne",
+  "management": "Comité de Direction : Peter Rosinski",
+  "content_responsible_title": "Responsable du contenu",
+  "content_responsible_name": "Peter Rosinski",
+  "project_note": "Les porteurs de projets respectifs sont responsables du contenu des pages de projet, joignables via leurs mentions légales ou par contact direct.",
+  "email": "E-mail : peter@reforest.al",
+  "phone": "Tél. : +49 163 8736419",
+  "further_notes_title": "Remarques complémentaires",
+  "social_media_text": "Ces mentions légales s'appliquent également à nos profils LinkedIn, Facebook, Threads et Instagram ainsi qu'à notre chaîne YouTube.",
+  "dispute_resolution": "Nous ne sommes ni disposés ni obligés de participer à des procédures de règlement des litiges devant un conseil d'arbitrage de consommation."
+}
 }

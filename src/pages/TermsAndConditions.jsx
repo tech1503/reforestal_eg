@@ -63,14 +63,16 @@ const TermsAndConditions = () => {
                     
                     <section>
                         <h2 className="text-xl font-bold text-foreground mb-3">{t('terms.s1.title')}</h2>
-                        <p>{t('terms.s1.p1')}</p>
-                        <p className="mt-2">{t('terms.s1.p2')}</p>
+                        <ul className="list-disc pl-5 space-y-2">
+                            <li>{t('terms.s1.l1')}</li>
+                            <li>{t('terms.s1.l2')}</li>
+                            <li>{t('terms.s1.l3')}</li>
+                        </ul>
                     </section>
 
                     <section>
                         <h2 className="text-xl font-bold text-foreground mb-3">{t('terms.s2.title')}</h2>
-                        <p>{t('terms.s2.p1')}</p>
-                        <ul className="list-disc pl-5 mt-3 space-y-2">
+                        <ul className="list-disc pl-5 space-y-2">
                             <li>{t('terms.s2.l1')}</li>
                             <li>{t('terms.s2.l2')}</li>
                             <li>{t('terms.s2.l3')}</li>
@@ -89,11 +91,9 @@ const TermsAndConditions = () => {
 
                     <section>
                         <h2 className="text-xl font-bold text-foreground mb-3">{t('terms.s4.title')}</h2>
-                        <p>{t('terms.s4.p1')}</p>
-                        <ul className="list-disc pl-5 mt-3 space-y-2">
+                        <ul className="list-disc pl-5 space-y-2">
                             <li>{t('terms.s4.l1')}</li>
                             <li>{t('terms.s4.l2')}</li>
-                            <li>{t('terms.s4.l3')}</li>
                         </ul>
                     </section>
 
@@ -115,13 +115,53 @@ const TermsAndConditions = () => {
                         </ul>
                     </section>
 
-                    <section className="pt-4">
+                    <section>
                         <h2 className="text-xl font-bold text-foreground mb-3">{t('terms.s7.title')}</h2>
-                        <p>{t('terms.s7.p1')}</p>
-                        
+                        <ul className="list-disc pl-5 space-y-2">
+                            <li>{t('terms.s7.l1')}</li>
+                            <li>{t('terms.s7.l2')}</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2 className="text-xl font-bold text-foreground mb-3">{t('terms.s8.title')}</h2>
+                        <ul className="list-disc pl-5 space-y-2">
+                            <li>{t('terms.s8.l1')}</li>
+                            <li>{t('terms.s8.l2')}</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2 className="text-xl font-bold text-foreground mb-3">{t('terms.s9.title')}</h2>
+                        <ul className="list-disc pl-5 space-y-2">
+                            <li>{t('terms.s9.l1')}</li>
+                            <li>{t('terms.s9.l2')}</li>
+                            <li>{t('terms.s9.l3')}</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2 className="text-xl font-bold text-foreground mb-3">{t('terms.s10.title')}</h2>
+                        <ul className="list-disc pl-5 space-y-2">
+                            <li>{t('terms.s10.l1')}</li>
+                            <li>{t('terms.s10.l2')}</li>
+                            <li>{t('terms.s10.l3')}</li>
+                        </ul>
                         <div className="mt-10 text-center">
-                            <p className="text-xl font-black text-primary">{t('terms.s7.outro')}</p>
+                            <p className="text-2xl font-black text-primary">{t('terms.s10.outro')}</p>
                         </div>
+                    </section>
+
+                    <section className="pt-8 border-t border-border mt-8">
+                        <h2 className="text-xl font-bold text-foreground mb-4">{t('terms.contact.title')}</h2>
+                        <div className="space-y-2 text-muted-foreground">
+                            <p>{t('terms.contact.company')}</p>
+                            <p>{t('terms.contact.board')}</p>
+                            <p>{t('terms.contact.address')}</p>
+                            <p>{t('terms.contact.email')}</p>
+                            <p>{t('terms.contact.phone')}</p>
+                        </div>
+                        <p className="mt-8 text-sm font-semibold text-primary">{t('terms.contact.last_updated')}</p>
                     </section>
 
                 </CardContent>
