@@ -12,6 +12,7 @@ import logoLandDollar from '@/assets/land-dollar-base1.webp';
 import vegReforest from '@/assets/vegetacion-reforestal.webp';
 import InfoSections from '@/pages/InfoSections';
 import logoReforestal from '@/assets/icons/logo-dorado.png';
+import Impressum from '@/pages/Impressum';
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -359,6 +360,9 @@ const HomePage = () => {
               </a>
               <button onClick={() => navigate('/contact')} className="hover:text-gold transition-colors text-center w-full md:w-auto">
                   {t('footer.contact')}
+              </button>
+              <button onClick={() => navigate('/impressum')} className="hover:text-gold transition-colors text-center w-full md:w-auto">
+                  {t('footer.impressum')}
               </button>
             </div>
 

@@ -1118,6 +1118,7 @@
     "terms": "Terms of Service",
     "contact": "Contact Us",
     "cookies": "Cookies Policy",
+    "impressum": "Impressum",
     "copyright": "Reforestal eG © 2026",
     "socials": {
       "instagram": "Visit our Instagram"
@@ -1626,7 +1627,7 @@
       "title": "6. Who is Responsible?",
       "p1": "While we are still in the founding phase, I am your contact person:",
       "p2": "Peter Rosinski (later Reforestal eG)",
-      "p3": "Email: info@reforest.al",
+      "p3": "Email: peter@reforest.al",
       "p4": "Tel: +49 163 8736419",
       "last_updated": "Status: May 2026"
     }

@@ -216,7 +216,7 @@ const ContactPage = () => {
                   <div className="p-3 bg-primary/10 rounded-xl text-primary"><MapPin className="w-6 h-6" /></div>
                   <div>
                     <h3 className="font-bold text-foreground mb-1">{t('contact.address_label', 'Headquarters')}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">Musterstraße 123<br />10115 Berlin, Germany</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">Deutschland</p>
                   </div>
                 </div>
 
@@ -232,7 +232,7 @@ const ContactPage = () => {
                   <div className="p-3 bg-primary/10 rounded-xl text-primary"><Phone className="w-6 h-6" /></div>
                   <div>
                     <h3 className="font-bold text-foreground mb-1">{t('contact.phone_label', 'Call Us')}</h3>
-                    <p className="text-sm text-muted-foreground">+49</p>
+                    <p className="text-sm text-muted-foreground">+49 163 8736419</p>
                   </div>
                 </div>
               </CardContent>
