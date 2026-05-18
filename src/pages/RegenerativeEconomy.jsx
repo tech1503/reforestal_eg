@@ -161,7 +161,7 @@ const RegenerativeEconomy = () => {
                             </p>
                             <Button 
                                 onClick={() => navigate('/genesis-quest')}
-                                className="bg-gradient-gold text-[#063127] font-black text-lg px-8 py-6 rounded-full shadow-glow hover:scale-105 transition-all border-none relative z-10"
+                                className="bg-gradient-gold text-gold-500 font-black text-lg px-6 py-4 rounded-full shadow-glow hover:scale-105 transition-all border-none relative z-10"
                             >
                                 {t('home.cta_final_button', 'Begin the Mission')}
                             </Button>
