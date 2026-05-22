@@ -215,7 +215,7 @@ const DashboardSection = () => {
                     icon={Wallet} 
                     iconColor="text-[#063127]" 
                     bgColor="bg-gradient-gold shadow-glow" 
-                    label={t('dashboard.land_dollar.title', 'Acceso Premium')} 
+                    label={t('dashboard.land_dollar.title.simple', 'Land Dollar Status')} 
                     value={landDollarStatus} 
                 />
                 <StatCard 

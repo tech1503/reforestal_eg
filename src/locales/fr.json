@@ -82,6 +82,7 @@
     },
     "land_dollar": {
       "title": "Accès Premium",
+      "title.simple": "Dollar foncier numérique",
       "certificate_text": "\"Votre Land Dollar est votre certificat\"",
       "download": "Télécharger",
       "share": "Partager",
@@ -655,7 +656,7 @@
     "hero_badge": "Crowdfunding en Direct",
     "cta_buttons": {
       "start_your_mission": "Commencez Votre Mission",
-      "supported_startnext": "J'ai déjà soutenu sur Startnext"
+      "supported_startnext": "Avez-vous soutenu Startnext ?"
     },
     "m2_section": {
       "label": "Métriques d'Impact Réel",

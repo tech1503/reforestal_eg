@@ -82,6 +82,7 @@
     },
     "land_dollar": {
       "title": "Acceso Premium",
+      "title.simple": "Dólar de tierra digital",
       "certificate_text": "\"Tu Land Dollar es tu certificado\"",
       "download": "Descargar",
       "share": "Compartir",
@@ -657,7 +658,7 @@
     "hero_badge": "Crowdfunding en Vivo",
     "cta_buttons": {
       "start_your_mission": "Iniciar la Genesis Quest",
-      "supported_startnext": "Ya apoyé en Startnext"
+      "supported_startnext": "Has apoyado en Startnext?"
     },
     "m2_section": {
       "label": "Métricas de Impacto Real",
