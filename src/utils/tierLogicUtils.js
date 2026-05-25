@@ -45,10 +45,12 @@ export const TIER_LEVELS = {
  * @returns {number} 
  */
 export const calculateDynamicCredits = (amount) => {
-    const val = parseFloat(amount);
-    if (isNaN(val) || val < 0) return 0;
+    const rawVal = parseFloat(amount);
+    if (isNaN(rawVal) || rawVal < 0) return 0;
 
-    if (val === 5) return 1000;
+    const val = Number(rawVal.toFixed(2));
+
+    if (val === 5.00) return 1000;
     if (val === 14.99) return 3750;
     if (val === 24.99) return 6250;
     if (val === 79.99) return 12500;

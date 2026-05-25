@@ -15,7 +15,7 @@ import { useI18n } from '@/contexts/I18nContext';
 import { validateContributionForm } from '@/utils/validationUtils';
 import { safeSupabaseCall } from '@/utils/supabaseErrorHandler';
 import { format } from 'date-fns';
-import { getSupportLevelByAmount, getVariantDetails } from '@/utils/tierLogicUtils';
+import { getSupportLevelByAmount, getVariantDetails, calculateDynamicCredits } from '@/utils/tierLogicUtils';
 import StartnextEditModal from './financials/StartnextEditModal';
 import { createNotification } from '@/utils/notificationUtils';
 
@@ -135,7 +135,7 @@ const StartnextManagement = () => {
                     setCalculatedVariant({
                         ...details,
                         id: levelId,
-                        impact_credits_reward: fullLevel.impact_credits_reward,
+                        impact_credits_reward: calculateDynamicCredits(amount),
                         land_dollars_reward: fullLevel.land_dollars_reward,
                         benefits: fullLevel.support_benefits || []
                     });

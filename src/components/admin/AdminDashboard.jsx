@@ -27,6 +27,7 @@ const FinalDashboardTest = lazy(() => import('@/components/admin/FinalDashboardT
 const SchemaAuditView = lazy(() => import('@/components/admin/SchemaAuditView'));
 const SchemaMapper = lazy(() => import('@/components/admin/SchemaMapper'));
 const PendingRegistrations = lazy(() => import('@/components/admin/PendingRegistrations'));
+const StartnextManagement = lazy(() => import('@/components/admin/StartnextManagement'));
 const AdminQuestReview = lazy(() => import('@/components/admin/gamification/AdminQuestReview'));
 
 // New Gamification & Founding Pioneer Modules...
@@ -72,6 +73,7 @@ const AdminDashboard = () => {
     { id: 'notifications', label: t('admin.notifications.title', 'Notifications'), icon: Bell, component: AdminNotificationCenter },
     { id: 'analytics', label: t('admin.analytics.title', 'Analytics'), icon: LineChart, component: AnalyticsDashboard },
     { id: 'pending', label: t('admin.startnext.pending_approvals', 'Pending Registrations'), icon: UserPlus, component: PendingRegistrations },
+    { id: 'startnext_manage', label: 'Gestión Startnext', icon: Users, component: StartnextManagement },
     {
       id: 'pioneer_group',
       label: t('navigation.founding_pioneer', 'Founding Pioneer'),
