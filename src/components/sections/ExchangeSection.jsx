@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { ShoppingCart, Coins, Gift, TreePine, Award, Leaf, X, Minus, Plus, Lock, Image as ImageIcon, Loader2, HeartHandshake, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -11,6 +11,7 @@ import { useFinancial } from '@/contexts/FinancialContext';
 import ReadOnlyOverlay from '@/components/ui/ReadOnlyOverlay';
 import StartnextSupportModal from '@/components/ui/StartnextSupportModal';
 import RedeemImpactCreditsModal from '@/components/ui/RedeemImpactCreditsModal';
+import { formatNumber, formatCurrency } from '@/lib/utils'; 
 
 const ExchangeSection = ({ isReadOnly = false }) => {
   const { t, i18n } = useTranslation(); 
@@ -204,9 +205,9 @@ const ExchangeSection = ({ isReadOnly = false }) => {
              <div className="bg-card px-4 py-2 rounded-xl border border-border shadow-sm flex items-center gap-3">
                 <div className="text-right">
                    <p className="text-xs text-muted-foreground font-medium uppercase">{t('exchange.labels.balance')}</p>
-                   <p className="text-xl font-bold text-[#5b8370] font-mono">{userCredits.toLocaleString()}</p>
+                   <p className="text-2xl font-black text-gradient-gold font-mono drop-shadow-md">{formatNumber(userCredits)}</p>
                 </div>
-                <div className="bg-muted p-2 rounded-full"><Coins className="w-6 h-6 text-[#5b8370]" /></div>
+                <div className="bg-gradient-gold p-2 rounded-full shadow-glow"><Coins className="w-6 h-6 text-[#063127]" /></div>
              </div>
              
              <Button onClick={() => setIsCartOpen(true)} variant="outline" className="relative h-12" disabled={isReadOnly}>
@@ -264,45 +265,45 @@ const ExchangeSection = ({ isReadOnly = false }) => {
                   <ProductImage src={product.image_url} alt={content.name} />
                   
                   <div className="absolute top-3 right-3 bg-black/80 backdrop-blur px-2 py-1 rounded text-xs font-bold text-white shadow-sm border border-white/20">
-                      {product.stock === -1 ? t('exchange.stock.infinite') : `${product.stock} ${t('exchange.stock.left')}`}
+                      {product.stock === -1 ? t('exchange.stock.infinite') : `${formatNumber(product.stock)} ${t('exchange.stock.left')}`}
                   </div>
                 </div>
 
                 <div className="p-5 flex flex-col flex-1">
-                  <h3 className="font-bold text-lg text-[#063127] dark:text-white mb-2 line-clamp-1">{content.name}</h3>
+                  <h3 className="font-bold text-lg text-white dark:text-white mb-2 line-clamp-1">{content.name}</h3>
                   
                   {/* PRECIOS DINÁMICOS HÍBRIDOS */}
                   <div className="flex flex-wrap gap-2 mb-3">
                       {(product.payment_type === 'credits' || product.payment_type === 'both' || !product.payment_type) && (
-                          <Badge variant="outline" className="bg-emerald-50 text-emerald-800 border-emerald-200 flex items-center gap-1 font-mono text-sm px-2 shadow-sm">
-                              {/*<Coins className="w-3 h-3 text-emerald-600"/> {product.price} BP */}
+                          <Badge variant="outline" className="bg-emerald-50 text-white border-emerald-200 flex items-center gap-1 font-mono text-sm px-2 shadow-sm">
+                              {/* <Coins className="w-3 h-3 text-emerald-600"/> {formatNumber(product.price)} BP */}
                           </Badge>
                       )}
                       {(product.payment_type === 'fiat' || product.payment_type === 'both') && (
-                          <Badge variant="outline" className="bg-blue-50 text-blue-800 border-blue-200 flex items-center gap-1 font-mono text-sm px-2 shadow-sm">
-                              <CreditCard className="w-3 h-3 text-blue-600"/> €{product.price_eur}
+                          <Badge variant="outline" className="bg-blue-50 text-white border-blue-200 flex items-center gap-1 font-mono text-sm px-2 shadow-sm">
+                              <CreditCard className="w-3 h-3 text-white"/> {formatCurrency(product.price_eur)}
                           </Badge>
                       )}
                   </div>
 
-                  <p className="text-sm text-[#063127]/80 dark:text-white/70 line-clamp-2 mb-4 flex-1">{content.description}</p>
+                  <p className="text-sm text-white/80 dark:text-white/70 line-clamp-2 mb-4 flex-1">{content.description}</p>
                   
-                  <div className="bg-[#5b8370]/50 dark:bg-black/10 p-2 rounded-lg mb-4 text-xs text-[#063127] dark:text-white font-medium flex items-start gap-2 border border-transparent dark:border-white/30">
-                      <Leaf className="w-3 h-3 mt-0.5 shrink-0 text-[#063127]" />
+                  <div className="bg-[#5b8370]/50 dark:bg-black/10 p-2 rounded-lg mb-4 text-xs text-white dark:text-white font-medium flex items-start gap-2 border border-transparent dark:border-white/30">
+                      <Leaf className="w-3 h-3 mt-0.5 shrink-0 text-white" />
                       <span>{content.impact}</span>
                   </div>
 
-                  {/* BOTÓN INTELIGENTE (Tarjeta o Bonos) */}
+                  {/* BOTÓN INTELIGENTE CON COLOR DE ALTO CONTRASTE */}
                   <Button 
                     onClick={() => updateCartItem(product, (cart.find(i => i.id === product.id)?.quantity || 0) + 1)} 
-                    className={`w-full mt-auto shadow-md font-bold transition-all border ${
+                    className={`w-full mt-auto shadow-md font-bold transition-all border bg-none ${
                       isReadOnly 
-                        ? 'bg-black/5 text-white border-transparent hover:bg-black/10 dark:bg-white dark:text-white dark:hover:bg-white/10' 
+                        ? 'bg-[#063127]/50 text-white/50 border-transparent cursor-not-allowed' 
                         : (!canAfford && !isFiatOnly)
-                          ? 'opacity-50 bg-black/5 text-[#063127] cursor-not-allowed border-transparent dark:bg-white/5 dark:text-white/90' 
+                          ? 'opacity-100 bg-[#063127]/80 text-white/70 border-gold/20 cursor-not-allowed' 
                           : isFiatOnly
-                            ? 'bg-blue-600 text-white hover:bg-blue-700'
-                            : 'bg-[#063127] text-white hover:brightness-110 border-transparent shadow-[#5b8370]/20' 
+                            ? 'bg-blue-600 text-white hover:bg-blue-700 border-transparent'
+                            : 'bg-gradient-gold text-[#063127] border-transparent shadow-glow hover:scale-105' 
                     }`} 
                     disabled={isReadOnly || (!canAfford && !isFiatOnly)}
                   >
@@ -324,10 +325,11 @@ const ExchangeSection = ({ isReadOnly = false }) => {
       </div>
 
       {/* Cart Drawer */}
+      <AnimatePresence>
       {isCartOpen && (
         <div className="fixed inset-0 z-50 flex justify-end">
            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsCartOpen(false)}></div>
-           <motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} className="h-full w-full max-w-md bg-card shadow-2xl flex flex-col border-l border-border relative z-10">
+           <motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ type: 'tween', duration: 0.3 }} className="h-full w-full max-w-md bg-card shadow-2xl flex flex-col border-l border-border relative z-10">
               <div className="p-5 border-b border-border flex items-center justify-between bg-muted/30">
                   <h3 className="font-bold text-lg flex items-center gap-2 text-foreground"><ShoppingCart className="w-5 h-5 text-[#5b8370]"/> {t('exchange.cart.title')}</h3>
                   <Button variant="ghost" size="icon" onClick={() => setIsCartOpen(false)} className="text-muted-foreground hover:text-foreground"><X className="w-5 h-5" /></Button>
@@ -349,13 +351,13 @@ const ExchangeSection = ({ isReadOnly = false }) => {
                                   </div>
                                   <div className="flex-1">
                                       <h4 className="font-bold text-sm text-[#063127] dark:text-white line-clamp-1">{content.name}</h4>
-                                      <div className="flex items-center gap-1 text-[#5b8370] font-mono text-xs font-bold mt-1"><Coins className="w-3 h-3"/> {item.price} BP</div>
+                                      <div className="flex items-center gap-1 text-[#5b8370] font-mono text-xs font-bold mt-1"><Coins className="w-3 h-3"/> {formatNumber(item.price)} BP</div>
                                   </div>
                                   <div className="flex flex-col items-end justify-between">
                                       <Button variant="ghost" size="icon" className="h-6 w-6 text-muted-foreground hover:text-red-500" onClick={() => updateCartItem(item, 0)}><X className="w-3 h-3"/></Button>
                                       <div className="flex items-center gap-2 bg-card rounded-lg border border-border px-1">
                                           <button className="p-1 hover:text-[#5b8370] text-[#063127] dark:text-white font-bold" onClick={() => updateCartItem(item, item.quantity - 1)} disabled={item.quantity <= 1}><Minus className="w-3 h-3"/></button>
-                                          <span className="text-sm font-mono w-4 text-center text-[#063127] dark:text-white font-bold">{item.quantity}</span>
+                                          <span className="text-sm font-mono w-4 text-center text-[#063127] dark:text-white font-bold">{formatNumber(item.quantity)}</span>
                                           <button className="p-1 hover:text-[#5b8370] text-[#063127] dark:text-white font-bold" onClick={() => updateCartItem(item, item.quantity + 1)}><Plus className="w-3 h-3"/></button>
                                       </div>
                                   </div>
@@ -365,14 +367,18 @@ const ExchangeSection = ({ isReadOnly = false }) => {
                   )}
               </div>
               <div className="p-5 border-t border-border bg-muted/30 space-y-4">
-                  <div className="flex justify-between text-lg font-bold text-foreground"><span>{t('exchange.labels.total')}</span><span className="text-[#5b8370] font-mono">{cartTotal.toLocaleString()} BP</span></div>
-                  <Button onClick={handleCheckout} className="w-full py-6 font-bold text-lg shadow-lg bg-[#5b8370] hover:bg-[#4a6b5c] text-white" disabled={loading || cart.length === 0 || userCredits < cartTotal}>
+                  <div className="flex justify-between items-center text-lg font-bold text-foreground">
+                    <span>{t('exchange.labels.total')}</span>
+                    <span className="text-2xl font-black text-gradient-gold font-mono drop-shadow-md">{formatNumber(cartTotal)} BP</span>
+                  </div>
+                  <Button onClick={handleCheckout} className="w-full py-6 font-bold text-lg shadow-lg bg-none bg-[#063127] hover:bg-[#0a4d3d] text-white border-transparent" disabled={loading || cart.length === 0 || userCredits < cartTotal}>
                     {loading ? <Loader2 className="w-5 h-5 animate-spin"/> : t('exchange.buttons.confirm')}
                   </Button>
               </div>
            </motion.div>
         </div>
       )}
+      </AnimatePresence>
     </div>
   );
 };

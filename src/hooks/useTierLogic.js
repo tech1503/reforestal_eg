@@ -33,7 +33,7 @@ export const useTierLogic = () => {
       if (benefitData && benefitData.new_support_level_id) {
           const { data: levelData, error: levelError } = await supabase
             .from('support_levels')
-            .select(`*, support_benefits (id, benefit_type, icon_name, display_order, support_benefit_translations (language_code, description))`)
+            .select(`*, support_benefits (id, benefit_type, icon_name, display_order, is_active, support_benefit_translations (language_code, description))`)
             .eq('id', benefitData.new_support_level_id)
             .single();
 
@@ -51,7 +51,10 @@ export const useTierLogic = () => {
                   is_active: benefitData.status === 'active'
               });
               
-              const processedBenefits = (levelData.support_benefits || []).sort((a,b) => (a.display_order || 0) - (b.display_order || 0));
+              const processedBenefits = (levelData.support_benefits || [])
+                  .filter(b => b.is_active === true)
+                  .sort((a,b) => (a.display_order || 0) - (b.display_order || 0));
+                  
               setTierBenefits(processedBenefits); 
           }
       } else {

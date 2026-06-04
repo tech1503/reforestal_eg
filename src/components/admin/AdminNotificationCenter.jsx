@@ -140,10 +140,12 @@ const AdminNotificationCenter = () => {
         <div className="space-y-6 max-w-5xl mx-auto p-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h2 className="text-2xl font-bold flex items-center gap-2 text-slate-900">
-                        <Bell className="w-6 h-6 text-emerald-600" /> {t('admin.notifications.title', 'Global Notification Center')}
+                    <h2 className="text-2xl font-bold flex items-center gap-2 text-foreground">
+                        <Bell className="w-6 h-6 text-foreground" /> {t('admin.notifications.title', 'Global Notification Center')}
                     </h2>
-                    <p className="text-slate-500">{t('admin.notifications.subtitle', 'Monitor requests and alerts.')}</p>
+                    <p className="text-muted-foreground">
+                        {t('admin.notifications.subtitle', 'Monitor requests and alerts.')}
+                    </p>
                 </div>
                 <Button variant="outline" onClick={fetchNotifications} disabled={loading} className="gap-2">
                     {loading ? <Loader2 className="w-4 h-4 animate-spin"/> : <Bell className="w-4 h-4"/>}
@@ -151,18 +153,18 @@ const AdminNotificationCenter = () => {
                 </Button>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden min-h-[500px]">
+            <div className="bg-background rounded-xl shadow-sm border border-border overflow-hidden min-h-[500px]">
                 {loading && notifications.length === 0 ? (
                     <div className="p-12 flex justify-center items-center h-full">
-                        <Loader2 className="animate-spin text-emerald-500 w-8 h-8" />
+                        <Loader2 className="animate-spin text-foreground w-8 h-8" />
                     </div>
                 ) : notifications.length === 0 ? (
-                    <div className="p-12 text-center flex flex-col items-center justify-center h-full text-slate-400">
+                    <div className="p-12 text-center flex flex-col items-center justify-center h-full text-foreground">
                         <Bell className="w-16 h-16 mb-4 opacity-10" />
                         <p>{t('admin.notifications.empty', 'No notifications found.')}</p>
                     </div>
                 ) : (
-                    <div className="divide-y divide-slate-100">
+                    <div className="divide-y divide-slate-400">
                         {notifications.map(n => {
                             const styles = getTypeStyles(n.notification_type);
                             const badgeLabel = t(styles.labelKey, n.notification_type?.replace(/_/g, ' ') || 'System');
@@ -175,23 +177,23 @@ const AdminNotificationCenter = () => {
                             }
 
                             return (
-                                <div key={n.id} className={`p-5 flex gap-4 transition-colors hover:bg-slate-50 ${n.is_read ? 'bg-white' : 'bg-blue-50/30'}`}>
+                                <div key={n.id} className={`p-5 flex gap-4 transition-colors hover:bg-emerald-800 ${n.is_read ? 'bg-background' : 'bg-blue-50/30'}`}>
                                     <div className="pt-1.5">
-                                        <div className={`w-2.5 h-2.5 rounded-full ${n.is_read ? 'bg-slate-200' : 'bg-blue-500 shadow-sm shadow-blue-300 ring-2 ring-white'}`} />
+                                        <div className={`w-2.5 h-2.5 rounded-full ${n.is_read ? 'bg-emerald-500' : 'bg-red-600 shadow-sm shadow-blue-300 ring-2 ring-white'}`} />
                                     </div>
 
                                     <div className="flex-1 space-y-1">
                                         <div className="flex justify-between items-start">
-                                            <h4 className={`text-sm ${n.is_read ? 'font-medium text-slate-700' : 'font-bold text-slate-900'}`}>
+                                            <h4 className={`text-sm ${n.is_read ? 'font-medium text-foreground' : 'font-bold text-[#063127]'}`}>
                                                 {/* Permite interpretar retornos de carro si el título trae tags */}
                                                 {t(n.title, meta)}
                                             </h4>
-                                            <span className="text-xs text-slate-400 whitespace-nowrap ml-4 font-mono">
+                                            <span className="text-xs text-foreground whitespace-nowrap ml-4 font-mono">
                                                 {format(new Date(n.created_at), 'MMM d, HH:mm')}
                                             </span>
                                         </div>
 
-                                        <p className="text-sm text-slate-600 leading-relaxed max-w-3xl whitespace-pre-line">
+                                        <p className="text-sm text-foreground leading-relaxed max-w-3xl whitespace-pre-line">
                                             {t(n.message, meta)}
                                         </p>
 

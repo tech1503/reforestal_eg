@@ -44,7 +44,7 @@ const Header = ({ activeSection, toggleSidebar, isSidebarOpen }) => {
                 {getTitle()}
             </h1>
             <p className="text-xs text-[#5b8370] dark:text-[#c4d1c0]/80 hidden md:block font-medium">
-                {t('dashboard.greeting', { name: profile?.full_name || 'User' })}
+                {t('dashboard.greeting', { name: profile?.name || 'User' })}
             </p>
         </div>
       </div>

@@ -41,6 +41,7 @@
     "logout": "Sign Out"
   },
   "dashboard": {
+    "registration_date": "Registration Date",
     "title": "Dashboard",
     "greeting": "Welcome, {{name}}",
     "greeting_pioneer": "Hello, {{name}}",
@@ -82,7 +83,8 @@
       "support_button": "Support on Startnext"
     },
     "land_dollar": {
-      "title": "Digital Land Dollar",
+      "title": "Premium Access",
+      "title.simple": "Land Dollar",
       "certificate_text": "\"Your Land Dollar is your certificate\"",
       "download": "Download",
       "share": "Share",
@@ -105,9 +107,9 @@
       "locked_title": "Startnext Bonus Points"
     },
     "benefits": {
-      "title": "Your Startnext Benefits",
+      "title": "Your Benefits",
       "no_benefits": "No benefits found.",
-      "locked_title": "Startnext Benefits"
+      "locked_title": "Benefits"
     },
     "pioneers": {
       "title": "Thank you for being a Pioneer!",
@@ -184,11 +186,33 @@
       "growth": "growth",
       "trees": "Trees",
       "trees_planted": "Trees Planted"
+    },
+    "premium_countdown": {
+      "title": "Active Premium Pass",
+      "days_remaining_start": "You have",
+      "days_remaining_end": "days of access.",
+      "expires_on": "Expires on {{date}}.",
+      "expired_message": "Your Premium access has expired."
     }
   },
   "admin": {
     "title": "Admin Panel",
-    "community": "Founders Area",
+    "communityy": "Founders Area",
+    "community": {
+    "title": "Community Management",
+    "subtitle": "Manage Gamified Governance, News and Roadmap for Pioneers.",
+    "live_dashboard": "LIVE DASHBOARD",
+    "table_title": "Title",
+    "table_status": "Status / Details",
+    "table_image": "Image",
+    "table_actions": "Actions",
+    "add_new": "Add New",
+    "edit_item": "Edit Item",
+    "create_item": "Create Item",
+    "manage_translations": "Manage Translations",
+    "voting_history": "Voting History",
+    "no_items": "No items found."
+  },
     "mlm": "Referrals (MLM)",
     "quest_moderation": "Quest Engine",
     "audience": {
@@ -522,8 +546,8 @@
   },
   "genesisQuest": {
     "title": "Discover Your Impact Profile",
-    "onboarding_label": "Genesis Onboarding",
-    "finish_quest": "Reveal My Profile",
+    "onboarding_label": "Onboarding",
+    "finish_quest": "Complete Mission",
     "profile_unlocked": "Profile Unlocked", 
     "profiles.genesis": { 
       "lena": {
@@ -551,68 +575,67 @@
     "questions": [
       {
         "id": 1,
-        "question": "The future of our climate is currently unstable. What is the first pillar you want to build to change this?",
+        "question": "What is the most important foundation for our project?",
         "options": [
           {
             "type": "lena",
-            "main": "Forest Recovery",
-            "dropdown": "A radical acceleration of forest recovery to secure a stable future for the next generations."
+            "main": "I want to create real, measurable square meters of jungle and biodiversity.",
+            "dropdown": ""
           },
           {
             "type": "markus",
-            "main": "Transparency Foundation",
-            "dropdown": "A solid, member-led foundation that ensures every cent is managed with professional transparency."
-          },
-          {
-            "type": "david",
-            "main": "Collective Ecosystem",
-            "dropdown": "A dynamic ecosystem where everyone's participation multiplies to achieve a shared environmental victory."
+            "main": "I want absolute financial transparency and a professional system.",
+            "dropdown": ""
           }
         ]
       },
       {
         "id": 2,
-        "question": "A true shaper of the future doesn't just wait for change. What is your primary role in this mission?",
+        "question": "When do you feel that you have invested your time well?",
         "options": [
           {
-            "type": "lena",
-            "main": "Witnessing Biodiversity",
-            "dropdown": "By knowing exactly which square meters are being reforested and seeing biodiversity return."
-          },
-          {
             "type": "markus",
-            "main": "Standard Verification",
-            "dropdown": "By co-creating the legal and ethical standards of the cooperative that belongs to me and my fellow members."
+            "main": "When I have clear facts and reliable figures in front of me at the end.",
+            "dropdown": ""
           },
           {
             "type": "david",
-            "main": "Digital Connection",
-            "dropdown": "By using digital tools to connect with others and execute collective efforts that amplify our positive environmental impact."
+            "main": "When I have clicked through small challenges and gained something in the process.",
+            "dropdown": ""
           }
         ]
       },
       {
         "id": 3,
-        "question": "When you look back on your time with us in one year, which result would make you feel most proud?",
+        "question": "When you look back in a year, what will make you most proud?",
         "options": [
           {
             "type": "lena",
-            "main": "Recovered Rainforest",
-            "dropdown": "That I recovered real square meters of rainforest, bringing life and biodiversity back to critical areas of the Amazon."
-          },
-          {
-            "type": "markus",
-            "main": "Professional Shield",
-            "dropdown": "That I helped build a professional cooperative that provides the necessary resources to the indigenous guardians, acting as their legal and financial shield."
+            "main": "I can see very concretely how life has returned to our plots.",
+            "dropdown": ""
           },
           {
             "type": "david",
-            "main": "Modern Community",
-            "dropdown": "That I am part of a modern community where digital participation connects us directly to the ground, turning our shared mission into a rewarding success."
+            "main": "I'm part of a huge, digital community that has accomplished a lot together.",
+            "dropdown": ""
           }
         ]
       }
     ]
+  },
+  "impactQuest": {
+    "title": "Discover Your Impact Profile",
+    "discovery_complete": "Discovery complete!",
+    "profile_unlocked": "Profile Unlocked!",
+    "generic_description": "Your answers help us personalize your experience and align your interests with our impact projects.",
+    "your_impact_focus": "Your impact profile",
+    "invite_desc": "Complete our quest to discover how your interests align with our projects.",
+    "start_quest": "Start Quest",
+    "profiles": {
+      "lena": "Ecology",
+      "markus": "Structure",
+      "david": "Community"
+    }
   },
   "quest": {
     "title": "Quests",
@@ -636,8 +659,8 @@
     "subtitle": "We’re turning Amazon stewardship from a side-project into a professional mission. Join the first German Cooperative (eG) built to make impact measurable, transparent, and yours.",
     "hero_badge": "Crowdfunding Live",
     "cta_buttons": {
-      "start_your_mission": "Start the Genesis Quest",
-      "supported_startnext": "I already supported on Startnext"
+      "start_your_mission": "Start your Quest",
+      "supported_startnext": "Our Crowdfunding Campaign"
     },
     "m2_section": {
       "label": "Real Impact Metrics",
@@ -689,6 +712,7 @@
   },
   "auth": {
     "welcome": "Welcome Back",
+    "welcome_message": "Successfully signed in.",
     "reset_password": "Reset Password",
     "reset_prompt": "Enter your email to receive a reset link.",
     "sign_in_prompt": "Sign in to continue your journey",
@@ -740,7 +764,7 @@
     "next_step": "Next Step",
     "required_action": "Action Required",
     "continue_dashboard": "Continue to Dashboard",
-    "create_account": "Create Account to Save"
+    "create_account": "Create Account"
   },
   "exchange": {
     "title": "Bonus Points Exchange",
@@ -832,6 +856,22 @@
       "vote_success": "Vote Submitted!",
       "vote_thanks": "Thank you for participating."
     },
+      "budget_vote": {
+      "average_allocation": "Average Allocation",
+      "allocate_points": "Allocate Points",
+      "pts_left": "Points Left",
+      "confirm_allocation": "Confirm Allocation"
+    },
+    "discussion": {
+      "title": "Pioneer Discussion",
+      "placeholder": "Share your perspective with other founders...",
+      "post_btn": "Post",
+      "first_to_share": "Be the first to share an opinion."
+    },
+    "live_activity": {
+    "title": "Live Activity",
+    "no_signals": "Activity for Founding Pioneer"
+    },
     "notification": {
       "evaluation_title": "Access Under Evaluation",
       "evaluation_message": "Your Founding Pioneer access is being evaluated. Your participation and contributions are being reviewed by our team.",
@@ -858,12 +898,20 @@
       "title": "Pioneer Command Center",
       "subtitle": "Welcome to the core of Reforestal. Here you shape the future, access confidential updates, and track our impact in real-time."
     },
+    "scale_vote": {
+      "title": "Scale Vote",
+      "prompt": "Rate your level of agreement",
+      "lowest": "Lowest",
+      "highest": "Highest",
+      "confirm": "Confirm Allocation"
+    },
     "tabs": {
       "governance": "Governance & Voting",
       "news": "News Center",
       "roadmap": "Roadmap Progress"
     },
     "governance": {
+      "no_active": "No active decisions at the moment.",
       "active_decisions": "Active Decisions",
       "past_decisions": "Past Decisions",
       "ends": "Ends",
@@ -889,6 +937,7 @@
       }
     },
     "news": {
+      "no_news": "No recent news. Stay tuned for exclusive founder updates.",
       "official_tag": "Official Announcement",
       "today_time": "Today, 10:00 AM",
       "read_more": "Read full article",
@@ -915,6 +964,7 @@
       }
     },
     "roadmap": {
+      "no_roadmap": "The roadmap will be updated soon. Stay tuned for key milestones and exclusive founder events.",
       "phase1_title": "Phase 1: Genesis",
       "phase1_obj": "Objective: Land Acquisition and First 500 Trees",
       "items": {
@@ -1009,6 +1059,10 @@
     "contribution_verified": {
       "title": "Contribution Verified",
       "message": "Your contribution of €{{amount}} is confirmed. {{credits}} Bonus Points have been added."
+    },
+    "premium_unlocked": {
+      "title": "Access Premium Unlocked",
+      "message": "You have received {{months}} months of Premium access and {{points}} Bonus Points thanks to your friend."
     }
   },
     "contact": {
@@ -1066,6 +1120,8 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "contact": "Contact Us",
+    "cookies": "Cookies Policy",
+    "impressum": "Impressum",
     "copyright": "Reforestal eG © 2026",
     "socials": {
       "instagram": "Visit our Instagram"
@@ -1288,5 +1344,385 @@
     "pioneers_list_2": "Direct Participation",
     "pioneers_list_3": "Exclusive Access to Decisions",
     "pioneers_cta": "Discover the Packages"
-  }
+  },
+  "terms": {
+    "title": "Reforestal – General Terms and Conditions (GTC) and Terms of Use",
+    "subtitle": "Hello! It's great that you are part of the movement. Before we save the rainforest together and build a regenerative economy, we have to establish a few ground rules. These General Terms and Conditions describe the rules for using the platform (https://reforest.al) and govern the legal relationship between you (our user, co-founder, and guardian partner) and me. By accessing this website, creating an account, or making a contribution via Startnext, you agree to these GTCs.",
+    "s1": {
+      "title": "1. Who we are and who your contracting party is",
+      "l1": "Your legal partner: Currently, Reforestal is a project run by me, Peter Rosinski. Since we are in the process of officially founding Reforestal eG as a cooperative, I will be your sole legal contact and the responsible party until this process is completed.",
+      "l2": "Transition: As soon as Reforestal eG is entered in the register of cooperatives, all rights and obligations from this agreement will automatically be transferred to the cooperative (eG). You will, of course, be informed about this transparently.",
+      "l3": "Company motto: In Soil We Trust."
+    },
+    "s2": {
+      "title": "2. Your expectancy right and the founding phase on Startnext",
+      "l1": "We prepare the impact: At the moment, there is no actual purchase of shares on the platform. With your registration or your contribution on Startnext, you secure an expectancy right (Anwartschaft). This means: You are already reserving your place for a future membership.",
+      "l2": "Startnext goals & risk acceptance: The first contributions from the crowdfunding serve exclusively to create the legal and digital foundations (statute review, infrastructure). As a Guardian Ally, you accept that these are not immediate investments, but rather structural development. The first 10 founding pioneers form the democratic foundation of our system.",
+      "l3": "Virtual dashboard: Everything you currently see on the dashboard (m², trees, statistics) is virtual and does not yet establish any legal property or membership rights. Actual accession only takes place after the official foundation through a formal declaration of accession."
+    },
+    "s3": {
+      "title": "3. Our goal: The model of the regenerative economy",
+      "p1": "We transform the management of the Amazon biome through an economy that serves life.",
+      "l1": "The Amazon Chakra System: We rely on a species-rich ecosystem instead of monocultures. Commercial species like fine cocoa and vanilla coexist with soil-regenerating species (e.g., Inga).",
+      "l2": "Resilience: We use biochar and smart water storage systems against climate change. Biodiversity protects our project from international price fluctuations and pests.",
+      "l3": "Indigenous sovereignty: Our activities in the Pastaza province (Ecuador) strictly respect the sovereignty of the Kichwa, Shuar, and Waorani. We measure success by the total area of the regenerated ecosystem (m²), not by individual trees that could later be felled."
+    },
+    "s4": {
+      "title": "4. Your m² of rainforest: Duration and ecological risk",
+      "l1": "Dynamics of nature: A specific m² of land will be assigned to each future share. One m² is reserved for you for approx. 25-30 years. After that, the area passes into community property to ensure its long-term protection.",
+      "l2": "Ecological risk: Nature is unpredictable. Should an area be destroyed by natural disasters (fire, storms, etc.), you bear this risk as part of the community."
+    },
+    "s5": {
+      "title": "5. The future subscription model & the Prosperity Index",
+      "p1": "When regular operations begin, one cooperative share will correspond to the reforestation of one m² of rainforest.",
+      "l1": "Prosperity Index (Agio): Due to inflation and the increasing security of the project, the price for new shares may rise.",
+      "l2": "Your flexibility: If costs go up, you have the choice: either you adjust your monthly contribution, or you continue paying your usual budget. In the second case, you simply save your balance until it is enough for the next full share."
+    },
+    "s6": {
+      "title": "6. Gamification, Quests, and Digital Assets",
+      "p1": "Our platform interacts with you through a playful system (Missions, Quests).",
+      "l1": "Land-Dollar (Impact Certificate): A digital certificate and the access key to the platform to track the impact of your m². It is expressly neither a cryptocurrency, nor a financial security, nor a speculative instrument.",
+      "l2": "Bonus points: Through quizzes, completing your profile, or via recommendations, you can collect bonus points. They are a voluntary thank-you without real cash value and there is no legal entitlement to their payout. Since we act according to cooperative principles, the bonus points are subject to a gradual release (vesting). The future General Assembly will determine the rate at which these will be converted into shares."
+    },
+    "s7": {
+      "title": "7. Right of withdrawal and digital assets",
+      "l1": "General right: According to the EU Directive 2011/83/EU, as a user residing in the EU, you generally have 14 days to revoke your contribution.",
+      "l2": "Expiration upon immediate execution: However, the right of withdrawal expires prematurely and explicitly as soon as you log in and access your digital assets (Land Dollar, Genesis Profile) on the dashboard. With this access, you agree to the immediate commencement of the digital service and waive any right to a refund."
+    },
+    "s8": {
+      "title": "8. Community, Comments, and Intellectual Property",
+      "l1": "Forums & Voting: You are solely responsible for your contributions and guarantee not to infringe on the intellectual property rights of third parties or post illegal content. By posting, you grant us a non-exclusive license to use the content. Inappropriate comments can be removed.",
+      "l2": "Intellectual property: All rights to the source code, gamification mechanics, graphics (especially of the Land-Dollar), and operating models remain with me (or later the cooperative). It is prohibited to copy, reproduce, or create iFrames around our web pages without written permission."
+    },
+    "s9": {
+      "title": "9. Platform availability, Data Protection, and Disclaimer",
+      "l1": "Data protection & Cookies: Your data is processed strictly in accordance with the GDPR. By using the site, you agree to the essential cookies that are necessary for the session and your progress.",
+      "l2": "Availability & Liability: We give our all for 100% availability, but we do not guarantee it. We are not liable for technical failures or data loss, unless we can be accused of gross negligence or intent.",
+      "l3": "No investment advice: All information serves purely ecological purposes and does not constitute financial advice."
+    },
+    "s10": {
+      "title": "10. Jurisdiction and Final Provisions",
+      "l1": "Applicable law: The law of the Federal Republic of Germany applies, excluding the UN Convention on Contracts for the International Sale of Goods (CISG). The exclusive place of jurisdiction is Germany.",
+      "l2": "Dispute resolution: For consumer disputes, the EU Commission provides the ODR platform: https://ec.europa.eu/consumers/odr/.",
+      "l3": "Severability clause: Should one of these rules be invalid, the rest remains valid. In that case, we will work together to find a solution that comes as close as possible to the spirit of Reforestal.",
+      "outro": "Ready? Then let's get started!"
+    },
+    "contact": {
+      "title": "Contact Information and Legal Notice (Impressum)",
+      "company": "",
+      "board": "Peter Rosinski",
+      "address": "Headquarters: Rotenbergstr. 27, 66111 Saarbrücken, Germany",
+      "email": "Email: peter@reforest.al",
+      "phone": "Phone: +49 163 8736419",
+      "last_updated": "Last updated: May 2026"
+    }
+  },
+  "privacy": {
+  "title": "Privacy Policy",
+  "intro": [
+    "The protection of your personal data represents a fundamental relationship of trust with our community and is of particularly high priority for Peter Rosinski (later Reforestal eG). This privacy policy informs you about the nature, scope, and purpose of the data collected, especially if you participate as a partner in our regenerative economy projects or support us via Startnext.",
+    "The use of our web pages is generally possible without any indication of personal data. However, if a data subject wishes to use special enterprise services (such as the project dashboard) via our website, processing of personal data could become necessary. If the processing of personal data is necessary and there is no statutory basis for such processing, we generally obtain consent from the data subject."
+  ],
+  "s1": {
+    "title": "1. Definitions",
+    "body": [
+      "The privacy policy is based on the terms used by the European legislator for the adoption of the General Data Protection Regulation (GDPR). Project-specific and general terms include:"
+    ],
+    "list": [
+      "a) GDPR Terms: Personal data, data subject, processing, profiling, controller, processor, and consent (according to Art. 4 GDPR).",
+      "b) Guardian Ally / Partner: Any natural or legal person with an active account in the reforestation ecosystem.",
+      "c) Land-Dollar: A digital impact certificate acting as an access key.",
+      "d) Bonuses: Gamification metrics with no financial value."
+    ]
+  },
+  "s2": {
+    "title": "2. Name and Address of the Controller",
+    "body": [
+      "Controller for the purposes of the General Data Protection Regulation, other data protection laws applicable in Member states of the European Union, and other provisions related to data protection is:",
+      "Peter Rosinski (later Reforestal eG)",
+      "Rotenbergstr. 27",
+      "66111 Saarbrücken, Germany",
+      "Email: peter@reforest.al | Phone: +49 163 8736419",
+      "Website: www.reforest.al"
+    ]
+  },
+  "s3": {
+    "title": "3. Cookies",
+    "body": [
+      "The web pages use cookies (text files that are stored via an Internet browser) to provide users with more user-friendly services. In particular, we use necessary cookies to keep you logged in and to save your language preferences.",
+      "The data subject may, at any time, prevent the setting of cookies through our website by means of a corresponding setting of the Internet browser used, and may thus permanently deny the setting of cookies. Furthermore, already set cookies may be deleted at any time via an Internet browser."
+    ]
+  },
+  "s4": {
+    "title": "4. Collection of General Data and Information (Infrastructure & Logfiles)",
+    "body": [
+      "The website collects a series of general data and information with each call, which are stored in the server log files. Collected may be: (1) the browser types and versions used, (2) the operating system, (3) the website from which an accessing system reaches our website (referrers), (4) the sub-websites, (5) the date and time of access, (6) an Internet protocol address (IP address), (7) the Internet service provider, and (8) any other similar data used in the event of attacks on our information technology systems.",
+      "Digital Sustainability and Security: Our website is hosted on energy-efficient European VPS servers at Hostinger (Green Hosting). We manage critical data via Supabase in Frankfurt am Main (AWS region eu-central-1) using Row-Level-Security (RLS) policies to guarantee maximum data sovereignty."
+    ]
+  },
+  "s5": {
+    "title": "5. Registration on our Website & Startnext Crowdfunding",
+    "body": [
+      "You can register by providing data (name, email, encrypted credentials). For project management, we may also collect your postal address, date of birth, and nationality.",
+      "Data from external sources (Startnext): When participating in our crowdfunding, we receive your name, email, contribution amount, and the selected reward from Startnext to allocate your digital rights; we do not process bank data in this context.",
+      "Gamification & Google Wallet: We process information regarding your progress, tier levels, and quests. If you add the 'Land Dollar' to Google Wallet, Google acts as an independent controller."
+    ]
+  },
+  "s6": {
+    "title": "6. Subscription to our Newsletter",
+    "body": [
+      "We offer a newsletter that requires a valid email address and registration via the double opt-in procedure. The IP address, date, and time of registration are stored for legal reasons and misuse prevention. The subscription may be terminated at any time, and consent may be revoked."
+    ]
+  },
+  "s7": {
+    "title": "7. Newsletter Tracking",
+    "body": [
+      "Our newsletters contain tracking pixels. This allows for a statistical analysis of success (e.g., if and when an email was opened or a link was clicked). We use this data for optimization. Revocation is possible at any time by unsubscribing from the newsletter."
+    ]
+  },
+  "s8": {
+    "title": "8. Contact Possibility via the Website",
+    "body": [
+      "If a data subject contacts the controller by email or via a contact form, the personal data voluntarily transmitted are automatically stored for the purpose of processing the inquiry or contacting the data subject."
+    ]
+  },
+  "s9": {
+    "title": "9. Routine Deletion and Blocking of Personal Data",
+    "body": [
+      "The data controller processes and stores data only for the period necessary to achieve the purpose of storage. If the storage purpose is not applicable, or if a legal retention period expires, the data are routinely blocked or erased.",
+      "Specific periods: We store financial contributions according to German tax law (HGB/AO) for 10 years. Technical logs are automatically anonymized after 30 days."
+    ]
+  },
+  "s10": {
+    "title": "10. Rights of the Data Subject",
+    "body": [
+      "To exercise any of the following rights, the data subject may contact us (the controller) at any time:"
+    ],
+    "list": [
+      "a) Right of confirmation and access (Art. 15 GDPR): Available as a copy in your dashboard.",
+      "b) Right to rectification (Art. 16 GDPR): Adjustable in your Genesis Profile.",
+      "c) Right to erasure / Right to be forgotten (Art. 17 GDPR): E.g., by deleting the account.",
+      "d) Right to restriction of processing (Art. 18 GDPR) and data portability (Art. 20 GDPR).",
+      "e) Right to object (Art. 21 GDPR) and to withdraw consent (Art. 7(3) GDPR).",
+      "f) Right to lodge a complaint: You also have the right to lodge a complaint with a data protection supervisory authority (Art. 77 GDPR)."
+    ]
+  },
+  "s11": {
+    "title": "11. Data Protection Provisions about the Application and Use of Facebook",
+    "body": [
+      "We have integrated components of the enterprise Facebook. The operating company for persons outside the USA is Facebook Ireland Ltd., 4 Grand Canal Square, Dublin 2, Ireland.",
+      "If the data subject is logged in at the same time on Facebook, Facebook detects which specific subpage was visited. If you click on the 'Like' button, for instance, this information is matched with your Facebook account. To prevent this, you must log out of your Facebook account before visiting.",
+      "Further information on Facebook's data policy: https://www.facebook.com/about/privacy/"
+    ]
+  },
+  "s12": {
+    "title": "12. Data Protection Provisions about the Application and Use of Google AdSense",
+    "body": [
+      "Google AdSense is integrated on this website (Google Ireland Limited, Gordon House, Barrow Street, Dublin, Ireland).",
+      "The service places cookies and tracking pixels for ad integration and interest-based evaluation. Data may be transferred to the USA. Setting cookies can be prevented in the browser.",
+      "Further explanations: https://www.google.com/intl/en/adsense/start/"
+    ]
+  },
+  "s13": {
+    "title": "13. Data Protection Provisions about the Application and Use of Google Analytics (with anonymization function)",
+    "body": [
+      "We use Google Analytics (Google Ireland Limited). We use the suffix '_gat._anonymizeIp', which shortens and anonymizes your IP address.",
+      "The data subject may object to the collection and processing of data by Google Analytics. To do this, a browser add-on must be downloaded and installed from the following link: https://tools.google.com/dlpage/gaoptout",
+      "Further information: https://policies.google.com/privacy and https://marketingplatform.google.com/about/analytics/terms/en/"
+    ]
+  },
+  "s14": {
+    "title": "14. Data Protection Provisions about the Application and Use of Google AdWords",
+    "body": [
+      "We use Google AdWords (Google Ireland Limited). If a person reaches our website via a Google ad, a conversion cookie is filed (valid for 30 days, no personal identification) to create visit statistics.",
+      "Objection to interest-based advertising is possible here: https://myadcenter.google.com/"
+    ]
+  },
+  "s15": {
+    "title": "15. Data Protection Provisions about the Application and Use of Instagram",
+    "body": [
+      "Components of Instagram (Facebook Ireland Ltd.) are integrated on this website. If you are logged into Instagram, the visit to our page may be assigned to your Instagram account. Log out to prevent this.",
+      "Instagram privacy policy: https://help.instagram.com/155833707900388 and https://privacycenter.instagram.com/policy"
+    ]
+  },
+  "s16": {
+    "title": "16. Data Protection Provisions about the Application and Use of LinkedIn",
+    "body": [
+      "We use components of LinkedIn (LinkedIn Ireland, Wilton Place, Dublin 2, Ireland). With each access, a representation of the component is downloaded and, for logged-in users, assigned to their LinkedIn account.",
+      "LinkedIn offers the option to unsubscribe from ads: https://www.linkedin.com/psettings/guest-controls. Cookie Policy: https://www.linkedin.com/legal/cookie-policy"
+    ]
+  },
+  "s17": {
+    "title": "17. Data Protection Provisions about the Application and Use of YouTube",
+    "body": [
+      "We have integrated components of YouTube (Google Ireland Limited). When visiting a page with a YouTube video, Google gains knowledge of which page you visit, especially if you are logged into YouTube.",
+      "YouTube/Google privacy policy: https://policies.google.com/privacy"
+    ]
+  },
+  "s18": {
+    "title": "18. Legal Basis for Processing & International Data Transfer",
+    "body": [
+      "Processing is based on Art. 6(1)(a) GDPR (Consent), Art. 6(1)(b) GDPR (Performance of a contract, e.g., allocating the Land-Dollar), and Art. 6(1)(c) GDPR (Legal obligations).",
+      "International transfer to Ecuador: To protect the Amazon rainforest (Pastaza province), identifying data are transmitted to the local land registry and notaries in Ecuador (based on Art. 49(1)(b) GDPR).",
+      "Data transfer to third countries (e.g., USA): Conducted on the basis of Standard Contractual Clauses (SCCs) and the EU-US Data Privacy Framework (Adequacy Decision)."
+    ]
+  },
+  "s19": {
+    "title": "19. Legitimate Interests in Processing",
+    "body": [
+      "Where the processing of personal data is based on Article 6(1)(f) GDPR, our legitimate interest is to carry out our business operations in favor of the regenerative project goals, all our employees, and shareholders."
+    ]
+  },
+  "s20": {
+    "title": "20. Duration of Storage",
+    "body": [
+      "User/partner data are stored for the duration of your active relationship with the project. Thereafter, storage is governed by statutory retention periods. Once the period expires, the data are deleted, provided they are no longer necessary for the fulfillment of the contract."
+    ]
+  },
+  "s21": {
+    "title": "21. Legal or Contractual Requirements / Youth Protection",
+    "body": [
+      "The provision of personal data is partly required by law (e.g., tax regulations) or contractually necessary (for project participation); failure to provide this data would result in the contract not being concluded.",
+      "Youth Protection: Our service is not directed at children under 13; any inadvertently collected data from minors will be deleted immediately."
+    ]
+  },
+  "s22": {
+    "title": "22. Existence of Automated Decision-Making",
+    "body": [
+      "As a responsible project, we do not use automatic decision-making (including profiling) that produces legal effects. Gamification metrics on the platform serve purely interactive and non-discriminatory purposes."
+    ]
+  },
+  "footer_note": "Last updated: May 2026. This privacy policy was developed (in its basic legal components) using privacy policies from DGD Deutsche Gesellschaft für Datenschutz GmbH and adapted to the specific requirements of the future Reforestal eG project."
+},
+  "cookies": {
+    "title": "Reforestal – Crumbs for Climate Protection (Cookie Policy)",
+    "subtitle": "Hey! To ensure you, as an Aliado Guardián (Guardian Partner) in the Amazon, have a complete overview and your dashboard functions smoothly, we use cookies and similar technologies (such as local storage). Here's a brief overview of what happens on your device when you use Reforestal.",
+    "intro": "Here you can find a brief overview of what happens on your device when you use Reforestal.",
+    "s1": {
+      "title": "1. What are cookies and similar technologies?",
+      "p1": "Cookies are small text files that your browser saves. They help us recognize you so you don't have to log in every time or lose your language settings. We also use \"local storage\"—it's like a small notepad in your browser where we record things like your progress on quests."
+    },
+    "s2": {
+      "title": "2. Technically necessary tools (Always active)",
+      "p1": "These technologies are the \"oxygenator\" of our platform. Reforestal wouldn't work without them. Therefore, you cannot deactivate them if you wish to use the site:",
+      "l1": "Supabase (Auth & Session): This is our core system in Frankfurt. It ensures that you remain securely logged in and that only you have access to your \"Land Dollar\" and your profile.",
+      "l2": "Language Selection: To ensure the site knows whether to say \"Hallo,\" \"Hello,\" or \"Hola,\" we remember your language.",
+      "l3": "Security (RLS): We use technical filters to keep your data private and prevent unauthorized access."
+    },
+    "s3": {
+      "title": "3. Convenience Features (Your Choice)",
+      "p1": "These features enhance your experience but are not essential. You decide whether we are allowed to use them:",
+      "l1": "Dark Mode / Design: We remember whether you prefer the light or dark side of the Force.",
+      "l2": "Quest Progress & Profile: We store locally on your device the Impact type you achieved in \"Mission Génesis\" so that the dashboard is personalized for you.",
+      "l3": "Referral Code: If you came to us via another pioneer's link, we temporarily store this code so we can correctly attribute the impact."
+    },
+    "s4": {
+      "title": "4. Third-Party Providers & Google Integration",
+      "p1": "We are committed to data minimization. Therefore, data is only shared with Google when you explicitly consent:",
+      "l1": "Google Wallet & Login: A connection to Google is only established when you actively click \"Sign in with Google\" or \"Save to Wallet.\" At that moment, Google's privacy policy applies.",
+      "l2": "Hostinger (Hosting): Our servers are located with Hostinger in Europe. There, purely technical metrics (such as load) are measured anonymously to ensure the site doesn't crash under the strain of many new tree planters."
+    },
+    "s5": {
+      "title": "5. How to Stay in Control",
+      "p1": "You can delete or block all cookies in your browser settings at any time. However, please note: If you block Supabase's technical cookies, you will no longer be able to log in, and your rainforest dashboard will remain empty."
+    },
+    "contact": {
+      "title": "6. Who is Responsible?",
+      "p1": "While we are still in the founding phase, I am your contact person:",
+      "p2": "Peter Rosinski (later Reforestal eG)",
+      "p3": "Email: peter@reforest.al",
+      "p4": "Tel: +49 163 8736419",
+      "last_updated": "Status: May 2026"
+    }
+  },
+  "economy": {
+    "title": "Mission: Regeneration as an Engine of Development",
+    "subtitle": "From eco-anxiety to eco-agency. Discover how this biocultural alliance, launched in 2024, fuses modern science, technology, and innovation with ancestral indigenous knowledge to generate a regenerative and profitable path for all its partners.",
+    "s1": {
+      "title": "The Architecture of the Chakra",
+      "p1": "We reverse the damage caused by mining and monoculture through the Amazonian Chakra. Our productive model abandons monoculture and adopts a structure that integrates seamlessly, acting as a biological connector for the diversity present in Amazonian forest fragments.",
+      "p2": "By approximating the structure of the tropical rainforest through species stratification, we create a dynamic system that not only preserves the habitat but generates mathematically projectable financial returns. Structural diversification drastically reduces the risk of market fluctuations and pest losses, ensuring long-term economic stability."
+    },
+    "s2": {
+      "title": "Cost Structure and Agronomic Synergies",
+      "p1": "The Chakra's design optimizes three-dimensional space by integrating different botanical strata:",
+      "l1": "Herbaceous and Vines Stratum: Pineapple, Cassava (Yuca), Onion, Vanilla.",
+      "l2": "Shrub Stratum: Banana, Cocoa, Achotillo.",
+      "l3": "Tree Stratum (Lower and Middle): Soursop, Guava, Orange, Guaba.",
+      "l4": "Giants: Timber trees such as Yellow Guayacán, Balsa, Coastal Laurel, and Cedar.",
+      "p2": "Operational Efficiency: We leverage biological synergies to minimize maintenance costs. The integration of leguminous trees (like Inga edulis) fixes nitrogen in the soil naturally, while the incorporation of biochar stores nutrients and water, drastically reducing the dependence on external fertilizers. Additionally, integrated beekeeping improves pollination rates, skyrocketing the productivity of cocoa, vanilla, and guava.",
+      "pilot_title": "Napo, Ecuador: From Vision to Field Reality",
+      "pilot_desc": "In the past year, alongside local families, we have validated the symbiosis between cocoa and vanilla. The results of this pilot are a testament to an effective combination: Biological resilience (survival >90%), Optimal growth (125 cm of development in just 8 months), and Water self-sufficiency (Total elimination of initial watering thanks to ecosystem balance)."
+    },
+    "s3": {
+      "title": "Profitability Projection: Stepped Cash Flow",
+      "p1": "Our financial strategy is divided into three liquidity time horizons, ensuring that early contributions generate income streams while high-value assets mature:",
+      "phase1": {
+        "title": "Phase 1: Early Liquidity & Short Cycles (Years 1-3)",
+        "desc": "In the early stages, the system generates immediate cash flow to cover operational costs and stabilize the soil through fast-growing rotational crops (Quarterly Corn, Cassava, and Onion).",
+        "projection": "Passion fruit can generate average earnings of $2,352 annually per 10 hectares incorporated, while fruits like soursop start providing average earnings of $168 in the first year."
+      },
+      "phase2": {
+        "title": "Phase 2: High Added Value & Exponential Growth (Years 3-5)",
+        "desc": "In the medium term, our most profitable species per square meter enter their productive phase: Vanilla and Cocoa. They form a perfect symbiotic alliance: cocoa acts as a natural tutor and provides the ideal shade for vanilla, maximizing space usage without reducing the productivity of either plant.",
+        "projection": "In an average production scenario across 10 hectares, Cocoa projects annual revenues of $15,375, while Vanilla leads the system's economic productivity with projected average earnings of $34,616 annually."
+      },
+      "phase3": {
+        "title": "Phase 3: Biological Heritage & Long-Term Yields (Years 10+)",
+        "desc": "Once the tree canopy is consolidated, the system reaches its maximum capacity for stable wealth generation through Perennial Fruits and Capital Reserves (Timber).",
+        "projection": "Guaba de bejuco and traditional Guaba project average earnings of $5,797 and $4,710 annually, respectively. Timber acts as a long-term savings fund, consolidating the cooperative's economic heritage."
+      }
+    },
+    "s4": {
+      "title": "Cultural Plurality and the Triple Impact",
+      "p1": "We are a network of collaborators from Europe and Latin America seeking to boost the regenerative capacity of the Amazon territory in alliance with its ancestral guardians. By supporting Reforestal eG, you become a key player in a transition that creates lasting value:",
+      "l1_title": "Ecological Regeneration:",
+      "l1_desc": "Forest fragments are transformed into robust ecosystems, restoring soil fertility, conserving water, and increasing climate resilience.",
+      "l2_title": "Social Stability:",
+      "l2_desc": "Beyond seasonal work, local communities access fair wages and permanent jobs, integrating their ancestral knowledge with technical innovation.",
+      "l3_title": "Economic Solidity:",
+      "l3_desc": "A highly diversified product portfolio ensures resilient income streams over decades.",
+      "p2": "Together, we transform land management into models of conscious prosperity: systems where capital viability and ecosystem health are inseparable. You will receive transparent reports on the exact number of planted species and financial evolution."
+    },
+    "s5": {
+      "title": "HORIZON 2027: 20 HECTARES OF LIFE",
+      "p1": "Our goal for the first semester is to consolidate the custody of the first 20 hectares of degraded territory to activate the initial phase of systemic regeneration.",
+      "p2": "We seek allies determined to co-lead the origin of this model. We offer you the ability to act, to become a Guardian Ally by taking custody of specific m² of the Amazon rainforest: a living commitment to the biosphere that builds your own economic security. It's time to take action."
+    }
+  },
+  "cookie_banner": {
+    "title": "Let's grow together! 🌳",
+    "desc": "Hey! To ensure your dashboard runs smoothly and we can remember your language, we use a few digital tools. The most important ones are technically necessary for you to log in. For the others (like Dark Mode or your mission progress), you decide whether we should activate them.",
+    "link": "More details in the Cookie Policy",
+    "accept_all": "Accept all",
+    "accept_essential": "Only the essentials",
+    "settings": "Adjust settings",
+    "settings_title": "Cookie Settings",
+    "settings_desc": "Choose which cookies you want to allow. You can change this at any time.",
+    "essential_title": "Strictly necessary",
+    "essential_desc": "For platform login and security (always active).",
+    "functional_title": "Functional & Personalization",
+    "functional_desc": "Saves your theme (Dark/Light) and your mission progress.",
+    "analytics_title": "Analytics & Performance",
+    "analytics_desc": "Anonymous statistics to improve Reforestal for everyone.",
+    "save_settings": "Save selection"
+  },
+  "impressum": {
+  "title": "Legal Notice (Impressum)",
+  "platform_operator": "Platform Operator",
+  "operator_name": "Peter Rosinski (acting for Reforestal eG)",
+  "address_street": "Rotenbergstr. 27",
+  "address_city": "66111 Saarbrücken",
+  "address_country": "Germany",
+  "management": "Executive Board: Peter Rosinski",
+  "content_responsible_title": "Content Responsibility",
+  "content_responsible_name": "Peter Rosinski",
+  "project_note": "The respective project owners are responsible for the content of project pages, reachable via their legal notice or direct contact.",
+  "email": "Email: peter@reforest.al",
+  "phone": "Tel.: +49 163 8736419",
+  "further_notes_title": "Further Notes",
+  "social_media_text": "This legal notice also applies to our LinkedIn, Facebook, Threads, and Instagram profiles as well as our YouTube channel.",
+  "dispute_resolution": "We are not willing or obliged to participate in dispute resolution proceedings before a consumer arbitration board."
 }
+}
+

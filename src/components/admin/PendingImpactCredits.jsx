@@ -137,17 +137,17 @@ const PendingImpactCredits = () => {
     );
 
     return (
-        <div className="space-y-4 mt-8">
+        <div className="space-y-4 mt-8 bg-background">
             <div className="flex justify-between items-center border-b pb-4">
-                <h3 className="text-lg font-bold text-gray-700 flex items-center gap-2">
+                <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
                     <Coins className="w-5 h-5 text-indigo-500" /> {t('dashboard.impact_credits')} Requests
                 </h3>
                 <div className="flex items-center gap-2">
                     <div className="relative">
-                        <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
+                        <Search className="absolute left-3 top-2.5 w-4 h-4 text-foreground" />
                         <Input 
                             placeholder={t('common.search')}
-                            className="pl-9 w-48 bg-white h-9 text-sm" 
+                            className="pl-9 w-48 bg-background h-9 text-sm" 
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -155,14 +155,14 @@ const PendingImpactCredits = () => {
                 </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow border overflow-hidden">
+            <div className="bg-background rounded-lg shadow border overflow-hidden">
                 <table className="w-full text-sm">
-                    <thead className="bg-gray-50 border-b">
+                    <thead className="bg-background border-b">
                         <tr>
-                            <th className="px-4 py-3 text-left font-medium text-gray-500">{t('admin.startnext.user')}</th>
-                            <th className="px-4 py-3 text-left font-medium text-gray-500">Current Balance</th>
-                            <th className="px-4 py-3 text-left font-medium text-gray-500">{t('admin.startnext.status')}</th>
-                            <th className="px-4 py-3 text-right font-medium text-gray-500">{t('admin.startnext.actions')}</th>
+                            <th className="px-4 py-3 text-left font-medium text-foreground">{t('admin.startnext.user')}</th>
+                            <th className="px-4 py-3 text-left font-medium text-foreground">Current Balance</th>
+                            <th className="px-4 py-3 text-left font-medium text-foreground">{t('admin.startnext.status')}</th>
+                            <th className="px-4 py-3 text-right font-medium text-foreground">{t('admin.startnext.actions')}</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200">
@@ -170,13 +170,13 @@ const PendingImpactCredits = () => {
                         {loading ? (
                             <tr><td colSpan="4" className="px-4 py-8 text-center"><Loader2 className="w-6 h-6 animate-spin mx-auto text-indigo-500" /></td></tr>
                         ) : filtered.length === 0 ? (
-                            <tr><td colSpan="4" className="px-4 py-6 text-center text-gray-500">No pending credit requests.</td></tr>
+                            <tr><td colSpan="4" className="px-4 py-6 text-center text-foreground">No pending credit requests.</td></tr>
                         ) : (
                             filtered.map(req => (
-                                <tr key={req.id} className="hover:bg-gray-50">
+                                <tr key={req.id} className="hover:bg-background">
                                     <td className="px-4 py-3">
-                                        <div className="font-medium text-gray-900">{req.name}</div>
-                                        <div className="text-gray-500 text-xs">{req.email}</div>
+                                        <div className="font-medium text-foreground">{req.name}</div>
+                                        <div className="text-foreground text-xs">{req.email}</div>
                                     </td>
                                     <td className="px-4 py-3 font-mono font-bold text-indigo-600">
                                         {req.impact_credits_balance} 

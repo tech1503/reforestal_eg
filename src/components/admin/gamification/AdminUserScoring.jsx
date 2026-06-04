@@ -73,8 +73,8 @@ const AdminUserScoring = () => {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <div>
-                    <h3 className="text-lg font-bold text-gray-800">{t('gamification_admin.scoring.title', 'User Scoring Overview')}</h3>
-                    <p className="text-sm text-gray-500">{t('gamification_admin.scoring.subtitle', 'Aggregated metrics from gamification history.')}</p>
+                    <h3 className="text-lg font-bold text-foreground">{t('gamification_admin.scoring.title', 'User Scoring Overview')}</h3>
+                    <p className="text-sm text-muted-foreground">{t('gamification_admin.scoring.subtitle', 'Aggregated metrics from gamification history.')}</p>
                 </div>
                 <div className="relative w-64">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -82,10 +82,10 @@ const AdminUserScoring = () => {
                 </div>
             </div>
 
-            <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
+            <div className="bg-background rounded-lg border shadow-sm overflow-hidden">
                 <Table>
                     <TableHeader>
-                        <TableRow className="bg-gray-50/50">
+                        <TableRow className="bg-background">
                             <TableHead>{t('gamification_admin.scoring.table.rank', 'Rank')}</TableHead>
                             <TableHead>{t('gamification_admin.scoring.table.user', 'User')}</TableHead>
                             <TableHead className="text-right">{t('gamification_admin.scoring.table.total_credits', 'Total Credits')}</TableHead>

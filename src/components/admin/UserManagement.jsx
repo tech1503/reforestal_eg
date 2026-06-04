@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Search, Edit, Trash2, Download, RefreshCw, Loader2, Leaf, Coins, Wallet, Ban, Award, Users, Shield, XCircle, AlertTriangle } from 'lucide-react';
+import { Search, Edit, Trash2, Download, RefreshCw, Loader2, Leaf, Coins, Wallet, Ban, Users, Shield, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/lib/customSupabaseClient';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
@@ -23,23 +23,14 @@ const UserManagement = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   
-  // Edit State
   const [editingUser, setEditingUser] = useState(null);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [deletingUser, setDeletingUser] = useState(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [processing, setProcessing] = useState(false);
 
-  // Pioneer Management State
-  const [pioneerActionUser, setPioneerActionUser] = useState(null);
-  const [isPioneerModalOpen, setIsPioneerModalOpen] = useState(false);
-  const [pioneerActionType, setPioneerActionType] = useState('approve'); 
-
-  // System Data
   const [availableTiers, setAvailableTiers] = useState([]);
-  const [gamificationRules, setGamificationRules] = useState([]);
 
-  // Iconos para perfiles
   const profileIcons = { lena: Leaf, markus: Shield, david: Users };
   const profileColors = {
     lena: 'bg-emerald-100 text-emerald-800 border-emerald-200',
@@ -61,17 +52,12 @@ const UserManagement = () => {
 
       const { data: tiers } = await supabase.from('support_levels').select('*').order('min_amount');
       const { data: benefits } = await supabase.from('user_benefits').select('*').eq('status', 'active').order('assigned_date', { ascending: false });
-      
       const { data: metrics } = await supabase.from('founding_pioneer_metrics').select('user_id, total_impact_credits_earned, founding_pioneer_access_status');
       
       let landDollars = [];
       try { const { data: ld } = await supabase.from('land_dollars').select('*'); landDollars = ld || []; } catch (e) {}
 
-      let gameRules = [];
-      try { const { data: gr } = await supabase.from('gamification_actions').select('*').eq('is_active', true); gameRules = gr || []; } catch (e) {}
-      
       setAvailableTiers(tiers || []);
-      setGamificationRules(gameRules);
 
       const mergedUsers = (profiles || []).map(user => {
         const userBenefit = benefits?.find(b => b.user_id === user.id);
@@ -86,7 +72,6 @@ const UserManagement = () => {
           ...user,
           tier_name: tierInfo ? formatTierName(tierInfo.slug) : 'Standard',
           tier_id: tierInfo ? tierInfo.id : 'none',
-          benefit_row_id: userBenefit ? userBenefit.id : null,
           ic_balance: metric ? metric.total_impact_credits_earned : 0,
           founding_pioneer_access_status: metric ? metric.founding_pioneer_access_status : 'pending',
           has_land_dollar: !!userLandDollar,
@@ -132,12 +117,42 @@ const UserManagement = () => {
     setFilteredUsers(filtered);
   }, [searchTerm, users]);
 
+  const handleInlinePioneerStatusChange = async (userObj, newStatus) => {
+      setProcessing(true);
+      try {
+          const { error } = await supabase.from('founding_pioneer_metrics').upsert({
+              user_id: userObj.id,
+              founding_pioneer_access_status: newStatus,
+              updated_at: new Date().toISOString()
+          }, { onConflict: 'user_id' });
+          
+          if (error) throw error;
+          
+          if (newStatus === 'approved') {
+              await supabase.from('profiles').update({ role: 'startnext_user' }).eq('id', userObj.id);
+          }
+          
+          toast({ 
+              title: "Status Updated", 
+              description: `${userObj.name || 'User'} is now ${newStatus}.`, 
+              className: newStatus === 'approved' ? "bg-emerald-600 text-white border-none" : "" 
+          });
+          
+          fetchAllData();
+      } catch (error) {
+          toast({ variant: "destructive", title: t('common.error'), description: error.message });
+      } finally {
+          setProcessing(false);
+      }
+  };
+
   const handleEditClick = (user) => {
     setEditingUser({ 
         ...user, 
         selectedTier: user.tier_id || 'none',
         editLandDollarStatus: user.land_dollar_status === 'none' ? 'active' : user.land_dollar_status,
-        referral_code: user.referral_code || '' 
+        referral_code: user.referral_code || '',
+        pioneer_status: user.founding_pioneer_access_status || 'pending'
     }); 
     setIsEditOpen(true);
   };
@@ -146,7 +161,6 @@ const UserManagement = () => {
     if (!editingUser) return;
     setProcessing(true);
     try {
-      
       const safeReferralCode = editingUser.referral_code.trim() === '' ? null : editingUser.referral_code.trim().toLowerCase();
 
       const { error: profileErr } = await supabase.from('profiles').update({ 
@@ -154,123 +168,58 @@ const UserManagement = () => {
           role: editingUser.role,
           genesis_profile: editingUser.genesis_profile,
           referral_code: safeReferralCode
-        }).eq('id', editingUser.id);
+      }).eq('id', editingUser.id);
       
-      if (profileErr) throw new Error(profileErr.message);
+      if (profileErr) throw profileErr;
+
+      const isNewTier = editingUser.selectedTier !== editingUser.tier_id;
+      const isFundsEmpty = Number(editingUser.land_dollar_amount) === 0;
+
+      if (editingUser.selectedTier && editingUser.selectedTier !== 'none' && (isNewTier || isFundsEmpty)) {
+          let tierData = availableTiers.find(t => t.id === editingUser.selectedTier);
+          if (tierData) {
+              const { data: rpcData, error: rpcError } = await supabase.rpc('admin_process_startnext_contribution', {
+                  p_user_id: editingUser.id,
+                  p_amount: tierData.min_amount,
+                  p_notes: 'Admin manual tier assignment',
+                  p_pioneer_status: editingUser.pioneer_status
+              });
+              if (rpcError) throw rpcError;
+          }
+      } else {
+          const { data: existMetric } = await supabase.from('founding_pioneer_metrics').select('id').eq('user_id', editingUser.id).maybeSingle();
+          if (existMetric) {
+              await supabase.from('founding_pioneer_metrics').update({ founding_pioneer_access_status: editingUser.pioneer_status }).eq('user_id', editingUser.id);
+          } else {
+              await supabase.from('founding_pioneer_metrics').insert({ user_id: editingUser.id, founding_pioneer_access_status: editingUser.pioneer_status });
+          }
+      }
 
       const linkRefToUse = safeReferralCode || `REF-${editingUser.id.substring(0,6).toUpperCase()}`;
       const newQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://reforest.al/${linkRefToUse}`;
 
-      if (editingUser.land_dollar_id) {
+      const { data: ldExist } = await supabase.from('land_dollars').select('id').eq('user_id', editingUser.id).maybeSingle();
+
+      if (ldExist) {
           await supabase.from('land_dollars').update({ 
               status: editingUser.editLandDollarStatus,
               is_active: editingUser.editLandDollarStatus === 'active' || editingUser.editLandDollarStatus === 'issued',
               link_ref: linkRefToUse,
               qr_code_url: newQrUrl
-          }).eq('id', editingUser.land_dollar_id);
+          }).eq('id', ldExist.id);
       } else if (editingUser.editLandDollarStatus === 'active') {
-           await supabase.from('land_dollars').insert({
+          await supabase.from('land_dollars').insert({
                user_id: editingUser.id,
                amount: 0,
                status: 'active',
                is_active: true,
                link_ref: linkRefToUse,
-               land_dollar_url: '/assets/land-dollar-base.webp',
+               land_dollar_url: '/assets/land-dollar-base1.webp',
                qr_code_url: newQrUrl
            });
       }
 
-      if (editingUser.selectedTier && editingUser.selectedTier !== 'none' && editingUser.selectedTier !== editingUser.tier_id) { 
-          let tierData = availableTiers.find(t => t.id === editingUser.selectedTier);
-          let prettyTierName = 'Standard';
-          let creditsToAward = 0;
-
-          if (tierData) {
-             prettyTierName = `Explorer / ${formatTierName(tierData.slug)}`;
-             creditsToAward = Number(tierData.impact_credits_reward);
-             
-             let bonusPoints = 0;
-             const { data: existingContrib } = await supabase.from('startnext_contributions')
-                  .select('id, contribution_amount')
-                  .eq('user_id', editingUser.id)
-                  .order('contribution_date', { ascending: false }).limit(1).maybeSingle();
-              
-             let contributionId = existingContrib?.id;
-
-             if (existingContrib) {
-                  if (Number(tierData.min_amount) > Number(existingContrib.contribution_amount || 0)) {
-                      const rule = gamificationRules.find(r => r.action_name === 'contribution_upgrade');
-                      if (rule) bonusPoints = Number(rule.impact_credits_value || 0);
-                  }
-                  await supabase.from('startnext_contributions').update({
-                      contribution_amount: tierData.min_amount, 
-                      benefit_level: prettyTierName,
-                      new_support_level_id: editingUser.selectedTier
-                  }).eq('id', existingContrib.id);
-             } else {
-                  const { data: newContrib } = await supabase.from('startnext_contributions').insert({
-                      user_id: editingUser.id, 
-                      contribution_amount: tierData.min_amount, 
-                      contribution_date: new Date().toISOString(),
-                      notes: 'Admin Allocation', 
-                      benefit_assigned: true, 
-                      benefit_level: prettyTierName, 
-                      new_support_level_id: editingUser.selectedTier
-                  }).select().single();
-                  contributionId = newContrib.id;
-             }
-
-             const bPayload = { 
-                  user_id: editingUser.id, 
-                  new_support_level_id: editingUser.selectedTier, 
-                  benefit_level_id: null, 
-                  contribution_id: contributionId,
-                  status: 'active', 
-                  assigned_date: new Date().toISOString() 
-             };
-              
-             if (editingUser.benefit_row_id) {
-                 await supabase.from('user_benefits').update(bPayload).eq('id', editingUser.benefit_row_id);
-             } else {
-                 const { data: existingBen } = await supabase.from('user_benefits').select('id').eq('user_id', editingUser.id).limit(1).maybeSingle();
-                 if (existingBen) await supabase.from('user_benefits').update(bPayload).eq('id', existingBen.id);
-                 else await supabase.from('user_benefits').insert(bPayload);
-             }
-
-             const totalAward = creditsToAward + bonusPoints;
-             if (totalAward > 0) {
-                 await supabase.from('impact_credits').insert({ 
-                    user_id: editingUser.id, 
-                    amount: totalAward, 
-                    source: 'tier_assignment', 
-                    description: `Tier Update: ${prettyTierName} (Admin Set)`,
-                    issued_date: new Date().toISOString(),
-                    related_support_level_id: editingUser.selectedTier
-                 });
-
-                 const { data: currentMetric } = await supabase.from('founding_pioneer_metrics').select('total_impact_credits_earned').eq('user_id', editingUser.id).maybeSingle();
-                 const currentTotal = currentMetric?.total_impact_credits_earned || 0;
-                 
-                 await supabase.from('founding_pioneer_metrics').upsert({
-                     user_id: editingUser.id, 
-                     total_impact_credits_earned: currentTotal + totalAward,
-                     last_activity_date: new Date().toISOString()
-                 }, { onConflict: 'user_id' });
-             }
-
-             const ldPayload = {
-                  user_id: editingUser.id, 
-                  amount: tierData.min_amount, 
-                  status: editingUser.editLandDollarStatus || 'active',
-                  link_ref: linkRefToUse, 
-                  related_support_level_id: editingUser.selectedTier,
-                  land_dollar_url: '/assets/land-dollar-base.webp',
-             };
-             await supabase.from('land_dollars').upsert(ldPayload, { onConflict: 'user_id' });
-          }
-      }
-
-      toast({ title: t('common.success'), description: "Usuario y Apodo actualizados exitosamente." });
+      toast({ title: t('common.success'), description: "Usuario actualizado exitosamente." });
       setIsEditOpen(false);
       await fetchAllData();
     } catch (error) {
@@ -306,39 +255,27 @@ const UserManagement = () => {
     }
   };
 
-  const handlePioneerAction = (user, type) => {
-      setPioneerActionUser(user);
-      setPioneerActionType(type);
-      setIsPioneerModalOpen(true);
-  };
-
-  const confirmPioneerAction = async () => {
-    if (!pioneerActionUser) return;
-    setProcessing(true);
-    
-    try {
-      const newStatus = pioneerActionType === 'approve' ? 'approved' : 'revoked';
-      const { error: updateError } = await supabase.from('founding_pioneer_metrics').update({ founding_pioneer_access_status: newStatus }).eq('user_id', pioneerActionUser.id);
-      if (updateError) throw updateError;
-      
-      if (pioneerActionType === 'approve') {
-          await supabase.from('profiles').update({ role: 'startnext_user' }).eq('id', pioneerActionUser.id);
-      }
-      
-      toast({ title: pioneerActionType === 'approve' ? "Pioneer Approved!" : "Access Revoked", className: pioneerActionType === 'approve' ? "bg-emerald-600 text-white" : "bg-red-600 text-white" });
-      setIsPioneerModalOpen(false);
-      fetchAllData();
-    } catch (error) {
-      toast({ variant: "destructive", title: t('common.error'), description: error.message });
-    } finally {
-      setProcessing(false);
-      setPioneerActionUser(null);
-    }
-  };
-
+  // ACTUALIZADO: Exporta también los porcentajes individuales para analíticas en Excel
   const handleExportCSV = () => {
     if (!users.length) return;
-    const csvContent = [['ID', 'Name', 'Email', 'Apodo', 'Role', 'Genesis', 'Tier', 'IC', 'LD Status', 'Pioneer Status'].join(",") + "\n" + users.map(u => [u.id, u.name, u.email, u.referral_code || 'N/A', u.role, u.genesis_profile, u.tier_name, u.ic_balance, u.land_dollar_status, u.founding_pioneer_access_status].join(",")).join("\n")];
+    const csvContent = [
+      ['ID', 'Name', 'Email', 'Apodo', 'Role', 'Genesis', 'Lena %', 'Markus %', 'David %', 'Tier', 'IC', 'LD Status', 'Pioneer Status'].join(","),
+      ...users.map(u => [
+        u.id, 
+        u.name, 
+        u.email, 
+        u.referral_code || 'N/A', 
+        u.role, 
+        u.genesis_profile, 
+        u.profile_percentages?.lena || 0,
+        u.profile_percentages?.markus || 0,
+        u.profile_percentages?.david || 0,
+        u.tier_name, 
+        u.ic_balance, 
+        u.land_dollar_status, 
+        u.founding_pioneer_access_status
+      ].join(","))
+    ].join("\n");
     const link = document.createElement("a");
     link.href = URL.createObjectURL(new Blob([csvContent], { type: 'text/csv;charset=utf-8;' }));
     link.download = `users_export.csv`;
@@ -360,12 +297,14 @@ const UserManagement = () => {
 
       <div className="rounded-xl border bg-card shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead className="bg-muted/50 border-b">
+          <table className="w-full bg-background text-sm">
+            <thead className="bg-muted border-b">
               <tr>
                 <th className="text-left p-4 font-medium text-muted-foreground">{t('admin.startnext.user')}</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">Apodo</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">Partner Profile</th>
+                {/* NUEVA COLUMNA DE PORCENTAJES */}
+                <th className="text-left p-4 font-medium text-muted-foreground">Impact %</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">Role</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">Pioneer Status</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">{t('admin.startnext.tier')}</th>
@@ -376,9 +315,9 @@ const UserManagement = () => {
             </thead>
             <tbody className="divide-y">
               {loading ? (
-                <tr><td colSpan="9" className="p-8 text-center"><Loader2 className="w-6 h-6 animate-spin mx-auto" /></td></tr>
+                <tr><td colSpan="10" className="p-8 text-center"><Loader2 className="w-6 h-6 animate-spin mx-auto" /></td></tr>
               ) : filteredUsers.length === 0 ? (
-                 <tr><td colSpan="9" className="p-8 text-center text-muted-foreground">No users found.</td></tr>
+                 <tr><td colSpan="10" className="p-8 text-center text-muted-foreground">No users found.</td></tr>
               ) : (
                 filteredUsers.map((user) => {
                     const profileKey = user.genesis_profile ? user.genesis_profile.toLowerCase() : 'none';
@@ -391,15 +330,52 @@ const UserManagement = () => {
                         <td className="p-4"><div className="flex flex-col"><span className="font-semibold">{user.name || 'Unnamed'}</span><span className="text-xs text-muted-foreground">{user.email}</span></div></td>
                         <td className="p-4"><span className="font-mono text-emerald-700 bg-emerald-50 px-2 py-1 rounded">@{user.referral_code || 'N/A'}</span></td>
                         <td className="p-4"><Badge variant="outline" className={`gap-1 pr-3 capitalize ${badgeClass}`}>{ProfileIcon && <ProfileIcon className="w-3 h-3" />}{user.genesis_profile || 'None'}</Badge></td>
+                        
+                        {/* NUEVO CONTENIDO: VISTA DE PORCENTAJES COMPACTA */}
+                        <td className="p-4">
+                            <div className="flex flex-col gap-1 text-[10px]">
+                                <div className="flex items-center justify-between gap-2 w-16">
+                                    <span className="text-emerald-600 font-bold">L:</span>
+                                    <span>{user.profile_percentages?.lena || 0}%</span>
+                                </div>
+                                <div className="flex items-center justify-between gap-2 w-16">
+                                    <span className="text-blue-600 font-bold">M:</span>
+                                    <span>{user.profile_percentages?.markus || 0}%</span>
+                                </div>
+                                <div className="flex items-center justify-between gap-2 w-16">
+                                    <span className="text-orange-600 font-bold">D:</span>
+                                    <span>{user.profile_percentages?.david || 0}%</span>
+                                </div>
+                            </div>
+                        </td>
+
                         <td className="p-4"><Badge variant="outline">{user.role}</Badge></td>
-                        <td className="p-4">{user.founding_pioneer_access_status ? <Badge className={`${isPioneerApproved ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'} border-0 capitalize`}>{user.founding_pioneer_access_status}</Badge> : <span className="text-gray-300">-</span>}</td>
-                        <td className="p-4"><div className="flex items-center gap-1"><Leaf className="w-3 h-3 text-emerald-500"/><span className="text-emerald-700 font-medium">{user.tier_name}</span></div></td>
+                        
+                        <td className="p-4">
+                            <Select 
+                                value={user.founding_pioneer_access_status || 'pending'} 
+                                onValueChange={(val) => handleInlinePioneerStatusChange(user, val)}
+                                disabled={processing}
+                            >
+                                <SelectTrigger className={`h-8 text-xs font-bold capitalize w-[115px] ${isPioneerApproved ? 'bg-emerald-100 text-emerald-800 border-emerald-200' : 'bg-amber-100 text-amber-800 border-amber-200'}`}>
+                                    <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="pending">Pending</SelectItem>
+                                    <SelectItem value="approved">Approved</SelectItem>
+                                    <SelectItem value="rejected">Rejected</SelectItem>
+                                    <SelectItem value="revoked">Revoked</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </td>
+
+                        <td className="p-4"><div className="flex items-center gap-1"><Leaf className="w-3 h-3 text-emerald-500"/><span className="text-foreground font-medium">{user.tier_name}</span></div></td>
                         <td className="p-4"><div className="flex items-center gap-1 font-mono"><Coins className="w-3 h-3 text-amber-500"/>{user.ic_balance}</div></td>
                         
                         <td className="p-4 text-center">
                             {user.has_land_dollar ? (
                                 <div className="flex flex-col items-center gap-1">
-                                    <div className="flex items-center gap-1 font-bold text-emerald-800">
+                                    <div className="flex items-center gap-1 font-bold text-foreground">
                                         <Wallet className="w-3 h-3"/> €{parseFloat(user.land_dollar_amount).toFixed(2)}
                                     </div>
                                     <Badge variant={['active','issued'].includes(user.land_dollar_status) ? "default" : "destructive"} 
@@ -412,18 +388,6 @@ const UserManagement = () => {
                         
                         <td className="p-4 text-right">
                           <div className="flex justify-end gap-1 items-center">
-                            {user.role === 'startnext_user' && (
-                                isPioneerApproved ? (
-                                    <Button onClick={() => handlePioneerAction(user, 'revoke')} disabled={processing} className="bg-red-50 hover:bg-red-100 text-white h-8 px-2 rounded text-xs mr-1 border border-red-200" size="sm" title="Revoke Pioneer Access">
-                                        <XCircle className="w-3 h-3 mr-1" /> Revoke
-                                    </Button>
-                                ) : (
-                                    <Button onClick={() => handlePioneerAction(user, 'approve')} disabled={processing} className="bg-emerald-600 hover:bg-emerald-700 text-white h-8 px-3 rounded text-sm mr-1" size="sm" title="Approve Pioneer Access">
-                                        <Award className="w-3 h-3 mr-1" /> Approve
-                                    </Button>
-                                )
-                            )}
-
                             <Button onClick={() => handleEditClick(user)} variant="ghost" size="icon" className="h-8 w-8 text-blue-500"><Edit className="w-4 h-4" /></Button>
                             <Button onClick={() => handleDeleteClick(user)} variant="ghost" size="icon" className="h-8 w-8 text-red-500"><Trash2 className="w-4 h-4" /></Button>
                           </div>
@@ -447,7 +411,6 @@ const UserManagement = () => {
                   <div className="space-y-2"><Label>{t('auth.email_label')}</Label><Input disabled value={editingUser.email || ''} /></div>
               </div>
 
-              {/* NUEVO CAMPO DE APODO */}
               <div className="space-y-2">
                   <Label className="text-emerald-700 font-bold">Apodo (URL / Código de Referido)</Label>
                   <Input 
@@ -475,16 +438,31 @@ const UserManagement = () => {
                   </Select>
               </div>
 
-              <div className="space-y-2">
-                  <Label>Role</Label>
-                  <Select value={editingUser.role} onValueChange={(val) => setEditingUser({...editingUser, role: val})}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="user">User Common</SelectItem>
-                        <SelectItem value="startnext_user">Startnext User</SelectItem>
-                        <SelectItem value="admin">Admin</SelectItem>
-                    </SelectContent>
-                  </Select>
+              <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                      <Label>Role</Label>
+                      <Select value={editingUser.role} onValueChange={(val) => setEditingUser({...editingUser, role: val})}>
+                        <SelectTrigger><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="user">User Common</SelectItem>
+                            <SelectItem value="startnext_user">Startnext User</SelectItem>
+                            <SelectItem value="admin">Admin</SelectItem>
+                        </SelectContent>
+                      </Select>
+                  </div>
+                  
+                  <div className="space-y-2">
+                      <Label className="text-blue-700 font-bold">Pioneer Access Status</Label>
+                      <Select value={editingUser.pioneer_status} onValueChange={(val) => setEditingUser({...editingUser, pioneer_status: val})}>
+                        <SelectTrigger><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="pending">Pending</SelectItem>
+                            <SelectItem value="approved">Approved</SelectItem>
+                            <SelectItem value="rejected">Rejected</SelectItem>
+                            <SelectItem value="revoked">Revoked</SelectItem>
+                        </SelectContent>
+                      </Select>
+                  </div>
               </div>
               
               <div className="space-y-2">
@@ -519,18 +497,18 @@ const UserManagement = () => {
                     <AlertTriangle className="w-5 h-5" /> 
                     Delete User in Cascade?
                 </DialogTitle>
-                <DialogDescription className="pt-3 space-y-2">
-                    <p>You are about to permanently delete <strong>{deletingUser?.email}</strong>.</p>
-                    <p>This action will destroy:</p>
-                    <ul className="list-disc pl-5 text-sm text-slate-600">
-                        <li>Authentication record</li>
-                        <li>Land Dollars & Impact Credits</li>
-                        <li>MLM / Gamification History</li>
-                        <li>Startnext Contributions</li>
-                    </ul>
-                    <p className="font-bold text-red-600 mt-2">This cannot be undone.</p>
-                </DialogDescription>
             </DialogHeader>
+            <div className="pt-3 space-y-2 text-sm text-slate-600">
+                <p>You are about to permanently delete <strong>{deletingUser?.email}</strong>.</p>
+                <p>This action will destroy:</p>
+                <ul className="list-disc pl-5">
+                    <li>Authentication record</li>
+                    <li>Land Dollars & Impact Credits</li>
+                    <li>MLM / Gamification History</li>
+                    <li>Startnext Contributions</li>
+                </ul>
+                <p className="font-bold text-red-600 mt-2">This cannot be undone.</p>
+            </div>
             <DialogFooter>
                 <Button variant="outline" onClick={() => setIsDeleteOpen(false)} disabled={processing}>{t('common.cancel')}</Button>
                 <Button variant="destructive" onClick={confirmDelete} disabled={processing}>
@@ -541,28 +519,6 @@ const UserManagement = () => {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={isPioneerModalOpen} onOpenChange={setIsPioneerModalOpen}>
-        <DialogContent>
-            <DialogHeader>
-                <DialogTitle>{pioneerActionType === 'approve' ? 'Approve Founding Pioneer' : 'Revoke Pioneer Access'}</DialogTitle>
-                <DialogDescription>
-                    {pioneerActionType === 'approve' 
-                        ? 'This will unlock the Founding Members section for this user.' 
-                        : 'This will lock the Founding Members section. The user will still have Land Dollars and Credits.'}
-                </DialogDescription>
-            </DialogHeader>
-            <DialogFooter>
-                <Button variant="outline" onClick={() => setIsPioneerModalOpen(false)}>{t('common.cancel')}</Button>
-                <Button 
-                    className={pioneerActionType === 'approve' ? "bg-emerald-600 text-white" : "bg-red-600 text-white"} 
-                    onClick={confirmPioneerAction} 
-                    disabled={processing}
-                >
-                    {pioneerActionType === 'approve' ? 'Confirm Approval' : 'Confirm Revoke'}
-                </Button>
-            </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };

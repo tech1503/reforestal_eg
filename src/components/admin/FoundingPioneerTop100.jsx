@@ -39,9 +39,9 @@ const FoundingPioneerTop100 = () => {
                 ) : topPioneers.map((pioneer, idx) => {
                     const rank = idx + 1;
                     let rankIcon = null;
-                    if (rank === 1) rankIcon = <Medal className="w-5 h-5 text-yellow-500" />;
+                    if (rank === 1) rankIcon = <Medal className="w-5 h-5 text-gold-500" />;
                     else if (rank === 2) rankIcon = <Medal className="w-5 h-5 text-gray-400" />;
-                    else if (rank === 3) rankIcon = <Medal className="w-5 h-5 text-amber-700" />;
+                    else if (rank === 3) rankIcon = <Medal className="w-5 h-5 text-gold-700" />;
 
                     return (
                         <TableRow key={pioneer.id} className="hover:bg-amber-50/30 transition-colors">

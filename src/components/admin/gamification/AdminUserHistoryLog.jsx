@@ -55,17 +55,17 @@ const AdminUserHistoryLog = () => {
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <h3 className="text-lg font-bold text-gray-800">{t('gamification_admin.history_log.title', 'System Activity Log')}</h3>
+                <h3 className="text-lg font-bold text-foreground">{t('gamification_admin.history_log.title', 'System Activity Log')}</h3>
                 <div className="relative w-64">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground" />
                     <Input placeholder={t('gamification_admin.history_log.search', 'Search logs...')} value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-9" />
                 </div>
             </div>
 
-            <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
+            <div className="bg-background rounded-lg border shadow-sm overflow-hidden">
                 <Table>
                     <TableHeader>
-                        <TableRow className="bg-gray-50/50">
+                        <TableRow className="bg-background">
                             <TableHead>{t('gamification_admin.history_log.table.date', 'Date')}</TableHead>
                             <TableHead>{t('gamification_admin.history_log.table.user', 'User')}</TableHead>
                             <TableHead>{t('gamification_admin.history_log.table.action', 'Action')}</TableHead>
@@ -86,11 +86,11 @@ const AdminUserHistoryLog = () => {
                                     <TableCell>
                                         <div className="flex flex-col">
                                             <span className="font-medium text-sm">{log.profile?.name || 'Unknown'}</span>
-                                            <span className="text-xs text-gray-500">{log.profile?.email}</span>
+                                            <span className="text-xs text-muted-foreground">{log.profile?.email}</span>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="font-medium text-gray-700">{log.action_name}</TableCell>
-                                    <TableCell><span className="text-xs bg-gray-100 px-2 py-1 rounded">{log.action_type}</span></TableCell>
+                                    <TableCell className="font-medium text-foreground">{log.action_name}</TableCell>
+                                    <TableCell><span className="text-xs bg-background px-2 py-1 rounded">{log.action_type}</span></TableCell>
                                     <TableCell className="text-right font-mono text-emerald-600 font-bold">+{log.impact_credits_awarded}</TableCell>
                                     <TableCell className="text-right">
                                         <Button variant="ghost" size="icon" onClick={() => handleDelete(log.id)} className="h-6 w-6">

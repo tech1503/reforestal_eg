@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   HelpCircle, Sprout, ShieldCheck, 
   BarChart3, Coins, ChevronDown, Award,
-  ArrowRight, HeartHandshake, Leaf
+  ArrowRight, HeartHandshake, Leaf,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -156,7 +156,7 @@ const InfoSections = () => {
             <div className="relative z-10">
               <div className="flex items-center gap-5 mb-8">
                 <div className="h-16 w-16 rounded-2xl bg-[#063127] shadow-glow flex items-center justify-center text-white font-black text-3xl border border-[#4c6e5e]/80">
-                  10
+                  <Sprout  className="w-8 h-8" />
                 </div>
                 <h3 className="text-2xl font-bold text-white leading-tight">
                   {t('faq_pioneers.pioneers_role_title', 'Your Role and Rewards')}

@@ -236,12 +236,12 @@ const AdminGamificationActionsConfig = () => {
         <div className="space-y-6">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h3 className="text-xl font-bold text-gray-800">System Actions Configuration</h3>
-                    <p className="text-sm text-gray-500">Manage technical triggers (Referrals, Login, Contributions).</p>
+                    <h3 className="text-xl font-bold text-foreground">System Actions Configuration</h3>
+                    <p className="text-sm text-muted-foreground">Manage technical triggers (Referrals, Login, Contributions).</p>
                 </div>
                 <div className="flex gap-2 w-full md:w-auto">
                     <div className="relative flex-1 md:w-64">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                         <Input 
                             placeholder="Search system actions..." 
                             value={searchTerm} 
@@ -255,7 +255,7 @@ const AdminGamificationActionsConfig = () => {
                 </div>
             </div>
 
-            <div className="bg-amber-50 border border-amber-200 text-amber-800 p-3 rounded-lg flex items-center gap-2 text-sm">
+            <div className="bg-amber-100 border border-amber-200 text-amber-800 p-3 rounded-lg flex items-center gap-2 text-sm">
                 <AlertTriangle className="w-4 h-4" />
                 <span>
                     <strong>Note:</strong> Genesis Missions and Quests are managed in the 
@@ -264,7 +264,7 @@ const AdminGamificationActionsConfig = () => {
                 </span>
             </div>
 
-            <div className="bg-white rounded-lg border shadow-sm overflow-hidden">
+            <div className="bg-background rounded-lg border shadow-sm overflow-hidden">
                 <Table>
                     <TableHeader>
                         <TableRow className="bg-gray-50/50">
@@ -286,8 +286,8 @@ const AdminGamificationActionsConfig = () => {
                                 <TableRow key={action.id} className="hover:bg-slate-50/50">
                                     <TableCell>
                                         <div className="flex flex-col">
-                                            <span className="font-bold text-gray-800">{action.action_title || action.action_name}</span>
-                                            <span className="text-xs text-gray-400 font-mono">{action.action_name}</span>
+                                            <span className="font-bold text-foreground">{action.action_title || action.action_name}</span>
+                                            <span className="text-xs text-muted-foreground font-mono">{action.action_name}</span>
                                         </div>
                                     </TableCell>
                                     <TableCell><Badge variant="outline">{action.action_type}</Badge></TableCell>

@@ -1,10 +1,8 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
-  LayoutDashboard, Users, Sprout, Wallet, Gamepad2, ScrollText, Database, Activity,
-  LogOut, Menu, X, Settings, Globe, Share2, Layers, LineChart, Loader2, ClipboardCheck,
-  FlaskConical, CheckSquare, Search, ChevronDown, UserPlus, Award, ListChecks, Trophy, Bell,
-  Banknote, BarChart4, Shield
+  LayoutDashboard, Users, Sprout, Wallet, Gamepad2, ScrollText, Database, Activity, X, Settings, Globe, Share2, Layers, LineChart, Loader2, ClipboardCheck,
+  FlaskConical, CheckSquare, Search, ChevronDown, UserPlus, Award, ListChecks, Trophy, Bell, Shield
 } from 'lucide-react';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { Button } from '@/components/ui/button';
@@ -29,6 +27,7 @@ const FinalDashboardTest = lazy(() => import('@/components/admin/FinalDashboardT
 const SchemaAuditView = lazy(() => import('@/components/admin/SchemaAuditView'));
 const SchemaMapper = lazy(() => import('@/components/admin/SchemaMapper'));
 const PendingRegistrations = lazy(() => import('@/components/admin/PendingRegistrations'));
+const StartnextManagement = lazy(() => import('@/components/admin/StartnextManagement'));
 const AdminQuestReview = lazy(() => import('@/components/admin/gamification/AdminQuestReview'));
 
 // New Gamification & Founding Pioneer Modules...
@@ -74,6 +73,7 @@ const AdminDashboard = () => {
     { id: 'notifications', label: t('admin.notifications.title', 'Notifications'), icon: Bell, component: AdminNotificationCenter },
     { id: 'analytics', label: t('admin.analytics.title', 'Analytics'), icon: LineChart, component: AnalyticsDashboard },
     { id: 'pending', label: t('admin.startnext.pending_approvals', 'Pending Registrations'), icon: UserPlus, component: PendingRegistrations },
+    { id: 'startnext_manage', label: 'Gestión Startnext', icon: Users, component: StartnextManagement },
     {
       id: 'pioneer_group',
       label: t('navigation.founding_pioneer', 'Founding Pioneer'),
@@ -98,7 +98,7 @@ const AdminDashboard = () => {
       ]
     },
     { id: 'users', label: t('admin.user_management', 'Users'), icon: Users, component: UserManagement },
-    { id: 'community', label: t('admin.community', 'Community'), icon: Globe, component: CommunityManagement },
+    { id: 'community', label: t('admin.communityy', 'Community'), icon: Globe, component: CommunityManagement },
     { id: 'financials', label: t('admin.financials.title', 'Financials'), icon: Wallet, component: FinancialsManagement },
     { id: 'tiers', label: t('admin.startnext.tier', 'Tiers'), icon: Layers, component: TierManagement },
     { id: 'mlm', label: t('admin.mlm', 'Referrals (MLM)'), icon: Share2, component: MlmManagement },
@@ -128,33 +128,32 @@ const AdminDashboard = () => {
     }
   });
 
-  if (loading || profile?.role !== 'admin') return <div className="h-screen flex items-center justify-center bg-background"><Loader2 className="animate-spin text-primary" /></div>;
+  if (loading || profile?.role !== 'admin') return <div className="h-screen flex items-center justify-center bg-background"><Loader2 className="animate-spin text-gold" /></div>;
 
   return (
     <div className="flex h-screen bg-background overflow-hidden transition-colors duration-300">
       <aside
         className={`
-          fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 text-slate-50 shadow-xl transform transition-transform duration-300 ease-in-out
+          fixed inset-y-0 left-0 z-50 w-64 bg-[#063127] text-white shadow-xl transform transition-transform duration-300 ease-in-out border-r border-gold/20
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
           md:relative md:translate-x-0
           ${!sidebarOpen && 'md:w-20'} 
-          dark:bg-slate-950 dark:border-r dark:border-slate-800
         `}
       >
         <div className="h-full flex flex-col">
-          <div className={`h-16 flex items-center ${sidebarOpen ? 'px-6 justify-between' : 'justify-center'} border-b border-slate-800`}>
+          <div className={`h-16 flex items-center ${sidebarOpen ? 'px-6 justify-between' : 'justify-center'} border-b border-white/10`}>
             {sidebarOpen ? (
               <>
-                <div className="font-bold text-xl tracking-tight flex items-center gap-2">
-                  <Settings className="h-6 w-6 text-violet-500" />
-                  <span>Admin<span className="text-violet-500">Panel</span></span>
+                <div className="font-black text-xl tracking-tight flex items-center gap-2 text-white">
+                  <Settings className="h-6 w-6 text-gold" />
+                  <span>Admin<span className="text-gold">Panel</span></span>
                 </div>
-                <button onClick={() => setSidebarOpen(false)} className="md:hidden text-slate-400 hover:text-white">
+                <button onClick={() => setSidebarOpen(false)} className="md:hidden text-white/60 hover:text-gold transition-colors">
                   <X size={20} />
                 </button>
               </>
             ) : (
-              <Settings className="h-8 w-8 text-violet-500" />
+              <Settings className="h-8 w-8 text-gold" />
             )}
           </div>
 
@@ -169,11 +168,11 @@ const AdminDashboard = () => {
                       onClick={() => { setIsExpanded(!isExpanded); if (!sidebarOpen) setSidebarOpen(true); }}
                       className={`
                         w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 group relative
-                        ${isActive ? 'bg-violet-600 text-white shadow-lg shadow-violet-900/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}
+                        ${isActive ? 'bg-gradient-gold text-[#063127] shadow-glow font-bold' : 'text-white/60 hover:bg-white/5 hover:text-gold'}
                         ${!sidebarOpen && 'justify-center'}
                       `}
                     >
-                      <item.icon size={20} className={isActive ? 'text-white' : 'text-slate-400 group-hover:text-white'} />
+                      <item.icon size={20} className={isActive ? 'text-[#063127]' : 'text-white/60 group-hover:text-gold'} />
                       {sidebarOpen && <span className="font-medium text-sm flex-1 text-left">{item.label}</span>}
                       {sidebarOpen && <ChevronDown size={16} className={`transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} />}
                     </button>
@@ -187,11 +186,11 @@ const AdminDashboard = () => {
                               onClick={() => setActiveSection(child.id)}
                               className={`
                                 w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 group relative
-                                ${isChildActive ? 'bg-slate-700 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}
+                                ${isChildActive ? 'bg-white/10 text-gold font-bold' : 'text-white/60 hover:bg-white/5 hover:text-gold'}
                                 text-sm
                               `}
                             >
-                              <child.icon size={16} className={isChildActive ? 'text-white' : 'text-slate-400 group-hover:text-white'} />
+                              <child.icon size={16} className={isChildActive ? 'text-gold' : 'text-white/60 group-hover:text-gold'} />
                               <span className="font-normal text-sm">{child.label}</span>
                             </button>
                           );
@@ -207,11 +206,11 @@ const AdminDashboard = () => {
                     onClick={() => setActiveSection(item.id)}
                     className={`
                       w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 group relative
-                      ${isActive ? 'bg-violet-600 text-white shadow-lg shadow-violet-900/20' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}
+                      ${isActive ? 'bg-gradient-gold text-[#063127] shadow-glow font-bold' : 'text-white/60 hover:bg-white/5 hover:text-gold'}
                       ${!sidebarOpen && 'justify-center'}
                     `}
                   >
-                    <item.icon size={20} className={isActive ? 'text-white' : 'text-slate-400 group-hover:text-white'} />
+                    <item.icon size={20} className={isActive ? 'text-[#063127]' : 'text-white/60 group-hover:text-gold'} />
                     {sidebarOpen && <span className="font-medium text-sm">{item.label}</span>}
                   </button>
                 );
@@ -222,16 +221,16 @@ const AdminDashboard = () => {
       </aside>
 
       <div className="flex-1 flex flex-col min-w-0 h-screen">
-        <header className="bg-card border-b border-border h-16 flex items-center justify-between px-4 md:px-8 shadow-sm z-10">
+        <header className="bg-[#063127] border-b border-gold/20 h-16 flex items-center justify-between px-4 md:px-8 shadow-sm z-10 text-white">
           <h2 className="text-lg font-semibold flex items-center gap-2">{t('admin.title', 'Admin Panel')}</h2>
           <div className="flex items-center gap-3">
             <LanguageSwitcher />
             <ThemeSwitcher />
-            <Button variant="ghost" onClick={signOut}>{t('navigation.sign_out', 'Sign Out')}</Button>
+            <Button variant="ghost" onClick={signOut} className="text-white hover:text-gold hover:bg-white/5 transition-colors">{t('navigation.sign_out', 'Sign Out')}</Button>
           </div>
         </header>
-        <main className="flex-1 overflow-y-auto bg-background p-4 md:p-6 lg:p-8">
-          <Suspense fallback={<div className="flex justify-center p-10"><Loader2 className="animate-spin" /></div>}>
+        <main className="flex-1 overflow-y-auto bg-background text-foreground p-4 md:p-6 lg:p-8">
+          <Suspense fallback={<div className="flex justify-center p-10"><Loader2 className="animate-spin text-gold" /></div>}>
             <ActiveComponent />
           </Suspense>
         </main>

@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { executeGamificationAction } from '@/utils/gamificationEngine';
 import { cn } from '@/lib/utils';
 import { createNotification } from '@/utils/notificationUtils';
-import LeafBackground from '@/components/ui/LeafBackground';
+//import LeafBackground from '@/components/ui/LeafBackground';
 
 const YouTubeEmbed = ({ videoId }) => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -96,7 +96,7 @@ const ResourceAllocator = ({ poles, values, onChange }) => {
                 {poles.map((pole, idx) => (
                     <div key={idx} className="space-y-1.5">
                         <div className="flex justify-between text-[11px] font-bold text-muted-foreground">
-                            <span className="uppercase tracking-widest">{pole}</span>
+                            <span className="capitalize tracking-widest">{pole}</span>
                             <span className="text-[#5b8370] font-black text-sm">{values[pole] || 0}%</span>
                         </div>
                         <div className="relative">
@@ -185,7 +185,7 @@ const MissionPlayer = () => {
       });
       setStepAnswers(initialAnswers);
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      setIsRestartModalOpen(false); // Cierra el modal
+      setIsRestartModalOpen(false);
   };
 
   const fetchMission = useCallback(async () => {
@@ -564,7 +564,7 @@ const MissionPlayer = () => {
   return (
     <div className="w-full flex flex-col items-center relative min-h-[90vh] font-sans pb-10">
       
-      <LeafBackground />
+      {/*<LeafBackground />*/}
       
       {result === 'success' && <ReactConfetti width={windowSize.width} height={windowSize.height} recycle={false} numberOfPieces={300} gravity={0.2} style={{ position: 'fixed', top: 0, left: 0, zIndex: 100 }} />}
 
@@ -805,9 +805,9 @@ const MissionPlayer = () => {
                             {/* CONTENEDOR DE ACCIONES (BOTTOM - COMPACTO Y CON BOTONES JUNTOS) */}
                             <div className="mt-6 flex flex-col-reverse sm:flex-row justify-between items-center border-t border-slate-200 dark:border-white/10 pt-4 gap-3">
                                 <div className="flex gap-2 w-full sm:w-auto justify-between sm:justify-start">
-                                    <Button variant="ghost" onClick={goBack} className="text-muted-foreground hover:text-foreground font-semibold px-3 h-10 border border-slate-200 dark:border-white/10 bg-white/5 hover:bg-black/5 dark:hover:bg-white/10 flex-1 sm:flex-none">
+                                    {/*<Button variant="ghost" onClick={goBack} className="text-muted-foreground hover:text-foreground font-semibold px-3 h-10 border border-slate-200 dark:border-white/10 bg-white/5 hover:bg-black/5 dark:hover:bg-white/10 flex-1 sm:flex-none">
                                         <ArrowLeft className="w-4 h-4 mr-1.5" /> {t('common.back')}
-                                    </Button>
+                                    </Button>*/}
 
                                     {/* BOTÓN DE REINICIAR LA MISIÓN QUE ABRE EL MODAL */}
                                     <Button variant="ghost" onClick={handleRestartClick} className="text-amber-600 dark:text-amber-500 hover:text-amber-700 dark:hover:text-amber-400 font-semibold px-3 h-10 border border-slate-200 dark:border-white/10 bg-white/5 hover:bg-amber-50 dark:hover:bg-amber-500/10 flex-1 sm:flex-none">

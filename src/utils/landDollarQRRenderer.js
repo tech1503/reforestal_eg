@@ -1,5 +1,5 @@
 import QRCode from 'qrcode';
-import landDollarBaseImg from '@/assets/land-dollar-base.webp';
+import landDollarBaseImg from '@/assets/land-dollar-base1.webp';
 
 export const generateLandDollarWithQR = async (linkRef) => {
   const canvas = document.createElement('canvas');
@@ -43,8 +43,8 @@ export const generateLandDollarWithQR = async (linkRef) => {
     await new Promise((resolve) => { qrImg.onload = resolve; });
 
     const qrSize = targetWidth * 0.11;
-    const qrX = targetWidth - qrSize - (targetWidth * 0.18);
-    const qrY = (targetHeight - qrSize) / 2;
+    const qrX = targetWidth - qrSize - (targetWidth * 0.22);
+    const qrY = (targetHeight - qrSize) * 0.44;
 
     ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
 

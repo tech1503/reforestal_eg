@@ -12,7 +12,7 @@ import '@/i18n';
 // --- SERVICE WORKER KILL SWITCH OPTIMIZADO CACHÉ ---
 
 // SOLO EN DESARROLLO, NO EN PRODUCCIÓN
-{/*
+/*
 console.log('SERVICE WORKER KILL SWITCH: Iniciando...');
 
 const isSWCleaned = () => {
@@ -51,7 +51,7 @@ if ('serviceWorker' in navigator) {
     });
   });
 }
-*/}
+*/
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Router>

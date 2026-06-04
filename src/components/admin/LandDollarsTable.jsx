@@ -74,22 +74,22 @@ const LandDollarsTable = () => {
         <CardContent>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 dark:bg-slate-800">
+              <thead className="bg-background">
                 <tr>
-                  <th className="p-3 text-left font-medium text-slate-500">{t('admin.land_dollars.user')}</th>
-                  <th className="p-3 text-left font-medium text-slate-500">{t('admin.land_dollars.link_ref')}</th>
-                  <th className="p-3 text-left font-medium text-slate-500">{t('admin.land_dollars.status')}</th>
-                  <th className="p-3 text-right font-medium text-slate-500">{t('admin.land_dollars.actions')}</th>
+                  <th className="p-3 text-left font-medium text-foreground">{t('admin.land_dollars.user')}</th>
+                  <th className="p-3 text-left font-medium text-foreground">{t('admin.land_dollars.link_ref')}</th>
+                  <th className="p-3 text-left font-medium text-foreground">{t('admin.land_dollars.status')}</th>
+                  <th className="p-3 text-right font-medium text-foreground">{t('admin.land_dollars.actions')}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
+              <tbody className="divide-y divide-reforestal-accentPrimary dark:divide-slate-700">
                 {landDollars.map((ld) => (
-                  <tr key={ld.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                  <tr key={ld.id} className="hover:bg-background dark:hover:bg-background/50">
                     <td className="p-3">
                         <div className="font-medium">{ld.profiles?.name || 'Unknown'}</div>
-                        <div className="text-xs text-slate-400">{ld.profiles?.email}</div>
+                        <div className="text-xs text-foreground">{ld.profiles?.email}</div>
                     </td>
-                    <td className="p-3 font-mono text-xs text-slate-600">{ld.link_ref}</td>
+                    <td className="p-3 font-mono text-xs text-foreground">{ld.link_ref}</td>
                     <td className="p-3">
                       <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
                         ld.is_active 
@@ -127,12 +127,12 @@ const LandDollarsTable = () => {
                 {selectedQR?.qr_code_url ? (
                     <img src={selectedQR.qr_code_url} alt="Land Dollar" className="w-full rounded-lg shadow-lg border" />
                 ) : (
-                    <div className="flex flex-col items-center text-slate-400 py-10">
+                    <div className="flex flex-col items-center text-foreground py-10">
                         <QrCode className="w-12 h-12 mb-2" />
                         <p>No image generated</p>
                     </div>
                 )}
-                <p className="mt-4 font-mono text-sm text-slate-500">REF: {selectedQR?.link_ref}</p>
+                <p className="mt-4 font-mono text-sm text-foreground">REF: {selectedQR?.link_ref}</p>
             </div>
         </DialogContent>
       </Dialog>

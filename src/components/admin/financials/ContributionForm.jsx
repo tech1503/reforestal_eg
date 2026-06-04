@@ -17,7 +17,6 @@ const ContributionForm = ({ onSuccess, onCancel }) => {
   const [loading, setLoading] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
   
-  // Form State
   const [manualUser, setManualUser] = useState({
     full_name: '',
     email: '',
@@ -45,12 +44,7 @@ const ContributionForm = ({ onSuccess, onCancel }) => {
             .select(`
                 *,
                 support_level_translations(language_code, name, description),
-                support_benefits(
-                    id,
-                    icon_name,
-                    benefit_type,
-                    support_benefit_translations(language_code, description)
-                )
+                support_benefits(id, icon_name, benefit_type, support_benefit_translations(language_code, description))
             `)
             .eq('is_active', true)
             .order('min_amount', { ascending: true });
@@ -79,113 +73,60 @@ const ContributionForm = ({ onSuccess, onCancel }) => {
       if (!selectedTier) throw new Error("Amount too low (Min €5.00)");
       
       let finalUserId = formData.user_id || null;
-      let finalImportedUserId = null;
-      let snxId = null;
-      let userName = '';
 
       if (userMode === 'manual') {
         if (!manualUser.email || !manualUser.full_name) throw new Error("Name and Email required.");
-        userName = manualUser.full_name;
 
-        const { data: existing } = await supabase
-            .from('startnext_imported_users')
-            .select('id, snx_id')
-            .eq('email', manualUser.email)
-            .maybeSingle();
-
-        if (existing) {
-            finalImportedUserId = existing.id;
-            snxId = existing.snx_id;
-        } else {
-            const { data: newImport, error: impError } = await supabase
-                .from('startnext_imported_users')
-                .insert({
+        const { data: userData, error: userError } = await supabase.functions.invoke('admin-user-ops', {
+            body: {
+                action: 'createUser',
+                payload: {
                     email: manualUser.email,
-                    full_name: manualUser.full_name,
+                    name: manualUser.full_name,
+                    role: 'startnext_user',
                     city: manualUser.city,
-                    country: manualUser.country,
-                    snx_id: `SNX-${Date.now().toString().slice(-6)}`
-                })
-                .select()
-                .single();
-            if (impError) throw impError;
-            finalImportedUserId = newImport.id;
-            snxId = newImport.snx_id;
-        }
+                    country: manualUser.country
+                }
+            }
+        });
+
+        if (userError || userData?.error) throw new Error(userError?.message || userData?.error || 'Failed to create user account');
+        finalUserId = userData.user.id;
       } else {
          if (!formData.user_id) throw new Error("Select a user.");
-         const u = users.find(x => x.id === formData.user_id);
-         userName = u.name;
          finalUserId = formData.user_id;
-         snxId = `SNX-EXT-${Date.now().toString().slice(-6)}`;
       }
 
-      const linkRef = crypto.randomUUID();
-      let landDollarUrl = null;
+      const { data, error } = await supabase.rpc('admin_process_startnext_contribution', {
+          p_user_id: finalUserId,
+          p_amount: parseFloat(formData.contribution_amount),
+          p_notes: formData.notes,
+          p_city: manualUser.city,
+          p_country: manualUser.country,
+          p_phone: manualUser.phone
+      });
+
+      if (error) throw error;
+      if (!data.success) throw new Error(data.error);
 
       try {
-          const blob = await generateLandDollarWithQR(linkRef);
-          const fileName = `land-dollars/${finalUserId || 'guest'}/${linkRef}.png`;
-          const { error: upError } = await supabase.storage.from('land-dollars').upload(fileName, blob);
+          const blob = await generateLandDollarWithQR(data.link_ref);
+          const fileName = `land-dollars/${finalUserId}/${data.link_ref}.png`;
+          const { error: upError } = await supabase.storage.from('land-dollars').upload(fileName, blob, { upsert: true, contentType: 'image/png' });
+          
           if (!upError) {
-              const { data } = supabase.storage.from('land-dollars').getPublicUrl(fileName);
-              landDollarUrl = data.publicUrl;
+              const { data: publicUrlData } = supabase.storage.from('land-dollars').getPublicUrl(fileName);
+              
+              await supabase.from('land_dollars').update({ 
+                  land_dollar_url: publicUrlData.publicUrl,
+                  qr_code_url: `https://reforest.al/${data.link_ref}`
+              }).eq('contribution_id', data.contribution_id);
           }
       } catch (e) {
-          console.warn("Asset generation failed, continuing...", e);
+          console.warn("Asset generation warning:", e);
       }
 
-      const { data: contrib, error: cError } = await supabase.from('startnext_contributions').insert({
-          user_id: finalUserId,
-          imported_user_id: finalImportedUserId,
-          contribution_amount: parseFloat(formData.contribution_amount),
-          contribution_date: formData.contribution_date,
-          new_support_level_id: selectedTier.id,
-          benefit_assigned: true,
-          notes: formData.notes,
-          phone: manualUser.phone,
-          city: manualUser.city,
-          country: manualUser.country,
-          land_dollar_image_url: landDollarUrl
-      }).select().single();
-
-      if (cError) throw cError;
-
-      if (finalUserId) {
-          // Credits
-          await supabase.from('impact_credits').insert({
-              user_id: finalUserId,
-              amount: selectedTier.impact_credits_reward,
-              source: 'startnext',
-              description: `Tier Reward: ${selectedTier.slug}`,
-              related_support_level_id: selectedTier.id,
-              contribution_id: contrib.id
-          });
-
-          // Land Dollar Record
-          await supabase.from('land_dollars').insert({
-              user_id: finalUserId,
-              amount: parseFloat(formData.contribution_amount),
-              land_dollar_url: landDollarUrl,
-              link_ref: linkRef,
-              qr_code_url: `https://reforest.al/${linkRef}`,
-              status: 'issued',
-              related_support_level_id: selectedTier.id,
-              contribution_id: contrib.id
-          });
-          
-          // User Benefits Record
-          await supabase.from('user_benefits').insert({
-              user_id: finalUserId,
-              new_support_level_id: selectedTier.id,
-              contribution_id: contrib.id,
-              assigned_date: new Date().toISOString(),
-              status: 'active',
-              benefit_level_id: '00000000-0000-0000-0000-000000000000' 
-          });
-      }
-
-      toast({ title: "Success", description: "Contribution recorded successfully." });
+      toast({ title: "Success", description: "Contribution recorded securely." });
       onSuccess?.();
 
     } catch (err) {
@@ -233,15 +174,7 @@ const ContributionForm = ({ onSuccess, onCancel }) => {
               <div className="space-y-2">
                   <Label>Contribution Amount (€)</Label>
                   <div className="relative">
-                      <Input 
-                        type="number" 
-                        min="5"
-                        step="0.01"
-                        value={formData.contribution_amount} 
-                        onChange={e => setFormData({...formData, contribution_amount: e.target.value})} 
-                        className="pl-8 font-bold text-lg" 
-                        placeholder="0.00"
-                      />
+                      <Input type="number" min="5" step="0.01" value={formData.contribution_amount} onChange={e => setFormData({...formData, contribution_amount: e.target.value})} className="pl-8 font-bold text-lg" placeholder="0.00"/>
                       <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">€</span>
                   </div>
               </div>
@@ -261,7 +194,7 @@ const ContributionForm = ({ onSuccess, onCancel }) => {
 
        <div className="flex justify-end gap-3 pt-4">
           <Button variant="outline" onClick={onCancel}>Cancel</Button>
-          <Button onClick={handleSubmit} disabled={isProcessing || !selectedTier} className="bg-emerald-600 hover:bg-emerald-700">
+          <Button onClick={handleSubmit} disabled={isProcessing || !selectedTier} className="bg-emerald-600 hover:bg-emerald-700 text-white">
              {isProcessing ? <Loader2 className="w-4 h-4 animate-spin mr-2"/> : <Check className="w-4 h-4 mr-2"/>}
              Process Contribution
           </Button>

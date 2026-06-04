@@ -6,7 +6,7 @@ import { supabase } from '@/lib/customSupabaseClient';
 import { Button } from '@/components/ui/button';
 import { Zap, Lock, Rocket, Check, Trophy, Target, Loader2, FileText, ExternalLink, ShoppingBag, ShieldAlert, Clock } from 'lucide-react'; 
 import { useToast } from '@/components/ui/use-toast';
-import { cn } from '@/lib/utils';
+import { cn, formatNumber } from '@/lib/utils'; 
 import { useNavigate, useLocation } from 'react-router-dom';
 import { executeGamificationAction } from '@/utils/gamificationEngine';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -190,7 +190,7 @@ const QuestsSection = () => {
       const result = await executeGamificationAction(user.id, quest.slug);
 
       if (result.success) {
-          toast({ title: t('common.success'), description: t('quest.earn_credits', { credits: result.points }), className: "bg-emerald-50 border-emerald-200 text-emerald-900"});
+          toast({ title: t('common.success'), description: t('quest.earn_credits', { credits: formatNumber(result.points) }), className: "bg-card text-foreground border-border"});
           await refreshFinancials();
           setQuests(prev => prev.map(q => q.id === quest.id ? { ...q, completed: true } : q));
       } else {
@@ -199,7 +199,7 @@ const QuestsSection = () => {
       setProcessingId(null);
   };
 
-  if (loading) return <div className="h-64 flex justify-center items-center"><Loader2 className="w-10 h-10 animate-spin text-[#5b8370]" /></div>;
+  if (loading) return <div className="h-64 flex justify-center items-center"><Loader2 className="w-10 h-10 animate-spin text-gold" /></div>;
 
   const getButtonText = (quest) => {
       if (quest.completed) return <span className="flex items-center justify-center gap-1.5"><Check className="w-4 h-4"/> {t('common.success', 'Completado')}</span>;
@@ -232,23 +232,23 @@ const QuestsSection = () => {
     <div className="relative w-full overflow-hidden rounded-3xl shadow-sm bg-card border border-border">
       <div className="p-5 md:p-8">
         <div className="flex items-center gap-3 mb-6">
-            <div className="p-2.5 bg-amber-500/10 rounded-xl text-amber-500">
+            <div className="p-2.5 bg-gradient-gold shadow-glow rounded-xl text-[#063127]">
                 <Trophy className="w-5 h-5 md:w-6 md:h-6"/>
             </div>
             <div>
-              <h2 className="text-xl md:text-2xl font-bold text-foreground">{t('quest.title', 'Misiones')}</h2>
-              <p className="text-xs md:text-sm text-muted-foreground">{t('quest.subtitle', 'Completa misiones para ganar puntos.')}</p>
+              <h2 className="text-xl md:text-2xl font-bold text-white">{t('quest.title', 'Misiones')}</h2>
+              <p className="text-xs md:text-sm text-white/70">{t('quest.subtitle', 'Completa misiones para ganar puntos.')}</p>
             </div>
         </div>
       
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5">
             {/* Tarjeta Discovery para nuevos usuarios */}
             {showDiscoveryCard && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="col-span-full bg-gradient-to-r from-[#063127] to-[#5b8370] rounded-2xl p-6 md:p-8 text-[#c4d1c0] relative overflow-hidden shadow-lg border border-[#5b8370]/30">
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="col-span-full bg-[#063127] rounded-2xl p-6 md:p-8 text-white relative overflow-hidden shadow-lg border border-gold/30">
                     <div className="relative z-10 flex flex-col items-start justify-center h-full">
                         <h3 className="text-2xl md:text-3xl font-bold mb-2 text-white">{t('dashboard.discover_investor_profile')}</h3>
                         <p className="mb-6 opacity-90 text-sm md:text-base max-w-xl leading-relaxed">{t('dashboard.discover_investor_profile_desc')}</p>
-                        <Button onClick={() => navigate('/genesis-quest')} className="bg-[#c4d1c0] text-white hover:bg-white font-bold text-sm md:text-base px-6 py-5 rounded-xl shadow-md transition-all active:scale-95 border-none">
+                        <Button onClick={() => navigate('/genesis-quest')} className="bg-gradient-gold text-white cale-105 font-bold text-sm md:text-base px-6 py-5 rounded-xl shadow-glow transition-all active:scale-95 border-none">
                             <Rocket className="w-4 h-4 mr-2 text-white"/> {t('dashboard.start_genesis_quest')}
                         </Button>
                     </div>
@@ -265,10 +265,10 @@ const QuestsSection = () => {
                     transition={{ delay: idx * 0.05 }}
                     className={cn(`relative rounded-2xl border p-4 md:p-5 transition-all flex flex-col justify-between`, 
                         (quest.completed || quest.isPending)
-                        ? 'bg-muted/30 border-transparent opacity-80 shadow-none' 
+                        ? 'bg-black/20 border-white/10 opacity-80 shadow-none' 
                         : quest.isLocked 
-                          ? 'bg-card/50 border-dashed border-border opacity-70' 
-                          : 'bg-card border-border shadow-sm hover:shadow-md hover:border-[#5b8370]/40'
+                          ? 'bg-black/40 border-dashed border-white/20 opacity-70' 
+                          : 'bg-[#063127] border-gold/30 shadow-lg hover:shadow-glow hover:border-gold/50'
                     )}
                 >
                     <div>
@@ -276,43 +276,42 @@ const QuestsSection = () => {
                             <div className="flex flex-wrap items-center gap-2">
 
                                 <div className={cn(
-                                    "p-1.5 rounded-lg flex items-center justify-center",
-                                    quest.isLocked ? 'bg-muted text-muted-foreground' 
-                                    : quest.type === 'genesis' ? 'bg-purple-500/10 text-purple-500' 
-                                    : 'bg-blue-500/10 text-blue-500'
+                                    "p-1.5 rounded-lg flex items-center justify-center shadow-glow",
+                                    quest.isLocked ? 'bg-white/10 text-white/40 shadow-none' 
+                                    : 'bg-gradient-gold text-[#063127]'
                                 )}>
                                     {quest.type === 'genesis' ? <FileText className="w-4 h-4" /> : <Target className="w-4 h-4" />}
                                 </div>
                                 
                                 {quest.isLocked && quest.lockReason === 'genesis_required' && (
-                                    <Badge variant="outline" className="text-[9px] uppercase font-bold text-muted-foreground border-border"><ShieldAlert className="w-3 h-3 mr-1"/> {t('quest.requires_genesis', 'Inicio')}</Badge>
+                                    <Badge variant="outline" className="text-[9px] uppercase font-bold text-white/50 border-white/20 bg-white/5"><ShieldAlert className="w-3 h-3 mr-1"/> {t('quest.requires_genesis', 'Inicio')}</Badge>
                                 )}
                                 {quest.targetRole === 'startnext_user' && (
-                                    <Badge variant="outline" className={`text-[9px] uppercase font-bold ${quest.isLocked ? 'text-muted-foreground border-border bg-muted/20' : 'text-blue-600 border-blue-200 bg-blue-50 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/30'}`}><Lock className={`w-3 h-3 mr-1 ${!quest.isLocked && 'hidden'}`}/> Startnext</Badge>
+                                    <Badge variant="outline" className={`text-[9px] uppercase font-bold ${quest.isLocked ? 'text-white/50 border-white/20 bg-white/5' : 'text-gold border-gold/30 bg-gold/10'}`}><Lock className={`w-3 h-3 mr-1 text-gold ${!quest.isLocked && 'hidden'}`}/> Startnext</Badge>
                                 )}
                                 {quest.targetRole === 'pioneer' && (
-                                    <Badge variant="outline" className={`text-[9px] uppercase font-bold ${quest.isLocked ? 'text-muted-foreground border-border bg-muted/20' : 'text-amber-700 dark:text-amber-400 border-amber-500/30 bg-amber-500/10'}`}><Lock className={`w-3 h-3 mr-1 ${!quest.isLocked && 'hidden'}`}/> Pionero</Badge>
+                                    <Badge variant="outline" className={`text-[9px] uppercase font-bold ${quest.isLocked ? 'text-white/50 border-white/20 bg-white/5' : 'text-gold border-gold/30 bg-gold/10'}`}><Lock className={`w-3 h-3 mr-1 text-gold ${!quest.isLocked && 'hidden'}`}/> Pionero</Badge>
                                 )}
                                 {quest.isPremium && (
-                                    <Badge variant="outline" className="text-[9px] uppercase font-bold text-[#5b8370] bg-[#5b8370]/10 border-[#5b8370]/30"><ShoppingBag className="w-3 h-3 mr-1"/> Premium</Badge>
+                                    <Badge variant="outline" className="text-[9px] uppercase font-bold text-gold bg-gold/10 border-gold/30"><ShoppingBag className="w-3 h-3 mr-1 text-gold"/> Premium</Badge>
                                 )}
                             </div>
 
                             <span className={cn(
                                 "flex items-center gap-1 text-xs font-black px-2 py-1 rounded-md shrink-0",
                                 quest.isLocked 
-                                  ? 'text-muted-foreground bg-muted/50' 
-                                  : 'text-amber-600 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20'
+                                  ? 'text-white/50 bg-white/10 border border-transparent' 
+                                  : 'text-gradient-gold bg-gold/10 border border-gold/20'
                             )}>
-                                <Zap className="w-3 h-3"/> +{quest.credits} 
+                                <Zap className="w-3 h-3 text-gold"/> +{formatNumber(quest.credits)} 
                             </span>
                         </div>
 
                         <div className="mb-2">
-                            <h3 className={cn("font-bold text-base leading-tight mb-1.5", quest.isLocked ? 'text-muted-foreground' : 'text-foreground')}>
+                            <h3 className={cn("font-bold text-base leading-tight mb-1.5", quest.isLocked ? 'text-white/50' : 'text-white')}>
                                 {t(quest.title, quest.title)}
                             </h3>
-                            <p className="text-[13px] text-muted-foreground leading-snug line-clamp-2">
+                            <p className="text-[13px] text-white/70 leading-snug line-clamp-2">
                                 {t(quest.description, quest.description)}
                             </p>
                         </div>
@@ -324,12 +323,12 @@ const QuestsSection = () => {
                         className={cn(
                             "w-full font-bold transition-all mt-4 h-10 text-xs sm:text-sm rounded-xl border", 
                             quest.completed 
-                                ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20 cursor-default shadow-none hover:bg-emerald-500/10'
+                                ? 'bg-white/10 text-gold border-transparent cursor-default shadow-none'
                                 : quest.isPending
-                                ? 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20 cursor-default shadow-none hover:bg-amber-500/10'
+                                ? 'bg-gold/20 text-gold border-gold/30 cursor-default shadow-none'
                                 : quest.isLocked
-                                ? 'bg-muted/50 text-muted-foreground border-border cursor-not-allowed hover:bg-muted/50' 
-                                : 'bg-[#c4d1c0] text-white border-transparent hover:bg-white shadow-sm'
+                                ? 'bg-white/5 text-white border-white/10 cursor-not-allowed' 
+                                : 'bg-gradient-gold text-white border-transparent shadow-glow hover:scale-105'
                         )}
                     >
                         {processingId === quest.id ? <Loader2 className="w-4 h-4 animate-spin"/> : <div className="flex items-center justify-center">{getButtonIcon(quest)}{getButtonText(quest)}</div>}
@@ -339,8 +338,8 @@ const QuestsSection = () => {
             </AnimatePresence>
             
             {quests.length === 0 && !showDiscoveryCard && !loading && (
-                <div className="col-span-full text-center py-12 text-muted-foreground border border-dashed border-border rounded-2xl bg-muted/10">
-                    <Target className="w-8 h-8 mx-auto mb-3 opacity-20"/>
+                <div className="col-span-full text-center py-12 text-white/60 border border-dashed border-gold/30 rounded-2xl bg-black/20">
+                    <Target className="w-8 h-8 mx-auto mb-3 opacity-50 text-gold"/>
                     <p className="text-sm font-medium">{t('quest.empty_desc', "No hay misiones activas en este momento.")}</p>
                 </div>
             )}

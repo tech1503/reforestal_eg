@@ -5,15 +5,22 @@ export const TIER_LEVELS = {
     id: 'bedb258e-9555-4a15-8677-4d6b4b0b4910',
     slug: 'explorer_lifeline', 
     name: 'Explorer Lifeline',
-    minAmount: 97.99,
+    minAmount: 167.99,
     description: 'Maximum impact for true pioneers.'
   },
   EXPLORER_RIVERBED: {
     id: '458b4bf6-3444-4304-84d4-b2a7c3f27a3c',
     slug: 'explorer_riverbed',
     name: 'Explorer Riverbed',
-    minAmount: 49.99,
+    minAmount: 79.99,
     description: 'Deepening the flow of support.'
+  },
+  EXPLORER_CASH_FLOW: {
+    id: '4a97ea41-e755-43c1-aec2-01c50de728f8', 
+    slug: 'explorer_cash_flow', 
+    name: 'Explorer Cash Flow',
+    minAmount: 24.99,
+    description: 'Special unlock after 2500 euros raised.'
   },
   EXPLORER_MOUNTAIN_STREAM: {
     id: 'd8c091e4-6f74-48ec-8c80-a96e1be7193e',
@@ -34,19 +41,20 @@ export const TIER_LEVELS = {
 // --- LÓGICA HÍBRIDA ---
 
 /**
- * * @param {number|string} amount 
+ * @param {number|string} amount 
  * @returns {number} 
  */
 export const calculateDynamicCredits = (amount) => {
-    const val = parseFloat(amount);
-    if (isNaN(val) || val < 0) return 0;
+    const rawVal = parseFloat(amount);
+    if (isNaN(rawVal) || rawVal < 0) return 0;
 
-    
-    if (val === 5) return 1000;
-    if (val === 14.99) return 3000;
-    if (val === 49.99) return 10000;
-    if (val === 97.99) return 25000;
+    const val = Number(rawVal.toFixed(2));
 
+    if (val === 5.00) return 1000;
+    if (val === 14.99) return 3750;
+    if (val === 24.99) return 6250;
+    if (val === 79.99) return 12500;
+    if (val === 167.99) return 24500;
 
     const MULTIPLIER = 260; 
     
@@ -160,5 +168,6 @@ export const getVariantIconName = (slug) => {
     if (slug.includes('lifeline')) return 'lifeline';
     if (slug.includes('river')) return 'riverbed';
     if (slug.includes('stream')) return 'mountain-stream';
+    if (slug.includes('cash_flow')) return 'cash-flow';
     return 'mountain-spring';
 };

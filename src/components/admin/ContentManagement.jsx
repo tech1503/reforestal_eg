@@ -86,7 +86,7 @@ const ProductTranslationModal = ({ isOpen, onClose, product }) => {
 
             if (error) throw error;
             
-            toast({ title: t('common.success'), description: "Translations saved." });
+            toast({ title: t('common.success'), description: "Translations saved.", className: "bg-card border-gold/30 text-foreground" });
             onClose();
         } catch (error) {
             console.error(error);
@@ -105,43 +105,46 @@ const ProductTranslationModal = ({ isOpen, onClose, product }) => {
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="sm:max-w-[600px]">
+            <DialogContent className="sm:max-w-[600px] bg-background border-border">
                 <DialogHeader>
-                    <DialogTitle>Edit Translations: {product?.name}</DialogTitle>
+                    <DialogTitle className="text-foreground">Edit Translations: {product?.name}</DialogTitle>
                 </DialogHeader>
                 
                 <Tabs value={activeLang} onValueChange={setActiveLang} className="w-full">
-                    <TabsList className="grid w-full grid-cols-3 mb-4">
-                        <TabsTrigger value="es">Español</TabsTrigger>
-                        <TabsTrigger value="de">Deutsch</TabsTrigger>
-                        <TabsTrigger value="fr">Français</TabsTrigger>
+                    <TabsList className="grid w-full grid-cols-3 mb-4 bg-muted/50 p-1 rounded-xl">
+                        <TabsTrigger value="es" className="rounded-lg data-[state=active]:bg-gradient-gold data-[state=active]:text-[#063127] data-[state=active]:shadow-glow data-[state=active]:font-bold text-muted-foreground hover:text-foreground transition-all">Español</TabsTrigger>
+                        <TabsTrigger value="de" className="rounded-lg data-[state=active]:bg-gradient-gold data-[state=active]:text-[#063127] data-[state=active]:shadow-glow data-[state=active]:font-bold text-muted-foreground hover:text-foreground transition-all">Deutsch</TabsTrigger>
+                        <TabsTrigger value="fr" className="rounded-lg data-[state=active]:bg-gradient-gold data-[state=active]:text-[#063127] data-[state=active]:shadow-glow data-[state=active]:font-bold text-muted-foreground hover:text-foreground transition-all">Français</TabsTrigger>
                     </TabsList>
                     
-                    {loading ? <div className="py-8 flex justify-center"><Loader className="animate-spin text-emerald-500"/></div> : (
+                    {loading ? <div className="py-8 flex justify-center"><Loader className="animate-spin text-gold"/></div> : (
                         <div className="space-y-4 py-2">
                             <div className="space-y-2">
-                                <Label>Name ({activeLang.toUpperCase()})</Label>
+                                <Label className="text-foreground">Name ({activeLang.toUpperCase()})</Label>
                                 <Input 
                                     value={translations[activeLang].name} 
                                     onChange={e => updateField('name', e.target.value)} 
                                     placeholder="Translated Name"
+                                    className="bg-background border-border text-foreground focus-visible:ring-gold"
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label>Description ({activeLang.toUpperCase()})</Label>
+                                <Label className="text-foreground">Description ({activeLang.toUpperCase()})</Label>
                                 <Textarea 
                                     value={translations[activeLang].description} 
                                     onChange={e => updateField('description', e.target.value)} 
                                     placeholder="Translated Description"
                                     rows={3}
+                                    className="bg-background border-border text-foreground focus-visible:ring-gold"
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label>Impact Text ({activeLang.toUpperCase()})</Label>
+                                <Label className="text-foreground">Impact Text ({activeLang.toUpperCase()})</Label>
                                 <Input 
                                     value={translations[activeLang].impact_description} 
                                     onChange={e => updateField('impact_description', e.target.value)} 
                                     placeholder="e.g. 1 ton CO2"
+                                    className="bg-background border-border text-foreground focus-visible:ring-gold"
                                 />
                             </div>
                         </div>
@@ -149,8 +152,8 @@ const ProductTranslationModal = ({ isOpen, onClose, product }) => {
                 </Tabs>
 
                 <DialogFooter>
-                    <Button variant="outline" onClick={onClose}>{t('common.cancel')}</Button>
-                    <Button onClick={handleSaveTranslations} disabled={loading} className="btn-primary">
+                    <Button variant="outline" className="border-border text-foreground hover:bg-muted" onClick={onClose}>{t('common.cancel')}</Button>
+                    <Button onClick={handleSaveTranslations} disabled={loading} className="bg-gradient-gold text-[#063127] font-bold border-none shadow-glow hover:opacity-90 transition-opacity">
                         {loading ? <Loader className="w-4 h-4 animate-spin mr-2"/> : <Save className="w-4 h-4 mr-2"/>} {t('common.save')}
                     </Button>
                 </DialogFooter>
@@ -294,7 +297,7 @@ const ProductsManager = () => {
 
             if (error) throw error;
 
-            toast({ title: t('common.success'), description: 'Product saved successfully.' });
+            toast({ title: t('common.success'), description: 'Product saved successfully.', className: "bg-card border-gold/30 text-foreground" });
             setShowModal(false);
             resetForm();
             fetchProducts();
@@ -361,36 +364,36 @@ const ProductsManager = () => {
     return (
         <div className="space-y-4">
             <div className="flex justify-between items-center">
-                <h3 className="text-lg font-medium">Exchange Products</h3>
-                <Button onClick={openCreate} className="btn-primary"><Plus className="w-4 h-4 mr-2"/> Add Product</Button>
+                <h3 className="text-lg font-medium text-foreground">Exchange Products</h3>
+                <Button onClick={openCreate} className="bg-gradient-gold text-[#063127] font-bold border-none shadow-glow hover:scale-105 transition-transform"><Plus className="w-4 h-4 mr-2"/> Add Product</Button>
             </div>
 
-            <Card>
+            <Card className="bg-card border-border shadow-sm">
                 <CardContent className="p-0">
                     <Table>
                         <TableHeader>
-                            <TableRow>
-                                <TableHead>Image</TableHead>
-                                <TableHead>Name</TableHead>
-                                <TableHead>Pricing Method</TableHead>
-                                <TableHead>Type</TableHead>
-                                <TableHead>Status</TableHead>
-                                <TableHead className="text-right">Actions</TableHead>
+                            <TableRow className="bg-muted/50 border-border">
+                                <TableHead className="text-foreground">Image</TableHead>
+                                <TableHead className="text-foreground">Name</TableHead>
+                                <TableHead className="text-foreground">Pricing Method</TableHead>
+                                <TableHead className="text-foreground">Type</TableHead>
+                                <TableHead className="text-foreground">Status</TableHead>
+                                <TableHead className="text-right text-foreground">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {loading ? <TableRow><TableCell colSpan={6} className="text-center p-8"><Loader className="animate-spin mx-auto"/></TableCell></TableRow> :
+                            {loading ? <TableRow><TableCell colSpan={6} className="text-center p-8 border-border"><Loader className="animate-spin mx-auto text-gold"/></TableCell></TableRow> :
                             products.map(p => (
-                                <TableRow key={p.id} className={!p.is_active ? 'bg-slate-50 opacity-60' : ''}>
+                                <TableRow key={p.id} className={`hover:bg-muted/30 transition-colors border-border ${!p.is_active ? 'opacity-50 bg-muted/20' : ''}`}>
                                     <TableCell>
-                                        <div className="w-10 h-10 bg-slate-100 rounded-md overflow-hidden flex items-center justify-center border border-slate-200">
-                                            {p.image_url ? <img src={p.image_url} alt={p.name} className="w-full h-full object-cover"/> : <ImageIcon className="w-4 h-4 text-slate-300"/>}
+                                        <div className="w-10 h-10 bg-muted rounded-md overflow-hidden flex items-center justify-center border border-border">
+                                            {p.image_url ? <img src={p.image_url} alt={p.name} className="w-full h-full object-cover"/> : <ImageIcon className="w-4 h-4 text-muted-foreground/50"/>}
                                         </div>
                                     </TableCell>
                                     <TableCell>
-                                        <div className="font-medium">{p.name}</div>
+                                        <div className="font-medium text-foreground">{p.name}</div>
                                         {p.unlocks_quest_id && (
-                                            <div className="text-[10px] text-blue-600 flex items-center gap-1 mt-1 font-semibold">
+                                            <div className="text-[10px] text-gold flex items-center gap-1 mt-1 font-bold">
                                                 <Target className="w-3 h-3"/> Unlocks: {p.gamification_actions?.action_title || 'Quest'}
                                             </div>
                                         )}
@@ -398,29 +401,29 @@ const ProductsManager = () => {
                                     <TableCell>
                                         <div className="flex flex-col gap-1">
                                             {(p.payment_type === 'credits' || p.payment_type === 'both') && (
-                                                <span className="text-xs font-mono font-bold text-emerald-600 flex items-center gap-1"><Coins className="w-3 h-3"/> {p.price} BP</span>
+                                                <span className="text-xs font-mono font-bold text-gold flex items-center gap-1"><Coins className="w-3 h-3"/> {p.price} BP</span>
                                             )}
                                             {(p.payment_type === 'fiat' || p.payment_type === 'both') && (
-                                                <span className="text-xs font-mono font-bold text-blue-600 flex items-center gap-1"><CreditCard className="w-3 h-3"/> €{p.price_eur}</span>
+                                                <span className="text-xs font-mono font-bold text-emerald-500 dark:text-emerald-400 flex items-center gap-1"><CreditCard className="w-3 h-3"/> €{p.price_eur}</span>
                                             )}
                                         </div>
                                     </TableCell>
                                     <TableCell>
-                                        {p.unlocks_quest_id ? <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">Quest Key</Badge> : <Badge variant="outline">Item</Badge>}
+                                        {p.unlocks_quest_id ? <Badge variant="outline" className="bg-gold/10 text-gold border-gold/30">Quest Key</Badge> : <Badge variant="outline" className="text-foreground border-border">Item</Badge>}
                                     </TableCell>
                                     <TableCell>
-                                        <Badge variant={p.is_active ? 'default' : 'secondary'} className={p.is_active ? 'bg-green-600' : ''}>
+                                        <Badge variant={p.is_active ? 'default' : 'secondary'} className={p.is_active ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-muted text-muted-foreground'}>
                                             {p.is_active ? 'Visible' : 'Hidden'}
                                         </Badge>
                                     </TableCell>
                                     <TableCell className="text-right">
                                         <div className="flex justify-end gap-2">
-                                            <Button variant="ghost" size="icon" onClick={() => handleToggleVisibility(p)} title={p.is_active ? "Hide" : "Show"}>
-                                                {p.is_active ? <Eye className="w-4 h-4 text-emerald-600"/> : <EyeOff className="w-4 h-4 text-slate-400"/>}
+                                            <Button variant="ghost" size="icon" onClick={() => handleToggleVisibility(p)} title={p.is_active ? "Hide" : "Show"} className="hover:text-gold hover:bg-muted/50">
+                                                {p.is_active ? <Eye className="w-4 h-4 text-emerald-500 dark:text-emerald-400"/> : <EyeOff className="w-4 h-4 text-muted-foreground"/>}
                                             </Button>
-                                            <Button variant="ghost" size="icon" onClick={() => openTranslate(p)} title="Translate"><Globe className="w-4 h-4 text-blue-500"/></Button>
-                                            <Button variant="ghost" size="icon" onClick={() => openEdit(p)} title="Edit"><Edit className="w-4 h-4 text-slate-500"/></Button>
-                                            <Button variant="ghost" size="icon" onClick={() => handleDelete(p.id)} title="Delete"><Trash2 className="w-4 h-4 text-red-500"/></Button>
+                                            <Button variant="ghost" size="icon" onClick={() => openTranslate(p)} title="Translate" className="text-muted-foreground hover:text-gold hover:bg-muted/50"><Globe className="w-4 h-4"/></Button>
+                                            <Button variant="ghost" size="icon" onClick={() => openEdit(p)} title="Edit" className="text-muted-foreground hover:text-gold hover:bg-muted/50"><Edit className="w-4 h-4"/></Button>
+                                            <Button variant="ghost" size="icon" onClick={() => handleDelete(p.id)} title="Delete" className="text-muted-foreground hover:text-destructive hover:bg-destructive/10"><Trash2 className="w-4 h-4"/></Button>
                                         </div>
                                     </TableCell>
                                 </TableRow>
@@ -431,29 +434,29 @@ const ProductsManager = () => {
             </Card>
 
             <Dialog open={showModal} onOpenChange={setShowModal}>
-                <DialogContent className="sm:max-w-[550px]">
+                <DialogContent className="sm:max-w-[550px] bg-background border-border text-foreground">
                     <DialogHeader>
-                        <DialogTitle>{isEditing ? 'Edit Product' : 'Create Product'}</DialogTitle>
+                        <DialogTitle className="text-foreground">{isEditing ? 'Edit Product' : 'Create Product'}</DialogTitle>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
                         <div className="flex justify-center mb-2">
-                            <label className="cursor-pointer relative group w-32 h-32 bg-slate-50 rounded-xl border-2 border-dashed border-slate-300 flex items-center justify-center overflow-hidden hover:bg-slate-100 transition-colors">
+                            <label className="cursor-pointer relative group w-32 h-32 bg-muted/30 rounded-xl border-2 border-dashed border-border flex items-center justify-center overflow-hidden hover:bg-muted/50 transition-colors">
                                 <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
-                                {previewUrl ? <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" /> : <div className="text-center text-slate-400 p-4"><ImageIcon className="w-8 h-8 mx-auto mb-2 opacity-50" /><span className="text-xs font-medium">Upload Image</span></div>}
+                                {previewUrl ? <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" /> : <div className="text-center text-muted-foreground p-4"><ImageIcon className="w-8 h-8 mx-auto mb-2 opacity-50" /><span className="text-xs font-medium">Upload Image</span></div>}
                             </label>
                         </div>
                         
                         <div className="grid gap-2">
-                            <Label>Name (English/Default)</Label>
-                            <Input value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
+                            <Label className="text-foreground">Name (English/Default)</Label>
+                            <Input value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="bg-background border-border text-foreground focus-visible:ring-gold" />
                         </div>
                         
                         {/* CONFIGURACIÓN DE PAGOS */}
-                        <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-4">
+                        <div className="p-4 bg-muted/30 border border-border rounded-xl space-y-4">
                             <div className="space-y-2">
-                                <Label>Payment Method Supported</Label>
+                                <Label className="text-foreground">Payment Method Supported</Label>
                                 <Select value={formData.payment_type} onValueChange={v => setFormData({...formData, payment_type: v})}>
-                                    <SelectTrigger className="bg-white"><SelectValue/></SelectTrigger>
+                                    <SelectTrigger className="bg-background border-border text-foreground focus:ring-gold"><SelectValue/></SelectTrigger>
                                     <SelectContent>
                                         <SelectItem value="credits">Bonus (Bonus Points) ONLY</SelectItem>
                                         <SelectItem value="fiat">Real Money (Euros) ONLY</SelectItem>
@@ -463,25 +466,25 @@ const ProductsManager = () => {
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <Label className={formData.payment_type === 'fiat' ? 'opacity-50' : 'text-emerald-700 font-bold'}>Price in BP</Label>
-                                    <Input type="number" disabled={formData.payment_type === 'fiat'} value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} className="bg-white" />
+                                    <Label className={formData.payment_type === 'fiat' ? 'opacity-50 text-foreground' : 'text-gold font-bold'}>Price in BP</Label>
+                                    <Input type="number" disabled={formData.payment_type === 'fiat'} value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} className="bg-background border-border text-foreground focus-visible:ring-gold" />
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className={formData.payment_type === 'credits' ? 'opacity-50' : 'text-blue-700 font-bold'}>Price in Euros (€)</Label>
-                                    <Input type="number" disabled={formData.payment_type === 'credits'} value={formData.price_eur} onChange={e => setFormData({...formData, price_eur: e.target.value})} className="bg-white" />
+                                    <Label className={formData.payment_type === 'credits' ? 'opacity-50 text-foreground' : 'text-emerald-500 font-bold'}>Price in Euros (€)</Label>
+                                    <Input type="number" disabled={formData.payment_type === 'credits'} value={formData.price_eur} onChange={e => setFormData({...formData, price_eur: e.target.value})} className="bg-background border-border text-foreground focus-visible:ring-gold" />
                                 </div>
                             </div>
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
-                                <Label>Stock (-1 for infinite)</Label>
-                                <Input type="number" value={formData.stock} onChange={e => setFormData({...formData, stock: e.target.value})} />
+                                <Label className="text-foreground">Stock (-1 for infinite)</Label>
+                                <Input type="number" value={formData.stock} onChange={e => setFormData({...formData, stock: e.target.value})} className="bg-background border-border text-foreground focus-visible:ring-gold" />
                             </div>
                             <div className="space-y-2">
-                                <Label className="flex items-center gap-2"><Target className="w-4 h-4"/> Unlocks Quest</Label>
+                                <Label className="flex items-center gap-2 text-foreground"><Target className="w-4 h-4 text-gold"/> Unlocks Quest</Label>
                                 <select 
-                                    className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm"
+                                    className="w-full h-10 rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
                                     value={formData.unlocks_quest_id || 'none'}
                                     onChange={e => setFormData({...formData, unlocks_quest_id: e.target.value})}
                                 >
@@ -494,18 +497,18 @@ const ProductsManager = () => {
                         </div>
 
                         <div className="grid gap-2">
-                            <Label>Description (English)</Label>
-                            <Textarea value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} rows={2}/>
+                            <Label className="text-foreground">Description (English)</Label>
+                            <Textarea value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} rows={2} className="bg-background border-border text-foreground focus-visible:ring-gold" />
                         </div>
                         
-                        <div className="flex items-center space-x-2 border p-3 rounded-lg bg-slate-50">
+                        <div className="flex items-center space-x-2 border border-border p-3 rounded-lg bg-muted/30">
                             <Switch id="active-mode" checked={formData.is_active} onCheckedChange={(c) => setFormData({...formData, is_active: c})} />
-                            <Label htmlFor="active-mode" className="cursor-pointer">Visible in Store?</Label>
+                            <Label htmlFor="active-mode" className="cursor-pointer text-foreground">Visible in Store?</Label>
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setShowModal(false)}>{t('common.cancel')}</Button>
-                        <Button onClick={handleSave} disabled={uploading} className="bg-slate-800 hover:bg-slate-900 text-white">
+                        <Button variant="outline" className="border-border text-foreground hover:bg-muted" onClick={() => setShowModal(false)}>{t('common.cancel')}</Button>
+                        <Button onClick={handleSave} disabled={uploading} className="bg-gradient-gold text-[#063127] font-bold border-none shadow-glow hover:opacity-90 transition-opacity">
                             {uploading && <Loader className="w-4 h-4 animate-spin mr-2" />} {t('common.save')}
                         </Button>
                     </DialogFooter>
@@ -522,25 +525,25 @@ const ContentManagement = () => {
   return (
     <div className="space-y-6">
       <div>
-          <h2 className="text-2xl font-bold tracking-tight">Content Management</h2>
+          <h2 className="text-2xl font-bold tracking-tight text-foreground">Content Management</h2>
           <p className="text-muted-foreground">Manage exchange products, pricing methods and catalog.</p>
       </div>
       
       <Tabs defaultValue="products">
-        <TabsList className="mb-4">
-            <TabsTrigger value="products">Store Catalog</TabsTrigger>
-            <TabsTrigger value="proposals">Voting Proposals</TabsTrigger>
-            <TabsTrigger value="benefits">Benefit Levels</TabsTrigger>
+        <TabsList className="mb-4 bg-muted/50 border border-border p-1 rounded-xl flex flex-wrap h-auto gap-1">
+            <TabsTrigger value="products" className="px-4 py-2 rounded-lg data-[state=active]:bg-gradient-gold data-[state=active]:text-[#063127] data-[state=active]:shadow-glow data-[state=active]:font-bold text-muted-foreground hover:text-foreground transition-all">Store Catalog</TabsTrigger>
+            <TabsTrigger value="proposals" className="px-4 py-2 rounded-lg data-[state=active]:bg-gradient-gold data-[state=active]:text-[#063127] data-[state=active]:shadow-glow data-[state=active]:font-bold text-muted-foreground hover:text-foreground transition-all">Voting Proposals</TabsTrigger>
+            <TabsTrigger value="benefits" className="px-4 py-2 rounded-lg data-[state=active]:bg-gradient-gold data-[state=active]:text-[#063127] data-[state=active]:shadow-glow data-[state=active]:font-bold text-muted-foreground hover:text-foreground transition-all">Benefit Levels</TabsTrigger>
         </TabsList>
         
         <TabsContent value="products">
             <ProductsManager />
         </TabsContent>
         <TabsContent value="proposals">
-            <Card><CardContent className="py-8 text-center text-muted-foreground">Proposal Management moved to Community Tab.</CardContent></Card>
+            <Card className="bg-card border-border"><CardContent className="py-8 text-center text-muted-foreground">Proposal Management moved to Community Tab.</CardContent></Card>
         </TabsContent>
         <TabsContent value="benefits">
-            <Card><CardContent className="py-8 text-center text-muted-foreground">Benefit Levels moved to Tiers Tab.</CardContent></Card>
+            <Card className="bg-card border-border"><CardContent className="py-8 text-center text-muted-foreground">Benefit Levels moved to Tiers Tab.</CardContent></Card>
         </TabsContent>
       </Tabs>
     </div>

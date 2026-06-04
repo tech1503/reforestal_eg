@@ -3,7 +3,7 @@ import { supabase } from '@/lib/customSupabaseClient';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Loader, Filter } from 'lucide-react';
+import { Loader } from 'lucide-react';
 import { format } from 'date-fns';
 
 const VestingManagement = () => {

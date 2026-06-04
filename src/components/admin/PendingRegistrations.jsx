@@ -6,17 +6,20 @@ import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import PendingImpactCredits from '@/components/admin/PendingImpactCredits';
-import { getSupportLevelByAmount, calculateDynamicCredits } from '@/utils/tierLogicUtils';
 import { createNotification } from '@/utils/notificationUtils'; 
+import { useTranslation } from 'react-i18next';
 
 const PendingRegistrations = () => {
     const { toast } = useToast();
+    const { t } = useTranslation();
     const [registrations, setRegistrations] = useState([]);
     const [loading, setLoading] = useState(true);
     const [processing, setProcessing] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [confirmAction, setConfirmAction] = useState(null); 
+    const [rowPioneerStatus, setRowPioneerStatus] = useState({});
 
     const fetchRegistrations = useCallback(async () => {
         setLoading(true);
@@ -57,94 +60,35 @@ const PendingRegistrations = () => {
         setProcessing(item.id);
 
         try {
-            const { data: roleData } = await supabase.from('roles').select('id').eq('name', 'startnext_user').single();
-            if (!roleData) throw new Error("Role 'startnext_user' not found.");
+            const p_status = rowPioneerStatus[item.id] || 'pending';
 
-            await supabase.from('users_roles').upsert({ user_id: item.user_id, role_id: roleData.id }, { onConflict: 'user_id,role_id' });
-            await supabase.from('profiles').update({ role: 'startnext_user' }).eq('id', item.user_id);
+            const { data, error } = await supabase.rpc('admin_process_startnext_contribution', {
+                p_user_id: item.user_id,
+                p_amount: item.amount,
+                p_notes: item.message || 'Approved from pending request',
+                p_pending_req_id: item.id,
+                p_city: item.city,
+                p_country: item.country,
+                p_pioneer_status: p_status
+            });
 
-            const supportLevelId = await getSupportLevelByAmount(item.amount);
-            
-            if (supportLevelId) {
-                await supabase.from('user_benefits').upsert({
-                    user_id: item.user_id,
-                    new_support_level_id: supportLevelId,
-                    status: 'active',
-                    assigned_date: new Date().toISOString()
-                }, { onConflict: 'user_id' });
-            }
-
-            const { data: contrib, error: contribError } = await supabase.from('startnext_contributions').insert({
-                user_id: item.user_id,
-                contribution_amount: item.amount,
-                new_support_level_id: supportLevelId,
-                benefit_assigned: true,
-                notes: item.message || 'Approved from pending request'
-            }).select().single();
-
-            if (contribError) throw contribError;
-
-            const correctCredits = calculateDynamicCredits(item.amount); 
-            
-            const { data: existingCredits } = await supabase
-                .from('impact_credits')
-                .select('id, amount')
-                .eq('contribution_id', contrib.id);
-
-            if (existingCredits && existingCredits.length > 0) {
-                const firstCredit = existingCredits[0];
-                
-                await supabase.from('impact_credits')
-                    .update({ 
-                        amount: correctCredits, 
-                        description: `Startnext Contribution (Verified x200)`
-                    })
-                    .eq('id', firstCredit.id);
-                
-                if (existingCredits.length > 1) {
-                    const idsToDelete = existingCredits.slice(1).map(c => c.id);
-                    await supabase.from('impact_credits').delete().in('id', idsToDelete);
-                }
-            } else {
-                await supabase.from('impact_credits').insert({
-                    user_id: item.user_id,
-                    amount: correctCredits,
-                    source: 'startnext',
-                    description: 'Startnext Contribution (Manual Verify)',
-                    contribution_id: contrib.id,
-                    related_support_level_id: supportLevelId
-                });
-            }
-
-            const { data: currentMetrics } = await supabase
-                .from('founding_pioneer_metrics')
-                .select('founding_pioneer_access_status, total_impact_credits_earned')
-                .eq('user_id', item.user_id)
-                .maybeSingle();
-
-            const { data: allCredits } = await supabase.from('impact_credits').select('amount').eq('user_id', item.user_id);
-            const totalScore = allCredits?.reduce((sum, c) => sum + Number(c.amount), 0) || correctCredits;
-
-            const pioneerStatus = currentMetrics?.founding_pioneer_access_status || 'pending';
-
-            await supabase.from('founding_pioneer_metrics').upsert({
-                user_id: item.user_id,
-                total_impact_credits_earned: totalScore,
-                founding_pioneer_access_status: pioneerStatus, 
-                updated_at: new Date().toISOString()
-            }, { onConflict: 'user_id' });
+            if (error) throw error;
+            if (!data.success) throw new Error(data.error);
 
             await createNotification(
                 item.user_id,
                 'notifications.contribution_verified.title',
                 'notifications.contribution_verified.message',
-                { amount: item.amount, credits: correctCredits },
+                { amount: item.amount, credits: data.credits_awarded },
                 'success'
             );
 
-            await supabase.from('pending_startnext_registrations').update({ status: 'approved' }).eq('id', item.id);
-
-            toast({ title: "Approved", description: `${item.name} role updated. Credits adjusted to ${correctCredits}. Pioneer status: ${pioneerStatus}.` });
+            toast({ 
+                title: "Approved", 
+                description: `${item.name} role updated. Credits: ${data.credits_awarded}. Pioneer status: ${data.pioneer_status}.`,
+                className: "bg-emerald-600 text-white border-none"
+            });
+            
             setConfirmAction(null);
             fetchRegistrations();
 
@@ -195,27 +139,22 @@ const PendingRegistrations = () => {
         <div className="space-y-8 animate-in fade-in duration-500">
             <div className="flex justify-between items-center">
                 <div>
-                    <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                    <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
                         <UserPlus className="w-8 h-8 text-emerald-600" /> User Registrations & Requests
                     </h2>
-                    <p className="text-gray-500">Manage incoming Startnext support claims and credit redemption requests.</p>
+                    <p className="text-foreground">Manage incoming Startnext support claims and credit redemption requests.</p>
                 </div>
             </div>
 
             <div className="space-y-4">
                 <div className="flex justify-between items-center border-b pb-4">
-                     <h3 className="text-lg font-bold text-gray-700 flex items-center gap-2">
+                     <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
                         <Clock className="w-5 h-5 text-amber-500" /> Startnext Support Claims
                     </h3>
                     <div className="flex items-center gap-2">
                          <div className="relative">
                             <Search className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
-                            <Input 
-                                placeholder="Search..." 
-                                className="pl-9 w-48 bg-white h-9 text-sm" 
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                            />
+                            <Input placeholder="Search..." className="pl-9 w-48 bg-background h-9 text-sm" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                         </div>
                         <Button variant="outline" size="sm" onClick={fetchRegistrations} disabled={loading}>
                             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -223,42 +162,56 @@ const PendingRegistrations = () => {
                     </div>
                 </div>
 
-                <div className="bg-white rounded-lg shadow border overflow-hidden">
+                <div className="bg-background rounded-lg shadow border overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full">
-                            <thead className="bg-gray-50 border-b">
+                            <thead className="bg-background border-b">
                                 <tr>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider">User</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider">Amount</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider">Details</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-foreground uppercase tracking-wider">Pioneer Access</th>
+                                    <th className="px-6 py-3 text-right text-xs font-medium text-foreground uppercase tracking-wider">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200">
                                 {filtered.length === 0 ? (
-                                    <tr><td colSpan="5" className="px-6 py-8 text-center text-gray-500">No pending Startnext registrations found.</td></tr>
+                                    <tr><td colSpan="5" className="px-6 py-8 text-center text-foreground">No pending Startnext registrations found.</td></tr>
                                 ) : (
                                     filtered.map((reg) => (
-                                        <tr key={reg.id} className="hover:bg-gray-50">
+                                        <tr key={reg.id} className="hover:bg-background">
                                             <td className="px-6 py-4">
                                                 <div className="flex flex-col">
-                                                    <span className="font-medium text-gray-900">{reg.name}</span>
-                                                    <span className="text-sm text-gray-500 flex items-center gap-1"><Mail className="w-3 h-3" /> {reg.email}</span>
+                                                    <span className="font-medium text-foreground">{reg.name}</span>
+                                                    <span className="text-sm text-foreground flex items-center gap-1"><Mail className="w-3 h-3" /> {reg.email}</span>
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4">
-                                                <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200 text-sm">€{reg.amount}</Badge>
+                                                <Badge variant="outline" className="bg-emerald-100 text-emerald-700 border-emerald-200 text-sm">€{reg.amount}</Badge>
                                             </td>
                                             <td className="px-6 py-4">
-                                                <div className="space-y-1 text-sm text-gray-600">
+                                                <div className="space-y-1 text-sm text-foreground">
                                                     {(reg.city || reg.country) && (
-                                                        <div className="flex items-center gap-1"><MapPin className="w-3 h-3 text-gray-400" />{reg.city}{reg.city && reg.country ? ', ' : ''}{reg.country}</div>
+                                                        <div className="flex items-center gap-1"><MapPin className="w-3 h-3 text-foreground" />{reg.city}{reg.city && reg.country ? ', ' : ''}{reg.country}</div>
                                                     )}
-                                                    {reg.message && <div className="bg-gray-100 p-2 rounded text-xs italic max-w-xs break-words">"{reg.message}"</div>}
+                                                    {reg.message && <div className="bg-background p-2 rounded text-xs italic max-w-xs break-words">"{reg.message}"</div>}
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4 text-sm text-gray-500">{new Date(reg.created_at).toLocaleDateString()}</td>
+                                            <td className="px-6 py-4">
+                                                <Select 
+                                                    value={rowPioneerStatus[reg.id] || 'pending'} 
+                                                    onValueChange={(val) => setRowPioneerStatus(prev => ({...prev, [reg.id]: val}))}
+                                                >
+                                                    <SelectTrigger className="h-8 text-xs bg-background w-[130px] font-bold">
+                                                        <SelectValue />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem value="pending">Pending</SelectItem>
+                                                        <SelectItem value="approved">Approved</SelectItem>
+                                                        <SelectItem value="rejected">Rejected</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </td>
                                             <td className="px-6 py-4 text-right space-x-2">
                                                 <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700 text-white" onClick={() => setConfirmAction({ type: 'approve', item: reg })} disabled={processing === reg.id}><CheckCircle className="w-4 h-4 mr-1" /> Approve</Button>
                                                 <Button size="sm" variant="outline" className="border-red-200 text-red-600 hover:bg-red-50" onClick={() => setConfirmAction({ type: 'reject', item: reg })} disabled={processing === reg.id}><XCircle className="w-4 h-4" /></Button>
@@ -280,11 +233,12 @@ const PendingRegistrations = () => {
                     <DialogHeader>
                         <DialogTitle>Confirm Action</DialogTitle>
                         <DialogDescription>
-                            {confirmAction?.type === 'approve' && <span>Are you sure you want to approve <strong>{confirmAction.item.name}</strong>? This will grant Startnext Supporter status (Land Dollar + BP). <strong>Pioneer Access requires separate evaluation.</strong></span>}
+                            {confirmAction?.type === 'approve' && <span>Are you sure you want to approve <strong>{confirmAction.item.name}</strong>? This will grant Startnext Supporter status (Land Dollar + BP).</span>}
                             {confirmAction?.type === 'reject' && <span>Are you sure you want to reject this request from <strong>{confirmAction.item.name}</strong>?</span>}
                             {confirmAction?.type === 'delete' && <span>Are you sure you want to permanently delete this record?</span>}
                         </DialogDescription>
                     </DialogHeader>
+
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setConfirmAction(null)}>Cancel</Button>
                         <Button 

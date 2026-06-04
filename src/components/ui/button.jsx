@@ -5,11 +5,11 @@ import { cva } from 'class-variance-authority';
 import React from 'react';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-xl text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ring-offset-background whitespace-normal text-center',
+  'inline-flex items-center justify-center rounded-xl text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ring-offset-background whitespace-normal text-center overflow-hidden',
   {
     variants: {
       variant: {
-        default: 'bg-gradient-to-r from-[#063127] to-[#5b8370] text-[#c4d1c0] shadow-md hover:shadow-lg hover:shadow-[#063127]/30 hover:scale-[1.02] border border-transparent',
+        default: 'bg-gradient-to-r from-[#063127] to-[#5b8370] text-[#c4d1c0] shadow-md hover:shadow-lg hover:shadow-[#063127]/30 hover:scale-[1.02] border-none',
         destructive:
           'bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-md',
         outline:
@@ -19,7 +19,7 @@ const buttonVariants = cva(
         ghost: 'hover:bg-[#5b8370]/10 hover:text-[#063127] dark:hover:bg-[#5b8370]/20 dark:hover:text-[#c4d1c0]',
         link: 'text-[#5b8370] hover:text-[#063127] dark:hover:text-[#c4d1c0] underline-offset-4 hover:underline',
         gold: 'bg-gold text-[#011101] hover:bg-gold-600 shadow-md hover:shadow-glow font-bold',
-        primary: 'bg-gradient-to-r from-[#063127] to-[#5b8370] text-[#c4d1c0] shadow-md hover:shadow-lg hover:shadow-[#063127]/30 hover:scale-[1.02]',
+        primary: 'bg-gradient-to-r from-[#063127] to-[#5b8370] text-[#c4d1c0] shadow-md hover:shadow-lg hover:shadow-[#063127]/30 hover:scale-[1.02] border-none',
       },
       size: {
         default: 'h-auto min-h-[2.75rem] px-6 py-3', 

@@ -7,7 +7,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { generateLandDollarWithQR } from '@/utils/landDollarQRRenderer';
 
-import landDollarBaseImg from '@/assets/land-dollar-base.webp';
+import landDollarBaseImg from '@/assets/land-dollar-base1.webp';
 
 const LandDollarDisplay = ({ 
   user, 
@@ -112,7 +112,7 @@ const LandDollarDisplay = ({
 
         {/* QR Overlay Original */}
         {!isSuspended && (
-            <div className="absolute top-1/2 right-[18%] -translate-y-1/2 flex flex-col items-center w-[14%]">
+            <div className="absolute top-[44%] right-[22%] -translate-y-1/2 flex flex-col items-center w-[14%]">
                 <div className="bg-white/90 p-1 rounded-lg shadow-lg backdrop-blur-sm w-full aspect-square mb-2">
                     <img src={qrUrl} alt="Unique QR" className="w-full h-full object-contain mix-blend-multiply" />
                 </div>

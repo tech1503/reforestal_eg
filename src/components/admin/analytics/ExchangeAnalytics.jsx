@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { formatNumber } from '@/lib/utils'; 
 
 const ExchangeAnalytics = () => {
   const { t } = useTranslation();
@@ -41,7 +42,7 @@ const ExchangeAnalytics = () => {
       return { topProducts, totalRev, avgPurchase };
   }, [purchases]);
 
-  if(loading) return <div className="p-8 flex justify-center"><Loader2 className="animate-spin text-slate-400"/></div>;
+  if(loading) return <div className="p-8 flex justify-center"><Loader2 className="animate-spin text-foreground"/></div>;
 
   return (
     <div className="space-y-6">
@@ -66,22 +67,23 @@ const ExchangeAnalytics = () => {
 
             <Card>
                 <CardHeader>
-                    {/* Exchange Overview */}
                     <CardTitle>{t('exchange.title')} Overview</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <div className="space-y-4">
-                        <div className="p-4 bg-blue-50 rounded-lg">
-                            <p className="text-sm text-blue-600 font-medium">{t('exchange.labels.total')} Credits Spent</p>
-                            <p className="text-3xl font-bold text-blue-900">{stats.totalRev.toLocaleString()} </p>
+                        <div className="p-4 bg-background rounded-lg">
+                            <p className="text-sm text-foreground font-medium">{t('exchange.labels.total')} Credits Spent</p>
+       
+                            <p className="text-3xl font-bold text-foreground">{formatNumber(stats.totalRev)} </p>
                         </div>
-                        <div className="p-4 bg-slate-50 rounded-lg">
-                            <p className="text-sm text-slate-500 font-medium">Avg. Purchase Value</p>
-                            <p className="text-2xl font-bold text-slate-800">{stats.avgPurchase.toFixed(0)} </p>
+                        <div className="p-4 bg-background rounded-lg">
+                            <p className="text-sm text-foreground font-medium">Avg. Purchase Value</p>
+                 
+                            <p className="text-2xl font-bold text-foreground">{formatNumber(stats.avgPurchase)} </p>
                         </div>
-                        <div className="p-4 bg-slate-50 rounded-lg">
-                            <p className="text-sm text-slate-500 font-medium">{t('exchange.labels.total')} Transactions</p>
-                            <p className="text-2xl font-bold text-slate-800">{purchases.length}</p>
+                        <div className="p-4 bg-background rounded-lg">
+                            <p className="text-sm text-foreground font-medium">{t('exchange.labels.total')} Transactions</p>
+                            <p className="text-2xl font-bold text-foreground">{formatNumber(purchases.length)}</p>
                         </div>
                     </div>
                 </CardContent>
