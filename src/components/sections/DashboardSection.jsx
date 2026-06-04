@@ -208,7 +208,7 @@ const DashboardSection = () => {
                     icon={Calendar} 
                     iconColor="text-[#063127]" 
                     bgColor="bg-gradient-gold shadow-glow" 
-                    label="Registration Date" 
+                    label={t('dashboard.registration_date')} 
                     value={registrationDate} 
                 />
                 <StatCard 
@@ -259,7 +259,7 @@ const DashboardSection = () => {
                     <div className="relative group">
                         <span className="absolute left-5 top-1/2 -translate-y-1/2 text-gold font-bold text-2xl transition-colors">€</span>
                         <Input 
-                            type="number" placeholder="50" min="0"
+                            type="number" placeholder="0" min="0"
                             className="pl-12 text-4xl h-20 bg-background font-bold tracking-wide border-2 focus:border-gold text-[#053127] dark:text-[#c2d2c1]" 
                             value={simAmount} onChange={(e) => setSimAmount(e.target.value)} 
                         />

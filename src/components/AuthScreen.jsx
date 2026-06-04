@@ -14,6 +14,7 @@ import heroImg1 from '@/assets/hero-home-reforestal.webp';
 import { useNavigate } from 'react-router-dom'; 
 import ThemeSwitcher from '@/components/ThemeSwitcher';
 import { supabase } from '@/lib/customSupabaseClient';
+import logoDorado from '@/assets/icons/Logo-Reforestal-1.svg';
 
 const AuthScreen = () => {
   const { signIn, signUp, signInWithGoogle, user, profile, handleAuthRedirect } = useAuth();
@@ -84,7 +85,7 @@ const AuthScreen = () => {
       if (isLogin) {
         const { error } = await signIn(email, password);
         if (error) throw error;
-        toast({ title: t('auth.welcome'), description: "Successfully signed in." });
+        toast({ title: t('auth.welcome'), description: t('auth.welcome_message', "Successfully signed in.") });
       } else {
         const { data, error } = await signUp(email, password, name, nickname);
         if (error) throw error;
@@ -158,7 +159,7 @@ const AuthScreen = () => {
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} className="w-full max-w-md space-y-8">
           <div className="text-center md:text-left space-y-2">
               <div className="flex items-center justify-center md:justify-start gap-2 mb-6">
-                 <div className="w-10 h-10 bg-gradient-to-br from-[#063127] to-[#5b8370] rounded-xl flex items-center justify-center text-[#c4d1c0] shadow-md"><Leaf className="w-6 h-6" /></div>
+                 <img src={logoDorado} alt="Logo Dorado" className="w-10 h-10 bg-gradient-to-br from-[#063127] to-[#5b8370] rounded-xl flex items-center justify-center text-[#c4d1c0] shadow-md" />
                  <span className="text-2xl font-bold text-[#063127] tracking-tight">Reforestal eG</span>
               </div>
               <h2 className="text-3xl font-bold text-[#063127]">{isLogin ? t('auth.welcome') : t('auth.create_account')}</h2>

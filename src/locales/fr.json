@@ -40,6 +40,7 @@
     "logout": "Se déconnecter"
   },
   "dashboard": {
+    "registration_date": "Date de registration",
     "title": "Tableau de bord",
     "greeting": "Bonjour, {{name}}",
     "greeting_pioneer": "Bonjour, {{name}}",
@@ -655,8 +656,8 @@
     "subtitle": "Nous transformons la protection Amazon, d'un projet parallèle, en une mission professionnelle. Rejoignez la première coopérative allemande (eG) qui rend l'impact mesurable, transparent et centré sur votre cause.",
     "hero_badge": "Crowdfunding en Direct",
     "cta_buttons": {
-      "start_your_mission": "Commencez Votre Mission",
-      "supported_startnext": "Avez-vous soutenu Startnext ?"
+      "start_your_mission": "Lancez votre mission",
+      "supported_startnext": "Notre campagne de Crowdfunding"
     },
     "m2_section": {
       "label": "Métriques d'Impact Réel",
@@ -708,6 +709,7 @@
   },
   "auth": {
     "welcome": "Bon retour",
+    "welcome_message": "Connexion réussie.",
     "reset_password": "Réinitialiser le mot de passe",
     "reset_prompt": "Entrez votre e-mail pour recevoir un lien de réinitialisation.",
     "sign_in_prompt": "Connectez-vous pour continuer votre voyage",

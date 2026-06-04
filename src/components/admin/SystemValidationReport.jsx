@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Loader2, CheckCircle, AlertTriangle, RefreshCw, ShieldCheck, Database, Code2, Sun, Moon } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
-import { useTranslation } from 'react-i18next'; // IMPORTADO
+import { useTranslation } from 'react-i18next'; 
 
 const ValidationCheck = ({ title, status, details, icon: Icon }) => (
     <div className="flex items-start gap-4 p-4 border rounded-lg bg-card text-card-foreground shadow-sm transition-colors">

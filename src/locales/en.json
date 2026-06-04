@@ -41,6 +41,7 @@
     "logout": "Sign Out"
   },
   "dashboard": {
+    "registration_date": "Registration Date",
     "title": "Dashboard",
     "greeting": "Welcome, {{name}}",
     "greeting_pioneer": "Hello, {{name}}",
@@ -658,8 +659,8 @@
     "subtitle": "We’re turning Amazon stewardship from a side-project into a professional mission. Join the first German Cooperative (eG) built to make impact measurable, transparent, and yours.",
     "hero_badge": "Crowdfunding Live",
     "cta_buttons": {
-      "start_your_mission": "Start the Genesis Quest",
-      "supported_startnext": "Have you already supported Startnext?"
+      "start_your_mission": "Start your Quest",
+      "supported_startnext": "Our Crowdfunding Campaign"
     },
     "m2_section": {
       "label": "Real Impact Metrics",
@@ -711,6 +712,7 @@
   },
   "auth": {
     "welcome": "Welcome Back",
+    "welcome_message": "Successfully signed in.",
     "reset_password": "Reset Password",
     "reset_prompt": "Enter your email to receive a reset link.",
     "sign_in_prompt": "Sign in to continue your journey",

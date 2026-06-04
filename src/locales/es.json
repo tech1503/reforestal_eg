@@ -40,6 +40,7 @@
     "logout": "Cerrar Sesión"
   },
   "dashboard": {
+    "registration_date": "Fecha de Registro",
     "title": "Panel de Control",
     "greeting": "Bienvenido, {{name}}",
     "greeting_pioneer": "Hola, {{name}}",
@@ -147,7 +148,7 @@
       "contribution_level": "Nivel de Contribución",
       "included_benefits": "Beneficios Incluidos",
       "simulator_hint": "Usa el simulador para ver todos los detalles de este monto.",
-      "support_btn": "Apoyar este Proyecto"
+      "support_btn": "Apoya este Proyecto"
     },
     "pioneer_status": {
       "active": "Estado Activo",
@@ -657,8 +658,8 @@
     "subtitle": "Estamos transformando la custodia del Amazonas de un proyecto secundario en una misión profesional. Únete a la primera Cooperativa Alemana (eG) diseñada para que el cambio sea medible, transparente y tuyo.",
     "hero_badge": "Crowdfunding en Vivo",
     "cta_buttons": {
-      "start_your_mission": "Iniciar la Genesis Quest",
-      "supported_startnext": "Has apoyado en Startnext?"
+      "start_your_mission": "Inicia tu Misión",
+      "supported_startnext": "Nuestra campaña de Crowdfunding"
     },
     "m2_section": {
       "label": "Métricas de Impacto Real",
@@ -710,6 +711,7 @@
   },
   "auth": {
     "welcome": "Bienvenido",
+    "welcome_message": "Sesión iniciada exitosamente.",
     "reset_password": "Restablecer Contraseña",
     "reset_prompt": "Ingresa tu email para recibir un enlace de restablecimiento.",
     "sign_in_prompt": "Inicia sesión para continuar tu viaje",
