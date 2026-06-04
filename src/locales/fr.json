@@ -542,9 +542,9 @@
     }
   },
   "genesisQuest": {
-    "title": "Découvrez Votre Profil d'Impact",
+    "title": "Découvrez Votre Profil",
     "onboarding_label": "Intégration",
-    "finish_quest": "Mission accomplie",
+    "finish_quest": "Lancer la mission",
     "profile_unlocked": "Profil déverrouillé", 
     "profiles.genesis": { 
       "lena": {

@@ -546,7 +546,7 @@
   "genesisQuest": {
     "title": "Entdecke dein Profil",
     "onboarding_label": "Erste Mission",
-    "finish_quest": "Mein Profil enthüllen",
+    "finish_quest": "Mission beginnen",
     "profile_unlocked": "Profil Freigeschaltet", 
     "profiles.genesis": { 
       "lena": {
