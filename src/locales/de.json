@@ -544,8 +544,8 @@
     }
   },
   "genesisQuest": {
-    "title": "Entdecke dein Impact-Profil",
-    "onboarding_label": "Erste Quest",
+    "title": "Entdecke dein Profil",
+    "onboarding_label": "Erste Mission",
     "finish_quest": "Mein Profil enthüllen",
     "profile_unlocked": "Profil Freigeschaltet", 
     "profiles.genesis": { 
