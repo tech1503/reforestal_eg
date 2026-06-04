@@ -22,7 +22,8 @@
     "locked_feature": "This feature is locked for your current tier.",
     "notifications": "Notifications",
     "language": "Language",
-    "theme": "Toggle Theme"
+    "theme": "Toggle Theme",
+    "required_field": "This field is required"
   },
   "navigation": {
     "dashboard": "Dashboard",
@@ -166,7 +167,8 @@
     },
     "rewards": {
       "title": "Unlocked Rewards",
-      "no_benefits": "No benefits found for this tier."
+      "no_benefits": "No benefits found for this tier.",
+      "referral_bonus": "Referral Bonus Points"
     },
     "startnext_dash": {
       "benefit_available": "Benefit available",
@@ -651,7 +653,8 @@
     "requires_startnext": "Requires Startnext",
     "requires_pioneer": "Requires Pioneer",
     "unlocked_premium": "Unlocked Premium",
-    "empty_desc": "No active quests available at this time."
+    "empty_desc": "No active quests available at this time.",
+    "not_found": "Mission not found"
   },
   "home": {
     "sign_in": "Sign In",
@@ -1130,7 +1133,8 @@
   "rewards": {
     "bonus_points": "Bonus Points",
     "bonus_points_short": "BP",
-    "reputation": "Reputation"
+    "reputation": "Reputation",
+    "referral_bonus": "Referral Bonus Points"
   },
   "mission": {
     "open_instagram": "Open on Instagram",

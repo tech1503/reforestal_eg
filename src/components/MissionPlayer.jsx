@@ -95,8 +95,8 @@ const ResourceAllocator = ({ poles, values, onChange }) => {
             <div className="space-y-4 relative z-10">
                 {poles.map((pole, idx) => (
                     <div key={idx} className="space-y-1.5">
-                        <div className="flex justify-between text-[11px] font-bold text-muted-foreground">
-                            <span className="capitalize tracking-widest">{pole}</span>
+                        <div className="flex justify-between text-sm font-bold text-muted-foreground">
+                            <span className="tracking-widest">{pole}</span>
                             <span className="text-[#5b8370] font-black text-sm">{values[pole] || 0}%</span>
                         </div>
                         <div className="relative">

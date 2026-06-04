@@ -21,7 +21,9 @@
     "locked_feature": "Cette fonctionnalité est verrouillée pour votre niveau actuel.",
     "notifications": "Notifications",
     "language": "Langue",
-    "theme": "Changer de thème"
+    "theme": "Changer de thème",
+    "required_field": "Ce champ est requis",
+    "finished": "Terminé"
   },
   "navigation": {
     "dashboard": "Tableau de bord",
@@ -165,7 +167,8 @@
     },
     "rewards": {
       "title": "Récompenses Débloquées",
-      "no_benefits": "Aucun avantage trouvé pour ce niveau."
+      "no_benefits": "Aucun avantage trouvé pour ce niveau.",
+      "referral_bonus": "Points Bonus de Parrainage"
     },
     "startnext_dash": {
       "benefit_available": "Avantage disponible",
@@ -314,7 +317,9 @@
       "penalty_type": "Type de pénalité",
       "penalty_fixed": "Montant fixe (BP)",
       "penalty_percentage": "% du total de la mission",
-      "penalty_value": "Valeur à déduire"
+      "penalty_value": "Valeur à déduire",
+      "delete_confirm": "Supprimer définitivement cette mission ? (Les utilisateurs conservent leurs points gagnés).",
+      "delete_success": "Mission supprimée avec succès."
     },
     "quest_review": {
       "title": "Révision des missions en attente",
@@ -648,7 +653,8 @@
     "requires_startnext": "Nécessite Startnext",
     "requires_pioneer": "Nécessite le statut de pionnier",
     "unlocked_premium": "Débloqué",
-    "empty_desc": "Il n’y a aucune mission active pour le moment."
+    "empty_desc": "Il n’y a aucune mission active pour le moment.",
+    "not_found": "Mission introuvable"
   },
   "home": {
     "sign_in": "Se Connecter",
@@ -727,6 +733,7 @@
     "name_label": "Nom Complet",
     "create_account": "Créer un Compte",
     "sign_in_title": "Se Connecter",
+    "sign_up_title": "Registre",
     "sign_in_button": "Se Connecter",
     "sign_up_button": "S'inscrire",
     "logging_in": "Connexion...",
@@ -895,10 +902,10 @@
       "subtitle": "Bienvenue au cœur de Reforestal. Ici, vous façonnez l'avenir, accédez à des mises à jour confidentielles et suivez notre impact en temps réel."
     },
     "scale_vote": {
-      "titre": "ScaleVote",
+      "title": "ScaleVote",
       "prompt": "Évaluez votre niveau d'accord",
-      "le plus bas": "Le plus bas",
-      "le plus élevé": "Le plus élevé",
+      "lowest": "Le plus bas",
+      "highest": "Le plus élevé",
       "confirm": "Confirmer l'allocation"
     },
     "tabs": {
@@ -1126,7 +1133,8 @@
     "rewards": {
       "bonus_points": "Points bonus",
       "bonus_points_short": "PB",
-      "reputation": "Réputation"
+      "reputation": "Réputation",
+      "referral_bonus": "Points Bonus de Parrainage"
     },
     "mission": {
       "open_instagram": "Ouvrir sur Instagram",

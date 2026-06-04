@@ -21,7 +21,9 @@
     "locked_feature": "Esta función está bloqueada para tu nivel actual.",
     "notifications": "Notificaciones",
     "language": "Idioma",
-    "theme": "Cambiar Tema"
+    "theme": "Cambiar Tema",
+    "required_field": "Este campo es obligatorio",
+    "finished": "Finalizado"
   },
   "navigation": {
     "dashboard": "Panel de Control",
@@ -165,7 +167,8 @@
     },
     "rewards": {
       "title": "Recompensas Desbloqueadas",
-      "no_benefits": "No se encontraron beneficios para este nivel."
+      "no_benefits": "No se encontraron beneficios para este nivel.",
+      "referral_bonus": "Puntos Bonus por Referidos"
     },
     "startnext_dash": {
       "benefit_available": "Beneficio disponible",
@@ -650,7 +653,8 @@
     "requires_startnext": "Requiere Startnext",
     "requires_pioneer": "Requiere Pionero",
     "unlocked_premium": "Desbloqueado",
-    "empty_desc": "No hay misiones activas en este momento."
+    "empty_desc": "No hay misiones activas en este momento.",
+    "not_found": "Misión no encontrada"
   },
   "home": {
     "sign_in": "Iniciar Sesión",
@@ -845,7 +849,8 @@
     "default_impact_desc": "Contribuye al crecimiento del ecosistema Reforestal."
   },
   "roles": {
-    "explorer_level_1": "Exclusivo Nivel 1 - Explorador"
+    "explorer_level_1": "Exclusivo Nivel 1 - Explorador",
+    "admin": "Administrador"
   },
   "pioneer": {
     "toasts": {
@@ -1128,7 +1133,8 @@
   "rewards": {
     "bonus_points": "Bonos",
     "bonus_points_short": "BP",
-    "reputation": "Reputación"
+    "reputation": "Reputación",
+    "referral_bonus": "Puntos Bonus por Referidos"
   },
   "mission": {
     "open_instagram": "Abrir en Instagram",

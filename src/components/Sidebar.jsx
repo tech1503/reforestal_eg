@@ -18,6 +18,20 @@ import { cn } from '@/lib/utils';
 import { useToast } from '@/components/ui/use-toast';
 import { useNavigate } from 'react-router-dom';
 import StartnextSupportModal from '@/components/ui/StartnextSupportModal';
+import logoDorado from '@/assets/icons/Logo-Reforestal-1.svg';
+
+// Componente para inyectar el gradiente SVG para los iconos de Lucide
+const GoldGradientSVG = () => (
+  <svg width="0" height="0" className="absolute pointer-events-none">
+    <linearGradient id="icon-gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop stopColor="#734b07" offset="0%" />
+      <stop stopColor="#cf9c2a" offset="25%" />
+      <stop stopColor="#fef1a7" offset="50%" />
+      <stop stopColor="#cf9c2a" offset="75%" />
+      <stop stopColor="#734b07" offset="100%" />
+    </linearGradient>
+  </svg>
+);
 
 const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => {
   const { t } = useTranslation();
@@ -116,6 +130,7 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
 
   return (
     <>
+      <GoldGradientSVG />
       <StartnextSupportModal isOpen={isSupportModalOpen} onClose={() => setIsSupportModalOpen(false)} />
 
       {isOpen && (
@@ -134,9 +149,7 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
       >
         <div className="p-4 flex items-center justify-between h-[64px] border-b border-white/20 w-full bg-transparent">
           <div className="flex items-center gap-3">
-               <div className="w-8 h-8 bg-white/20 backdrop-blur-md rounded-lg flex items-center justify-center text-white font-bold shadow-md border border-white/30">
-                 R
-               </div>
+               <img src={logoDorado} alt="Reforestal" className="w-8 h-8" />
                <span className="font-bold text-lg text-white tracking-tight drop-shadow-sm">Reforestal</span>
           </div>
           <button 
@@ -152,6 +165,7 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
           {menuItems.map((item) => {
              const isActive = activeSection === item.id;
              const isLocked = item.locked;
+             const isHighlight = item.id === 'quests'; 
              
              return (
                 <button
@@ -159,9 +173,15 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
                    onClick={() => handleNavigation(item)}
                    className={cn(
                       "w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 group relative overflow-hidden text-left",
-                      isActive 
-                        ? "bg-white/20 text-white font-bold shadow-md border border-white/30" 
-                        : "text-white/90 hover:bg-white/10 hover:text-white border border-transparent",
+                      
+                      // Estilos para ítems normales
+                      isActive && !isHighlight && "bg-white/20 text-white font-bold shadow-md border border-white/30",
+                      !isActive && !isHighlight && "text-white/90 hover:bg-white/10 hover:text-white border border-transparent",
+                      
+                      // Estilos para el ítem DESTACADO (Quests)
+                      isActive && isHighlight && "bg-white/20 border border-[#cf9c2a] shadow-glow",
+                      !isActive && isHighlight && "border border-[#cf9c2a]/40 hover:bg-white/10 hover:border-[#cf9c2a] shadow-glow",
+                      
                       isLocked && !isActive && "opacity-75"
                    )}
                 >
@@ -169,19 +189,25 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
                        <item.icon 
                           size={20} 
                           className={cn(
-                            "transition-colors duration-200 text-white",
-                            isLocked && "text-white/80"
+                            "transition-colors duration-200 drop-shadow-md",
+                            isLocked && "opacity-75"
                           )} 
+                          style={{ stroke: 'url(#icon-gold-gradient)' }}
                        />
                        {isLocked && (
-                           <div className="absolute -top-1 -right-1 bg-[#063127] rounded-full p-0.5 border border-white/30 shadow-sm">
-                               <Lock size={8} className="text-white/80" />
+                           <div className="absolute -top-1 -right-1 bg-[#063127] rounded-full p-0.5 border border-[#cf9c2a]/30 shadow-sm">
+                               <Lock size={8} style={{ stroke: 'url(#icon-gold-gradient)' }} />
                            </div>
                        )}
                    </div>
                    
                    <div className="flex-1 relative z-10 whitespace-nowrap overflow-hidden">
-                       <span className="text-sm font-medium tracking-wide">
+                       <span className={cn(
+                          "text-sm tracking-wide transition-all duration-200",
+                          !isActive && "font-medium",
+                          isActive && "font-bold",
+                          isHighlight && "text-gradient-gold font-bold" 
+                       )}>
                            {t(item.translationKey)}
                        </span>
                    </div>
@@ -196,7 +222,11 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
                    onClick={() => setIsSupportModalOpen(true)}
                    className="w-full h-auto min-h-[48px] flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 rounded-lg px-3 py-3 transition-all duration-200 group text-xs font-semibold shadow-md"
                 >
-                   <HeartHandshake size={18} className="shrink-0 text-white" />
+                   <HeartHandshake 
+                      size={18} 
+                      className="shrink-0 drop-shadow-md" 
+                      style={{ stroke: 'url(#icon-gold-gradient)' }} 
+                   />
                    
                    <span className="text-left leading-tight w-full break-words whitespace-normal">
                       {t('exchange.cta.sidebar_btn')}
@@ -211,7 +241,11 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
               onClick={handleSignOut}
               className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-white/90 hover:bg-red-500/20 hover:text-white transition-colors duration-200 font-medium"
            >
-              <LogOut size={18} />
+              <LogOut 
+                 size={18} 
+                 className="drop-shadow-md"
+                 style={{ stroke: 'url(#icon-gold-gradient)' }}
+              />
               <span className="text-sm">{t('navigation.logout')}</span>
            </button>
         </div>

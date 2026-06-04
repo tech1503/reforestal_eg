@@ -21,7 +21,9 @@
     "locked_feature": "Diese Funktion ist für Ihre aktuelle Stufe gesperrt.",
     "notifications": "Benachrichtigungen",
     "language": "Sprache",
-    "theme": "Thema umschalten"
+    "theme": "Thema umschalten",
+    "required_field": "Dieses Feld ist erforderlich.",
+    "finished": "Fertig"
   },
   "navigation": {
     "dashboard": "Übersicht",
@@ -165,7 +167,8 @@
     },
     "rewards": {
       "title": "Freigeschaltete Belohnungen",
-      "no_benefits": "Keine Vorteile für diese Stufe gefunden."
+      "no_benefits": "Keine Vorteile für diese Stufe gefunden.",
+      "referral_bonus": "Empfehlungs-Bonuspunkte"
     },
     "startnext_dash": {
       "benefit_available": "Vorteil verfügbar",
@@ -650,7 +653,8 @@
     "requires_startnext": "Erfordert Startnext",
     "requires_pioneer": "Erfordert Pionier-Status",
     "unlocked_premium": "Freigeschaltet",
-    "empty_desc": "Derzeit sind keine aktiven Missionen verfügbar."
+    "empty_desc": "Derzeit sind keine aktiven Missionen verfügbar.",
+    "not_found": "Mission nicht gefunden"
   },
   "home": {
     "sign_in": "Anmelden",
@@ -963,6 +967,7 @@
       }
     },
     "roadmap": {
+      "no_roadmap": "Die Roadmap wird bald enthüllt. Bleiben Sie dran für exklusive Einblicke in unsere strategischen Pläne.",
       "phase1_title": "Phase 1: Genesis",
       "phase1_obj": "Ziel: Landerwerb und erste 500 Bäume",
       "items": {
@@ -1128,7 +1133,8 @@
   "rewards": {
   "bonus_points": "Bonuspunkte",
   "bonus_points_short": "BP",
-  "reputation": "Ruf"
+  "reputation": "Ruf",
+  "referral_bonus": "Empfehlungs-Bonuspunkte"
 },
   "mission": {
     "open_instagram": "In Instagram öffnen",
