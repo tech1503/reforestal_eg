@@ -563,10 +563,10 @@
         "description": "You care about people and community impact. You drive change where it is needed most."
       }
     },
-    "modal_title": "Complete Your Genesis Quest!",
-    "modal_text_title": "Complete your Genesis Quest to receive Bonus Points.",
+    "modal_title": "Complete your first mission!",
+    "modal_text_title": "Complete your first mission to receive Bonus Points.",
     "modal_text_desc": "These Bonus Points can be used to redeem products within the platform.",
-    "modal_cta": "Start Genesis Quest",
+    "modal_cta": "Start Mission",
     "result_modal_title": "Congratulations!",
     "result_modal_continue": "Continue",
     "next_step": "Next Step",
@@ -575,48 +575,48 @@
     "questions": [
       {
         "id": 1,
-        "question": "What is the most important foundation for our project?",
+        "question": "What is the most important foundation for a environmental project?",
         "options": [
           {
             "type": "lena",
-            "main": "I want to create real, measurable square meters of jungle and biodiversity.",
+            "main": "Protected real, measurable square meters of jungle and biodiversity.",
             "dropdown": ""
           },
           {
             "type": "markus",
-            "main": "I want absolute financial transparency and a professional system.",
+            "main": "Absolute financial transparency and a professional system.",
             "dropdown": ""
           }
         ]
       },
       {
         "id": 2,
-        "question": "When do you feel that you have invested your time well?",
+        "question": "How would you prefer to engage with Reforestal?",
         "options": [
           {
             "type": "markus",
-            "main": "When I have clear facts and reliable figures in front of me at the end.",
+            "main": "I look at the hard facts and check whether the figures are reliable.",
             "dropdown": ""
           },
           {
             "type": "david",
-            "main": "When I have clicked through small challenges and gained something in the process.",
+            "main": "When I click my way through small challenges and have a chance to win a prize.",
             "dropdown": ""
           }
         ]
       },
       {
         "id": 3,
-        "question": "When you look back in a year, what will make you most proud?",
+        "question": "When you look back in a year, what will you be most happy about?",
         "options": [
           {
             "type": "lena",
-            "main": "I can see very concretely how life has returned to our plots.",
+            "main": "Life has returned to our property.",
             "dropdown": ""
           },
           {
             "type": "david",
-            "main": "I'm part of a huge, digital community that has accomplished a lot together.",
+            "main": "To be part of a global, digital community that accomplishes a lot together.",
             "dropdown": ""
           }
         ]
@@ -624,13 +624,13 @@
     ]
   },
   "impactQuest": {
-    "title": "Discover Your Impact Profile",
+    "title": "Discover Your Profile",
     "discovery_complete": "Discovery complete!",
     "profile_unlocked": "Profile Unlocked!",
-    "generic_description": "Your answers help us personalize your experience and align your interests with our impact projects.",
-    "your_impact_focus": "Your impact profile",
-    "invite_desc": "Complete our quest to discover how your interests align with our projects.",
-    "start_quest": "Start Quest",
+    "generic_description": "Your answers help us personalize your experience and align our projects with your interests.",
+    "your_impact_focus": "Your profile",
+    "invite_desc": "Complete our mission to discover how your interests align with our projects.",
+    "start_quest": "Start Mission",
     "profiles": {
       "lena": "Ecology",
       "markus": "Structure",

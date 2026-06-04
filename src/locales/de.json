@@ -562,10 +562,10 @@
         "description": "Menschen und die Auswirkungen auf die Gemeinschaft liegen Ihnen am Herzen. Sie treiben den Wandel dort voran, wo er am dringendsten benötigt wird."
       }
     },
-    "modal_title": "Schließe dein erste Quest ab!",
-    "modal_text_title": "Schließe dein erste Quest ab und erhalte Bonuspunkte.",
+    "modal_title": "Schließe deine erste Mission ab!",
+    "modal_text_title": "Schließe deine erste Mission ab und erhalte Bonuspunkte.",
     "modal_text_desc": "Diese Punkte kannst du verwenden, um sie innerhalb der Plattform einzulösen.",
-    "modal_cta": "Erste Quest starten",
+    "modal_cta": "Erste Mission starten",
     "result_modal_title": "Herzlichen Glückwunsch!",
     "result_modal_continue": "Weiter",
     "next_step": "Nächster Schritt",
@@ -574,48 +574,48 @@
     "questions": [
       {
         "id": 1,
-        "question": "Was ist für dich das wichtigste Fundament für unser Projekt?",
+        "question": "Was ist für dich das wichtigste Fundament für ein Umweltschutzprojekt?",
         "options": [
           {
             "type": "lena",
-            "main": "Ich möchte echte, messbare Quadratmeter Dschungel und Artenvielfalt schaffen.",
+            "main": "Geschützte, reale, messbare Quadratmeter Dschungel und Artenvielfalt.",
             "dropdown": ""
           },
           {
             "type": "markus",
-            "main": "Ich möchte absolute finanzielle Transparenz und ein professionelles System.",
+            "main": "Absolute finanzielle Transparenz und ein professionelles System.",
             "dropdown": ""
           }
         ]
       },
       {
         "id": 2,
-        "question": "Wann hast du das Gefühl, dass du deine Zeit richtig gut investiert hast?",
+        "question": "Wie willst du dich lieber mit Reforestal beschäftigen?",
         "options": [
           {
             "type": "markus",
-            "main": "Wenn ich am Ende klare Fakten und verlässliche Zahlen vor mir habe.",
+            "main": "Ich schaue mir klare Fakten an und überprüfe ob die Zahlen verlässlich sind.",
             "dropdown": ""
           },
           {
             "type": "david",
-            "main": "Wenn ich mich durch kleine Herausforderungen geklickt und dabei etwas gewonnen habe.",
+            "main": "Ich klicke mich durch kleine Herausforderungen und kann dabei etwas gewinnen.",
             "dropdown": ""
           }
         ]
       },
       {
         "id": 3,
-        "question": "Wenn du in einem Jahr zurückblickst, was macht dich am stolzesten?",
+        "question": "Wenn du in einem Jahr zurückblickst, worüber freust du dich mehr?",
         "options": [
           {
             "type": "lena",
-            "main": "Ich sehe ganz konkret, wie das Leben auf unsere Flächen zurückgekehrt ist.",
+            "main": "Leben ist auf unsere Landflächen zurückgekehrt.",
             "dropdown": ""
           },
           {
             "type": "david",
-            "main": "Ich bin Teil einer riesigen, digitalen Community, die gemeinsam viel bewegt hat.",
+            "main": "Teil einer globalen, digitalen Community, zu sein, die gemeinsam viel bewegt.",
             "dropdown": ""
           }
         ]
@@ -626,10 +626,10 @@
     "title": "Entdecke dein Wirkungsprofil",
     "discovery_complete": "Entdeckung abgeschlossen!",
     "profile_unlocked": "Profil freigeschaltet!",
-    "generic_description": "Deine Antworten helfen uns, dein Erlebnis zu personalisieren und deine Interessen mit unseren Wirkungsprojekten in Einklang zu bringen.",
-    "your_impact_focus": "Ihr Wirkungsprofil",
-    "invite_desc": "Schließe unsere Quest ab und finde heraus, wie deine Interessen mit unseren Projekten übereinstimmen.",
-    "start_quest": "Quest starten",
+    "generic_description": "Deine Antworten helfen uns, die Plattform zu personalisieren und unsere Projekte mit deinen Interessen in Einklang zu bringen.",
+    "your_impact_focus": "Dein Profil",
+    "invite_desc": "Schließe die Mission ab und finde heraus, wie deine Interessen mit unseren Projekten übereinstimmen.",
+    "start_quest": "Mission starten",
     "profiles": {
     "lena": "Ökologie",
     "markus": "Struktur",

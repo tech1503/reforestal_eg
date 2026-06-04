@@ -562,10 +562,10 @@
         "description": "Te preocupas por las personas y el impacto comunitario. Impulsas el cambio donde más se necesita."
       }
     },
-    "modal_title": "¡Completa tu Genesis Quest!",
-    "modal_text_title": "Completa tu Genesis Quest y recibe Bonos.",
+    "modal_title": "¡Completa tu primer misión!",
+    "modal_text_title": "Completa tu primer misión y recibe Bonos.",
     "modal_text_desc": "Estos puntos puedes usar para canjear productos dentro de la plataforma.",
-    "modal_cta": "Iniciar Genesis Quest",
+    "modal_cta": "Iniciar misión",
     "result_modal_title": "¡Felicidades!",
     "result_modal_continue": "Continuar",
     "next_step": "Siguiente Paso",
@@ -574,48 +574,48 @@
     "questions": [
       {
         "id": 1,
-        "question": "¿Cuál es el fundamento más importante para nuestro proyecto?",
+        "question": "¿Cuál es el fundamento más importante para un proyecto ambientalista?",
         "options": [
           {
             "type": "lena",
-            "main": "Quiero crear metros cuadrados reales y medibles de selva y biodiversidad.",
+            "main": "Metros cuadrados reales y cuantificables de selva y biodiversidad protegidos.",
             "dropdown": ""
           },
           {
             "type": "markus",
-            "main": "Quiero total transparencia financiera y un sistema profesional.",
+            "main": "Transparencia financiera total y un sistema profesional.",
             "dropdown": ""
           }
         ]
       },
       {
         "id": 2,
-        "question": "¿Cuándo sientes que has invertido bien tu tiempo?",
+        "question": "¿Cómo prefieres participar en Reforestal?",
         "options": [
           {
             "type": "markus",
-            "main": "Cuando al final tengo datos claros y cifras fiables.",
+            "main": "Analizo los datos objetivos y compruebo si las cifras son fiables.",
             "dropdown": ""
           },
           {
             "type": "david",
-            "main": "Cuando he superado pequeños retos y he aprendido algo en el proceso.",
+            "main": "Voy superando pequeños retos y, al hacerlo, puedo ganar algo.",
             "dropdown": ""
           }
         ]
       },
       {
         "id": 3,
-        "question": "Cuando mires atrás dentro de un año, ¿qué te hará sentir más orgulloso/a?",
+        "question": "Cuando mires atrás dentro de un año, ¿qué te hará sentir más feliz?",
         "options": [
           {
             "type": "lena",
-            "main": "Veo con total claridad cómo la vida ha regresado a nuestra tierra.",
+            "main": "La vida ha regresado a nuestras tierras.",
             "dropdown": ""
           },
           {
             "type": "david",
-            "main": "Formo parte de una enorme comunidad digital que ha logrado mucho en conjunto.",
+            "main": "Formar parte de una comunidad digital global que, unida, consigue grandes cosas.",
             "dropdown": ""
           }
         ]
@@ -626,8 +626,8 @@
     "title": "Descubre tu Perfil de Impacto",
     "discovery_complete": "¡Descubrimiento completado!",
     "profile_unlocked": "¡Perfil Desbloqueado!",
-    "generic_description": "Tus respuestas nos ayudan a personalizar tu experiencia y alinear tus intereses con nuestros proyectos de impacto.",
-    "your_impact_focus": "Tu perfil de impacto",
+    "generic_description": "Tus respuestas nos ayudan a personalizar la plataforma y alinear nuestros proyectos con tus intereses.",
+    "your_impact_focus": "Tu perfil",
     "invite_desc": "Completa nuestro cuestionario para descubrir cómo alinear tus intereses con nuestros proyectos.",
     "start_quest": "Iniciar Misión",
     "profiles": {

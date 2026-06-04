@@ -572,48 +572,48 @@
     "questions": [
       {
         "id": 1,
-        "question": "Quel est le fondement le plus important de notre projet ?",
+        "question": "Quel est le fondement le plus important de une projet de protection de l'environnement?",
         "options": [
           {
             "type": "lena",
-            "main": "Je veux créer des mètres carrés réels et mesurables de jungle et de biodiversité.",
+            "main": "Mètres carrés réels et quantifiables de jungle et de biodiversité préservés.",
             "dropdown": ""
           },
           {
             "type": "markus",
-            "main": "Je veux une transparence financière absolue et un système professionnel.",
+            "main": "Une transparence financière absolue et un système professionnel.",
             "dropdown": ""
           }
         ]
       },
       {
         "id": 2,
-        "question": "Quand avez-vous le sentiment d'avoir vraiment bien investi votre temps ?",
+        "question": "Comment préfères-tu t'impliquer dans Reforestal?",
         "options": [
           {
             "type": "markus",
-            "main": "Quand j'ai des faits clairs et des chiffres fiables sous les yeux à la fin.",
+            "main": "J'examine les faits concrets et je vérifie si les chiffres sont fiables.",
             "dropdown": ""
           },
           {
             "type": "david",
-            "main": "Quand j'ai cliqué J'ai surmonté de petits défis et j'ai appris quelque chose en chemin.",
+            "main": "Je relève de petits défis en cliquant et j'ai ainsi une chance de gagner quelque chose.",
             "dropdown": ""
           }
         ]
       },
       {
         "id": 3,
-        "question": "Dans un an, de quoi serez-vous le plus fier ?",
+        "question": "Quand tu repenseras à cette année dans un an, qu'est-ce qui te fera le plus plaisir?",
         "options": [
           {
             "type": "lena",
-            "main": "e vois très concrètement comment la vie a repris ses droits dans nos espaces.",
+            "main": "La vie est revenue sur notre terrain.",
             "dropdown": ""
           },
           {
             "type": "david",
-            "main": "Je fais partie d'une immense communauté numérique qui a accompli beaucoup de choses ensemble.",
+            "main": "Faire partie d'une communauté numérique mondiale qui, ensemble, fait bouger les choses.",
             "dropdown": ""
           }
         ]
@@ -624,10 +624,10 @@
       "title": "Découvrez votre profil d'impact",
       "discovery_complete": "Découverte terminée !",
       "profile_unlocked": "Profil débloqué !",
-      "generic_description": "Vos réponses nous aident à personnaliser votre expérience et à aligner vos intérêts avec nos projets d'impact.",
+      "generic_description": "Vos réponses nous aident à personnaliser votre expérience et à aligner nos projets avec vos intérêts.",
       "your_impact_focus": "Votre profil d'impact",
-      "invite_desc": "Terminez notre quête pour découvrir comment vos intérêts s'alignent sur nos projets.",
-      "start_quest": "Commencer la quête",
+      "invite_desc": "Terminez notre mission pour découvrir comment vos intérêts s'alignent sur nos projets.",
+      "start_quest": "Commencer la mission",
       "profiles": {
         "lena": "Écologie",
         "markus": "Structure",
