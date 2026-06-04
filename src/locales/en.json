@@ -564,8 +564,8 @@
       }
     },
     "modal_title": "Complete your first mission!",
-    "modal_text_title": "Complete your first mission to receive Bonus Points.",
-    "modal_text_desc": "These Bonus Points can be used to redeem products within the platform.",
+    "modal_text_title": "Complete the first mission to receive Bonus Points.",
+    "modal_text_desc": "Bonus Points can be used to redeem products within the platform.",
     "modal_cta": "Start Mission",
     "result_modal_title": "Congratulations!",
     "result_modal_continue": "Continue",
@@ -575,7 +575,7 @@
     "questions": [
       {
         "id": 1,
-        "question": "What is the most important foundation for a environmental project?",
+        "question": "What do you think is the most important foundation for an environmental protection project?",
         "options": [
           {
             "type": "lena",
@@ -600,7 +600,7 @@
           },
           {
             "type": "david",
-            "main": "When I click my way through small challenges and have a chance to win a prize.",
+            "main": "I click my way through small challenges and have a chance to win something.",
             "dropdown": ""
           }
         ]
@@ -611,7 +611,7 @@
         "options": [
           {
             "type": "lena",
-            "main": "Life has returned to our property.",
+            "main": "Biodiversity has returned to our property.",
             "dropdown": ""
           },
           {

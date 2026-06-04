@@ -542,7 +542,7 @@
     }
   },
   "genesisQuest": {
-    "title": "Découvrez Votre Profil",
+    "title": "Découvrez ton Profil",
     "onboarding_label": "Intégration",
     "finish_quest": "Lancer la mission",
     "profile_unlocked": "Profil déverrouillé", 
@@ -560,19 +560,19 @@
         "description": "ous vous souciez des personnes et de l'impact sur la communauté. Vous impulsez le changement là où il est le plus nécessaire."
       }
     },
-    "modal_title": "Terminez votre Quête Genesis !",
-    "modal_text_title": "Terminez votre Quête Genesis pour recevoir Points Bonus.",
-    "modal_text_desc": "Ces Points Bonus ne font pas partie du système, mais vous pouvez les utiliser pour échanger des produits dans l'application.",
-    "modal_cta": "Commencer la Quête Genesis",
+    "modal_title": "Terminez ta première mission!",
+    "modal_text_title": "Terminez la première mission pour recevoir Points Bonus.",
+    "modal_text_desc": "Tu peux échanger ces points bonus contre des produits sur la plateforme.",
+    "modal_cta": "Commencer la mission",
     "result_modal_title": "Félicitations !",
     "result_modal_continue": "Continuer",
     "next_step": "Étape Suivante",
-    "create_account_btn": "Créer Votre Compte",
+    "create_account_btn": "Créer ton Compte",
     "save_profile_hint": "Enregistrez votre profil et réclamez vos Points Bonus.",
     "questions": [
       {
         "id": 1,
-        "question": "Quel est le fondement le plus important de une projet de protection de l'environnement?",
+        "question": "Selon toi, quel est le fondement le plus important d'un projet de protection de l'environnement?",
         "options": [
           {
             "type": "lena",
@@ -608,7 +608,7 @@
         "options": [
           {
             "type": "lena",
-            "main": "La vie est revenue sur notre terrain.",
+            "main": "La biodiversité est revenue sur notre terrain.",
             "dropdown": ""
           },
           {
@@ -621,11 +621,11 @@
     ]
   },
     "impactQuest": {
-      "title": "Découvrez votre profil d'impact",
-      "discovery_complete": "Découverte terminée !",
-      "profile_unlocked": "Profil débloqué !",
+      "title": "Découvrez votre profil",
+      "discovery_complete": "Découverte terminée!",
+      "profile_unlocked": "Profil débloqué!",
       "generic_description": "Vos réponses nous aident à personnaliser votre expérience et à aligner nos projets avec vos intérêts.",
-      "your_impact_focus": "Votre profil d'impact",
+      "your_impact_focus": "Ton profil",
       "invite_desc": "Terminez notre mission pour découvrir comment vos intérêts s'alignent sur nos projets.",
       "start_quest": "Commencer la mission",
       "profiles": {

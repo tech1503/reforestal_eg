@@ -563,14 +563,14 @@
       }
     },
     "modal_title": "Schließe deine erste Mission ab!",
-    "modal_text_title": "Schließe deine erste Mission ab und erhalte Bonuspunkte.",
-    "modal_text_desc": "Diese Punkte kannst du verwenden, um sie innerhalb der Plattform einzulösen.",
+    "modal_text_title": "Schließe die erste Mission ab und erhalte Bonuspunkte.",
+    "modal_text_desc": "Bonuspunkte kannst du verwenden, um sie innerhalb der Plattform einzulösen.",
     "modal_cta": "Erste Mission starten",
     "result_modal_title": "Herzlichen Glückwunsch!",
     "result_modal_continue": "Weiter",
     "next_step": "Nächster Schritt",
     "create_account_btn": "Konto erstellen",
-    "save_profile_hint": "Speichere dein Profil und fordere deine Bonuspunkte an.",
+    "save_profile_hint": "Speichere dein Profil und erhalte deine Bonuspunkte an.",
     "questions": [
       {
         "id": 1,
@@ -610,7 +610,7 @@
         "options": [
           {
             "type": "lena",
-            "main": "Leben ist auf unsere Landflächen zurückgekehrt.",
+            "main": "Artenvielfalt ist auf unsere Landflächen zurückgekehrt.",
             "dropdown": ""
           },
           {
@@ -623,7 +623,7 @@
     ]
   },
   "impactQuest": {
-    "title": "Entdecke dein Wirkungsprofil",
+    "title": "Entdecke dein Profil",
     "discovery_complete": "Entdeckung abgeschlossen!",
     "profile_unlocked": "Profil freigeschaltet!",
     "generic_description": "Deine Antworten helfen uns, die Plattform zu personalisieren und unsere Projekte mit deinen Interessen in Einklang zu bringen.",

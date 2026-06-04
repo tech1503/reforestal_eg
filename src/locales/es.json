@@ -563,18 +563,18 @@
       }
     },
     "modal_title": "¡Completa tu primer misión!",
-    "modal_text_title": "Completa tu primer misión y recibe Bonos.",
-    "modal_text_desc": "Estos puntos puedes usar para canjear productos dentro de la plataforma.",
+    "modal_text_title": "Completa la primer misión y recibe Bonos.",
+    "modal_text_desc": "Bonos puedes usar para canjear productos dentro de la plataforma.",
     "modal_cta": "Iniciar misión",
     "result_modal_title": "¡Felicidades!",
     "result_modal_continue": "Continuar",
     "next_step": "Siguiente Paso",
     "create_account_btn": "Crear Tu Cuenta",
-    "save_profile_hint": "Guarda tu perfil y reclama tus Bonos.",
+    "save_profile_hint": "Guarda tu perfil y recibe tus Bonos.",
     "questions": [
       {
         "id": 1,
-        "question": "¿Cuál es el fundamento más importante para un proyecto ambientalista?",
+        "question": "¿Cuál crees que es el pilar fundamental de un proyecto de protección del medio ambiente?",
         "options": [
           {
             "type": "lena",
@@ -610,7 +610,7 @@
         "options": [
           {
             "type": "lena",
-            "main": "La vida ha regresado a nuestras tierras.",
+            "main": "La biodiversidad ha regresado a nuestras tierras.",
             "dropdown": ""
           },
           {
@@ -623,7 +623,7 @@
     ]
   },
   "impactQuest": {
-    "title": "Descubre tu Perfil de Impacto",
+    "title": "Descubre tu Perfil",
     "discovery_complete": "¡Descubrimiento completado!",
     "profile_unlocked": "¡Perfil Desbloqueado!",
     "generic_description": "Tus respuestas nos ayudan a personalizar la plataforma y alinear nuestros proyectos con tus intereses.",
