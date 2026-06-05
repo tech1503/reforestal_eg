@@ -142,7 +142,7 @@ const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
     const handleContinue = () => {
         onClose();
         if (!user) {
-            navigate('/register');
+            navigate('/auth');
         } else {
             navigate('/dashboard');
         }

@@ -111,7 +111,7 @@ const HomePage = () => {
             <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.6 }} className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 w-full px-4">
               
               <Button 
-                onClick={() => scrollTo('genesis-section')} 
+                onClick={() => window.open('/genesis-quest')} 
                 className="w-full sm:w-auto h-auto min-h-[3.5rem] py-4 px-8 rounded-full bg-[#5b8370] text-[#c2d2c1] hover:bg-[#053127] border-none shadow-glow-lg text-base md:text-xl font-bold hover:scale-105 transition-all whitespace-normal text-center leading-tight"
               >
                 {t('home.cta_buttons.start_your_mission')}
