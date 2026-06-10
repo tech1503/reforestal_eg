@@ -297,7 +297,7 @@ const GenesisQuest = ({ forceShowResult = false }) => {
       david: totalAnswers > 0 ? Math.round(((counts['david'] || 0) / totalAnswers) * 100) : 0,
     };
 
-    // --- REGLA DEL JEFE: Ningún perfil en 0% ---
+    // --- REGLA: Ningún perfil en 0% ---
     const keys = ['lena', 'markus', 'david'];
     
     keys.forEach(k => {
@@ -392,7 +392,7 @@ const GenesisQuest = ({ forceShowResult = false }) => {
         <div className="h-[100dvh] w-full bg-[#063127] flex flex-col items-center justify-center text-white p-4 overflow-hidden">
             <GoldGradientSVG />
             <Loader className="w-8 h-8 animate-spin mb-4" style={{ stroke: 'url(#icon-gold-gradient)' }} />
-            <p>Checking for results...</p>
+            <p>{t('genesisQuest.analyzing_answers', 'Checking for results...')}</p>
             <Button variant="link" onClick={() => window.location.href = '/genesis-quest'} className="mt-4 text-gradient-gold">
                 Start Quest
             </Button>

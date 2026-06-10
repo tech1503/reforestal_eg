@@ -549,7 +549,7 @@
   },
   "genesisQuest": {
     "title": "Descubre tu Perfil",
-    "analyzing_answers": "Analizando tus respuestas...",
+    "analyzing_answers": "Comprobando los resultados...",
     "onboarding_label": "Onboarding",
     "finish_quest": "Empezar Misión",
     "profile_unlocked": "Perfil Desbloqueado", 
