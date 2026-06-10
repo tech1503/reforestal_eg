@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { ShoppingCart, Coins, Gift, TreePine, Award, Leaf, X, Minus, Plus, Lock, Image as ImageIcon, Loader2, HeartHandshake, CreditCard } from 'lucide-react';
+import { ShoppingCart, Coins, Gift, TreePine, Award, Leaf, X, Minus, Plus, Lock, Image as ImageIcon, Loader2, HeartHandshake, CreditCard, Sparkles, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
@@ -12,11 +12,34 @@ import ReadOnlyOverlay from '@/components/ui/ReadOnlyOverlay';
 import StartnextSupportModal from '@/components/ui/StartnextSupportModal';
 import RedeemImpactCreditsModal from '@/components/ui/RedeemImpactCreditsModal';
 import { formatNumber, formatCurrency } from '@/lib/utils'; 
+import { useNavigate } from 'react-router-dom';
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogDescription,
+  DialogFooter
+} from "@/components/ui/dialog";
+
+// Componente para inyectar el gradiente SVG para iconos
+const GoldGradientSVG = () => (
+  <svg width="0" height="0" className="absolute pointer-events-none">
+    <linearGradient id="icon-gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop stopColor="#734b07" offset="0%" />
+      <stop stopColor="#cf9c2a" offset="25%" />
+      <stop stopColor="#fef1a7" offset="50%" />
+      <stop stopColor="#cf9c2a" offset="75%" />
+      <stop stopColor="#734b07" offset="100%" />
+    </linearGradient>
+  </svg>
+);
 
 const ExchangeSection = ({ isReadOnly = false }) => {
   const { t, i18n } = useTranslation(); 
   const { user } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   const { balance, refreshFinancials } = useFinancial();
 
@@ -29,6 +52,12 @@ const ExchangeSection = ({ isReadOnly = false }) => {
   // Modals
   const [isSupportModalOpen, setIsSupportModalOpen] = useState(false);
   const [isRedeemModalOpen, setIsRedeemModalOpen] = useState(false);
+  const [isMissionModalOpen, setIsMissionModalOpen] = useState(false);
+
+  // ------------------------------------------------------------------------
+  // ¡IMPORTANTE! Reemplaza este string por el ID real de la misión de Exchange
+  const EXCHANGE_MISSION_ID = '89d6d303-df99-4387-a399-de77b293b0ed';
+  // ------------------------------------------------------------------------
 
   const categories = [
     { id: 'all', label: t('exchange.categories.all'), icon: Gift },
@@ -36,6 +65,31 @@ const ExchangeSection = ({ isReadOnly = false }) => {
     { id: 'merch', label: t('exchange.categories.merch'), icon: Award },
     { id: 'digital', label: t('exchange.categories.digital'), icon: Leaf }
   ];
+
+  // Verificación de Misión
+  useEffect(() => {
+    const checkMissionStatus = async () => {
+      if (!user || isReadOnly) return;
+      try {
+        const { data, error } = await supabase
+          .from('user_quest_responses')
+          .select('id')
+          .eq('user_id', user.id)
+          .eq('mission_id', EXCHANGE_MISSION_ID)
+          .limit(1)
+          .maybeSingle();
+
+        // Si no hay datos (no ha hecho la misión), mostramos el pop-up
+        if (!data && !error) {
+          setIsMissionModalOpen(true);
+        }
+      } catch (err) {
+        console.error("Error checking exchange mission status:", err);
+      }
+    };
+
+    checkMissionStatus();
+  }, [user, isReadOnly]);
 
   const getProducts = useCallback(async () => {
     try {
@@ -185,8 +239,72 @@ const ExchangeSection = ({ isReadOnly = false }) => {
 
   return (
     <div className="relative min-h-[500px]">
+      <GoldGradientSVG />
       <StartnextSupportModal isOpen={isSupportModalOpen} onClose={() => setIsSupportModalOpen(false)} />
       <RedeemImpactCreditsModal isOpen={isRedeemModalOpen} onClose={() => setIsRedeemModalOpen(false)} currentBalance={userCredits} />
+
+      {/* POP-UP DE MISIÓN DEL EXCHANGE */}
+      <Dialog open={isMissionModalOpen} onOpenChange={setIsMissionModalOpen}>
+        {/* Fondo oscuro desenfocado adicional para resaltar el modal */}
+        {isMissionModalOpen && <div className="fixed inset-0 z-[9998] bg-background backdrop-blur-sm" />}
+        
+        <DialogContent className="fixed left-[50%] top-[50%] z-[9999] w-[95vw] sm:w-full max-w-md translate-x-[-50%] translate-y-[-50%] bg-foreground border border-[#cf9c2a]/40 shadow-glow-lg rounded-3xl p-0 outline-none overflow-hidden">
+            
+            {/* Efectos de luces (Glow) en el fondo del modal */}
+            <div className="absolute -top-24 -left-24 w-64 h-64 bg-[#cf9c2a]/20 rounded-full blur-[80px] pointer-events-none animate-pulse-glow" />
+            <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-[#5b8370]/20 rounded-full blur-[80px] pointer-events-none" />
+
+            <motion.div 
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ type: "spring", duration: 0.6, bounce: 0.4 }}
+                className="relative z-10 p-6 sm:p-8 flex flex-col items-center text-center"
+            >
+                <DialogHeader className="flex flex-col items-center space-y-4 w-full">
+                    
+                    {/* Icono animado flotando */}
+                    <motion.div 
+                        animate={{ y: [0, -8, 0] }}
+                        transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+                        className="w-20 h-20 bg-gradient-to-br from-[#cf9c2a]/10 to-transparent rounded-full flex items-center justify-center border border-[#cf9c2a]/40 shadow-glow mb-2 relative"
+                    >
+                        {/* Anillo expansivo detrás del icono */}
+                        <div className="absolute inset-0 rounded-full border border-[#cf9c2a]/30 animate-ping" style={{ animationDuration: '3s' }}></div>
+                        <Sparkles className="w-10 h-10 drop-shadow-md z-10" style={{ stroke: 'url(#icon-gold-gradient)' }} />
+                    </motion.div>
+                    
+                    <DialogTitle className="text-2xl sm:text-3xl font-black tracking-tight text-white leading-tight">
+                        {t('exchange.mission_modal_title', 'Desbloquea el Exchange')}
+                    </DialogTitle>
+                    
+                    <DialogDescription className="text-[#c4d1c0] text-sm sm:text-base leading-relaxed mt-3 px-2">
+                        {t('exchange.mission_modal_desc', 'Antes de realizar tu primera operación, te invitamos a completar una misión introductoria. Aprenderás cómo funciona esta sección y ganarás recompensas.')}
+                    </DialogDescription>
+                </DialogHeader>
+
+                <DialogFooter className="mt-8 flex flex-col sm:flex-row gap-3 w-full">
+                    <Button 
+                        onClick={() => setIsMissionModalOpen(false)} 
+                        variant="outline"
+                        className="w-full sm:w-1/3 bg-white/5 border-white/20 text-[#c4d1c0] hover:bg-white/10 hover:text-white font-bold rounded-xl h-12 transition-all"
+                    >
+                        {t('exchange.explore_first', 'Explorar')}
+                    </Button>
+                    <Button 
+                        onClick={() => navigate(`/dashboard/quests/${EXCHANGE_MISSION_ID}`)} 
+                        className="w-full sm:w-2/3 bg-gradient-gold text-white hover:brightness-110 font-bold rounded-xl h-12 shadow-glow transition-all active:scale-95 group border-none"
+                    >
+                        <span className="flex items-center justify-center">
+                            {t('exchange.go_to_mission', 'Ir a la Misión')}
+                            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                        </span>
+                    </Button>
+                </DialogFooter>
+            </motion.div>
+        </DialogContent>
+      </Dialog>
+      {/* FIN DEL POP-UP */}
+
 
       {/* Header and Filters */}
       <div className="flex flex-col gap-6 mb-8">
@@ -263,10 +381,6 @@ const ExchangeSection = ({ isReadOnly = false }) => {
                 
                 <div className="aspect-[4/3] bg-muted relative overflow-hidden">
                   <ProductImage src={product.image_url} alt={content.name} />
-                  
-                  <div className="absolute top-3 right-3 bg-black/80 backdrop-blur px-2 py-1 rounded text-xs font-bold text-white shadow-sm border border-white/20">
-                      {product.stock === -1 ? t('exchange.stock.infinite') : `${formatNumber(product.stock)} ${t('exchange.stock.left')}`}
-                  </div>
                 </div>
 
                 <div className="p-5 flex flex-col flex-1">

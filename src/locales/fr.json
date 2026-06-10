@@ -144,7 +144,7 @@
       "subtitle": "Découvrez l'impact de votre contribution. Entrez un montant ci-dessous ou parcourez les niveaux officiels.",
       "simulator_title": "Simulateur",
       "input_placeholder": "Entrez un montant...",
-      "empty_state": "Entrez un montant (5,00 €+) pour voir votre niveau.",
+      "empty_state": "Entrez un montant (14,99 €+) pour voir votre niveau.",
       "min_amount": "Min.",
       "details_btn": "Détails",
       "contribution_level": "Niveau de Contribution",
@@ -543,11 +543,13 @@
     "toasts": {
       "success_title": "Profil Mis à Jour",
       "success_desc": "Votre profil a été mis à jour. Les points de gamification seront attribués automatiquement.",
-      "error_title": "Erreur"
+      "error_title": "Erreur",
+      "success_bonus": "Profil mis à jour! Vous avez gagné +{{credits}} Points Bonus."
     }
   },
   "genesisQuest": {
     "title": "Découvrez ton Profil",
+    "analyzing_answers": "Analyse de tes réponses...",
     "onboarding_label": "Intégration",
     "finish_quest": "Lancer la mission",
     "profile_unlocked": "Profil déverrouillé", 
@@ -770,6 +772,10 @@
     "create_account": "Créez votre compte"
   },
   "exchange": {
+    "mission_modal_title": "Découvrez le fonctionnement de la section d'échange de bons points !",
+    "mission_modal_desc": "Avant de commencer, nous vous invitons à accomplir une courte mission d'introduction. Vous découvrirez le fonctionnement de cette section et gagnerez des récompenses en la terminant.",
+    "explore_first": "Fermer",
+    "go_to_mission": "Accédez à la mission",
     "title": "Échange de Points Bonus",
     "subtitle": "Utilisez vos Points Bonus acquis pour avoir un impact réel.",
     "categories": {

@@ -144,7 +144,7 @@
       "subtitle": "Descubre el impacto de tu contribución. Ingresa una cantidad abajo o explora los niveles oficiales.",
       "simulator_title": "Simulador",
       "input_placeholder": "Ingresar monto...",
-      "empty_state": "Ingresa un monto (€5.00+) para ver tu nivel.",
+      "empty_state": "Ingresa un monto (€14.99+) para ver tu nivel.",
       "min_amount": "Mín.",
       "details_btn": "Detalles",
       "contribution_level": "Nivel de Contribución",
@@ -543,11 +543,13 @@
     "toasts": {
       "success_title": "Perfil Actualizado",
       "success_desc": "Tu perfil ha sido actualizado. Los puntos de gamificación se otorgarán automáticamente.",
-      "error_title": "Error"
+      "error_title": "Error",
+      "success_bonus": "¡Actualización de perfil! Has ganado +{{credits}} Puntos de Bonificación."
     }
   },
   "genesisQuest": {
     "title": "Descubre tu Perfil",
+    "analyzing_answers": "Analizando tus respuestas...",
     "onboarding_label": "Onboarding",
     "finish_quest": "Empezar Misión",
     "profile_unlocked": "Perfil Desbloqueado", 
@@ -770,6 +772,10 @@
     "create_account": "Crea tu cuenta"
   },
   "exchange": {
+    "mission_modal_title": "Conoce como funciona la sección canje de bonos",
+    "mission_modal_desc": "Antes de realizar tu primer paso, te invitamos a completar una rápida misión introductoria. Aprenderás cómo funciona esta sección y ganarás recompensas por completarla.",
+    "explore_first": "Cerrar",
+    "go_to_mission": "Ir a la Misión",
     "title": "Intercambio de Bonos",
     "subtitle": "Usa tus Bonos ganados para generar un impacto real.",
     "categories": {

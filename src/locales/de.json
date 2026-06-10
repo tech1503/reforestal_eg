@@ -144,7 +144,7 @@
       "subtitle": "Entdecke die Wirkung deines Beitrags. Gib unten einen Betrag ein oder durchsuche die offiziellen Stufen.",
       "simulator_title": "Simulator",
       "input_placeholder": "Betrag eingeben...",
-      "empty_state": "Gib einen Betrag ein (€5.00+), um deine Stufe zu sehen.",
+      "empty_state": "Gib einen Betrag ein (€14.99+), um deine Stufe zu sehen.",
       "min_amount": "Min.",
       "details_btn": "Details",
       "contribution_level": "Beitragsstufe",
@@ -543,11 +543,13 @@
     "toasts": {
       "success_title": "Profil Aktualisiert",
       "success_desc": "Profil wurde aktualisiert. Bonuspunkte werden automatisch vergeben.",
-      "error_title": "Fehler"
+      "error_title": "Fehler",
+      "success_bonus": "Profil aktualisiert! Du hast +{{credits}} Bonuspunkte erhalten."
     }
   },
   "genesisQuest": {
     "title": "Entdecke dein Profil",
+    "analyzing_answers": "Analysiere deine Antworten...",
     "onboarding_label": "Erste Mission",
     "finish_quest": "Mission beginnen",
     "profile_unlocked": "Profil Freigeschaltet", 
@@ -771,6 +773,10 @@
   },
   "exchange": {
     "title": "Bonuspunkte Austausch",
+    "mission_modal_title": "Erfahren Sie, wie der Bereich zur Einlösung von Bonuspunkten funktioniert.",
+    "mission_modal_desc": "Bevor Sie den ersten Schritt unternehmen, laden wir Sie ein, eine kurze Einführungsmission zu absolvieren. Sie lernen die Funktionsweise dieses Bereichs kennen und erhalten Belohnungen für den Abschluss.",
+    "explore_first": "Schließen",
+    "go_to_mission": "Zur Mission gehen",
     "subtitle": "Nutzen Sie Ihre Bonuspunkte, um einen echten Einfluss zu nehmen.",
     "categories": {
       "all": "Alle Artikel",

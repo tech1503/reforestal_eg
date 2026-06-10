@@ -144,7 +144,7 @@
       "subtitle": "Discover the impact of your contribution. Enter an amount below or browse the official tiers.",
       "simulator_title": "Simulator",
       "input_placeholder": "Enter amount...",
-      "empty_state": "Enter an amount (€5.00+) to preview your tier.",
+      "empty_state": "Enter an amount (€14.99+) to preview your tier.",
       "min_amount": "Min.",
       "details_btn": "Details",
       "contribution_level": "Contribution Level",
@@ -543,11 +543,13 @@
     "toasts": {
       "success_title": "Profile Updated",
       "success_desc": "Your profile has been updated. Bonus Points will be awarded automatically.",
-      "error_title": "Error"
+      "error_title": "Error",
+      "success_bonus": "Profile update! You earned +{{credits}} Bonus Points."
     }
   },
   "genesisQuest": {
     "title": "Discover Your Profile",
+    "analyzing_answers": "Analyzing your answers...",
     "onboarding_label": "Onboarding",
     "finish_quest": "Start Mission",
     "profile_unlocked": "Profile Unlocked", 
@@ -770,6 +772,10 @@
     "create_account": "Create Account"
   },
   "exchange": {
+    "mission_modal_title": "Learn How the Bonus Points Exchange Works",
+    "mission_modal_desc": "Before taking your first step, we invite you to complete a quick introductory mission. You'll learn how this section works and earn rewards for completing it.",
+    "explore_first": "Close",
+    "go_to_mission": "Go to the Mission",
     "title": "Bonus Points Exchange",
     "subtitle": "Use your vested Bonus Points to make a real-world impact.",
     "categories": {

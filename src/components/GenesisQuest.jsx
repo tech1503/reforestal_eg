@@ -116,11 +116,9 @@ const Question = ({ questionData, onSelect, selectedOptionType }) => {
                 </div>
 
                 <div className="flex flex-col flex-1 min-w-0">
-                    {/* Quitamos truncate y forzamos el texto a ser multilínea */}
                     <span className={`text-sm sm:text-lg font-bold leading-tight transition-colors duration-300 whitespace-normal break-words ${isSelected ? 'text-white' : 'text-[#c4d1c0] group-hover:text-white'}`}>
                       {option.main}
                     </span>
-                    {/* Quitamos line-clamp-2 y dejamos que el párrafo expanda su altura */}
                     <p className={`text-[10px] sm:text-sm leading-tight sm:leading-relaxed transition-colors duration-300 whitespace-normal break-words mt-0.5 sm:mt-1 ${isSelected ? 'text-white/90' : 'text-[#5b8370] group-hover:text-[#c4d1c0]'}`}>
                       {option.dropdown}
                     </p>
@@ -144,7 +142,7 @@ const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
         if (!user) {
             navigate('/auth');
         } else {
-            navigate('/dashboard');
+            navigate('/dashboard/profile');
         }
     };
 
@@ -154,8 +152,8 @@ const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
             
             <DialogContent className="fixed left-[50%] top-[50%] z-[9999] w-[95vw] sm:w-full max-w-md translate-x-[-50%] translate-y-[-50%] border border-[#5b8370]/50 bg-[#063127] shadow-2xl p-0 outline-none sm:max-w-lg rounded-3xl">
                 <DialogHeader className="sr-only">
-                    <DialogTitle>Impact Quest Result</DialogTitle>
-                    <DialogDescription>Your assigned impact preferences.</DialogDescription>
+                    <DialogTitle>Profile Quest Result</DialogTitle>
+                    <DialogDescription>Your assigned profile preferences.</DialogDescription>
                 </DialogHeader>
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8, y: 30 }}
@@ -167,7 +165,7 @@ const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
                     
                     <div className="relative z-10 flex flex-col items-center text-center">
                         <div className="mb-4 sm:mb-6 rounded-full bg-[#5b8370]/20 px-3 sm:px-4 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-gradient-gold border border-[#cf9c2a]/30">
-                            {t('impactQuest.profile_unlocked', 'Perfil de Impacto Desbloqueado')}
+                            {t('impactQuest.profile_unlocked', 'Profile Unlocked')}
                         </div>
                         <motion.div
                             initial={{ scale: 0, rotate: -180 }}
@@ -199,7 +197,7 @@ const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
                             transition={{ delay: 0.3 }}
                             className="text-[#c4d1c0] mb-6 sm:mb-8 text-sm sm:text-base leading-relaxed font-medium"
                         >
-                            {t('impactQuest.generic_description', 'Tus respuestas nos ayudan a personalizar tu experiencia y alinear tus intereses con nuestros proyectos de impacto.')}
+                            {t('impactQuest.generic_description', 'Tus respuestas nos ayudan a personalizar tu experience y alinear tus intereses con nuestros proyectos de impacto.')}
                         </motion.p>
                         <div className="w-full space-y-3 sm:space-y-4">
                              <Button 
@@ -249,18 +247,24 @@ const GenesisQuest = ({ forceShowResult = false }) => {
     }
   }, [forceShowResult]);
 
+  // Selección automática sin botón de envío
   const handleSelectOption = (optionType) => {
-    setAnswers(prev => ({ ...prev, [currentQuestionIndex]: optionType }));
+    if (loading) return; 
+    
+    const newAnswers = { ...answers, [currentQuestionIndex]: optionType };
+    setAnswers(newAnswers);
     
     setTimeout(() => {
       if (currentQuestionIndex < questData.length - 1) {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
+      } else {
+        handleQuizComplete(newAnswers);
       }
-    }, 250); 
+    }, 450); 
   };
   
-  const calculateProfile = () => {
-    const counts = Object.values(answers).reduce((acc, type) => {
+  const calculateProfile = (currentAnswers) => {
+    const counts = Object.values(currentAnswers).reduce((acc, type) => {
       acc[type] = (acc[type] || 0) + 1;
       return acc;
     }, {});
@@ -277,22 +281,35 @@ const GenesisQuest = ({ forceShowResult = false }) => {
     return winner;
   };
 
-  const handleQuizComplete = async () => {
+  const handleQuizComplete = async (finalAnswers) => {
+    const answersToProcess = finalAnswers || answers;
     setLoading(true);
 
-    const totalAnswers = Object.keys(answers).length;
-    const counts = Object.values(answers).reduce((acc, type) => {
+    const totalAnswers = Object.keys(answersToProcess).length;
+    const counts = Object.values(answersToProcess).reduce((acc, type) => {
       acc[type] = (acc[type] || 0) + 1;
       return acc;
     }, {});
     
-    const percentages = {
+    let rawPercentages = {
       lena: totalAnswers > 0 ? Math.round(((counts['lena'] || 0) / totalAnswers) * 100) : 0,
       markus: totalAnswers > 0 ? Math.round(((counts['markus'] || 0) / totalAnswers) * 100) : 0,
       david: totalAnswers > 0 ? Math.round(((counts['david'] || 0) / totalAnswers) * 100) : 0,
     };
 
-    const resultSlug = calculateProfile();
+    // --- REGLA DEL JEFE: Ningún perfil en 0% ---
+    const keys = ['lena', 'markus', 'david'];
+    
+    keys.forEach(k => {
+        if (rawPercentages[k] === 0) {
+            rawPercentages[k] = 10;
+        }
+    });
+
+    const percentages = rawPercentages;
+    // -------------------------------------------
+
+    const resultSlug = calculateProfile(answersToProcess);
     setFinalProfileSlug(resultSlug);
     
     const sessionId = `anon_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
@@ -432,24 +449,38 @@ const GenesisQuest = ({ forceShowResult = false }) => {
                         {t('genesisQuest.onboarding_label', 'Impact Quest')}
                     </span>
                     <h1 className="text-xl sm:text-3xl md:text-4xl font-extrabold text-white drop-shadow-lg leading-tight">
-                       {t('genesisQuest.title', 'Discover Your Impact Profile')}
+                       {t('genesisQuest.title', 'Discover Your Profile')}
                     </h1>
                 </motion.div>
             </div>
 
-            {/* MIDDLE SECTION: Question */}
-            <div className="w-full flex justify-center shrink py-0 sm:py-4 overflow-hidden">
+            {/* MIDDLE SECTION: Question o Loading Spinner */}
+            <div className="w-full flex justify-center shrink py-0 sm:py-4 overflow-hidden min-h-[300px]">
                 <AnimatePresence mode="wait">
-                  <Question
-                    key={currentQuestionIndex}
-                    questionData={questData[currentQuestionIndex]}
-                    onSelect={(optionType) => handleSelectOption(optionType)}
-                    selectedOptionType={answers[currentQuestionIndex]}
-                  />
+                  {loading ? (
+                      <motion.div
+                          key="loader"
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          className="w-full flex flex-col items-center justify-center py-10"
+                      >
+                          <Loader className="w-10 h-10 animate-spin mb-4" style={{ stroke: 'url(#icon-gold-gradient)' }} />
+                          <p className="text-gradient-gold font-bold text-lg animate-pulse">
+                              {t('genesisQuest.analyzing_answers', 'Analyzing your answers...')}
+                          </p>
+                      </motion.div>
+                  ) : (
+                      <Question
+                        key={currentQuestionIndex}
+                        questionData={questData[currentQuestionIndex]}
+                        onSelect={(optionType) => handleSelectOption(optionType)}
+                        selectedOptionType={answers[currentQuestionIndex]}
+                      />
+                  )}
                 </AnimatePresence>
             </div>
 
-            {/* BOTTOM SECTION: Dots or Button */}
+            {/* BOTTOM SECTION: Dots */}
             <div className="shrink-0 flex items-center justify-center mt-3 sm:mt-8 w-full px-2">
                 {/* Dots */}
                 <div className={`flex items-center space-x-1 sm:space-x-2 ${allQuestionsAnswered ? 'hidden' : 'flex'}`}>
@@ -468,30 +499,6 @@ const GenesisQuest = ({ forceShowResult = false }) => {
                         />
                     ))}
                 </div>
-
-                {/* Final Submit Button */}
-                <AnimatePresence>
-                    {allQuestionsAnswered && (
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.9 }}
-                            className="w-full max-w-md mx-auto"
-                        >
-                            <Button 
-                                onClick={handleQuizComplete} 
-                                size="lg" 
-                                disabled={loading} 
-                                className="w-full h-12 sm:h-14 bg-gradient-gold text-white border-none px-5 sm:px-10 text-sm sm:text-base font-bold rounded-2xl sm:rounded-full transition-all shadow-glow hover:brightness-110"
-                            >
-                                <span className="flex items-center justify-center gap-2">
-                                    {loading ? <Loader className="animate-spin w-4 h-4 sm:w-5 sm:h-5 text-white" /> : t('genesisQuest.finish_quest', 'Reveal My Profile')}
-                                    {!loading && <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-white" />}
-                                </span>
-                            </Button>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
             </div>
         </div>
       </div>

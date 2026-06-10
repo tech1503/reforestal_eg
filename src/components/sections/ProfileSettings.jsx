@@ -173,7 +173,7 @@ const ProfileSettings = () => {
                 await refreshFinancials(); 
                 toast({
                     title: t('common.success'), 
-                    description: `Profile updated! You earned +${result.creditsAwarded} Bonus Points.`, 
+                    description: t('profile.toasts.success_bonus', { credits: result.creditsAwarded }), 
                     className: "bg-card text-card-foreground border-gold/30"
                 });
             } else {
