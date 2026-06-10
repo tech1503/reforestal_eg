@@ -203,7 +203,7 @@ const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
                              <Button 
                                 onClick={handleContinue} 
                                 size="lg" 
-                                className="w-full h-12 sm:h-14 bg-gradient-gold text-[#063127] font-bold text-sm sm:text-base rounded-xl shadow-glow border-none transition-all hover:scale-[1.02] hover:brightness-110 active:scale-95"
+                                className="w-full h-12 sm:h-14 bg-gradient-gold text-white font-bold text-sm sm:text-base rounded-xl shadow-glow border-none transition-all hover:scale-[1.02] hover:brightness-110 active:scale-95"
                              >
                                 <span className="drop-shadow-sm flex items-center justify-center gap-2">
                                     {user ? t('genesis.continue_dashboard', 'Continue to Dashboard') : t('genesis.create_account', 'Claim Profile & Register')}

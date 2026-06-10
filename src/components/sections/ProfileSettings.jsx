@@ -61,7 +61,7 @@ const ProfileSettings = () => {
                     .from('gamification_history')
                     .select('id')
                     .eq('user_id', user.id)
-                    .eq('action_type', 'Profile')
+                    .eq('action_name', 'profile')
                     .limit(1)
                     .maybeSingle();
 
@@ -162,6 +162,7 @@ const ProfileSettings = () => {
 
             await fetchProfile(user.id);
 
+            if (!rewardClaimed) {
             const result = await executeGamificationAction(
                 user.id, 
                 'profile', 
@@ -173,11 +174,18 @@ const ProfileSettings = () => {
                 await refreshFinancials(); 
                 toast({
                     title: t('common.success'), 
-                    description: t('profile.toasts.success_bonus', { credits: result.creditsAwarded }), 
+                    description: `Profile updated! You earned +${result.creditsAwarded} Bonus Points.`, 
                     className: "bg-card text-card-foreground border-gold/30"
                 });
             } else {
                 toast({
+                    title: t('common.success'),
+                    description: t('profile.toasts.success_desc', 'Profile updated successfully.'),
+                    className: "bg-card text-card-foreground border-gold/30"
+                });
+            }
+        } else {
+            toast({
                     title: t('common.success'),
                     description: t('profile.toasts.success_desc', 'Profile updated successfully.'),
                     className: "bg-card text-card-foreground border-gold/30"
