@@ -331,7 +331,7 @@ const ProfileSettings = () => {
                                 <div className="flex items-center justify-between mb-8">
                                     <h3 className="text-xl font-bold text-card-foreground flex items-center gap-2">
                                         <User className="w-5 h-5 text-gold" />
-                                        {t('profile.edit_details', 'Edit Details')}
+                                        {t('profile.labels.edit_details', 'Edit Details')}
                                     </h3>
                                 </div>
 

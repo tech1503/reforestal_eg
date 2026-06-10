@@ -508,6 +508,7 @@
     "title": "Paramètres du Profil",
     "labels": {
       "full_name": "Nom Complet",
+      "edit_details": "Modifier les Détails",
       "avatar_url": "URL de l'Avatar",
       "bio": "Biographie",
       "phone": "Numéro de Téléphone",

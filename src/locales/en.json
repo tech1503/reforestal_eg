@@ -508,6 +508,7 @@
     "title": "Profile Settings",
     "labels": {
       "full_name": "Full Name",
+      "edit_details": "Edit Details",
       "avatar_url": "Avatar URL",
       "bio": "Bio",
       "phone": "Phone Number",
