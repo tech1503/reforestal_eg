@@ -23,7 +23,8 @@
     "notifications": "Notifications",
     "language": "Language",
     "theme": "Toggle Theme",
-    "required_field": "This field is required"
+    "required_field": "This field is required",
+    "locked": "Blocked"
   },
   "navigation": {
     "dashboard": "Dashboard",
@@ -657,7 +658,11 @@
     "requires_pioneer": "Requires Pioneer",
     "unlocked_premium": "Unlocked Premium",
     "empty_desc": "No active quests available at this time.",
-    "not_found": "Mission not found"
+    "not_found": "Mission not found",
+    "tab_active": "Available",
+    "tab_history": "History",
+    "empty_active": "No active quests found. Check back later for new missions!",
+    "empty_history": "You haven't completed any quests yet. Start your first mission to earn Bonus Points and make an impact!"
   },
   "home": {
     "sign_in": "Sign In",

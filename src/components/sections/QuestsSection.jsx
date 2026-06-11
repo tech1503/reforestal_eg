@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { useFinancial } from '@/contexts/FinancialContext';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Button } from '@/components/ui/button';
-import { Zap, Lock, Rocket, Check, Trophy, Target, Loader2, FileText, ExternalLink, ShoppingBag, ShieldAlert, Clock } from 'lucide-react'; 
+import { Zap, Lock, Rocket, Check, Trophy, Target, Loader2, FileText, ExternalLink, ShoppingBag, ShieldAlert, Clock, History } from 'lucide-react'; 
 import { useToast } from '@/components/ui/use-toast';
 import { cn, formatNumber } from '@/lib/utils'; 
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -23,6 +23,9 @@ const QuestsSection = () => {
   const [quests, setQuests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [processingId, setProcessingId] = useState(null);
+  
+  // NUEVO ESTADO: Controla qué pestaña está activa
+  const [activeTab, setActiveTab] = useState('active'); // 'active' o 'completed'
 
   const hasGenesisProfile = !!profile?.genesis_profile;
   const showDiscoveryCard = !hasGenesisProfile;
@@ -228,22 +231,63 @@ const QuestsSection = () => {
       return null;
   }
 
+  // NUEVA LÓGICA: Separamos las misiones según la pestaña activa
+  const activeQuests = quests.filter(q => !q.completed && !q.isPending);
+  const completedQuests = quests.filter(q => q.completed || q.isPending);
+  const displayedQuests = activeTab === 'active' ? activeQuests : completedQuests;
+
   return (
     <div className="relative w-full overflow-hidden rounded-3xl shadow-sm bg-card border border-border">
       <div className="p-5 md:p-8">
-        <div className="flex items-center gap-3 mb-6">
-            <div className="p-2.5 bg-gradient-gold shadow-glow rounded-xl text-[#063127]">
-                <Trophy className="w-5 h-5 md:w-6 md:h-6"/>
+        
+        {/* Cabecera Principal */}
+        <div className="flex items-center justify-between flex-wrap gap-4 mb-8">
+            <div className="flex items-center gap-3">
+                <div className="p-2.5 bg-gradient-gold shadow-glow rounded-xl text-[#063127]">
+                    <Trophy className="w-5 h-5 md:w-6 md:h-6"/>
+                </div>
+                <div>
+                  <h2 className="text-xl md:text-2xl font-bold text-white">{t('quest.title', 'Misiones y Logros')}</h2>
+                  <p className="text-xs md:text-sm text-white/70">{t('quest.subtitle', 'Completa misiones para ganar recompensas.')}</p>
+                </div>
             </div>
-            <div>
-              <h2 className="text-xl md:text-2xl font-bold text-white">{t('quest.title', 'Misiones')}</h2>
-              <p className="text-xs md:text-sm text-white/70">{t('quest.subtitle', 'Completa misiones para ganar puntos.')}</p>
+
+            {/* PESTAÑAS (TABS) PREMIUM CON MOTION */}
+            <div className="flex items-center gap-1 bg-black/30 p-1.5 rounded-xl border border-white/10 shrink-0">
+                <button
+                    onClick={() => setActiveTab('active')}
+                    className={cn(
+                        "relative px-4 sm:px-6 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all z-10",
+                        activeTab === 'active' ? "text-[#063127]" : "text-white/60 hover:text-white"
+                    )}
+                >
+                    {activeTab === 'active' && (
+                        <motion.div layoutId="questTab" className="absolute inset-0 bg-gradient-gold rounded-lg shadow-glow -z-10" />
+                    )}
+                    <span className="flex items-center gap-2">
+                        <Target className="w-4 h-4 hidden sm:block" /> {t('quest.tab_active', 'Disponibles')}
+                    </span>
+                </button>
+                <button
+                    onClick={() => setActiveTab('completed')}
+                    className={cn(
+                        "relative px-4 sm:px-6 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all z-10",
+                        activeTab === 'completed' ? "text-[#063127]" : "text-white/60 hover:text-white"
+                    )}
+                >
+                    {activeTab === 'completed' && (
+                        <motion.div layoutId="questTab" className="absolute inset-0 bg-gradient-gold rounded-lg shadow-glow -z-10" />
+                    )}
+                    <span className="flex items-center gap-2">
+                        <History className="w-4 h-4 hidden sm:block" /> {t('quest.tab_history', 'Historial')}
+                    </span>
+                </button>
             </div>
         </div>
       
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5">
-            {/* Tarjeta Discovery para nuevos usuarios */}
-            {showDiscoveryCard && (
+            {/* Tarjeta Discovery para nuevos usuarios (Solo se muestra en la pestaña de Activas) */}
+            {showDiscoveryCard && activeTab === 'active' && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="col-span-full bg-[#063127] rounded-2xl p-6 md:p-8 text-white relative overflow-hidden shadow-lg border border-gold/30">
                     <div className="relative z-10 flex flex-col items-start justify-center h-full">
                         <h3 className="text-2xl md:text-3xl font-bold mb-2 text-white">{t('dashboard.discover_investor_profile')}</h3>
@@ -255,20 +299,23 @@ const QuestsSection = () => {
                 </motion.div>
             )}
 
-            {/* Listado de Misiones */}
-            <AnimatePresence>
-                {quests.map((quest, idx) => (
+            {/* Listado Dinámico de Misiones (Filtradas por la pestaña activa) */}
+            <AnimatePresence mode="popLayout">
+                {displayedQuests.map((quest, idx) => (
                 <motion.div 
                     key={`${quest.type}-${quest.id}`} 
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.05 }}
+                    layout
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    whileHover={(!quest.completed && !quest.isPending && !quest.isLocked) ? { scale: 1.02, y: -4 } : {}}
+                    transition={{ duration: 0.2 }}
                     className={cn(`relative rounded-2xl border p-4 md:p-5 transition-all flex flex-col justify-between`, 
                         (quest.completed || quest.isPending)
                         ? 'bg-black/20 border-white/10 opacity-80 shadow-none' 
                         : quest.isLocked 
                           ? 'bg-black/40 border-dashed border-white/20 opacity-70' 
-                          : 'bg-[#063127] border-gold/30 shadow-lg hover:shadow-glow hover:border-gold/50'
+                          : 'bg-[#063127] border-[#cf9c2a]/40 shadow-glow animate-pulse-glow'
                     )}
                 >
                     <div>
@@ -278,6 +325,7 @@ const QuestsSection = () => {
                                 <div className={cn(
                                     "p-1.5 rounded-lg flex items-center justify-center shadow-glow",
                                     quest.isLocked ? 'bg-white/10 text-white/40 shadow-none' 
+                                    : (quest.completed || quest.isPending) ? 'bg-[#5b8370]/30 text-[#5b8370] shadow-none'
                                     : 'bg-gradient-gold text-[#063127]'
                                 )}>
                                     {quest.type === 'genesis' ? <FileText className="w-4 h-4" /> : <Target className="w-4 h-4" />}
@@ -301,6 +349,7 @@ const QuestsSection = () => {
                                 "flex items-center gap-1 text-xs font-black px-2 py-1 rounded-md shrink-0",
                                 quest.isLocked 
                                   ? 'text-white/50 bg-white/10 border border-transparent' 
+                                  : (quest.completed || quest.isPending) ? 'text-[#5b8370] bg-[#5b8370]/10 border border-transparent'
                                   : 'text-gradient-gold bg-gold/10 border border-gold/20'
                             )}>
                                 <Zap className="w-3 h-3 text-gold"/> +{formatNumber(quest.credits)} 
@@ -328,7 +377,7 @@ const QuestsSection = () => {
                                 ? 'bg-gold/20 text-gold border-gold/30 cursor-default shadow-none'
                                 : quest.isLocked
                                 ? 'bg-white/5 text-white border-white/10 cursor-not-allowed' 
-                                : 'bg-gradient-gold text-white border-transparent shadow-glow hover:scale-105'
+                                : 'bg-gradient-gold text-[#063127] border-transparent shadow-glow hover:brightness-110'
                         )}
                     >
                         {processingId === quest.id ? <Loader2 className="w-4 h-4 animate-spin"/> : <div className="flex items-center justify-center">{getButtonIcon(quest)}{getButtonText(quest)}</div>}
@@ -337,10 +386,20 @@ const QuestsSection = () => {
                 ))}
             </AnimatePresence>
             
-            {quests.length === 0 && !showDiscoveryCard && !loading && (
-                <div className="col-span-full text-center py-12 text-white/60 border border-dashed border-gold/30 rounded-2xl bg-black/20">
-                    <Target className="w-8 h-8 mx-auto mb-3 opacity-50 text-gold"/>
-                    <p className="text-sm font-medium">{t('quest.empty_desc', "No hay misiones activas en este momento.")}</p>
+            {/* Mensajes de Vacío (Empty States) dinámicos por Pestaña */}
+            {displayedQuests.length === 0 && !loading && (
+                <div className="col-span-full text-center py-12 text-white/60 border border-dashed border-white/10 rounded-2xl bg-black/20 mt-4">
+                    {activeTab === 'active' ? (
+                        <>
+                            <Target className="w-10 h-10 mx-auto mb-3 opacity-30 text-white"/>
+                            <p className="text-sm font-medium">{t('quest.empty_active', "No tienes misiones pendientes por ahora. ¡Vuelve pronto!")}</p>
+                        </>
+                    ) : (
+                        <>
+                            <History className="w-10 h-10 mx-auto mb-3 opacity-30 text-white"/>
+                            <p className="text-sm font-medium">{t('quest.empty_history', "Aún no has completado ninguna misión.")}</p>
+                        </>
+                    )}
                 </div>
             )}
         </div>

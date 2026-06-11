@@ -23,7 +23,8 @@
     "language": "Langue",
     "theme": "Changer de thème",
     "required_field": "Ce champ est requis",
-    "finished": "Terminé"
+    "finished": "Terminé",
+    "locked": "Bloqué"
   },
   "navigation": {
     "dashboard": "Tableau de bord",
@@ -657,7 +658,11 @@
     "requires_pioneer": "Nécessite le statut de pionnier",
     "unlocked_premium": "Débloqué",
     "empty_desc": "Il n’y a aucune mission active pour le moment.",
-    "not_found": "Mission introuvable"
+    "not_found": "Mission introuvable",
+    "tab_active": "Disponible",
+    "tab_history": "Historique",
+    "empty_active": "Aucune quête active trouvée. Revenez plus tard pour de nouvelles missions !",
+    "empty_history": "Vous n'avez encore terminé aucune quête. Commencez votre première mission pour gagner des points bonus et faire la différence !"
   },
   "home": {
     "sign_in": "Se Connecter",

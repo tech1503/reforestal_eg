@@ -23,7 +23,8 @@
     "language": "Idioma",
     "theme": "Cambiar Tema",
     "required_field": "Este campo es obligatorio",
-    "finished": "Finalizado"
+    "finished": "Finalizado",
+    "locked": "Bloqueado"
   },
   "navigation": {
     "dashboard": "Panel de Control",
@@ -657,7 +658,11 @@
     "requires_pioneer": "Requiere Pionero",
     "unlocked_premium": "Desbloqueado",
     "empty_desc": "No hay misiones activas en este momento.",
-    "not_found": "Misión no encontrada"
+    "not_found": "Misión no encontrada",
+    "tab_active": "Disponible",
+    "tab_history": "Historial",
+    "empty_active": "No se encontraron misiones activas. ¡Vuelve más tarde para ver nuevas misiones!",
+    "empty_history": "Aún no has completado ninguna misión. ¡Comienza tu primera misión para ganar puntos extra y marcar la diferencia!"
   },
   "home": {
     "sign_in": "Iniciar Sesión",

@@ -147,7 +147,7 @@ const MissionPlayer = () => {
 
   useEffect(() => {
     if (id && currentStepIndex !== -1 && !result) {
-        sessionStorage.setItem(`mission_progress_${id}`, JSON.stringify({
+        localStorage.setItem(`mission_progress_${id}`, JSON.stringify({
             stepIndex: currentStepIndex,
             answers: stepAnswers,
             penalty: accumulatedPenalty,
@@ -156,14 +156,15 @@ const MissionPlayer = () => {
     }
   }, [currentStepIndex, stepAnswers, accumulatedPenalty, penalizedSteps, id, result]);
 
+  {/*}
   useEffect(() => {
       return () => {
-          sessionStorage.removeItem(`mission_progress_${id}`);
+          localStorage.removeItem(`mission_progress_${id}`);
       };
-  }, [id]);
+  }, [id]); */}
 
   const goBack = useCallback(() => {
-      sessionStorage.removeItem(`mission_progress_${id}`); 
+      localStorage.removeItem(`mission_progress_${id}`); 
       const basePath = location.pathname.includes('/startnext') ? '/startnext/quests' : '/dashboard/quests';
       navigate(basePath);
   }, [location.pathname, navigate, id]);
@@ -173,7 +174,7 @@ const MissionPlayer = () => {
   };
 
   const confirmRestart = () => {
-      sessionStorage.removeItem(`mission_progress_${id}`);
+      localStorage.removeItem(`mission_progress_${id}`);
       setCurrentStepIndex(-1);
       setAccumulatedPenalty(0);
       setPenalizedSteps(new Set());
@@ -276,7 +277,7 @@ const MissionPlayer = () => {
 
       setMission(processedMission);
 
-      const savedStateStr = sessionStorage.getItem(`mission_progress_${id}`);
+      const savedStateStr = localStorage.getItem(`mission_progress_${id}`);
       let savedState = null;
       if (savedStateStr) {
           try { savedState = JSON.parse(savedStateStr); } catch(e) {}
@@ -423,7 +424,7 @@ const MissionPlayer = () => {
               preventNotification: true
           });
 
-          sessionStorage.removeItem(`mission_progress_${mission.id}`); 
+          localStorage.removeItem(`mission_progress_${mission.id}`); 
 
           toast({ title: t('mission.skipped_title', "Mission Skipped"), description: t('mission.penalty_applied', { penalty: mission.skip_penalty }) });
           setResult('skipped');
@@ -506,7 +507,7 @@ const MissionPlayer = () => {
             setResult('pending_review');
         }
 
-        sessionStorage.removeItem(`mission_progress_${mission.id}`); 
+        localStorage.removeItem(`mission_progress_${mission.id}`); 
         await refreshFinancials();
 
     } catch (error) {

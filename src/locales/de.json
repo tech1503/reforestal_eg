@@ -23,7 +23,8 @@
     "language": "Sprache",
     "theme": "Thema umschalten",
     "required_field": "Dieses Feld ist erforderlich.",
-    "finished": "Fertig"
+    "finished": "Fertig",
+    "locked": "Gesperrt"
   },
   "navigation": {
     "dashboard": "Übersicht",
@@ -657,7 +658,11 @@
     "requires_pioneer": "Erfordert Pionier-Status",
     "unlocked_premium": "Freigeschaltet",
     "empty_desc": "Derzeit sind keine aktiven Missionen verfügbar.",
-    "not_found": "Mission nicht gefunden"
+    "not_found": "Mission nicht gefunden",
+    "tab_active": "Verfügbare Missionen",
+    "tab_history": "Missionsverlauf",
+    "empty_active": "Keine aktiven Quests gefunden. Schau später wieder vorbei, um neue Missionen zu entdecken!",
+    "empty_history": "Du hast noch keine Quests abgeschlossen. Starte deine erste Mission, um Bonuspunkte zu verdienen und etwas zu bewirken!"
   },
   "home": {
     "sign_in": "Anmelden",
