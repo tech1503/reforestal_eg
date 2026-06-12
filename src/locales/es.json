@@ -58,7 +58,7 @@
     "date": "Fecha",
     "system_action": "Acción del Sistema",
     "available_quests": "Misiones",
-    "start_quest": "Iniciar Mision",
+    "start_quest": "Iniciar Misión",
     "new_quest_available": "Nueva Misión Disponible",
     "starting_quest": "Iniciando Misión",
     "genesis_quest_locked": "Sección Bloqueada",
@@ -231,7 +231,7 @@
       "search": "Buscar acciones del sistema...",
       "add_btn": "Añadir Acción del Sistema",
       "note_label": "Nota:",
-      "warning_note_1": "Las Misiones de Génesis y Quests se gestionan en la plataforma.",
+      "warning_note_1": "Las Misiones se gestionan en la plataforma.",
       "gamification_tab": "Pestaña de Gamificación",
       "warning_note_2": "para asegurar la consistencia de las recompensas.",
       "table": {
@@ -422,7 +422,7 @@
     "content": "Contenido y Productos",
     "logs": "Registros del Sistema",
     "settings": "Configuración",
-    "genesis_quest": "Misión Génesis",
+    "genesis_quest": "Primer Misión",
     "gamification": "Gamificación",
     "vesting": "Vesting y Participación",
     "quick_stats": {
@@ -689,7 +689,7 @@
     "genesis_section": {
       "badge": "Inicialización del Sistema",
       "intro": "Toda revolución necesita mentes diferentes.",
-      "hook": "Completa la Genesis Quest para ver cómo tu perspectiva se encuentra con nuestro marco profesional.",
+      "hook": "Completa la primer misión para ver cómo tu perspectiva se encuentra con nuestro marco profesional.",
       "cta": "Iniciar la Misión"
     },
     "startnext_section": {
@@ -1235,7 +1235,7 @@
         "referrals": "Referidos",
         "contributions": "Contribuciones",
         "system_flags": "Marcadores del Sistema",
-        "genesis_quest": "Misión Génesis",
+        "genesis_quest": "Primer Misión",
         "profile_updated": "Perfil Actualizado"
       },
       "evaluation_tab": {
@@ -1403,7 +1403,7 @@
     "s7": {
       "title": "7. Derecho de desistimiento y activos digitales",
       "l1": "Derecho general: Según la Directiva de la UE 2011/83/UE, como usuario residente en la UE tienes por lo general 14 días para revocar tu contribución.",
-      "l2": "Expiración por ejecución inmediata: Sin embargo, el derecho de desistimiento caduca prematura y expresamente tan pronto como inicies sesión y accedas a tus activos digitales (Land Dollar, Perfil Genesis) en el panel de control. Con este acceso, aceptas el inicio inmediato del servicio digital y renuncias a cualquier derecho a un reembolso."
+      "l2": "Expiración por ejecución inmediata: Sin embargo, el derecho de desistimiento caduca prematura y expresamente tan pronto como inicies sesión y accedas a tus activos digitales (Land Dollar, Perfil) en el panel de control. Con este acceso, aceptas el inicio inmediato del servicio digital y renuncias a cualquier derecho a un reembolso."
     },
     "s8": {
       "title": "8. Comunidad, Comentarios y Propiedad Intelectual",
@@ -1516,7 +1516,7 @@
     ],
     "list": [
       "a) Derecho de confirmación y acceso (Art. 15 RGPD): Disponible como copia en su panel de control (Dashboard).",
-      "b) Derecho de rectificación (Art. 16 RGPD): Ajustable en su perfil Genesis.",
+      "b) Derecho de rectificación (Art. 16 RGPD): Ajustable en su perfil.",
       "c) Derecho a la supresión / derecho al olvido (Art. 17 RGPD): Por ejemplo, mediante la eliminación de la cuenta.",
       "d) Derecho a la limitación del tratamiento (Art. 18 RGPD) y a la portabilidad de los datos (Art. 20 RGPD).",
       "e) Derecho de oposición (Art. 21 RGPD) y revocación del consentimiento (Art. 7, apdo. 3 RGPD).",
