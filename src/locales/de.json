@@ -644,12 +644,12 @@
     }
   },
   "quest": {
-    "title": "Misionen",
-    "subtitle": "Erledige misionen, um Bonuspunkte zu verdienen und neue Level freizuschalten.",
-    "available_quests": "Misionen",
-    "completed_quests": "Abgeschlossene Misionen",
+    "title": "Missionen",
+    "subtitle": "Erledige Missionen, um Bonuspunkte zu verdienen und neue Level freizuschalten.",
+    "available_quests": "Missionen",
+    "completed_quests": "Abgeschlossene Missionen",
     "earn_credits": "Verdiene {{credits}} Bonuspunkte",
-    "complete_quest": "Misionen abschließen",
+    "complete_quest": "Missionen abschließen",
     "status_in_review": "In Überprüfung",
     "go_to_referrals": "Zu Empfehlungen gehen",
     "support_startnext": "Auf Startnext unterstützen",
@@ -935,7 +935,7 @@
           "title": "Nächster Pflanzstandort",
           "desc": "Strategische Entscheidung für die Expansion in Q4 2026. Wo sollen wir als nächstes pflanzen?",
           "opt1": "Córdoba, Argentinien (Sierras)",
-          "opt2": "Misiones, Argentinien (Regenwald)"
+          "opt2": "Missiones, Argentinien (Regenwald)"
         },
         "nft": {
           "title": "Gedenk-NFT-Kunststil",
