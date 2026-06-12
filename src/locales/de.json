@@ -31,7 +31,7 @@
     "subscription": "Abonnement",
     "referral": "Empfehlungen",
     "exchange": "Austausch",
-    "quests": "Aufgaben",
+    "quests": "Missionen",
     "founding_members": "Gründungsmitglieder",
     "founding_pioneer": "Pionier",
     "admin_panel": "Admin-Panel",
@@ -57,19 +57,19 @@
     "source": "Quelle",
     "date": "Datum",
     "system_action": "Systemaktion",
-    "available_quests": "Aufgaben",
-    "start_quest": "Quest starten",
-    "new_quest_available": "Neue Quest verfügbar",
-    "starting_quest": "Quest wird gestartet",
+    "available_quests": "Missionen",
+    "start_quest": "Mission starten",
+    "new_quest_available": "Neue Mission verfügbar",
+    "starting_quest": "Mission wird gestartet",
     "genesis_quest_locked": "Bereich gesperrt",
-    "complete_genesis_to_unlock": "Um deinen einzigartigen Empfehlungscode freizuschalten und Bonuspunkte zu verdienen, musst du zuerst die erste Quest abschließen, um deine Ausrichtung auf unsere Mission zu bestätigen.",
-    "start_genesis_quest": "Erste Quest starten",
+    "complete_genesis_to_unlock": "Um deinen einzigartigen Empfehlungscode freizuschalten und Bonuspunkte zu verdienen, musst du zuerst die erste Mission abschließen, um deine Ausrichtung auf unsere Mission zu bestätigen.",
+    "start_genesis_quest": "Erste Mission starten",
     "discover_investor_profile": "Entdecke dein Partnerprofil",
-    "discover_investor_profile_desc": "Schließe die erste Quest ab, um deinen Nachhaltigkeits-Stil zu identifizieren und personalisierte Vorteile freizuschalten.",
-    "system_quest": "System-Quest",
+    "discover_investor_profile_desc": "Schließe die erste Mission ab, um deinen Nachhaltigkeits-Stil zu identifizieren und personalisierte Vorteile freizuschalten.",
+    "system_quest": "System-Mission",
     "required_quest": "Erforderlich für Pioniere",
     "quests": {
-      "empty_title": "🚀 Neue Quests kommen bald!",
+      "empty_title": "🚀 Neue Missionen kommen bald!",
       "empty_desc": "Wir arbeiten an neuen Missionen, damit du weiter wachsen und Chancen freischalten kannst. Bleib dran!"
     },
     "startnext_verification": {
@@ -231,7 +231,7 @@
       "search": "Systemaktionen suchen...",
       "add_btn": "Systemaktion hinzufügen",
       "note_label": "Hinweis:",
-      "warning_note_1": "Missionen und Quests werden auf der Plattform verwaltet.",
+      "warning_note_1": "Missionen werden auf der Plattform verwaltet.",
       "gamification_tab": "Gamification-Tab",
       "warning_note_2": "um die Konsistenz der Belohnungen sicherzustellen.",
       "table": {
@@ -313,7 +313,7 @@
       "slider_poles_desc": "Benutzer verteilen 100 % auf diese Variablen.",
       "free_text_note": "Hinweis: Freitextantworten markieren die Mission als „In Überprüfung“. Ein Guardian (Admin) muss sie manuell genehmigen, um die Belohnungen zu vergeben.",
       "scale_5_note": "Erzeugt automatisch eine Sterne-/Zahlenskala von 1 bis 5.",
-      "on_fail_redirect": "Weiterleitungs-URL bei Fehler (Bridge-Quest)",
+      "on_fail_redirect": "Weiterleitungs-URL bei Fehler (Bridge-Mission)",
       "mission_flow": "Missionsablauf",
       "empty": "Leer",
       "apply_penalty": "Strafe bei falscher Antwort anwenden",
@@ -422,7 +422,7 @@
     "content": "Inhalt & Produkte",
     "logs": "Systemprotokolle",
     "settings": "Einstellungen",
-    "genesis_quest": "Erste Quest",
+    "genesis_quest": "Erste Mission",
     "gamification": "Gamifizierung",
     "vesting": "Vesting & Staking",
     "quick_stats": {
@@ -488,7 +488,7 @@
         "pioneer_request": "Pionier-Anfrage",
         "pioneer_application_request": "Pionier-Bewerbung",
         "gamification": "Gamifizierung",
-        "quest": "Aufgaben",
+        "quest": "Missionen",
         "bonus": "Bonus-Belohnung",
         "admin_reply": "Admin-Antwort"
       }
@@ -497,7 +497,7 @@
   "gamification": {
     "sources": {
       "profile_update": "Profilaktualisierung",
-      "quest_completion": "Aufgaben-Abschluss",
+      "quest_completion": "Abschluss der Mission",
       "startnext_contribution": "Startnext-Beitrag",
       "referral_signup": "Empfehlungsanmeldung",
       "mlm_direct": "Direkte Empfehlung",
@@ -661,8 +661,8 @@
     "not_found": "Mission nicht gefunden",
     "tab_active": "Verfügbare Missionen",
     "tab_history": "Missionsverlauf",
-    "empty_active": "Keine aktiven Quests gefunden. Schau später wieder vorbei, um neue Missionen zu entdecken!",
-    "empty_history": "Du hast noch keine Quests abgeschlossen. Starte deine erste Mission, um Bonuspunkte zu verdienen und etwas zu bewirken!"
+    "empty_active": "Keine aktiven Missionen gefunden. Schau später wieder vorbei, um neue Missionen zu entdecken!",
+    "empty_history": "Du hast noch keine Missionen abgeschlossen. Starte deine erste Mission, um Bonuspunkte zu verdienen und etwas zu bewirken!"
   },
   "home": {
     "sign_in": "Anmelden",
@@ -689,7 +689,7 @@
     "genesis_section": {
       "badge": "Systeminitialisierung",
       "intro": "Jede Revolution braucht unterschiedliche Köpfe.",
-      "hook": "Absolviere die erste Quest und finde heraus, wie deine Perspektive in unser professionelles Framework passt.",
+      "hook": "Absolviere die erste Mission und finde heraus, wie deine Perspektive in unser professionelles Framework passt.",
       "cta": "Mission beginnen"
     },
     "startnext_section": {
@@ -1396,7 +1396,7 @@
     },
     "s6": {
       "title": "6. Gamifizierung, Missionen und Digitale Assets",
-      "p1": "Unsere Plattform interagiert mit dir über ein spielerisches System (Quests, Missionen).",
+      "p1": "Unsere Plattform interagiert mit dir über ein spielerisches System (Missionen).",
       "l1": "Land-Dollar (Impact Certificate): Ein digitales Zertifikat und der Zugangsschlüssel zur Plattform, um die Auswirkungen deines m² nachzuverfolgen. Es ist ausdrücklich weder eine Kryptowährung noch ein Wertpapier oder Spekulationsinstrument.",
       "l2": "Bonuspunkte: Sie können Bonuspunkte sammeln, indem Sie Fragebögen ausfüllen, Ihr Profil vervollständigen oder neue Kunden werben. Diese Bonuspunkte sind freiwillige Anerkennung ohne Geldwert und es besteht kein Anspruch auf Auszahlung. Da wir genossenschaftlich organisiert sind, werden die Bonuspunkte schrittweise gutgeschrieben. Die kommende Generalversammlung legt fest, zu welchem ​​Kurs die Punkte in Anteile umgewandelt werden."
     },
@@ -1481,7 +1481,7 @@
       "body": [
         "Sie können sich unter Angabe von Daten (Name, E-Mail, verschlüsselte Anmeldedaten) registrieren. Für das Projektmanagement erfassen wir ggf. Postanschrift, Geburtsdatum und Staatsangehörigkeit.",
         "Daten aus externen Quellen (Startnext): Bei Teilnahme an unserem Crowdfunding erhalten wir von Startnext Ihren Namen, E-Mail, Beitragsbetrag und die gewählte Belohnung zur Zuweisung Ihrer digitalen Rechte; Bankdaten werden dabei nicht von uns verarbeitet.",
-        "Gamifizierung & Google Wallet: Wir verarbeiten Informationen zu Ihrem Fortschritt, Tier-Stufen und Quests. Fügen Sie den „Land Dollar“ zu Google Wallet hinzu, fungiert Google als unabhängiger Verantwortlicher."
+        "Gamifizierung & Google Wallet: Wir verarbeiten Informationen zu Ihrem Fortschritt, Tier-Stufen und Missionen. Fügen Sie den „Land Dollar“ zu Google Wallet hinzu, fungiert Google als unabhängiger Verantwortlicher."
       ]
     },
     "s6": {
@@ -1616,7 +1616,7 @@
     "intro": "Hier erfährst du kurz und knapp, was auf deinem Gerät passiert, wenn du bei Reforestal unterwegs bist.",
     "s1": {
       "title": "1. Was sind Cookies und ähnliche Technologien?",
-      "p1": "Cookies sind kleine Textdateien, die dein Browser speichert. Sie helfen uns, dich wiederzuerkennen, damit du dich nicht jedes Mal neu einloggen musst oder deine Spracheinstellung verloren geht. Wir nutzen zudem \"Local Storage\" – das ist wie ein kleiner Notizzettel in deinem Browser, auf dem wir z. B. deinen Fortschritt bei den Quests vermerken."
+      "p1": "Cookies sind kleine Textdateien, die dein Browser speichert. Sie helfen uns, dich wiederzuerkennen, damit du dich nicht jedes Mal neu einloggen musst oder deine Spracheinstellung verloren geht. Wir nutzen zudem \"Local Storage\" – das ist wie ein kleiner Notizzettel in deinem Browser, auf dem wir z. B. deinen Fortschritt bei den Missionen vermerken."
     },
     "s2": {
       "title": "2. Technisch notwendige Helfer (Immer aktiv)",
@@ -1629,7 +1629,7 @@
       "title": "3. Komfort-Funktionen (Deine Wahl)",
       "p1": "Diese Dinge machen das Leben schöner, sind aber nicht überlebenswichtig. Du entscheidest, ob wir sie nutzen dürfen:",
       "l1": "Dark Mode / Design: Wir merken uns, ob du die helle oder dunkle Seite der Macht bevorzugst.",
-      "l2": "Quest-Fortschritt & Profil: Wir speichern lokal auf deinem Gerät, welchen Impact-Typ du bei der \"Mission Génesis\" erreicht hast, damit das Dashboard direkt für dich personalisiert ist.",
+      "l2": "Missions-Fortschritt & Profil: Wir speichern lokal auf deinem Gerät, welchen Impact-Typ du bei der \"Mission Génesis\" erreicht hast, damit das Dashboard direkt für dich personalisiert ist.",
       "l3": "Referral-Code: Wenn du über den Link eines anderen Pioniers zu uns gekommen bist, merken wir uns diesen Code kurzzeitig, damit wir den Impact richtig zuordnen können."
     },
     "s4": {
