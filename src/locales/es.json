@@ -100,7 +100,19 @@
       "download_error": "Error de Descarga",
       "download_error_desc": "No se pudo generar la imagen.",
       "copy_click": "Clic para copiar enlace",
-      "link_ref_btn": "Enlace Ref"
+      "link_ref_btn": "Enlace Ref",
+      "modal_title": "Descubre como funciona tu Land Dollar",
+      "modal_subtitle": "El Land Dollar es el corazón de nuestro ecosistema. Aquí te explicamos cómo funciona tu nuevo activo digital.",
+      "q1_title": "¿Qué es el Land Dollar?",
+      "q1_desc": "Es un activo digital único que representa tu contribución a la protección del Amazonas.",
+      "q2_title": "¿Qué representa?",
+      "q2_desc": "Representa la cantidad de metros cuadrados (m²) de selva amazónica que has protegido y es de uso único para ti.",
+      "q3_title": "¿Para qué sirve el Código QR?",
+      "q3_desc": "Es tu sello de autenticidad. Al escanearlo, esa persona queda como verificada dentro de tus amigos, aliados y referidos.",
+      "q4_title": "¿Y el Link de Referido como funciona?",
+      "q4_desc": "Es tu llave maestra para invitar a otros a unirse a esta misión. Comparte tu enlace único y cada nuevo aliado que se una a través de él fortalecerá el bosque y tu impacto colectivo.",
+      "button_info": "Cerrar",
+      "button_quest": "¿Qué es el Land Dollar?"
     },
     "impact_credits_snx": {
       "title": "Bonos Startnext",
@@ -196,6 +208,27 @@
       "days_remaining_end": "días de acceso.",
       "expires_on": "Caduca el {{date}}.",
       "expired_message": "Tu acceso a Premium ha caducado."
+  },
+  "vision": {
+    "title": "Cómo Funciona Reforestal y Startnext",
+    "subtitle": "Entiende paso a paso nuestra misión, cómo puedes apoyarnos en Startnext y cómo reclamar tus beneficios exclusivos en esta plataforma.",
+    "step1_title": "1. Nuestra Misión",
+    "step1_desc": "Buscamos proteger metros cuadrados (m²) del Amazonas de forma permanente. No se trata solo de plantar árboles, sino de asegurar biodiversidad.",
+    "step2_title": "2. Cooperativa Alemana (eG)",
+    "step2_desc": "Para hacer esto transparente y seguro, fundaremos una Cooperativa Alemana (eG). Nuestro proyecto en Startnext busca recaudar los fondos iniciales para hacer esto realidad.",
+    "step3_title": "3. Explora y Simula",
+    "step3_desc": "Usa nuestro simulador interactivo más abajo para ver los planes de Startnext. Haz clic en la foto del proyecto para ir a leer los beneficios de toda la campaña en profundidad.",
+    "step4_title": "4. Reclama tu Acceso Premium",
+    "step4_desc": "¿Apoyaste en Startnext? Haz clic en esta tarjeta y completa un breve formulario. ¡Te daremos acceso a misiones exclusivas y estatus Premium!",
+    "button":"Cerrar",
+    "pop_up_title1": "Nuestra Misión - Protección Garantizada",
+    "pop_up_desc1": "Regeneración como motor de desarrollo. Apostamos por una Amazonía viva donde la reforestación genera prosperidad compartida. Sustituimos la lógica extractiva por un modelo que garantiza el sustento de los agricultores y un retorno con propósito para cada aliado guardian de la cooperativa.",
+    "pop_up_otherTitle1": "De la Eco-ansiedad a la Eco-agencia.",
+    "pop_up_otherDesc1": "Transformamos la parálisis en resultados que se pueden medir. Te ofrecemos la capacidad de actuar, de convertirte en un aliado guardián mediante la custodia de m² específicos de selva amazónica: un compromiso vivo con la biosfera que construye tu propia seguridad económica.",
+    "pop_up_title2": "Cooperativa Alemana (eG)",
+    "pop_up_desc2": "Para garantizar la transparencia y la seguridad de tu contribución, fundaremos una Cooperativa Alemana (eG). Esta estructura legal nos permite operar con principios democráticos, donde cada miembro tiene voz y voto. Tu apoyo en Startnext es fundamental para establecer esta cooperativa, que será el vehículo a través del cual gestionaremos la protección de los m² de selva amazónica y distribuiremos los beneficios de manera justa entre todos los miembros.",
+    "pop_up_title3": "Explora y Simula",
+    "pop_up_desc3": "Como usar nuestro simulador interactivo para entender los niveles de contribución en Startnext. Ingresa diferentes montos para ver cómo se traducen en niveles de impacto y beneficios exclusivos. Cada nivel desbloquea recompensas únicas, desde acceso a misiones especiales hasta reconocimiento como miembro fundador. ¡Experimenta con el simulador y descubre tu potencial impacto!"
   }
   },
   "admin": {
