@@ -4,7 +4,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { useToast } from '@/components/ui/use-toast';
 import { Loader } from 'lucide-react';
 import { Routes, Route, Navigate, useLocation, useParams, useNavigate } from 'react-router-dom';
-import StartNextRedirect from '@/pages/StartNextRedirect';
+import DynamicRouteHandler from './components/DynamicRouteHandler';
 
 // Componentes
 import Dashboard from '@/components/Dashboard';
@@ -35,6 +35,7 @@ const AppWithAnalytics = ({ children }) => {
   return children;
 };
 
+// Componente para manejar Referidos
 const ReferralHandler = () => {
   const { username } = useParams();
   const navigate = useNavigate();
@@ -50,7 +51,11 @@ const ReferralHandler = () => {
     }
   }, [username, navigate]);
 
-  return <div className="h-screen w-full flex items-center justify-center"><Loader className="animate-spin text-emerald-500 w-10 h-10" /></div>;
+  return (
+    <div className="h-screen w-full flex items-center justify-center bg-slate-50 dark:bg-transparent">
+      <Loader className="animate-spin text-emerald-500 w-10 h-10" />
+    </div>
+  );
 };
 
 const AppContent = () => {
@@ -77,16 +82,21 @@ const AppContent = () => {
           <Route path="/cookies-policy" element={<CookiesPolicy />} />
           <Route path="/regenerative-economy" element={<RegenerativeEconomy />} />
           <Route path="/impressum" element={<Impressum />} />
+          
           {/* Dashboards con Rutas Protegidas */}
           <Route path="/admin/*" element={profile?.role === 'admin' ? <AdminDashboard /> : <Navigate to="/auth" />} />
           <Route path="/dashboard/*" element={session ? <Dashboard /> : <Navigate to="/auth" />} />
           <Route path="/startnext/*" element={profile?.role === 'startnext_user' ? <Dashboard /> : <Navigate to="/auth" />} />
 
-          <Route path="/$" element={<StartNextRedirect />} />
-
-          {/* Captura de Referidos */}
+          {/* Ruta de Referidos Explícita (Para cuando se comparte como /ref/usuario) */}
           <Route path="/ref/:username" element={<ReferralHandler />} />
-          <Route path="/:username" element={<ReferralHandler />} />
+
+          {/* 
+            RUTA MAESTRA: QRS DINÁMICOS Y REFERIDOS DIRECTOS UNIFICADOS
+            Evalúa primero si el texto es un QR dinámico en base de datos.
+            Si no lo es, carga el ReferralHandler automáticamente.
+          */}
+          <Route path="/:username" element={<DynamicRouteHandler fallback={<ReferralHandler />} />} />
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

@@ -1,3 +1,4 @@
+{/*
 import { useEffect } from "react";
 
 export default function StartNextRedirect() {
@@ -11,4 +12,4 @@ export default function StartNextRedirect() {
       <p>Weiterleitung...</p>
     </div>
   );
-}
+}*/}
