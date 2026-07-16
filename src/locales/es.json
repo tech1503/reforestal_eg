@@ -1772,5 +1772,74 @@
   "further_notes_title": "Notas adicionales",
   "social_media_text": "Este aviso legal también se aplica a nuestros perfiles en LinkedIn, Facebook, Threads e Instagram, así como a nuestro canal en YouTube.",
   "dispute_resolution": "No estamos dispuestos ni obligados a participar en procedimientos de resolución de litigios ante una junta arbitral de consumo."
+  },
+  "pageDollar": {
+    "hero":{
+      "badge": "El Camino de la Regeneración",
+      "welcome": "¡Qué bien que hayas descubierto este camino!",
+      "title": "Más que una Utopía:",
+      "titleHighlight": "Toda gran transformación comienza con una visión compartida",
+      "subtitle": "terra utopia y Reforestal se unen para sanar la Amazonía en Ecuador. Tu donación es el motor de esta transformación. Con tu apoyo pasamos a la acción: protegemos la selva metro a metro y garantizamos la prosperidad de las comunidades locales.",
+      "descrip": "Con tu apoyo, cada m² de selva Amazónica se convierte en un legado de vida y prosperidad para las generaciones futuras."
+    },
+    "cta": {
+      "btnDonate": "Donar a terra utopia",
+      "btnVisit": "Visitar terra utopia",
+      "title": "Sé parte de la Historia",
+      "subtitle": "Te ofrecemos el poder de actuar. Únete al movimiento y apoya la preservación de la selva tropical con terra utopia y Reforestal, a través de la economía regenerativa y la agroforestería. Protege tu ecosistema. Da forma a una nueva era.",
+      "footer": "\"Cada paso cuenta, y tú también puedes formar parte de este movimiento.\""
+    },
+    "history": {
+      "badges": "El Origen",
+      "title": "Dos Fuerzas, Un Mismo Sueño",
+      "terraTitle": "terra utopia",
+      "terraDesc": "Nació en Alemania como una organización sin fines de lucro con un propósito profundo: reconectar a personas de todo el mundo con socios comunitarios en la Amazonía ecuatoriana. Su filosofía siempre ha sido demostrar que un alto nivel de vida no tiene por qué estar ligado a la destrucción del medio ambiente; es posible reunir a la humanidad en un \"mundo verde\" mediante la educación y la restauración colectiva.",
+      "reforestalTitle": "Reforestal",
+      "reforestalDesc": "Comenzó en 2024 como una alianza biocultural. Los fundadores comprendieron que plantar árboles como simples donaciones no era suficiente para salvar la Amazonía. Querían ir más allá de la filantropía y crear un modelo verdaderamente profesional, combinando la innovación tecnológica con la sabiduría milenaria.",
+      "allianceConclusion": "Hoy, terra utopia y Reforestal forjan una alianza hacia el futuro. terra utopia aporta su red global, mientras Reforestal desarrolla la plataforma de impacto. Juntos, no solo buscan proteger el ecosistema, sino transformarlo en un motor de desarrollo que perdure en el tiempo."
+    },
+    "stepByStep": {
+      "title": "Construyendo el Futuro, Paso a Paso",
+      "subtitle": "A través de esta historia conjunta, hemos construido un sistema basado en los siguientes pilares que dan vida a nuestro proyecto:",
+      "step1Badge": "Paso 1: Territorio",
+      "step1Title": "Reforestación Medible",
+      "step1Desc": "La historia de la selva no se cuenta por la cantidad de árboles plantados, sino por el territorio asegurado. No plantamos un árbol que se convierte en un simple dato; protegemos ecosistemas completos. Medimos nuestro éxito garantizando metros cuadrados (m²) específicos de selva amazónica, asegurando el hábitat desde sus cimientos.",
+      "step2Badge": "Paso 2: Modelo Económico",
+      "step2Title": "Beneficios y Ganancias",
+      "step2Desc": "Hemos decidido cambiar el rumbo de la historia económica. Al sustituir la antigua lógica extractiva de la tierra por un modelo regenerativo, demostramos que la ética y la rentabilidad pueden coexistir.  Estamos profundamente comprometidos con la misión de restaurar la simbiosis entre la humanidad y la naturaleza. El objetivo es crear una relación sostenible y verdaderamente compatible entre el medio ambiente, la economía y la sociedad.",
+      "step3Badge": "Paso 3: Biodiversidad",
+      "step3Title": "Cultivos Mixtos y Chakra",
+      "step3Desc": "Nos negamos a plantar una sola especie. El corazón productivo de nuestra historia late gracias a la Chakra amazónica. Más que un simple sistema agrícola, es un diseño ancestral de bosque productivo donde especies como el cacao y la vainilla crecen en simbiosis, restaurando la fertilidad del suelo.",
+      "step4Badge": "Paso 4: La Estructura",
+      "step4Title": "Fase Inicial y Futura Cooperativa eG",
+      "step4Desc": "Actualmente, estamos en nuestra \"Fase Inicial\", reuniendo el capital para establecer la primera Cooperativa Alemana (eG) de este tipo. Esto asegurará una independencia total bajo una estricta regulación y transparencia. Quienes nos apoyen ahora se convertirán en \"Aliados Guardianes\", co-creadores desde el primer momento."
+    },
+    "impact": {
+      "badge": "Impacto Sistémico",
+      "title": "Todos Ganan",
+      "subtitle": "En esta nueva historia, hemos diseñado un modelo donde la viabilidad del capital y la salud del ecosistema son inseparables. Cada parte del tejido vivo sale victoriosa:",
+      "climateTitle": "Clima",
+      "climateDesc": "Restauramos sumideros de carbono vitales, implementando medidas innovadoras y reales contra el cambio climático.",
+      "humanityTitle": "Humanidad",
+      "humanityDesc": "Curamos la separación entre las personas y su entorno. Transformamos la eco-ansiedad en \"eco-agencia\": la capacidad de actuar.",
+      "localTitle": "Población Local",
+      "localDesc": "Aseguramos que la conservación genere prosperidad. Las familias de Napo obtienen un sustento seguro siendo guardianes del territorio.",
+      "membersTitle": "Miembros de la Cooperativa",
+      "membersDesc": "Quienes apoyan el proyecto pasan de ser espectadores a co-propietarios. A FUTURO, disfrutarán de participación democrática, derechos de voto en decisiones estratégicas y acceso a datos transparentes.",
+      "floraTitle": "Flora, Fauna y Hongos",
+      "floraDesc": "No creamos plantaciones, regeneramos hogares. La restauración del suelo nutre las redes de microorganismos, devolviéndole el pulso a la selva."
+  },
+  "metrics": {
+    "badge": "La Realidad de Campo",
+    "title": "Potencial de Rendimiento",
+    "desc": "Esta visión no es solo una teoría romántica; ya es una realidad validada en el campo. Junto a las familias locales en Napo, Ecuador, hemos medido los resultados de nuestro proyecto piloto de simbiosis de cacao y vainilla, que avalan nuestra metodología:",
+    "val1": ">90%",
+    "label1": "Supervivencia",
+    "val2": "125 cm",
+    "label2": "Crecimiento (8m)",
+    "val3": "100%",
+    "label3": "Autosuficiencia Hídrica"
+    }
+  }
 }
-}
+

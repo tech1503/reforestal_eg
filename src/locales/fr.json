@@ -100,7 +100,19 @@
       "download_error": "Erreur de téléchargement",
       "download_error_desc": "Impossible de générer l'image.",
       "copy_click": "Cliquez pour copier",
-      "link_ref_btn": "Lien Réf"
+      "link_ref_btn": "Lien Réf",
+      "modal_title": "Découvre comment fonctionne ton Land Dollar.",
+      "modal_subtitle": "Le Land Dollar est le cœur de notre écosystème. Voici comment fonctionne ton nouvel actif numérique.",
+      "q1_title": "Qu’est-ce que le Land Dollar ?",
+      "q1_desc": "C'est un actif numérique unique qui représente ta contribution à la préservation de l'Amazonie en mètres carrés d'écosystème.",
+      "q2_desc": "Représente le nombre de mètres carrés (m²) de forêt amazonienne que tu as sécurisés et qui t’est exclusivement réservé.",
+      "q3_title": "À quoi sert le code QR ?\n\n(Note : Si le contexte nécessite une réponse plus détaillée selon les directives de la marque, voici une version adaptée : *Ton code QR te permet d’accéder directement à tes m² d’écosystème et à tes Points dans l’économie régénérative.*)",
+      "q3_desc": "Voici ta marque d'authenticité. En le scannant, cette personne est vérifiée parmi tes amis, alliés et références.",
+      "q4_title": "Et comment fonctionne le lien de parrainage ?\n\n*(Note : Si le contexte nécessite une explication plus détaillée, voici une version adaptée aux guidelines :)*\n\nTu reçois ton lien de parrainage unique. Chaque m² d’écosystème acquis via ce lien te rapporte des **Points** supplémentaires. Pas de cadeaux, pas de promesses creuses : une participation concrète dans l’économie régénérative. Un mètre carré engagé reste un mètre carré engagé.",
+      "q4_desc": "Voici ta clé maîtresse pour inviter d’autres à rejoindre cette mission. Partage ton lien unique et chaque nouvel allié qui s’engage grâce à lui renforcera la forêt et ton impact collectif.",
+      "button_info": "Fermer",
+      "button_quest": "Qu’est-ce que le Land Dollar ?",
+      "q2_title": "Que représente-t-il ?"
     },
     "impact_credits_snx": {
       "title": "Points Bonus Startnext",
@@ -196,25 +208,46 @@
       "days_remaining_end": "jours d'accès.",
       "expires_on": "Expire le {{date}}.",
       "expired_message": "Votre accès Premium a expiré."
-  }
+    },
+    "vision": {
+      "title": "Voici la traduction en français :\n\nComment fonctionne Reforestal et Startnext\n\n1. TON : \"Approchable mais de stature\" (Nahbar, aber staatsmännisch). Chaleureux et direct, mais avec l’autorité inébranlable et la précision d’une banque centrale. Nous ne quémandons pas de dons. Nous proposons une participation solide dans une nouvelle ère.\n\n2. PAS DE MOTS CARITATIFS : JAMAIS utiliser des mots comme \"aider\", \"sauver le monde\", \"secourir\", \"faire le bien\". Nous agissons depuis une position de force et de raison économique.\n\n3. PAS D’ARBRES, UNIQUEMENT DES m² : JAMAIS parler de \"planter des arbres\" ou de \"plants\". Nous créons et sécurisons des \"mètres carrés (m²)\" d’écosystème. Un arbre peut mourir ; un mètre carré perdure.\n\n4. PAS DE RÉNATURATION : Nous ne \"protégeons pas la forêt tropicale\" ni ne \"renaturons\". Nous faisons de \"l’économie régénérative\" et de \"l’agroforesterie\".\n\n5. LA RÈGLE DES \"POINTS\" : Notre monnaie bonus s’appelle strictement \"Points\". JAMAIS utiliser \"Crédits\", \"Pièces\", \"Jetons\" ou \"Monnaie d’impact\".\n\n6. SPÉCIFICITÉS LINGUISTIQUES :\n   - En français, utiliser le tutoiement (\"tu/ton\").\n\n7. NOMS DE MARQUE (CRUCIAL) : Les noms \"Reforestal\" et \"terra utopia\" sont des marques déposées. NE JAMAIS les traduire. De plus, \"terra utopia\" DOIT TOUJOURS s’écrire en minuscules (exactement \"terra utopia\"), même en début de phrase.",
+      "subtitle": "Comprends pas à pas notre mission, comment tu peux nous soutenir sur Startnext et comment réclamer tes avantages exclusifs sur cette plateforme.",
+      "step1_title": "Notre Mission",
+      "step1_desc": "Nous protégeons des mètres carrés (m²) de l’Amazonie de manière permanente. Il ne s’agit pas simplement de créer un écosystème, mais d’en garantir la biodiversité.",
+      "step2_title": "2. Coopérative allemande (eG)",
+      "step2_desc": "Pour rendre cela transparent et sécurisé, nous fonderons une Coopérative Allemande (eG). Notre projet sur Startnext vise à collecter les fonds initiaux pour concrétiser cette ambition.",
+      "step3_title": "3. Explore et Simule",
+      "step3_desc": "Utilise notre simulateur interactif ci-dessous pour découvrir les plans Startnext. Clique sur la photo du projet pour lire en détail tous les avantages de la campagne.",
+      "step4_desc": "As-tu soutenu sur Startnext ? Clique sur cette carte et remplis un bref formulaire. Nous t’offrirons l’accès à des missions exclusives et un statut Premium !",
+      "button": "Fermer",
+      "pop_up_title1": "Notre Mission - Protection Garantie",
+      "pop_up_desc1": "La régénération comme moteur de développement. Nous misons sur une Amazonie vivante où la reforestation génère une prospérité partagée. Nous remplaçons la logique extractive par un modèle qui garantit la subsistance des agriculteurs et un retour à impact pour chaque allié gardien de la coopérative.",
+      "pop_up_otherTitle1": "De l'éco-anxiété à l'éco-agence.",
+      "pop_up_otherDesc1": "Nous transformons la paralysie en résultats mesurables. Nous t’offrons la capacité d’agir, de devenir un allié gardien en prenant en charge des m² précis de forêt amazonienne : un engagement vivant envers la biosphère qui construit ta propre sécurité économique.",
+      "pop_up_title2": "Coopérative Allemande (eG)",
+      "pop_up_desc2": "Pour garantir la transparence et la sécurité de ta contribution, nous fonderons une Coopérative Allemande (eG). Cette structure juridique nous permet d’opérer selon des principes démocratiques, où chaque membre a voix au chapitre. Ton soutien sur Startnext est essentiel pour établir cette coopérative, qui sera le véhicule par lequel nous gérerons la protection des m² de forêt amazonienne et distribuerons les bénéfices de manière équitable entre tous les membres.",
+      "pop_up_title3": "Explore et Simule",
+      "pop_up_desc3": "Découvre comment utiliser notre simulateur interactif pour comprendre les niveaux de contribution sur Startnext. Saisis différents montants pour voir comment ils se transforment en niveaux d’impact et en avantages exclusifs. Chaque niveau débloque des récompenses uniques, allant de l’accès à des missions spéciales à la reconnaissance en tant que membre fondateur. Expérimente avec le simulateur et explore ton potentiel d’impact !",
+      "step4_title": "4. Réclame ton Accès Premium"
+    }
   },
   "admin": {
     "title": "Panneau d'Administration",
     "communityy": "Espace des fondateurs",
     "community": {
-    "title": "Contenu de l'Espace des fondateurs",
-    "subtitle": "Gérer la gouvernance ludique, les actualités et la feuille de route des pionniers.",
-    "live_dashboard": "PANNEAU DE RÉSULTATS EN DIRECT",
-    "table_title": "Titre",
-    "table_status": "Statut / Détails",
-    "table_image": "Image",
-    "table_actions": "Actions",
-    "add_new": "Ajouter",
-    "edit_item": "Modifier l'élément",
-    "create_item": "Créer un élément",
-    "manage_translations": "Gérer les traductions",
-    "voting_history": "Historique des votes",
-    "no_items": "Aucun élément trouvé."
+      "title": "Contenu de l'Espace des fondateurs",
+      "subtitle": "Gérer la gouvernance ludique, les actualités et la feuille de route des pionniers.",
+      "live_dashboard": "PANNEAU DE RÉSULTATS EN DIRECT",
+      "table_title": "Titre",
+      "table_status": "Statut / Détails",
+      "table_image": "Image",
+      "table_actions": "Actions",
+      "add_new": "Ajouter",
+      "edit_item": "Modifier l'élément",
+      "create_item": "Créer un élément",
+      "manage_translations": "Gérer les traductions",
+      "voting_history": "Historique des votes",
+      "no_items": "Aucun élément trouvé."
     },
     "mlm": "Parrainages (MLM)",
     "quest_moderation": "Moteur de missions",
@@ -554,8 +587,8 @@
     "analyzing_answers": "Vérification des résultats...",
     "onboarding_label": "Intégration",
     "finish_quest": "Lancer la mission",
-    "profile_unlocked": "Profil déverrouillé", 
-    "profiles.genesis": { 
+    "profile_unlocked": "Profil déverrouillé",
+    "profiles.genesis": {
       "lena": {
         "title": "Partenaire d'impact vérifié",
         "description": "Animé par la durabilité et la préservation à long terme. Vous croyez au pouvoir de la nature."
@@ -629,19 +662,19 @@
       }
     ]
   },
-    "impactQuest": {
-      "title": "Découvrez votre profil",
-      "discovery_complete": "Découverte terminée!",
-      "profile_unlocked": "Profil débloqué!",
-      "generic_description": "Vos réponses nous aident à personnaliser votre expérience et à aligner nos projets avec vos intérêts.",
-      "your_impact_focus": "Ton profil",
-      "invite_desc": "Terminez notre mission pour découvrir comment vos intérêts s'alignent sur nos projets.",
-      "start_quest": "Commencer la mission",
-      "profiles": {
-        "lena": "Écologie",
-        "markus": "Structure",
-        "david": "Communauté"
-      }
+  "impactQuest": {
+    "title": "Découvrez votre profil",
+    "discovery_complete": "Découverte terminée!",
+    "profile_unlocked": "Profil débloqué!",
+    "generic_description": "Vos réponses nous aident à personnaliser votre expérience et à aligner nos projets avec vos intérêts.",
+    "your_impact_focus": "Ton profil",
+    "invite_desc": "Terminez notre mission pour découvrir comment vos intérêts s'alignent sur nos projets.",
+    "start_quest": "Commencer la mission",
+    "profiles": {
+      "lena": "Écologie",
+      "markus": "Structure",
+      "david": "Communauté"
+    }
   },
   "quest": {
     "title": "Quêtes",
@@ -872,20 +905,20 @@
       "vote_thanks": "Merci de votre participation."
     },
     "budget_vote": {
-    "average_allocation": "Allocation moyenne de la communauté",
-    "allocate_points": "Allocation des points",
-    "pts_left": "Points restants",
-    "confirm_allocation": "Confirmer l'allocation"
+      "average_allocation": "Allocation moyenne de la communauté",
+      "allocate_points": "Allocation des points",
+      "pts_left": "Points restants",
+      "confirm_allocation": "Confirmer l'allocation"
     },
     "discussion": {
-    "title": "Discussion des fondateurs",
-    "placeholder": "Partagez votre point de vue avec les autres fondateurs...",
-    "post_btn": "Publier",
-    "first_to_share": "Soyez le premier à partager votre opinion."
+      "title": "Discussion des fondateurs",
+      "placeholder": "Partagez votre point de vue avec les autres fondateurs...",
+      "post_btn": "Publier",
+      "first_to_share": "Soyez le premier à partager votre opinion."
     },
     "live_activity": {
-    "title": "Activité en direct",
-    "no_signals": "Activité pour le pionnier fondateur"
+      "title": "Activité en direct",
+      "no_signals": "Activité pour le pionnier fondateur"
     },
     "notification": {
       "evaluation_title": "Accès en cours d'évaluation",
@@ -1078,27 +1111,27 @@
     "premium_unlocked": {
       "title": "Accès Premium débloqué",
       "message": "Vous avez reçu {{months}} mois d'accès Premium et {{points}} points bonus grâce à votre ami."
-  }
+    }
   },
   "contact": {
-  "title": "Contactez-nous",
-  "subtitle": "Vous avez des questions sur votre impact ou notre mission? Nous sommes là pour vous aider.",
-  "address_label": "Siège social",
-  "email_label": "Écrivez-nous",
-  "phone_label": "Appelez-nous",
-  "faq_title": "Besoin de réponses rapides?",
-  "faq_description": "Consultez notre Centre d'Aide pour obtenir des réponses immédiates aux questions les plus fréquentes sur les Land Dollars et les Points de Bonus.",
-  "visit_faq": "Contactez notre centre d'aide",
-  "form_name": "Votre nom",
-  "form_email": "Adresse e-mail",
-  "form_subject": "Objet",
-  "subjectPlaceholder": "Entrez le sujet...",
-  "messagePlaceholder": "Entrez votre message ici...",
-  "form_message": "Message",
-  "send_btn": "Envoyer le message",
-  "sending": "Envoi en cours...",
-  "success_title": "Message envoyé!",
-  "success_desc": "Nous vous répondrons prochainement."
+    "title": "Contactez-nous",
+    "subtitle": "Vous avez des questions sur votre impact ou notre mission? Nous sommes là pour vous aider.",
+    "address_label": "Siège social",
+    "email_label": "Écrivez-nous",
+    "phone_label": "Appelez-nous",
+    "faq_title": "Besoin de réponses rapides?",
+    "faq_description": "Consultez notre Centre d'Aide pour obtenir des réponses immédiates aux questions les plus fréquentes sur les Land Dollars et les Points de Bonus.",
+    "visit_faq": "Contactez notre centre d'aide",
+    "form_name": "Votre nom",
+    "form_email": "Adresse e-mail",
+    "form_subject": "Objet",
+    "subjectPlaceholder": "Entrez le sujet...",
+    "messagePlaceholder": "Entrez votre message ici...",
+    "form_message": "Message",
+    "send_btn": "Envoyer le message",
+    "sending": "Envoi en cours...",
+    "success_title": "Message envoyé!",
+    "success_desc": "Nous vous répondrons prochainement."
   },
   "startnext_modal": {
     "title": "J'ai déjà soutenu sur Startnext",
@@ -1141,198 +1174,198 @@
     "socials": {
       "instagram": "Visitez notre Instagram"
     }
+  },
+  "rewards": {
+    "bonus_points": "Points bonus",
+    "bonus_points_short": "PB",
+    "reputation": "Réputation",
+    "referral_bonus": "Points Bonus de Parrainage"
+  },
+  "mission": {
+    "open_instagram": "Ouvrir sur Instagram",
+    "view_instagram": "Voir sur Instagram",
+    "privacy_note": "Note de confidentialité",
+    "distribute_resources": "Distribuez vos ressources",
+    "remaining": "Restant",
+    "load_failed": "Erreur lors du chargement de la mission.",
+    "incorrect_title": "Réponse incorrecte",
+    "redirect_msg": "Vous serez redirigé pour revoir les contenus.",
+    "review_answer": "Vérifiez votre réponse et réessayez.",
+    "skip_mission": "Passer la mission",
+    "skip_confirm": "Passer la mission ? Une pénalité de -{{penalty}} points de réputation sera appliquée.",
+    "skipped_title": "Mission passée",
+    "penalty_applied": "Pénalité appliquée : -{{penalty}} Réputation.",
+    "submitted_title": "Mission envoyée !",
+    "review_msg": "Un Guardian examinera bientôt vos réponses.",
+    "submit_failed": "Erreur lors de l’envoi de la mission.",
+    "write_answer": "Écrivez votre réponse détaillée ici...",
+    "start_btn": "Commencer la mission",
+    "step_x_of_y": "Étape {{current}} sur {{total}}",
+    "complete_btn": "Terminer la mission",
+    "next_btn": "Étape suivante",
+    "accomplished_title": "Mission accomplie !",
+    "success_default": "Vous avez complété cette mission avec succès.",
+    "under_review_title": "En révision",
+    "under_review_desc": "Vos réponses ont été envoyées. Un Admin examinera votre réponse sous peu afin de vous attribuer vos récompenses.",
+    "already_completed_title": "Déjà complétée",
+    "already_completed_desc": "Vous avez déjà obtenu les récompenses de cette mission.",
+    "return_btn": "Retour aux missions",
+    "penalty_applied_credits": "Pénalité appliquée: -{{amount}} BP.",
+    "referral_bonus": "Votre Référent",
+    "restart_title": "Redémarrer la mission",
+    "restart_warning": "Êtes-vous sûr de vouloir redémarrer cette mission ? Tous les progrès et récompenses obtenus jusqu'à présent seront perdus.",
+    "restart_btn": "Redémarrer la mission",
+    "restart_confirm": "Redémarrer la mission ? Tous les progrès seront perdus."
+  },
+  "gamification_admin": {
+    "quest_engine": {
+      "title": "Moteur de missions avancé",
+      "subtitle": "Créez des missions interactives, gérez les compétences et la réputation.",
+      "rpg_missions": "Missions RPG avancées",
+      "build_new": "Créer une nouvelle mission",
+      "no_missions": "Aucune mission interactive trouvée. Cliquez sur « Créer une nouvelle mission » pour commencer."
     },
-    "rewards": {
-      "bonus_points": "Points bonus",
-      "bonus_points_short": "PB",
-      "reputation": "Réputation",
-      "referral_bonus": "Points Bonus de Parrainage"
+    "scoring": {
+      "title": "Résumé des scores utilisateurs",
+      "subtitle": "Métriques agrégées de l’historique de gamification.",
+      "search": "Rechercher un utilisateur...",
+      "table": {
+        "rank": "Rang",
+        "user": "Utilisateur",
+        "total_credits": "Crédits totaux",
+        "eval_score": "Score",
+        "status": "Statut",
+        "actions": "Actions",
+        "genesis": "Genesis",
+        "quests": "Missions",
+        "referrals": "Parrainages"
+      },
+      "badges": {
+        "approved": "Approuvé",
+        "rejected": "Rejeté",
+        "revoked": "Révoqué",
+        "pending": "En attente",
+        "done": "Terminé"
+      },
+      "actions": {
+        "details": "Détails",
+        "reset_scoring": "Réinitialiser le score"
+      },
+      "reset_warning": "DANGER : Cela supprimera tout l’historique de gamification et réinitialisera les scores de cet utilisateur. Continuer ?",
+      "reset_success": "Le score de l’utilisateur a été réinitialisé."
     },
-    "mission": {
-      "open_instagram": "Ouvrir sur Instagram",
-      "view_instagram": "Voir sur Instagram",
-      "privacy_note": "Note de confidentialité",
-      "distribute_resources": "Distribuez vos ressources",
-      "remaining": "Restant",
-      "load_failed": "Erreur lors du chargement de la mission.",
-      "incorrect_title": "Réponse incorrecte",
-      "redirect_msg": "Vous serez redirigé pour revoir les contenus.",
-      "review_answer": "Vérifiez votre réponse et réessayez.",
-      "skip_mission": "Passer la mission",
-      "skip_confirm": "Passer la mission ? Une pénalité de -{{penalty}} points de réputation sera appliquée.",
-      "skipped_title": "Mission passée",
-      "penalty_applied": "Pénalité appliquée : -{{penalty}} Réputation.",
-      "submitted_title": "Mission envoyée !",
-      "review_msg": "Un Guardian examinera bientôt vos réponses.",
-      "submit_failed": "Erreur lors de l’envoi de la mission.",
-      "write_answer": "Écrivez votre réponse détaillée ici...",
-      "start_btn": "Commencer la mission",
-      "step_x_of_y": "Étape {{current}} sur {{total}}",
-      "complete_btn": "Terminer la mission",
-      "next_btn": "Étape suivante",
-      "accomplished_title": "Mission accomplie !",
-      "success_default": "Vous avez complété cette mission avec succès.",
-      "under_review_title": "En révision",
-      "under_review_desc": "Vos réponses ont été envoyées. Un Admin examinera votre réponse sous peu afin de vous attribuer vos récompenses.",
-      "already_completed_title": "Déjà complétée",
-      "already_completed_desc": "Vous avez déjà obtenu les récompenses de cette mission.",
-      "return_btn": "Retour aux missions",
-      "penalty_applied_credits": "Pénalité appliquée: -{{amount}} BP.",
-      "referral_bonus":"Votre Référent",
-      "restart_title": "Redémarrer la mission",
-      "restart_warning": "Êtes-vous sûr de vouloir redémarrer cette mission ? Tous les progrès et récompenses obtenus jusqu'à présent seront perdus.",
-      "restart_btn": "Redémarrer la mission",
-      "restart_confirm": "Redémarrer la mission ? Tous les progrès seront perdus."
+    "metrics_modal": {
+      "title": "Métriques utilisateur :",
+      "tabs": {
+        "overview": "Aperçu",
+        "evaluation": "Évaluation",
+        "history": "Historique",
+        "notes": "Notes"
+      },
+      "overview_tab": {
+        "quests": "Missions courtes",
+        "missions": "Missions RPG",
+        "referrals": "Parrainages",
+        "contributions": "Contributions",
+        "system_flags": "Indicateurs système",
+        "genesis_quest": "Mission Genesis",
+        "profile_updated": "Profil mis à jour"
+      },
+      "evaluation_tab": {
+        "status_title": "Statut de pionnier fondateur",
+        "approve": "Approuver l’accès",
+        "reject": "Rejeter",
+        "revoke": "Révoquer",
+        "score_label": "Score d’évaluation (0-100)",
+        "score_desc": "Ce score détermine le classement pour la limite du Top 100."
+      },
+      "history_tab": {
+        "no_history": "Aucun historique trouvé"
+      },
+      "notes_tab": {
+        "label": "Notes Admin",
+        "placeholder": "Notes internes concernant cet utilisateur..."
+      }
     },
-    "gamification_admin": {
-      "quest_engine": {
-        "title": "Moteur de missions avancé",
-        "subtitle": "Créez des missions interactives, gérez les compétences et la réputation.",
-        "rpg_missions": "Missions RPG avancées",
-        "build_new": "Créer une nouvelle mission",
-        "no_missions": "Aucune mission interactive trouvée. Cliquez sur « Créer une nouvelle mission » pour commencer."
+    "history_log": {
+      "title": "Journal d’activité du système",
+      "search": "Rechercher des enregistrements...",
+      "table": {
+        "date": "Date",
+        "user": "Utilisateur",
+        "action": "Action",
+        "type": "Type",
+        "credits": "Crédits"
       },
-      "scoring": {
-        "title": "Résumé des scores utilisateurs",
-        "subtitle": "Métriques agrégées de l’historique de gamification.",
-        "search": "Rechercher un utilisateur...",
-        "table": {
-          "rank": "Rang",
-          "user": "Utilisateur",
-          "total_credits": "Crédits totaux",
-          "eval_score": "Score",
-          "status": "Statut",
-          "actions": "Actions",
-          "genesis": "Genesis",
-          "quests": "Missions",
-          "referrals": "Parrainages"
-        },
-        "badges": {
-          "approved": "Approuvé",
-          "rejected": "Rejeté",
-          "revoked": "Révoqué",
-          "pending": "En attente",
-          "done": "Terminé"
-        },
-        "actions": {
-          "details": "Détails",
-          "reset_scoring": "Réinitialiser le score"
-        },
-        "reset_warning": "DANGER : Cela supprimera tout l’historique de gamification et réinitialisera les scores de cet utilisateur. Continuer ?",
-        "reset_success": "Le score de l’utilisateur a été réinitialisé."
+      "delete_warning": "Supprimer cet enregistrement ? Les crédits ne seront PAS automatiquement déduits du total de l’utilisateur.",
+      "no_logs": "Aucun enregistrement trouvé."
+    },
+    "user_history_modal": {
+      "title": "Historique d’activité :",
+      "desc": "Journal détaillé des interactions et récompenses de l’utilisateur.",
+      "tabs": {
+        "overview": "Aperçu",
+        "log": "Journal détaillé"
       },
-      "metrics_modal": {
-        "title": "Métriques utilisateur :",
-        "tabs": {
-          "overview": "Aperçu",
-          "evaluation": "Évaluation",
-          "history": "Historique",
-          "notes": "Notes"
-        },
-        "overview_tab": {
-          "quests": "Missions courtes",
-          "missions": "Missions RPG",
-          "referrals": "Parrainages",
-          "contributions": "Contributions",
-          "system_flags": "Indicateurs système",
-          "genesis_quest": "Mission Genesis",
-          "profile_updated": "Profil mis à jour"
-        },
-        "evaluation_tab": {
-          "status_title": "Statut de pionnier fondateur",
-          "approve": "Approuver l’accès",
-          "reject": "Rejeter",
-          "revoke": "Révoquer",
-          "score_label": "Score d’évaluation (0-100)",
-          "score_desc": "Ce score détermine le classement pour la limite du Top 100."
-        },
-        "history_tab": {
-          "no_history": "Aucun historique trouvé"
-        },
-        "notes_tab": {
-          "label": "Notes Admin",
-          "placeholder": "Notes internes concernant cet utilisateur..."
-        }
+      "stats": {
+        "total_credits": "Crédits totaux",
+        "actions_logged": "Actions enregistrées",
+        "top_activity": "Activité principale",
+        "last_active": "Dernière activité",
+        "never": "Jamais"
       },
-      "history_log": {
-        "title": "Journal d’activité du système",
-        "search": "Rechercher des enregistrements...",
-        "table": {
-          "date": "Date",
-          "user": "Utilisateur",
-          "action": "Action",
-          "type": "Type",
-          "credits": "Crédits"
-        },
-        "delete_warning": "Supprimer cet enregistrement ? Les crédits ne seront PAS automatiquement déduits du total de l’utilisateur.",
-        "no_logs": "Aucun enregistrement trouvé."
+      "timeline": "Chronologie récente",
+      "no_history": "Aucun historique trouvé.",
+      "table": {
+        "date": "Date",
+        "action": "Action",
+        "type": "Type",
+        "credits": "Crédits"
+      }
+    },
+    "action_usage_modal": {
+      "title": "Rapport d’utilisation :",
+      "desc": "Analyse de la manière dont cette action affecte le score de l’utilisateur.",
+      "stats": {
+        "total_calls": "Exécutions totales",
+        "unique_users": "Utilisateurs uniques (récents)",
+        "action_value": "Valeur de l’action"
       },
-      "user_history_modal": {
-        "title": "Historique d’activité :",
-        "desc": "Journal détaillé des interactions et récompenses de l’utilisateur.",
-        "tabs": {
-          "overview": "Aperçu",
-          "log": "Journal détaillé"
-        },
-        "stats": {
-          "total_credits": "Crédits totaux",
-          "actions_logged": "Actions enregistrées",
-          "top_activity": "Activité principale",
-          "last_active": "Dernière activité",
-          "never": "Jamais"
-        },
-        "timeline": "Chronologie récente",
-        "no_history": "Aucun historique trouvé.",
-        "table": {
-          "date": "Date",
-          "action": "Action",
-          "type": "Type",
-          "credits": "Crédits"
-        }
+      "table": {
+        "user": "Utilisateur",
+        "credits_awarded": "Crédits attribués",
+        "date": "Date",
+        "context": "Contexte/Déclencheur"
       },
-      "action_usage_modal": {
-        "title": "Rapport d’utilisation :",
-        "desc": "Analyse de la manière dont cette action affecte le score de l’utilisateur.",
-        "stats": {
-          "total_calls": "Exécutions totales",
-          "unique_users": "Utilisateurs uniques (récents)",
-          "action_value": "Valeur de l’action"
-        },
-        "table": {
-          "user": "Utilisateur",
-          "credits_awarded": "Crédits attribués",
-          "date": "Date",
-          "context": "Contexte/Déclencheur"
-        },
-        "no_usage": "Aucune utilisation enregistrée pour le moment."
+      "no_usage": "Aucune utilisation enregistrée pour le moment."
+    },
+    "action_modal": {
+      "title_edit": "Modifier l’action",
+      "title_new": "Créer une nouvelle action",
+      "desc": "Configurez les règles de score et les liens de déclenchement.",
+      "fields": {
+        "action_name": "Nom de l’action (ID unique)",
+        "action_name_desc": "Les noms des actions système ne peuvent pas être modifiés.",
+        "action_name_placeholder": "ex. evenement_personnalise_x",
+        "display_title": "Titre affiché",
+        "display_title_placeholder": "ex. Événement personnalisé X",
+        "type": "Type",
+        "system_binding": "Liaison système",
+        "impact_credits_value": "Récompense principale (BP)",
+        "impact_credits_desc": "Bonus pour l'utilisateur (ou le parrain).",
+        "referee_credits_value": "Récompense invité (BP)",
+        "referee_credits_desc": "Bonus pour l'utilisateur invité ou celui qui exécute l'action passivement.",
+        "active": "Action active",
+        "description": "Description",
+        "description_placeholder": "Description publique ou infobulle...",
+        "trigger": "Événement déclencheur (Optionnel)",
+        "trigger_placeholder": "ex. inscription_utilisateur",
+        "trigger_desc": "Identifiant technique pour les systèmes externes.",
+        "admin_notes": "Notes Admin",
+        "admin_notes_placeholder": "Notes internes..."
       },
-      "action_modal": {
-        "title_edit": "Modifier l’action",
-        "title_new": "Créer une nouvelle action",
-        "desc": "Configurez les règles de score et les liens de déclenchement.",
-        "fields": {
-          "action_name": "Nom de l’action (ID unique)",
-          "action_name_desc": "Les noms des actions système ne peuvent pas être modifiés.",
-          "action_name_placeholder": "ex. evenement_personnalise_x",
-          "display_title": "Titre affiché",
-          "display_title_placeholder": "ex. Événement personnalisé X",
-          "type": "Type",
-          "system_binding": "Liaison système",
-          "impact_credits_value": "Récompense principale (BP)",
-          "impact_credits_desc": "Bonus pour l'utilisateur (ou le parrain).",
-          "referee_credits_value": "Récompense invité (BP)",
-          "referee_credits_desc": "Bonus pour l'utilisateur invité ou celui qui exécute l'action passivement.",
-          "active": "Action active",
-          "description": "Description",
-          "description_placeholder": "Description publique ou infobulle...",
-          "trigger": "Événement déclencheur (Optionnel)",
-          "trigger_placeholder": "ex. inscription_utilisateur",
-          "trigger_desc": "Identifiant technique pour les systèmes externes.",
-          "admin_notes": "Notes Admin",
-          "admin_notes_placeholder": "Notes internes..."
-        },
-        "delete_warning": "Êtes-vous sûr ? Cette action ne peut pas être annulée et peut affecter l’affichage des enregistrements historiques."
-      } 
+      "delete_warning": "Êtes-vous sûr ? Cette action ne peut pas être annulée et peut affecter l’affichage des enregistrements historiques."
+    }
   },
   "faq_pioneers": {
     "badge_knowledge": "Base de Connaissances",
@@ -1348,7 +1381,6 @@
     "faq_a4": "Notre mesure de succès n'est pas de compter les arbres individuels qui pourraient être coupés plus tard. Au lieu de cela, nous mesurons l'étendue totale de l'écosystème en régénération, validé en externe.",
     "faq_q5": "Qu'est-ce que le Land-Dollar ?",
     "faq_a5": "C'est le symbole numérique de notre économie régénérative et votre clé d'accès à notre plateforme de cocréation. C'est le pont numérique qui vous permet de participer aux décisions.",
-    
     "pioneers_badge": "Édition Limitée",
     "pioneers_title": "Les 10 Pionniers Fondateurs",
     "pioneers_text1": "Avec les fonds de Startnext, nous jetterons les bases juridiques de la coopérative. Chez Reforestal, nous préférons offrir des parts plutôt que de payer pour de la publicité.",
@@ -1425,7 +1457,7 @@
     },
     "contact": {
       "title": "Informations de contact et Mentions légales (Impressum)",
-      "company": "",
+      "company": "LIGNES DIRECTRICES ESSENTIELLES DE LA MARQUE (Basées sur les Reforestal Kommunikationsrichtlinien) :\n\n1. TON : \"Accessiblement Solennel\" (*Nahbar, aber staatsmännisch*). Chaleureux et direct, mais avec l’autorité inébranlable et la précision d’une banque centrale. Nous ne quémandons PAS de dons. Nous proposons une participation solide à une nouvelle ère.\n\n2. PAS DE MOTS CARITATIFS : JAMAIS utiliser des termes comme \"aider\", \"sauver la planète\", \"secourir\", \"faire le bien\" (*helfen, retten, Gutes tun*). Nous agissons depuis une position de force et de raison économique.\n\n3. PAS D’ARBRES, UNIQUEMENT DES m² : NE JAMAIS parler de \"planter des arbres\" (*Bäume pflanzen/Setzlinge*). Nous créons et sécurisons des \"mètres carrés (m²)\" d’écosystème. Un arbre peut mourir ; un mètre carré perdure.\n\n4. PAS DE RÉNATURATION : Nous ne \"protégeons PAS la forêt tropicale\" ni ne \"renaturons\" (*Renaturierung/Naturschutz*). Nous faisons de \"l’économie régénérative\" (*Regenerative Wirtschaft*) et de \"l’agroforesterie\".\n\n5. LA RÈGLE DES \"POINTS\" : Notre monnaie bonus s’appelle strictement \"Points\" (*Punkte* en DE, *Points* en FR, *Puntos* en ES). NE JAMAIS utiliser \"Crédits\", \"Pièces\", \"Jetons\" ou \"Monnaie d’impact\".\n\n6. SPÉCIFICITÉS LINGUISTIQUES :\n   - En français (fr), utiliser le tutoiement (*tu/ton*).\n   - En anglais (en), conserver un ton premium, autoritaire mais accueillant.\n   - En espagnol (es), adopter un style accessible mais très professionnel (*tú, tuyo*).\n\n7. NOMS DE MARQUE (CRUCIAL) : Les noms *Reforestal* et *terra utopia* sont des marques déposées. NE JAMAIS les traduire dans une autre langue. De plus, *terra utopia* DOIT TOUJOURS s’écrire entièrement en minuscules (exactement *terra utopia*), jamais avec une majuscule, même en début de phrase.",
       "board": "Peter Rosinski",
       "address": "Siège social : Rotenbergstr. 27, 66111 Sarrebruck, Allemagne",
       "email": "Email : peter@reforest.al",
@@ -1434,182 +1466,182 @@
     }
   },
   "privacy": {
-  "title": "Politique de confidentialité",
-  "intro": [
-    "La protection de vos données personnelles est une relation de confiance fondamentale avec notre communauté et constitue une priorité particulièrement élevée pour Peter Rosinski (future Reforestal eG). Cette politique de confidentialité vous informe sur la nature, la portée et la finalité des données collectées, en particulier si vous participez en tant que partenaire à nos projets d'économie régénérative ou si vous nous soutenez via Startnext.",
-    "L'utilisation de nos pages web est généralement possible sans aucune indication de données personnelles. Toutefois, si une personne concernée souhaite utiliser des services spécifiques de notre entreprise (comme le tableau de bord du projet) via notre site web, un traitement des données personnelles pourrait s'avérer nécessaire. Si ce traitement est nécessaire et qu'il n'existe aucune base légale pour un tel traitement, nous obtenons généralement le consentement de la personne concernée."
-  ],
-  "s1": {
-    "title": "1. Définitions",
-    "body": [
-      "La politique de confidentialité est basée sur les termes utilisés par le législateur européen pour l'adoption du Règlement Général sur la Protection des Données (RGPD). Les termes généraux et spécifiques au projet incluent :"
+    "title": "Politique de confidentialité",
+    "intro": [
+      "La protection de vos données personnelles est une relation de confiance fondamentale avec notre communauté et constitue une priorité particulièrement élevée pour Peter Rosinski (future Reforestal eG). Cette politique de confidentialité vous informe sur la nature, la portée et la finalité des données collectées, en particulier si vous participez en tant que partenaire à nos projets d'économie régénérative ou si vous nous soutenez via Startnext.",
+      "L'utilisation de nos pages web est généralement possible sans aucune indication de données personnelles. Toutefois, si une personne concernée souhaite utiliser des services spécifiques de notre entreprise (comme le tableau de bord du projet) via notre site web, un traitement des données personnelles pourrait s'avérer nécessaire. Si ce traitement est nécessaire et qu'il n'existe aucune base légale pour un tel traitement, nous obtenons généralement le consentement de la personne concernée."
     ],
-    "list": [
-      "a) Termes du RGPD : Données personnelles, personne concernée, traitement, profilage, responsable du traitement, sous-traitant et consentement (selon l'art. 4 du RGPD).",
-      "b) Guardian Ally / Partenaire : Toute personne physique ou morale possédant un compte actif dans l'écosystème de reforestation.",
-      "c) Land-Dollar (Dollar de Terre) : Un certificat d'impact numérique faisant office de clé d'accès.",
-      "d) Bonus : Métriques de gamification sans valeur financière."
-    ]
+    "s1": {
+      "title": "1. Définitions",
+      "body": [
+        "La politique de confidentialité est basée sur les termes utilisés par le législateur européen pour l'adoption du Règlement Général sur la Protection des Données (RGPD). Les termes généraux et spécifiques au projet incluent :"
+      ],
+      "list": [
+        "a) Termes du RGPD : Données personnelles, personne concernée, traitement, profilage, responsable du traitement, sous-traitant et consentement (selon l'art. 4 du RGPD).",
+        "b) Guardian Ally / Partenaire : Toute personne physique ou morale possédant un compte actif dans l'écosystème de reforestation.",
+        "c) Land-Dollar (Dollar de Terre) : Un certificat d'impact numérique faisant office de clé d'accès.",
+        "d) Bonus : Métriques de gamification sans valeur financière."
+      ]
+    },
+    "s2": {
+      "title": "2. Nom et adresse du responsable du traitement",
+      "body": [
+        "Le responsable du traitement aux fins du Règlement Général sur la Protection des Données, d'autres lois sur la protection des données applicables dans les États membres de l'Union européenne et d'autres dispositions relatives à la protection des données est :",
+        "Peter Rosinski (future Reforestal eG)",
+        "Rotenbergstr. 27",
+        "66111 Sarrebruck, Allemagne",
+        "Email : peter@reforest.al | Tél. : +49 163 8736419",
+        "Site web : www.reforest.al"
+      ]
+    },
+    "s3": {
+      "title": "3. Cookies",
+      "body": [
+        "Les pages web utilisent des cookies (fichiers texte stockés via un navigateur Internet) pour fournir aux utilisateurs des services plus conviviaux. En particulier, nous utilisons des cookies nécessaires pour vous garder connecté et enregistrer vos préférences linguistiques.",
+        "La personne concernée peut, à tout moment, empêcher la configuration de cookies par notre site web au moyen d'un paramètre correspondant du navigateur Internet utilisé, et ainsi refuser définitivement la configuration de cookies. De plus, les cookies déjà configurés peuvent être supprimés à tout moment via un navigateur Internet."
+      ]
+    },
+    "s4": {
+      "title": "4. Collecte de données et d'informations générales (Infrastructure et fichiers journaux)",
+      "body": [
+        "Le site web collecte une série de données et d'informations générales à chaque appel, qui sont stockées dans les fichiers journaux du serveur (logfiles). Peuvent être collectés : (1) les types et versions de navigateurs utilisés, (2) le système d'exploitation, (3) le site web depuis lequel un système d'accès atteint notre site web (référents), (4) les sous-sites web, (5) la date et l'heure de l'accès, (6) une adresse de protocole Internet (adresse IP), (7) le fournisseur d'accès Internet, et (8) toute autre donnée similaire utilisée en cas d'attaques contre nos systèmes informatiques.",
+        "Durabilité et sécurité numériques : Notre site web est hébergé sur des serveurs VPS européens économes en énergie chez Hostinger (Green Hosting). Nous gérons les données critiques via Supabase à Francfort-sur-le-Main (région AWS eu-central-1) en utilisant des politiques de sécurité au niveau des lignes (RLS) pour garantir une souveraineté maximale des données."
+      ]
+    },
+    "s5": {
+      "title": "5. Inscription sur notre site web et Crowdfunding Startnext",
+      "body": [
+        "Vous pouvez vous inscrire en fournissant des données (nom, e-mail, identifiants cryptés). Pour la gestion du projet, nous pouvons également collecter votre adresse postale, votre date de naissance et votre nationalité.",
+        "Données provenant de sources externes (Startnext) : Lors de votre participation à notre crowdfunding, nous recevons votre nom, e-mail, le montant de la contribution et la récompense sélectionnée de la part de Startnext pour attribuer vos droits numériques ; nous ne traitons pas de données bancaires dans ce contexte.",
+        "Gamification et Google Wallet : Nous traitons les informations concernant votre progression, vos niveaux (tiers) et vos quêtes. Si vous ajoutez le 'Land Dollar' à Google Wallet, Google agit en tant que responsable du traitement indépendant."
+      ]
+    },
+    "s6": {
+      "title": "6. Abonnement à notre newsletter",
+      "body": [
+        "Nous proposons une newsletter qui nécessite une adresse e-mail valide et une inscription via la procédure de double opt-in. L'adresse IP, la date et l'heure de l'inscription sont stockées pour des raisons légales et pour la prévention des abus. L'abonnement peut être résilié à tout moment et le consentement peut être révoqué."
+      ]
+    },
+    "s7": {
+      "title": "7. Suivi de la newsletter (Tracking)",
+      "body": [
+        "Nos newsletters contiennent des pixels de suivi. Cela permet une analyse statistique du succès (par exemple, si et quand un e-mail a été ouvert ou si un lien a été cliqué). Nous utilisons ces données à des fins d'optimisation. La révocation est possible à tout moment en se désabonnant de la newsletter."
+      ]
+    },
+    "s8": {
+      "title": "8. Possibilité de contact via le site web",
+      "body": [
+        "Si une personne concernée contacte le responsable du traitement par e-mail ou via un formulaire de contact, les données personnelles transmises volontairement sont automatiquement stockées dans le but de traiter la demande ou de contacter la personne concernée."
+      ]
+    },
+    "s9": {
+      "title": "9. Effacement et verrouillage de routine des données personnelles",
+      "body": [
+        "Le responsable du traitement traite et stocke les données uniquement pendant la période nécessaire pour atteindre l'objectif du stockage. Si l'objectif n'est plus applicable, ou si une période de conservation légale expire, les données sont systématiquement verrouillées ou effacées.",
+        "Périodes spécifiques : Nous conservons les contributions financières conformément au droit fiscal allemand (HGB/AO) pendant 10 ans. Les journaux techniques sont automatiquement anonymisés après 30 jours."
+      ]
+    },
+    "s10": {
+      "title": "10. Droits de la personne concernée",
+      "body": [
+        "Pour exercer l'un des droits suivants, la personne concernée peut nous contacter (le responsable du traitement) à tout moment :"
+      ],
+      "list": [
+        "a) Droit de confirmation et d'accès (Art. 15 RGPD) : Disponible en tant que copie dans votre tableau de bord.",
+        "b) Droit de rectification (Art. 16 RGPD) : Modifiable dans votre Profil Genesis.",
+        "c) Droit à l'effacement / Droit à l'oubli (Art. 17 RGPD) : Par exemple, en supprimant le compte.",
+        "d) Droit à la limitation du traitement (Art. 18 RGPD) et à la portabilité des données (Art. 20 RGPD).",
+        "e) Droit d'opposition (Art. 21 RGPD) et de retrait du consentement (Art. 7(3) RGPD).",
+        "f) Droit de déposer une plainte : Vous avez également le droit de déposer une plainte auprès d'une autorité de contrôle de la protection des données (Art. 77 RGPD)."
+      ]
+    },
+    "s11": {
+      "title": "11. Dispositions relatives à la protection des données concernant l'application et l'utilisation de Facebook",
+      "body": [
+        "Nous avons intégré des composants de l'entreprise Facebook. La société d'exploitation pour les personnes en dehors des États-Unis est Facebook Ireland Ltd., 4 Grand Canal Square, Dublin 2, Irlande.",
+        "Si la personne concernée est connectée en même temps à Facebook, Facebook détecte quelle sous-page spécifique a été visitée. Si vous cliquez sur le bouton 'J'aime', par exemple, cette information est associée à votre compte Facebook. Pour l'éviter, vous devez vous déconnecter de votre compte Facebook avant votre visite.",
+        "Plus d'informations sur la politique d'utilisation des données de Facebook : https://fr-fr.facebook.com/about/privacy/"
+      ]
+    },
+    "s12": {
+      "title": "12. Dispositions relatives à la protection des données concernant l'application et l'utilisation de Google AdSense",
+      "body": [
+        "Google AdSense est intégré sur ce site web (Google Ireland Limited, Gordon House, Barrow Street, Dublin, Irlande).",
+        "Le service place des cookies et des pixels de suivi pour l'intégration d'annonces et l'évaluation basée sur les intérêts. Les données peuvent être transférées aux États-Unis. La configuration des cookies peut être empêchée dans le navigateur.",
+        "Explications supplémentaires : https://www.google.fr/intl/fr/adsense/start/"
+      ]
+    },
+    "s13": {
+      "title": "13. Dispositions relatives à la protection des données concernant l'application et l'utilisation de Google Analytics (avec fonction d'anonymisation)",
+      "body": [
+        "Nous utilisons Google Analytics (Google Ireland Limited). Nous utilisons le suffixe '_gat._anonymizeIp', qui raccourcit et anonymise votre adresse IP.",
+        "La personne concernée peut s'opposer à la collecte et au traitement des données par Google Analytics. Pour ce faire, un module complémentaire de navigateur doit être téléchargé et installé à partir du lien suivant : https://tools.google.com/dlpage/gaoptout",
+        "Plus d'informations : https://policies.google.com/privacy?hl=fr et https://marketingplatform.google.com/about/analytics/terms/fr/"
+      ]
+    },
+    "s14": {
+      "title": "14. Dispositions relatives à la protection des données concernant l'application et l'utilisation de Google AdWords",
+      "body": [
+        "Nous utilisons Google AdWords (Google Ireland Limited). Si une personne accède à notre site web via une annonce Google, un cookie de conversion est déposé (valable 30 jours, aucune identification personnelle) pour créer des statistiques de visite.",
+        "L'opposition à la publicité basée sur les centres d'intérêt est possible ici : https://myadcenter.google.com/"
+      ]
+    },
+    "s15": {
+      "title": "15. Dispositions relatives à la protection des données concernant l'application et l'utilisation d'Instagram",
+      "body": [
+        "Des composants d'Instagram (Facebook Ireland Ltd.) sont intégrés sur ce site web. Si vous êtes connecté à Instagram, la visite de notre page peut être attribuée à votre compte Instagram. Déconnectez-vous pour éviter cela.",
+        "Politique de confidentialité d'Instagram : https://help.instagram.com/155833707900388 et https://privacycenter.instagram.com/policy"
+      ]
+    },
+    "s16": {
+      "title": "16. Dispositions relatives à la protection des données concernant l'application et l'utilisation de LinkedIn",
+      "body": [
+        "Nous utilisons des composants de LinkedIn (LinkedIn Ireland, Wilton Place, Dublin 2, Irlande). À chaque accès, une représentation du composant est téléchargée et, pour les utilisateurs connectés, attribuée à leur compte LinkedIn.",
+        "LinkedIn offre la possibilité de se désabonner des publicités : https://www.linkedin.com/psettings/guest-controls. Politique relative aux cookies : https://fr.linkedin.com/legal/cookie-policy"
+      ]
+    },
+    "s17": {
+      "title": "17. Dispositions relatives à la protection des données concernant l'application et l'utilisation de YouTube",
+      "body": [
+        "Nous avons intégré des composants de YouTube (Google Ireland Limited). Lors de la visite d'une page contenant une vidéo YouTube, Google sait quelle page vous visitez, en particulier si vous êtes connecté à YouTube.",
+        "Politique de confidentialité de YouTube/Google : https://policies.google.com/privacy?hl=fr"
+      ]
+    },
+    "s18": {
+      "title": "18. Base juridique du traitement et transfert international de données",
+      "body": [
+        "Le traitement est basé sur l'art. 6(1)(a) du RGPD (Consentement), l'art. 6(1)(b) du RGPD (Exécution d'un contrat, par exemple, l'attribution du Land-Dollar), et l'art. 6(1)(c) du RGPD (Obligations légales).",
+        "Transfert international vers l'Équateur : Pour protéger la forêt amazonienne (province de Pastaza), des données d'identification sont transmises au registre foncier local et aux notaires en Équateur (sur la base de l'art. 49(1)(b) du RGPD).",
+        "Transfert de données vers des pays tiers (par exemple, États-Unis) : Effectué sur la base de Clauses Contractuelles Types (CCT) et du Cadre de Protection des Données UE-États-Unis (Décision d'adéquation)."
+      ]
+    },
+    "s19": {
+      "title": "19. Intérêts légitimes liés au traitement",
+      "body": [
+        "Lorsque le traitement des données personnelles est basé sur l'article 6(1)(f) du RGPD, notre intérêt légitime est de mener nos activités commerciales en faveur des objectifs du projet régénératif, de tous nos employés et de nos actionnaires."
+      ]
+    },
+    "s20": {
+      "title": "20. Durée de conservation",
+      "body": [
+        "Les données des utilisateurs/partenaires sont conservées pendant la durée de votre relation active avec le projet. Ensuite, le stockage est régi par les délais de conservation légaux. Une fois le délai expiré, les données sont supprimées, à condition qu'elles ne soient plus nécessaires à l'exécution du contrat."
+      ]
+    },
+    "s21": {
+      "title": "21. Exigences légales ou contractuelles / Protection des mineurs",
+      "body": [
+        "La fourniture de données personnelles est en partie requise par la loi (par exemple, réglementations fiscales) ou contractuellement nécessaire (pour la participation au projet) ; ne pas fournir ces données aurait pour conséquence de ne pas pouvoir conclure le contrat.",
+        "Protection des mineurs : Notre service ne s'adresse pas aux enfants de moins de 13 ans ; toute donnée collectée par inadvertance auprès de mineurs sera supprimée immédiatement."
+      ]
+    },
+    "s22": {
+      "title": "22. Existence d'une prise de décision automatisée",
+      "body": [
+        "En tant que projet responsable, nous n'utilisons pas de prise de décision automatisée (y compris le profilage) produisant des effets juridiques. Les métriques de gamification sur la plateforme servent à des fins purement interactives et non discriminatoires."
+      ]
+    },
+    "footer_note": "Dernière mise à jour : mai 2026. Cette politique de confidentialité a été élaborée (dans ses composantes juridiques de base) en utilisant les politiques de confidentialité de DGD Deutsche Gesellschaft für Datenschutz GmbH et adaptée aux exigences spécifiques du futur projet Reforestal eG."
   },
-  "s2": {
-    "title": "2. Nom et adresse du responsable du traitement",
-    "body": [
-      "Le responsable du traitement aux fins du Règlement Général sur la Protection des Données, d'autres lois sur la protection des données applicables dans les États membres de l'Union européenne et d'autres dispositions relatives à la protection des données est :",
-      "Peter Rosinski (future Reforestal eG)",
-      "Rotenbergstr. 27",
-      "66111 Sarrebruck, Allemagne",
-      "Email : peter@reforest.al | Tél. : +49 163 8736419",
-      "Site web : www.reforest.al"
-    ]
-  },
-  "s3": {
-    "title": "3. Cookies",
-    "body": [
-      "Les pages web utilisent des cookies (fichiers texte stockés via un navigateur Internet) pour fournir aux utilisateurs des services plus conviviaux. En particulier, nous utilisons des cookies nécessaires pour vous garder connecté et enregistrer vos préférences linguistiques.",
-      "La personne concernée peut, à tout moment, empêcher la configuration de cookies par notre site web au moyen d'un paramètre correspondant du navigateur Internet utilisé, et ainsi refuser définitivement la configuration de cookies. De plus, les cookies déjà configurés peuvent être supprimés à tout moment via un navigateur Internet."
-    ]
-  },
-  "s4": {
-    "title": "4. Collecte de données et d'informations générales (Infrastructure et fichiers journaux)",
-    "body": [
-      "Le site web collecte une série de données et d'informations générales à chaque appel, qui sont stockées dans les fichiers journaux du serveur (logfiles). Peuvent être collectés : (1) les types et versions de navigateurs utilisés, (2) le système d'exploitation, (3) le site web depuis lequel un système d'accès atteint notre site web (référents), (4) les sous-sites web, (5) la date et l'heure de l'accès, (6) une adresse de protocole Internet (adresse IP), (7) le fournisseur d'accès Internet, et (8) toute autre donnée similaire utilisée en cas d'attaques contre nos systèmes informatiques.",
-      "Durabilité et sécurité numériques : Notre site web est hébergé sur des serveurs VPS européens économes en énergie chez Hostinger (Green Hosting). Nous gérons les données critiques via Supabase à Francfort-sur-le-Main (région AWS eu-central-1) en utilisant des politiques de sécurité au niveau des lignes (RLS) pour garantir une souveraineté maximale des données."
-    ]
-  },
-  "s5": {
-    "title": "5. Inscription sur notre site web et Crowdfunding Startnext",
-    "body": [
-      "Vous pouvez vous inscrire en fournissant des données (nom, e-mail, identifiants cryptés). Pour la gestion du projet, nous pouvons également collecter votre adresse postale, votre date de naissance et votre nationalité.",
-      "Données provenant de sources externes (Startnext) : Lors de votre participation à notre crowdfunding, nous recevons votre nom, e-mail, le montant de la contribution et la récompense sélectionnée de la part de Startnext pour attribuer vos droits numériques ; nous ne traitons pas de données bancaires dans ce contexte.",
-      "Gamification et Google Wallet : Nous traitons les informations concernant votre progression, vos niveaux (tiers) et vos quêtes. Si vous ajoutez le 'Land Dollar' à Google Wallet, Google agit en tant que responsable du traitement indépendant."
-    ]
-  },
-  "s6": {
-    "title": "6. Abonnement à notre newsletter",
-    "body": [
-      "Nous proposons une newsletter qui nécessite une adresse e-mail valide et une inscription via la procédure de double opt-in. L'adresse IP, la date et l'heure de l'inscription sont stockées pour des raisons légales et pour la prévention des abus. L'abonnement peut être résilié à tout moment et le consentement peut être révoqué."
-    ]
-  },
-  "s7": {
-    "title": "7. Suivi de la newsletter (Tracking)",
-    "body": [
-      "Nos newsletters contiennent des pixels de suivi. Cela permet une analyse statistique du succès (par exemple, si et quand un e-mail a été ouvert ou si un lien a été cliqué). Nous utilisons ces données à des fins d'optimisation. La révocation est possible à tout moment en se désabonnant de la newsletter."
-    ]
-  },
-  "s8": {
-    "title": "8. Possibilité de contact via le site web",
-    "body": [
-      "Si une personne concernée contacte le responsable du traitement par e-mail ou via un formulaire de contact, les données personnelles transmises volontairement sont automatiquement stockées dans le but de traiter la demande ou de contacter la personne concernée."
-    ]
-  },
-  "s9": {
-    "title": "9. Effacement et verrouillage de routine des données personnelles",
-    "body": [
-      "Le responsable du traitement traite et stocke les données uniquement pendant la période nécessaire pour atteindre l'objectif du stockage. Si l'objectif n'est plus applicable, ou si une période de conservation légale expire, les données sont systématiquement verrouillées ou effacées.",
-      "Périodes spécifiques : Nous conservons les contributions financières conformément au droit fiscal allemand (HGB/AO) pendant 10 ans. Les journaux techniques sont automatiquement anonymisés après 30 jours."
-    ]
-  },
-  "s10": {
-    "title": "10. Droits de la personne concernée",
-    "body": [
-      "Pour exercer l'un des droits suivants, la personne concernée peut nous contacter (le responsable du traitement) à tout moment :"
-    ],
-    "list": [
-      "a) Droit de confirmation et d'accès (Art. 15 RGPD) : Disponible en tant que copie dans votre tableau de bord.",
-      "b) Droit de rectification (Art. 16 RGPD) : Modifiable dans votre Profil Genesis.",
-      "c) Droit à l'effacement / Droit à l'oubli (Art. 17 RGPD) : Par exemple, en supprimant le compte.",
-      "d) Droit à la limitation du traitement (Art. 18 RGPD) et à la portabilité des données (Art. 20 RGPD).",
-      "e) Droit d'opposition (Art. 21 RGPD) et de retrait du consentement (Art. 7(3) RGPD).",
-      "f) Droit de déposer une plainte : Vous avez également le droit de déposer une plainte auprès d'une autorité de contrôle de la protection des données (Art. 77 RGPD)."
-    ]
-  },
-  "s11": {
-    "title": "11. Dispositions relatives à la protection des données concernant l'application et l'utilisation de Facebook",
-    "body": [
-      "Nous avons intégré des composants de l'entreprise Facebook. La société d'exploitation pour les personnes en dehors des États-Unis est Facebook Ireland Ltd., 4 Grand Canal Square, Dublin 2, Irlande.",
-      "Si la personne concernée est connectée en même temps à Facebook, Facebook détecte quelle sous-page spécifique a été visitée. Si vous cliquez sur le bouton 'J'aime', par exemple, cette information est associée à votre compte Facebook. Pour l'éviter, vous devez vous déconnecter de votre compte Facebook avant votre visite.",
-      "Plus d'informations sur la politique d'utilisation des données de Facebook : https://fr-fr.facebook.com/about/privacy/"
-    ]
-  },
-  "s12": {
-    "title": "12. Dispositions relatives à la protection des données concernant l'application et l'utilisation de Google AdSense",
-    "body": [
-      "Google AdSense est intégré sur ce site web (Google Ireland Limited, Gordon House, Barrow Street, Dublin, Irlande).",
-      "Le service place des cookies et des pixels de suivi pour l'intégration d'annonces et l'évaluation basée sur les intérêts. Les données peuvent être transférées aux États-Unis. La configuration des cookies peut être empêchée dans le navigateur.",
-      "Explications supplémentaires : https://www.google.fr/intl/fr/adsense/start/"
-    ]
-  },
-  "s13": {
-    "title": "13. Dispositions relatives à la protection des données concernant l'application et l'utilisation de Google Analytics (avec fonction d'anonymisation)",
-    "body": [
-      "Nous utilisons Google Analytics (Google Ireland Limited). Nous utilisons le suffixe '_gat._anonymizeIp', qui raccourcit et anonymise votre adresse IP.",
-      "La personne concernée peut s'opposer à la collecte et au traitement des données par Google Analytics. Pour ce faire, un module complémentaire de navigateur doit être téléchargé et installé à partir du lien suivant : https://tools.google.com/dlpage/gaoptout",
-      "Plus d'informations : https://policies.google.com/privacy?hl=fr et https://marketingplatform.google.com/about/analytics/terms/fr/"
-    ]
-  },
-  "s14": {
-    "title": "14. Dispositions relatives à la protection des données concernant l'application et l'utilisation de Google AdWords",
-    "body": [
-      "Nous utilisons Google AdWords (Google Ireland Limited). Si une personne accède à notre site web via une annonce Google, un cookie de conversion est déposé (valable 30 jours, aucune identification personnelle) pour créer des statistiques de visite.",
-      "L'opposition à la publicité basée sur les centres d'intérêt est possible ici : https://myadcenter.google.com/"
-    ]
-  },
-  "s15": {
-    "title": "15. Dispositions relatives à la protection des données concernant l'application et l'utilisation d'Instagram",
-    "body": [
-      "Des composants d'Instagram (Facebook Ireland Ltd.) sont intégrés sur ce site web. Si vous êtes connecté à Instagram, la visite de notre page peut être attribuée à votre compte Instagram. Déconnectez-vous pour éviter cela.",
-      "Politique de confidentialité d'Instagram : https://help.instagram.com/155833707900388 et https://privacycenter.instagram.com/policy"
-    ]
-  },
-  "s16": {
-    "title": "16. Dispositions relatives à la protection des données concernant l'application et l'utilisation de LinkedIn",
-    "body": [
-      "Nous utilisons des composants de LinkedIn (LinkedIn Ireland, Wilton Place, Dublin 2, Irlande). À chaque accès, une représentation du composant est téléchargée et, pour les utilisateurs connectés, attribuée à leur compte LinkedIn.",
-      "LinkedIn offre la possibilité de se désabonner des publicités : https://www.linkedin.com/psettings/guest-controls. Politique relative aux cookies : https://fr.linkedin.com/legal/cookie-policy"
-    ]
-  },
-  "s17": {
-    "title": "17. Dispositions relatives à la protection des données concernant l'application et l'utilisation de YouTube",
-    "body": [
-      "Nous avons intégré des composants de YouTube (Google Ireland Limited). Lors de la visite d'une page contenant une vidéo YouTube, Google sait quelle page vous visitez, en particulier si vous êtes connecté à YouTube.",
-      "Politique de confidentialité de YouTube/Google : https://policies.google.com/privacy?hl=fr"
-    ]
-  },
-  "s18": {
-    "title": "18. Base juridique du traitement et transfert international de données",
-    "body": [
-      "Le traitement est basé sur l'art. 6(1)(a) du RGPD (Consentement), l'art. 6(1)(b) du RGPD (Exécution d'un contrat, par exemple, l'attribution du Land-Dollar), et l'art. 6(1)(c) du RGPD (Obligations légales).",
-      "Transfert international vers l'Équateur : Pour protéger la forêt amazonienne (province de Pastaza), des données d'identification sont transmises au registre foncier local et aux notaires en Équateur (sur la base de l'art. 49(1)(b) du RGPD).",
-      "Transfert de données vers des pays tiers (par exemple, États-Unis) : Effectué sur la base de Clauses Contractuelles Types (CCT) et du Cadre de Protection des Données UE-États-Unis (Décision d'adéquation)."
-    ]
-  },
-  "s19": {
-    "title": "19. Intérêts légitimes liés au traitement",
-    "body": [
-      "Lorsque le traitement des données personnelles est basé sur l'article 6(1)(f) du RGPD, notre intérêt légitime est de mener nos activités commerciales en faveur des objectifs du projet régénératif, de tous nos employés et de nos actionnaires."
-    ]
-  },
-  "s20": {
-    "title": "20. Durée de conservation",
-    "body": [
-      "Les données des utilisateurs/partenaires sont conservées pendant la durée de votre relation active avec le projet. Ensuite, le stockage est régi par les délais de conservation légaux. Une fois le délai expiré, les données sont supprimées, à condition qu'elles ne soient plus nécessaires à l'exécution du contrat."
-    ]
-  },
-  "s21": {
-    "title": "21. Exigences légales ou contractuelles / Protection des mineurs",
-    "body": [
-      "La fourniture de données personnelles est en partie requise par la loi (par exemple, réglementations fiscales) ou contractuellement nécessaire (pour la participation au projet) ; ne pas fournir ces données aurait pour conséquence de ne pas pouvoir conclure le contrat.",
-      "Protection des mineurs : Notre service ne s'adresse pas aux enfants de moins de 13 ans ; toute donnée collectée par inadvertance auprès de mineurs sera supprimée immédiatement."
-    ]
-  },
-  "s22": {
-    "title": "22. Existence d'une prise de décision automatisée",
-    "body": [
-      "En tant que projet responsable, nous n'utilisons pas de prise de décision automatisée (y compris le profilage) produisant des effets juridiques. Les métriques de gamification sur la plateforme servent à des fins purement interactives et non discriminatoires."
-    ]
-  },
-  "footer_note": "Dernière mise à jour : mai 2026. Cette politique de confidentialité a été élaborée (dans ses composantes juridiques de base) en utilisant les politiques de confidentialité de DGD Deutsche Gesellschaft für Datenschutz GmbH et adaptée aux exigences spécifiques du futur projet Reforestal eG."
-},
   "cookies": {
     "title": "Reforestal – Des miettes pour la protection du Climat (Politique relative aux cookies)",
     "subtitle": "Hé ! Pour nous assurer que vous, en tant qu'Aliado Guardián (Partenaire Gardien) en Amazonie, ayez une vue d'ensemble complète et que votre tableau de bord fonctionne sans problème, nous utilisons des cookies et des technologies similaires (comme le stockage local). Voici un bref aperçu de ce qui se passe sur votre appareil lorsque vous utilisez Reforestal.",
@@ -1724,20 +1756,88 @@
     "save_settings": "Enregistrer la sélection"
   },
   "impressum": {
-  "title": "Mentions Légales (Impressum)",
-  "platform_operator": "Opérateur de la plateforme",
-  "operator_name": "Peter Rosinski (agissant pour Reforestal eG)",
-  "address_street": "Rotenbergstr. 27",
-  "address_city": "66111 Sarrebruck",
-  "address_country": "Allemagne",
-  "management": "Comité de Direction : Peter Rosinski",
-  "content_responsible_title": "Responsable du contenu",
-  "content_responsible_name": "Peter Rosinski",
-  "project_note": "Les porteurs de projets respectifs sont responsables du contenu des pages de projet, joignables via leurs mentions légales ou par contact direct.",
-  "email": "E-mail : peter@reforest.al",
-  "phone": "Tél. : +49 163 8736419",
-  "further_notes_title": "Remarques complémentaires",
-  "social_media_text": "Ces mentions légales s'appliquent également à nos profils LinkedIn, Facebook, Threads et Instagram ainsi qu'à notre chaîne YouTube.",
-  "dispute_resolution": "Nous ne sommes ni disposés ni obligés de participer à des procédures de règlement des litiges devant un conseil d'arbitrage de consommation."
-}
+    "title": "Mentions Légales (Impressum)",
+    "platform_operator": "Opérateur de la plateforme",
+    "operator_name": "Peter Rosinski (agissant pour Reforestal eG)",
+    "address_street": "Rotenbergstr. 27",
+    "address_city": "66111 Sarrebruck",
+    "address_country": "Allemagne",
+    "management": "Comité de Direction : Peter Rosinski",
+    "content_responsible_title": "Responsable du contenu",
+    "content_responsible_name": "Peter Rosinski",
+    "project_note": "Les porteurs de projets respectifs sont responsables du contenu des pages de projet, joignables via leurs mentions légales ou par contact direct.",
+    "email": "E-mail : peter@reforest.al",
+    "phone": "Tél. : +49 163 8736419",
+    "further_notes_title": "Remarques complémentaires",
+    "social_media_text": "Ces mentions légales s'appliquent également à nos profils LinkedIn, Facebook, Threads et Instagram ainsi qu'à notre chaîne YouTube.",
+    "dispute_resolution": "Nous ne sommes ni disposés ni obligés de participer à des procédures de règlement des litiges devant un conseil d'arbitrage de consommation."
+  },
+  "pageDollar": {
+    "hero": {
+      "badge": "La Voie de la Régénération",
+      "welcome": "Comme c'est bien que tu aies découvert cette voie !",
+      "title": "Plus qu'une utopie : terra utopia",
+      "titleHighlight": "Toute grande transformation commence par une vision partagée.",
+      "subtitle": "terra utopia et Reforestal s’unissent pour régénérer l’Amazonie en Équateur. Ton don est le moteur de cette transformation. Avec ton soutien, nous passons à l’action : nous sécurisons la forêt mètre carré par mètre carré et assurons la prospérité des communautés locales.",
+      "descrip": "Avec ton soutien, chaque m² de forêt amazonienne devient un héritage de vie et de prospérité pour les générations futures."
+    },
+    "cta": {
+      "btnDonate": "Faites un don à terra utopia",
+      "btnVisit": "Visiter terra utopia",
+      "title": "Fais partie de l'Histoire.",
+      "subtitle": "Nous vous donnons les moyens d'agir. Rejoignez le mouvement et soutenez la préservation des forêts tropicales avec terra utopia et Reforestal, grâce à l'économie régénératrice et à l'agroforesterie. Protégez votre écosystème. Façonnez une nouvelle ère.",
+      "footer": "Chaque pas compte, et toi aussi tu peux faire partie de ce mouvement."
+    },
+    "history": {
+      "badges": "L'Origine",
+      "title": "Deux forces, un même rêve",
+      "terraTitle": "terra utopia",
+      "terraDesc": "Elle est née en Allemagne en tant qu'organisation à but non lucratif avec une mission profonde : reconnecter des personnes du monde entier à des partenaires communautaires en Amazonie équatorienne. Sa philosophie a toujours été de démontrer qu'un haut niveau de vie n'est pas nécessairement lié à la destruction de l'environnement ; il est possible de rassembler l'humanité dans un \"monde vert\" par l'éducation et la restauration collective.",
+      "reforestalTitle": "Reforestal",
+      "reforestalDesc": "Il a débuté en 2024 en tant qu’alliance bioculturelle. Les fondateurs ont compris que planter des arbres sous forme de simples dons ne suffisait pas pour régénérer l’Amazonie. Ils voulaient aller au-delà de la philanthropie et créer un modèle véritablement professionnel, alliant innovation technologique et sagesse millénaire.",
+      "allianceConclusion": "Aujourd’hui, terra utopia et Reforestal scellent une alliance pour l’avenir. terra utopia apporte son réseau mondial, tandis que Reforestal développe la plateforme d’impact. Ensemble, ils ne visent pas seulement à préserver l’écosystème, mais à le transformer en un moteur de développement durable."
+    },
+    "stepByStep": {
+      "title": "Construire l'Avenir, Pas à Pas",
+      "subtitle": "À travers cette histoire commune, nous avons bâti un système fondé sur les piliers suivants, qui donnent vie à notre projet :",
+      "step1Badge": "Étape 1 : Territoire",
+      "step1Title": "Régénération mesurable en m²",
+      "step1Desc": "L’histoire de la forêt ne se raconte pas par le nombre d’arbres plantés, mais par le territoire sécurisé. Nous ne plantons pas un arbre qui devient une simple donnée ; nous protégeons des écosystèmes entiers. Nous mesurons notre succès en garantissant des mètres carrés (m²) spécifiques de forêt amazonienne, assurant l’habitat depuis ses fondements.",
+      "step2Title": "Avantages et Bénéfices",
+      "step2Desc": "Nous avons décidé de changer le cours de l’histoire économique. En remplaçant l’ancienne logique extractive de la terre par un modèle régénératif, nous prouvons que l’éthique et la rentabilité peuvent coexister. Nous sommes profondément engagés dans la mission de rétablir la symbiose entre l’humanité et la nature. L’objectif est de créer une relation durable et véritablement compatible entre l’environnement, l’économie et la société.",
+      "step3Badge": "Étape 3 : Biodiversité",
+      "step3Title": "Cultures mixtes et chakra",
+      "step3Desc": "Nous refusons de planter une seule espèce. Le cœur productif de notre histoire bat grâce à la Chakra amazonienne. Bien plus qu’un simple système agricole, c’est un modèle ancestral de forêt productive où des espèces comme le cacao et la vanille poussent en symbiose, restaurant la fertilité des sols.",
+      "step4Badge": "Étape 4 : La Structure",
+      "step4Title": "Phase Initiale et Future Coopérative eG",
+      "step4Desc": "Nous sommes actuellement dans notre \"Phase Initiale\", en train de réunir le capital nécessaire pour établir la première Coopérative Allemande (eG) de ce type. Cela garantira une indépendance totale sous une régulation et une transparence strictes. Ceux qui nous soutiennent dès maintenant deviendront des \"Alliés Gardiens\", co-créateurs dès le premier jour.",
+      "step2Badge": "Étape 2 : Modèle économique"
+    },
+    "impact": {
+      "badge": "Impact systémique",
+      "title": "Tout le monde y gagne.",
+      "subtitle": "Dans cette nouvelle histoire, nous avons conçu un modèle où la viabilité du capital et la santé de l’écosystème sont indissociables. Chaque partie du tissu vivant en sort victorieuse.",
+      "climateTitle": "Climat",
+      "climateDesc": "Nous restaurons des puits de carbone vitaux en mettant en œuvre des mesures innovantes et concrètes contre le changement climatique.",
+      "humanityTitle": "Humanité",
+      "humanityDesc": "Nous guérissons la séparation entre les personnes et leur environnement. Nous transformons l’éco-anxiété en « éco-agence » : la capacité d’agir.",
+      "localDesc": "Nous assurons que la conservation génère la prospérité. Les familles de Napo obtiennent un revenu stable en devenant gardiennes du territoire.",
+      "membersTitle": "Membres de la Coopérative",
+      "membersDesc": "Ceux qui soutiennent le projet passent de spectateurs à copropriétaires. À l'AVENIR, ils bénéficieront d'une participation démocratique, de droits de vote dans les décisions stratégiques et d'un accès à des données transparentes.",
+      "floraTitle": "Flore, faune et champignons",
+      "floraDesc": "Nous ne créons pas de plantations, nous régénérons des foyers. La restauration des sols nourrit les réseaux de micro-organismes, redonnant son pouls à la forêt.",
+      "localTitle": "Population locale"
+    },
+    "metrics": {
+      "badge": "La Réalité du Terrain",
+      "title": "Potentiel de rendement",
+      "desc": "Cette vision n’est pas seulement une théorie romantique ; elle est déjà une réalité validée sur le terrain. Aux côtés des familles locales de Napo, en Équateur, nous avons mesuré les résultats de notre projet pilote de symbiose cacao-vanille, qui attestent de la validité de notre méthodologie.",
+      "val1": ">90%",
+      "label1": "Survie",
+      "val2": "125 cm",
+      "label2": "Croissance (8 m²)",
+      "val3": "100%",
+      "label3": "Autosuffisance hydrique"
+    }
+  }
 }

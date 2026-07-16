@@ -100,7 +100,19 @@
       "download_error": "Download-Fehler",
       "download_error_desc": "Bild konnte nicht generiert werden.",
       "copy_click": "Zum Kopieren klicken",
-      "link_ref_btn": "Link Ref"
+      "link_ref_btn": "Link Ref",
+      "modal_title": "Entdecke, wie Dein Land Dollar funktioniert.",
+      "modal_subtitle": "Der Land Dollar ist das Herzstück unseres Ökosystems. Hier erklären wir Dir, wie Dein neues digitales Asset funktioniert.",
+      "q1_title": "Was ist der Land-Dollar?\n\n(Anmerkung: Falls der Kontext eine spezifischere Übersetzung erfordert – z. B. als interne Währung oder wirtschaftliches Instrument der Genossenschaft – könnte auch **\"Was ist der LandDollar?\"** (ohne Leerzeichen) oder **\"Was ist der Land-Dollar (LD)?\"** passen, je nach Markenführung. Die Richtlinien sehen jedoch keine Abkürzungen vor, daher bleibt es bei der wörtlichen Übersetzung.)",
+      "q1_desc": "Es ein einzigartiger digitaler Vermögenswert, der Deinen Beitrag zur Sicherung von Quadratmetern Ökosystem im Amazonas darstellt.",
+      "q2_title": "Was repräsentiert es?\n\n(Anmerkung: Da der ursprüngliche Text keine spezifische Aussage enthält, die übersetzt werden müsste, sondern eine Frage stellt, wurde diese direkt ins Deutsche übertragen. Sollte ein konkreter Inhalt zur Übersetzung vorliegen, bitte diesen bereitstellen.)",
+      "q2_desc": "Stell die Anzahl der Quadratmeter (m²) Amazonas-Regenwald dar, die Du gesichert hast – und die ausschließlich Dir gehören.",
+      "q3_title": "Wofür dient der QR-Code?\n\n(Alternativ, falls präziser gewünscht:)\nWozu ist der QR-Code da?",
+      "q3_desc": "Dein Echtheitszertifikat. Scannst Du es, giltst Du als verifiziert unter Deinen Freunden, Verbündeten und Empfohlenen.",
+      "q4_title": "Und wie funktioniert Dein Empfehlungslink?\n\n(Anmerkung: Falls der Kontext eine spezifischere Übersetzung erfordert – z. B. wenn es um die technische Funktionsweise geht – könnte man auch präzisieren: *„Wie genau funktioniert Dein Empfehlungslink?“*)",
+      "q4_desc": "Dein Generalschlüssel, um andere in diese Mission einzuladen. Teile Deinen einzigartigen Link, und jeder neue Verbündete, der sich über ihn anschließt, stärkt den Wald und Euren gemeinsamen Impact.",
+      "button_info": "Schließen",
+      "button_quest": "Was ist der Land Dollar?\n\n(Anmerkung: Da der Begriff \"Land Dollar\" ein spezifischer Marken- oder Konzeptname von Reforestal ist, wurde er nicht übersetzt, um die Markenkonsistenz zu wahren. Falls es sich um einen feststehenden Begriff handelt, sollte er wie \"Points\" behandelt und nicht übersetzt werden.)"
     },
     "impact_credits_snx": {
       "title": "Startnext Bonuspunkte",
@@ -196,25 +208,46 @@
       "days_remaining_end": "Tage Zugriff.",
       "expires_on": "Läuft ab am {{date}}.",
       "expired_message": "Ihr Premium-Zugang ist abgelaufen."
-  }
+    },
+    "vision": {
+      "step4_desc": "Hast Du auf Startnext unterstützt? Klicke auf diese Karte und fülle ein kurzes Formular aus. Wir geben Dir Zugang zu exklusiven Missionen und Premium-Status!",
+      "button": "Schließen",
+      "pop_up_title1": "Unsere Mission – Garantierter Schutz Deiner Quadratmeter",
+      "pop_up_desc1": "Regeneration als Motor der Entwicklung. Wir setzen auf ein lebendiges Amazonien, in dem die Wiederherstellung von Ökosystemen gemeinsamen Wohlstand schafft. Wir ersetzen die extraktive Logik durch ein Modell, das den Lebensunterhalt der Landwirt:innen sichert und jedem Verbündeten und Hüter der Genossenschaft eine sinnstiftende Rendite bietet.",
+      "pop_up_otherTitle1": "Vom Öko-Angstgefühl zur Öko-Handlungsmacht.",
+      "pop_up_otherDesc1": "Wir verwandeln Lähmung in messbare Ergebnisse. Wir bieten Dir die Fähigkeit zu handeln, Dich durch die Bewahrung konkreter m² Amazonas-Regenwald als Hüterpartner zu engagieren: ein lebendiges Bekenntnis zur Biosphäre, das Deine eigene wirtschaftliche Sicherheit aufbaut.",
+      "pop_up_title2": "Deutsche Genossenschaft (eG)",
+      "pop_up_desc2": "Um Transparenz und Sicherheit Deiner Beteiligung zu gewährleisten, gründen wir eine deutsche Genossenschaft (eG). Diese Rechtsform ermöglicht es uns, nach demokratischen Prinzipien zu handeln – jedes Mitglied hat Stimme und Stimmrecht. Deine Unterstützung auf Startnext ist entscheidend, um diese Genossenschaft zu etablieren. Sie wird das Instrument sein, mit dem wir den Schutz der m² Amazonas-Regenwald verwalten und die Erträge gerecht unter allen Mitgliedern verteilen.",
+      "pop_up_title3": "Erkunde und Simuliere",
+      "pop_up_desc3": "So nutzt Du unseren interaktiven Simulator, um die Beitragsstufen auf Startnext zu verstehen. Gib verschiedene Beträge ein und sieh, wie sie sich in Impact-Ebenen und exklusive Vorteile übersetzen. Jede Stufe schaltet einzigartige Belohnungen frei – von Zugang zu Sondermissionen bis zur Anerkennung als Gründungsmitglied. Probiere den Simulator aus und entdecke Dein Impact-Potenzial!",
+      "title": "Wie Reforestal und Startnext funktionieren\n\nBei Reforestal kaufst Du keine Bäume – Du sicherst Quadratmeter Ökosystem. Jeder gesicherte Quadratmeter wird Teil eines globalen Netzwerks regenerativer Wirtschaft, das langfristige Erträge generiert. Deine Investition ist keine Spende, sondern eine Beteiligung an einem neuen wirtschaftlichen Modell, das Ökologie und Profit vereint.\n\nStartnext ist unsere Partnerplattform für Crowdfunding. Hier kannst Du direkt in Reforestal-Projekte investieren und im Gegenzug Punkte erhalten – unsere Bonuswährung. Diese Punkte sind kein Almosen, sondern ein messbarer Gegenwert für Deine Teilnahme an der regenerativen Wirtschaft. Sie können gegen exklusive Vorteile, Dienstleistungen oder zukünftige Erträge eingetauscht werden.\n\nWir handeln nicht aus Mitleid, sondern aus wirtschaftlicher Vernunft. Jeder Quadratmeter, den Du sicherst, trägt zur Stabilität des Systems bei – und damit zu Deinem eigenen Vorteil.",
+      "subtitle": "Verstehe Schritt für Schritt unsere Mission, wie Du uns auf Startnext unterstützen kannst und wie Du Deine exklusiven Vorteile auf dieser Plattform beanspruchst.",
+      "step1_title": "Unsere Mission",
+      "step1_desc": "Wir sichern dauerhaft Quadratmeter (m²) des Amazonas – nicht nur, um Ökosysteme zu schaffen, sondern um Biodiversität zu garantieren.",
+      "step2_title": "Deutsche Genossenschaft (eG)",
+      "step2_desc": "Um dies transparent und sicher zu gestalten, gründen wir eine deutsche Genossenschaft (eG). Unser Projekt auf Startnext sammelt die Startkapital, um dies Wirklichkeit werden zu lassen.",
+      "step3_title": "3. Erkunde und Simuliere",
+      "step3_desc": "Nutze unseren interaktiven Simulator weiter unten, um die Startnext-Pläne zu sehen. Klicke auf das Projektfoto, um die Vorteile der gesamten Kampagne im Detail zu lesen.",
+      "step4_title": "Fordere Deinen Premium-Zugang an."
+    }
   },
   "admin": {
     "title": "Admin-Panel",
     "communityy": "Gründerbereich",
     "community": {
-    "title": "Community-Management",
-    "subtitle": "Gamifizierte Governance, Neuigkeiten und Roadmap für Pioniere verwalten.",
-    "live_dashboard": "Live-Ergebnisübersicht",
-    "table_title": "Titel",
-    "table_status": "Status / Details",
-    "table_image": "Bild",
-    "table_actions": "Aktionen",
-    "add_new": "Neu hinzufügen",
-    "edit_item": "Element bearbeiten",
-    "create_item": "Element erstellen",
-    "manage_translations": "Übersetzungen verwalten",
-    "voting_history": "Abstimmungsverlauf",
-    "no_items": "Keine Elemente gefunden."
+      "title": "Community-Management",
+      "subtitle": "Gamifizierte Governance, Neuigkeiten und Roadmap für Pioniere verwalten.",
+      "live_dashboard": "Live-Ergebnisübersicht",
+      "table_title": "Titel",
+      "table_status": "Status / Details",
+      "table_image": "Bild",
+      "table_actions": "Aktionen",
+      "add_new": "Neu hinzufügen",
+      "edit_item": "Element bearbeiten",
+      "create_item": "Element erstellen",
+      "manage_translations": "Übersetzungen verwalten",
+      "voting_history": "Abstimmungsverlauf",
+      "no_items": "Keine Elemente gefunden."
     },
     "mlm": "Empfehlungen (MLM)",
     "quest_moderation": "Missions-Engine",
@@ -554,8 +587,8 @@
     "analyzing_answers": "Ergebnisse werden geprüft...",
     "onboarding_label": "Erste Mission",
     "finish_quest": "Mission beginnen",
-    "profile_unlocked": "Profil Freigeschaltet", 
-    "profiles.genesis": { 
+    "profile_unlocked": "Profil Freigeschaltet",
+    "profiles.genesis": {
       "lena": {
         "title": "Verifizierter Impact-Partner",
         "description": "Nachhaltigkeit und langfristiger Naturschutz treiben Sie an. Sie glauben an die Kraft der Natur."
@@ -638,9 +671,9 @@
     "invite_desc": "Schließe die Mission ab und finde heraus, wie deine Interessen mit unseren Projekten übereinstimmen.",
     "start_quest": "Mission starten",
     "profiles": {
-    "lena": "Ökologie",
-    "markus": "Struktur",
-    "david": "Gemeinschaft"
+      "lena": "Ökologie",
+      "markus": "Struktur",
+      "david": "Gemeinschaft"
     }
   },
   "quest": {
@@ -872,16 +905,16 @@
       "vote_thanks": "Danke für deine Teilnahme."
     },
     "budget_vote": {
-    "average_allocation": "Durchschnittliche Zuteilung an die Community",
-    "allocate_points": "Punkte zuweisen",
-    "pts_left": "Verbleibende Punkte",
-    "confirm_allocation": "Zuteilung bestätigen"
+      "average_allocation": "Durchschnittliche Zuteilung an die Community",
+      "allocate_points": "Punkte zuweisen",
+      "pts_left": "Verbleibende Punkte",
+      "confirm_allocation": "Zuteilung bestätigen"
     },
     "discussion": {
-    "title": "Gründerdiskussion",
-    "placeholder": "Teile deine Perspektive mit anderen Gründern...",
-    "post_btn": "Beitrag verfassen",
-    "first_to_share": "Sei der Erste, der seine Meinung teilt."
+      "title": "Gründerdiskussion",
+      "placeholder": "Teile deine Perspektive mit anderen Gründern...",
+      "post_btn": "Beitrag verfassen",
+      "first_to_share": "Sei der Erste, der seine Meinung teilt."
     },
     "live_activity": {
       "title": "Live-Aktivität",
@@ -1054,7 +1087,7 @@
     "admin_new_action": {
       "title": "Neue Admin-Aktion",
       "message": "Der Benutzer {{userName}} hat folgende Aktion durchgeführt: {{action}}."
-    } ,
+    },
     "snx_approved": {
       "title": "¡Konto aktiviert!",
       "message": "Ihr Konto wurde verifiziert. Sie haben Stufe {{level}} erreicht."
@@ -1078,7 +1111,7 @@
     "premium_unlocked": {
       "title": "Premium-Zugang freigeschaltet",
       "message": "Du hast {{months}} Monate Premium-Zugang und {{points}} Bonuspunkte dank deines Freundes erhalten."
-  }
+    }
   },
   "contact": {
     "title": "Kontaktieren Sie uns",
@@ -1101,37 +1134,37 @@
     "success_desc": "Wir melden uns in Kürze bei Ihnen."
   },
   "startnext_modal": {
-  "title": "Ich habe bereits auf Startnext unterstützt",
-  "description": "Bitte gib deine Beitragsdetails an, damit wir dein Konto überprüfen und aktualisieren können.",
-  "labels": {
-    "name": "Name",
-    "email": "E-Mail",
-    "amount": "Beitragshöhe (€)",
-    "city": "Stadt (Optional)",
-    "country": "Land (Optional)",
-    "message": "Nachricht (Optional)"
+    "title": "Ich habe bereits auf Startnext unterstützt",
+    "description": "Bitte gib deine Beitragsdetails an, damit wir dein Konto überprüfen und aktualisieren können.",
+    "labels": {
+      "name": "Name",
+      "email": "E-Mail",
+      "amount": "Beitragshöhe (€)",
+      "city": "Stadt (Optional)",
+      "country": "Land (Optional)",
+      "message": "Nachricht (Optional)"
+    },
+    "placeholders": {
+      "city": "z.B. Berlin",
+      "country": "z.B. Deutschland",
+      "message": "Zusätzliche Details..."
+    },
+    "buttons": {
+      "cancel": "Abbrechen",
+      "submit": "Zur Überprüfung senden",
+      "close": "Schließen"
+    },
+    "success": {
+      "title": "Anfrage gesendet!",
+      "message": "Danke! Deine Informationen wurden gesendet. Wir werden dein Explorer-Konto in Kürze aktivieren."
+    },
+    "errors": {
+      "invalid_amount_title": "Ungültiger Betrag",
+      "invalid_amount_desc": "Bitte gib einen gültigen Betrag ein.",
+      "submit_error": "Registrierung konnte nicht gesendet werden. Bitte versuche es erneut."
+    }
   },
-  "placeholders": {
-    "city": "z.B. Berlin",
-    "country": "z.B. Deutschland",
-    "message": "Zusätzliche Details..."
-  },
-  "buttons": {
-    "cancel": "Abbrechen",
-    "submit": "Zur Überprüfung senden",
-    "close": "Schließen"
-  },
-  "success": {
-    "title": "Anfrage gesendet!",
-    "message": "Danke! Deine Informationen wurden gesendet. Wir werden dein Explorer-Konto in Kürze aktivieren."
-  },
-  "errors": {
-    "invalid_amount_title": "Ungültiger Betrag",
-    "invalid_amount_desc": "Bitte gib einen gültigen Betrag ein.",
-    "submit_error": "Registrierung konnte nicht gesendet werden. Bitte versuche es erneut."
-  }
-},
-"footer": {
+  "footer": {
     "privacy": "Datenschutz",
     "terms": "AGB",
     "cookies": "Cookie-Richtlinie",
@@ -1143,11 +1176,11 @@
     }
   },
   "rewards": {
-  "bonus_points": "Bonuspunkte",
-  "bonus_points_short": "BP",
-  "reputation": "Ruf",
-  "referral_bonus": "Empfehlungs-Bonuspunkte"
-},
+    "bonus_points": "Bonuspunkte",
+    "bonus_points_short": "BP",
+    "reputation": "Ruf",
+    "referral_bonus": "Empfehlungs-Bonuspunkte"
+  },
   "mission": {
     "open_instagram": "In Instagram öffnen",
     "view_instagram": "In Instagram ansehen",
@@ -1178,7 +1211,7 @@
     "already_completed_desc": "Du hast die Belohnungen für diese Mission bereits erhalten.",
     "return_btn": "Zurück zu den Missionen",
     "penalty_applied_credits": "Strafe angewendet: -{{amount}} BP.",
-    "referral_bonus":"Dein Referent",
+    "referral_bonus": "Dein Referent",
     "restart_title": "Mission neu starten",
     "restart_warning": "Bist du sicher, dass du diese Mission neu starten möchtest? Alle Fortschritte und Belohnungen werden verloren gehen.",
     "restart_btn": "Mission neu starten",
@@ -1348,7 +1381,6 @@
     "faq_a4": "Unser Erfolgsmaßstab ist nicht das Zählen einzelner Bäume, die später gefällt werden könnten. Stattdessen messen wir die Gesamtausdehnung des sich regenerierenden Ökosystems, was extern validiert wird.",
     "faq_q5": "Was ist der Land-Dollar?",
     "faq_a5": "Es ist das digitale Symbol unserer regenerativen Wirtschaft und Ihr Zugangsschlüssel zu unserer Co-Creation-Plattform. Es ist die digitale Brücke, die es Ihnen ermöglicht, an Entscheidungen teilzunehmen.",
-    
     "pioneers_badge": "Limitierte Auflage",
     "pioneers_title": "Die 10 Gründungspioniere",
     "pioneers_text1": "Mit den Mitteln unserer Startnext-Kampagne werden wir die rechtlichen Grundlagen für die Gründung der Genossenschaft legen. Wir verschenken lieber Beteiligungen, als Werbung zu kaufen.",
@@ -1425,7 +1457,7 @@
     },
     "contact": {
       "title": "Kontaktinformationen und Impressum",
-      "company": "",
+      "company": "KRITISCHE MARKENRICHTLINIEN (Basierend auf den Reforestal Kommunikationsrichtlinien):\n\n1. TON: „Nahbar, aber staatsmännisch“ – warm und direkt, mit der unerschütterlichen Autorität und Präzision einer Zentralbank. Wir bitten NICHT um Spenden. Wir bieten eine solide Teilhabe an einer neuen Ära.\n\n2. KEINE WOHLTÄTIGKEITS-BEGRIFFE: NIEMALS Wörter wie „helfen“, „die Welt retten“, „Rettung“ oder „Gutes tun“ verwenden. Wir handeln aus einer Position der Stärke und ökonomischen Vernunft.\n\n3. KEINE BÄUME, NUR m²: NIEMALS von „Bäume pflanzen“ oder „Setzlingen“ sprechen. Wir schaffen und sichern „Quadratmeter (m²)“ Ökosystem. Ein Baum kann sterben – ein Quadratmeter bleibt bestehen.\n\n4. KEINE RENATURIERUNG: Wir „schützen“ NICHT den Regenwald oder „renaturieren“. Wir betreiben „regenerative Wirtschaft“ und „Agroforstwirtschaft“.\n\n5. DIE „PUNKTE“-REGEL: Unsere Bonuswährung heißt strikt „Punkte“ (Punkte auf DE, Points auf EN/FR, Puntos auf ES). NIEMALS „Credits“, „Coins“, „Tokens“ oder „Impact-Währung“ verwenden.\n\n6. SPRACHLICHE FEINHEITEN:\n   - Im Deutschen (de) IMMER das großgeschriebene informelle „Du“ (Du, Dein, Dir, Euch) nutzen.\n   - Im Französischen (fr) das informelle „tu/ton“ verwenden.\n   - Im Englischen (en) einen hochwertigen, autoritativen, aber einladenden Ton beibehalten.\n   - Im Spanischen (es) einen zugänglichen, aber höchst professionellen Ton wählen (tú, tuyo).",
       "board": "Peter Rosinski",
       "address": "Sitz: Rotenbergstr. 27, 66111 Saarbrücken, Deutschland",
       "email": "E-Mail: peter@reforest.al",
@@ -1724,20 +1756,87 @@
     "save_settings": "Auswahl speichern"
   },
   "impressum": {
-  "title": "Impressum",
-  "platform_operator": "Betreiber der Plattform",
-  "operator_name": "Peter Rosinski (handelnd für Reforestal eG)",
-  "address_street": "Rotenbergstr. 27",
-  "address_city": "66111 Saarbrücken",
-  "address_country": "Deutschland",
-  "management": "Vorstand: Peter Rosinski",
-  "content_responsible_title": "Inhaltlich Verantwortlich",
-  "content_responsible_name": "Peter Rosinski",
-  "project_note": "Inhaltlich verantwortlich für die Inhalte von Projektseiten sind die jeweiligen Projekteinhaber:innen, erreichbar über deren Impressum oder direkten Kontakt.",
-  "email": "E-Mail: peter@reforest.al",
-  "phone": "Tel.: +49 163 8736419",
-  "further_notes_title": "Weitere Hinweise",
-  "social_media_text": "Dieses Impressum gilt auch für unser LinkedIn-, Facebook-, Threads- und Instagram-Profil sowie für unseren Kanal auf YouTube.",
-  "dispute_resolution": "Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."
-}
+    "title": "Impressum",
+    "platform_operator": "Betreiber der Plattform",
+    "operator_name": "Peter Rosinski (handelnd für Reforestal eG)",
+    "address_street": "Rotenbergstr. 27",
+    "address_city": "66111 Saarbrücken",
+    "address_country": "Deutschland",
+    "management": "Vorstand: Peter Rosinski",
+    "content_responsible_title": "Inhaltlich Verantwortlich",
+    "content_responsible_name": "Peter Rosinski",
+    "project_note": "Inhaltlich verantwortlich für die Inhalte von Projektseiten sind die jeweiligen Projekteinhaber:innen, erreichbar über deren Impressum oder direkten Kontakt.",
+    "email": "E-Mail: peter@reforest.al",
+    "phone": "Tel.: +49 163 8736419",
+    "further_notes_title": "Weitere Hinweise",
+    "social_media_text": "Dieses Impressum gilt auch für unser LinkedIn-, Facebook-, Threads- und Instagram-Profil sowie für unseren Kanal auf YouTube.",
+    "dispute_resolution": "Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."
+  },
+  "pageDollar": {
+    "hero": {
+      "badge": "Der Weg der Regeneration",
+      "welcome": "Wie schön, dass Du diesen Weg entdeckt hast!",
+      "title": "Mehr als eine Utopie:",
+      "titleHighlight": "Jede große Transformation beginnt mit einer gemeinsamen Vision.",
+      "subtitle": "terra utopia und Reforestal schließen sich zusammen, um das Amazonasgebiet in Ecuador zu regenerieren. Deine Teilnahme ist der Antrieb dieser Transformation. Mit Deiner Beteiligung gehen wir in die Umsetzung: Wir sichern das Ökosystem m² für m² und gewährleisten den Wohlstand der lokalen Gemeinschaften.",
+      "descrip": "Mit Deiner Unterstützung wird jeder m² Amazonas-Regenwald zu einem Vermächtnis aus Leben und Wohlstand für kommende Generationen."
+    },
+    "cta": {
+      "btnDonate": "Spenden an terra utopia",
+      "btnVisit": "Besuche terra utopia",
+      "title": "Werde Teil der Geschichte",
+      "subtitle": "Dir wird die Macht zu handeln geboten. Schließe Dich der Bewegung an und unterstütze die Sicherung des Regenwalds mit terra utopia und Reforestal – durch regenerative Wirtschaft und Agroforstwirtschaft. Sichere Dein Ökosystem. Gestalte eine neue Ära.",
+      "footer": "Jeder Schritt zählt, und Du kannst ebenfalls Teil dieser Bewegung sein."
+    },
+    "history": {
+      "badges": "Die Herkunft",
+      "title": "Zwei Kräfte, Ein Traum",
+      "terraTitle": "terra utopia",
+      "terraDesc": "Entstand in Deutschland als gemeinnützige Organisation mit einem tiefgreifenden Ziel: Menschen weltweit mit Gemeinschaftspartnern im ecuadorianischen Amazonas zu verbinden. Die Philosophie war stets, zu beweisen, dass ein hoher Lebensstandard nicht mit der Zerstörung der Umwelt einhergehen muss. Es ist möglich, die Menschheit in einer „grünen Welt“ zu vereinen – durch Bildung und kollektive Regeneration.",
+      "reforestalTitle": "Reforestal",
+      "reforestalDesc": "2024 begann es als biokulturelles Bündnis. Die Gründer erkannten, dass das Pflanzen von Bäumen als bloße Spenden nicht ausreicht, um das Amazonasgebiet zu sichern. Sie wollten über die Philanthropie hinausgehen und ein wirklich professionelles Modell schaffen – eine Verbindung aus technologischer Innovation und jahrtausendealter Weisheit.",
+      "allianceConclusion": "Heute schmieden terra utopia und Reforestal ein Bündnis für die Zukunft. terra utopia bringt sein globales Netzwerk ein, während Reforestal die Impact-Plattform entwickelt. Gemeinsam wollen sie nicht nur das Ökosystem sichern, sondern es in einen nachhaltigen Entwicklungsmotor verwandeln."
+    },
+    "stepByStep": {
+      "title": "Dein Zukunft entsteht – Quadratmeter für Quadratmeter.",
+      "subtitle": "Durch diese gemeinsame Geschichte haben wir ein System aufgebaut, das auf folgenden Säulen beruht – den Grundpfeilern unseres Projekts:",
+      "step1Badge": "Schritt 1: Territorium",
+      "step1Title": "Messbare m²-Regeneration",
+      "step1Desc": "Die Geschichte des Regenwalds erzählt man nicht nach der Anzahl gepflanzter Bäume, sondern nach dem gesicherten Territorium. Wir pflanzen keinen Baum, der zu einer bloßen Zahl wird; wir schützen vollständige Ökosysteme. Unseren Erfolg messen wir daran, konkrete Quadratmeter (m²) des Amazonas-Regenwalds zu sichern – und den Lebensraum von Grund auf zu garantieren.",
+      "step2Badge": "Schritt 2: Wirtschaftsmodell",
+      "step2Title": "Vorteile und Erträge",
+      "step2Desc": "Wir haben beschlossen, den Lauf der Wirtschaftsgeschichte zu ändern. Indem wir die alte extraktive Logik des Bodens durch ein regeneratives Modell ersetzen, beweisen wir, dass Ethik und Rentabilität koexistieren können. Wir sind tief der Mission verpflichtet, die Symbiose zwischen Menschheit und Natur wiederherzustellen. Das Ziel ist es, eine nachhaltige und wahrhaft kompatible Beziehung zwischen Umwelt, Wirtschaft und Gesellschaft zu schaffen.",
+      "step3Badge": "Schritt 3: Biodiversität",
+      "step3Title": "Gemischte Anbauflächen und Chakra",
+      "step3Desc": "Wir pflanzen keine einzige Art an. Das produktive Herz unserer Geschichte schlägt dank der amazonischen Chakra. Mehr als ein simples Agrarsystem ist sie ein uraltes Design des produktiven Waldes, in dem Arten wie Kakao und Vanille in Symbiose wachsen und die Bodenfruchtbarkeit wiederherstellen.",
+      "step4Badge": "Schritt 4: Die Struktur",
+      "step4Title": "Anfangsphase und zukünftige Genossenschaft eG",
+      "step4Desc": "Derzeit befinden wir uns in unserer „Anfangsphase“ und sammeln das Kapital, um die erste deutsche Genossenschaft (eG) dieser Art zu gründen. Dies gewährleistet vollständige Unabhängigkeit unter strenger Regulierung und Transparenz. Wer uns jetzt unterstützt, wird zu einem „Gründungsverbündeten“ und ist von Anfang an Mitgestalter."
+    },
+    "impact": {
+      "badge": "Systemische Wirkung",
+      "title": "Alle gewinnen",
+      "subtitle": "In dieser neuen Geschichte haben wir ein Modell entworfen, in dem die Rentabilität des Kapitals und die Gesundheit des Ökosystems untrennbar sind. Jeder Teil des lebendigen Gefüges geht als Sieger hervor.",
+      "climateTitle": "Klima",
+      "climateDesc": "Wir stellen lebenswichtige CO₂-Speicher wieder her – mit innovativen und realen Maßnahmen gegen den Klimawandel.",
+      "humanityTitle": "Menschheit",
+      "humanityDesc": "Wir heilen die Trennung zwischen Dir und Deiner Umgebung. Wir verwandeln Öko-Angst in „Öko-Agentur“: die Fähigkeit zu handeln.",
+      "localTitle": "Lokale Bevölkerung",
+      "localDesc": "Wir sichern, dass Erhalt Wohlstand schafft. Die Familien in Napo erzielen ein sicheres Einkommen, indem sie zu Hütern des Gebiets werden.",
+      "membersTitle": "Mitglieder der Genossenschaft",
+      "membersDesc": "Wer das Projekt unterstützt, wechselt vom Zuschauer zum Miteigentümer. IN ZUKUNFT wirst Du demokratische Mitwirkung, Stimmrechte bei strategischen Entscheidungen und Zugang zu transparenten Daten genießen.",
+      "floraTitle": "Flora, Fauna und Pilze",
+      "floraDesc": "Wir legen keine Plantagen an, wir regenerieren Lebensräume. Die Sanierung des Bodens nährt die Netzwerke der Mikroorganismen und gibt dem Regenwald seinen Puls zurück."
+    },
+    "metrics": {
+      "badge": "Die Feldrealität",
+      "title": "Ertragspotenzial",
+      "val1": ">90%",
+      "label1": "Überleben",
+      "val2": "125 cm",
+      "label2": "Wachstum (8 m)",
+      "val3": "100%",
+      "label3": "Wasserselbstversorgung"
+    }
+  }
 }

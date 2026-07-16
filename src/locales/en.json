@@ -100,7 +100,19 @@
       "download_error": "Download Error",
       "download_error_desc": "Could not generate image.",
       "copy_click": "Click to Copy Link",
-      "link_ref_btn": "Link Ref"
+      "link_ref_btn": "Link Ref",
+      "modal_title": "Discover how your Land Dollar works.",
+      "modal_subtitle": "The Land Dollar is the core of our ecosystem. Here’s how your new digital asset works.",
+      "q1_title": "What is the Land Dollar?",
+      "q1_desc": "It is a unique digital asset representing your contribution to securing square meters of the Amazon ecosystem.",
+      "q2_title": "What does it stand for?",
+      "q2_desc": "Here’s the translated text:\n\n**Represents the number of square meters (m²) of Amazon rainforest you have secured—exclusively for your use.**",
+      "q3_title": "What is the QR code for?\n\n(Alternative, depending on context: *How does the QR code work?*)",
+      "q3_desc": "Your mark of authenticity. When scanned, that person is verified as one of your trusted friends, allies, and referrals.",
+      "q4_title": "And how does the Referral Link work?",
+      "q4_desc": "Here’s your translated text:\n\nYour master key to invite others to join this mission. Share your unique link, and every new ally who joins through it will strengthen the forest and your collective impact.",
+      "button_info": "Close",
+      "button_quest": "What is the Land Dollar?"
     },
     "impact_credits_snx": {
       "title": "Startnext Bonus Points",
@@ -196,26 +208,47 @@
       "days_remaining_end": "days of access.",
       "expires_on": "Expires on {{date}}.",
       "expired_message": "Your Premium access has expired."
+    },
+    "vision": {
+      "title": "How Reforestal Works with Startnext\n\nReforestal operates as a regenerative economic cooperative, transforming every square meter of ecosystem into a tangible asset. Here’s how our collaboration with Startnext creates real, lasting value:\n\n1. **Secure Your Square Meters**\n   Through Startnext, you acquire m² of agroforestry land—each one a verified, enduring unit of ecosystem regeneration. No trees, no temporary fixes: just measurable, permanent impact.\n\n2. **Earn Points, Not Promises**\n   For every m² you secure, you receive Points—our exclusive bonus currency. These are not credits, tokens, or vague \"impact units.\" They represent your stake in a regenerative economy, with real economic weight.\n\n3. **Regenerate, Don’t Just Preserve**\n   We don’t \"save\" or \"renature.\" We regenerate. Your m² become part of a self-sustaining agroforestry system, generating value for decades—ecologically, economically, and for you.\n\n4. **Transparent, Unshakable Authority**\n   Like a central bank, we guarantee precision. Every m² is tracked, every Point accounted for. No guesswork, no charity rhetoric—just a clear, auditable system where your participation drives tangible change.\n\n5. **Your Role in the New Era**\n   This isn’t about donations. It’s about ownership. By securing m² through Startnext, you’re not just supporting regeneration—you’re part of it. A new economic model, built on strength, not sentiment.\n\nWelcome to the future of regenerative economy. Your m² await.",
+      "subtitle": "Understand our mission step by step, how you can support us on Startnext, and how to claim your exclusive benefits on the platform.",
+      "step1_title": "Our Mission",
+      "step2_title": "German Cooperative (eG)",
+      "step2_desc": "To ensure full transparency and security, we will establish a German Cooperative (eG). Our project on Startnext aims to raise the initial capital to make this a reality.",
+      "step3_title": "3. Explore and Simulate",
+      "step3_desc": "Use our interactive simulator below to explore the Startnext plans. Click on the project image to read the full campaign benefits in detail.",
+      "step4_title": "Claim Your Premium Access",
+      "step4_desc": "Did you back us on Startnext? Click this card and fill out a quick form. We’ll grant you access to exclusive missions and Premium status!",
+      "button": "Close",
+      "pop_up_title1": "Our Mission – Guaranteed Protection",
+      "pop_up_desc1": "Regeneration as an engine for development. We champion a living Amazon where reforestation drives shared prosperity. We replace the extractive logic with a model that ensures farmers' livelihoods and a purpose-driven return for every guardian ally of the cooperative.",
+      "pop_up_otherTitle1": "From Eco-Anxiety to Eco-Agency.",
+      "pop_up_otherDesc1": "We turn paralysis into measurable results. We offer you the power to act, to become a guardian ally by securing specific square meters of the Amazon rainforest: a living commitment to the biosphere that builds your own economic security.",
+      "pop_up_title2": "German Cooperative (eG)",
+      "pop_up_desc2": "To ensure transparency and security for your contribution, we will establish a German Cooperative (eG). This legal structure allows us to operate on democratic principles, where every member has a voice and a vote. Your support on Startnext is essential to founding this cooperative, which will serve as the vehicle through which we manage the protection of square meters of the Amazon rainforest and distribute benefits fairly among all members.",
+      "pop_up_title3": "Explore and Simulate",
+      "pop_up_desc3": "Use our interactive simulator to explore contribution levels on Startnext. Enter different amounts to see how they translate into impact tiers and exclusive benefits. Each level unlocks unique rewards—from access to special missions to recognition as a founding member. Test the simulator and uncover your potential impact.",
+      "step1_desc": "We permanently secure square meters (m²) of the Amazon. It’s not just about planting—it’s about guaranteeing biodiversity."
     }
   },
   "admin": {
     "title": "Admin Panel",
     "communityy": "Founders Area",
     "community": {
-    "title": "Community Management",
-    "subtitle": "Manage Gamified Governance, News and Roadmap for Pioneers.",
-    "live_dashboard": "LIVE DASHBOARD",
-    "table_title": "Title",
-    "table_status": "Status / Details",
-    "table_image": "Image",
-    "table_actions": "Actions",
-    "add_new": "Add New",
-    "edit_item": "Edit Item",
-    "create_item": "Create Item",
-    "manage_translations": "Manage Translations",
-    "voting_history": "Voting History",
-    "no_items": "No items found."
-  },
+      "title": "Community Management",
+      "subtitle": "Manage Gamified Governance, News and Roadmap for Pioneers.",
+      "live_dashboard": "LIVE DASHBOARD",
+      "table_title": "Title",
+      "table_status": "Status / Details",
+      "table_image": "Image",
+      "table_actions": "Actions",
+      "add_new": "Add New",
+      "edit_item": "Edit Item",
+      "create_item": "Create Item",
+      "manage_translations": "Manage Translations",
+      "voting_history": "Voting History",
+      "no_items": "No items found."
+    },
     "mlm": "Referrals (MLM)",
     "quest_moderation": "Quest Engine",
     "audience": {
@@ -250,77 +283,77 @@
       }
     },
     "quest_builder": {
-    "global_penalty_title": "Global Penalty for Errors",
-    "global_penalty_label": "Global Penalty (%)",
-    "global_penalty_desc": "If a step doesn't have a specific penalty configured, this percentage will be deducted from the total reward for each incorrect answer.",
-    "modal_title_edit": "Edit Interactive Mission",
-    "modal_title_new": "Mission Creation Studio",
-    "modal_desc": "Design the learning flow, rewards, and conditions.",
-    "save_mission": "Save Mission",
-    "tab_general": "General",
-    "tab_rules": "Rules and Rewards",
-    "tab_steps": "Step Builder",
-    "cover_image": "Cover Image (Banner)",
-    "change_image": "Change Image",
-    "upload_image": "Click to upload image (Optional)",
-    "uploading": "Uploading...",
-    "main_title": "Main Title *",
-    "main_title_placeholder": "e.g. The Amazon Ecosystem",
-    "subtitle": "Subtitle",
-    "subtitle_placeholder": "A short and engaging phrase",
-    "mission_desc": "Mission Description (Intro)",
-    "extra_info": "Extra Information (Tooltip / Hint)",
-    "extra_info_placeholder": "Optional context to help users...",
-    "completion_rewards": "Completion Rewards",
-    "reward_user": "Reward User (BP)",
-    "reward_user_desc": "Bonus points for those who complete the mission.",
-    "reward_referrer": "Reward Referrer (BP)",
-    "reward_referrer_desc": "Bonus points for the user who invited.",
-    "reputation": "Reputation (Optional)",
-    "skill_category": "Skill Category",
-    "availability": "Availability and Limits",
-    "status": "Status",
-    "start_date": "Start Date (Optional)",
-    "end_date": "End Date (Optional)",
-    "auto_approve": "Auto-approve Free Text",
-    "auto_approve_desc": "Prevents manual review of responses.",
-    "auto_approve_note": "If enabled, free text steps will instantly grant rewards without going through the review panel.",
-    "auto_approve_active": "Automatic Pass Enabled. No admin review required.",
-    "allow_skip": "Allow Skip",
-    "allow_skip_desc": "Can users skip this entire mission?",
-    "skip_penalty": "Skip Penalty (Deducted from Reputation)",
-    "delete_confirm": "Delete this mission permanently? (Users will retain their earned points.)",
-    "delete_success": "Mission deleted successfully.",
-    "no_steps_title": "No steps yet",
-    "no_steps_desc": "Create your first block to start building the mission flow.",
-    "add_content": "Add Content",
-    "add_question": "Add Question",
-    "step": "Step",
-    "step_title": "Step Title",
-    "media_url": "Media URL (Video/Image)",
-    "ui_type": "UI Type",
-    "content_md": "Content (Supports Markdown)",
-    "content_placeholder": "Write the educational content here...",
-    "question_type": "Question Component Type",
-    "question_text": "Question Text",
-    "ask_something": "Ask something...",
-    "required": "Required?",
-    "answers": "Answers",
-    "add_option": "Add",
-    "correct_answer_index": "Correct Answer Index (e.g. 0, or 0,2)",
-    "correct_answer_placeholder": "Leave blank if any option is correct",
-    "slider_poles": "Define Slider Poles",
-    "slider_poles_desc": "Users will distribute 100% among these variables.",
-    "free_text_note": "Note: Free-text responses will mark the mission as 'Pending Review'. A Guardian (Admin) must manually approve it to grant the rewards.",
-    "scale_5_note": "Automatically generates a star/number scale from 1 to 5.",
-    "on_fail_redirect": "Redirect URL if failed (Bridge-Quest)",
-    "mission_flow": "Mission Flow",
-    "empty": "Empty",
-    "apply_penalty": "Penalty for Incorrect Answer",
-    "penalty_type": "Penalty Type",
-    "penalty_fixed": "Fixed Amount (BP)",
-    "penalty_percentage": "% of Total Mission",
-    "penalty_value": "Value to Deduct"
+      "global_penalty_title": "Global Penalty for Errors",
+      "global_penalty_label": "Global Penalty (%)",
+      "global_penalty_desc": "If a step doesn't have a specific penalty configured, this percentage will be deducted from the total reward for each incorrect answer.",
+      "modal_title_edit": "Edit Interactive Mission",
+      "modal_title_new": "Mission Creation Studio",
+      "modal_desc": "Design the learning flow, rewards, and conditions.",
+      "save_mission": "Save Mission",
+      "tab_general": "General",
+      "tab_rules": "Rules and Rewards",
+      "tab_steps": "Step Builder",
+      "cover_image": "Cover Image (Banner)",
+      "change_image": "Change Image",
+      "upload_image": "Click to upload image (Optional)",
+      "uploading": "Uploading...",
+      "main_title": "Main Title *",
+      "main_title_placeholder": "e.g. The Amazon Ecosystem",
+      "subtitle": "Subtitle",
+      "subtitle_placeholder": "A short and engaging phrase",
+      "mission_desc": "Mission Description (Intro)",
+      "extra_info": "Extra Information (Tooltip / Hint)",
+      "extra_info_placeholder": "Optional context to help users...",
+      "completion_rewards": "Completion Rewards",
+      "reward_user": "Reward User (BP)",
+      "reward_user_desc": "Bonus points for those who complete the mission.",
+      "reward_referrer": "Reward Referrer (BP)",
+      "reward_referrer_desc": "Bonus points for the user who invited.",
+      "reputation": "Reputation (Optional)",
+      "skill_category": "Skill Category",
+      "availability": "Availability and Limits",
+      "status": "Status",
+      "start_date": "Start Date (Optional)",
+      "end_date": "End Date (Optional)",
+      "auto_approve": "Auto-approve Free Text",
+      "auto_approve_desc": "Prevents manual review of responses.",
+      "auto_approve_note": "If enabled, free text steps will instantly grant rewards without going through the review panel.",
+      "auto_approve_active": "Automatic Pass Enabled. No admin review required.",
+      "allow_skip": "Allow Skip",
+      "allow_skip_desc": "Can users skip this entire mission?",
+      "skip_penalty": "Skip Penalty (Deducted from Reputation)",
+      "delete_confirm": "Delete this mission permanently? (Users will retain their earned points.)",
+      "delete_success": "Mission deleted successfully.",
+      "no_steps_title": "No steps yet",
+      "no_steps_desc": "Create your first block to start building the mission flow.",
+      "add_content": "Add Content",
+      "add_question": "Add Question",
+      "step": "Step",
+      "step_title": "Step Title",
+      "media_url": "Media URL (Video/Image)",
+      "ui_type": "UI Type",
+      "content_md": "Content (Supports Markdown)",
+      "content_placeholder": "Write the educational content here...",
+      "question_type": "Question Component Type",
+      "question_text": "Question Text",
+      "ask_something": "Ask something...",
+      "required": "Required?",
+      "answers": "Answers",
+      "add_option": "Add",
+      "correct_answer_index": "Correct Answer Index (e.g. 0, or 0,2)",
+      "correct_answer_placeholder": "Leave blank if any option is correct",
+      "slider_poles": "Define Slider Poles",
+      "slider_poles_desc": "Users will distribute 100% among these variables.",
+      "free_text_note": "Note: Free-text responses will mark the mission as 'Pending Review'. A Guardian (Admin) must manually approve it to grant the rewards.",
+      "scale_5_note": "Automatically generates a star/number scale from 1 to 5.",
+      "on_fail_redirect": "Redirect URL if failed (Bridge-Quest)",
+      "mission_flow": "Mission Flow",
+      "empty": "Empty",
+      "apply_penalty": "Penalty for Incorrect Answer",
+      "penalty_type": "Penalty Type",
+      "penalty_fixed": "Fixed Amount (BP)",
+      "penalty_percentage": "% of Total Mission",
+      "penalty_value": "Value to Deduct"
     },
     "quest_review": {
       "title": "Pending Mission Review",
@@ -554,8 +587,8 @@
     "analyzing_answers": "Checking for results...",
     "onboarding_label": "Onboarding",
     "finish_quest": "Start Mission",
-    "profile_unlocked": "Profile Unlocked", 
-    "profiles.genesis": { 
+    "profile_unlocked": "Profile Unlocked",
+    "profiles.genesis": {
       "lena": {
         "title": "Verified Impact Partner",
         "description": "Driven by sustainability and long-term preservation. You believe in the power of nature."
@@ -871,7 +904,7 @@
       "vote_success": "Vote Submitted!",
       "vote_thanks": "Thank you for participating."
     },
-      "budget_vote": {
+    "budget_vote": {
       "average_allocation": "Average Allocation",
       "allocate_points": "Allocate Points",
       "pts_left": "Points Left",
@@ -884,8 +917,8 @@
       "first_to_share": "Be the first to share an opinion."
     },
     "live_activity": {
-    "title": "Live Activity",
-    "no_signals": "Activity for Founding Pioneer"
+      "title": "Live Activity",
+      "no_signals": "Activity for Founding Pioneer"
     },
     "notification": {
       "evaluation_title": "Access Under Evaluation",
@@ -1080,7 +1113,7 @@
       "message": "You have received {{months}} months of Premium access and {{points}} Bonus Points thanks to your friend."
     }
   },
-    "contact": {
+  "contact": {
     "title": "Get in Touch",
     "subtitle": "Have questions about your impact or our mission? We are here to help.",
     "address_label": "Headquarters",
@@ -1101,37 +1134,37 @@
     "success_desc": "We'll get back to you shortly."
   },
   "startnext_modal": {
-  "title": "I already supported on Startnext",
-  "description": "Please provide your contribution details so we can verify and upgrade your account.",
-  "labels": {
-    "name": "Name",
-    "email": "Email",
-    "amount": "Contribution Amount (€)",
-    "city": "City (Optional)",
-    "country": "Country (Optional)",
-    "message": "Message (Optional)"
+    "title": "I already supported on Startnext",
+    "description": "Please provide your contribution details so we can verify and upgrade your account.",
+    "labels": {
+      "name": "Name",
+      "email": "Email",
+      "amount": "Contribution Amount (€)",
+      "city": "City (Optional)",
+      "country": "Country (Optional)",
+      "message": "Message (Optional)"
+    },
+    "placeholders": {
+      "city": "e.g. Berlin",
+      "country": "e.g. Germany",
+      "message": "Any additional details..."
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "submit": "Send for Verification",
+      "close": "Close"
+    },
+    "success": {
+      "title": "Request Submitted!",
+      "message": "Thank you! Your information has been submitted for verification. We will activate your Explorer account shortly."
+    },
+    "errors": {
+      "invalid_amount_title": "Invalid Amount",
+      "invalid_amount_desc": "Please enter a valid contribution amount.",
+      "submit_error": "Could not submit registration. Please try again."
+    }
   },
-  "placeholders": {
-    "city": "e.g. Berlin",
-    "country": "e.g. Germany",
-    "message": "Any additional details..."
-  },
-  "buttons": {
-    "cancel": "Cancel",
-    "submit": "Send for Verification",
-    "close": "Close"
-  },
-  "success": {
-    "title": "Request Submitted!",
-    "message": "Thank you! Your information has been submitted for verification. We will activate your Explorer account shortly."
-  },
-  "errors": {
-    "invalid_amount_title": "Invalid Amount",
-    "invalid_amount_desc": "Please enter a valid contribution amount.",
-    "submit_error": "Could not submit registration. Please try again."
-  }
-},
-"footer": {
+  "footer": {
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "contact": "Contact Us",
@@ -1178,7 +1211,7 @@
     "already_completed_desc": "You have already received the rewards for this mission.",
     "return_btn": "Return to Missions",
     "penalty_applied_credits": "Penalty applied: -{{amount}} BP.",
-    "referral_bonus":"Your Referrer",
+    "referral_bonus": "Your Referrer",
     "restart_title": "Restart Mission",
     "restart_warning": "Are you sure you want to restart this mission? All progress and rewards obtained so far will be lost.",
     "restart_btn": "Restart Mission",
@@ -1333,7 +1366,7 @@
       },
       "delete_warning": "Are you sure? This action cannot be undone and may affect the display of historical records."
     }
-  }, 
+  },
   "faq_pioneers": {
     "badge_knowledge": "Knowledge Base",
     "faq_title": "Frequently Asked Questions",
@@ -1348,7 +1381,6 @@
     "faq_a4": "Our success metric is not counting individual trees that could be cut down later. Instead, we measure the total extent of the regenerating ecosystem, an impact that is also externally validated by local universities.",
     "faq_q5": "What is the Land-Dollar?",
     "faq_a5": "It is the digital symbol of our regenerative economy and your access key to our co-creation platform. It is the digital bridge that allows you to closely follow the impact and participate in the decisions that will shape the future of our cooperative.",
-    
     "pioneers_badge": "Limited Edition",
     "pioneers_title": "The 10 Founding Pioneers",
     "pioneers_text1": "With the funds from our Startnext campaign, we will begin laying the legal foundation to establish the cooperative this summer. At Reforestal, we prefer to give away participation rather than give away advertising to get clients.",
@@ -1425,7 +1457,7 @@
     },
     "contact": {
       "title": "Contact Information and Legal Notice (Impressum)",
-      "company": "",
+      "company": "Reforestal eG",
       "board": "Peter Rosinski",
       "address": "Headquarters: Rotenbergstr. 27, 66111 Saarbrücken, Germany",
       "email": "Email: peter@reforest.al",
@@ -1434,182 +1466,182 @@
     }
   },
   "privacy": {
-  "title": "Privacy Policy",
-  "intro": [
-    "The protection of your personal data represents a fundamental relationship of trust with our community and is of particularly high priority for Peter Rosinski (later Reforestal eG). This privacy policy informs you about the nature, scope, and purpose of the data collected, especially if you participate as a partner in our regenerative economy projects or support us via Startnext.",
-    "The use of our web pages is generally possible without any indication of personal data. However, if a data subject wishes to use special enterprise services (such as the project dashboard) via our website, processing of personal data could become necessary. If the processing of personal data is necessary and there is no statutory basis for such processing, we generally obtain consent from the data subject."
-  ],
-  "s1": {
-    "title": "1. Definitions",
-    "body": [
-      "The privacy policy is based on the terms used by the European legislator for the adoption of the General Data Protection Regulation (GDPR). Project-specific and general terms include:"
+    "title": "Privacy Policy",
+    "intro": [
+      "The protection of your personal data represents a fundamental relationship of trust with our community and is of particularly high priority for Peter Rosinski (later Reforestal eG). This privacy policy informs you about the nature, scope, and purpose of the data collected, especially if you participate as a partner in our regenerative economy projects or support us via Startnext.",
+      "The use of our web pages is generally possible without any indication of personal data. However, if a data subject wishes to use special enterprise services (such as the project dashboard) via our website, processing of personal data could become necessary. If the processing of personal data is necessary and there is no statutory basis for such processing, we generally obtain consent from the data subject."
     ],
-    "list": [
-      "a) GDPR Terms: Personal data, data subject, processing, profiling, controller, processor, and consent (according to Art. 4 GDPR).",
-      "b) Guardian Ally / Partner: Any natural or legal person with an active account in the reforestation ecosystem.",
-      "c) Land-Dollar: A digital impact certificate acting as an access key.",
-      "d) Bonuses: Gamification metrics with no financial value."
-    ]
+    "s1": {
+      "title": "1. Definitions",
+      "body": [
+        "The privacy policy is based on the terms used by the European legislator for the adoption of the General Data Protection Regulation (GDPR). Project-specific and general terms include:"
+      ],
+      "list": [
+        "a) GDPR Terms: Personal data, data subject, processing, profiling, controller, processor, and consent (according to Art. 4 GDPR).",
+        "b) Guardian Ally / Partner: Any natural or legal person with an active account in the reforestation ecosystem.",
+        "c) Land-Dollar: A digital impact certificate acting as an access key.",
+        "d) Bonuses: Gamification metrics with no financial value."
+      ]
+    },
+    "s2": {
+      "title": "2. Name and Address of the Controller",
+      "body": [
+        "Controller for the purposes of the General Data Protection Regulation, other data protection laws applicable in Member states of the European Union, and other provisions related to data protection is:",
+        "Peter Rosinski (later Reforestal eG)",
+        "Rotenbergstr. 27",
+        "66111 Saarbrücken, Germany",
+        "Email: peter@reforest.al | Phone: +49 163 8736419",
+        "Website: www.reforest.al"
+      ]
+    },
+    "s3": {
+      "title": "3. Cookies",
+      "body": [
+        "The web pages use cookies (text files that are stored via an Internet browser) to provide users with more user-friendly services. In particular, we use necessary cookies to keep you logged in and to save your language preferences.",
+        "The data subject may, at any time, prevent the setting of cookies through our website by means of a corresponding setting of the Internet browser used, and may thus permanently deny the setting of cookies. Furthermore, already set cookies may be deleted at any time via an Internet browser."
+      ]
+    },
+    "s4": {
+      "title": "4. Collection of General Data and Information (Infrastructure & Logfiles)",
+      "body": [
+        "The website collects a series of general data and information with each call, which are stored in the server log files. Collected may be: (1) the browser types and versions used, (2) the operating system, (3) the website from which an accessing system reaches our website (referrers), (4) the sub-websites, (5) the date and time of access, (6) an Internet protocol address (IP address), (7) the Internet service provider, and (8) any other similar data used in the event of attacks on our information technology systems.",
+        "Digital Sustainability and Security: Our website is hosted on energy-efficient European VPS servers at Hostinger (Green Hosting). We manage critical data via Supabase in Frankfurt am Main (AWS region eu-central-1) using Row-Level-Security (RLS) policies to guarantee maximum data sovereignty."
+      ]
+    },
+    "s5": {
+      "title": "5. Registration on our Website & Startnext Crowdfunding",
+      "body": [
+        "You can register by providing data (name, email, encrypted credentials). For project management, we may also collect your postal address, date of birth, and nationality.",
+        "Data from external sources (Startnext): When participating in our crowdfunding, we receive your name, email, contribution amount, and the selected reward from Startnext to allocate your digital rights; we do not process bank data in this context.",
+        "Gamification & Google Wallet: We process information regarding your progress, tier levels, and quests. If you add the 'Land Dollar' to Google Wallet, Google acts as an independent controller."
+      ]
+    },
+    "s6": {
+      "title": "6. Subscription to our Newsletter",
+      "body": [
+        "We offer a newsletter that requires a valid email address and registration via the double opt-in procedure. The IP address, date, and time of registration are stored for legal reasons and misuse prevention. The subscription may be terminated at any time, and consent may be revoked."
+      ]
+    },
+    "s7": {
+      "title": "7. Newsletter Tracking",
+      "body": [
+        "Our newsletters contain tracking pixels. This allows for a statistical analysis of success (e.g., if and when an email was opened or a link was clicked). We use this data for optimization. Revocation is possible at any time by unsubscribing from the newsletter."
+      ]
+    },
+    "s8": {
+      "title": "8. Contact Possibility via the Website",
+      "body": [
+        "If a data subject contacts the controller by email or via a contact form, the personal data voluntarily transmitted are automatically stored for the purpose of processing the inquiry or contacting the data subject."
+      ]
+    },
+    "s9": {
+      "title": "9. Routine Deletion and Blocking of Personal Data",
+      "body": [
+        "The data controller processes and stores data only for the period necessary to achieve the purpose of storage. If the storage purpose is not applicable, or if a legal retention period expires, the data are routinely blocked or erased.",
+        "Specific periods: We store financial contributions according to German tax law (HGB/AO) for 10 years. Technical logs are automatically anonymized after 30 days."
+      ]
+    },
+    "s10": {
+      "title": "10. Rights of the Data Subject",
+      "body": [
+        "To exercise any of the following rights, the data subject may contact us (the controller) at any time:"
+      ],
+      "list": [
+        "a) Right of confirmation and access (Art. 15 GDPR): Available as a copy in your dashboard.",
+        "b) Right to rectification (Art. 16 GDPR): Adjustable in your Genesis Profile.",
+        "c) Right to erasure / Right to be forgotten (Art. 17 GDPR): E.g., by deleting the account.",
+        "d) Right to restriction of processing (Art. 18 GDPR) and data portability (Art. 20 GDPR).",
+        "e) Right to object (Art. 21 GDPR) and to withdraw consent (Art. 7(3) GDPR).",
+        "f) Right to lodge a complaint: You also have the right to lodge a complaint with a data protection supervisory authority (Art. 77 GDPR)."
+      ]
+    },
+    "s11": {
+      "title": "11. Data Protection Provisions about the Application and Use of Facebook",
+      "body": [
+        "We have integrated components of the enterprise Facebook. The operating company for persons outside the USA is Facebook Ireland Ltd., 4 Grand Canal Square, Dublin 2, Ireland.",
+        "If the data subject is logged in at the same time on Facebook, Facebook detects which specific subpage was visited. If you click on the 'Like' button, for instance, this information is matched with your Facebook account. To prevent this, you must log out of your Facebook account before visiting.",
+        "Further information on Facebook's data policy: https://www.facebook.com/about/privacy/"
+      ]
+    },
+    "s12": {
+      "title": "12. Data Protection Provisions about the Application and Use of Google AdSense",
+      "body": [
+        "Google AdSense is integrated on this website (Google Ireland Limited, Gordon House, Barrow Street, Dublin, Ireland).",
+        "The service places cookies and tracking pixels for ad integration and interest-based evaluation. Data may be transferred to the USA. Setting cookies can be prevented in the browser.",
+        "Further explanations: https://www.google.com/intl/en/adsense/start/"
+      ]
+    },
+    "s13": {
+      "title": "13. Data Protection Provisions about the Application and Use of Google Analytics (with anonymization function)",
+      "body": [
+        "We use Google Analytics (Google Ireland Limited). We use the suffix '_gat._anonymizeIp', which shortens and anonymizes your IP address.",
+        "The data subject may object to the collection and processing of data by Google Analytics. To do this, a browser add-on must be downloaded and installed from the following link: https://tools.google.com/dlpage/gaoptout",
+        "Further information: https://policies.google.com/privacy and https://marketingplatform.google.com/about/analytics/terms/en/"
+      ]
+    },
+    "s14": {
+      "title": "14. Data Protection Provisions about the Application and Use of Google AdWords",
+      "body": [
+        "We use Google AdWords (Google Ireland Limited). If a person reaches our website via a Google ad, a conversion cookie is filed (valid for 30 days, no personal identification) to create visit statistics.",
+        "Objection to interest-based advertising is possible here: https://myadcenter.google.com/"
+      ]
+    },
+    "s15": {
+      "title": "15. Data Protection Provisions about the Application and Use of Instagram",
+      "body": [
+        "Components of Instagram (Facebook Ireland Ltd.) are integrated on this website. If you are logged into Instagram, the visit to our page may be assigned to your Instagram account. Log out to prevent this.",
+        "Instagram privacy policy: https://help.instagram.com/155833707900388 and https://privacycenter.instagram.com/policy"
+      ]
+    },
+    "s16": {
+      "title": "16. Data Protection Provisions about the Application and Use of LinkedIn",
+      "body": [
+        "We use components of LinkedIn (LinkedIn Ireland, Wilton Place, Dublin 2, Ireland). With each access, a representation of the component is downloaded and, for logged-in users, assigned to their LinkedIn account.",
+        "LinkedIn offers the option to unsubscribe from ads: https://www.linkedin.com/psettings/guest-controls. Cookie Policy: https://www.linkedin.com/legal/cookie-policy"
+      ]
+    },
+    "s17": {
+      "title": "17. Data Protection Provisions about the Application and Use of YouTube",
+      "body": [
+        "We have integrated components of YouTube (Google Ireland Limited). When visiting a page with a YouTube video, Google gains knowledge of which page you visit, especially if you are logged into YouTube.",
+        "YouTube/Google privacy policy: https://policies.google.com/privacy"
+      ]
+    },
+    "s18": {
+      "title": "18. Legal Basis for Processing & International Data Transfer",
+      "body": [
+        "Processing is based on Art. 6(1)(a) GDPR (Consent), Art. 6(1)(b) GDPR (Performance of a contract, e.g., allocating the Land-Dollar), and Art. 6(1)(c) GDPR (Legal obligations).",
+        "International transfer to Ecuador: To protect the Amazon rainforest (Pastaza province), identifying data are transmitted to the local land registry and notaries in Ecuador (based on Art. 49(1)(b) GDPR).",
+        "Data transfer to third countries (e.g., USA): Conducted on the basis of Standard Contractual Clauses (SCCs) and the EU-US Data Privacy Framework (Adequacy Decision)."
+      ]
+    },
+    "s19": {
+      "title": "19. Legitimate Interests in Processing",
+      "body": [
+        "Where the processing of personal data is based on Article 6(1)(f) GDPR, our legitimate interest is to carry out our business operations in favor of the regenerative project goals, all our employees, and shareholders."
+      ]
+    },
+    "s20": {
+      "title": "20. Duration of Storage",
+      "body": [
+        "User/partner data are stored for the duration of your active relationship with the project. Thereafter, storage is governed by statutory retention periods. Once the period expires, the data are deleted, provided they are no longer necessary for the fulfillment of the contract."
+      ]
+    },
+    "s21": {
+      "title": "21. Legal or Contractual Requirements / Youth Protection",
+      "body": [
+        "The provision of personal data is partly required by law (e.g., tax regulations) or contractually necessary (for project participation); failure to provide this data would result in the contract not being concluded.",
+        "Youth Protection: Our service is not directed at children under 13; any inadvertently collected data from minors will be deleted immediately."
+      ]
+    },
+    "s22": {
+      "title": "22. Existence of Automated Decision-Making",
+      "body": [
+        "As a responsible project, we do not use automatic decision-making (including profiling) that produces legal effects. Gamification metrics on the platform serve purely interactive and non-discriminatory purposes."
+      ]
+    },
+    "footer_note": "Last updated: May 2026. This privacy policy was developed (in its basic legal components) using privacy policies from DGD Deutsche Gesellschaft für Datenschutz GmbH and adapted to the specific requirements of the future Reforestal eG project."
   },
-  "s2": {
-    "title": "2. Name and Address of the Controller",
-    "body": [
-      "Controller for the purposes of the General Data Protection Regulation, other data protection laws applicable in Member states of the European Union, and other provisions related to data protection is:",
-      "Peter Rosinski (later Reforestal eG)",
-      "Rotenbergstr. 27",
-      "66111 Saarbrücken, Germany",
-      "Email: peter@reforest.al | Phone: +49 163 8736419",
-      "Website: www.reforest.al"
-    ]
-  },
-  "s3": {
-    "title": "3. Cookies",
-    "body": [
-      "The web pages use cookies (text files that are stored via an Internet browser) to provide users with more user-friendly services. In particular, we use necessary cookies to keep you logged in and to save your language preferences.",
-      "The data subject may, at any time, prevent the setting of cookies through our website by means of a corresponding setting of the Internet browser used, and may thus permanently deny the setting of cookies. Furthermore, already set cookies may be deleted at any time via an Internet browser."
-    ]
-  },
-  "s4": {
-    "title": "4. Collection of General Data and Information (Infrastructure & Logfiles)",
-    "body": [
-      "The website collects a series of general data and information with each call, which are stored in the server log files. Collected may be: (1) the browser types and versions used, (2) the operating system, (3) the website from which an accessing system reaches our website (referrers), (4) the sub-websites, (5) the date and time of access, (6) an Internet protocol address (IP address), (7) the Internet service provider, and (8) any other similar data used in the event of attacks on our information technology systems.",
-      "Digital Sustainability and Security: Our website is hosted on energy-efficient European VPS servers at Hostinger (Green Hosting). We manage critical data via Supabase in Frankfurt am Main (AWS region eu-central-1) using Row-Level-Security (RLS) policies to guarantee maximum data sovereignty."
-    ]
-  },
-  "s5": {
-    "title": "5. Registration on our Website & Startnext Crowdfunding",
-    "body": [
-      "You can register by providing data (name, email, encrypted credentials). For project management, we may also collect your postal address, date of birth, and nationality.",
-      "Data from external sources (Startnext): When participating in our crowdfunding, we receive your name, email, contribution amount, and the selected reward from Startnext to allocate your digital rights; we do not process bank data in this context.",
-      "Gamification & Google Wallet: We process information regarding your progress, tier levels, and quests. If you add the 'Land Dollar' to Google Wallet, Google acts as an independent controller."
-    ]
-  },
-  "s6": {
-    "title": "6. Subscription to our Newsletter",
-    "body": [
-      "We offer a newsletter that requires a valid email address and registration via the double opt-in procedure. The IP address, date, and time of registration are stored for legal reasons and misuse prevention. The subscription may be terminated at any time, and consent may be revoked."
-    ]
-  },
-  "s7": {
-    "title": "7. Newsletter Tracking",
-    "body": [
-      "Our newsletters contain tracking pixels. This allows for a statistical analysis of success (e.g., if and when an email was opened or a link was clicked). We use this data for optimization. Revocation is possible at any time by unsubscribing from the newsletter."
-    ]
-  },
-  "s8": {
-    "title": "8. Contact Possibility via the Website",
-    "body": [
-      "If a data subject contacts the controller by email or via a contact form, the personal data voluntarily transmitted are automatically stored for the purpose of processing the inquiry or contacting the data subject."
-    ]
-  },
-  "s9": {
-    "title": "9. Routine Deletion and Blocking of Personal Data",
-    "body": [
-      "The data controller processes and stores data only for the period necessary to achieve the purpose of storage. If the storage purpose is not applicable, or if a legal retention period expires, the data are routinely blocked or erased.",
-      "Specific periods: We store financial contributions according to German tax law (HGB/AO) for 10 years. Technical logs are automatically anonymized after 30 days."
-    ]
-  },
-  "s10": {
-    "title": "10. Rights of the Data Subject",
-    "body": [
-      "To exercise any of the following rights, the data subject may contact us (the controller) at any time:"
-    ],
-    "list": [
-      "a) Right of confirmation and access (Art. 15 GDPR): Available as a copy in your dashboard.",
-      "b) Right to rectification (Art. 16 GDPR): Adjustable in your Genesis Profile.",
-      "c) Right to erasure / Right to be forgotten (Art. 17 GDPR): E.g., by deleting the account.",
-      "d) Right to restriction of processing (Art. 18 GDPR) and data portability (Art. 20 GDPR).",
-      "e) Right to object (Art. 21 GDPR) and to withdraw consent (Art. 7(3) GDPR).",
-      "f) Right to lodge a complaint: You also have the right to lodge a complaint with a data protection supervisory authority (Art. 77 GDPR)."
-    ]
-  },
-  "s11": {
-    "title": "11. Data Protection Provisions about the Application and Use of Facebook",
-    "body": [
-      "We have integrated components of the enterprise Facebook. The operating company for persons outside the USA is Facebook Ireland Ltd., 4 Grand Canal Square, Dublin 2, Ireland.",
-      "If the data subject is logged in at the same time on Facebook, Facebook detects which specific subpage was visited. If you click on the 'Like' button, for instance, this information is matched with your Facebook account. To prevent this, you must log out of your Facebook account before visiting.",
-      "Further information on Facebook's data policy: https://www.facebook.com/about/privacy/"
-    ]
-  },
-  "s12": {
-    "title": "12. Data Protection Provisions about the Application and Use of Google AdSense",
-    "body": [
-      "Google AdSense is integrated on this website (Google Ireland Limited, Gordon House, Barrow Street, Dublin, Ireland).",
-      "The service places cookies and tracking pixels for ad integration and interest-based evaluation. Data may be transferred to the USA. Setting cookies can be prevented in the browser.",
-      "Further explanations: https://www.google.com/intl/en/adsense/start/"
-    ]
-  },
-  "s13": {
-    "title": "13. Data Protection Provisions about the Application and Use of Google Analytics (with anonymization function)",
-    "body": [
-      "We use Google Analytics (Google Ireland Limited). We use the suffix '_gat._anonymizeIp', which shortens and anonymizes your IP address.",
-      "The data subject may object to the collection and processing of data by Google Analytics. To do this, a browser add-on must be downloaded and installed from the following link: https://tools.google.com/dlpage/gaoptout",
-      "Further information: https://policies.google.com/privacy and https://marketingplatform.google.com/about/analytics/terms/en/"
-    ]
-  },
-  "s14": {
-    "title": "14. Data Protection Provisions about the Application and Use of Google AdWords",
-    "body": [
-      "We use Google AdWords (Google Ireland Limited). If a person reaches our website via a Google ad, a conversion cookie is filed (valid for 30 days, no personal identification) to create visit statistics.",
-      "Objection to interest-based advertising is possible here: https://myadcenter.google.com/"
-    ]
-  },
-  "s15": {
-    "title": "15. Data Protection Provisions about the Application and Use of Instagram",
-    "body": [
-      "Components of Instagram (Facebook Ireland Ltd.) are integrated on this website. If you are logged into Instagram, the visit to our page may be assigned to your Instagram account. Log out to prevent this.",
-      "Instagram privacy policy: https://help.instagram.com/155833707900388 and https://privacycenter.instagram.com/policy"
-    ]
-  },
-  "s16": {
-    "title": "16. Data Protection Provisions about the Application and Use of LinkedIn",
-    "body": [
-      "We use components of LinkedIn (LinkedIn Ireland, Wilton Place, Dublin 2, Ireland). With each access, a representation of the component is downloaded and, for logged-in users, assigned to their LinkedIn account.",
-      "LinkedIn offers the option to unsubscribe from ads: https://www.linkedin.com/psettings/guest-controls. Cookie Policy: https://www.linkedin.com/legal/cookie-policy"
-    ]
-  },
-  "s17": {
-    "title": "17. Data Protection Provisions about the Application and Use of YouTube",
-    "body": [
-      "We have integrated components of YouTube (Google Ireland Limited). When visiting a page with a YouTube video, Google gains knowledge of which page you visit, especially if you are logged into YouTube.",
-      "YouTube/Google privacy policy: https://policies.google.com/privacy"
-    ]
-  },
-  "s18": {
-    "title": "18. Legal Basis for Processing & International Data Transfer",
-    "body": [
-      "Processing is based on Art. 6(1)(a) GDPR (Consent), Art. 6(1)(b) GDPR (Performance of a contract, e.g., allocating the Land-Dollar), and Art. 6(1)(c) GDPR (Legal obligations).",
-      "International transfer to Ecuador: To protect the Amazon rainforest (Pastaza province), identifying data are transmitted to the local land registry and notaries in Ecuador (based on Art. 49(1)(b) GDPR).",
-      "Data transfer to third countries (e.g., USA): Conducted on the basis of Standard Contractual Clauses (SCCs) and the EU-US Data Privacy Framework (Adequacy Decision)."
-    ]
-  },
-  "s19": {
-    "title": "19. Legitimate Interests in Processing",
-    "body": [
-      "Where the processing of personal data is based on Article 6(1)(f) GDPR, our legitimate interest is to carry out our business operations in favor of the regenerative project goals, all our employees, and shareholders."
-    ]
-  },
-  "s20": {
-    "title": "20. Duration of Storage",
-    "body": [
-      "User/partner data are stored for the duration of your active relationship with the project. Thereafter, storage is governed by statutory retention periods. Once the period expires, the data are deleted, provided they are no longer necessary for the fulfillment of the contract."
-    ]
-  },
-  "s21": {
-    "title": "21. Legal or Contractual Requirements / Youth Protection",
-    "body": [
-      "The provision of personal data is partly required by law (e.g., tax regulations) or contractually necessary (for project participation); failure to provide this data would result in the contract not being concluded.",
-      "Youth Protection: Our service is not directed at children under 13; any inadvertently collected data from minors will be deleted immediately."
-    ]
-  },
-  "s22": {
-    "title": "22. Existence of Automated Decision-Making",
-    "body": [
-      "As a responsible project, we do not use automatic decision-making (including profiling) that produces legal effects. Gamification metrics on the platform serve purely interactive and non-discriminatory purposes."
-    ]
-  },
-  "footer_note": "Last updated: May 2026. This privacy policy was developed (in its basic legal components) using privacy policies from DGD Deutsche Gesellschaft für Datenschutz GmbH and adapted to the specific requirements of the future Reforestal eG project."
-},
   "cookies": {
     "title": "Reforestal – Crumbs for Climate Protection (Cookie Policy)",
     "subtitle": "Hey! To ensure you, as an Aliado Guardián (Guardian Partner) in the Amazon, have a complete overview and your dashboard functions smoothly, we use cookies and similar technologies (such as local storage). Here's a brief overview of what happens on your device when you use Reforestal.",
@@ -1724,21 +1756,88 @@
     "save_settings": "Save selection"
   },
   "impressum": {
-  "title": "Legal Notice (Impressum)",
-  "platform_operator": "Platform Operator",
-  "operator_name": "Peter Rosinski (acting for Reforestal eG)",
-  "address_street": "Rotenbergstr. 27",
-  "address_city": "66111 Saarbrücken",
-  "address_country": "Germany",
-  "management": "Executive Board: Peter Rosinski",
-  "content_responsible_title": "Content Responsibility",
-  "content_responsible_name": "Peter Rosinski",
-  "project_note": "The respective project owners are responsible for the content of project pages, reachable via their legal notice or direct contact.",
-  "email": "Email: peter@reforest.al",
-  "phone": "Tel.: +49 163 8736419",
-  "further_notes_title": "Further Notes",
-  "social_media_text": "This legal notice also applies to our LinkedIn, Facebook, Threads, and Instagram profiles as well as our YouTube channel.",
-  "dispute_resolution": "We are not willing or obliged to participate in dispute resolution proceedings before a consumer arbitration board."
+    "title": "Legal Notice (Impressum)",
+    "platform_operator": "Platform Operator",
+    "operator_name": "Peter Rosinski (acting for Reforestal eG)",
+    "address_street": "Rotenbergstr. 27",
+    "address_city": "66111 Saarbrücken",
+    "address_country": "Germany",
+    "management": "Executive Board: Peter Rosinski",
+    "content_responsible_title": "Content Responsibility",
+    "content_responsible_name": "Peter Rosinski",
+    "project_note": "The respective project owners are responsible for the content of project pages, reachable via their legal notice or direct contact.",
+    "email": "Email: peter@reforest.al",
+    "phone": "Tel.: +49 163 8736419",
+    "further_notes_title": "Further Notes",
+    "social_media_text": "This legal notice also applies to our LinkedIn, Facebook, Threads, and Instagram profiles as well as our YouTube channel.",
+    "dispute_resolution": "We are not willing or obliged to participate in dispute resolution proceedings before a consumer arbitration board."
+  },
+  "pageDollar": {
+    "hero": {
+      "badge": "The Path of Regeneration",
+      "welcome": "How wonderful that you’ve found this path!",
+      "title": "Beyond Mere Utopia:",
+      "titleHighlight": "Every great transformation begins with a shared vision.",
+      "subtitle": "Reforestal and terra utopia join forces to regenerate the Amazon in Ecuador. Your participation powers this transformation. With your involvement, we take action: we secure the rainforest square meter by square meter and ensure the prosperity of local communities.",
+      "descrip": "With your participation, every square meter of the Amazon rainforest becomes a legacy of life and prosperity for future generations."
+    },
+    "cta": {
+      "footer": "Every step matters, and you too can be part of this movement.",
+      "btnDonate": "Donate to terra utopia",
+      "btnVisit": "Explore terra utopia",
+      "title": "Join History in the Making",
+      "subtitle": "We offer you the power to act. Join the movement and support the preservation of the rainforest with terra utopia and Reforestal—through regenerative economy and agroforestry.\n\nSecure your square meters of ecosystem. Shape a new era."
+    },
+    "history": {
+      "badges": "The Origin",
+      "title": "Two Forces, One Dream",
+      "terraTitle": "terra utopia",
+      "terraDesc": "Born in Germany as a non-profit organization with a profound purpose: to reconnect people worldwide with community partners in the Ecuadorian Amazon. Its philosophy has always been to prove that a high standard of living need not come at the expense of environmental destruction—it is possible to unite humanity in a \"green world\" through education and collective restoration.",
+      "reforestalTitle": "Reforestal",
+      "reforestalDesc": "It began in 2024 as a biocultural alliance. The founders understood that merely planting trees as donations was not enough to secure the Amazon. They sought to move beyond philanthropy and build a truly professional model, merging technological innovation with millennia-old wisdom.",
+      "allianceConclusion": "Today, terra utopia and Reforestal forge an alliance for the future. terra utopia contributes its global network, while Reforestal develops the impact platform. Together, they don’t just aim to safeguard the ecosystem—they transform it into an enduring engine of development."
+    },
+    "stepByStep": {
+      "title": "Building the Future, Step by Step",
+      "subtitle": "Through this shared journey, we have built a system grounded in the following pillars that bring our project to life:",
+      "step1Badge": "Step 1: Territory",
+      "step1Title": "Measurable Ecosystem Regeneration",
+      "step1Desc": "The story of the rainforest isn’t told by the number of trees planted, but by the territory secured. We don’t plant a tree that becomes just another statistic—we protect entire ecosystems. Our success is measured by guaranteeing specific square meters (m²) of the Amazon, securing habitat from the ground up.",
+      "step2Badge": "Step 2: Economic Model",
+      "step2Title": "Rewards and Returns",
+      "step2Desc": "We have chosen to rewrite the course of economic history. By replacing the old extractive logic of the land with a regenerative model, we prove that ethics and profitability can coexist. We are deeply committed to restoring the symbiosis between humanity and nature. Our goal is to forge a sustainable and truly harmonious relationship between the environment, the economy, and society.",
+      "step3Badge": "Step 3: Biodiversity",
+      "step3Title": "Mixed Crops and Chakra",
+      "step3Desc": "We refuse to plant a single species. The productive heart of our story beats through the Amazonian Chakra. More than just an agricultural system, it is an ancestral design of a productive forest where species like cocoa and vanilla grow in symbiosis, restoring soil fertility.",
+      "step4Badge": "Step 4: The Structure",
+      "step4Title": "Initial Phase and Future Cooperative eG",
+      "step4Desc": "We are currently in our \"Initial Phase,\" raising capital to establish the first German cooperative (eG) of its kind. This will ensure complete independence under strict regulation and transparency. Those who join us now will become \"Guardian Allies,\" co-creators from the very beginning."
+    },
+    "impact": {
+      "badge": "Systemic Impact",
+      "title": "Everyone Wins",
+      "subtitle": "In this new story, we’ve designed a model where the viability of capital and the health of the ecosystem are inseparable. Every part of the living fabric emerges victorious.",
+      "climateTitle": "Climate",
+      "climateDesc": "We restore vital carbon sinks, deploying innovative and tangible measures against climate change.",
+      "humanityTitle": "Humanity",
+      "humanityDesc": "We heal the divide between people and their environment. We turn eco-anxiety into \"eco-agency\": the power to act.",
+      "localDesc": "We ensure conservation generates prosperity. The families of Napo secure a stable livelihood as guardians of the land.",
+      "membersTitle": "Cooperative Members",
+      "membersDesc": "Those who support the project shift from being spectators to co-owners. IN THE FUTURE, they will enjoy democratic participation, voting rights on strategic decisions, and access to transparent data.",
+      "floraTitle": "Flora, Fauna, and Fungi",
+      "floraDesc": "We don’t create plantations—we regenerate homes. Soil restoration nourishes microbial networks, restoring the pulse of the forest.",
+      "localTitle": "Local Communities"
+    },
+    "metrics": {
+      "badge": "The On-the-Ground Reality",
+      "title": "Yield Potential",
+      "desc": "This vision is not merely a romantic theory—it is already a field-validated reality. Together with local families in Napo, Ecuador, we have measured the outcomes of our pilot project on cacao-vanilla symbiosis, results that confirm our methodology.",
+      "val1": ">90%",
+      "label1": "Endurance",
+      "val2": "125 cm",
+      "label2": "Expansion (8m²)",
+      "val3": "100%",
+      "label3": "Water Self-Sufficiency"
+    }
+  }
 }
-}
-
