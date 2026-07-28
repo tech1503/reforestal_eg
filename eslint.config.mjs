@@ -12,7 +12,7 @@ export default [
             ecmaVersion: 'latest',
             sourceType: 'module',
             parserOptions: { ecmaFeatures: { jsx: true } },
-            globals: { ...globals.browser, React: 'readonly', Intl: 'readonly' },
+            globals: { ...globals.browser, React: 'readonly', Intl: 'readonly', process: 'readonly', describe: 'readonly', test: 'readonly', expect: 'readonly' },
         },
         settings: {
             react: { version: 'detect' },
@@ -28,6 +28,7 @@ export default [
             'import/no-named-as-default': 'off',
             'import/no-named-as-default-member': 'off',
             
+            'react/no-unknown-property': ['error', { ignore: ['cmdk-input-wrapper'] }],
             'react/prop-types': 'off',
             'react/no-unescaped-entities': 'off',
             'react/react-in-jsx-scope': 'off',
