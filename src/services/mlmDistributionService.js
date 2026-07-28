@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/customSupabaseClient';
+import { emitImpactCredits } from '@/services/impactCreditService';
 
 /**
  * Distributes MLM .
@@ -32,12 +33,11 @@ export const distributeCreditsToUpline = async (user_id, amount, source) => {
     if (directError) {
         console.error("Error distributing direct MLM:", directError);
     } else {
-        await supabase.from('impact_credits').insert({
+        await emitImpactCredits({
             user_id: profile.referrer_id,
             amount: directAmount,
             source: 'mlm_reward',
-            description: `Commission from direct referral activity (${source})`,
-            issued_date: new Date().toISOString()
+            description: `Commission from direct referral activity (${source})`
         });
 
         await supabase.rpc('create_notification', { p_user_id: profile.referrer_id, p_title: "MLM Reward!", p_message: `You earned ${directAmount} IC from a direct referral activity.`});
@@ -64,12 +64,11 @@ export const distributeCreditsToUpline = async (user_id, amount, source) => {
 
       if (!indirectError) {
           // Billetera
-          await supabase.from('impact_credits').insert({
+          await emitImpactCredits({
             user_id: referrerProfile.referrer_id,
             amount: indirectAmount,
             source: 'mlm_reward',
-            description: `Commission from indirect referral activity`,
-            issued_date: new Date().toISOString()
+            description: `Commission from indirect referral activity`
         });
           
           await supabase.rpc('create_notification', { p_user_id: referrerProfile.referrer_id, p_title: "Network Bonus!", p_message: `You earned ${indirectAmount} IC from your extended network.`});

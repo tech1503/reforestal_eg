@@ -10,7 +10,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { generateLandDollarWithQR } from '@/utils/landDollarQRRenderer';
+import { generateLandDollarWithQR } from '@/utils/landDollarGenerator';
 import { useI18n } from '@/contexts/I18nContext';
 import { validateContributionForm } from '@/utils/validationUtils';
 import { safeSupabaseCall } from '@/utils/supabaseErrorHandler';

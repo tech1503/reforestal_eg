@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/lib/customSupabaseClient';
-import { generateLandDollarWithQR } from '@/utils/landDollarQRRenderer';
+import { generateLandDollarWithQR } from '@/utils/landDollarGenerator';
 import { getSupportLevelByAmount, getVariantDetails } from '@/utils/tierLogicUtils';
+import { emitImpactCredits } from '@/services/impactCreditService';
 
 export const useContributionForm = (tiers, onSuccess) => {
     const { toast } = useToast();
@@ -143,13 +144,12 @@ export const useContributionForm = (tiers, onSuccess) => {
 
             if (finalUserId) {
                 await Promise.all([
-                    supabase.from('impact_credits').insert({
+                    emitImpactCredits({
                         user_id: finalUserId,
                         amount: icReward,
                         source: 'startnext',
                         description: `Tier Reward: ${selectedTier.name || selectedTier.slug}`,
                         related_support_level_id: selectedTier.id,
-                        contribution_id: contrib.id
                     }),
                     supabase.from('land_dollars').insert({
                         user_id: finalUserId,

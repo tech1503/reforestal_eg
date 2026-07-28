@@ -25,7 +25,6 @@ import CookieBanner from './components/ui/CookieBanner';
 
 // Contextos y Hooks
 import { useAuth } from '@/contexts/SupabaseAuthContext';
-import { FinancialProvider } from '@/contexts/FinancialContext';
 import { useAnalyticsFeedback } from '@/hooks/useAnalyticsFeedback';
 import { runDataIntegrityCheck } from '@/utils/dataIntegrityCheck';
 import { useGenesisSync } from '@/hooks/useGenesisSync';
@@ -108,14 +107,12 @@ const AppContent = () => {
 };
 
 const App = () => (
-  <FinancialProvider>
-    <AppWithAnalytics>
-       <div className="min-h-screen font-sans text-foreground bg-slate-50 dark:bg-transparent">
-          <AppContent />
-          <Toaster />
-       </div>
-    </AppWithAnalytics>
-  </FinancialProvider>
+  <AppWithAnalytics>
+     <div className="min-h-screen font-sans text-foreground bg-slate-50 dark:bg-transparent">
+        <AppContent />
+        <Toaster />
+     </div>
+  </AppWithAnalytics>
 );
 
 export default App;

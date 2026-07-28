@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/customSupabaseClient';
 import { createNotification } from '@/utils/notificationUtils';
+import { emitImpactCredits } from '@/services/impactCreditService';
 
 /**
  * Gamification Engine - Version Final + i18n + RPG Engine
@@ -7,7 +8,6 @@ import { createNotification } from '@/utils/notificationUtils';
 
 const GAMIFICATION_ACTION_TABLE = 'gamification_actions';
 const GAMIFICATION_HISTORY_TABLE = 'gamification_history';
-const IMPACT_CREDITS_TABLE = 'impact_credits';
 const FOUNDING_PIONEER_METRICS_TABLE = 'founding_pioneer_metrics';
 
 /**
@@ -48,15 +48,6 @@ async function logGamificationHistory(userId, action, creditsAwarded, notes = nu
         notes: notes,
         action_date: new Date().toISOString(),
     });
-}
-
-async function awardImpactCredits(userId, amount, source, description, relatedSupportLevelId = null) {
-    if (!userId || amount <= 0) return;
-    const { error } = await supabase.from(IMPACT_CREDITS_TABLE).insert({
-        user_id: userId, amount: amount, source: source, description: description,
-        issued_date: new Date().toISOString(), related_support_level_id: relatedSupportLevelId,
-    });
-    if (error) throw error; 
 }
 
 /**
@@ -120,7 +111,7 @@ export async function executeGamificationAction(userId, systemBinding, options =
         await logGamificationHistory(userId, action, creditsToAward, notes, isDynamic);
         
         // 2. Entregar Créditos
-        if (creditsToAward > 0) await awardImpactCredits(userId, creditsToAward, sourceType, displayTitle);
+        if (creditsToAward > 0) await emitImpactCredits({ user_id: userId, amount: creditsToAward, source: sourceType, description: displayTitle });
         
         // 3. Entregar Reputación 
         if (reputationToAward > 0) await awardReputationScore(userId, reputationToAward);

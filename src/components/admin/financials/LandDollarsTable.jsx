@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Loader2, ExternalLink, QrCode, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 // IMPORTAMOS EL GENERADOR
-import { generateLandDollarWithQR } from '@/utils/landDollarQRRenderer';
+import { generateLandDollarWithQR } from '@/utils/landDollarGenerator';
 
 const LandDollarsTable = () => {
     const [data, setData] = useState([]);

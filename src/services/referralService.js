@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/customSupabaseClient';
 import { createNotification } from '@/utils/notificationUtils';
 import { addMonths } from 'date-fns';
+import { emitImpactCredits } from '@/services/impactCreditService';
 
 /**
  * Processes the referral after a successful registration.
@@ -105,10 +106,10 @@ export const processReferralOnSignup = async (newUserId, manualRefCode = null) =
                 }, { onConflict: 'user_id' });
 
                 // D. SYSTEM GRANTS 1000 BONUS POINTS TO THE FRIEND (Without deducting from anyone)
-                await supabase.from('impact_credits').insert({
+                await emitImpactCredits({
                     user_id: newUserId,
                     amount: 1000,
-                    source: 'system_premium_gift', // Clear source in your DB
+                    source: 'system_premium_gift',
                     description: '1000 Bonus Points premium gift from pioneer invitation'
                 });
 

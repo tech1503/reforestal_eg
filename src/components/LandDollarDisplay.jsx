@@ -5,7 +5,7 @@ import { Download, Copy, Check, Loader2, Ban } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { generateLandDollarWithQR } from '@/utils/landDollarQRRenderer';
+import { generateLandDollarWithQR } from '@/utils/landDollarGenerator';
 
 import landDollarBaseImg from '@/assets/land-dollar-base1.webp';
 

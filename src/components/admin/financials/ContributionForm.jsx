@@ -7,7 +7,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/lib/customSupabaseClient';
 import TierBenefitsPreview from './TierBenefitsPreview';
-import { generateLandDollarWithQR } from '@/utils/landDollarQRRenderer';
+import { generateLandDollarWithQR } from '@/utils/landDollarGenerator';
 
 const ContributionForm = ({ onSuccess, onCancel }) => {
   const { toast } = useToast();

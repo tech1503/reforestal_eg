@@ -8,6 +8,7 @@ import { FinancialProvider } from '@/contexts/FinancialContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { BrowserRouter as Router } from 'react-router-dom';
 import '@/i18n';
+import GlobalErrorBoundary from '@/components/GlobalErrorBoundary';
 
 // --- SERVICE WORKER KILL SWITCH OPTIMIZADO CACHÉ ---
 
@@ -59,7 +60,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <AuthProvider>
         <I18nProvider>
           <FinancialProvider>
-            <App />
+            <GlobalErrorBoundary>
+              <App />
+            </GlobalErrorBoundary>
           </FinancialProvider>
         </I18nProvider>
       </AuthProvider>
