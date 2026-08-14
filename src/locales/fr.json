@@ -1772,72 +1772,65 @@
     "social_media_text": "Ces mentions légales s'appliquent également à nos profils LinkedIn, Facebook, Threads et Instagram ainsi qu'à notre chaîne YouTube.",
     "dispute_resolution": "Nous ne sommes ni disposés ni obligés de participer à des procédures de règlement des litiges devant un conseil d'arbitrage de consommation."
   },
-  "pageDollar": {
+  "pageDe": {
     "hero": {
-      "badge": "La Voie de la Régénération",
-      "welcome": "Comme c'est bien que tu aies découvert cette voie !",
-      "title": "Plus qu'une utopie : terra utopia",
-      "titleHighlight": "Toute grande transformation commence par une vision partagée.",
-      "subtitle": "terra utopia et Reforestal s’unissent pour régénérer l’Amazonie en Équateur. Ton don est le moteur de cette transformation. Avec ton soutien, nous passons à l’action : nous sécurisons la forêt mètre carré par mètre carré et assurons la prospérité des communautés locales.",
-      "descrip": "Avec ton soutien, chaque m² de forêt amazonienne devient un héritage de vie et de prospérité pour les générations futures."
+      "title": "Les Dollars-Terre créent de la forêt.",
+      "subtitle": "Reforestal et terra utopia régénèrent ensemble des écosystèmes forestiers. Reforestal offre à ses membres une participation aux récoltes comme le cacao, le bambou et la vanille, tandis que terra utopia régénère à 100 % dans une logique de transition pour le bien commun.",
+      "btn": "Soutenir terra utopia",
+      "btn2": "Passer à l'action",
+      "btn3": "Maintenant, sécurise des surfaces"
+    },
+    "section1": {
+      "title": "Quel est l'impact de ta contribution ?",
+      "subtitle": "Chaque euro arrive à destination !",
+      "p1": "Tout ce qui est transféré dans le cadre de notre transition pour le bien commun est investi dans notre premier grand projet de régénération en Amazonie. Cela permet de sécuriser des surfaces, des outils, des plants et de la main-d’œuvre…",
+      "p2": "Au début, il y a la planification détaillée avec les experts sur place : les communautés indigènes et nos ingénieures forestières."
+    },
+    "section2": {
+      "title": "Pourquoi ne peux-tu pas encore participer à Reforestal ?",
+      "p1": "Reforestal est encore en phase de création.",
+      "p2": "La base juridique de notre coopérative est en train de recevoir ses dernières retouches. Ensuite viendra l’examen de fondation, au cours duquel notre modèle économique sera vérifié, tout comme les statuts.",
+      "p4": "Le grand succès de nos premiers projets pilotes sur le terrain prouve que les modèles économiques régénératifs représentent l’avenir !"
+    },
+    "section3": {
+      "title": "Quels rôles jouent terra utopia et Reforestal ?",
+      "subtitle": "Un objectif commun – des approches différentes",
+      "list1": {
+        "item2": "Protège les forêts existantes",
+        "item3": "Régénère les écosystèmes",
+        "item4": "Construit des cabanes dans les arbres à intervention minimale.",
+        "item5": "N'a pas de but lucratif.",
+        "item1": "Achète des terres."
+      },
+      "list2": {
+        "item1": "Louez des terres.",
+        "item2": "Restaure une forêt mixte sur m².",
+        "item3": "Récolte des produits forestiers non ligneux",
+        "item4": "Vends les récoltes",
+        "item5": "Distribue des dividendes aux membres."
+      },
+      "footer": "Ces deux types de projets s’associent pour maximiser ensemble leur impact."
+    },
+    "section4": {
+      "title": "Pourquoi des maisons dans les arbres ?",
+      "subtitle": "La forêt tropicale doit devenir une expérience tangible.",
+      "p1": "Une petite partie des surfaces acquises par terra utopia est dédiée à des cabanes dans les arbres en harmonie avec la nature.",
+      "p2": "Nous avons besoin d’espaces d’hébergement pour les visiteurs, les travailleurs et les habitants. Les revenus locatifs sont tout aussi essentiels au projet global qu’une présence constante, qui protège contre l’exploitation abusive.",
+      "p3": "Ainsi, la nature, les populations locales et les invités en profitent tous."
+    },
+    "section5": {
+      "subtitle": "Bulletin de vote du capitalisme.",
+      "p1": "Plus puissant que le choix de nos représentants politiques est le choix de l’usage que nous faisons de notre argent.",
+      "p2": "Le Land-Dollar symbolise notre modèle économique régénératif, qui, grâce à Reforestal, propose une alternative à l’économie majoritairement destructive.",
+      "p3": "« Le Land-Dollar incarne des valeurs réelles, plutôt que l’enrichissement par l’exploitation ou de simples hausses de cours. » ou « Des valeurs tangibles et une croissance régénérative, plutôt que l’exploitation et la destruction. »",
+      "title": "Le Dollar-Terre"
     },
     "cta": {
-      "btnDonate": "Faites un don à terra utopia",
-      "btnVisit": "Visiter terra utopia",
-      "title": "Fais partie de l'Histoire.",
-      "subtitle": "Nous vous donnons les moyens d'agir. Rejoignez le mouvement et soutenez la préservation des forêts tropicales avec terra utopia et Reforestal, grâce à l'économie régénératrice et à l'agroforesterie. Protégez votre écosystème. Façonnez une nouvelle ère.",
-      "footer": "Chaque pas compte, et toi aussi tu peux faire partie de ce mouvement."
-    },
-    "history": {
-      "badges": "L'Origine",
-      "title": "Deux forces, un même rêve",
-      "terraTitle": "terra utopia",
-      "terraDesc": "Elle est née en Allemagne en tant qu'organisation à but non lucratif avec une mission profonde : reconnecter des personnes du monde entier à des partenaires communautaires en Amazonie équatorienne. Sa philosophie a toujours été de démontrer qu'un haut niveau de vie n'est pas nécessairement lié à la destruction de l'environnement ; il est possible de rassembler l'humanité dans un \"monde vert\" par l'éducation et la restauration collective.",
-      "reforestalTitle": "Reforestal",
-      "reforestalDesc": "Il a débuté en 2024 en tant qu’alliance bioculturelle. Les fondateurs ont compris que planter des arbres sous forme de simples dons ne suffisait pas pour régénérer l’Amazonie. Ils voulaient aller au-delà de la philanthropie et créer un modèle véritablement professionnel, alliant innovation technologique et sagesse millénaire.",
-      "allianceConclusion": "Aujourd’hui, terra utopia et Reforestal scellent une alliance pour l’avenir. terra utopia apporte son réseau mondial, tandis que Reforestal développe la plateforme d’impact. Ensemble, ils ne visent pas seulement à préserver l’écosystème, mais à le transformer en un moteur de développement durable."
-    },
-    "stepByStep": {
-      "title": "Construire l'Avenir, Pas à Pas",
-      "subtitle": "À travers cette histoire commune, nous avons bâti un système fondé sur les piliers suivants, qui donnent vie à notre projet :",
-      "step1Badge": "Étape 1 : Territoire",
-      "step1Title": "Régénération mesurable en m²",
-      "step1Desc": "L’histoire de la forêt ne se raconte pas par le nombre d’arbres plantés, mais par le territoire sécurisé. Nous ne plantons pas un arbre qui devient une simple donnée ; nous protégeons des écosystèmes entiers. Nous mesurons notre succès en garantissant des mètres carrés (m²) spécifiques de forêt amazonienne, assurant l’habitat depuis ses fondements.",
-      "step2Title": "Avantages et Bénéfices",
-      "step2Desc": "Nous avons décidé de changer le cours de l’histoire économique. En remplaçant l’ancienne logique extractive de la terre par un modèle régénératif, nous prouvons que l’éthique et la rentabilité peuvent coexister. Nous sommes profondément engagés dans la mission de rétablir la symbiose entre l’humanité et la nature. L’objectif est de créer une relation durable et véritablement compatible entre l’environnement, l’économie et la société.",
-      "step3Badge": "Étape 3 : Biodiversité",
-      "step3Title": "Cultures mixtes et chakra",
-      "step3Desc": "Nous refusons de planter une seule espèce. Le cœur productif de notre histoire bat grâce à la Chakra amazonienne. Bien plus qu’un simple système agricole, c’est un modèle ancestral de forêt productive où des espèces comme le cacao et la vanille poussent en symbiose, restaurant la fertilité des sols.",
-      "step4Badge": "Étape 4 : La Structure",
-      "step4Title": "Phase Initiale et Future Coopérative eG",
-      "step4Desc": "Nous sommes actuellement dans notre \"Phase Initiale\", en train de réunir le capital nécessaire pour établir la première Coopérative Allemande (eG) de ce type. Cela garantira une indépendance totale sous une régulation et une transparence strictes. Ceux qui nous soutiennent dès maintenant deviendront des \"Alliés Gardiens\", co-créateurs dès le premier jour.",
-      "step2Badge": "Étape 2 : Modèle économique"
-    },
-    "impact": {
-      "badge": "Impact systémique",
-      "title": "Tout le monde y gagne.",
-      "subtitle": "Dans cette nouvelle histoire, nous avons conçu un modèle où la viabilité du capital et la santé de l’écosystème sont indissociables. Chaque partie du tissu vivant en sort victorieuse.",
-      "climateTitle": "Climat",
-      "climateDesc": "Nous restaurons des puits de carbone vitaux en mettant en œuvre des mesures innovantes et concrètes contre le changement climatique.",
-      "humanityTitle": "Humanité",
-      "humanityDesc": "Nous guérissons la séparation entre les personnes et leur environnement. Nous transformons l’éco-anxiété en « éco-agence » : la capacité d’agir.",
-      "localDesc": "Nous assurons que la conservation génère la prospérité. Les familles de Napo obtiennent un revenu stable en devenant gardiennes du territoire.",
-      "membersTitle": "Membres de la Coopérative",
-      "membersDesc": "Ceux qui soutiennent le projet passent de spectateurs à copropriétaires. À l'AVENIR, ils bénéficieront d'une participation démocratique, de droits de vote dans les décisions stratégiques et d'un accès à des données transparentes.",
-      "floraTitle": "Flore, faune et champignons",
-      "floraDesc": "Nous ne créons pas de plantations, nous régénérons des foyers. La restauration des sols nourrit les réseaux de micro-organismes, redonnant son pouls à la forêt.",
-      "localTitle": "Population locale"
-    },
-    "metrics": {
-      "badge": "La Réalité du Terrain",
-      "title": "Potentiel de rendement",
-      "desc": "Cette vision n’est pas seulement une théorie romantique ; elle est déjà une réalité validée sur le terrain. Aux côtés des familles locales de Napo, en Équateur, nous avons mesuré les résultats de notre projet pilote de symbiose cacao-vanille, qui attestent de la validité de notre méthodologie.",
-      "val1": ">90%",
-      "label1": "Survie",
-      "val2": "125 cm",
-      "label2": "Croissance (8 m²)",
-      "val3": "100%",
-      "label3": "Autosuffisance hydrique"
+      "title": "Reforestal démarre bientôt.",
+      "p1": "La coopérative est actuellement en cours de création.",
+      "p2": "Si tu souhaites néanmoins t’engager dès maintenant, tu peux devenir membre de terra utopia et nous suivre sur les réseaux sociaux.",
+      "btn1": "Deviens membre",
+      "btn2": "Reforestal"
     }
   }
 }

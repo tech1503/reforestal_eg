@@ -1772,71 +1772,65 @@
     "social_media_text": "Dieses Impressum gilt auch für unser LinkedIn-, Facebook-, Threads- und Instagram-Profil sowie für unseren Kanal auf YouTube.",
     "dispute_resolution": "Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."
   },
-  "pageDollar": {
+  "pageDe": {
     "hero": {
-      "badge": "Der Weg der Regeneration",
-      "welcome": "Wie schön, dass Du diesen Weg entdeckt hast!",
-      "title": "Mehr als eine Utopie:",
-      "titleHighlight": "Jede große Transformation beginnt mit einer gemeinsamen Vision.",
-      "subtitle": "terra utopia und Reforestal schließen sich zusammen, um das Amazonasgebiet in Ecuador zu regenerieren. Deine Teilnahme ist der Antrieb dieser Transformation. Mit Deiner Beteiligung gehen wir in die Umsetzung: Wir sichern das Ökosystem m² für m² und gewährleisten den Wohlstand der lokalen Gemeinschaften.",
-      "descrip": "Mit Deiner Unterstützung wird jeder m² Amazonas-Regenwald zu einem Vermächtnis aus Leben und Wohlstand für kommende Generationen."
+      "title": "Land-Dollars schaffen Regenwald",
+      "subtitle": "Reforestal und terra utopia forsten gemeinsam Regenwald auf. Reforestal fördert seine Mitglieder durch Beteiligung an Ernten wie Kakao, Bambus und Vanille, während terra utopia 100% gemeinnützig aufforstet.",
+      "btn": "terra utopia unterstützen",
+      "btn2": "Spenden",
+      "btn3": "Jetzt Land sichern"
+    },
+    "section1": {
+      "title": "Was bewirkt dein Beitrag?",
+      "subtitle": "Jeder Euro kommt an!",
+      "p1": "Alles was gespendet wird, fließt in unser erstes große Aufforstungsprojekt im Amazonas. Es ermöglicht Landflächen, Werkzeuge, Setzlinge und Arbeitskraft... ",
+      "p2": "Am Anfang steht die ausführliche Planung mit den Experten vor Ort: den indigenen Gemeinschaften und unseren Forstingenieurinnen."
+    },
+    "section2": {
+      "title": "Warum kann ich mich noch nicht an Reforestal beteiligen?",
+      "p1": "Reforestal befindet sich noch in Gründung.",
+      "p2": "Der juristischen Basis unserer Genossenschaft wird gerade der letzte Feinschliff gegeben. Danach folgt die Gründungsprüfung, bei der neben der Satzung vor allem auch unser Wirtschaftsmodell geprüft wird.",
+      "p4": "Der große Erfolg unserer ersten Pilotprojekte vor Ort zeigt, dass regerativen Wirtschaftsmodellen die Zukunft gehört!"
+    },
+    "section3": {
+      "title": "Welche Rollen nehmen terra utopia und Reforestal ein?",
+      "subtitle": "Ein gemeinsames Ziel - unterschiedliche Ansätze",
+      "list1": {
+        "item1": "Kauft Land",
+        "item2": "Schützt bestehenden Wald",
+        "item3": "Renaturiert Ökosysteme",
+        "item4": "Baut minimalinvasive Baumhäuser",
+        "item5": "Hat keine Gewinnabsicht"
+      },
+      "list2": {
+        "item1": "Pachtet Land",
+        "item2": "Forstet Mischwald auf",
+        "item3": "Erntet Nicht-Holzprodukte",
+        "item4": "Verkauft die Ernten",
+        "item5": "Zahlt Mitgliedern Dividenden"
+      },
+      "footer": "So verbinden sich beide Projektarten, um gemeinsam die Wirkung zu maximieren."
+    },
+    "section4": {
+      "title": "Warum Baumhäuser?",
+      "subtitle": "Der Regenwald soll erlebbar werden.",
+      "p1": "Ein kleiner Teil der von terra utopia erworbenen Flächen wird für naturnahe Baumhäuser genutzt.",
+      "p2": "Wir brauchen Wohnraum für Besucher, Arbeiter und Anwohner. Einnahmen aus Vermietung sind für das Gesamtprojekt dabei ebenso wichtig wie konstante Präsenz die vor Raubbau schützt.",
+      "p3": "So profitieren Natur, lokale Bevölkerung und Gäste gleichermaßen."
+    },
+    "section5": {
+      "title": "Der Land-Dollar",
+      "subtitle": "Wahlschein des Kapitalismus.",
+      "p1": "Wirkmächtiger als die Wahl der Staatsvertreter ist die Wahl, wofür wir unser Geld nutzen.",
+      "p2": "Der Land-Dollar steht symbolisch für unser regeneratives Wirtschaftsmodell, das durch Reforestal eine Alternative zur überwiegend destruktiven Wirtschaft bietet.",
+      "p3": " \"Der Land-Dollar steht für reale Werte, statt Bereicherung durch Ausbeutung oder reine Kurssteigerungen. \" oder  \"Reale Werte und regeneratives Wachstum, statt Ausbeutung und Zerstörung. \""
     },
     "cta": {
-      "btnDonate": "Spenden an terra utopia",
-      "btnVisit": "Besuche terra utopia",
-      "title": "Werde Teil der Geschichte",
-      "subtitle": "Dir wird die Macht zu handeln geboten. Schließe Dich der Bewegung an und unterstütze die Sicherung des Regenwalds mit terra utopia und Reforestal – durch regenerative Wirtschaft und Agroforstwirtschaft. Sichere Dein Ökosystem. Gestalte eine neue Ära.",
-      "footer": "Jeder Schritt zählt, und Du kannst ebenfalls Teil dieser Bewegung sein."
-    },
-    "history": {
-      "badges": "Die Herkunft",
-      "title": "Zwei Kräfte, Ein Traum",
-      "terraTitle": "terra utopia",
-      "terraDesc": "Entstand in Deutschland als gemeinnützige Organisation mit einem tiefgreifenden Ziel: Menschen weltweit mit Gemeinschaftspartnern im ecuadorianischen Amazonas zu verbinden. Die Philosophie war stets, zu beweisen, dass ein hoher Lebensstandard nicht mit der Zerstörung der Umwelt einhergehen muss. Es ist möglich, die Menschheit in einer „grünen Welt“ zu vereinen – durch Bildung und kollektive Regeneration.",
-      "reforestalTitle": "Reforestal",
-      "reforestalDesc": "2024 begann es als biokulturelles Bündnis. Die Gründer erkannten, dass das Pflanzen von Bäumen als bloße Spenden nicht ausreicht, um das Amazonasgebiet zu sichern. Sie wollten über die Philanthropie hinausgehen und ein wirklich professionelles Modell schaffen – eine Verbindung aus technologischer Innovation und jahrtausendealter Weisheit.",
-      "allianceConclusion": "Heute schmieden terra utopia und Reforestal ein Bündnis für die Zukunft. terra utopia bringt sein globales Netzwerk ein, während Reforestal die Impact-Plattform entwickelt. Gemeinsam wollen sie nicht nur das Ökosystem sichern, sondern es in einen nachhaltigen Entwicklungsmotor verwandeln."
-    },
-    "stepByStep": {
-      "title": "Dein Zukunft entsteht – Quadratmeter für Quadratmeter.",
-      "subtitle": "Durch diese gemeinsame Geschichte haben wir ein System aufgebaut, das auf folgenden Säulen beruht – den Grundpfeilern unseres Projekts:",
-      "step1Badge": "Schritt 1: Territorium",
-      "step1Title": "Messbare m²-Regeneration",
-      "step1Desc": "Die Geschichte des Regenwalds erzählt man nicht nach der Anzahl gepflanzter Bäume, sondern nach dem gesicherten Territorium. Wir pflanzen keinen Baum, der zu einer bloßen Zahl wird; wir schützen vollständige Ökosysteme. Unseren Erfolg messen wir daran, konkrete Quadratmeter (m²) des Amazonas-Regenwalds zu sichern – und den Lebensraum von Grund auf zu garantieren.",
-      "step2Badge": "Schritt 2: Wirtschaftsmodell",
-      "step2Title": "Vorteile und Erträge",
-      "step2Desc": "Wir haben beschlossen, den Lauf der Wirtschaftsgeschichte zu ändern. Indem wir die alte extraktive Logik des Bodens durch ein regeneratives Modell ersetzen, beweisen wir, dass Ethik und Rentabilität koexistieren können. Wir sind tief der Mission verpflichtet, die Symbiose zwischen Menschheit und Natur wiederherzustellen. Das Ziel ist es, eine nachhaltige und wahrhaft kompatible Beziehung zwischen Umwelt, Wirtschaft und Gesellschaft zu schaffen.",
-      "step3Badge": "Schritt 3: Biodiversität",
-      "step3Title": "Gemischte Anbauflächen und Chakra",
-      "step3Desc": "Wir pflanzen keine einzige Art an. Das produktive Herz unserer Geschichte schlägt dank der amazonischen Chakra. Mehr als ein simples Agrarsystem ist sie ein uraltes Design des produktiven Waldes, in dem Arten wie Kakao und Vanille in Symbiose wachsen und die Bodenfruchtbarkeit wiederherstellen.",
-      "step4Badge": "Schritt 4: Die Struktur",
-      "step4Title": "Anfangsphase und zukünftige Genossenschaft eG",
-      "step4Desc": "Derzeit befinden wir uns in unserer „Anfangsphase“ und sammeln das Kapital, um die erste deutsche Genossenschaft (eG) dieser Art zu gründen. Dies gewährleistet vollständige Unabhängigkeit unter strenger Regulierung und Transparenz. Wer uns jetzt unterstützt, wird zu einem „Gründungsverbündeten“ und ist von Anfang an Mitgestalter."
-    },
-    "impact": {
-      "badge": "Systemische Wirkung",
-      "title": "Alle gewinnen",
-      "subtitle": "In dieser neuen Geschichte haben wir ein Modell entworfen, in dem die Rentabilität des Kapitals und die Gesundheit des Ökosystems untrennbar sind. Jeder Teil des lebendigen Gefüges geht als Sieger hervor.",
-      "climateTitle": "Klima",
-      "climateDesc": "Wir stellen lebenswichtige CO₂-Speicher wieder her – mit innovativen und realen Maßnahmen gegen den Klimawandel.",
-      "humanityTitle": "Menschheit",
-      "humanityDesc": "Wir heilen die Trennung zwischen Dir und Deiner Umgebung. Wir verwandeln Öko-Angst in „Öko-Agentur“: die Fähigkeit zu handeln.",
-      "localTitle": "Lokale Bevölkerung",
-      "localDesc": "Wir sichern, dass Erhalt Wohlstand schafft. Die Familien in Napo erzielen ein sicheres Einkommen, indem sie zu Hütern des Gebiets werden.",
-      "membersTitle": "Mitglieder der Genossenschaft",
-      "membersDesc": "Wer das Projekt unterstützt, wechselt vom Zuschauer zum Miteigentümer. IN ZUKUNFT wirst Du demokratische Mitwirkung, Stimmrechte bei strategischen Entscheidungen und Zugang zu transparenten Daten genießen.",
-      "floraTitle": "Flora, Fauna und Pilze",
-      "floraDesc": "Wir legen keine Plantagen an, wir regenerieren Lebensräume. Die Sanierung des Bodens nährt die Netzwerke der Mikroorganismen und gibt dem Regenwald seinen Puls zurück."
-    },
-    "metrics": {
-      "badge": "Die Feldrealität",
-      "title": "Ertragspotenzial",
-      "val1": ">90%",
-      "label1": "Überleben",
-      "val2": "125 cm",
-      "label2": "Wachstum (8 m)",
-      "val3": "100%",
-      "label3": "Wasserselbstversorgung"
+      "title": "Reforestal startet bald",
+      "p1": "Die Genossenschaft befindet sich aktuell in Gründung.",
+      "p2": "Wenn du dich trotzdem bereits beteiligen möchtest, kannst du bei terra utopia Mitglied werden und uns auf social media folgen.",
+      "btn1": "Werden Sie Mitglied",
+      "btn2": "Reforestal"
     }
   }
 }

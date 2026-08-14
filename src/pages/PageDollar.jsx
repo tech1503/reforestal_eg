@@ -4,22 +4,14 @@ import { useTranslation } from 'react-i18next';
 import {
   TreePine,
   Sprout,
-  MapPin,
-  Leaf,
-  HeartHandshake,
   Globe,
   ArrowRight,
-  ChevronDown,
-  Droplets,
   Home,
-  Users,
-  Sun,
   ShieldCheck,
-  Microscope,
-  Cloud,
-  Milestone,
-  Coins,
-  Combine
+  Banknote,
+  CheckCircle2,
+  Instagram,
+  HeartHandshake
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import imgPageDollar from '@/assets/vegetacion-ref-arbol.webp';
@@ -49,10 +41,6 @@ const PageDollar = () => {
   const yBg = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
   const opacityHero = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
-  const scrollToSection = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <div className="min-h-screen bg-background text-white selection:bg-gold selection:text-background overflow-x-hidden">
       
@@ -60,698 +48,416 @@ const PageDollar = () => {
         <LanguageSwitcher />
       </header>
 
-      {/* 0. HERO SECTION: EL INICIO DEL VIAJE */}
+      {/* 0. HERO SECTION */}
       <section className="relative min-h-screen flex flex-col items-center justify-center p-6 lg:p-12 overflow-hidden">
-        <motion.div 
+        <motion.div
           className="absolute inset-0 z-0 bg-cover bg-center"
-          style={{ 
+          style={{
             backgroundImage: `url(${imgPageDollar})`,
             y: yBg
           }}
         />
         <div className="absolute inset-0 z-0 bg-gradient-to-b from-darkBgDeep/50 via-darkBg/70 to-darkBgDeep backdrop-blur-[1px]" />
-        
-        {/* Luces decorativas */}
+
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-gold/20 rounded-full blur-[120px] mix-blend-screen" />
-          <div className="absolute bottom-[20%] right-[-10%] w-[50%] h-[50%] bg-emerald-500/20 rounded-full blur-[150px] mix-blend-screen" />
+          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-emerald-500/20 rounded-full blur-[120px] mix-blend-screen" />
+          <div className="absolute bottom-[20%] right-[-10%] w-[50%] h-[50%] bg-gold/20 rounded-full blur-[150px] mix-blend-screen" />
         </div>
 
-        <motion.div 
+        <motion.div
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
           style={{ opacity: opacityHero }}
-          className="relative z-10 max-w-6xl mx-auto text-center mt-20"
+          className="relative z-10 max-w-5xl mx-auto text-center mt-20"
         >
-          <motion.div variants={fadeInUp} className="inline-flex items-center justify-center gap-4 px-6 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-6 shadow-glow">
-            <Milestone className="w-5 h-5 text-gold" />
-            <span className="text-sm md:text-base font-medium tracking-widest text-gradient-gold uppercase">
-              {t('pageDollar.hero.badge', 'El Camino de la Regeneración')}
-            </span>
-          </motion.div>
 
-          <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-gold-200 font-light tracking-wide mb-6">
-            {t('pageDollar.hero.welcome', '¡Qué bien que hayas descubierto este camino!')}
-          </motion.p>
-
-          <motion.h1 variants={fadeInUp} className="text-3xl md:text-5xl lg:text-7xl font-black text-white leading-tight mb-8 drop-shadow-2xl">
-            {t('pageDollar.hero.title', 'Más que una Utopía:')} <br/>
-            <span className="text-gradient-gold animate-shine">
-              {t('pageDollar.hero.titleHighlight', 'Toda gran transformación comienza con una visión compartida')}
-            </span>
+          <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight mb-8 drop-shadow-2xl">
+            {t('pageDe.hero.title', 'Land-Dollars schaffen Regenwald')}
           </motion.h1>
 
-          <motion.p variants={fadeInUp} className="text-lg md:text-2xl text-white/80 max-w-4xl mx-auto font-light leading-relaxed mb-12">
-            {t('pageDollar.hero.subtitle', 'terra utopia y Reforestal se unen para sanar la Amazonía en Ecuador. Tu donación es el motor de esta transformación. Con tu apoyo pasamos a la acción: protegemos la selva metro a metro y garantizamos la prosperidad de las comunidades locales.')}
+          <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-foreground max-w-3xl mx-auto font-light leading-relaxed mb-12">
+            {t('pageDe.hero.subtitle', 'Reforestal und terra utopia forsten gemeinsam Regenwald auf. Reforestal fördert seine Mitglieder durch Beteiligung an Ernten wie Kakao, Bambus und Vanille, während terra utopia 100% gemeinnützig aufforstet.')}
           </motion.p>
 
-          <motion.p variants={fadeInUp} className="text-lg md:text-2xl text-gradient-gold font-light tracking-wide mb-10">
-            {t('pageDollar.hero.descrip', 'Con tu apoyo, cada m² de selva Amazónica se convierte en un legado de vida y prosperidad para las generaciones futuras.')}
-          </motion.p>
-
-          <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row justify-center gap-6">
-            <Button 
-              onClick={() => window.open('https://www.betterplace.org/de/projects/88748-terra-utopia-baumhaeuser-im-regenwald-leben-als-teil-der-natur', '_blank')}
-              className="bg-gradient-to-r from-gold to-gold-600 hover:from-gold-600 hover:to-gold text-darkBgDeep font-black text-xl px-8 py-4 rounded-full shadow-glow-lg flex items-center gap-3 transition-all transform hover:-translate-y-1"
+          <motion.div variants={fadeInUp} className="flex justify-center">
+            <Button
+              onClick={() => window.open('https://www.betterplace.org/de/projects/88748', '_blank')}
+              className="bg-gradient-to-r from-gold to-gold-600 hover:from-gold-600 hover:to-gold text-darkBgDeep font-black text-xl px-10 py-6 rounded-full shadow-glow-lg flex items-center gap-3 transition-all transform hover:-translate-y-1 hover:scale-105"
             >
-              {t('pageDollar.cta.btnDonate', 'Donar a terra utopia')} <ArrowRight className="w-6 h-6" />
-            </Button>
-            
-            <Button 
-              onClick={() => window.open('https://terra-utopia.com/', '_blank')}
-              variant="outline"
-              className="bg-darkBgDeep/50 backdrop-blur-md border border-emerald-500 text-emerald-500 hover:bg-emerald-500/10 font-bold text-xl px-8 py-4 rounded-full transition-all"
-            >
-              {t('pageDollar.cta.btnVisit', 'Visitar terra utopia')}
+              {t('pageDe.hero.btn', 'terra utopia unterstützen')} <ArrowRight className="w-6 h-6" />
             </Button>
           </motion.div>
         </motion.div>
-
-          {/* Botón flecha interactivo para scroll 
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1 }}
-          className="absolute bottom-2 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer z-10"
-          onClick={() => scrollToSection('historia')}
-        >
-          <ChevronDown className="w-12 h-12 text-white/40 hover:text-gold transition-colors" />
-        </motion.div>
-         */}
       </section>
 
-      {/* 1. EL ORIGEN: DOS FUERZAS */}
-      <section id="historia" className="relative py-32 bg-darkBgDeep border-t border-border/10">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="text-center max-w-4xl mx-auto mb-20">
-            <span className="text-gradient-gold font-bold tracking-widest uppercase text-sm mb-4 block">
-              {t('pageDollar.history.badges', 'El Origen')}
-            </span>
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-8">
-              {t('pageDollar.history.title', 'Dos Fuerzas, Un Mismo Sueño')}
+      {/* 1. WAS PASSIERT MIT MEINEM BEITRAG? */}
+      <section className="relative py-32 bg-darkBgDeep border-t border-border/10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row items-center gap-16">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="w-full md:w-1/2 flex justify-center"
+          >
+            <motion.div animate={floatingAnimation} className="relative w-48 h-48 bg-emerald-500/10 rounded-full border border-emerald-500/30 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+              <TreePine className="w-24 h-24 text-emerald-500" />
+              <div className="absolute -bottom-4 -right-4 bg-darkBgDeep p-4 rounded-full border border-gold/50 shadow-glow">
+                <ShieldCheck className="w-8 h-8 text-gold" />
+              </div>
+            </motion.div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="w-full md:w-1/2 text-left"
+          >
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-6">
+              {t('pageDe.section1.title', 'Was bewirkt dein Beitrag?')}
             </h2>
+            <h3 className="text-2xl md:text-2xl text-gradient-gold font-bold mb-6">
+              {t('pageDe.section1.subtitle', 'Jeder Euro kommt an!')}
+            </h3>
+            <p className="text-xl text-muted-foreground font-light leading-relaxed mb-4">
+              {t('pageDe.section1.p1', 'Alles was gespendet wird, fließt in unser erstes große Aufforstungsprojekt im Amazonas. Es ermöglicht Landflächen, Werkzeuge, Setzlinge und Arbeitskraft... ')}
+            </p>
+            <p className="text-xl text-muted-foreground font-light leading-relaxed">
+              {t('pageDe.section1.p2', 'Am Anfang steht die ausführliche Planung mit den Experten vor Ort: den indigenen Gemeinschaften und unseren Forstingenieurinnen.')}
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 2. WARUM LÄUFT DAS ÜBER TERRA UTOPIA? */}
+      <section className="py-32 bg-darkBg relative border-y border-border/10 overflow-hidden">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl md:text-5xl font-black text-gradient-gold mb-10">
+              {t('pageDe.section2.title', 'Warum kann ich mich noch nicht an Reforestal beteiligen?')}
+            </h2>
+
+            <div className="bg-darkBgDeep/50 p-8 md:p-12 rounded-[40px] border border-white/5 shadow-xl text-left space-y-6">
+              <p className="text-2xl text-white font-medium">
+                {t('pageDe.section2.p1', 'Reforestal befindet sich noch in Gründung.')}
+              </p>
+              <p className="text-xl text-muted-foreground font-light leading-relaxed">
+                {t('pageDe.section2.p2', 'Der juristischen Basis unserer Genossenschaft wird gerade der letzte Feinschliff gegeben. Danach folgt die Gründungsprüfung, bei der neben der Satzung vor allem auch unser Wirtschaftsmodell geprüft wird.')}
+              </p>
+            
+              <p className="text-xl text-gradient-gold font-light leading-relaxed p-6 bg-emerald-500/10 rounded-2xl border border-emerald-500/20">
+                {t('pageDe.section2.p4', 'Der große Erfolg unserer ersten Pilotprojekte vor Ort zeigt, dass regerativen Wirtschaftsmodellen die Zukunft gehört!')}
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 3. WIE ARBEITEN SIE ZUSAMMEN? */}
+      <section className="py-32 bg-darkBgDeep relative border-b border-border/10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-6">
+              {t('pageDe.section3.title', 'Welche Rollen nehmen terra utopia und Reforestal ein?')}
+            </h2>
+            <p className="text-xl text-gradient-gold font-medium">
+              {t('pageDe.section3.subtitle', 'Ein gemeinsames Ziel - unterschiedliche Ansätze')}
+            </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Terra Utopia */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="bg-darkBg p-10 md:p-14 rounded-[40px] relative border border-white/5"
+              className="bg-darkBg p-10 rounded-[40px] border border-white/5 relative overflow-hidden group hover:border-gold/30 transition-colors"
             >
-              <motion.div animate={floatingAnimation} className="w-20 h-20 bg-gold/20 rounded-3xl flex items-center justify-center mb-8 shadow-glow">
-                <Globe className="w-10 h-10 text-gold" />
-              </motion.div>
-              <h3 className="text-3xl font-black text-white mb-4">
-                {t('pageDollar.history.terraTitle', 'terra utopia')}
-              </h3>
-              <p className="text-lg text-muted-foreground font-light leading-relaxed">
-                {t('pageDollar.history.terraDesc', 'Nació en Alemania como una organización sin fines de lucro con un propósito profundo: reconectar a personas de todo el mundo con socios comunitarios en la Amazonía ecuatoriana. Su filosofía siempre ha sido demostrar que un alto nivel de vida no tiene por qué estar ligado a la destrucción del medio ambiente; es posible reunir a la humanidad en un "mundo verde" mediante la educación y la restauración colectiva.')}
-              </p>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 rounded-bl-full pointer-events-none" />
+              <motion.div animate={floatingAnimation}><Globe className="w-12 h-12 text-gold mb-8" /></motion.div>
+              <h3 className="text-3xl font-black text-white mb-8">terra utopia</h3>
+              <ul className="space-y-4">
+                {[ (t('pageDe.section3.list1.item1', 'Kauft Land')),
+                  (t('pageDe.section3.list1.item2', 'Schützt bestehenden Wald')),
+                  (t('pageDe.section3.list1.item3', 'Renaturiert Ökosysteme')),
+                  (t('pageDe.section3.list1.item4', 'Baut minimalinvasive Baumhäuser')),
+                  (t('pageDe.section3.list1.item5', 'Hat keine Gewinnabsicht'))
+                ]
+                .map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-lg text-muted-foreground font-light">
+                    <CheckCircle2 className="w-6 h-6 text-gold shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </motion.div>
 
-            {/* Reforestal */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="bg-darkBg p-10 md:p-14 rounded-[40px] relative border border-white/5"
+              transition={{ delay: 0.2 }}
+              className="bg-darkBg p-10 rounded-[40px] border border-white/5 relative overflow-hidden group hover:border-emerald-500/30 transition-colors"
             >
-              <motion.div animate={floatingAnimation} className="w-20 h-20 bg-emerald-500/20 rounded-3xl flex items-center justify-center mb-8 shadow-lg shadow-emerald-500/30">
-                <Sprout className="w-10 h-10 text-emerald-500" />
-              </motion.div>
-              <h3 className="text-3xl font-black text-white mb-4">
-                {t('pageDollar.history.reforestalTitle', 'Reforestal')}
-              </h3>
-              <p className="text-lg text-muted-foreground font-light leading-relaxed">
-                {t('pageDollar.history.reforestalDesc', 'Comenzó en 2024 como una alianza biocultural. Los fundadores comprendieron que plantar árboles como simples donaciones no era suficiente para salvar la Amazonía. Querían ir más allá de la filantropía y crear un modelo verdaderamente profesional, combinando la innovación tecnológica con la sabiduría milenaria.')}
-              </p>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-bl-full pointer-events-none" />
+              <motion.div animate={floatingAnimation}><Sprout className="w-12 h-12 text-emerald-500 mb-8" /></motion.div>
+              <h3 className="text-3xl font-black text-white mb-8">Reforestal</h3>
+              <ul className="space-y-4">
+                {[ (t('pageDe.section3.list2.item1', 'Pachtet Land')),
+                  (t('pageDe.section3.list2.item2', 'Forstet Mischwald auf')),
+                  (t('pageDe.section3.list2.item3', 'Erntet Nicht-Holzprodukte')),
+                  (t('pageDe.section3.list2.item4', 'Verkauft die Ernten')),
+                  (t('pageDe.section3.list2.item5', 'Zahlt Mitgliedern Dividenden'))
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-lg text-muted-foreground font-light">
+                    <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </motion.div>
           </div>
-            
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="mt-16 text-center max-w-3xl mx-auto p-8 bg-forest border border-gold/20 rounded-3xl"
+            className="mt-16 text-center max-w-3xl mx-auto p-8 bg-forest border border-emerald-500/20 rounded-3xl"
           >
-            <p className="text-xl text-white font-light leading-relaxed">
-              {t('pageDollar.history.allianceConclusion', 'Hoy, terra utopia y Reforestal forjan una alianza hacia el futuro. terra utopia aporta su red global, mientras Reforestal desarrolla la plataforma de impacto. Juntos, no solo buscan proteger el ecosistema, sino transformarlo en un motor de desarrollo que perdure en el tiempo.')}
+            <p className="text-2xl text-gradient-gold font-light">
+              {t('pageDe.section3.footer', 'So verbinden sich beide Projektarten, um gemeinsam die Wirkung zu maximieren.')}
             </p>
           </motion.div>
 
-            {/* BOTON PARA DONAR */}
-            <motion.div
-                variants={fadeInUp}
-                className="flex justify-center pt-20"
+          <motion.div variants={fadeInUp} className="flex justify-center pt-16">
+            <div className="relative">
+              <motion.div className="absolute inset-0 rounded-full bg-gold blur-lg opacity-20"
+                animate={{ scale: [1, 1.25, 1], opacity: [0.15, 0.35, 0.15] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.div
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <Button onClick={() => window.open('https://www.betterplace.org/de/projects/88748', '_blank')}
+                  className="relative overflow-hidden bg-gradient-to-r from-gold via-gold-400 to-gold-600 hover:from-gold-600 hover:to-gold text-darkBgDeep font-black text-xl px-8 py-4 rounded-full shadow-[0_0_25px_rgba(255,200,0,0.20)] hover:shadow-[0_0_35px_rgba(255,220,80,0.35)] transition-all duration-300 hover:scale-110 hover:-translate-y-2"
                 >
-                <div className="relative">
-
-                    {/* Glow animado */}
+                  <motion.div className="absolute inset-y-0 -left-24 w-20 bg-white/40 blur-md rotate-12"
+                    animate={{ x: [-100, 450] }}
+                    transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 1, ease: "linear" }}
+                  />
+                  <span className="relative flex items-center gap-3">
+                    {t('pageDe.hero.btn2', 'Spenden')}
                     <motion.div
-                    className="absolute inset-0 rounded-full bg-gold blur-lg opacity-40"
-                    animate={{
-                        scale: [1, 1.25, 1],
-                        opacity: [0.25, 0.55, 0.25],
-                    }}
-                    transition={{
-                        duration: 2.5,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    }}
-                    />
-
-                    <motion.div
-                    animate={{
-                        scale: [1, 1.05, 1],
-                    }}
-                    transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                    }}
+                      animate={{ x: [0, 6, 0] }}
+                      transition={{ duration: 1, repeat: Infinity }}
                     >
-                    <Button
-                        onClick={() =>
-                        window.open(
-                            'https://www.betterplace.org/de/projects/88748-terra-utopia-baumhaeuser-im-regenwald-leben-als-teil-der-natur',
-                            '_blank'
-                        )
-                        }
-                        className="
-                        relative
-                        overflow-hidden
-                        bg-gradient-to-r
-                        from-gold
-                        via-gold-400
-                        to-gold-600
-                        hover:from-gold-600
-                        hover:to-gold
-                        text-darkBgDeep
-                        font-black
-                        text-xl
-                        px-8
-                        py-4
-                        rounded-full
-                        shadow-[0_0_35px_rgba(255,200,0,0.45)]
-                        hover:shadow-[0_0_55px_rgba(255,220,80,0.8)]
-                        transition-all
-                        duration-300
-                        hover:scale-110
-                        hover:-translate-y-2
-                        "
-                    >
-                        {/* Brillo que atraviesa el botón */}
-                        <motion.div
-                        className="absolute inset-y-0 -left-24 w-20 bg-white/40 blur-md rotate-12"
-                        animate={{
-                            x: [-100, 450],
-                        }}
-                        transition={{
-                            duration: 2.5,
-                            repeat: Infinity,
-                            repeatDelay: 1,
-                            ease: "linear",
-                        }}
-                        />
-
-                        <span className="relative flex items-center gap-3">
-                            {t('pageDollar.cta.btnDonate', 'Donar a terra utopia')}
-
-                        <motion.div
-                            animate={{
-                            x: [0, 6, 0],
-                            }}
-                            transition={{
-                            duration: 1,
-                            repeat: Infinity,
-                            }}
-                        >
-                            <ArrowRight className="w-6 h-6" />
-                        </motion.div>
-                        </span>
-                    </Button>
+                      <ArrowRight className="w-6 h-6" />
                     </motion.div>
-                </div>
-            </motion.div>
-
-
-        </div>
-        
-      </section>
-
-      {/* 2. EL PASO A PASO (PILARES DE LA HISTORIA) */}
-      <section className="py-32 bg-darkBg relative border-y border-border/10 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-          <div className="text-center mb-24">
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
-              {t('pageDollar.stepByStep.title', 'Construyendo el Futuro, Paso a Paso')}
-            </h2>
-            <p className="text-xl text-muted-foreground font-light max-w-3xl mx-auto">
-              {t('pageDollar.stepByStep.subtitle', 'A través de esta historia conjunta, hemos construido un sistema basado en los siguientes pilares que dan vida a nuestro proyecto:')}
-            </p>
-          </div>
-
-          {/* Timeline / Pasos */}
-          <div className="space-y-24">
-            
-            {/* Paso 1: Reforestación */}
-            <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              className="flex flex-col md:flex-row items-center gap-8 md:gap-16"
-            >
-              <div className="w-full md:w-1/2 flex justify-end">
-                <motion.div animate={floatingAnimation} className="w-32 h-32 bg-darkBgDeep rounded-full border border-emerald-500/50 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                  <TreePine className="w-16 h-16 text-emerald-500" />
-                </motion.div>
-              </div>
-              <div className="w-full md:w-1/2 text-left">
-                <span className="text-gradient-gold font-bold tracking-widest uppercase text-sm mb-2 block">
-                  {t('pageDollar.stepByStep.step1Badge', 'Paso 1: Territorio')}
-                </span>
-                <h3 className="text-3xl font-bold text-white mb-4">
-                  {t('pageDollar.stepByStep.step1Title', 'Reforestación Medible')}
-                </h3>
-                <p className="text-lg text-muted-foreground font-light leading-relaxed">
-                  {t('pageDollar.stepByStep.step1Desc', 'La historia de la selva no se cuenta por la cantidad de árboles plantados, sino por el territorio asegurado. No plantamos un árbol que se convierte en un simple dato; protegemos ecosistemas completos. Medimos nuestro éxito garantizando metros cuadrados (m²) específicos de selva amazónica, asegurando el hábitat desde sus cimientos.')}
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Paso 2: Beneficios */}
-            <motion.div 
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-16"
-            >
-              <div className="w-full md:w-1/2 flex justify-start">
-                <motion.div animate={floatingAnimation} className="w-32 h-32 bg-darkBgDeep rounded-full border border-gold/50 flex items-center justify-center shadow-glow">
-                  <Coins className="w-16 h-16 text-gold" />
-                </motion.div>
-              </div>
-              <div className="w-full md:w-1/2 text-right">
-                <span className="text-gradient-gold font-bold tracking-widest uppercase text-sm mb-2 block">
-                  {t('pageDollar.stepByStep.step2Badge', 'Paso 2: Modelo Económico')}
-                </span>
-                <h3 className="text-3xl font-bold text-white mb-4">
-                  {t('pageDollar.stepByStep.step2Title', 'Beneficios y Ganancias')}
-                </h3>
-                <p className="text-lg text-muted-foreground font-light leading-relaxed">
-                  {t('pageDollar.stepByStep.step2Desc', 'Hemos decidido cambiar el rumbo de la historia económica. Al sustituir la antigua lógica extractiva de la tierra por un modelo regenerativo, demostramos que la ética y la rentabilidad pueden coexistir.  Estamos profundamente comprometidos con la misión de restaurar la simbiosis entre la humanidad y la naturaleza. El objetivo es crear una relación sostenible y verdaderamente compatible entre el medio ambiente, la economía y la sociedad.')}
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Paso 3: Chakra */}
-            <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              className="flex flex-col md:flex-row items-center gap-8 md:gap-16"
-            >
-              <div className="w-full md:w-1/2 flex justify-end">
-                <motion.div animate={floatingAnimation} className="w-32 h-32 bg-darkBgDeep rounded-full border border-emerald-500/50 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                  <Combine className="w-16 h-16 text-emerald-500" />
-                </motion.div>
-              </div>
-              <div className="w-full md:w-1/2 text-left">
-                <span className="text-gradient-gold font-bold tracking-widest uppercase text-sm mb-2 block">
-                  {t('pageDollar.stepByStep.step3Badge', 'Paso 3: Biodiversidad')}
-                </span>
-                <h3 className="text-3xl font-bold text-white mb-4">
-                  {t('pageDollar.stepByStep.step3Title', 'Cultivos Mixtos y Chakra')}
-                </h3>
-                <p className="text-lg text-muted-foreground font-light leading-relaxed">
-                  {t('pageDollar.stepByStep.step3Desc', 'Nos negamos a plantar una sola especie. El corazón productivo de nuestra historia late gracias a la Chakra amazónica. Más que un simple sistema agrícola, es un diseño ancestral de bosque productivo donde especies como el cacao y la vainilla crecen en simbiosis, restaurando la fertilidad del suelo.')}
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Paso 4: Cooperativa */}
-            <motion.div 
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-16"
-            >
-              <div className="w-full md:w-1/2 flex justify-start">
-                <motion.div animate={floatingAnimation} className="w-32 h-32 bg-darkBgDeep rounded-full border border-gold/50 flex items-center justify-center shadow-glow">
-                  <ShieldCheck className="w-16 h-16 text-gold" />
-                </motion.div>
-              </div>
-              <div className="w-full md:w-1/2 text-right">
-                <span className="text-gradient-gold font-bold tracking-widest uppercase text-sm mb-2 block">
-                  {t('pageDollar.stepByStep.step4Badge', 'Paso 4: La Estructura')}
-                </span>
-                <h3 className="text-3xl font-bold text-white mb-4">
-                  {t('pageDollar.stepByStep.step4Title', 'Fase Inicial y Futura Cooperativa eG')}
-                </h3>
-                <p className="text-lg text-muted-foreground font-light leading-relaxed">
-                  {t('pageDollar.stepByStep.step4Desc', 'Actualmente, estamos en nuestra "Fase Inicial", reuniendo el capital para establecer la primera Cooperativa Alemana (eG) de este tipo. Esto asegurará una independencia total bajo una estricta regulación y transparencia. Quienes nos apoyen ahora se convertirán en "Aliados Guardianes", co-creadores desde el primer momento.')}
-                </p>
-              </div>
-            </motion.div>
-
-            {/* BOTON PARA DONAR */}
-            <motion.div
-                variants={fadeInUp}
-                className="flex justify-center pt-10"
-                >
-                <div className="relative">
-
-                    {/* Glow animado */}
-                    <motion.div
-                    className="absolute inset-0 rounded-full bg-gold blur-lg opacity-40"
-                    animate={{
-                        scale: [1, 1.25, 1],
-                        opacity: [0.25, 0.55, 0.25],
-                    }}
-                    transition={{
-                        duration: 2.5,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    }}
-                    />
-
-                    <motion.div
-                    animate={{
-                        scale: [1, 1.05, 1],
-                    }}
-                    transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                    }}
-                    >
-                    <Button
-                        onClick={() =>
-                        window.open(
-                            'https://www.betterplace.org/de/projects/88748-terra-utopia-baumhaeuser-im-regenwald-leben-als-teil-der-natur',
-                            '_blank'
-                        )
-                        }
-                        className="
-                        relative
-                        overflow-hidden
-                        bg-gradient-to-r
-                        from-gold
-                        via-gold-400
-                        to-gold-600
-                        hover:from-gold-600
-                        hover:to-gold
-                        text-darkBgDeep
-                        font-black
-                        text-xl
-                        px-8
-                        py-4
-                        rounded-full
-                        shadow-[0_0_35px_rgba(255,200,0,0.45)]
-                        hover:shadow-[0_0_55px_rgba(255,220,80,0.8)]
-                        transition-all
-                        duration-300
-                        hover:scale-110
-                        hover:-translate-y-2
-                        "
-                    >
-                        {/* Brillo que atraviesa el botón */}
-                        <motion.div
-                        className="absolute inset-y-0 -left-24 w-20 bg-white/40 blur-md rotate-12"
-                        animate={{
-                            x: [-100, 450],
-                        }}
-                        transition={{
-                            duration: 2.5,
-                            repeat: Infinity,
-                            repeatDelay: 1,
-                            ease: "linear",
-                        }}
-                        />
-
-                        <span className="relative flex items-center gap-3">
-                            {t('pageDollar.cta.btnDonate', 'Donar a terra utopia')}
-
-                        <motion.div
-                            animate={{
-                            x: [0, 6, 0],
-                            }}
-                            transition={{
-                            duration: 1,
-                            repeat: Infinity,
-                            }}
-                        >
-                            <ArrowRight className="w-6 h-6" />
-                        </motion.div>
-                        </span>
-                    </Button>
-                    </motion.div>
-                </div>
-            </motion.div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* 3. TODOS GANAN (IMPACTO) */}
-      <section className="py-32 bg-forest relative border-y border-border/10 overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[60%] bg-gold/5 rounded-full blur-[150px] pointer-events-none" />
-        
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-          <div className="text-center mb-20">
-            <span className="text-gradient-gold font-bold tracking-widest uppercase text-sm mb-4 block">
-              {t('pageDollar.impact.badge', 'Impacto Sistémico')}
-            </span>
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
-              {t('pageDollar.impact.title', 'Todos Ganan')}
-            </h2>
-            <p className="text-xl text-muted-foreground font-light max-w-3xl mx-auto">
-              {t('pageDollar.impact.subtitle', 'En esta nueva historia, hemos diseñado un modelo donde la viabilidad del capital y la salud del ecosistema son inseparables. Cada parte del tejido vivo sale victoriosa:')}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <motion.div whileHover={{ y: -10 }} className="bg-darkBg rounded-3xl p-8 border border-white/5 shadow-xl">
-              <Cloud className="w-10 h-10 text-emerald-500 mb-6" />
-              <h3 className="text-2xl font-bold text-white mb-3">{t('pageDollar.impact.climateTitle', 'Clima')}</h3>
-              <p className="text-muted-foreground leading-relaxed">{t('pageDollar.impact.climateDesc', 'Restauramos sumideros de carbono vitales, implementando medidas innovadoras y reales contra el cambio climático.')}</p>
-            </motion.div>
-
-            <motion.div whileHover={{ y: -10 }} className="bg-darkBg rounded-3xl p-8 border border-white/5 shadow-xl">
-              <Users className="w-10 h-10 text-gold mb-6" />
-              <h3 className="text-2xl font-bold text-white mb-3">{t('pageDollar.impact.humanityTitle', 'Humanidad')}</h3>
-              <p className="text-muted-foreground leading-relaxed">{t('pageDollar.impact.humanityDesc', 'Curamos la separación entre las personas y su entorno. Transformamos la eco-ansiedad en "eco-agencia": la capacidad de actuar.')}</p>
-            </motion.div>
-
-            <motion.div whileHover={{ y: -10 }} className="bg-darkBg rounded-3xl p-8 border border-white/5 shadow-xl">
-              <Home className="w-10 h-10 text-emerald-500 mb-6" />
-              <h3 className="text-2xl font-bold text-white mb-3">{t('pageDollar.impact.localTitle', 'Población Local')}</h3>
-              <p className="text-muted-foreground leading-relaxed">{t('pageDollar.impact.localDesc', 'Aseguramos que la conservación genere prosperidad. Las familias de Napo obtienen un sustento seguro siendo guardianes del territorio.')}</p>
-            </motion.div>
-
-            <motion.div whileHover={{ y: -10 }} className="bg-darkBg rounded-3xl p-8 border border-white/5 shadow-xl lg:col-span-2">
-              <HeartHandshake className="w-10 h-10 text-gold mb-6" />
-              <h3 className="text-2xl font-bold text-white mb-3">{t('pageDollar.impact.membersTitle', 'Miembros de la Cooperativa')}</h3>
-              <p className="text-muted-foreground leading-relaxed">{t('pageDollar.impact.membersDesc', 'Quienes apoyan el proyecto pasan de ser espectadores a co-propietarios. A FUTURO, disfrutarán de participación democrática, derechos de voto en decisiones estratégicas y acceso a datos transparentes.')}</p>
-            </motion.div>
-
-            <motion.div whileHover={{ y: -10 }} className="bg-darkBg rounded-3xl p-8 border border-white/5 shadow-xl">
-              <Leaf className="w-10 h-10 text-emerald-500 mb-6" />
-              <h3 className="text-2xl font-bold text-white mb-3">{t('pageDollar.impact.floraTitle', 'Flora, Fauna y Hongos')}</h3>
-              <p className="text-muted-foreground leading-relaxed">{t('pageDollar.impact.floraDesc', 'No creamos plantaciones, regeneramos hogares. La restauración del suelo nutre las redes de microorganismos, devolviéndole el pulso a la selva.')}</p>
-            </motion.div>
-          </div>
-
-          {/* BOTON PARA DONAR */}
-            <motion.div
-                variants={fadeInUp}
-                className="flex justify-center pt-24"
-                >
-                <div className="relative">
-
-                    {/* Glow animado */}
-                    <motion.div
-                    className="absolute inset-0 rounded-full bg-gold blur-lg opacity-40"
-                    animate={{
-                        scale: [1, 1.25, 1],
-                        opacity: [0.25, 0.55, 0.25],
-                    }}
-                    transition={{
-                        duration: 2.5,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                    }}
-                    />
-
-                    <motion.div
-                    animate={{
-                        scale: [1, 1.05, 1],
-                    }}
-                    transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                    }}
-                    >
-                    <Button
-                        onClick={() =>
-                        window.open(
-                            'https://www.betterplace.org/de/projects/88748-terra-utopia-baumhaeuser-im-regenwald-leben-als-teil-der-natur',
-                            '_blank'
-                        )
-                        }
-                        className="
-                        relative
-                        overflow-hidden
-                        bg-gradient-to-r
-                        from-gold
-                        via-gold-400
-                        to-gold-600
-                        hover:from-gold-600
-                        hover:to-gold
-                        text-darkBgDeep
-                        font-black
-                        text-xl
-                        px-8
-                        py-4
-                        rounded-full
-                        shadow-[0_0_35px_rgba(255,200,0,0.45)]
-                        hover:shadow-[0_0_55px_rgba(255,220,80,0.8)]
-                        transition-all
-                        duration-300
-                        hover:scale-110
-                        hover:-translate-y-2
-                        "
-                    >
-                        {/* Brillo que atraviesa el botón */}
-                        <motion.div
-                        className="absolute inset-y-0 -left-24 w-20 bg-white/40 blur-md rotate-12"
-                        animate={{
-                            x: [-100, 450],
-                        }}
-                        transition={{
-                            duration: 2.5,
-                            repeat: Infinity,
-                            repeatDelay: 1,
-                            ease: "linear",
-                        }}
-                        />
-
-                        <span className="relative flex items-center gap-3">
-                            {t('pageDollar.cta.btnDonate', 'Donar a terra utopia')}
-
-                        <motion.div
-                            animate={{
-                            x: [0, 6, 0],
-                            }}
-                            transition={{
-                            duration: 1,
-                            repeat: Infinity,
-                            }}
-                        >
-                            <ArrowRight className="w-6 h-6" />
-                        </motion.div>
-                        </span>
-                    </Button>
-                    </motion.div>
-                </div>
-            </motion.div>
-
-        </div>
-      </section>
-
-      {/* 4. RESULTADOS (MÉTRICAS) */}
-      <section className="py-32 relative bg-darkBgDeep overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            className="flex flex-col lg:flex-row gap-16 items-center"
-          >
-            {/* Texto de las Metricas */}
-            <div className="w-full lg:w-1/2">
-              <span className="text-gradient-gold font-bold tracking-widest uppercase text-sm mb-4 block">
-                {t('pageDollar.metrics.badge', 'La Realidad de Campo')}
-              </span>
-              <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
-                {t('pageDollar.metrics.title', 'Potencial de Rendimiento')}
-              </h2>
-              <p className="text-lg text-muted-foreground font-light leading-relaxed mb-8">
-                {t('pageDollar.metrics.desc', 'Esta visión no es solo una teoría romántica; ya es una realidad validada en el campo. Junto a las familias locales en Napo, Ecuador, hemos medido los resultados de nuestro proyecto piloto de simbiosis de cacao y vainilla, que avalan nuestra metodología:')}
-              </p>
-            </div>
-
-            {/* Metricas Grid */}
-            <div className="w-full lg:w-2/3 grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="bg-darkBg p-6 rounded-3xl border border-white/10 text-center flex flex-col items-center justify-center">
-                <Sprout className="w-10 h-10 text-emerald-500 mb-4" />
-                <p className="text-4xl font-black text-white mb-2">{t('pageDollar.metrics.val1', '>90%')}</p>
-                <p className="text-xs text-emerald-500 uppercase tracking-wider">{t('pageDollar.metrics.label1', 'Supervivencia')}</p>
-              </div>
-              <div className="bg-darkBg p-6 rounded-3xl border border-white/10 text-center flex flex-col items-center justify-center">
-                <TreePine className="w-10 h-10 text-emerald-500 mb-4" />
-                <p className="text-4xl font-black text-white mb-2">{t('pageDollar.metrics.val2', '125cm')}</p>
-                <p className="text-xs text-emerald-500 uppercase tracking-wider">{t('pageDollar.metrics.label2', 'Crecimiento (8m)')}</p>
-              </div>
-              <div className="bg-darkBg p-6 rounded-3xl border border-white/10 text-center flex flex-col items-center justify-center">
-                <Droplets className="w-10 h-10 text-emerald-500 mb-4" />
-                <p className="text-4xl font-black text-white mb-2">{t('pageDollar.metrics.val3', '100%')}</p>
-                <p className="text-xs text-emerald-500 uppercase tracking-wider">{t('pageDollar.metrics.label3', 'Autosuficiencia Hídrica')}</p>
-              </div>
+                  </span>
+                </Button>
+              </motion.div>
             </div>
           </motion.div>
-
         </div>
       </section>
 
-      {/* 5. CALL TO ACTION FINAL */}
-      <section className="py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-luminosity" />
-        <div className="absolute inset-0 bg-gradient-to-t from-darkBgDeep via-darkBgDeep/80 to-darkBg" />
+      {/* 4. MEHR ALS WALDSCHUTZ & DER LAND-DOLLAR */}
+      <section className="py-32 bg-darkBg relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16">
+
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <motion.div animate={floatingAnimation} className="w-16 h-16 bg-emerald-500/20 rounded-2xl flex items-center justify-center mb-6 border border-emerald-500/30">
+              
+              <TreePine className="w-14 h-14 text-emerald-500" />
+              <Home className="absolute w-4 h-4 text-white top-6 left-5.5" />
+            </motion.div>
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+              {t('pageDe.section4.title', 'Warum Baumhäuser?')}
+            </h2>
+            <h3 className="text-xl text-gradient-gold font-bold mb-6">
+              {t('pageDe.section4.subtitle', 'Der Regenwald soll erlebbar werden.')}
+            </h3>
+            <p className="text-lg text-muted-foreground font-light leading-relaxed mb-4">
+              {t('pageDe.section4.p1', 'Ein kleiner Teil der von terra utopia erworbenen Flächen wird für naturnahe Baumhäuser genutzt.')}
+            </p>
+            <p className="text-lg text-muted-foreground font-light leading-relaxed mb-4">
+              {t('pageDe.section4.p2', 'Wir brauchen Wohnraum für Besucher, Arbeiter und Anwohner. Einnahmen aus Vermietung sind für das Gesamtprojekt dabei ebenso wichtig wie konstante Präsenz die vor Raubbau schützt.')}
+            </p>
+            <p className="text-lg text-white font-medium">
+              {t('pageDe.section4.p3', 'So profitieren Natur, lokale Bevölkerung und Gäste gleichermaßen.')}
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            <motion.div animate={floatingAnimation} className="w-16 h-16 bg-gold/20 rounded-2xl flex items-center justify-center mb-6 border border-gold/30">
+              <Banknote className="w-12 h-12 text-gold" />
+            </motion.div>
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+              {t('pageDe.section5.title', 'Der Land-Dollar')}
+            </h2>
+            <h3 className="text-xl text-gradient-gold font-bold mb-6">
+              {t('pageDe.section5.subtitle', 'Wahlschein des Kapitalismus.')}
+            </h3>
+            <p className="text-lg text-muted-foreground font-light leading-relaxed mb-4">
+              {t('pageDe.section5.p1', 'Wirkmächtiger als die Wahl der Staatsvertreter ist die Wahl, wofür wir unser Geld nutzen.')}
+            </p>
+            <p className="text-lg text-muted-foreground font-light leading-relaxed mb-4">
+              {t('pageDe.section5.p2', 'Der Land-Dollar steht symbolisch für unser regeneratives Wirtschaftsmodell, das durch Reforestal eine Alternative zur überwiegend destruktiven Wirtschaft bietet.')}
+            </p>
+            <p className="text-lg text-white font-medium bg-white/5 p-4 rounded-xl border border-white/10">
+              {t('pageDe.section5.p3', ' \"Der Land-Dollar steht für reale Werte, statt Bereicherung durch Ausbeutung oder reine Kurssteigerungen. \" oder  \"Reale Werte und regeneratives Wachstum, statt Ausbeutung und Zerstörung. \"')}
+            </p>
+          </motion.div>
         
-        <motion.div 
+
+          <motion.div variants={fadeInUp} className="flex justify-center pt-16 lg:col-span-2">
+            <div className="relative">
+              <motion.div className="absolute inset-0 rounded-full bg-gold blur-lg opacity-20"
+                animate={{ scale: [1, 1.25, 1], opacity: [0.15, 0.35, 0.15] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.div
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <Button onClick={() => window.open('https://www.betterplace.org/de/projects/88748', '_blank')}
+                  className="relative overflow-hidden bg-gradient-to-r from-gold via-gold-400 to-gold-600 hover:from-gold-600 hover:to-gold text-darkBgDeep font-black text-xl px-8 py-4 rounded-full shadow-[0_0_25px_rgba(255,200,0,0.20)] hover:shadow-[0_0_35px_rgba(255,220,80,0.35)] transition-all duration-300 hover:scale-110 hover:-translate-y-2"
+                >
+                  <motion.div className="absolute inset-y-0 -left-24 w-20 bg-white/40 blur-md rotate-12"
+                    animate={{ x: [-100, 450] }}
+                    transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 1, ease: "linear" }}
+                  />
+                  <span className="relative flex items-center gap-3">
+                    {t('pageDe.hero.btn3', 'Jetzt Land sichern')}
+                    <motion.div
+                      animate={{ x: [0, 6, 0] }}
+                      transition={{ duration: 1, repeat: Infinity }}
+                    >
+                      <ArrowRight className="w-6 h-6" />
+                    </motion.div>
+                  </span>
+                </Button>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 5. CTA: REFORESTAL STARTET BALD */}
+      <section className="py-32 relative bg-forest overflow-hidden border-t border-border/10">
+        <div className="absolute inset-0 bg-gradient-to-t from-darkBgDeep via-darkBgDeep/80 to-transparent z-0" />
+
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={staggerContainer}
-          className="max-w-5xl mx-auto px-6 text-center relative z-10"
+          className="max-w-4xl mx-auto px-6 text-center relative z-10"
         >
-          <motion.div variants={fadeInUp} className="w-24 h-24 bg-gradient-to-r from-gold to-gold-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-glow-lg">
+          <motion.div variants={fadeInUp} animate={floatingAnimation} className="w-24 h-24 bg-gradient-to-r from-gold to-gold-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-glow-lg">
             <HeartHandshake className="w-12 h-12 text-darkBgDeep" />
           </motion.div>
-          
-          <motion.h2 variants={fadeInUp} className="text-5xl md:text-7xl font-black text-white mb-8">
-            {t('pageDollar.cta.title', 'Sé Parte de la Historia')}
+
+          <motion.h2 variants={fadeInUp} className="text-4xl md:text-6xl font-black text-white mb-6">
+            {t('pageDe.cta.title', 'Reforestal startet bald')}
           </motion.h2>
-          
-          <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-gradient-gold mb-12 max-w-3xl mx-auto font-light leading-relaxed">
-            {t('pageDollar.cta.subtitle', 'Te ofrecemos la capacidad de actuar. Sé parte del movimiento y apoya la preservación de la selva con terra utopia y Reforestal.')}
+
+          <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-white/90 mb-4 font-light leading-relaxed">
+            {t('pageDe.cta.p1', 'Die Genossenschaft befindet sich aktuell in Gründung.')}
           </motion.p>
-          
-          <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row justify-center gap-6 mt-16">
-            <Button 
-              onClick={() => window.open('https://www.betterplace.org/de/projects/88748-terra-utopia-baumhaeuser-im-regenwald-leben-als-teil-der-natur', '_blank')}
-              className="bg-gradient-to-r from-gold to-gold-600 hover:from-gold-600 hover:to-gold text-darkBgDeep font-black text-xl px-8 py-4 rounded-full shadow-glow-lg flex items-center gap-3 transition-all transform hover:-translate-y-1"
+
+          <motion.p variants={fadeInUp} className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto">
+            {t('pageDe.cta.p2', 'Wenn du dich trotzdem bereits beteiligen möchtest, kannst du bei terra utopia Mitglied werden und uns auf social media folgen.')}
+          </motion.p>
+
+          <motion.div
+            variants={fadeInUp}
+            className="flex flex-col items-center gap-5 justify-center max-w-xl mx-auto"
+          >
+            {/* Botón principal */}
+            <div className="relative w-full">
+              <motion.div
+                className="absolute inset-0 rounded-full bg-gold blur-lg opacity-20"
+                animate={{
+                  scale: [1, 1.25, 1],
+                  opacity: [0.15, 0.35, 0.15],
+                }}
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+
+              <motion.div
+                animate={{ scale: [1, 1.03, 1] }}
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="relative"
+              >
+                <Button
+                  onClick={() =>
+                    window.open(
+                      'https://terrautopia.webling.eu/forms/memberform/66892e52b0566b063253',
+                      '_blank'
+                    )
+                  }
+                  className="group relative w-full overflow-hidden bg-gradient-to-r from-gold via-gold-400 to-gold-600 hover:from-gold-600 hover:to-gold text-darkBgDeep font-black text-lg md:text-xl px-6 py-6 md:py-7 rounded-full shadow-[0_0_25px_rgba(255,200,0,0.20)] transition-all duration-300 hover:scale-[1.02]"
+                >
+                  {/* Flash que atraviesa completamente el botón */}
+                  <motion.div
+                    className="pointer-events-none absolute top-0 bottom-0 -left-[30%] w-[25%] bg-white/50 blur-md rotate-12"
+                    animate={{
+                      left: ['-30%', '110%'],
+                    }}
+                    transition={{
+                      duration: 2.2,
+                      repeat: Infinity,
+                      repeatDelay: 1.5,
+                      ease: 'linear',
+                    }}
+                  />
+
+                  <span className="relative z-10 flex items-center justify-center gap-3">
+                    {t('pageDe.cta.btn1', 'Werden Sie Mitglied')}
+                    <ArrowRight className="w-6 h-6 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
+                </Button>
+              </motion.div>
+            </div>
+
+            {/* Instagram */}
+            <Button
+              onClick={() =>
+                window.open(
+                  'https://www.instagram.com/reforestal/',
+                  '_blank'
+                )
+              }
+              aria-label="Reforestal auf Instagram folgen"
+              className="mt-10 w-14 h-14 md:w-16 md:h-16 bg-darkBgDeep/50 backdrop-blur-md border border-white/20 text-white hover:bg-white/10 hover:border-white rounded-full transition-all duration-300 hover:scale-110"
             >
-              {t('pageDollar.cta.btnDonate', 'Donar a terra utopia')} <ArrowRight className="w-6 h-6" />
-            </Button>
-            
-            <Button 
-              onClick={() => window.open('https://terra-utopia.com/', '_blank')}
-              variant="outline"
-              className="bg-darkBgDeep/50 backdrop-blur-md border border-emerald-500 text-emerald-500 hover:bg-emerald-500/10 font-bold text-xl px-8 py-4 rounded-full transition-all"
-            >
-              {t('pageDollar.cta.btnVisit', 'Visitar terra utopia')}
+              <Instagram className="w-6 h-6 md:w-8 md:h-8" />
             </Button>
           </motion.div>
-
-          <motion.p variants={fadeInUp} className="mt-12 text-sm text-muted-foreground uppercase tracking-widest">
-            {t('pageDollar.cta.footer', '"Cada paso cuenta, y tú también puedes formar parte de este movimiento."')}
-          </motion.p>
+              
         </motion.div>
       </section>
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { getSupportLevelByAmount } from '@/utils/tierLogicUtils';
+import { OFFICIAL_SLUGS } from '@/utils/validationTestUtils';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -52,30 +53,37 @@ const SystemValidationReport = () => {
             
             if (levelError) throw levelError;
 
-            const expectedSlugs = ['explorer-mountain-spring', 'explorer-mountain-stream', 'explorer-riverbed', 'explorer-lifeline'];
+            const normalizeSlug = (slug) => slug?.replace(/-/g, '_') || '';
             const foundSlugs = levels.map(l => l.slug);
-            const missing = expectedSlugs.filter(s => !foundSlugs.includes(s));
+            const missingOfficial = OFFICIAL_SLUGS.filter(slug =>
+                !foundSlugs.some(fs => normalizeSlug(fs) === slug)
+            );
             const transCheck = levels.every(l => l.support_level_translations.some(t => t.language_code === 'en'));
 
-            if (missing.length === 0 && transCheck) {
+            if (missingOfficial.length === 0 && transCheck) {
                 report.db = { 
                     status: 'pass', 
-                    details: `Found ${levels.length} levels.\nAll 4 variants present.\nTranslations (EN) confirmed.` 
+                    details: `Found ${levels.length} levels.\nAll ${OFFICIAL_SLUGS.length} variants present.\nTranslations (EN) confirmed.` 
                 };
             } else {
                 report.db = { 
                     status: 'fail', 
-                    details: `Missing: ${missing.join(', ') || 'None'}.\nTranslation check: ${transCheck ? 'OK' : 'FAIL'}` 
+                    details: `Missing: ${missingOfficial.join(', ') || 'None'}.\nTranslation check: ${transCheck ? 'OK' : 'FAIL'}` 
                 };
             }
 
             // 2. Logic Validation
-            const testCases = [
-                { input: 5.00, expectedSlug: 'explorer-mountain-spring' },
-                { input: 14.99, expectedSlug: 'explorer-mountain-stream' },
-                { input: 49.99, expectedSlug: 'explorer-riverbed' },
-                { input: 97.99, expectedSlug: 'explorer-lifeline' },
-            ];
+            const AMOUNT_BY_SLUG = {
+                'explorer_mountain_spring': 5.00,
+                'explorer_mountain_stream': 14.99,
+                'explorer_riverbed': 49.99,
+                'explorer_lifeline': 97.99,
+            };
+
+            const testCases = OFFICIAL_SLUGS.map(slug => ({
+                input: AMOUNT_BY_SLUG[slug],
+                expectedSlug: levels.find(l => normalizeSlug(l.slug) === slug)?.slug || slug.replace(/_/g, '-'),
+            }));
 
             let logicPass = true;
             let logicLog = [];
@@ -87,7 +95,7 @@ const SystemValidationReport = () => {
                     const { data } = await supabase.from('support_levels').select('slug').eq('id', resultId).single();
                     resultSlug = data?.slug;
                 }
-                const passed = resultSlug === test.expectedSlug;
+                const passed = normalizeSlug(resultSlug) === normalizeSlug(test.expectedSlug);
                 if (!passed) logicPass = false;
                 logicLog.push(`€${test.input} -> ${resultSlug || 'null'} [${passed ? 'OK' : 'FAIL'}]`);
             }

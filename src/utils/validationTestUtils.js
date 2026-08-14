@@ -1,9 +1,23 @@
 import { supabase } from '@/lib/customSupabaseClient';
-import { getSupportLevelByAmount } from '@/utils/tierLogicUtils';
+
+/**
+ * Expected benefit count per official tier slug.
+ * This is the single source of truth for validation.
+ */
+export const EXPECTED_BENEFITS = {
+    'explorer_mountain_spring': 3,
+    'explorer_mountain_stream': 4,
+    'explorer_riverbed': 6,
+    'explorer_lifeline': 7,
+};
+
+export const OFFICIAL_SLUGS = Object.keys(EXPECTED_BENEFITS);
+
+const normalizeSlug = (slug) => slug?.replace(/-/g, '_') || '';
 
 /**
  * Validation Script for Benefits Display
- * Simulates fetching benefits for the 4 Explorer variants and verifies counts/content.
+ * Simulates fetching benefits for all active official Explorer variants and verifies counts/content.
  */
 export const runBenefitsValidation = async () => {
     const report = {
@@ -12,12 +26,39 @@ export const runBenefitsValidation = async () => {
         overall_status: 'pending'
     };
 
-    const testCases = [
-        { name: 'Mountain Spring', amount: 5.00, expectedCount: 3, slug: 'explorer-mountain-spring' },
-        { name: 'Mountain Stream', amount: 14.99, expectedCount: 4, slug: 'explorer-mountain-stream' },
-        { name: 'Riverbed', amount: 49.99, expectedCount: 6, slug: 'explorer-riverbed' },
-        { name: 'Lifeline', amount: 97.99, expectedCount: 7, slug: 'explorer-lifeline' }
-    ];
+    const AMOUNT_BY_SLUG = {
+        'explorer_mountain_spring': 5.00,
+        'explorer_mountain_stream': 14.99,
+        'explorer_riverbed': 49.99,
+        'explorer_lifeline': 97.99,
+    };
+
+    const NAME_BY_SLUG = {
+        'explorer_mountain_spring': 'Mountain Spring',
+        'explorer_mountain_stream': 'Mountain Stream',
+        'explorer_riverbed': 'Riverbed',
+        'explorer_lifeline': 'Lifeline',
+    };
+
+    const { data: activeLevels } = await supabase
+        .from('support_levels')
+        .select('id, slug')
+        .eq('is_active', true);
+
+    const activeOfficial = (activeLevels || []).filter(l =>
+        OFFICIAL_SLUGS.includes(normalizeSlug(l.slug))
+    );
+
+    const testCases = activeOfficial.map(level => {
+        const slug = normalizeSlug(level.slug);
+        return {
+            name: NAME_BY_SLUG[slug] || slug,
+            amount: AMOUNT_BY_SLUG[slug],
+            expectedCount: EXPECTED_BENEFITS[slug],
+            slug: level.slug,
+            levelId: level.id,
+        };
+    });
 
     let allPassed = true;
 
@@ -31,11 +72,8 @@ export const runBenefitsValidation = async () => {
         };
 
         try {
-            // 1. Get ID logic check
-            const levelId = await getSupportLevelByAmount(test.amount);
-            if (!levelId) throw new Error(`Logic failed to find level for €${test.amount}`);
+            const levelId = test.levelId;
 
-            // 2. Fetch Benefits
             const { data: benefits, error } = await supabase
                 .from('support_benefits')
                 .select(`
@@ -58,7 +96,6 @@ export const runBenefitsValidation = async () => {
                 };
             });
 
-            // 3. Count Check
             if (benefits.length !== test.expectedCount) {
                 result.status = 'fail';
                 result.details = `Count mismatch. Expected ${test.expectedCount}, found ${benefits.length}.`;
@@ -67,7 +104,6 @@ export const runBenefitsValidation = async () => {
                 result.status = 'pass';
             }
 
-            // 4. Legacy Content Check
             const hasLegacy = result.benefits_found.some(b => 
                 b.desc.includes('IC /') || b.desc.includes('/ 5 LD') || b.desc.match(/\d+\sIC/));
             

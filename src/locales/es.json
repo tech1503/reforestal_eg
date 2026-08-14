@@ -208,47 +208,47 @@
       "days_remaining_end": "días de acceso.",
       "expires_on": "Caduca el {{date}}.",
       "expired_message": "Tu acceso a Premium ha caducado."
-  },
-  "vision": {
-    "title": "Cómo Funciona Reforestal y Startnext",
-    "subtitle": "Entiende paso a paso nuestra misión, cómo puedes apoyarnos en Startnext y cómo reclamar tus beneficios exclusivos en esta plataforma.",
-    "step1_title": "1. Nuestra Misión",
-    "step1_desc": "Buscamos proteger metros cuadrados (m²) del Amazonas de forma permanente. No se trata solo de plantar árboles, sino de asegurar biodiversidad.",
-    "step2_title": "2. Cooperativa Alemana (eG)",
-    "step2_desc": "Para hacer esto transparente y seguro, fundaremos una Cooperativa Alemana (eG). Nuestro proyecto en Startnext busca recaudar los fondos iniciales para hacer esto realidad.",
-    "step3_title": "3. Explora y Simula",
-    "step3_desc": "Usa nuestro simulador interactivo más abajo para ver los planes de Startnext. Haz clic en la foto del proyecto para ir a leer los beneficios de toda la campaña en profundidad.",
-    "step4_title": "4. Reclama tu Acceso Premium",
-    "step4_desc": "¿Apoyaste en Startnext? Haz clic en esta tarjeta y completa un breve formulario. ¡Te daremos acceso a misiones exclusivas y estatus Premium!",
-    "button":"Cerrar",
-    "pop_up_title1": "Nuestra Misión - Protección Garantizada",
-    "pop_up_desc1": "Regeneración como motor de desarrollo. Apostamos por una Amazonía viva donde la reforestación genera prosperidad compartida. Sustituimos la lógica extractiva por un modelo que garantiza el sustento de los agricultores y un retorno con propósito para cada aliado guardian de la cooperativa.",
-    "pop_up_otherTitle1": "De la Eco-ansiedad a la Eco-agencia.",
-    "pop_up_otherDesc1": "Transformamos la parálisis en resultados que se pueden medir. Te ofrecemos la capacidad de actuar, de convertirte en un aliado guardián mediante la custodia de m² específicos de selva amazónica: un compromiso vivo con la biosfera que construye tu propia seguridad económica.",
-    "pop_up_title2": "Cooperativa Alemana (eG)",
-    "pop_up_desc2": "Para garantizar la transparencia y la seguridad de tu contribución, fundaremos una Cooperativa Alemana (eG). Esta estructura legal nos permite operar con principios democráticos, donde cada miembro tiene voz y voto. Tu apoyo en Startnext es fundamental para establecer esta cooperativa, que será el vehículo a través del cual gestionaremos la protección de los m² de selva amazónica y distribuiremos los beneficios de manera justa entre todos los miembros.",
-    "pop_up_title3": "Explora y Simula",
-    "pop_up_desc3": "Como usar nuestro simulador interactivo para entender los niveles de contribución en Startnext. Ingresa diferentes montos para ver cómo se traducen en niveles de impacto y beneficios exclusivos. Cada nivel desbloquea recompensas únicas, desde acceso a misiones especiales hasta reconocimiento como miembro fundador. ¡Experimenta con el simulador y descubre tu potencial impacto!"
-  }
+    },
+    "vision": {
+      "title": "Cómo Funciona Reforestal y Startnext",
+      "subtitle": "Entiende paso a paso nuestra misión, cómo puedes apoyarnos en Startnext y cómo reclamar tus beneficios exclusivos en esta plataforma.",
+      "step1_title": "1. Nuestra Misión",
+      "step1_desc": "Buscamos proteger metros cuadrados (m²) del Amazonas de forma permanente. No se trata solo de plantar árboles, sino de asegurar biodiversidad.",
+      "step2_title": "2. Cooperativa Alemana (eG)",
+      "step2_desc": "Para hacer esto transparente y seguro, fundaremos una Cooperativa Alemana (eG). Nuestro proyecto en Startnext busca recaudar los fondos iniciales para hacer esto realidad.",
+      "step3_title": "3. Explora y Simula",
+      "step3_desc": "Usa nuestro simulador interactivo más abajo para ver los planes de Startnext. Haz clic en la foto del proyecto para ir a leer los beneficios de toda la campaña en profundidad.",
+      "step4_title": "4. Reclama tu Acceso Premium",
+      "step4_desc": "¿Apoyaste en Startnext? Haz clic en esta tarjeta y completa un breve formulario. ¡Te daremos acceso a misiones exclusivas y estatus Premium!",
+      "button": "Cerrar",
+      "pop_up_title1": "Nuestra Misión - Protección Garantizada",
+      "pop_up_desc1": "Regeneración como motor de desarrollo. Apostamos por una Amazonía viva donde la reforestación genera prosperidad compartida. Sustituimos la lógica extractiva por un modelo que garantiza el sustento de los agricultores y un retorno con propósito para cada aliado guardian de la cooperativa.",
+      "pop_up_otherTitle1": "De la Eco-ansiedad a la Eco-agencia.",
+      "pop_up_otherDesc1": "Transformamos la parálisis en resultados que se pueden medir. Te ofrecemos la capacidad de actuar, de convertirte en un aliado guardián mediante la custodia de m² específicos de selva amazónica: un compromiso vivo con la biosfera que construye tu propia seguridad económica.",
+      "pop_up_title2": "Cooperativa Alemana (eG)",
+      "pop_up_desc2": "Para garantizar la transparencia y la seguridad de tu contribución, fundaremos una Cooperativa Alemana (eG). Esta estructura legal nos permite operar con principios democráticos, donde cada miembro tiene voz y voto. Tu apoyo en Startnext es fundamental para establecer esta cooperativa, que será el vehículo a través del cual gestionaremos la protección de los m² de selva amazónica y distribuiremos los beneficios de manera justa entre todos los miembros.",
+      "pop_up_title3": "Explora y Simula",
+      "pop_up_desc3": "Como usar nuestro simulador interactivo para entender los niveles de contribución en Startnext. Ingresa diferentes montos para ver cómo se traducen en niveles de impacto y beneficios exclusivos. Cada nivel desbloquea recompensas únicas, desde acceso a misiones especiales hasta reconocimiento como miembro fundador. ¡Experimenta con el simulador y descubre tu potencial impacto!"
+    }
   },
   "admin": {
     "title": "Panel de Administración",
     "communityy": "Área Pioneros Fundadores",
     "community": {
-    "title": "Contenido del Área de Fundadores",
-    "subtitle": "Gestiona la Gobernanza Gamificada, Noticias y Roadmap para los Pioneros.",
-    "live_dashboard": "PANEL DE RESULTADOS EN VIVO",
-    "table_title": "Título",
-    "table_status": "Estado / Detalles",
-    "table_image": "Imagen",
-    "table_actions": "Acciones",
-    "add_new": "Añadir Nuevo",
-    "edit_item": "Editar Elemento",
-    "create_item": "Crear Elemento",
-    "manage_translations": "Gestionar Traducciones",
-    "voting_history": "Historial de Votación",
-    "no_items": "No se encontraron elementos."
-  },
+      "title": "Contenido del Área de Fundadores",
+      "subtitle": "Gestiona la Gobernanza Gamificada, Noticias y Roadmap para los Pioneros.",
+      "live_dashboard": "PANEL DE RESULTADOS EN VIVO",
+      "table_title": "Título",
+      "table_status": "Estado / Detalles",
+      "table_image": "Imagen",
+      "table_actions": "Acciones",
+      "add_new": "Añadir Nuevo",
+      "edit_item": "Editar Elemento",
+      "create_item": "Crear Elemento",
+      "manage_translations": "Gestionar Traducciones",
+      "voting_history": "Historial de Votación",
+      "no_items": "No se encontraron elementos."
+    },
     "mlm": "Referidos (MLM)",
     "quest_moderation": "Motor de misiones",
     "audience": {
@@ -587,8 +587,8 @@
     "analyzing_answers": "Comprobando los resultados...",
     "onboarding_label": "Onboarding",
     "finish_quest": "Empezar Misión",
-    "profile_unlocked": "Perfil Desbloqueado", 
-    "profiles.genesis": { 
+    "profile_unlocked": "Perfil Desbloqueado",
+    "profiles.genesis": {
       "lena": {
         "title": "Socio de Impacto Verificado",
         "description": "Impulsado por la sostenibilidad y la preservación a largo plazo. Crees en el poder de la naturaleza."
@@ -904,7 +904,7 @@
       "vote_success": "¡Voto Enviado!",
       "vote_thanks": "Gracias por participar."
     },
-      "budget_vote": {
+    "budget_vote": {
       "average_allocation": "Asignación Promedio de la Comunidad",
       "allocate_points": "Asigna Puntos",
       "pts_left": "Pts Restantes",
@@ -1111,9 +1111,9 @@
     "premium_unlocked": {
       "title": "Acceso Premium desbloqueado",
       "message": "Has recibido {{months}} meses de acceso Premium y {{points}} puntos de bonificación gracias a tu amigo."
-  }
+    }
   },
-    "contact": {
+  "contact": {
     "title": "Contáctanos",
     "subtitle": "¿Tienes preguntas sobre tu impacto o nuestra misión? Estamos aquí para ayudarte.",
     "address_label": "Oficina Central",
@@ -1134,37 +1134,37 @@
     "success_desc": "Te responderemos en breve."
   },
   "startnext_modal": {
-  "title": "Ya apoyé en Startnext",
-  "description": "Por favor proporciona los detalles de tu contribución para verificar y actualizar tu cuenta.",
-  "labels": {
-    "name": "Nombre",
-    "email": "Email",
-    "amount": "Monto de Contribución (€)",
-    "city": "Ciudad (Opcional)",
-    "country": "País (Opcional)",
-    "message": "Mensaje (Opcional)"
+    "title": "Ya apoyé en Startnext",
+    "description": "Por favor proporciona los detalles de tu contribución para verificar y actualizar tu cuenta.",
+    "labels": {
+      "name": "Nombre",
+      "email": "Email",
+      "amount": "Monto de Contribución (€)",
+      "city": "Ciudad (Opcional)",
+      "country": "País (Opcional)",
+      "message": "Mensaje (Opcional)"
+    },
+    "placeholders": {
+      "city": "ej. Madrid",
+      "country": "ej. España",
+      "message": "Cualquier detalle adicional..."
+    },
+    "buttons": {
+      "cancel": "Cancelar",
+      "submit": "Enviar para Verificación",
+      "close": "Cerrar"
+    },
+    "success": {
+      "title": "¡Solicitud Enviada!",
+      "message": "¡Gracias! Tu información ha sido enviada. Activaremos tu cuenta de Explorador en breve."
+    },
+    "errors": {
+      "invalid_amount_title": "Monto Inválido",
+      "invalid_amount_desc": "Por favor ingresa un monto válido.",
+      "submit_error": "No se pudo enviar el registro. Por favor intenta de nuevo."
+    }
   },
-  "placeholders": {
-    "city": "ej. Madrid",
-    "country": "ej. España",
-    "message": "Cualquier detalle adicional..."
-  },
-  "buttons": {
-    "cancel": "Cancelar",
-    "submit": "Enviar para Verificación",
-    "close": "Cerrar"
-  },
-  "success": {
-    "title": "¡Solicitud Enviada!",
-    "message": "¡Gracias! Tu información ha sido enviada. Activaremos tu cuenta de Explorador en breve."
-  },
-  "errors": {
-    "invalid_amount_title": "Monto Inválido",
-    "invalid_amount_desc": "Por favor ingresa un monto válido.",
-    "submit_error": "No se pudo enviar el registro. Por favor intenta de nuevo."
-  }
-},
-"footer": {
+  "footer": {
     "privacy": "Política de Privacidad",
     "terms": "Términos y Condiciones",
     "cookies": "Política de Cookies",
@@ -1211,7 +1211,7 @@
     "already_completed_desc": "Ya has obtenido las recompensas de esta misión.",
     "return_btn": "Volver a Misiones",
     "penalty_applied_credits": "Penalización aplicada: -{{amount}} BP.",
-    "referral_bonus":"Tu Referidor",
+    "referral_bonus": "Tu Referidor",
     "restart_title": "Reiniciar Misión",
     "restart_warning": "¿Estás seguro de que quieres reiniciar esta misión? Se perderán todos los progresos y recompensas obtenidos hasta ahora.",
     "restart_btn": "Reiniciar Misión",
@@ -1381,7 +1381,6 @@
     "faq_a4": "Nuestra métrica de éxito no es contar árboles que podrían ser talados después. Medimos la extensión total del ecosistema en regeneración, validado externamente por universidades.",
     "faq_q5": "¿Qué es el Land-Dollar?",
     "faq_a5": "Es el símbolo digital de nuestra economía regenerativa y tu llave de acceso a nuestra plataforma de co-creación. Es el puente digital que te permite seguir de cerca el impacto y participar en las decisiones.",
-    
     "pioneers_badge": "Edición Limitada",
     "pioneers_title": "Los 10 Pioneros Fundadores",
     "pioneers_text1": "Con los fondos de Startnext, sentaremos las bases legales para fundar la cooperativa. En Reforestal preferimos regalar participación en lugar de pagar por publicidad.",
@@ -1394,7 +1393,7 @@
     "pioneers_list_3": "Acceso Exclusivo a Decisiones",
     "pioneers_cta": "Descubre los Paquetes"
   },
-"terms": {
+  "terms": {
     "title": "Reforestal – Términos y Condiciones Generales (TCG) y Condiciones de Uso",
     "subtitle": "¡Hola! Qué bueno que eres parte del movimiento. Antes de que salvemos la selva tropical juntos y construyamos una economía regenerativa, tenemos que establecer algunas reglas del juego. Estos Términos y Condiciones Generales describen las reglas para el uso de la plataforma (https://reforest.al) y rigen la relación legal entre tú (nuestro usuario, cofundador y socio guardián) y yo. Al acceder a este sitio web, crear una cuenta o realizar una contribución a través de Startnext, aceptas estos TCG.",
     "s1": {
@@ -1467,183 +1466,183 @@
     }
   },
   "privacy": {
-  "title": "Política de Privacidad",
-  "intro": [
-    "La protección de sus datos personales es una relación de confianza fundamental con nuestra comunidad y tiene una prioridad especialmente alta para Peter Rosinski (futura Reforestal eG). Esta política de privacidad le informa sobre la naturaleza, el alcance y el propósito de los datos recopilados, especialmente si participa como socio en nuestros proyectos de economía regenerativa o nos apoya a través de Startnext.",
-    "El uso de nuestras páginas web es fundamentalmente posible sin proporcionar datos personales. Sin embargo, si un usuario desea utilizar servicios especiales de nuestra empresa (como el panel de control del proyecto) a través de nuestra página web, podría ser necesario el procesamiento de datos personales. Si este es el caso y no existe una base legal, generalmente solicitamos el consentimiento."
-  ],
-  "s1": {
-    "title": "1. Definiciones",
-    "body": [
-      "La política de privacidad se basa en los términos utilizados por el legislador europeo de directivas y reglamentos al emitir el Reglamento General de Protección de Datos (RGPD). Los términos generales y específicos del proyecto incluyen:"
+    "title": "Política de Privacidad",
+    "intro": [
+      "La protección de sus datos personales es una relación de confianza fundamental con nuestra comunidad y tiene una prioridad especialmente alta para Peter Rosinski (futura Reforestal eG). Esta política de privacidad le informa sobre la naturaleza, el alcance y el propósito de los datos recopilados, especialmente si participa como socio en nuestros proyectos de economía regenerativa o nos apoya a través de Startnext.",
+      "El uso de nuestras páginas web es fundamentalmente posible sin proporcionar datos personales. Sin embargo, si un usuario desea utilizar servicios especiales de nuestra empresa (como el panel de control del proyecto) a través de nuestra página web, podría ser necesario el procesamiento de datos personales. Si este es el caso y no existe una base legal, generalmente solicitamos el consentimiento."
     ],
-    "list": [
-      "a) Términos del RGPD: Datos personales, interesado, procesamiento, elaboración de perfiles (profiling), responsable, encargado del tratamiento y consentimiento (según el Art. 4 del RGPD).",
-      "b) Aliado Guardián / Socio: Cualquier persona física o jurídica con una cuenta activa en el ecosistema de reforestación.",
-      "c) Land-Dollar (Dólar de Tierra): Un certificado de impacto digital como clave de acceso.",
-      "d) Bonos: Métricas de gamificación sin valor financiero."
-    ]
+    "s1": {
+      "title": "1. Definiciones",
+      "body": [
+        "La política de privacidad se basa en los términos utilizados por el legislador europeo de directivas y reglamentos al emitir el Reglamento General de Protección de Datos (RGPD). Los términos generales y específicos del proyecto incluyen:"
+      ],
+      "list": [
+        "a) Términos del RGPD: Datos personales, interesado, procesamiento, elaboración de perfiles (profiling), responsable, encargado del tratamiento y consentimiento (según el Art. 4 del RGPD).",
+        "b) Aliado Guardián / Socio: Cualquier persona física o jurídica con una cuenta activa en el ecosistema de reforestación.",
+        "c) Land-Dollar (Dólar de Tierra): Un certificado de impacto digital como clave de acceso.",
+        "d) Bonos: Métricas de gamificación sin valor financiero."
+      ]
+    },
+    "s2": {
+      "title": "2. Nombre y dirección del responsable del tratamiento",
+      "body": [
+        "El responsable en el sentido del Reglamento General de Protección de Datos, otras leyes de protección de datos aplicables en los Estados miembros de la Unión Europea y otras disposiciones de carácter de protección de datos es:",
+        "Peter Rosinski (futura Reforestal eG)",
+        "Rotenbergstr. 27",
+        "66111 Saarbrücken, Alemania",
+        "Correo electrónico: peter@reforest.al | Tel.: +49 163 8736419",
+        "Sitio web: www.reforest.al"
+      ]
+    },
+    "s3": {
+      "title": "3. Cookies",
+      "body": [
+        "Las páginas web utilizan cookies (archivos de texto que se almacenan a través de un navegador de Internet) para proporcionar servicios más fáciles de usar. En particular, utilizamos cookies necesarias para mantener su sesión iniciada y guardar sus preferencias de idioma.",
+        "El usuario puede evitar la configuración de cookies a través de nuestro sitio web en cualquier momento mediante la configuración correspondiente de su navegador de Internet y, por lo tanto, oponerse permanentemente. Además, las cookies ya configuradas pueden eliminarse en cualquier momento a través de un navegador."
+      ]
+    },
+    "s4": {
+      "title": "4. Recopilación de datos e información general (Infraestructura y archivos de registro)",
+      "body": [
+        "El sitio web recopila una serie de datos generales con cada acceso, que se almacenan en los archivos de registro (logfiles) del servidor. Se pueden registrar: (1) los tipos y versiones de navegadores utilizados, (2) el sistema operativo, (3) el sitio web desde el cual un sistema accede a nuestra página (referente), (4) los sub-sitios web, (5) la fecha y hora de acceso, (6) una dirección IP, (7) el proveedor de servicios de Internet y (8) otros datos similares que sirven para prevenir peligros en caso de ataques cibernéticos.",
+        "Sostenibilidad y seguridad digital: Nuestro sitio web está alojado en servidores VPS europeos eficientes energéticamente en Hostinger (Green Hosting). Gestionamos datos críticos a través de Supabase en Frankfurt am Main (región de AWS eu-central-1) utilizando políticas de seguridad a nivel de fila (RLS) para garantizar la máxima soberanía de los datos."
+      ]
+    },
+    "s5": {
+      "title": "5. Registro en nuestro sitio web y Crowdfunding de Startnext",
+      "body": [
+        "Puede registrarse proporcionando datos (nombre, correo electrónico, credenciales cifradas). Para la gestión de proyectos, también podemos recopilar su dirección postal, fecha de nacimiento y nacionalidad.",
+        "Datos de fuentes externas (Startnext): Al participar en nuestro crowdfunding, recibimos de Startnext su nombre, correo electrónico, monto de la contribución y la recompensa seleccionada para asignar sus derechos digitales; no procesamos datos bancarios de esto.",
+        "Gamificación y Google Wallet: Procesamos información sobre su progreso, niveles (tiers) y misiones. Si añade el 'Land Dollar' a Google Wallet, Google actúa como responsable independiente."
+      ]
+    },
+    "s6": {
+      "title": "6. Suscripción a nuestro boletín de noticias (Newsletter)",
+      "body": [
+        "Ofrecemos un boletín informativo que requiere una dirección de correo electrónico válida y el registro mediante el procedimiento de doble confirmación (Double-Opt-In). La dirección IP, la fecha y la hora del registro se almacenan por motivos legales y para la prevención de abusos. La suscripción puede cancelarse en cualquier momento y el consentimiento puede ser revocado."
+      ]
+    },
+    "s7": {
+      "title": "7. Seguimiento del boletín de noticias (Tracking)",
+      "body": [
+        "Nuestros boletines contienen píxeles de seguimiento. Esto permite realizar un análisis estadístico del éxito (p. ej., si se abrió un correo electrónico o cuándo se hizo clic en un enlace). Utilizamos estos datos para la optimización. Es posible revocar el consentimiento en cualquier momento dándose de baja del boletín."
+      ]
+    },
+    "s8": {
+      "title": "8. Posibilidad de contacto a través del sitio web",
+      "body": [
+        "Si un usuario se pone en contacto con el responsable por correo electrónico o a través de un formulario de contacto, los datos personales transmitidos voluntariamente se almacenan automáticamente con el fin de procesar la solicitud o contactar a la persona."
+      ]
+    },
+    "s9": {
+      "title": "9. Eliminación y bloqueo rutinario de datos personales",
+      "body": [
+        "El responsable procesa y almacena datos solo durante el período necesario para lograr el propósito del almacenamiento. Si el propósito deja de existir o expira un plazo legal, los datos se bloquean o eliminan de forma rutinaria.",
+        "Plazos específicos: Las contribuciones financieras se almacenan durante 10 años de acuerdo con la legislación fiscal alemana (HGB/AO). Los registros técnicos se anonimizan automáticamente después de 30 días."
+      ]
+    },
+    "s10": {
+      "title": "10. Derechos del interesado",
+      "body": [
+        "Para ejercer cualquiera de los siguientes derechos, el interesado puede ponerse en contacto con nosotros (el responsable) en cualquier momento:"
+      ],
+      "list": [
+        "a) Derecho de confirmación y acceso (Art. 15 RGPD): Disponible como copia en su panel de control (Dashboard).",
+        "b) Derecho de rectificación (Art. 16 RGPD): Ajustable en su perfil.",
+        "c) Derecho a la supresión / derecho al olvido (Art. 17 RGPD): Por ejemplo, mediante la eliminación de la cuenta.",
+        "d) Derecho a la limitación del tratamiento (Art. 18 RGPD) y a la portabilidad de los datos (Art. 20 RGPD).",
+        "e) Derecho de oposición (Art. 21 RGPD) y revocación del consentimiento (Art. 7, apdo. 3 RGPD).",
+        "f) Derecho de reclamación: Además, tiene derecho a presentar una reclamación ante una autoridad de control de protección de datos (Art. 77 RGPD)."
+      ]
+    },
+    "s11": {
+      "title": "11. Disposiciones de protección de datos sobre la aplicación y uso de Facebook",
+      "body": [
+        "Hemos integrado componentes de Facebook. La empresa operadora para personas fuera de EE. UU. es Facebook Ireland Ltd., 4 Grand Canal Square, Dublín 2, Irlanda.",
+        "Si el usuario está conectado simultáneamente a Facebook, Facebook detecta en cada acceso qué subpágina visita. Si presiona, por ejemplo, el botón 'Me gusta', esto se asignará a su cuenta de Facebook. Para evitar esto, debe cerrar sesión en su cuenta de Facebook antes de acceder.",
+        "Más información sobre la política de datos de Facebook: https://es-es.facebook.com/about/privacy/"
+      ]
+    },
+    "s12": {
+      "title": "12. Disposiciones de protección de datos sobre la aplicación y uso de Google AdSense",
+      "body": [
+        "Google AdSense está integrado en este sitio web (Google Ireland Limited, Gordon House, Barrow Street, Dublín, Irlanda).",
+        "El servicio instala cookies y píxeles de seguimiento para la integración de anuncios y para evaluaciones basadas en intereses. Es posible que se transfieran datos a EE. UU. La configuración de cookies puede evitarse en el navegador.",
+        "Más explicaciones: https://www.google.es/intl/es/adsense/start/"
+      ]
+    },
+    "s13": {
+      "title": "13. Disposiciones de protección de datos sobre la aplicación y uso de Google Analytics (con función de anonimización)",
+      "body": [
+        "Utilizamos Google Analytics (Google Ireland Limited). Utilizamos el sufijo '_gat._anonymizeIp', que trunca y anonimiza su dirección IP.",
+        "El usuario puede oponerse a la recopilación y procesamiento de datos por parte de Google Analytics. Para ello, debe descargar e instalar un complemento (Add-On) para el navegador en el siguiente enlace: https://tools.google.com/dlpage/gaoptout",
+        "Más información: https://policies.google.com/privacy?hl=es y https://marketingplatform.google.com/about/analytics/terms/es/"
+      ]
+    },
+    "s14": {
+      "title": "14. Disposiciones de protección de datos sobre la aplicación y uso de Google AdWords",
+      "body": [
+        "Utilizamos Google AdWords (Google Ireland Limited). Si una persona llega a nuestra página a través de un anuncio de Google, se deposita una cookie de conversión (validez de 30 días, sin identificación personal) para crear estadísticas de visitas.",
+        "Es posible oponerse a la publicidad basada en intereses aquí: https://myadcenter.google.com/"
+      ]
+    },
+    "s15": {
+      "title": "15. Disposiciones de protección de datos sobre la aplicación y uso de Instagram",
+      "body": [
+        "En este sitio web se han integrado componentes de Instagram (Facebook Ireland Ltd.). Si ha iniciado sesión en Instagram, la visita a nuestra página puede ser asignada a su cuenta de Instagram. Cierre la sesión para evitar esto.",
+        "Política de privacidad de Instagram: https://help.instagram.com/155833707900388 y https://privacycenter.instagram.com/policy"
+      ]
+    },
+    "s16": {
+      "title": "16. Disposiciones de protección de datos sobre la aplicación y uso de LinkedIn",
+      "body": [
+        "Utilizamos componentes de LinkedIn (LinkedIn Ireland, Wilton Place, Dublín 2, Irlanda). Con cada acceso, se descarga una representación del componente y, en el caso de los usuarios conectados, se asigna a su cuenta de LinkedIn.",
+        "LinkedIn ofrece la opción de darse de baja de los anuncios: https://www.linkedin.com/psettings/guest-controls. Política de cookies: https://es.linkedin.com/legal/cookie-policy"
+      ]
+    },
+    "s17": {
+      "title": "17. Disposiciones de protección de datos sobre la aplicación y uso de YouTube",
+      "body": [
+        "Hemos integrado componentes de YouTube (Google Ireland Limited). Al visitar una página con un video de YouTube, Google recibe conocimiento sobre qué página está visitando, especialmente si ha iniciado sesión en YouTube.",
+        "Política de privacidad de YouTube/Google: https://policies.google.com/privacy?hl=es"
+      ]
+    },
+    "s18": {
+      "title": "18. Base legal del procesamiento y transferencia internacional de datos",
+      "body": [
+        "El procesamiento se basa en el Art. 6(1)(a) del RGPD (Consentimiento), el Art. 6(1)(b) del RGPD (Cumplimiento de un contrato, p. ej., asignación del Land-Dollar) y el Art. 6(1)(c) del RGPD (Obligaciones legales).",
+        "Transferencia internacional a Ecuador: Para proteger la selva amazónica (provincia de Pastaza), los datos de identificación se transmiten al registro de la propiedad local y notarios en Ecuador (en base al Art. 49, apdo. 1, letra b del RGPD).",
+        "Transferencia de datos a terceros países (p. ej., EE. UU.): Se realiza en base a las Cláusulas Contractuales Tipo (SCCs) y al Marco de Privacidad de Datos UE-EE. UU. (Decisión de Adecuación)."
+      ]
+    },
+    "s19": {
+      "title": "19. Intereses legítimos en el procesamiento",
+      "body": [
+        "Si el procesamiento se basa en el Artículo 6(1)(f) del RGPD, nuestro interés legítimo es llevar a cabo nuestras operaciones comerciales a favor de los objetivos del proyecto regenerativo, de todos nuestros empleados y accionistas."
+      ]
+    },
+    "s20": {
+      "title": "20. Duración del almacenamiento",
+      "body": [
+        "Los datos de usuarios/socios se almacenan mientras dure su relación activa con el proyecto. Posteriormente, el almacenamiento se rige por los plazos de retención legales. Una vez expirado el plazo, los datos se eliminan, siempre que ya no sean necesarios para el cumplimiento del contrato."
+      ]
+    },
+    "s21": {
+      "title": "21. Requisitos legales o contractuales / Protección de menores",
+      "body": [
+        "La provisión de datos personales es en parte requerida legalmente (p. ej., impuestos) o contractualmente (para la celebración del proyecto); no proporcionar estos datos tendría como consecuencia que no se pueda formalizar el contrato.",
+        "Protección de menores: Nuestro servicio no está dirigido a niños menores de 13 años; los datos recopilados de menores de manera involuntaria se eliminarán de inmediato."
+      ]
+    },
+    "s22": {
+      "title": "22. Existencia de decisiones automatizadas",
+      "body": [
+        "Como proyecto responsable, no utilizamos la toma de decisiones automatizada (incluida la elaboración de perfiles) que produzca efectos jurídicos. Las métricas de gamificación en la plataforma sirven para fines puramente interactivos y no discriminatorios."
+      ]
+    },
+    "footer_note": ""
   },
-  "s2": {
-    "title": "2. Nombre y dirección del responsable del tratamiento",
-    "body": [
-      "El responsable en el sentido del Reglamento General de Protección de Datos, otras leyes de protección de datos aplicables en los Estados miembros de la Unión Europea y otras disposiciones de carácter de protección de datos es:",
-      "Peter Rosinski (futura Reforestal eG)",
-      "Rotenbergstr. 27",
-      "66111 Saarbrücken, Alemania",
-      "Correo electrónico: peter@reforest.al | Tel.: +49 163 8736419",
-      "Sitio web: www.reforest.al"
-    ]
-  },
-  "s3": {
-    "title": "3. Cookies",
-    "body": [
-      "Las páginas web utilizan cookies (archivos de texto que se almacenan a través de un navegador de Internet) para proporcionar servicios más fáciles de usar. En particular, utilizamos cookies necesarias para mantener su sesión iniciada y guardar sus preferencias de idioma.",
-      "El usuario puede evitar la configuración de cookies a través de nuestro sitio web en cualquier momento mediante la configuración correspondiente de su navegador de Internet y, por lo tanto, oponerse permanentemente. Además, las cookies ya configuradas pueden eliminarse en cualquier momento a través de un navegador."
-    ]
-  },
-  "s4": {
-    "title": "4. Recopilación de datos e información general (Infraestructura y archivos de registro)",
-    "body": [
-      "El sitio web recopila una serie de datos generales con cada acceso, que se almacenan en los archivos de registro (logfiles) del servidor. Se pueden registrar: (1) los tipos y versiones de navegadores utilizados, (2) el sistema operativo, (3) el sitio web desde el cual un sistema accede a nuestra página (referente), (4) los sub-sitios web, (5) la fecha y hora de acceso, (6) una dirección IP, (7) el proveedor de servicios de Internet y (8) otros datos similares que sirven para prevenir peligros en caso de ataques cibernéticos.",
-      "Sostenibilidad y seguridad digital: Nuestro sitio web está alojado en servidores VPS europeos eficientes energéticamente en Hostinger (Green Hosting). Gestionamos datos críticos a través de Supabase en Frankfurt am Main (región de AWS eu-central-1) utilizando políticas de seguridad a nivel de fila (RLS) para garantizar la máxima soberanía de los datos."
-    ]
-  },
-  "s5": {
-    "title": "5. Registro en nuestro sitio web y Crowdfunding de Startnext",
-    "body": [
-      "Puede registrarse proporcionando datos (nombre, correo electrónico, credenciales cifradas). Para la gestión de proyectos, también podemos recopilar su dirección postal, fecha de nacimiento y nacionalidad.",
-      "Datos de fuentes externas (Startnext): Al participar en nuestro crowdfunding, recibimos de Startnext su nombre, correo electrónico, monto de la contribución y la recompensa seleccionada para asignar sus derechos digitales; no procesamos datos bancarios de esto.",
-      "Gamificación y Google Wallet: Procesamos información sobre su progreso, niveles (tiers) y misiones. Si añade el 'Land Dollar' a Google Wallet, Google actúa como responsable independiente."
-    ]
-  },
-  "s6": {
-    "title": "6. Suscripción a nuestro boletín de noticias (Newsletter)",
-    "body": [
-      "Ofrecemos un boletín informativo que requiere una dirección de correo electrónico válida y el registro mediante el procedimiento de doble confirmación (Double-Opt-In). La dirección IP, la fecha y la hora del registro se almacenan por motivos legales y para la prevención de abusos. La suscripción puede cancelarse en cualquier momento y el consentimiento puede ser revocado."
-    ]
-  },
-  "s7": {
-    "title": "7. Seguimiento del boletín de noticias (Tracking)",
-    "body": [
-      "Nuestros boletines contienen píxeles de seguimiento. Esto permite realizar un análisis estadístico del éxito (p. ej., si se abrió un correo electrónico o cuándo se hizo clic en un enlace). Utilizamos estos datos para la optimización. Es posible revocar el consentimiento en cualquier momento dándose de baja del boletín."
-    ]
-  },
-  "s8": {
-    "title": "8. Posibilidad de contacto a través del sitio web",
-    "body": [
-      "Si un usuario se pone en contacto con el responsable por correo electrónico o a través de un formulario de contacto, los datos personales transmitidos voluntariamente se almacenan automáticamente con el fin de procesar la solicitud o contactar a la persona."
-    ]
-  },
-  "s9": {
-    "title": "9. Eliminación y bloqueo rutinario de datos personales",
-    "body": [
-      "El responsable procesa y almacena datos solo durante el período necesario para lograr el propósito del almacenamiento. Si el propósito deja de existir o expira un plazo legal, los datos se bloquean o eliminan de forma rutinaria.",
-      "Plazos específicos: Las contribuciones financieras se almacenan durante 10 años de acuerdo con la legislación fiscal alemana (HGB/AO). Los registros técnicos se anonimizan automáticamente después de 30 días."
-    ]
-  },
-  "s10": {
-    "title": "10. Derechos del interesado",
-    "body": [
-      "Para ejercer cualquiera de los siguientes derechos, el interesado puede ponerse en contacto con nosotros (el responsable) en cualquier momento:"
-    ],
-    "list": [
-      "a) Derecho de confirmación y acceso (Art. 15 RGPD): Disponible como copia en su panel de control (Dashboard).",
-      "b) Derecho de rectificación (Art. 16 RGPD): Ajustable en su perfil.",
-      "c) Derecho a la supresión / derecho al olvido (Art. 17 RGPD): Por ejemplo, mediante la eliminación de la cuenta.",
-      "d) Derecho a la limitación del tratamiento (Art. 18 RGPD) y a la portabilidad de los datos (Art. 20 RGPD).",
-      "e) Derecho de oposición (Art. 21 RGPD) y revocación del consentimiento (Art. 7, apdo. 3 RGPD).",
-      "f) Derecho de reclamación: Además, tiene derecho a presentar una reclamación ante una autoridad de control de protección de datos (Art. 77 RGPD)."
-    ]
-  },
-  "s11": {
-    "title": "11. Disposiciones de protección de datos sobre la aplicación y uso de Facebook",
-    "body": [
-      "Hemos integrado componentes de Facebook. La empresa operadora para personas fuera de EE. UU. es Facebook Ireland Ltd., 4 Grand Canal Square, Dublín 2, Irlanda.",
-      "Si el usuario está conectado simultáneamente a Facebook, Facebook detecta en cada acceso qué subpágina visita. Si presiona, por ejemplo, el botón 'Me gusta', esto se asignará a su cuenta de Facebook. Para evitar esto, debe cerrar sesión en su cuenta de Facebook antes de acceder.",
-      "Más información sobre la política de datos de Facebook: https://es-es.facebook.com/about/privacy/"
-    ]
-  },
-  "s12": {
-    "title": "12. Disposiciones de protección de datos sobre la aplicación y uso de Google AdSense",
-    "body": [
-      "Google AdSense está integrado en este sitio web (Google Ireland Limited, Gordon House, Barrow Street, Dublín, Irlanda).",
-      "El servicio instala cookies y píxeles de seguimiento para la integración de anuncios y para evaluaciones basadas en intereses. Es posible que se transfieran datos a EE. UU. La configuración de cookies puede evitarse en el navegador.",
-      "Más explicaciones: https://www.google.es/intl/es/adsense/start/"
-    ]
-  },
-  "s13": {
-    "title": "13. Disposiciones de protección de datos sobre la aplicación y uso de Google Analytics (con función de anonimización)",
-    "body": [
-      "Utilizamos Google Analytics (Google Ireland Limited). Utilizamos el sufijo '_gat._anonymizeIp', que trunca y anonimiza su dirección IP.",
-      "El usuario puede oponerse a la recopilación y procesamiento de datos por parte de Google Analytics. Para ello, debe descargar e instalar un complemento (Add-On) para el navegador en el siguiente enlace: https://tools.google.com/dlpage/gaoptout",
-      "Más información: https://policies.google.com/privacy?hl=es y https://marketingplatform.google.com/about/analytics/terms/es/"
-    ]
-  },
-  "s14": {
-    "title": "14. Disposiciones de protección de datos sobre la aplicación y uso de Google AdWords",
-    "body": [
-      "Utilizamos Google AdWords (Google Ireland Limited). Si una persona llega a nuestra página a través de un anuncio de Google, se deposita una cookie de conversión (validez de 30 días, sin identificación personal) para crear estadísticas de visitas.",
-      "Es posible oponerse a la publicidad basada en intereses aquí: https://myadcenter.google.com/"
-    ]
-  },
-  "s15": {
-    "title": "15. Disposiciones de protección de datos sobre la aplicación y uso de Instagram",
-    "body": [
-      "En este sitio web se han integrado componentes de Instagram (Facebook Ireland Ltd.). Si ha iniciado sesión en Instagram, la visita a nuestra página puede ser asignada a su cuenta de Instagram. Cierre la sesión para evitar esto.",
-      "Política de privacidad de Instagram: https://help.instagram.com/155833707900388 y https://privacycenter.instagram.com/policy"
-    ]
-  },
-  "s16": {
-    "title": "16. Disposiciones de protección de datos sobre la aplicación y uso de LinkedIn",
-    "body": [
-      "Utilizamos componentes de LinkedIn (LinkedIn Ireland, Wilton Place, Dublín 2, Irlanda). Con cada acceso, se descarga una representación del componente y, en el caso de los usuarios conectados, se asigna a su cuenta de LinkedIn.",
-      "LinkedIn ofrece la opción de darse de baja de los anuncios: https://www.linkedin.com/psettings/guest-controls. Política de cookies: https://es.linkedin.com/legal/cookie-policy"
-    ]
-  },
-  "s17": {
-    "title": "17. Disposiciones de protección de datos sobre la aplicación y uso de YouTube",
-    "body": [
-      "Hemos integrado componentes de YouTube (Google Ireland Limited). Al visitar una página con un video de YouTube, Google recibe conocimiento sobre qué página está visitando, especialmente si ha iniciado sesión en YouTube.",
-      "Política de privacidad de YouTube/Google: https://policies.google.com/privacy?hl=es"
-    ]
-  },
-  "s18": {
-    "title": "18. Base legal del procesamiento y transferencia internacional de datos",
-    "body": [
-      "El procesamiento se basa en el Art. 6(1)(a) del RGPD (Consentimiento), el Art. 6(1)(b) del RGPD (Cumplimiento de un contrato, p. ej., asignación del Land-Dollar) y el Art. 6(1)(c) del RGPD (Obligaciones legales).",
-      "Transferencia internacional a Ecuador: Para proteger la selva amazónica (provincia de Pastaza), los datos de identificación se transmiten al registro de la propiedad local y notarios en Ecuador (en base al Art. 49, apdo. 1, letra b del RGPD).",
-      "Transferencia de datos a terceros países (p. ej., EE. UU.): Se realiza en base a las Cláusulas Contractuales Tipo (SCCs) y al Marco de Privacidad de Datos UE-EE. UU. (Decisión de Adecuación)."
-    ]
-  },
-  "s19": {
-    "title": "19. Intereses legítimos en el procesamiento",
-    "body": [
-      "Si el procesamiento se basa en el Artículo 6(1)(f) del RGPD, nuestro interés legítimo es llevar a cabo nuestras operaciones comerciales a favor de los objetivos del proyecto regenerativo, de todos nuestros empleados y accionistas."
-    ]
-  },
-  "s20": {
-    "title": "20. Duración del almacenamiento",
-    "body": [
-      "Los datos de usuarios/socios se almacenan mientras dure su relación activa con el proyecto. Posteriormente, el almacenamiento se rige por los plazos de retención legales. Una vez expirado el plazo, los datos se eliminan, siempre que ya no sean necesarios para el cumplimiento del contrato."
-    ]
-  },
-  "s21": {
-    "title": "21. Requisitos legales o contractuales / Protección de menores",
-    "body": [
-      "La provisión de datos personales es en parte requerida legalmente (p. ej., impuestos) o contractualmente (para la celebración del proyecto); no proporcionar estos datos tendría como consecuencia que no se pueda formalizar el contrato.",
-      "Protección de menores: Nuestro servicio no está dirigido a niños menores de 13 años; los datos recopilados de menores de manera involuntaria se eliminarán de inmediato."
-    ]
-  },
-  "s22": {
-    "title": "22. Existencia de decisiones automatizadas",
-    "body": [
-      "Como proyecto responsable, no utilizamos la toma de decisiones automatizada (incluida la elaboración de perfiles) que produzca efectos jurídicos. Las métricas de gamificación en la plataforma sirven para fines puramente interactivos y no discriminatorios."
-    ]
-  },
-  "footer_note": ""
-},
- "cookies": {
+  "cookies": {
     "title": "Reforestal – Cookies para la protección del Clima (Política de Cookies)",
     "subtitle": "¡Hola! Para asegurarnos de que, como Aliado Guardián en la Amazonía, tengas una visión completa y tu Dashboard funcione sin problemas, utilizamos cookies y tecnologías similares (como el almacenamiento local). Aquí tienes un breve resumen de lo que sucede en tu dispositivo cuando usas Reforestal.",
     "intro": "Aquí encontrará una breve descripción general de lo que sucede en su dispositivo cuando utiliza Reforestal.",
@@ -1757,89 +1756,81 @@
     "save_settings": "Guardar selección"
   },
   "impressum": {
-  "title": "Aviso Legal (Impressum)",
-  "platform_operator": "Operador de la plataforma",
-  "operator_name": "Peter Rosinski (actuando en nombre de Reforestal eG)",
-  "address_street": "Rotenbergstr. 27",
-  "address_city": "66111 Saarbrücken",
-  "address_country": "Alemania",
-  "management": "Junta Directiva: Peter Rosinski",
-  "content_responsible_title": "Responsable del contenido",
-  "content_responsible_name": "Peter Rosinski",
-  "project_note": "Los respectivos propietarios de los proyectos son responsables del contenido de las páginas de los mismos, contactables a través de su aviso legal o contacto directo.",
-  "email": "E-mail: peter@reforest.al",
-  "phone": "Tel.: +49 163 8736419",
-  "further_notes_title": "Notas adicionales",
-  "social_media_text": "Este aviso legal también se aplica a nuestros perfiles en LinkedIn, Facebook, Threads e Instagram, así como a nuestro canal en YouTube.",
-  "dispute_resolution": "No estamos dispuestos ni obligados a participar en procedimientos de resolución de litigios ante una junta arbitral de consumo."
+    "title": "Aviso Legal (Impressum)",
+    "platform_operator": "Operador de la plataforma",
+    "operator_name": "Peter Rosinski (actuando en nombre de Reforestal eG)",
+    "address_street": "Rotenbergstr. 27",
+    "address_city": "66111 Saarbrücken",
+    "address_country": "Alemania",
+    "management": "Junta Directiva: Peter Rosinski",
+    "content_responsible_title": "Responsable del contenido",
+    "content_responsible_name": "Peter Rosinski",
+    "project_note": "Los respectivos propietarios de los proyectos son responsables del contenido de las páginas de los mismos, contactables a través de su aviso legal o contacto directo.",
+    "email": "E-mail: peter@reforest.al",
+    "phone": "Tel.: +49 163 8736419",
+    "further_notes_title": "Notas adicionales",
+    "social_media_text": "Este aviso legal también se aplica a nuestros perfiles en LinkedIn, Facebook, Threads e Instagram, así como a nuestro canal en YouTube.",
+    "dispute_resolution": "No estamos dispuestos ni obligados a participar en procedimientos de resolución de litigios ante una junta arbitral de consumo."
   },
-  "pageDollar": {
-    "hero":{
-      "badge": "El Camino de la Regeneración",
-      "welcome": "¡Qué bien que hayas descubierto este camino!",
-      "title": "Más que una Utopía:",
-      "titleHighlight": "Toda gran transformación comienza con una visión compartida",
-      "subtitle": "terra utopia y Reforestal se unen para sanar la Amazonía en Ecuador. Tu donación es el motor de esta transformación. Con tu apoyo pasamos a la acción: protegemos la selva metro a metro y garantizamos la prosperidad de las comunidades locales.",
-      "descrip": "Con tu apoyo, cada m² de selva Amazónica se convierte en un legado de vida y prosperidad para las generaciones futuras."
+  "pageDe": {
+    "hero": {
+      "title": "Los Dólares de Tierra generan selva.",
+      "subtitle": "Reforestal y terra utopia regeneran juntos selva tropical. Reforestal empodera a sus miembros con participación en cosechas como cacao, bambú y vainilla, mientras terra utopia regenera con un 100% de enfoque en el bien común.",
+      "btn": "Apoyar terra utopia",
+      "btn2": "Apoya",
+      "btn3": "Ahora asegura terrenos"
+    },
+    "section1": {
+      "title": "¿Qué logra tu aporte?",
+      "subtitle": "¡Cada euro llega a su destino!",
+      "p1": "Todo lo que aportas se destina a nuestro primer gran proyecto de regeneración en el Amazonas. Esto permite asegurar superficies, herramientas, plantones y mano de obra...",
+      "p2": "Al inicio está la planificación detallada junto a los expertos locales: las comunidades indígenas y nuestras ingenieras forestales."
+    },
+    "section2": {
+      "title": "¿Por qué aún no puedes participar en Reforestal?",
+      "p1": "Reforestal se encuentra aún en fase de constitución.",
+      "p2": "La base jurídica de nuestra cooperativa está recibiendo los últimos ajustes. A continuación, se llevará a cabo la revisión de constitución, en la que se examinará tanto los estatutos como, sobre todo, nuestro modelo económico.",
+      "p4": "El gran éxito de nuestros primeros proyectos piloto sobre el terreno demuestra que los modelos de economía regenerativa son el futuro."
+    },
+    "section3": {
+      "title": "¿Qué roles asumen terra utopia y Reforestal?",
+      "subtitle": "Un objetivo común – enfoques distintos",
+      "list1": {
+        "item1": "Compra terrenos.",
+        "item3": "Regenera ecosistemas",
+        "item4": "Construye casas en los árboles con intervención mínima.",
+        "item5": "No tiene ánimo de lucro.",
+        "item2": "Protege superficies forestales existentes."
+      },
+      "list2": {
+        "item1": "Arrenda terrenos.",
+        "item2": "Reforesta bosque mixto en",
+        "item3": "Cosecha productos no maderables",
+        "item4": "Cosecha los cultivos.",
+        "item5": "Distribuye dividendos a los miembros."
+      },
+      "footer": "Así se conectan ambos tipos de proyectos para maximizar conjuntamente el impacto."
+    },
+    "section4": {
+      "title": "¿Por qué casas en los árboles?",
+      "subtitle": "El bosque tropical debe hacerse tangible.",
+      "p1": "Una pequeña parte de las superficies adquiridas por terra utopia se destina a cabañas arbóreas en entornos naturales.",
+      "p2": "Necesitamos espacio habitacional para visitantes, trabajadores y residentes. Los ingresos por alquiler son tan cruciales para el proyecto global como la presencia constante que protege contra la explotación descontrolada.",
+      "p3": "Así se benefician por igual la naturaleza, la población local y los colaboradores."
+    },
+    "section5": {
+      "title": "El Dólar-Tierra",
+      "p2": "El Land-Dollar simboliza nuestro modelo económico regenerativo, que a través de Reforestal ofrece una alternativa a la economía predominantemente destructiva.",
+      "p3": "\"El Land-Dollar representa valores reales, en lugar de enriquecimiento mediante explotación o simples aumentos de cotización.\"o\"Valores reales y crecimiento regenerativo, en lugar de explotación y destrucción.\"",
+      "subtitle": "Boleto del capitalismo.",
+      "p1": "Más poderosa que la elección de nuestros representantes políticos es la decisión de en qué invertimos nuestro dinero."
     },
     "cta": {
-      "btnDonate": "Donar a terra utopia",
-      "btnVisit": "Visitar terra utopia",
-      "title": "Sé parte de la Historia",
-      "subtitle": "Te ofrecemos el poder de actuar. Únete al movimiento y apoya la preservación de la selva tropical con terra utopia y Reforestal, a través de la economía regenerativa y la agroforestería. Protege tu ecosistema. Da forma a una nueva era.",
-      "footer": "\"Cada paso cuenta, y tú también puedes formar parte de este movimiento.\""
-    },
-    "history": {
-      "badges": "El Origen",
-      "title": "Dos Fuerzas, Un Mismo Sueño",
-      "terraTitle": "terra utopia",
-      "terraDesc": "Nació en Alemania como una organización sin fines de lucro con un propósito profundo: reconectar a personas de todo el mundo con socios comunitarios en la Amazonía ecuatoriana. Su filosofía siempre ha sido demostrar que un alto nivel de vida no tiene por qué estar ligado a la destrucción del medio ambiente; es posible reunir a la humanidad en un \"mundo verde\" mediante la educación y la restauración colectiva.",
-      "reforestalTitle": "Reforestal",
-      "reforestalDesc": "Comenzó en 2024 como una alianza biocultural. Los fundadores comprendieron que plantar árboles como simples donaciones no era suficiente para salvar la Amazonía. Querían ir más allá de la filantropía y crear un modelo verdaderamente profesional, combinando la innovación tecnológica con la sabiduría milenaria.",
-      "allianceConclusion": "Hoy, terra utopia y Reforestal forjan una alianza hacia el futuro. terra utopia aporta su red global, mientras Reforestal desarrolla la plataforma de impacto. Juntos, no solo buscan proteger el ecosistema, sino transformarlo en un motor de desarrollo que perdure en el tiempo."
-    },
-    "stepByStep": {
-      "title": "Construyendo el Futuro, Paso a Paso",
-      "subtitle": "A través de esta historia conjunta, hemos construido un sistema basado en los siguientes pilares que dan vida a nuestro proyecto:",
-      "step1Badge": "Paso 1: Territorio",
-      "step1Title": "Reforestación Medible",
-      "step1Desc": "La historia de la selva no se cuenta por la cantidad de árboles plantados, sino por el territorio asegurado. No plantamos un árbol que se convierte en un simple dato; protegemos ecosistemas completos. Medimos nuestro éxito garantizando metros cuadrados (m²) específicos de selva amazónica, asegurando el hábitat desde sus cimientos.",
-      "step2Badge": "Paso 2: Modelo Económico",
-      "step2Title": "Beneficios y Ganancias",
-      "step2Desc": "Hemos decidido cambiar el rumbo de la historia económica. Al sustituir la antigua lógica extractiva de la tierra por un modelo regenerativo, demostramos que la ética y la rentabilidad pueden coexistir.  Estamos profundamente comprometidos con la misión de restaurar la simbiosis entre la humanidad y la naturaleza. El objetivo es crear una relación sostenible y verdaderamente compatible entre el medio ambiente, la economía y la sociedad.",
-      "step3Badge": "Paso 3: Biodiversidad",
-      "step3Title": "Cultivos Mixtos y Chakra",
-      "step3Desc": "Nos negamos a plantar una sola especie. El corazón productivo de nuestra historia late gracias a la Chakra amazónica. Más que un simple sistema agrícola, es un diseño ancestral de bosque productivo donde especies como el cacao y la vainilla crecen en simbiosis, restaurando la fertilidad del suelo.",
-      "step4Badge": "Paso 4: La Estructura",
-      "step4Title": "Fase Inicial y Futura Cooperativa eG",
-      "step4Desc": "Actualmente, estamos en nuestra \"Fase Inicial\", reuniendo el capital para establecer la primera Cooperativa Alemana (eG) de este tipo. Esto asegurará una independencia total bajo una estricta regulación y transparencia. Quienes nos apoyen ahora se convertirán en \"Aliados Guardianes\", co-creadores desde el primer momento."
-    },
-    "impact": {
-      "badge": "Impacto Sistémico",
-      "title": "Todos Ganan",
-      "subtitle": "En esta nueva historia, hemos diseñado un modelo donde la viabilidad del capital y la salud del ecosistema son inseparables. Cada parte del tejido vivo sale victoriosa:",
-      "climateTitle": "Clima",
-      "climateDesc": "Restauramos sumideros de carbono vitales, implementando medidas innovadoras y reales contra el cambio climático.",
-      "humanityTitle": "Humanidad",
-      "humanityDesc": "Curamos la separación entre las personas y su entorno. Transformamos la eco-ansiedad en \"eco-agencia\": la capacidad de actuar.",
-      "localTitle": "Población Local",
-      "localDesc": "Aseguramos que la conservación genere prosperidad. Las familias de Napo obtienen un sustento seguro siendo guardianes del territorio.",
-      "membersTitle": "Miembros de la Cooperativa",
-      "membersDesc": "Quienes apoyan el proyecto pasan de ser espectadores a co-propietarios. A FUTURO, disfrutarán de participación democrática, derechos de voto en decisiones estratégicas y acceso a datos transparentes.",
-      "floraTitle": "Flora, Fauna y Hongos",
-      "floraDesc": "No creamos plantaciones, regeneramos hogares. La restauración del suelo nutre las redes de microorganismos, devolviéndole el pulso a la selva."
-  },
-  "metrics": {
-    "badge": "La Realidad de Campo",
-    "title": "Potencial de Rendimiento",
-    "desc": "Esta visión no es solo una teoría romántica; ya es una realidad validada en el campo. Junto a las familias locales en Napo, Ecuador, hemos medido los resultados de nuestro proyecto piloto de simbiosis de cacao y vainilla, que avalan nuestra metodología:",
-    "val1": ">90%",
-    "label1": "Supervivencia",
-    "val2": "125 cm",
-    "label2": "Crecimiento (8m)",
-    "val3": "100%",
-    "label3": "Autosuficiencia Hídrica"
+      "title": "Reforestal comenzará pronto.",
+      "p1": "La cooperativa se encuentra actualmente en proceso de constitución.",
+      "p2": "Si deseas participar desde ya, puedes hacerte miembro de terra utopia y seguirnos en redes sociales.",
+      "btn1": "Hazte miembro",
+      "btn2": "Reforestal"
     }
   }
 }
-

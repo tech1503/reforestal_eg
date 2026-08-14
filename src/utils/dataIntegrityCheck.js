@@ -1,4 +1,7 @@
 import { supabase } from '@/lib/customSupabaseClient';
+import { EXPECTED_BENEFITS, OFFICIAL_SLUGS } from '@/utils/validationTestUtils';
+
+const normalizeSlug = (slug) => slug?.replace(/-/g, '_') || '';
 
 /**
  * Performs a lightweight audit of the critical data structures (Tiers & Benefits)
@@ -17,13 +20,6 @@ export const runDataIntegrityCheck = async () => {
             
         if (levelError) throw levelError;
 
-        const officialSlugs = [
-            'explorer_mountain_spring',
-            'explorer_mountain_stream',
-            'explorer_riverbed',
-            'explorer_lifeline'
-        ];
-
         const activeLevels = levels.filter(l => l.is_active);
         console.log(`Support Levels: Found ${levels.length} total, ${activeLevels.length} active.`);
 
@@ -34,25 +30,34 @@ export const runDataIntegrityCheck = async () => {
             console.error('❌ DUPLICATE SLUGS DETECTED:', duplicates);
         }
 
-        const missingOfficial = officialSlugs.filter(slug => !foundSlugs.includes(slug));
+        const missingOfficial = OFFICIAL_SLUGS.filter(slug =>
+            !foundSlugs.some(fs => normalizeSlug(fs) === slug)
+        );
         if (missingOfficial.length > 0) {
             console.warn('⚠️ MISSING OFFICIAL VARIANTS:', missingOfficial);
         } else {
-            console.log('✅ All 4 official variants present.');
+            console.log(`✅ All ${OFFICIAL_SLUGS.length} official variants present in database.`);
         }
 
-        // 2. Check Benefits Count
+        // 2. Check Benefits Count (dynamic based on active official levels)
+        const activeOfficial = activeLevels.filter(l =>
+            OFFICIAL_SLUGS.includes(normalizeSlug(l.slug))
+        );
+        const expectedTotal = activeOfficial.reduce(
+            (sum, l) => sum + (EXPECTED_BENEFITS[normalizeSlug(l.slug)] || 0), 0
+        );
+
         const { count, error: countError } = await supabase
             .from('support_benefits')
             .select('*', { count: 'exact', head: true })
-            .in('support_level_id', activeLevels.map(l => l.id));
+            .in('support_level_id', activeOfficial.map(l => l.id));
 
         if (countError) throw countError;
 
-        if (count === 20) {
-             console.log('✅ Benefit count for active levels is exactly 20.');
+        if (count === expectedTotal) {
+             console.log(`✅ Benefit count for ${activeOfficial.length} active official levels is exactly ${expectedTotal}.`);
         } else {
-             console.warn(`⚠️ Unexpected benefit count: ${count}. Expected 20.`);
+             console.warn(`⚠️ Unexpected benefit count: ${count}. Expected ${expectedTotal} (for ${activeOfficial.length} active official levels).`);
         }
 
         console.log('Integrity check complete.');
