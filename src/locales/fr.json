@@ -1774,61 +1774,61 @@
   },
   "pageDe": {
     "hero": {
-      "title": "Les Dollars-Terre créent de la forêt.",
-      "subtitle": "Reforestal et terra utopia régénèrent ensemble des écosystèmes forestiers. Reforestal offre à ses membres une participation aux récoltes comme le cacao, le bambou et la vanille, tandis que terra utopia régénère à 100 % dans une logique de transition pour le bien commun.",
+      "title": "Les m²-Dollars créent de la forêt",
+      "subtitle": "Reforestal et terra utopia régénèrent ensemble des écosystèmes forestiers. Reforestal offre à ses membres une participation aux récoltes comme le cacao, le bambou et la vanille, tandis que terra utopia régénère à 100 % dans une logique d’intérêt général.",
       "btn": "Soutenir terra utopia",
-      "btn2": "Passer à l'action",
+      "btn2": "Transfère ton engagement",
       "btn3": "Maintenant, sécurise des surfaces"
     },
     "section1": {
       "title": "Quel est l'impact de ta contribution ?",
       "subtitle": "Chaque euro arrive à destination !",
-      "p1": "Tout ce qui est transféré dans le cadre de notre transition pour le bien commun est investi dans notre premier grand projet de régénération en Amazonie. Cela permet de sécuriser des surfaces, des outils, des plants et de la main-d’œuvre…",
-      "p2": "Au début, il y a la planification détaillée avec les experts sur place : les communautés indigènes et nos ingénieures forestières."
+      "p1": "Tout ce qui est transféré dans le cadre d’une transition pour le bien commun est investi dans notre premier grand projet de régénération en Amazonie. Il permet l’acquisition de surfaces ainsi que l’achat d’outils et de plants, et finance la main-d’œuvre nécessaire.",
+      "p2": "Au début, une planification détaillée est établie en collaboration avec nos expertes locales : les communautés indigènes et nos ingénieures forestières."
     },
     "section2": {
-      "title": "Pourquoi ne peux-tu pas encore participer à Reforestal ?",
       "p1": "Reforestal est encore en phase de création.",
-      "p2": "La base juridique de notre coopérative est en train de recevoir ses dernières retouches. Ensuite viendra l’examen de fondation, au cours duquel notre modèle économique sera vérifié, tout comme les statuts.",
-      "p4": "Le grand succès de nos premiers projets pilotes sur le terrain prouve que les modèles économiques régénératifs représentent l’avenir !"
+      "p2": "La base juridique de notre coopérative reçoit actuellement les dernières retouches. Ensuite suivra l’examen de fondation, au cours duquel notre modèle économique sera vérifié, tout comme les statuts.",
+      "p4": "Le grand succès de nos premiers projets pilotes sur le terrain prouve que les modèles économiques régénératifs représentent l’avenir !",
+      "title": "Pourquoi ne peux-tu pas encore participer à Reforestal ?"
     },
     "section3": {
       "title": "Quels rôles jouent terra utopia et Reforestal ?",
       "subtitle": "Un objectif commun – des approches différentes",
       "list1": {
-        "item2": "Protège les forêts existantes",
+        "item1": "Achète des surfaces.",
+        "item2": "Protège les écosystèmes forestiers existants.",
         "item3": "Régénère les écosystèmes",
         "item4": "Construit des cabanes dans les arbres à intervention minimale.",
-        "item5": "N'a pas de but lucratif.",
-        "item1": "Achète des terres."
+        "item5": "N'a pas pour but de réaliser des profits."
       },
       "list2": {
-        "item1": "Louez des terres.",
-        "item2": "Restaure une forêt mixte sur m².",
-        "item3": "Récolte des produits forestiers non ligneux",
-        "item4": "Vends les récoltes",
+        "item1": "Loue des surfaces.",
+        "item2": "Régénère une forêt mixte.",
+        "item3": "Récolte de produits non ligneux",
+        "item4": "Transfère les récoltes.",
         "item5": "Distribue des dividendes aux membres."
       },
-      "footer": "Ces deux types de projets s’associent pour maximiser ensemble leur impact."
+      "footer": "Ainsi, deux chemins convergent vers un objectif commun : un impact maximal pour la forêt tropicale."
     },
     "section4": {
       "title": "Pourquoi des maisons dans les arbres ?",
       "subtitle": "La forêt tropicale doit devenir une expérience tangible.",
       "p1": "Une petite partie des surfaces acquises par terra utopia est dédiée à des cabanes dans les arbres en harmonie avec la nature.",
       "p2": "Nous avons besoin d’espaces d’hébergement pour les visiteurs, les travailleurs et les habitants. Les revenus locatifs sont tout aussi essentiels au projet global qu’une présence constante, qui protège contre l’exploitation abusive.",
-      "p3": "Ainsi, la nature, les populations locales et les invités en profitent tous."
+      "p3": "Ainsi, la nature, les populations locales et les invités en profitent tous de manière équitable."
     },
     "section5": {
-      "subtitle": "Bulletin de vote du capitalisme.",
-      "p1": "Plus puissant que le choix de nos représentants politiques est le choix de l’usage que nous faisons de notre argent.",
+      "title": "La Terre-Dollar",
+      "subtitle": "Bulletin de vote de la forêt.",
+      "p1": "Plus puissant que le choix de nos représentants politiques est le choix de l'usage que nous faisons de notre argent.",
       "p2": "Le Land-Dollar symbolise notre modèle économique régénératif, qui, grâce à Reforestal, propose une alternative à l’économie majoritairement destructive.",
-      "p3": "« Le Land-Dollar incarne des valeurs réelles, plutôt que l’enrichissement par l’exploitation ou de simples hausses de cours. » ou « Des valeurs tangibles et une croissance régénérative, plutôt que l’exploitation et la destruction. »",
-      "title": "Le Dollar-Terre"
+      "p3": "Valeurs réelles et croissance régénérative, plutôt qu’exploitation et destruction."
     },
     "cta": {
       "title": "Reforestal démarre bientôt.",
       "p1": "La coopérative est actuellement en cours de création.",
-      "p2": "Si tu souhaites néanmoins t’engager dès maintenant, tu peux devenir membre de terra utopia et nous suivre sur les réseaux sociaux.",
+      "p2": "Si tu souhaites malgré tout t’engager dès maintenant, tu peux devenir membre de terra utopia et nous suivre sur les réseaux sociaux.",
       "btn1": "Deviens membre",
       "btn2": "Reforestal"
     }

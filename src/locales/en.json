@@ -1774,22 +1774,22 @@
   },
   "pageDe": {
     "hero": {
-      "title": "Ecosystem-Dollars build rainforest value.",
-      "subtitle": "Reforestal and terra utopia jointly regenerate rainforest ecosystems. Reforestal empowers its members through participation in harvests such as cocoa, bamboo, and vanilla, while terra utopia regenerates 100% for the common good.",
-      "btn": "Support terra utopia",
+      "title": "Ecosystem-Dollars build rainforest value",
+      "btn": "Donate to terra utopia",
       "btn2": "Donate",
-      "btn3": "Secure land now"
+      "btn3": "Secure land now",
+      "subtitle": "Reforestal and terra utopia jointly regenerate rainforest ecosystems. Reforestal empowers its members through participation in harvests such as cocoa, bamboo, and vanilla, while terra utopia regenerates 100% for the common good."
     },
     "section1": {
       "title": "What does your contribution achieve?",
-      "subtitle": "Every euro reaches its destination.",
-      "p1": "Every contribution flows directly into our first major reforestation initiative in the Amazon. It enables land surfaces, tools, seedlings, and labor—building ecological reserves with precision and security.",
-      "p2": "The process begins with detailed planning alongside local experts: Indigenous communities and our forestry engineers."
+      "subtitle": "Every euro arrives in full.",
+      "p1": "Every contribution flows directly into our first major reforestation initiative in the Amazon. It enables the acquisition of land surfaces, the procurement of tools and seedlings, and funds the necessary workforce.",
+      "p2": "At the outset, we engage in comprehensive planning together with our local experts: Indigenous communities and our forestry engineers."
     },
     "section2": {
       "title": "Why can't I participate in Reforestal yet?",
-      "p1": "Reforestal is currently in the process of being established.",
-      "p2": "The legal foundation of our cooperative is currently receiving its final refinements. This will be followed by the incorporation review, which will examine not only our statutes but also our economic model.",
+      "p1": "Reforestal is still in the process of being established.",
+      "p2": "The legal foundation of our cooperative is currently receiving its final refinements. This will be followed by the incorporation audit, which will examine not only our statutes but also our economic model.",
       "p4": "The great success of our initial on-site pilot projects proves that regenerative economic models are the future!"
     },
     "section3": {
@@ -1798,35 +1798,35 @@
       "list1": {
         "item1": "Acquire land.",
         "item2": "Secures existing forests.",
-        "item3": "Regenerated ecosystems",
         "item4": "Constructs minimally invasive treehouses.",
-        "item5": "Operates without profit motive."
+        "item5": "Operates without profit motive.",
+        "item3": "Regenerated ecosystems"
       },
       "list2": {
         "item1": "Lease land.",
-        "item2": "Regenerate mixed forest on m².",
+        "item2": "Regenerate mixed forest on",
         "item3": "Harvest non-timber products",
         "item4": "Harvests are transferred.",
-        "item5": "Pays members dividends."
+        "item5": "Distributes dividends to members."
       },
-      "footer": "Both project types combine to maximize impact together."
+      "footer": "Here’s how two paths become one shared goal: maximum impact for the rainforest."
     },
     "section4": {
       "title": "Why tree-based structures?",
-      "subtitle": "The rainforest should become an experience.",
+      "subtitle": "The rainforest is to become an experience.",
       "p1": "A small portion of the surfaces acquired by terra utopia is used for nature-adjacent treehouses.",
-      "p2": "We need living space for visitors, workers, and residents. Rental income is just as crucial to the overall project as a constant presence that protects against overexploitation.",
+      "p2": "We need living space for visitors, workers, and residents. Rental income is just as vital to the overall project as a constant presence that safeguards against overexploitation.",
       "p3": "Nature, local communities, and guests all build value together."
     },
     "section5": {
       "title": "The Land-Dollar",
-      "subtitle": "Ballot of Capitalism.",
+      "subtitle": "Ballot of the Rainforest.",
+      "p3": "Real value and regenerative growth, not exploitation and destruction.",
       "p1": "More powerful than choosing political representatives is the choice of what we use our money for.",
-      "p2": "The Land-Dollar symbolizes our regenerative economic model, offering an alternative to predominantly destructive economies through Reforestal.",
-      "p3": "The Land-Dollar represents real value, not enrichment through exploitation or mere price appreciation. Real value and regenerative growth, not exploitation and destruction."
+      "p2": "The Land-Dollar symbolizes our regenerative economic model, offering an alternative to predominantly destructive economies through Reforestal."
     },
     "cta": {
-      "title": "Reforestal launches soon.",
+      "title": "Reforestal is launching soon",
       "p1": "The cooperative is currently in the process of being established.",
       "p2": "If you'd still like to get involved, you can become a member of terra utopia and follow us on social media.",
       "btn1": "Join as a Member",

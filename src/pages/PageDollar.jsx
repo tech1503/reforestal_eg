@@ -121,10 +121,10 @@ const PageDollar = () => {
               {t('pageDe.section1.subtitle', 'Jeder Euro kommt an!')}
             </h3>
             <p className="text-xl text-muted-foreground font-light leading-relaxed mb-4">
-              {t('pageDe.section1.p1', 'Alles was gespendet wird, fließt in unser erstes große Aufforstungsprojekt im Amazonas. Es ermöglicht Landflächen, Werkzeuge, Setzlinge und Arbeitskraft... ')}
+              {t('pageDe.section1.p1', 'Alles, was gespendet wird, fließt in unser erstes großes Aufforstungsprojekt im Amazonas. Es ermöglicht den Erwerb von Landflächen sowie die Anschaffung von Werkzeugen und Setzlingen und finanziert die notwendige Arbeitskraft.')}
             </p>
             <p className="text-xl text-muted-foreground font-light leading-relaxed">
-              {t('pageDe.section1.p2', 'Am Anfang steht die ausführliche Planung mit den Experten vor Ort: den indigenen Gemeinschaften und unseren Forstingenieurinnen.')}
+              {t('pageDe.section1.p2', 'Am Anfang steht eine ausführliche Planung gemeinsam mit unseren Expertinnen vor Ort: den indigenen Gemeinschaften und unseren Forstingenieurinnen.')}
             </p>
           </motion.div>
         </div>
@@ -229,7 +229,7 @@ const PageDollar = () => {
             className="mt-16 text-center max-w-3xl mx-auto p-8 bg-forest border border-emerald-500/20 rounded-3xl"
           >
             <p className="text-2xl text-gradient-gold font-light">
-              {t('pageDe.section3.footer', 'So verbinden sich beide Projektarten, um gemeinsam die Wirkung zu maximieren.')}
+              {t('pageDe.section3.footer', 'So wird aus zwei Wegen ein gemeinsames Ziel: maximale Wirkung für den Regenwald.')}
             </p>
           </motion.div>
 
@@ -310,16 +310,19 @@ const PageDollar = () => {
               {t('pageDe.section5.title', 'Der Land-Dollar')}
             </h2>
             <h3 className="text-xl text-gradient-gold font-bold mb-6">
-              {t('pageDe.section5.subtitle', 'Wahlschein des Kapitalismus.')}
+              {t('pageDe.section5.subtitle', 'Wahlschein des Regenwaldes.')}
             </h3>
             <p className="text-lg text-muted-foreground font-light leading-relaxed mb-4">
               {t('pageDe.section5.p1', 'Wirkmächtiger als die Wahl der Staatsvertreter ist die Wahl, wofür wir unser Geld nutzen.')}
             </p>
+            {/*
             <p className="text-lg text-muted-foreground font-light leading-relaxed mb-4">
               {t('pageDe.section5.p2', 'Der Land-Dollar steht symbolisch für unser regeneratives Wirtschaftsmodell, das durch Reforestal eine Alternative zur überwiegend destruktiven Wirtschaft bietet.')}
             </p>
+            */}
+            
             <p className="text-lg text-white font-medium bg-white/5 p-4 rounded-xl border border-white/10">
-              {t('pageDe.section5.p3', ' \"Der Land-Dollar steht für reale Werte, statt Bereicherung durch Ausbeutung oder reine Kurssteigerungen. \" oder  \"Reale Werte und regeneratives Wachstum, statt Ausbeutung und Zerstörung. \"')}
+              {t('pageDe.section5.p3', 'Reale Werte und regeneratives Wachstum, statt Ausbeutung und Zerstörung.')}
             </p>
           </motion.div>
         
@@ -436,7 +439,7 @@ const PageDollar = () => {
                   />
 
                   <span className="relative z-10 flex items-center justify-center gap-3">
-                    {t('pageDe.cta.btn1', 'Werden Sie Mitglied')}
+                    {t('pageDe.cta.btn1', 'Werde Mitglied')}
                     <ArrowRight className="w-6 h-6 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                   </span>
                 </Button>

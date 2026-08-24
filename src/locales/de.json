@@ -1783,8 +1783,8 @@
     "section1": {
       "title": "Was bewirkt dein Beitrag?",
       "subtitle": "Jeder Euro kommt an!",
-      "p1": "Alles was gespendet wird, fließt in unser erstes große Aufforstungsprojekt im Amazonas. Es ermöglicht Landflächen, Werkzeuge, Setzlinge und Arbeitskraft... ",
-      "p2": "Am Anfang steht die ausführliche Planung mit den Experten vor Ort: den indigenen Gemeinschaften und unseren Forstingenieurinnen."
+      "p1": "Alles, was gespendet wird, fließt in unser erstes großes Aufforstungsprojekt im Amazonas. Es ermöglicht den Erwerb von Landflächen sowie die Anschaffung von Werkzeugen und Setzlingen und finanziert die notwendige Arbeitskraft.",
+      "p2": "Am Anfang steht eine ausführliche Planung gemeinsam mit unseren Expertinnen vor Ort: den indigenen Gemeinschaften und unseren Forstingenieurinnen."
     },
     "section2": {
       "title": "Warum kann ich mich noch nicht an Reforestal beteiligen?",
@@ -1809,7 +1809,7 @@
         "item4": "Verkauft die Ernten",
         "item5": "Zahlt Mitgliedern Dividenden"
       },
-      "footer": "So verbinden sich beide Projektarten, um gemeinsam die Wirkung zu maximieren."
+      "footer": "So wird aus zwei Wegen ein gemeinsames Ziel: maximale Wirkung für den Regenwald."
     },
     "section4": {
       "title": "Warum Baumhäuser?",
@@ -1820,16 +1820,16 @@
     },
     "section5": {
       "title": "Der Land-Dollar",
-      "subtitle": "Wahlschein des Kapitalismus.",
+      "subtitle": "Wahlschein des Regenwaldes.",
       "p1": "Wirkmächtiger als die Wahl der Staatsvertreter ist die Wahl, wofür wir unser Geld nutzen.",
       "p2": "Der Land-Dollar steht symbolisch für unser regeneratives Wirtschaftsmodell, das durch Reforestal eine Alternative zur überwiegend destruktiven Wirtschaft bietet.",
-      "p3": " \"Der Land-Dollar steht für reale Werte, statt Bereicherung durch Ausbeutung oder reine Kurssteigerungen. \" oder  \"Reale Werte und regeneratives Wachstum, statt Ausbeutung und Zerstörung. \""
+      "p3": "Reale Werte und regeneratives Wachstum, statt Ausbeutung und Zerstörung."
     },
     "cta": {
       "title": "Reforestal startet bald",
       "p1": "Die Genossenschaft befindet sich aktuell in Gründung.",
       "p2": "Wenn du dich trotzdem bereits beteiligen möchtest, kannst du bei terra utopia Mitglied werden und uns auf social media folgen.",
-      "btn1": "Werden Sie Mitglied",
+      "btn1": "Werde Mitglied",
       "btn2": "Reforestal"
     }
   }

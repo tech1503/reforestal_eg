@@ -1774,8 +1774,8 @@
   },
   "pageDe": {
     "hero": {
-      "title": "Los Dólares de Tierra generan selva.",
-      "subtitle": "Reforestal y terra utopia regeneran juntos selva tropical. Reforestal empodera a sus miembros con participación en cosechas como cacao, bambú y vainilla, mientras terra utopia regenera con un 100% de enfoque en el bien común.",
+      "title": "Los Dólares de Tierra generan selva",
+      "subtitle": "Reforestal y terra utopia regeneran juntos selva tropical. Reforestal impulsa a sus miembros mediante la participación en cosechas como cacao, bambú y vainilla, mientras que terra utopia regenera con un 100% de enfoque en el bien común.",
       "btn": "Apoyar terra utopia",
       "btn2": "Apoya",
       "btn3": "Ahora asegura terrenos"
@@ -1783,8 +1783,8 @@
     "section1": {
       "title": "¿Qué logra tu aporte?",
       "subtitle": "¡Cada euro llega a su destino!",
-      "p1": "Todo lo que aportas se destina a nuestro primer gran proyecto de regeneración en el Amazonas. Esto permite asegurar superficies, herramientas, plantones y mano de obra...",
-      "p2": "Al inicio está la planificación detallada junto a los expertos locales: las comunidades indígenas y nuestras ingenieras forestales."
+      "p1": "Todo lo donado se destina a nuestro primer gran proyecto de regeneración en el Amazonas. Esto permite la adquisición de superficies, así como la compra de herramientas y plántulas, y financia la mano de obra necesaria.",
+      "p2": "Al inicio, se realiza una planificación detallada junto a nuestras expertas locales: las comunidades indígenas y nuestras ingenieras forestales."
     },
     "section2": {
       "title": "¿Por qué aún no puedes participar en Reforestal?",
@@ -1797,36 +1797,36 @@
       "subtitle": "Un objetivo común – enfoques distintos",
       "list1": {
         "item1": "Compra terrenos.",
+        "item2": "Preserva ecosistemas existentes",
         "item3": "Regenera ecosistemas",
         "item4": "Construye casas en los árboles con intervención mínima.",
-        "item5": "No tiene ánimo de lucro.",
-        "item2": "Protege superficies forestales existentes."
+        "item5": "No tiene ánimo de lucro."
       },
       "list2": {
         "item1": "Arrenda terrenos.",
-        "item2": "Reforesta bosque mixto en",
-        "item3": "Cosecha productos no maderables",
+        "item2": "Reforesta bosque mixto en m².",
+        "item3": "Cosecha productos no maderables.",
         "item4": "Cosecha los cultivos.",
-        "item5": "Distribuye dividendos a los miembros."
+        "item5": "Distribuye dividendos a sus miembros."
       },
-      "footer": "Así se conectan ambos tipos de proyectos para maximizar conjuntamente el impacto."
+      "footer": "Así se unen dos caminos hacia un objetivo común: el máximo impacto para la selva tropical."
     },
     "section4": {
-      "title": "¿Por qué casas en los árboles?",
       "subtitle": "El bosque tropical debe hacerse tangible.",
-      "p1": "Una pequeña parte de las superficies adquiridas por terra utopia se destina a cabañas arbóreas en entornos naturales.",
-      "p2": "Necesitamos espacio habitacional para visitantes, trabajadores y residentes. Los ingresos por alquiler son tan cruciales para el proyecto global como la presencia constante que protege contra la explotación descontrolada.",
-      "p3": "Así se benefician por igual la naturaleza, la población local y los colaboradores."
+      "p1": "Una pequeña parte de las superficies adquiridas por **terra utopia** se destina a cabañas arbóreas de diseño natural.",
+      "p2": "Necesitamos espacio habitacional para visitantes, trabajadores y residentes. Los ingresos por alquiler son tan esenciales para el proyecto global como la presencia constante que protege contra la explotación descontrolada.",
+      "p3": "Así se benefician por igual la naturaleza, la población local y los participantes.",
+      "title": "¿Por qué casas en los árboles?"
     },
     "section5": {
-      "title": "El Dólar-Tierra",
+      "title": "El dólar de suelo",
+      "subtitle": "Billete del bosque.",
+      "p1": "Más poderosa que la elección de nuestros representantes políticos es la decisión de en qué invertimos nuestro dinero.",
       "p2": "El Land-Dollar simboliza nuestro modelo económico regenerativo, que a través de Reforestal ofrece una alternativa a la economía predominantemente destructiva.",
-      "p3": "\"El Land-Dollar representa valores reales, en lugar de enriquecimiento mediante explotación o simples aumentos de cotización.\"o\"Valores reales y crecimiento regenerativo, en lugar de explotación y destrucción.\"",
-      "subtitle": "Boleto del capitalismo.",
-      "p1": "Más poderosa que la elección de nuestros representantes políticos es la decisión de en qué invertimos nuestro dinero."
+      "p3": "Valores reales y crecimiento regenerativo, en lugar de explotación y destrucción."
     },
     "cta": {
-      "title": "Reforestal comenzará pronto.",
+      "title": "Reforestal comenzará pronto",
       "p1": "La cooperativa se encuentra actualmente en proceso de constitución.",
       "p2": "Si deseas participar desde ya, puedes hacerte miembro de terra utopia y seguirnos en redes sociales.",
       "btn1": "Hazte miembro",
