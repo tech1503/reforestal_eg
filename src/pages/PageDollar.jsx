@@ -292,7 +292,7 @@ const PageDollar = () => {
             <p className="text-lg text-muted-foreground font-light leading-relaxed mb-4">
               {t('pageDe.section4.p2', 'Wir brauchen Wohnraum für Besucher, Arbeiter und Anwohner. Einnahmen aus Vermietung sind für das Gesamtprojekt dabei ebenso wichtig wie konstante Präsenz die vor Raubbau schützt.')}
             </p>
-            <p className="text-lg text-white font-medium">
+            <p className="text-lg text-white font-medium bg-white/5 p-4 rounded-xl border border-white/10">
               {t('pageDe.section4.p3', 'So profitieren Natur, lokale Bevölkerung und Gäste gleichermaßen.')}
             </p>
           </motion.div>
@@ -315,11 +315,11 @@ const PageDollar = () => {
             <p className="text-lg text-muted-foreground font-light leading-relaxed mb-4">
               {t('pageDe.section5.p1', 'Wirkmächtiger als die Wahl der Staatsvertreter ist die Wahl, wofür wir unser Geld nutzen.')}
             </p>
-            {/*
+
             <p className="text-lg text-muted-foreground font-light leading-relaxed mb-4">
               {t('pageDe.section5.p2', 'Der Land-Dollar steht symbolisch für unser regeneratives Wirtschaftsmodell, das durch Reforestal eine Alternative zur überwiegend destruktiven Wirtschaft bietet.')}
             </p>
-            */}
+
             
             <p className="text-lg text-white font-medium bg-white/5 p-4 rounded-xl border border-white/10">
               {t('pageDe.section5.p3', 'Reale Werte und regeneratives Wachstum, statt Ausbeutung und Zerstörung.')}
