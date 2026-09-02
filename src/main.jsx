@@ -10,49 +10,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import '@/i18n';
 import GlobalErrorBoundary from '@/components/GlobalErrorBoundary';
 
-// --- SERVICE WORKER KILL SWITCH OPTIMIZADO CACHÉ ---
-
-// SOLO EN DESARROLLO, NO EN PRODUCCIÓN
-/*
-console.log('SERVICE WORKER KILL SWITCH: Iniciando...');
-
-const isSWCleaned = () => {
-  try {
-    return sessionStorage.getItem('sw_cleaned') === 'true';
-  } catch (e) {
-    return false;
-  }
-};
-
-const setSWCleaned = () => {
-  try {
-    sessionStorage.setItem('sw_cleaned', 'true');
-  } catch (e) { }
-};
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    if ('caches' in window) {
-      caches.keys().then((names) => {
-        names.forEach((name) => caches.delete(name));
-      });
-    }
-
-    navigator.serviceWorker.getRegistrations().then((registrations) => {
-      if (registrations.length > 0 && !isSWCleaned()) {
-        for (let registration of registrations) {
-          registration.unregister();
-        }
-        setSWCleaned();
-        console.log('KILL SWITCH: Limpieza inicial. Recargando...');
-        window.location.reload();
-      } else {
-        console.log('KILL SWITCH: Entorno limpio.');
-      }
-    });
-  });
-}
-*/
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Router>

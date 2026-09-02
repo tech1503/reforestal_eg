@@ -2,7 +2,7 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { motion } from 'framer-motion';
 import {
   LayoutDashboard, Users, Sprout, Wallet, Gamepad2, ScrollText, Database, Activity, X, Settings, Globe, Share2, Layers, LineChart, Loader2, ClipboardCheck,
-  FlaskConical, CheckSquare, Search, ChevronDown, UserPlus, Award, ListChecks, Trophy, Bell, Shield
+  FlaskConical, CheckSquare, Search, ChevronDown, UserPlus, Award, ListChecks, Trophy, Bell, Shield, QrCode
 } from 'lucide-react';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { Button } from '@/components/ui/button';
@@ -38,6 +38,7 @@ const FoundingPioneerEvaluation = lazy(() => import('@/components/admin/Founding
 const AdminFoundingPioneerRanking = lazy(() => import('@/components/admin/AdminFoundingPioneerRanking'));
 const GamificationManagement = lazy(() => import('@/components/admin/GamificationManagement'));
 const AdminNotificationCenter = lazy(() => import('@/components/admin/AdminNotificationCenter'));
+const DynamicLinkGenerator = lazy(() => import('@/components/admin/DynamicLinkGenerator'));
 
 const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState('overview');
@@ -100,6 +101,7 @@ const AdminDashboard = () => {
     { id: 'users', label: t('admin.user_management', 'Users'), icon: Users, component: UserManagement },
     { id: 'community', label: t('admin.communityy', 'Community'), icon: Globe, component: CommunityManagement },
     { id: 'financials', label: t('admin.financials.title', 'Financials'), icon: Wallet, component: FinancialsManagement },
+    { id: 'dynamic_links', label: t('admin.dynamicLinks.menu', 'QR Dinámico'), icon: QrCode, component: DynamicLinkGenerator },
     { id: 'tiers', label: t('admin.startnext.tier', 'Tiers'), icon: Layers, component: TierManagement },
     { id: 'mlm', label: t('admin.mlm', 'Referrals (MLM)'), icon: Share2, component: MlmManagement },
     { id: 'vesting', label: t('admin.vesting', 'Vesting'), icon: ScrollText, component: VestingManagement },
