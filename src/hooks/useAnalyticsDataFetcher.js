@@ -14,14 +14,14 @@ export const useAnalyticsDataFetcher = () => {
 
   const fetchFinancialData = useCallback(async () => {
     try {
-      // Fetch startnext_contributions with support_level names
+      // Fetch contributions with support_level names
       // Note: We need a left join or inner join. Assuming relation exists.
       // If relation is not straightforward, we might need to fetch separately or use view.
       // Using 'support_levels' relation if defined in Supabase, otherwise falling back to manual mapping if needed.
       // Based on provided schema, foreign key exists: new_support_level_id -> support_levels.id
       
       const { data: contributions, error: contribError } = await supabase
-        .from('startnext_contributions')
+        .from('contributions')
         .select(`
           id, 
           contribution_amount, 
@@ -87,10 +87,10 @@ export const useAnalyticsDataFetcher = () => {
   }, []);
 
   const subscribeToChanges = useCallback(() => {
-    // Subscribe to startnext_contributions changes
+    // Subscribe to contributions changes
     const contribChannel = supabase
-      .channel('startnext_contributions_analytics')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'startnext_contributions' }, (payload) => {
+      .channel('contributions_analytics')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'contributions' }, (payload) => {
         console.log('Contribution change detected, refreshing analytics...');
         fetchFinancialData();
       })

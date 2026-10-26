@@ -19,7 +19,7 @@ const FoundingPioneerMetricsModal = ({ pioneer, onClose }) => {
               // 1. Update role
               const { error: roleError } = await supabase
                   .from('profiles')
-                  .update({ role: 'startnext_user' }) 
+                  .update({ role: 'user_premium' }) 
                   .eq('id', pioneer.id);
               if (roleError) throw roleError;
 
@@ -55,7 +55,7 @@ const FoundingPioneerMetricsModal = ({ pioneer, onClose }) => {
                });
 
                toast({ 
-                   title: actionType === 'revoke' ? "Revoked" : t('admin.startnext.reject'), 
+                   title: actionType === 'revoke' ? "Revoked" : t('admin.data.reject'), 
                    description: `Access removed for ${pioneer.full_name}.` 
                });
           }
@@ -110,7 +110,7 @@ const FoundingPioneerMetricsModal = ({ pioneer, onClose }) => {
                 className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
             >
                 {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2"/> : <CheckCircle className="w-4 h-4 mr-2"/>}
-                {t('admin.startnext.approve')} & Issue Credits
+                {t('admin.data.approve')} & Issue Credits
             </Button>
             
             <div className="grid grid-cols-2 gap-2 w-full">
@@ -120,7 +120,7 @@ const FoundingPioneerMetricsModal = ({ pioneer, onClose }) => {
                     disabled={loading}
                     className="border-red-200 text-red-700 hover:bg-red-50"
                 >
-                    <XCircle className="w-4 h-4 mr-2"/> {t('admin.startnext.reject')}
+                    <XCircle className="w-4 h-4 mr-2"/> {t('admin.data.reject')}
                 </Button>
                 <Button 
                     variant="ghost" 

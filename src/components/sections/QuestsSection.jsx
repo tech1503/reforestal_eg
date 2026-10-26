@@ -4,10 +4,10 @@ import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { useFinancial } from '@/contexts/FinancialContext';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Button } from '@/components/ui/button';
-import { Zap, Lock, Rocket, Check, Trophy, Target, Loader2, FileText, ExternalLink, ShoppingBag, ShieldAlert, Clock, History } from 'lucide-react'; 
+import { Zap, Lock, Rocket, Check, Trophy, Target, Loader2, FileText, ShoppingBag, ShieldAlert, Clock, History } from 'lucide-react'; 
 import { useToast } from '@/components/ui/use-toast';
 import { cn, formatNumber } from '@/lib/utils'; 
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { executeGamificationAction } from '@/utils/gamificationEngine';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
@@ -18,7 +18,6 @@ const QuestsSection = () => {
   const { refreshFinancials } = useFinancial();
   const { toast } = useToast();
   const navigate = useNavigate();
-  const location = useLocation();
   
   const [quests, setQuests] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -62,8 +61,12 @@ const QuestsSection = () => {
       const now = new Date(); 
 
       const checkAccess = (targetRoleRaw, isPremium = false, systemBinding = '') => {
-          const targetRole = (targetRoleRaw || 'all').toLowerCase().trim();
+          let targetRole = (targetRoleRaw || 'all').toLowerCase().trim();
           const binding = (systemBinding || '').toLowerCase().trim();
+
+          // Misión de la campaña legacy apuntaba a `startnext_user`; en el
+          // modelo Freemium ese público equivale a `user_premium`.
+          if (targetRole === 'startnext_user') targetRole = 'user_premium';
 
           if (userRole === 'admin') return { locked: false };
           
@@ -74,8 +77,8 @@ const QuestsSection = () => {
           if (!hasGenesisProfile) return { locked: true, reason: 'genesis_required' };
           if (isPremium) return { locked: false };
           
-          if (targetRole === 'startnext_user') {
-              if (userRole !== 'startnext_user' && !isPioneer) return { locked: true, reason: 'startnext_required' };
+          if (targetRole === 'user_premium') {
+              if (userRole !== 'user_premium' && !isPioneer) return { locked: true, reason: 'premium_required' };
           }
           if (targetRole === 'pioneer') {
               if (!isPioneer) return { locked: true, reason: 'pioneer_required' };
@@ -179,7 +182,7 @@ const QuestsSection = () => {
 
   const handleInteraction = async (quest) => {
       if (quest.completed || quest.isPending || quest.isLocked) return;
-      const basePath = location.pathname.includes('/startnext') ? '/startnext' : '/dashboard';
+      const basePath = '/dashboard';
       if (quest.type === 'genesis') { navigate(`${basePath}/mission/${quest.id}`); return; }
 
       const binding = (quest.system_binding || '').toLowerCase();
@@ -187,7 +190,6 @@ const QuestsSection = () => {
 
       if (binding === 'profile' || binding === 'profile_update') { navigate(`${basePath}/profile`); return; }
       if (binding === 'referral' || binding === 'referral_mlm' || actionType.includes('referral')) { navigate(`${basePath}/referral`); return; }
-      if (binding === 'contribution' || actionType.includes('contribution')) { window.open('https://www.startnext.com/reforestal', '_blank'); return; }
       
       setProcessingId(quest.id);
       const result = await executeGamificationAction(user.id, quest.slug);
@@ -210,7 +212,7 @@ const QuestsSection = () => {
       
       if (quest.isLocked) {
           if (quest.lockReason === 'genesis_required') return <span className="flex items-center justify-center gap-1.5"><Lock className="w-4 h-4"/> {t('quest.requires_genesis', 'Requiere Inicial')}</span>;
-          if (quest.lockReason === 'startnext_required') return <span className="flex items-center justify-center gap-1.5"><Lock className="w-4 h-4"/> {t('quest.requires_startnext', 'Startnext')}</span>;
+          if (quest.lockReason === 'premium_required') return <span className="flex items-center justify-center gap-1.5"><Lock className="w-4 h-4"/> {t('quest.requires_premium', 'Premium')}</span>;
           if (quest.lockReason === 'pioneer_required') return <span className="flex items-center justify-center gap-1.5"><Lock className="w-4 h-4"/> {t('quest.requires_pioneer', 'Pionero')}</span>;
           return <span className="flex items-center justify-center gap-1.5"><Lock className="w-4 h-4"/> {t('common.locked', 'Bloqueado')}</span>;
       }
@@ -219,14 +221,12 @@ const QuestsSection = () => {
       if (quest.type === 'genesis') return t('dashboard.start_quest', 'Comenzar');
       if (binding === 'profile') return t('navigation.profile', 'Ir a Perfil');
       if (binding === 'referral') return t('quest.go_to_referrals', 'Ir a Referidos');
-      if (binding === 'contribution') return t('quest.support_startnext', 'Apoyar en Startnext');
       return t('quest.complete_quest', 'Completar Acción'); 
   };
 
   const getButtonIcon = (quest) => {
       if (quest.isLocked || quest.completed || quest.isPending) return null;
       const binding = (quest.system_binding || '').toLowerCase();
-      if (binding === 'contribution') return <ExternalLink className="w-4 h-4 mr-1.5" />;
       if (binding === 'referral') return <Rocket className="w-4 h-4 mr-1.5" />;
       return null;
   }
@@ -334,8 +334,8 @@ const QuestsSection = () => {
                                 {quest.isLocked && quest.lockReason === 'genesis_required' && (
                                     <Badge variant="outline" className="text-[9px] uppercase font-bold text-white/50 border-white/20 bg-white/5"><ShieldAlert className="w-3 h-3 mr-1"/> {t('quest.requires_genesis', 'Inicio')}</Badge>
                                 )}
-                                {quest.targetRole === 'startnext_user' && (
-                                    <Badge variant="outline" className={`text-[9px] uppercase font-bold ${quest.isLocked ? 'text-white/50 border-white/20 bg-white/5' : 'text-gold border-gold/30 bg-gold/10'}`}><Lock className={`w-3 h-3 mr-1 text-gold ${!quest.isLocked && 'hidden'}`}/> Startnext</Badge>
+                                {quest.targetRole === 'user_premium' && (
+                                    <Badge variant="outline" className={`text-[9px] uppercase font-bold ${quest.isLocked ? 'text-white/50 border-white/20 bg-white/5' : 'text-gold border-gold/30 bg-gold/10'}`}><Lock className={`w-3 h-3 mr-1 text-gold ${!quest.isLocked && 'hidden'}`}/> Premium</Badge>
                                 )}
                                 {quest.targetRole === 'pioneer' && (
                                     <Badge variant="outline" className={`text-[9px] uppercase font-bold ${quest.isLocked ? 'text-white/50 border-white/20 bg-white/5' : 'text-gold border-gold/30 bg-gold/10'}`}><Lock className={`w-3 h-3 mr-1 text-gold ${!quest.isLocked && 'hidden'}`}/> Pionero</Badge>

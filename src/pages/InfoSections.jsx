@@ -123,7 +123,7 @@ const InfoSections = () => {
                 {t('faq_pioneers.pioneers_title', 'The 10 Founding Pioneers')}
               </h2>
               <p className="text-light/80 text-lg md:text-xl leading-relaxed font-light">
-                {t('faq_pioneers.pioneers_text1', 'With the funds from Startnext, we will lay the legal foundation. We prefer to give away participation rather than buy advertising.')}
+                {t('faq_pioneers.pioneers_text1', 'With the raised funds, we will lay the legal foundation. We prefer to give away participation rather than buy advertising.')}
               </p>
             </motion.div>
             
@@ -179,14 +179,6 @@ const InfoSections = () => {
                   </motion.li>
                 ))}
               </ul>
-              
-              <button 
-                onClick={() => window.open('https://www.startnext.com/reforestal', '_blank')}
-                className="w-full py-4 bg-[#063127] hover:bg-[#4c6e5e] text-white font-bold rounded-2xl transition-all shadow-lg flex items-center justify-center gap-3 group border border-[#4c6e5e]/80"
-              >
-                {t('faq_pioneers.pioneers_cta', 'Discover the Packages')}
-                <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
-              </button>
             </div>
           </motion.div>
 

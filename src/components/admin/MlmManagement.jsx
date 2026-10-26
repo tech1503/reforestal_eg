@@ -172,7 +172,7 @@ const MlmManagement = () => {
                                 <TableRow>
                                     <TableHead>Name</TableHead>
                                     <TableHead>Reward ({t('dashboard.impact_credits')})</TableHead>
-                                    <TableHead>{t('admin.startnext.status')}</TableHead>
+                                    <TableHead>{t('admin.data.status')}</TableHead>
                                     <TableHead>{t('admin.impact_credits.action')}</TableHead>
                                 </TableRow>
                             </TableHeader>

@@ -12,7 +12,7 @@ import { supabase } from '@/lib/customSupabaseClient';
  * @param {Object} params - Emission parameters
  * @param {string} params.user_id - Target user ID
  * @param {number} params.amount - Amount of IC to emit
- * @param {string} params.source - Source identifier (e.g., 'startnext_contribution', 'quest_completion', 'mlm_direct')
+ * @param {string} params.source - Source identifier (e.g., 'quest_completion', 'mlm_direct', 'admin_grant')
  * @param {string} params.description - Human-readable description
  * @param {string} [params.related_support_level_id] - Optional support level reference
  * @returns {Promise<{success: boolean, data?: object, error?: string}>}

@@ -27,7 +27,6 @@ const FinalDashboardTest = lazy(() => import('@/components/admin/FinalDashboardT
 const SchemaAuditView = lazy(() => import('@/components/admin/SchemaAuditView'));
 const SchemaMapper = lazy(() => import('@/components/admin/SchemaMapper'));
 const PendingRegistrations = lazy(() => import('@/components/admin/PendingRegistrations'));
-const StartnextManagement = lazy(() => import('@/components/admin/StartnextManagement'));
 const AdminQuestReview = lazy(() => import('@/components/admin/gamification/AdminQuestReview'));
 
 // New Gamification & Founding Pioneer Modules...
@@ -73,8 +72,7 @@ const AdminDashboard = () => {
     { id: 'overview', label: t('admin.overview', 'Overview'), icon: LayoutDashboard, component: AdminOverview },
     { id: 'notifications', label: t('admin.notifications.title', 'Notifications'), icon: Bell, component: AdminNotificationCenter },
     { id: 'analytics', label: t('admin.analytics.title', 'Analytics'), icon: LineChart, component: AnalyticsDashboard },
-    { id: 'pending', label: t('admin.startnext.pending_approvals', 'Pending Registrations'), icon: UserPlus, component: PendingRegistrations },
-    { id: 'startnext_manage', label: 'Gestión Startnext', icon: Users, component: StartnextManagement },
+    { id: 'pending', label: t('admin.data.pending_approvals', 'Pending Registrations'), icon: UserPlus, component: PendingRegistrations },
     {
       id: 'pioneer_group',
       label: t('navigation.founding_pioneer', 'Founding Pioneer'),
@@ -102,7 +100,7 @@ const AdminDashboard = () => {
     { id: 'community', label: t('admin.communityy', 'Community'), icon: Globe, component: CommunityManagement },
     { id: 'financials', label: t('admin.financials.title', 'Financials'), icon: Wallet, component: FinancialsManagement },
     { id: 'dynamic_links', label: t('admin.dynamicLinks.menu', 'QR Dinámico'), icon: QrCode, component: DynamicLinkGenerator },
-    { id: 'tiers', label: t('admin.startnext.tier', 'Tiers'), icon: Layers, component: TierManagement },
+    { id: 'tiers', label: t('admin.data.tier', 'Tiers'), icon: Layers, component: TierManagement },
     { id: 'mlm', label: t('admin.mlm', 'Referrals (MLM)'), icon: Share2, component: MlmManagement },
     { id: 'vesting', label: t('admin.vesting', 'Vesting'), icon: ScrollText, component: VestingManagement },
     { id: 'content', label: t('admin.content', 'Content'), icon: FlaskConical, component: ContentManagement },

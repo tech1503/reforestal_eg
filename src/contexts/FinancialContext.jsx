@@ -53,7 +53,7 @@ export const FinancialProvider = ({ children }) => {
       const { data: ld } = await supabase.from('land_dollars').select('*').eq('user_id', user.id).maybeSingle();
       setLandDollar(ld);
 
-      const { data: contrib } = await supabase.from('startnext_contributions')
+      const { data: contrib } = await supabase.from('contributions')
         .select('*')
         .eq('user_id', user.id)
         .order('contribution_date', { ascending: false })
@@ -79,7 +79,7 @@ export const FinancialProvider = ({ children }) => {
         .on('postgres_changes', { event: '*', schema: 'public', table: 'founding_pioneer_metrics', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
         .on('postgres_changes', { event: '*', schema: 'public', table: 'user_purchases', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
         .on('postgres_changes', { event: '*', schema: 'public', table: 'land_dollars', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'startnext_contributions', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'contributions', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
         .subscribe();
 
       return () => { supabase.removeChannel(channel); };

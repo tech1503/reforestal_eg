@@ -24,7 +24,7 @@ const AdminOverview = () => {
 
     const channel = supabase
       .channel('overview-realtime')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'startnext_contributions' }, () => fetchStats())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'contributions' }, () => fetchStats())
       .on('postgres_changes', { event: '*', schema: 'public', table: 'founding_pioneer_metrics' }, () => fetchStats())
       .on('postgres_changes', { event: '*', schema: 'public', table: 'land_dollars' }, () => fetchStats())
       .subscribe();
@@ -41,7 +41,7 @@ const AdminOverview = () => {
       const { count: userCount } = await supabase.from('profiles').select('*', { count: 'exact', head: true });
 
       // 2. Total Contributions (€)
-      const { data: contribs } = await supabase.from('startnext_contributions').select('contribution_amount, contribution_date');
+      const { data: contribs } = await supabase.from('contributions').select('contribution_amount, contribution_date');
       const totalMoney = contribs?.reduce((sum, item) => sum + (Number(item.contribution_amount) || 0), 0) || 0;
 
       // 3. Total Land Dollars (Active)
@@ -138,7 +138,7 @@ const AdminOverview = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="bg-background rounded-xl p-6 shadow-sm border">
           <h3 className="text-lg font-semibold mb-4 flex items-center">
               <Activity className="w-5 h-5 mr-2 text-foreground" /> 
-              {t('admin.financials.tabs.startnext')} Trends
+              {t('admin.financials.tabs.contributions')} Trends
           </h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={contributionData}>

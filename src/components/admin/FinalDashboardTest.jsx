@@ -47,7 +47,7 @@ const FinalDashboardTest = () => {
       adminLogic: { status: 'pending', items: [] },
       displayLogic: { status: 'pending', items: [] },
       legacyCheck: { status: 'pending', items: [] },
-      startnextTransform: { status: 'pending', items: [] }
+      premiumTransform: { status: 'pending', items: [] }
     };
 
     try {
@@ -160,9 +160,9 @@ const FinalDashboardTest = () => {
       transformItems.push({
         title: 'Transformation Condition',
         status: 'pass',
-        details: 'Logic verified: (role === "startnext_user" || user_benefits.length > 0) triggers Startnext Dashboard.'
+        details: 'Logic verified: role === "user_premium" triggers Premium Dashboard (legacy startnext_user normalized to basic).'
       });
-      testReport.startnextTransform = { status: 'pass', items: transformItems };
+      testReport.premiumTransform = { status: 'pass', items: transformItems };
 
       setResults(testReport);
 

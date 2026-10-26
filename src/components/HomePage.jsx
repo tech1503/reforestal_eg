@@ -1,10 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Award, Users, TrendingUp, Instagram, Check, Maximize2, Heart, ArrowRight } from 'lucide-react';
+import { Award, Users, TrendingUp, Instagram, Check, Maximize2, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Badge } from '@/components/ui/badge';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher'; 
 import heroImg from '@/assets/hero-reforestal.webp';
 import heroImg1 from '@/assets/hero-home-reforestal.webp';
@@ -31,8 +30,6 @@ const HomePage = () => {
           stardust: "https://www.transparenttextures.com/patterns/stardust.png"
       }
   };
-
-  const STARTNEXT_URL = "https://www.startnext.com/reforestal";
 
   const features = [
     { icon: <TrendingUp className="w-8 h-8" />, title: t('home.feature_invest_title'), description: t('home.feature_invest_desc'), color: "from-emerald-400 to-teal-500" },
@@ -115,14 +112,6 @@ const HomePage = () => {
                 className="w-full sm:w-auto h-auto min-h-[3.5rem] py-4 px-8 rounded-full bg-[#5b8370] text-[#c2d2c1] hover:bg-[#053127] border-none shadow-glow-lg text-base md:text-xl font-bold hover:scale-105 transition-all whitespace-normal text-center leading-tight"
               >
                 {t('home.cta_buttons.start_your_mission')}
-              </Button>
-              
-              <Button 
-                onClick={() => window.open(STARTNEXT_URL, '_blank')} 
-                variant="outline" 
-                className="w-full sm:w-auto h-auto min-h-[3.5rem] py-4 px-8 rounded-full border-2 border-[#5b8370] text-[#c2d2c1] hover:bg-[#5b8370]/20 hover:border-[#c2d2c1] backdrop-blur-sm text-base md:text-xl font-bold transition-all whitespace-normal text-center leading-tight"
-              >
-                {t('home.cta_buttons.supported_startnext')}
               </Button>
 
             </motion.div>
@@ -239,56 +228,6 @@ const HomePage = () => {
                         {t('home.genesis_section.cta')} <ArrowRight className="ml-3 w-5 h-5 shrink-0"/>
                     </Button>
                 </motion.div>
-            </div>
-        </section>
-
-        {/* 5. STARTNEXT FOUNDING MEMBER SECTION */}
-        <section className="py-24 md:py-32 bg-light relative overflow-hidden">
-            <div className="container mx-auto px-4 md:px-6 relative z-10">
-                <div className="max-w-6xl mx-auto rounded-[2rem] md:rounded-[3rem] shadow-2xl overflow-hidden border border-slate-100 relative group min-h-[600px] flex items-center">
-                    
-                    <div className="absolute inset-0 z-0">
-                        <img src={IMAGES.hands_plant} alt="Hands holding plant" className="w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-105" />
-                        <div className="absolute inset-0 bg-gradient-to-r from-darkBgDeep/90 via-darkBgDeep/70 to-darkBgDeep/40"></div>
-                    </div>
-
-                    <div className="relative z-10 p-8 md:p-12 lg:p-16 w-full grid lg:grid-cols-2 gap-12 items-center">
-                        <div className="text-white text-center lg:text-left">
-                            <Badge className="bg-gold text-darkBgDeep border-none font-bold text-base md:text-lg px-4 py-1 mb-6 shadow-glow inline-block">
-                                {t('home.widget.badge')}
-                            </Badge>
-                            <h2 className="text-3xl md:text-5xl font-extrabold mb-6 leading-tight drop-shadow-lg">
-                                {t('home.startnext_section.title')}
-                            </h2>
-                            <p className="text-base md:text-lg text-emerald-100 mb-8 leading-relaxed lg:max-w-lg mx-auto lg:mx-0">
-                                {t('home.startnext_section.body')}
-                            </p>
-                            
-                            <Button 
-                                onClick={() => window.open(STARTNEXT_URL, '_blank')} 
-                                className="h-auto w-full sm:w-auto min-w-[200px] text-base md:text-lg px-8 py-5 rounded-full bg-[#5b8370] text-[#c2d2c1] hover:bg-[#053127] border-none shadow-lg hover:scale-105 hover:shadow-[#5b8370]/50 transition-all flex items-center justify-center gap-3 whitespace-normal"
-                            >
-                                <Heart className="w-5 h-5 fill-current shrink-0" />
-                                <span>{t('home.startnext_section.cta')}</span>
-                            </Button>
-                        </div>
-
-                        <div className="flex flex-col items-center">
-                             <motion.div 
-                                whileHover={{ rotate: 2, scale: 1.05 }} 
-                                transition={{ duration: 0.5 }}
-                                className="w-full max-w-xs md:max-w-md transform rotate-2 hover:rotate-0 transition-all duration-500 mb-8"
-                            >
-                                <img src={IMAGES.widget_logo} alt="Land Dollar" className="w-full h-auto rounded-lg shadow-2xl border border-white/20" />
-                            </motion.div>
-                            <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 shadow-xl max-w-md">
-                                <p className="text-white font-medium italic text-center text-sm md:text-base">
-                                    "{t('home.startnext_section.offer')}"
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
 

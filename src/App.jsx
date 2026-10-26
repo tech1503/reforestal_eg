@@ -40,7 +40,7 @@ const ReferralHandler = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const reserved = ['admin', 'dashboard', 'auth', 'login', 'register', 'contact', 'genesis-quest', 'genesis-profile', 'update-password', 'startnext'];
+    const reserved = ['admin', 'dashboard', 'auth', 'login', 'register', 'contact', 'genesis-quest', 'genesis-profile', 'update-password'];
     
     if (username && !reserved.includes(username.toLowerCase())) {
       localStorage.setItem('reforestal_ref', username);
@@ -85,7 +85,6 @@ const AppContent = () => {
           {/* Dashboards con Rutas Protegidas */}
           <Route path="/admin/*" element={profile?.role === 'admin' ? <AdminDashboard /> : <Navigate to="/auth" />} />
           <Route path="/dashboard/*" element={session ? <Dashboard /> : <Navigate to="/auth" />} />
-          <Route path="/startnext/*" element={profile?.role === 'startnext_user' ? <Dashboard /> : <Navigate to="/auth" />} />
 
           {/* Ruta de Referidos Explícita (Para cuando se comparte como /ref/usuario) */}
           <Route path="/ref/:username" element={<ReferralHandler />} />

@@ -25,7 +25,7 @@ export const useFoundingPioneerData = () => {
           email, 
           role,
           created_at,
-          startnext_contributions ( contribution_amount, contribution_date )
+          contributions ( contribution_amount, contribution_date )
         `)
         .order('created_at', { ascending: false })
         .limit(100);
@@ -52,8 +52,8 @@ export const useFoundingPioneerData = () => {
           ...p,
           full_name: p.name,
           // Calculate total contributions on client for quick display
-          contribution_count: p.startnext_contributions?.length || 0,
-          total_contribution: p.startnext_contributions?.reduce((sum, c) => sum + Number(c.contribution_amount), 0) || 0
+          contribution_count: p.contributions?.length || 0,
+          total_contribution: p.contributions?.reduce((sum, c) => sum + Number(c.contribution_amount), 0) || 0
       }));
 
       // Process Top Pioneers

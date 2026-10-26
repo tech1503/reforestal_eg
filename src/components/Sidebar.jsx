@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { 
   LayoutDashboard, 
@@ -10,14 +10,12 @@ import {
   Award,
   Star,
   Lock,
-  HeartHandshake,
   User
 } from 'lucide-react';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/components/ui/use-toast';
 import { useNavigate } from 'react-router-dom';
-import StartnextSupportModal from '@/components/ui/StartnextSupportModal';
 import logoDorado from '@/assets/icons/Logo-Reforestal-1.svg';
 
 // Componente para inyectar el gradiente SVG para los iconos de Lucide
@@ -33,16 +31,13 @@ const GoldGradientSVG = () => (
   </svg>
 );
 
-const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => {
+const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, isPremium = false }) => {
   const { t } = useTranslation();
   const { signOut } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [isSupportModalOpen, setIsSupportModalOpen] = useState(false);
 
-  const isStartnext = role === 'startnext_user';
-  
-  const basePath = isStartnext ? '/startnext' : '/dashboard';
+  const basePath = '/dashboard';
 
   const menuItems = [
     { 
@@ -96,7 +91,7 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
       id: 'founding_members', 
       label: t('navigation.founding_pioneer'),
       icon: Star, 
-      locked: !isStartnext, 
+      locked: !isPremium, 
       href: `${basePath}/founding_members`,
       translationKey: 'navigation.founding_members'
     },
@@ -131,7 +126,6 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
   return (
     <>
       <GoldGradientSVG />
-      <StartnextSupportModal isOpen={isSupportModalOpen} onClose={() => setIsSupportModalOpen(false)} />
 
       {isOpen && (
         <div 
@@ -215,26 +209,6 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, role }) => 
              )
           })}
         </nav>
-        
-        {!isStartnext && (
-            <div className="px-3 pb-4 w-full">
-                 <button
-                   onClick={() => setIsSupportModalOpen(true)}
-                   className="w-full h-auto min-h-[48px] flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 rounded-lg px-3 py-3 transition-all duration-200 group text-xs font-semibold shadow-md"
-                >
-                   <HeartHandshake 
-                      size={18} 
-                      className="shrink-0 drop-shadow-md" 
-                      style={{ stroke: 'url(#icon-gold-gradient)' }} 
-                   />
-                   
-                   <span className="text-left leading-tight w-full break-words whitespace-normal">
-                      {t('exchange.cta.sidebar_btn')}
-                   </span>
-
-                </button>
-            </div>
-        )}
 
         <div className="p-4 border-t border-white/20 w-full bg-black/10 dark:bg-transparent">
            <button

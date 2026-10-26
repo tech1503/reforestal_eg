@@ -49,7 +49,7 @@ const FoundingPioneerEvaluation = () => {
                         <TableRow>
                             <TableHead>User</TableHead>
                             <TableHead>Current Role</TableHead>
-                            <TableHead>Startnext History</TableHead>
+                            <TableHead>Contribution History</TableHead>
                             <TableHead className="text-right">Actions</TableHead>
                         </TableRow>
                     </TableHeader>

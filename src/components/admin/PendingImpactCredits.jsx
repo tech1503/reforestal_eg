@@ -159,10 +159,10 @@ const PendingImpactCredits = () => {
                 <table className="w-full text-sm">
                     <thead className="bg-background border-b">
                         <tr>
-                            <th className="px-4 py-3 text-left font-medium text-foreground">{t('admin.startnext.user')}</th>
+                            <th className="px-4 py-3 text-left font-medium text-foreground">{t('admin.data.user')}</th>
                             <th className="px-4 py-3 text-left font-medium text-foreground">Current Balance</th>
-                            <th className="px-4 py-3 text-left font-medium text-foreground">{t('admin.startnext.status')}</th>
-                            <th className="px-4 py-3 text-right font-medium text-foreground">{t('admin.startnext.actions')}</th>
+                            <th className="px-4 py-3 text-left font-medium text-foreground">{t('admin.data.status')}</th>
+                            <th className="px-4 py-3 text-right font-medium text-foreground">{t('admin.data.actions')}</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200">
@@ -182,14 +182,14 @@ const PendingImpactCredits = () => {
                                         {req.impact_credits_balance} 
                                     </td>
                                     <td className="px-4 py-3">
-                                        <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">{t('admin.startnext.pending')}</Badge>
+                                        <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">{t('admin.data.pending')}</Badge>
                                     </td>
                                     <td className="px-4 py-3 text-right space-x-2">
                                         <Button size="sm" className="h-8 bg-indigo-600 hover:bg-indigo-700 text-white" onClick={() => openActionDialog('approve', req)}>
                                             Release
                                         </Button>
                                         <Button size="sm" variant="outline" className="h-8 border-red-200 text-red-600 hover:bg-red-50" onClick={() => openActionDialog('reject', req)}>
-                                            {t('admin.startnext.reject')}
+                                            {t('admin.data.reject')}
                                         </Button>
                                         <Button size="sm" variant="ghost" className="h-8 text-gray-400 hover:text-red-600" onClick={() => openActionDialog('delete', req)}>
                                             <Trash2 className="w-4 h-4" />

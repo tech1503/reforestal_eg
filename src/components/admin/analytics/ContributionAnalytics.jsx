@@ -24,19 +24,19 @@ const ContributionAnalytics = ({ contributions }) => {
     <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
              <Card>
-                 <CardHeader className="pb-2"><CardTitle className="text-sm font-medium text-slate-500">Average {t('admin.startnext.amount')}</CardTitle></CardHeader>
+                 <CardHeader className="pb-2"><CardTitle className="text-sm font-medium text-slate-500">Average {t('admin.data.amount')}</CardTitle></CardHeader>
                  <CardContent><div className="text-2xl font-bold">€{stats.avg.toFixed(2)}</div></CardContent>
              </Card>
              <Card>
-                 <CardHeader className="pb-2"><CardTitle className="text-sm font-medium text-slate-500">Median {t('admin.startnext.amount')}</CardTitle></CardHeader>
+                 <CardHeader className="pb-2"><CardTitle className="text-sm font-medium text-slate-500">Median {t('admin.data.amount')}</CardTitle></CardHeader>
                  <CardContent><div className="text-2xl font-bold">€{stats.median.toFixed(2)}</div></CardContent>
              </Card>
              <Card>
-                 <CardHeader className="pb-2"><CardTitle className="text-sm font-medium text-slate-500">Min {t('admin.startnext.amount')}</CardTitle></CardHeader>
+                 <CardHeader className="pb-2"><CardTitle className="text-sm font-medium text-slate-500">Min {t('admin.data.amount')}</CardTitle></CardHeader>
                  <CardContent><div className="text-2xl font-bold">€{stats.min.toFixed(2)}</div></CardContent>
              </Card>
              <Card>
-                 <CardHeader className="pb-2"><CardTitle className="text-sm font-medium text-slate-500">Max {t('admin.startnext.amount')}</CardTitle></CardHeader>
+                 <CardHeader className="pb-2"><CardTitle className="text-sm font-medium text-slate-500">Max {t('admin.data.amount')}</CardTitle></CardHeader>
                  <CardContent><div className="text-2xl font-bold">€{stats.max.toFixed(2)}</div></CardContent>
              </Card>
         </div>

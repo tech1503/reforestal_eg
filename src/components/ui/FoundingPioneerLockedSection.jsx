@@ -10,7 +10,9 @@ const FoundingPioneerLockedSection = () => {
   const { t } = useTranslation(); // HOOK
 
   const handleApply = () => {
-    navigate('/startnext?source=founding_pioneer');
+    // La postulación a Pionero Fundador ahora se gestiona manualmente
+    // por el equipo. El CTA lleva a la página de contacto.
+    navigate('/contact');
   };
 
   return (

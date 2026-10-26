@@ -657,7 +657,7 @@ const GamificationManagement = () => {
                                             <SelectContent>
                                                 <SelectItem value="all">{t('admin.audience.all', 'Everyone')}</SelectItem>
                                                 <SelectItem value="user">{t('admin.audience.user', 'Standard User')}</SelectItem>
-                                                <SelectItem value="startnext_user">{t('admin.audience.startnext_user', 'Startnext Supporter')}</SelectItem>
+                                                <SelectItem value="user_premium">{t('admin.audience.premium', 'Premium')}</SelectItem>
                                                 <SelectItem value="pioneer">{t('admin.audience.pioneer', 'Founding Pioneer')}</SelectItem>
                                             </SelectContent>
                                         </Select>

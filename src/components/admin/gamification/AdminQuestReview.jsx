@@ -51,17 +51,17 @@ const AdminQuestReview = () => {
             const userIds = [...new Set(data.map(d => d.user_id))];
             const { data: metrics } = await supabase.from('founding_pioneer_metrics').select('user_id, founding_pioneer_access_status').in('user_id', userIds);
             
-            let common = 0, startnext = 0, pioneer = 0;
+            let common = 0, premium = 0, pioneer = 0;
             data.forEach(resp => {
                 const role = resp.profiles?.role;
                 const metric = metrics?.find(m => m.user_id === resp.user_id);
                 if (metric?.founding_pioneer_access_status === 'approved') pioneer++;
-                else if (role === 'startnext_user') startnext++;
+                else if (role === 'user_premium') premium++;
                 else common++;
             });
             setChartData([
                 { name: t('admin.audience.user', 'Usuario Estándar'), value: common, color: '#94a3b8' },
-                { name: t('admin.audience.startnext_user', 'Startnext'), value: startnext, color: '#3b82f6' },
+                { name: t('admin.audience.premium', 'Premium'), value: premium, color: '#3b82f6' },
                 { name: t('admin.audience.pioneer', 'Pionero Fundador'), value: pioneer, color: '#10b981' }
             ].filter(d => d.value > 0));
         } catch (error) { console.error(error); } finally { setChartLoading(false); }

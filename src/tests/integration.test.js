@@ -36,7 +36,7 @@ describe('Integration Flows (Mocked)', () => {
 
       // Simulation of the function logic in ContributionForm
       const createContribution = async (formData) => {
-         const { data: contrib } = await mockSupabase.from('startnext_contributions').insert(formData).select().single();
+         const { data: contrib } = await mockSupabase.from('contributions').insert(formData).select().single();
          await mockSupabase.from('impact_credits').insert({ contribution_id: contrib.id });
          return contrib;
       };
@@ -44,7 +44,7 @@ describe('Integration Flows (Mocked)', () => {
       const result = await createContribution({ amount: 100, user_id: 'user_1' });
       
       expect(result.id).toBe('cont_123');
-      expect(insertSpy).toHaveBeenCalledWith('startnext_contributions');
+      expect(insertSpy).toHaveBeenCalledWith('contributions');
       expect(insertSpy).toHaveBeenCalledWith('impact_credits');
     });
   });

@@ -3,7 +3,6 @@ import { useNavigate, useLocation, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { useI18n } from '@/contexts/I18nContext';
-import { supabase } from '@/lib/customSupabaseClient';
 import { Loader2, Menu } from 'lucide-react';
 
 // Componentes de Estructura
@@ -17,7 +16,7 @@ import FoundingMembersSection from '@/components/sections/FoundingMembersSection
 import ReferralSection from '@/components/sections/ReferralSection';
 import ExchangeSection from '@/components/sections/ExchangeSection';
 import QuestsSection from '@/components/sections/QuestsSection';
-import StartnextUserDashboard from '@/components/StartnextUserDashboard';
+import PremiumDashboard from '@/components/PremiumDashboard';
 import ProfileSettings from '@/components/sections/ProfileSettings';
 
 // Componente Dinámico
@@ -27,8 +26,6 @@ const Dashboard = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [showICHistory, setShowICHistory] = useState(false);
   const { profile, loading: authLoading } = useAuth();
-  const [hasContribution, setHasContribution] = useState(false);
-  const [checkLoading, setCheckLoading] = useState(true);
   
   const navigate = useNavigate();
   const location = useLocation();
@@ -59,35 +56,18 @@ const Dashboard = () => {
     }
   }, [profile, authLoading, navigate]);
 
-  useEffect(() => {
-    const checkStatus = async () => {
-      if (!profile?.id) return;
-      setCheckLoading(true);
-      if (profile.role === 'startnext_user') {
-        setHasContribution(true);
-        setCheckLoading(false);
-        return;
-      }
-      const { count, error } = await supabase
-        .from('startnext_contributions')
-        .select('*', { count: 'exact', head: true })
-        .eq('user_id', profile.id);
-      
-      setHasContribution(!error && count > 0);
-      setCheckLoading(false);
-    };
-    if (profile) checkStatus();
-  }, [profile]);
-
-  if (authLoading || checkLoading) return (
+  if (authLoading) return (
       <div className="flex h-screen items-center justify-center bg-slate-50">
           <Loader2 className="animate-spin text-emerald-600 w-8 h-8" />
           <span className="sr-only">{t('common.loading')}</span>
       </div>
   );
 
-  const isStartnext = profile?.role === 'startnext_user' || hasContribution;
-  const userRole = isStartnext ? 'startnext_user' : 'user';
+  // Freemium (Fase 4/5): solo `user_premium` ve el dashboard premium.
+  // Los usuarios legacy (`startnext_user`) quedan normalizados a `user`
+  // en SupabaseAuthContext, por lo que ven el dashboard básico hasta
+  // su migración manual.
+  const isPremium = profile?.role === 'user_premium';
 
   return (
     <div className="flex h-screen bg-slate-50 dark:bg-transparent overflow-hidden font-sans text-sm">
@@ -106,7 +86,7 @@ const Dashboard = () => {
         setActiveSection={handleSetActiveSection}
         isOpen={isSidebarOpen}
         onClose={() => setSidebarOpen(false)}
-        role={userRole}
+        isPremium={isPremium}
       />
 
       <div className="flex-1 flex flex-col min-w-0 h-screen transition-all duration-300">
@@ -121,21 +101,21 @@ const Dashboard = () => {
           <div className="max-w-7xl mx-auto space-y-6">
             <AnimatePresence mode="wait">
               <Routes>
-                  <Route index element={isStartnext ? <StartnextUserDashboard /> : <DashboardSection />} />
+                  <Route index element={isPremium ? <PremiumDashboard /> : <DashboardSection />} />
                   <Route path="profile" element={<ProfileSettings />} />
                   
                   <Route path="founding_members" element={<FoundingMembersSection />} />
                   
                   <Route path="referral" element={<ReferralSection />} />
-                  <Route path="exchange" element={<ExchangeSection isReadOnly={!isStartnext} />} />
+                  <Route path="exchange" element={<ExchangeSection isReadOnly={!isPremium} />} />
                   
-                  {/*<Route path="quests" element={<QuestsSection isReadOnly={!isStartnext} />} />*/}
+                  {/*<Route path="quests" element={<QuestsSection isReadOnly={!isPremium} />} />*/}
                   <Route path="quests" element={<QuestsSection />} />
 
                   
                   <Route path="mission/:id" element={<MissionPlayer />} />
                   
-                  <Route path="*" element={isStartnext ? <StartnextUserDashboard /> : <DashboardSection />} />
+                  <Route path="*" element={isPremium ? <PremiumDashboard /> : <DashboardSection />} />
               </Routes>
             </AnimatePresence>
           </div>

@@ -13,7 +13,7 @@ const SchemaMapper = () => {
     { name: 'support_benefits', label: 'Benefits', count: 0, samples: [] },
     { name: 'support_level_translations', label: 'Variant Trans', count: 0, samples: [] },
     { name: 'support_benefit_translations', label: 'Benefit Trans', count: 0, samples: [] },
-    { name: 'startnext_contributions', label: 'User Contributions', count: 0, samples: [] },
+    { name: 'contributions', label: 'User Contributions', count: 0, samples: [] },
     { name: 'user_benefits', label: 'User Benefits', count: 0, samples: [] }
   ]);
 

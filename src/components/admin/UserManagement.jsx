@@ -99,7 +99,7 @@ const UserManagement = () => {
       .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles' }, () => fetchAllData())
       .on('postgres_changes', { event: '*', schema: 'public', table: 'land_dollars' }, () => fetchAllData())
       .on('postgres_changes', { event: '*', schema: 'public', table: 'founding_pioneer_metrics' }, () => fetchAllData())
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'startnext_contributions' }, () => fetchAllData())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'contributions' }, () => fetchAllData())
       .on('postgres_changes', { event: '*', schema: 'public', table: 'user_benefits' }, () => fetchAllData())
       .subscribe();
     return () => { supabase.removeChannel(channel); };
@@ -129,7 +129,7 @@ const UserManagement = () => {
           if (error) throw error;
           
           if (newStatus === 'approved') {
-              await supabase.from('profiles').update({ role: 'startnext_user' }).eq('id', userObj.id);
+              await supabase.from('profiles').update({ role: 'user_premium' }).eq('id', userObj.id);
           }
           
           toast({ 
@@ -178,7 +178,7 @@ const UserManagement = () => {
       if (editingUser.selectedTier && editingUser.selectedTier !== 'none' && (isNewTier || isFundsEmpty)) {
           let tierData = availableTiers.find(t => t.id === editingUser.selectedTier);
           if (tierData) {
-              const { data: rpcData, error: rpcError } = await supabase.rpc('admin_process_startnext_contribution', {
+              const { data: rpcData, error: rpcError } = await supabase.rpc('admin_process_contribution', {
                   p_user_id: editingUser.id,
                   p_amount: tierData.min_amount,
                   p_notes: 'Admin manual tier assignment',
@@ -300,17 +300,17 @@ const UserManagement = () => {
           <table className="w-full bg-background text-sm">
             <thead className="bg-muted border-b">
               <tr>
-                <th className="text-left p-4 font-medium text-muted-foreground">{t('admin.startnext.user')}</th>
+                <th className="text-left p-4 font-medium text-muted-foreground">{t('admin.data.user')}</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">Apodo</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">Partner Profile</th>
                 {/* NUEVA COLUMNA DE PORCENTAJES */}
                 <th className="text-left p-4 font-medium text-muted-foreground">Impact %</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">Role</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">Pioneer Status</th>
-                <th className="text-left p-4 font-medium text-muted-foreground">{t('admin.startnext.tier')}</th>
+                <th className="text-left p-4 font-medium text-muted-foreground">{t('admin.data.tier')}</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">{t('dashboard.impact_credits')}</th>
                 <th className="text-center p-4 font-medium text-muted-foreground">{t('dashboard.land_dollar.title')}</th>
-                <th className="text-right p-4 font-medium text-muted-foreground">{t('admin.startnext.actions')}</th>
+                <th className="text-right p-4 font-medium text-muted-foreground">{t('admin.data.actions')}</th>
               </tr>
             </thead>
             <tbody className="divide-y">
@@ -444,8 +444,8 @@ const UserManagement = () => {
                       <Select value={editingUser.role} onValueChange={(val) => setEditingUser({...editingUser, role: val})}>
                         <SelectTrigger><SelectValue /></SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="user">User Common</SelectItem>
-                            <SelectItem value="startnext_user">Startnext User</SelectItem>
+                            <SelectItem value="user_basic">User Basic</SelectItem>
+                            <SelectItem value="user_premium">Premium</SelectItem>
                             <SelectItem value="admin">Admin</SelectItem>
                         </SelectContent>
                       </Select>
@@ -505,7 +505,7 @@ const UserManagement = () => {
                     <li>Authentication record</li>
                     <li>Land Dollars & Impact Credits</li>
                     <li>MLM / Gamification History</li>
-                    <li>Startnext Contributions</li>
+                    <li>Contributions</li>
                 </ul>
                 <p className="font-bold text-red-600 mt-2">This cannot be undone.</p>
             </div>

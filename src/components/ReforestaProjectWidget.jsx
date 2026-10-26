@@ -1,9 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/components/ui/button';
-import { ExternalLink } from 'lucide-react';
-import { STARTNEXT_PROJECT_URL } from '@/constants/urls';
-import projectImage from '@/assets/logo-proyecto-startnext.webp';
+import projectImage from '@/assets/logo-proyecto.webp';
 
 const ReforestaProjectWidget = () => {
   const { t } = useTranslation();
@@ -35,19 +32,9 @@ const ReforestaProjectWidget = () => {
            {t('home.widget.title')}
         </h2>
         
-        <p className="text-lg md:text-xl text-emerald-50 mb-8 font-medium drop-shadow-sm leading-relaxed max-w-xl">
+        <p className="text-lg md:text-xl text-emerald-50 mb-2 font-medium drop-shadow-sm leading-relaxed max-w-xl">
            "{t('home.widget.quote')}"
         </p>
-        
-        <div className="flex flex-wrap gap-4">
-            <Button 
-              size="lg" 
-              className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-lg px-8 py-6 h-auto shadow-lg shadow-emerald-900/20 transition-all transform hover:-translate-y-1 rounded-xl"
-              onClick={() => window.open(STARTNEXT_PROJECT_URL, '_blank')}
-            >
-              {t('home.widget.button')} <ExternalLink className="ml-2 h-5 w-5" />
-            </Button>
-        </div>
       </div>
     </div>
   );

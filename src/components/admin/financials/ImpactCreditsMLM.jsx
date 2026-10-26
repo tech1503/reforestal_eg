@@ -187,8 +187,8 @@ const ImpactCreditsMLM = () => {
                 <table className="w-full text-sm">
                   <thead className="bg-slate-50 dark:bg-slate-800">
                     <tr>
-                      <th className="p-3 text-left font-medium text-slate-500">{t('admin.startnext.user')}</th>
-                      <th className="p-3 text-left font-medium text-slate-500">{t('admin.startnext.amount')}</th>
+                      <th className="p-3 text-left font-medium text-slate-500">{t('admin.data.user')}</th>
+                      <th className="p-3 text-left font-medium text-slate-500">{t('admin.data.amount')}</th>
                       <th className="p-3 text-left font-medium text-slate-500">{t('dashboard.source')}</th>
                       <th className="p-3 text-left font-medium text-slate-500">Description</th>
                       <th className="p-3 text-right font-medium text-slate-500">{t('dashboard.date')}</th>

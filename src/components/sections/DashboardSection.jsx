@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Info, CheckCircle, ShieldCheck, Package, ExternalLink, Coins, Leaf, Zap, Calendar, Wallet, Users, Target, Rocket, Key } from 'lucide-react';
+import { Info, CheckCircle, ShieldCheck, Package, Coins, Leaf, Zap, Calendar, Wallet, Users, Target, Rocket } from 'lucide-react';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useFinancial } from '@/contexts/FinancialContext'; 
@@ -18,11 +18,10 @@ import {
     calculateDynamicCredits 
 } from '@/utils/tierLogicUtils';
 import { Loader2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { getBenefitIcon } from '@/components/Icons/CustomIcons';
 import ReforestaProjectWidget from '@/components/ReforestaProjectWidget';
-import { STARTNEXT_PROJECT_URL } from '@/constants/urls';
 import { format, differenceInDays } from 'date-fns';
-import StartnextSupportModal from '@/components/ui/StartnextSupportModal'; 
 import { formatNumber, formatCurrency } from '@/lib/utils';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 
@@ -49,17 +48,17 @@ const DashboardSection = () => {
   const { user, profile } = useAuth();
   const { currentLanguage } = useI18n();
   const { t } = useTranslation(); 
+  const navigate = useNavigate();
   
   const { landDollar, impactCredits, loading: financialLoading } = useFinancial();
 
-  const [startnextData, setStartnextData] = useState(null);
+  const [contributionData, setContributionData] = useState(null);
   const [userBenefit, setUserBenefit] = useState(null);
   const [localLoading, setLocalLoading] = useState(true);
 
   const [simAmount, setSimAmount] = useState('');
   const [simVariant, setSimVariant] = useState(null);
   const [allVariants, setAllVariants] = useState([]);
-  const [isSupportModalOpen, setIsSupportModalOpen] = useState(false); 
   const [isLandDollarModalOpen, setIsLandDollarModalOpen] = useState(false);
 
   useEffect(() => {
@@ -67,7 +66,7 @@ const DashboardSection = () => {
       if (!user) return;
       try {
         const { data } = await supabase
-            .from('startnext_contributions')
+            .from('contributions')
             .select(`
                 *, 
                 imported_user:imported_user_id(snx_id), 
@@ -89,7 +88,7 @@ const DashboardSection = () => {
             
             let processedBenefits = [
                 {
-                    description: `+${formatNumber(dynamicCredits)} ${t('rewards.bonus_points', 'Bonos')} (${t('dashboard.startnext_dash.total_contribution', 'Aporte')})`,
+                    description: `+${formatNumber(dynamicCredits)} ${t('rewards.bonus_points', 'Bonos')} (${t('dashboard.premium.total_contribution', 'Aporte')})`,
                     type: 'digital',
                     icon_name: 'zap'
                 }
@@ -116,7 +115,7 @@ const DashboardSection = () => {
                 
               processedBenefits = [...processedBenefits, ...dbBenefits];
             }
-            setStartnextData({ ...data, levelName, processedBenefits });
+            setContributionData({ ...data, levelName, processedBenefits });
         }
         
         // Fetch Beneficios Premium 
@@ -202,16 +201,15 @@ const DashboardSection = () => {
   if (localLoading || financialLoading) return <div className="flex justify-center h-[60vh] items-center"><Loader2 className="animate-spin w-12 h-12 text-[#5b8370]"/></div>;
 
   // =========================================================================
-  // VISTA 1: USUARIOS NUEVOS O SIN STARTNEXT (CON SIMULADOR)
+  // VISTA 1: USUARIOS SIN APORTES REGISTRADOS (CON SIMULADOR)
   // =========================================================================
-  if (!startnextData && !(profile?.role === 'admin')) {
+  if (!contributionData && !(profile?.role === 'admin')) {
     const registrationDate = user?.created_at ? format(new Date(user.created_at), 'MMM d, yyyy') : '-';
-    const landDollarStatus = landDollar ? t('common.active', 'Activo') : t('dashboard.startnext_dash.pending', 'Pendiente');
+    const landDollarStatus = landDollar ? t('common.active', 'Activo') : t('dashboard.premium.pending', 'Pendiente');
 
     return (
       <div className="relative w-full min-h-screen">
         <div className="relative z-10 space-y-12 max-w-6xl mx-auto pb-12 pt-6">
-            <StartnextSupportModal isOpen={isSupportModalOpen} onClose={() => setIsSupportModalOpen(false)} initialAmount={simAmount} />
             <LandDollarInfoModal isOpen={isLandDollarModalOpen} onClose={() => setIsLandDollarModalOpen(false)} t={t} />
 
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center space-y-4 py-8">
@@ -248,7 +246,7 @@ const DashboardSection = () => {
                 />
             </motion.div>
 
-            <ProjectVisionWidget t={t} setIsSupportModalOpen={setIsSupportModalOpen} />
+            <ProjectVisionWidget t={t} />
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                 <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }} className="shadow-premium rounded-3xl overflow-hidden h-full">
@@ -288,7 +286,7 @@ const DashboardSection = () => {
                 <Card variant="premium" className="border-2 border-[#5b8370]/30 bg-card/95 backdrop-blur-sm sticky top-24">
                 <CardContent className="pt-8">
                     <h3 className="text-2xl font-bold text-[#053127] dark:text-[#c2d2c1] mb-6 flex items-center gap-3">
-                    <Info className="w-6 h-6 text-emerald-500" /> {t('dashboard.explorer.simulator_title', 'Simulador Startnext')}
+                    <Info className="w-6 h-6 text-emerald-500" /> {t('dashboard.explorer.simulator_title', 'Simulador de Impacto')}
                     </h3>
                     <div className="space-y-8">
                     <div className="relative group">
@@ -341,11 +339,8 @@ const DashboardSection = () => {
                             </div>
 
                             <div className="mt-6 flex flex-col gap-3">
-                                <Button className="w-full btn-primary text-lg h-12 shadow-lg" onClick={() => window.open(STARTNEXT_PROJECT_URL, '_blank')}>
-                                    {t('dashboard.explorer.support_btn', 'Apoyar en Startnext')} <ExternalLink className="ml-2 w-5 h-5" />
-                                </Button>
-                                <Button variant="outline" className="w-full h-12 border-[#c2d2c1]/30 text-[#c2d2c1] hover:bg-[#c2d2c1]/10 hover:text-white" onClick={() => setIsSupportModalOpen(true)}>
-                                    {t('exchange.cta.support_startnext', 'I already supported')}
+                                <Button variant="outline" className="w-full h-12 border-[#c2d2c1]/30 text-[#c2d2c1] hover:bg-[#c2d2c1]/10 hover:text-white" onClick={() => navigate('/dashboard/subscription')}>
+                                    {t('common.learn_more', 'Más información')}
                                 </Button>
                             </div>
 
@@ -400,8 +395,8 @@ const DashboardSection = () => {
   // =========================================================================
   // VISTA 2: ADMIN / VISTA ALTERNATIVA 
   // =========================================================================
-  const snxId = startnextData?.imported_user?.snx_id || `SNX-ACT-${user?.id?.slice(0, 4)}`;
-  const tierDisplayName = startnextData?.levelName || 'Explorer';
+  const supporterId = contributionData?.imported_user?.snx_id || `SUP-ACT-${user?.id?.slice(0, 4)}`;
+  const tierDisplayName = contributionData?.levelName || 'Explorer';
 
   return (
     <div className="relative w-full min-h-screen">
@@ -417,7 +412,7 @@ const DashboardSection = () => {
                 <div className="flex items-center gap-3 mb-6">
                     <Badge className="bg-gradient-gold text-[#063127] font-black shadow-glow border-0 px-4 py-1.5 backdrop-blur-md">{t('dashboard.pioneer_status.active', 'Activo')}</Badge>
                     <span className="text-xs font-mono text-[#c2d2c1] bg-black/20 px-3 py-1 rounded-full flex items-center gap-2 border border-white/10">
-                    <ShieldCheck className="w-3 h-3 text-emerald-500" /> {snxId}
+                    <ShieldCheck className="w-3 h-3 text-emerald-500" /> {supporterId}
                     </span>
                 </div>
                 <h1 className="text-4xl md:text-5xl font-bold mb-4 drop-shadow-md text-[#c2d2c1]">
@@ -433,7 +428,7 @@ const DashboardSection = () => {
                         
                         {/* REEMPLAZO DE ICONO POR IMAGEN EN LA VISTA APROBADA */}
                         <div className="w-20 h-20 rounded-2xl overflow-hidden mb-3 shadow-glow border-2 border-gold bg-black/20">
-                            <img src={getTierImage(startnextData?.support_levels?.slug || '')} alt="Tier" className="w-full h-full object-cover" />
+                            <img src={getTierImage(contributionData?.support_levels?.slug || '')} alt="Tier" className="w-full h-full object-cover" />
                         </div>
 
                         <span className="text-xs text-[#c2d2c1]/70 uppercase font-bold tracking-widest mb-1">{t('dashboard.pioneer_status.current_tier', 'Nivel Actual')}</span>
@@ -483,7 +478,7 @@ const DashboardSection = () => {
                 <Card variant="soft" className="overflow-hidden border-0 bg-card/90 backdrop-blur-sm">
                 <CardContent className="p-0">
                     <ul className="divide-y divide-border">
-                    {(startnextData?.processedBenefits || []).map((b, i) => (
+                    {(contributionData?.processedBenefits || []).map((b, i) => (
                         <motion.li key={`ben-${i}`} initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 + (i * 0.1) }} className="flex items-start gap-5 p-6 hover:bg-muted/30 transition-colors group">
                         <div className="mt-1 bg-muted/10 p-3 rounded-xl border border-border group-hover:border-gold group-hover:shadow-glow group-hover:scale-110 transition-all shadow-sm">
                             {b.icon_name === 'zap' ? <Zap className="w-6 h-6 text-gold"/> : getBenefitIcon(b.description, b.type, b.icon_name)}
@@ -541,9 +536,9 @@ const StatCard = ({ icon: Icon, iconColor, bgColor, label, value }) => (
 );
 
 // ==========================================
-// COMPONENTE NUEVO: Visión del Proyecto / Startnext (4 Pasos)
+// COMPONENTE: Visión del Proyecto (3 Pasos)
 // ==========================================
-const ProjectVisionWidget = ({ t, setIsSupportModalOpen }) => {
+const ProjectVisionWidget = ({ t }) => {
     // ESTADO PARA EL POP-UP INFORMATIVO DE LOS PASOS 1, 2 Y 3
     const [selectedInfo, setSelectedInfo] = useState(null);
 
@@ -570,8 +565,8 @@ const ProjectVisionWidget = ({ t, setIsSupportModalOpen }) => {
                 return {
                     icon: Target,
                     iconColor: "text-blue-400",
-                    title: t('dashboard.vision.pop_up_title3', 'Simulador y Startnext - Visualiza tu Impacto'),
-                    desc: t('dashboard.vision.pop_up_desc3', 'Usa la calculadora interactiva de esta página para ver qué nivel de recompensas (Impact Credits y Land Dollars) obtendrás según tu aporte. Luego, haciendo clic en el botón de apoyar o en la foto del proyecto, te llevaremos a Startnext, la plataforma de crowdfunding más segura de Europa, donde estamos reuniendo a nuestros primeros pioneros.')
+                    title: t('dashboard.vision.pop_up_title3', 'Simulador - Visualiza tu Impacto'),
+                    desc: t('dashboard.vision.pop_up_desc3', 'Usa la calculadora interactiva de esta página para ver qué nivel de recompensas (Impact Credits y Land Dollars) obtendrás según tu aporte. Así podrás decidir con total transparencia qué plan se adapta mejor a ti.')
                 };
             default:
                 return null;
@@ -589,14 +584,14 @@ const ProjectVisionWidget = ({ t, setIsSupportModalOpen }) => {
         >
             <div className="flex flex-col items-center text-center mb-8">
                 <h3 className="text-2xl md:text-3xl font-black text-[#053127] dark:text-[#c2d2c1]">
-                    {t('dashboard.vision.title', 'Cómo Funciona Reforestal y Startnext')}
+                    {t('dashboard.vision.title', 'Cómo Funciona Reforestal')}
                 </h3>
                 <p className="text-muted-foreground mt-2 max-w-3xl leading-relaxed font-medium">
-                    {t('dashboard.vision.subtitle', 'Entiende paso a paso nuestra misión, cómo puedes apoyarnos en Startnext y cómo reclamar tus beneficios exclusivos en esta plataforma. Haz clic en las tarjetas para leer más.')}
+                    {t('dashboard.vision.subtitle', 'Entiende paso a paso nuestra misión, cómo puedes colaborar y cómo reclamar tus beneficios exclusivos en esta plataforma. Haz clic en las tarjetas para leer más.')}
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {/* Paso 1: Misión (Leaf) */}
                 <Card 
                     onClick={() => setSelectedInfo(1)}
@@ -625,7 +620,7 @@ const ProjectVisionWidget = ({ t, setIsSupportModalOpen }) => {
                         {t('dashboard.vision.step2_title', '2. Cooperativa Alemana')}
                     </h4>
                     <p className="text-white/80 text-sm leading-relaxed flex-1">
-                        {t('dashboard.vision.step2_desc', 'Para hacer esto transparente y seguro, fundaremos una Cooperativa Alemana (eG). Nuestro proyecto en Startnext busca recaudar los fondos iniciales para hacer esto realidad.')}
+                        {t('dashboard.vision.step2_desc', 'Para hacer esto transparente y seguro, fundaremos una Cooperativa Alemana (eG). Cada miembro tendrá voz y voto, y todas las cuentas serán auditables.')}
                     </p>
                 </Card>
 
@@ -641,23 +636,7 @@ const ProjectVisionWidget = ({ t, setIsSupportModalOpen }) => {
                         {t('dashboard.vision.step3_title', '3. Explora y Simula')}
                     </h4>
                     <p className="text-white/80 text-sm leading-relaxed flex-1">
-                        {t('dashboard.vision.step3_desc', 'Usa nuestro simulador interactivo más abajo para ver los planes de Startnext. Haz clic en la foto del proyecto en el dashboard para ir a leer toda la campaña en profundidad.')}
-                    </p>
-                </Card>
-
-                {/* Paso 4: Reclamar Acceso (Key) - ABRE FORMULARIO */}
-                <Card 
-                    onClick={() => setIsSupportModalOpen(true)}
-                    className="cursor-pointer bg-[#053127] border-gold/20 shadow-glow text-white p-6 rounded-3xl group hover:-translate-y-2 transition-transform duration-300 delay-200 flex flex-col"
-                >
-                    <div className="w-14 h-14 bg-purple-500/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform shrink-0">
-                        <Key className="w-7 h-7 text-purple-400" />
-                    </div>
-                    <h4 className="text-lg font-bold mb-3 text-gradient-gold group-hover:underline decoration-purple-400 underline-offset-4">
-                        {t('dashboard.vision.step4_title', '4. Reclama tu Acceso Premium')}
-                    </h4>
-                    <p className="text-white/80 text-sm leading-relaxed flex-1">
-                        {t('dashboard.vision.step4_desc', '¿Apoyaste en Startnext? Haz clic en esta tarjeta y completa un breve formulario. ¡Te daremos acceso a misiones exclusivas y estatus Premium!')}
+                        {t('dashboard.vision.step3_desc', 'Usa nuestro simulador interactivo más abajo para ver los planes disponibles y descubrir qué recompensas obtendrás según tu aporte.')}
                     </p>
                 </Card>
             </div>

@@ -42,11 +42,11 @@ const SchemaAuditView = () => {
       // Note: We can't do complex aggregation easily with simple client, so we fetch raw subset or use rpc if available.
       // We'll fetch raw contributions to count JS side for audit.
       const { data: contribs } = await supabase
-        .from('startnext_contributions')
+        .from('contributions')
         .select('id, new_support_level_id');
 
       // 4. Approximate Table Counts (using planned queries)
-      const tables = ['support_levels', 'support_benefits', 'startnext_contributions', 'profiles'];
+      const tables = ['support_levels', 'support_benefits', 'contributions', 'profiles'];
       const stats = [];
       for (const t of tables) {
         const { count } = await supabase.from(t).select('*', { count: 'exact', head: true });
@@ -183,7 +183,7 @@ const SchemaAuditView = () => {
 
         <TabsContent value="associations" className="mt-4">
           <Card>
-            <CardHeader><CardTitle>User Distribution</CardTitle><CardDescription>Count of `startnext_contributions` per Level ID</CardDescription></CardHeader>
+            <CardHeader><CardTitle>User Distribution</CardTitle><CardDescription>Count of `contributions` per Level ID</CardDescription></CardHeader>
             <CardContent>
                <Table>
                 <TableHeader>

@@ -28,7 +28,7 @@ const FinancialReports = () => {
     setLoading(true);
     try {
       const [contribs, ld, ic, tiers] = await Promise.all([
-        supabase.from('startnext_contributions').select('*'),
+        supabase.from('contributions').select('*'),
         supabase.from('land_dollars').select('*'),
         supabase.from('impact_credits').select('*'),
         supabase.from('support_levels').select('id, slug, support_level_translations(name, language_code)')

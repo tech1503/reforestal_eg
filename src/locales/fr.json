@@ -72,18 +72,6 @@
       "empty_title": "🚀 De nouvelles quêtes arrivent bientôt !",
       "empty_desc": "Nous travaillons sur de nouvelles missions pour vous permettre de continuer à grandir et à débloquer des opportunités. Restez à l'écoute !"
     },
-    "startnext_verification": {
-      "title": "Utilisateur Pionnier Startnext",
-      "unique_id": "ID Utilisateur Unique",
-      "date": "Date de Contribution",
-      "amount": "Montant de la Contribution",
-      "tier": "Niveau",
-      "status_pioneer": "Statut Pionnier",
-      "status_not_pioneer": "Statut Startnext",
-      "not_pioneer_msg_title": "Vous n'êtes pas encore un Pionnier...",
-      "not_pioneer_msg_desc": "Rejoignez notre campagne de crowdfunding et devenez membre fondateur.",
-      "support_button": "Soutenir sur Startnext"
-    },
     "land_dollar": {
       "title": "Accès Premium",
       "title.simple": "Dollar foncier numérique",
@@ -114,12 +102,6 @@
       "button_quest": "Qu’est-ce que le Land Dollar ?",
       "q2_title": "Que représente-t-il ?"
     },
-    "impact_credits_snx": {
-      "title": "Points Bonus Startnext",
-      "label": "Points Bonus",
-      "disclaimer": "Ces Points Bonus ne sont valables que pour les contenus numériques disponibles sur notre plateforme.",
-      "locked_title": "Points Bonus Startnext"
-    },
     "benefits": {
       "title": "Vos Avantages",
       "no_benefits": "Aucun avantage trouvé.",
@@ -133,13 +115,6 @@
     "reforestal_pfad": {
       "title": "Reforestal-Pfad (Bloqué)",
       "description": "Le système sera activé plus tard."
-    },
-    "admin_view": {
-      "controller_title": "Contrôleur de Vue Admin",
-      "simulate_as": "Simuler comme :",
-      "real_view": "Ma Vue Réelle",
-      "snx_user": "Utilisateur Startnext",
-      "normal_user": "Utilisateur Normal"
     },
     "referrals": {
       "program_title": "Programme de Parrainage",
@@ -162,8 +137,7 @@
       "details_btn": "Détails",
       "contribution_level": "Niveau de Contribution",
       "included_benefits": "Avantages Inclus",
-      "simulator_hint": "Utilisez le simulateur pour voir tous les détails pour ce montant.",
-      "support_btn": "Soutenez ce Projet"
+      "simulator_hint": "Utilisez le simulateur pour voir tous les détails pour ce montant."
     },
     "pioneer_status": {
       "active": "Statut Actif",
@@ -183,18 +157,6 @@
       "no_benefits": "Aucun avantage trouvé pour ce niveau.",
       "referral_bonus": "Points Bonus de Parrainage"
     },
-    "startnext_dash": {
-      "benefit_available": "Avantage disponible",
-      "active_asset": "Actif",
-      "pending": "En attente",
-      "digital_asset_title": "Votre Actif Numérique",
-      "hero_msg": "Votre contribution Startnext régénère activement la forêt. Vous faites partie du mouvement.",
-      "contribution_date": "Date de Contribution",
-      "total_contribution": "Contribution Totale",
-      "rights_acquisition": "Acquisition de Droits",
-      "rights_desc": "Votre contribution donne un accès immédiat aux Points Bonus. Les droits d'acquisition pour la croissance future sont actuellement verrouillés.",
-      "system_locked": "Système en Développement"
-    },
     "impact_chart": {
       "title": "Impact Environnemental",
       "subtitle": "Arbres plantés et points bonus gagnés au fil du temps",
@@ -210,15 +172,14 @@
       "expired_message": "Votre accès Premium a expiré."
     },
     "vision": {
-      "title": "Voici la traduction en français :\n\nComment fonctionne Reforestal et Startnext\n\n1. TON : \"Approchable mais de stature\" (Nahbar, aber staatsmännisch). Chaleureux et direct, mais avec l’autorité inébranlable et la précision d’une banque centrale. Nous ne quémandons pas de dons. Nous proposons une participation solide dans une nouvelle ère.\n\n2. PAS DE MOTS CARITATIFS : JAMAIS utiliser des mots comme \"aider\", \"sauver le monde\", \"secourir\", \"faire le bien\". Nous agissons depuis une position de force et de raison économique.\n\n3. PAS D’ARBRES, UNIQUEMENT DES m² : JAMAIS parler de \"planter des arbres\" ou de \"plants\". Nous créons et sécurisons des \"mètres carrés (m²)\" d’écosystème. Un arbre peut mourir ; un mètre carré perdure.\n\n4. PAS DE RÉNATURATION : Nous ne \"protégeons pas la forêt tropicale\" ni ne \"renaturons\". Nous faisons de \"l’économie régénérative\" et de \"l’agroforesterie\".\n\n5. LA RÈGLE DES \"POINTS\" : Notre monnaie bonus s’appelle strictement \"Points\". JAMAIS utiliser \"Crédits\", \"Pièces\", \"Jetons\" ou \"Monnaie d’impact\".\n\n6. SPÉCIFICITÉS LINGUISTIQUES :\n   - En français, utiliser le tutoiement (\"tu/ton\").\n\n7. NOMS DE MARQUE (CRUCIAL) : Les noms \"Reforestal\" et \"terra utopia\" sont des marques déposées. NE JAMAIS les traduire. De plus, \"terra utopia\" DOIT TOUJOURS s’écrire en minuscules (exactement \"terra utopia\"), même en début de phrase.",
-      "subtitle": "Comprends pas à pas notre mission, comment tu peux nous soutenir sur Startnext et comment réclamer tes avantages exclusifs sur cette plateforme.",
+      "title": "Comment fonctionne Reforestal",
+      "subtitle": "Comprends notre mission étape par étape",
       "step1_title": "Notre Mission",
       "step1_desc": "Nous protégeons des mètres carrés (m²) de l’Amazonie de manière permanente. Il ne s’agit pas simplement de créer un écosystème, mais d’en garantir la biodiversité.",
       "step2_title": "2. Coopérative allemande (eG)",
-      "step2_desc": "Pour rendre cela transparent et sécurisé, nous fonderons une Coopérative Allemande (eG). Notre projet sur Startnext vise à collecter les fonds initiaux pour concrétiser cette ambition.",
+      "step2_desc": "Pour rendre cela transparent et sécurisé",
       "step3_title": "3. Explore et Simule",
-      "step3_desc": "Utilise notre simulateur interactif ci-dessous pour découvrir les plans Startnext. Clique sur la photo du projet pour lire en détail tous les avantages de la campagne.",
-      "step4_desc": "As-tu soutenu sur Startnext ? Clique sur cette carte et remplis un bref formulaire. Nous t’offrirons l’accès à des missions exclusives et un statut Premium !",
+      "step3_desc": "Utilise notre simulateur interactif",
       "button": "Fermer",
       "pop_up_title1": "Notre Mission - Protection Garantie",
       "pop_up_desc1": "La régénération comme moteur de développement. Nous misons sur une Amazonie vivante où la reforestation génère une prospérité partagée. Nous remplaçons la logique extractive par un modèle qui garantit la subsistance des agriculteurs et un retour à impact pour chaque allié gardien de la coopérative.",
@@ -227,8 +188,19 @@
       "pop_up_title2": "Coopérative Allemande (eG)",
       "pop_up_desc2": "Pour garantir la transparence et la sécurité de ta contribution, nous fonderons une Coopérative Allemande (eG). Cette structure juridique nous permet d’opérer selon des principes démocratiques, où chaque membre a voix au chapitre. Ton soutien sur Startnext est essentiel pour établir cette coopérative, qui sera le véhicule par lequel nous gérerons la protection des m² de forêt amazonienne et distribuerons les bénéfices de manière équitable entre tous les membres.",
       "pop_up_title3": "Explore et Simule",
-      "pop_up_desc3": "Découvre comment utiliser notre simulateur interactif pour comprendre les niveaux de contribution sur Startnext. Saisis différents montants pour voir comment ils se transforment en niveaux d’impact et en avantages exclusifs. Chaque niveau débloque des récompenses uniques, allant de l’accès à des missions spéciales à la reconnaissance en tant que membre fondateur. Expérimente avec le simulateur et explore ton potentiel d’impact !",
-      "step4_title": "4. Réclame ton Accès Premium"
+      "pop_up_desc3": "Découvre comment utiliser notre simulateur interactif pour comprendre les niveaux de contribution sur Startnext. Saisis différents montants pour voir comment ils se transforment en niveaux d’impact et en avantages exclusifs. Chaque niveau débloque des récompenses uniques, allant de l’accès à des missions spéciales à la reconnaissance en tant que membre fondateur. Expérimente avec le simulateur et explore ton potentiel d’impact !"
+    },
+    "premium": {
+      "benefit_available": "Avantage disponible",
+      "active_asset": "Actif",
+      "pending": "En attente",
+      "digital_asset_title": "Votre Actif Numérique",
+      "hero_msg": "Votre contribution régénère activement la forêt. Vous faites partie du mouvement.",
+      "contribution_date": "Date de Contribution",
+      "total_contribution": "Contribution Totale",
+      "rights_acquisition": "Acquisition de Droits",
+      "rights_desc": "Votre contribution donne un accès immédiat aux Points Bonus. Les droits d'acquisition pour la croissance future sont actuellement verrouillés.",
+      "system_locked": "Système en Développement"
     }
   },
   "admin": {
@@ -255,8 +227,8 @@
       "label": "Audience cible",
       "all": "Tous",
       "user": "Utilisateur standard",
-      "startnext_user": "Soutien Startnext",
-      "pioneer": "Pionnier fondateur"
+      "pioneer": "Pionnier fondateur",
+      "premium": "Premium"
     },
     "gamification_actions": {
       "page_title": "Configuration des actions système",
@@ -427,9 +399,9 @@
       "title": "Gestion Financière",
       "tabs": {
         "overview": "Vue d'ensemble",
-        "startnext": "Startnext",
         "land_dollars": "Land Dollars",
-        "impact_credits": "Points Bonus"
+        "impact_credits": "Points Bonus",
+        "contributions": "Startnext"
       }
     },
     "dynamicLinks": {
@@ -461,17 +433,6 @@
       "success_title": "Lien dynamique créé",
       "success_desc": "Le slug",
       "success_desc_end": "a été inséré dans dynamic_links et est actif."
-    },
-    "startnext": {
-      "pending_approvals": "Approbations En Attente",
-      "user": "Utilisateur",
-      "amount": "Montant",
-      "status": "Statut",
-      "actions": "Actions",
-      "pending": "En attente",
-      "approve": "Approuver",
-      "reject": "Rejeter",
-      "tier": "Niveau"
     },
     "impact_credits": {
       "configuration": "Configuration",
@@ -555,6 +516,17 @@
         "bonus": "Récompense Bonus",
         "admin_reply": "Réponse Admin"
       }
+    },
+    "data": {
+      "pending_approvals": "Approbations En Attente",
+      "user": "Utilisateur",
+      "amount": "Montant",
+      "status": "Statut",
+      "actions": "Actions",
+      "pending": "En attente",
+      "approve": "Approuver",
+      "reject": "Rejeter",
+      "tier": "Niveau"
     }
   },
   "gamification": {
@@ -715,9 +687,7 @@
     "complete_quest": "Terminer la Quête",
     "status_in_review": "En révision",
     "go_to_referrals": "Aller aux parrainages",
-    "support_startnext": "Soutenir sur Startnext",
     "requires_genesis": "Nécessite une mission initiale",
-    "requires_startnext": "Nécessite Startnext",
     "requires_pioneer": "Nécessite le statut de pionnier",
     "unlocked_premium": "Débloqué",
     "empty_desc": "Il n’y a aucune mission active pour le moment.",
@@ -725,7 +695,8 @@
     "tab_active": "Disponible",
     "tab_history": "Historique",
     "empty_active": "Aucune quête active trouvée. Revenez plus tard pour de nouvelles missions !",
-    "empty_history": "Vous n'avez encore terminé aucune quête. Commencez votre première mission pour gagner des points bonus et faire la différence !"
+    "empty_history": "Vous n'avez encore terminé aucune quête. Commencez votre première mission pour gagner des points bonus et faire la différence !",
+    "requires_premium": "Upgrade your plan to purchase items."
   },
   "home": {
     "sign_in": "Se Connecter",
@@ -733,8 +704,7 @@
     "subtitle": "Nous transformons la protection Amazon, d'un projet parallèle, en une mission professionnelle. Rejoignez la première coopérative allemande (eG) qui rend l'impact mesurable, transparent et centré sur votre cause.",
     "hero_badge": "Crowdfunding en Direct",
     "cta_buttons": {
-      "start_your_mission": "Lancez votre mission",
-      "supported_startnext": "Notre campagne de Crowdfunding"
+      "start_your_mission": "Lancez votre mission"
     },
     "m2_section": {
       "label": "Métriques d'Impact Réel",
@@ -754,12 +724,6 @@
       "intro": "Chaque révolution a besoin d'esprits différents.",
       "hook": "Terminez la Quête Genesis pour voir où votre perspective rencontre notre cadre professionnel.",
       "cta": "Commencer la Mission"
-    },
-    "startnext_section": {
-      "title": "Devenez un Membre Fondateur.",
-      "body": "Nous sommes actuellement dans notre 'Phase Genesis'. Pour garantir une indépendance totale et une sécurité juridique en vertu de la loi coopérative allemande, nous levons notre capital de fondation initial sur Startnext.",
-      "offer": "En nous soutenant maintenant, vous assurez votre statut de 'Fondateur Genesis', recevez le prototype physique du Land Dollar et nous aidez à construire l'infrastructure qui rend possible la reforestation professionnelle.",
-      "cta": "Soutenez-nous sur Startnext"
     },
     "widget": {
       "badge": "Crowdfunding dans Startnext",
@@ -865,17 +829,12 @@
       "redeem": "Échanger mes Points Bonus",
       "confirm": "Confirmer l'échange"
     },
-    "cta": {
-      "support_startnext": "J'ai déjà soutenu sur Startnext",
-      "sidebar_btn": "Avez-vous soutenu Startnext?"
-    },
     "stock": {
       "infinite": "Stock ∞",
       "left": "Restants"
     },
     "banner": {
-      "redeem_title": "Échangez vos Points Bonus",
-      "redeem_desc": "Les Points Bonus seront disponibles pour l'échange lorsque vous passerez au niveau Startnext - Niveau 1 Explorateur."
+      "redeem_title": "Échangez vos Points Bonus"
     },
     "tooltip": {
       "mode_title": "Mode Accumulation",
@@ -888,20 +847,10 @@
     "redeem_modal": {
       "title": "Échanger des Points Bonus",
       "description": "Pour échanger vos crédits, nous devons vérifier le statut de votre compte.",
-      "question": "Avez-vous soutenu notre projet sur Startnext ?",
-      "option_yes": "Oui, je suis un contributeur",
-      "option_no": "Non, je n'ai pas encore soutenu",
-      "form_title": "J'ai soutenu sur Startnext",
-      "form_desc": "Fournissez les détails de la contribution pour vérification.",
-      "label_amount": "Montant de la Contribution (€)",
-      "label_city": "Ville (Facultatif)",
-      "label_country": "Pays (Facultatif)",
-      "label_message": "Message (Facultatif)",
-      "message_placeholder": "Tout détail supplémentaire...",
       "btn_verify": "Envoyer pour Vérification",
       "success_title": "Demande Envoyée",
-      "success_snx": "Vos détails Startnext ont été envoyés pour vérification.",
-      "success_req": "Votre demande d'échange a été envoyée et sera examinée par nos administrateurs."
+      "success_req": "Votre demande d'échange a été envoyée et sera examinée par nos administrateurs.",
+      "error_req": "Failed to submit request."
     },
     "toasts": {
       "pioneer_exclusive": "Exclusivité Pionnier",
@@ -1019,10 +968,6 @@
       "official_tag": "Annonce Officielle",
       "today_time": "Aujourd'hui, 10h00",
       "read_more": "Lire l'article complet",
-      "hero": {
-        "title": "Alliance Stratégique avec Startnext Allemagne",
-        "desc": "Nous avons officiellement formalisé notre collaboration pour intégrer le financement participatif européen directement dans nos sols locaux."
-      },
       "item1": {
         "title": "Les 100 premiers arbres plantés"
       },
@@ -1044,29 +989,7 @@
     "roadmap": {
       "no_roadmap": "La feuille de route sera bientôt mise à jour. Restez à l'écoute pour connaître les étapes clés et les événements exclusifs réservés aux fondateurs.",
       "phase1_title": "Phase 1 : Genèse",
-      "phase1_obj": "Objectif : Acquisition de terres et 500 premiers arbres",
-      "items": {
-        "launch": {
-          "title": "Lancement de la plateforme",
-          "date": "Jan 2026",
-          "desc": "Système utilisateur, parrainages et connexion Startnext pleinement opérationnels."
-        },
-        "campaign": {
-          "title": "Campagne Pionnier Fondateur",
-          "date": "T1 2026",
-          "desc": "Recrutement des 100 premiers investisseurs providentiels pour le capital d'amorçage."
-        },
-        "land": {
-          "title": "Acquisition de Terres Córdoba",
-          "date": "T2 2026",
-          "desc": "Achat légal des 5 premiers hectares désignés pour la réserve."
-        },
-        "plant": {
-          "title": "Première Plantation Massive",
-          "date": "T3 2026",
-          "desc": "Événement en présentiel et numérique avec les investisseurs pour planter les premiers arbres natifs."
-        }
-      }
+      "phase1_obj": "Objectif : Acquisition de terres et 500 premiers arbres"
     },
     "vote_modal": {
       "title": "Voter",
@@ -1162,37 +1085,6 @@
     "sending": "Envoi en cours...",
     "success_title": "Message envoyé!",
     "success_desc": "Nous vous répondrons prochainement."
-  },
-  "startnext_modal": {
-    "title": "J'ai déjà soutenu sur Startnext",
-    "description": "Veuillez fournir les détails de votre contribution pour vérifier et mettre à jour votre compte.",
-    "labels": {
-      "name": "Nom",
-      "email": "E-mail",
-      "amount": "Montant de la Contribution (€)",
-      "city": "Ville (Optionnel)",
-      "country": "Pays (Optionnel)",
-      "message": "Message (Optionnel)"
-    },
-    "placeholders": {
-      "city": "ex. Paris",
-      "country": "ex. France",
-      "message": "Détails supplémentaires..."
-    },
-    "buttons": {
-      "cancel": "Annuler",
-      "submit": "Envoyer pour Vérification",
-      "close": "Fermer"
-    },
-    "success": {
-      "title": "Demande Envoyée !",
-      "message": "Merci ! Vos informations ont été soumises. Nous activerons votre compte Explorateur sous peu."
-    },
-    "errors": {
-      "invalid_amount_title": "Montant Invalide",
-      "invalid_amount_desc": "Veuillez entrer un montant valide.",
-      "submit_error": "Impossible d'envoyer l'inscription. Veuillez réessayer."
-    }
   },
   "footer": {
     "privacy": "Confidentialité",

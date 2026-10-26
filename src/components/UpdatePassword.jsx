@@ -138,8 +138,6 @@ const UpdatePassword = () => {
 
       if (role === 'admin') {
         navigate(languagePrefix + '/admin');
-      } else if (role === 'startnext_user') {
-        navigate(languagePrefix + '/startnext');
       } else {
         navigate(languagePrefix + '/dashboard');
       }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { ShoppingCart, Coins, Gift, TreePine, Award, Leaf, X, Minus, Plus, Lock, Image as ImageIcon, Loader2, HeartHandshake, CreditCard, Sparkles, ArrowRight } from 'lucide-react';
+import { ShoppingCart, Coins, Gift, TreePine, Award, Leaf, X, Minus, Plus, Lock, Image as ImageIcon, Loader2, CreditCard, Sparkles, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
@@ -9,7 +9,6 @@ import { supabase } from '@/lib/customSupabaseClient';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { useFinancial } from '@/contexts/FinancialContext'; 
 import ReadOnlyOverlay from '@/components/ui/ReadOnlyOverlay';
-import StartnextSupportModal from '@/components/ui/StartnextSupportModal';
 import RedeemImpactCreditsModal from '@/components/ui/RedeemImpactCreditsModal';
 import { formatNumber, formatCurrency } from '@/lib/utils'; 
 import { useNavigate } from 'react-router-dom';
@@ -50,7 +49,6 @@ const ExchangeSection = ({ isReadOnly = false }) => {
   const [loading, setLoading] = useState(true);
 
   // Modals
-  const [isSupportModalOpen, setIsSupportModalOpen] = useState(false);
   const [isRedeemModalOpen, setIsRedeemModalOpen] = useState(false);
   const [isMissionModalOpen, setIsMissionModalOpen] = useState(false);
 
@@ -240,7 +238,6 @@ const ExchangeSection = ({ isReadOnly = false }) => {
   return (
     <div className="relative min-h-[500px]">
       <GoldGradientSVG />
-      <StartnextSupportModal isOpen={isSupportModalOpen} onClose={() => setIsSupportModalOpen(false)} />
       <RedeemImpactCreditsModal isOpen={isRedeemModalOpen} onClose={() => setIsRedeemModalOpen(false)} currentBalance={userCredits} />
 
       {/* POP-UP DE MISIÓN DEL EXCHANGE */}
@@ -315,11 +312,6 @@ const ExchangeSection = ({ isReadOnly = false }) => {
           </div>
           
           <div className="flex items-center gap-4 mt-4 sm:mt-0">
-             {isReadOnly && (
-                <Button onClick={() => setIsSupportModalOpen(true)} variant="outline" className="hidden md:flex font-bold">
-                  <HeartHandshake className="w-4 h-4 mr-2" /> {t('exchange.cta.support_startnext')}
-                </Button>
-             )}
              <div className="bg-card px-4 py-2 rounded-xl border border-border shadow-sm flex items-center gap-3">
                 <div className="text-right">
                    <p className="text-xs text-muted-foreground font-medium uppercase">{t('exchange.labels.balance')}</p>
@@ -339,12 +331,6 @@ const ExchangeSection = ({ isReadOnly = false }) => {
              </Button>
           </div>
         </motion.div>
-
-        {isReadOnly && (
-            <Button onClick={() => setIsSupportModalOpen(true)} variant="outline" className="w-full md:hidden font-bold">
-              <HeartHandshake className="w-4 h-4 mr-2" /> {t('exchange.cta.support_startnext')}
-            </Button>
-        )}
 
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap gap-2">
           {categories.map((category) => {

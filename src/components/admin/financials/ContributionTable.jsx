@@ -10,7 +10,7 @@ const ContributionTable = ({ contributions, onDelete }) => {
 
   // Helper to extract tier name for current language
   const getTierName = (c) => {
-      // Logic assumes 'v_startnext_contributions_with_tiers' view or similar structure
+      // Logic assumes 'v_contributions_with_tiers' view or similar structure
       // If using raw Supabase join, structure might be c.support_levels.support_level_translations
       if (c.tier_name_en) return c.tier_name_en; // From View
       

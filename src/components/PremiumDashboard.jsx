@@ -17,7 +17,7 @@ import { formatNumber, formatCurrency } from '@/lib/utils';
 import { calculateDynamicCredits } from '@/utils/tierLogicUtils';
 import { format, differenceInDays } from 'date-fns';
 
-const StartnextUserDashboard = () => {
+const PremiumDashboard = () => {
   const { profile, user } = useAuth();
   const { currentLanguage } = useI18n();
   const { t } = useTranslation(); 
@@ -65,7 +65,7 @@ const StartnextUserDashboard = () => {
 
   if (loading) return <div className="flex justify-center items-center min-h-[50vh]"><Loader2 className="w-10 h-10 animate-spin text-gold"/></div>;
 
-  const snxId = contributions?.imported_user_id ? 'SNX-IMP' : 'SNX-ACT';
+  const supporterId = contributions?.imported_user_id ? 'SUP-IMP' : 'SUP-ACT';
   const tierName = userTier?.displayName || 'Explorer Standard';
   
   const dynamicCredits = contributions?.contribution_amount ? calculateDynamicCredits(contributions.contribution_amount) : 0;
@@ -75,7 +75,7 @@ const StartnextUserDashboard = () => {
                 || b.support_benefit_translations?.find(trans => trans.language_code === 'en');
       return {
           ...b,
-          translated_desc: trans?.description || t('dashboard.startnext_dash.benefit_available')
+          translated_desc: trans?.description || t('dashboard.premium.benefit_available')
       };
   });
 
@@ -83,12 +83,12 @@ const StartnextUserDashboard = () => {
       {
           id: 'dynamic_bp',
           benefit_type: 'digital',
-          translated_desc: `+${formatNumber(dynamicCredits)} ${t('rewards.bonus_points', 'Bonos')} (${t('dashboard.startnext_dash.total_contribution', 'Aporte')})`
+          translated_desc: `+${formatNumber(dynamicCredits)} ${t('rewards.bonus_points', 'Bonos')} (${t('dashboard.premium.total_contribution', 'Aporte')})`
       },
       ...baseBenefits
   ];
 
-  const landDollarDisplayValue = landDollar ? t('dashboard.startnext_dash.active_asset') : t('dashboard.startnext_dash.pending');
+  const landDollarDisplayValue = landDollar ? t('dashboard.premium.active_asset') : t('dashboard.premium.pending');
   const isPioneerApproved = pioneerStatus === 'approved';
   const firstName = profile?.name ? profile.name.trim().split(' ')[0] : 'Explorer';
 
@@ -120,14 +120,14 @@ const StartnextUserDashboard = () => {
                             )}
                         </Badge>
                         <span className="text-xs font-mono text-gold bg-gold/10 px-3 py-1 rounded-full flex items-center gap-2 border border-gold/30">
-                            <ShieldCheck className="w-3 h-3 text-gold"/> {snxId}
+                            <ShieldCheck className="w-3 h-3 text-gold"/> {supporterId}
                         </span>
                      </div>
                      <h1 className="text-4xl md:text-5xl font-bold mb-4 drop-shadow-sm text-white">
                         {t('dashboard.pioneer_status.welcome', { name: firstName })}
                      </h1>
                      <p className="text-white/80 text-lg max-w-xl font-medium leading-relaxed">
-                        {t('dashboard.startnext_dash.hero_msg')}
+                        {t('dashboard.premium.hero_msg')}
                      </p>
                   </div>
                   
@@ -153,7 +153,7 @@ const StartnextUserDashboard = () => {
             icon={CreditCard} 
             iconColor="text-[#063127]" 
             bgColor="bg-gradient-gold shadow-glow" 
-            label={t('dashboard.startnext_dash.total_contribution')} 
+            label={t('dashboard.premium.total_contribution')} 
             value={formatCurrency(contributions?.contribution_amount)} 
             highlight 
           />
@@ -179,7 +179,7 @@ const StartnextUserDashboard = () => {
                      <CheckCircle2 className="w-6 h-6 text-[#063127]" />
                  </div>
                  <h3 className="text-2xl font-bold text-foreground">
-                     {t('dashboard.benefits.title', 'Your Startnext Benefits')}
+                     {t('dashboard.benefits.title', 'Your Benefits')}
                  </h3>
              </div>
              
@@ -216,7 +216,7 @@ const StartnextUserDashboard = () => {
                         <CardContent className="flex flex-col items-center pt-4 pb-2">
                             <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                                 <Leaf className="w-5 h-5 text-gold"/> 
-                                {t('dashboard.startnext_dash.digital_asset_title')}
+                                {t('dashboard.premium.digital_asset_title')}
                             </h2>
                             <div className="w-full max-w-2xl transform hover:scale-[1.01] transition-normal">
                                 <LandDollarDisplay user={user} profile={profile} landDollar={landDollar} loading={loading} />
@@ -232,15 +232,15 @@ const StartnextUserDashboard = () => {
                     <CardContent className="pt-6">
                        <h3 className="font-black text-gray-300 mb-3 flex items-center gap-2 text-xl drop-shadow-sm">
                            <Trees className="w-6 h-6 text-gold" /> 
-                           {t('dashboard.startnext_dash.rights_acquisition')}
+                           {t('dashboard.premium.rights_acquisition')}
                        </h3>
                        <p className="text-sm text-white/80 mb-6 leading-relaxed">
-                           {t('dashboard.startnext_dash.rights_desc')}
+                           {t('dashboard.premium.rights_desc')}
                        </p>
                        <div className="bg-black/30 rounded-xl p-4 flex items-center justify-center border border-gold/20 shadow-inner">
                            <span className="flex items-center gap-2 text-gold font-bold text-sm">
                                <Lock className="w-4 h-4 text-gold" /> 
-                               {t('dashboard.startnext_dash.system_locked')}
+                               {t('dashboard.premium.system_locked')}
                            </span>
                        </div>
                     </CardContent>
@@ -300,7 +300,7 @@ const PremiumCountdown = ({ benefitData, t }) => {
                 iconColor="text-[#063127]" 
                 bgColor="bg-gradient-gold" 
                 label={t('dashboard.land_dollar.title', 'Acceso Premium')} 
-                value={t('dashboard.startnext_dash.pending', 'Pendiente')}
+                value={t('dashboard.premium.pending', 'Pendiente')}
             />
         );
     }
@@ -377,4 +377,4 @@ const PremiumCountdown = ({ benefitData, t }) => {
     );
 };
 
-export default StartnextUserDashboard;
+export default PremiumDashboard;

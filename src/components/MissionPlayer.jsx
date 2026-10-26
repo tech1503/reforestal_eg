@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { useFinancial } from '@/contexts/FinancialContext';
@@ -118,7 +118,6 @@ const ResourceAllocator = ({ poles, values, onChange }) => {
 const MissionPlayer = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
   const { user } = useAuth();
   const { refreshFinancials } = useFinancial();
   const { toast } = useToast();
@@ -165,9 +164,8 @@ const MissionPlayer = () => {
 
   const goBack = useCallback(() => {
       localStorage.removeItem(`mission_progress_${id}`); 
-      const basePath = location.pathname.includes('/startnext') ? '/startnext/quests' : '/dashboard/quests';
-      navigate(basePath);
-  }, [location.pathname, navigate, id]);
+      navigate('/dashboard/quests');
+  }, [navigate, id]);
 
   const handleRestartClick = () => {
       setIsRestartModalOpen(true);

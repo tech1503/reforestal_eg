@@ -156,12 +156,12 @@ const ImpactCreditsManagement = () => {
           <table className="w-full text-sm">
             <thead className="bg-gray-50 border-b">
               <tr>
-                <th className="text-left p-4 font-semibold text-gray-700">{t('admin.startnext.user')}</th>
-                <th className="text-left p-4 font-semibold text-gray-700">{t('admin.startnext.amount')}</th>
+                <th className="text-left p-4 font-semibold text-gray-700">{t('admin.data.user')}</th>
+                <th className="text-left p-4 font-semibold text-gray-700">{t('admin.data.amount')}</th>
                 <th className="text-left p-4 font-semibold text-gray-700">{t('dashboard.source')}</th>
                 <th className="text-left p-4 font-semibold text-gray-700">Description</th>
                 <th className="text-left p-4 font-semibold text-gray-700">{t('dashboard.date')}</th>
-                <th className="text-right p-4 font-semibold text-gray-700">{t('admin.startnext.actions')}</th>
+                <th className="text-right p-4 font-semibold text-gray-700">{t('admin.data.actions')}</th>
               </tr>
             </thead>
             <tbody className="divide-y">
@@ -221,7 +221,7 @@ const ImpactCreditsManagement = () => {
           <div className="space-y-4 py-4">
             {!editingCredit && (
                 <div className="space-y-2">
-                  <Label htmlFor="user">{t('admin.startnext.user')}</Label>
+                  <Label htmlFor="user">{t('admin.data.user')}</Label>
                   <select
                     id="user"
                     value={formData.user_id}
@@ -236,7 +236,7 @@ const ImpactCreditsManagement = () => {
                 </div>
             )}
             <div className="space-y-2">
-              <Label htmlFor="amount">{t('admin.startnext.amount')}</Label>
+              <Label htmlFor="amount">{t('admin.data.amount')}</Label>
               <Input
                 id="amount"
                 type="number"
@@ -254,7 +254,7 @@ const ImpactCreditsManagement = () => {
                 disabled={!!editingCredit} 
               >
                 <option value="admin">Admin Grant</option>
-                <option value="startnext">Startnext</option>
+                <option value="startnext">Legacy Contribution</option>
                 <option value="quest">Quest Reward</option>
                 <option value="referral">Referral Bonus</option>
                 <option value="bonus">Special Bonus</option>

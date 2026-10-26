@@ -25,7 +25,7 @@ const PendingRegistrations = () => {
         setLoading(true);
         try {
             const { data, error } = await supabase
-                .from('pending_startnext_registrations')
+                .from('pending_registrations')
                 .select('*')
                 .eq('status', 'pending')
                 .order('created_at', { ascending: false });
@@ -43,7 +43,7 @@ const PendingRegistrations = () => {
     useEffect(() => {
         fetchRegistrations();
         const channel = supabase.channel('pending-regs-admin')
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'pending_startnext_registrations' }, (payload) => {
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'pending_registrations' }, (payload) => {
                 if(payload.eventType === 'INSERT' && payload.new.status === 'pending') {
                       fetchRegistrations(); 
                 } else if(payload.eventType === 'UPDATE' || payload.eventType === 'DELETE') {
@@ -62,7 +62,7 @@ const PendingRegistrations = () => {
         try {
             const p_status = rowPioneerStatus[item.id] || 'pending';
 
-            const { data, error } = await supabase.rpc('admin_process_startnext_contribution', {
+            const { data, error } = await supabase.rpc('admin_process_contribution', {
                 p_user_id: item.user_id,
                 p_amount: item.amount,
                 p_notes: item.message || 'Approved from pending request',
@@ -104,7 +104,7 @@ const PendingRegistrations = () => {
         if (!confirmAction?.item) return;
         setProcessing(confirmAction.item.id);
         try {
-            await supabase.from('pending_startnext_registrations').update({ status: 'rejected' }).eq('id', confirmAction.item.id);
+            await supabase.from('pending_registrations').update({ status: 'rejected' }).eq('id', confirmAction.item.id);
             toast({ title: "Rejected", description: "Request rejected." });
             setConfirmAction(null);
             fetchRegistrations();
@@ -119,7 +119,7 @@ const PendingRegistrations = () => {
          if (!confirmAction?.item) return;
          setProcessing(confirmAction.item.id);
          try {
-             await supabase.from('pending_startnext_registrations').delete().eq('id', confirmAction.item.id);
+             await supabase.from('pending_registrations').delete().eq('id', confirmAction.item.id);
              toast({ title: "Deleted", description: "Record deleted." });
              setConfirmAction(null);
              fetchRegistrations();
@@ -142,14 +142,14 @@ const PendingRegistrations = () => {
                     <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
                         <UserPlus className="w-8 h-8 text-emerald-600" /> User Registrations & Requests
                     </h2>
-                    <p className="text-foreground">Manage incoming Startnext support claims and credit redemption requests.</p>
+                    <p className="text-foreground">Manage incoming contribution claims and credit redemption requests.</p>
                 </div>
             </div>
 
             <div className="space-y-4">
                 <div className="flex justify-between items-center border-b pb-4">
                      <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
-                        <Clock className="w-5 h-5 text-amber-500" /> Startnext Support Claims
+                        <Clock className="w-5 h-5 text-amber-500" /> Contribution Claims
                     </h3>
                     <div className="flex items-center gap-2">
                          <div className="relative">
@@ -176,7 +176,7 @@ const PendingRegistrations = () => {
                             </thead>
                             <tbody className="divide-y divide-gray-200">
                                 {filtered.length === 0 ? (
-                                    <tr><td colSpan="5" className="px-6 py-8 text-center text-foreground">No pending Startnext registrations found.</td></tr>
+                                    <tr><td colSpan="5" className="px-6 py-8 text-center text-foreground">No pending requests found.</td></tr>
                                 ) : (
                                     filtered.map((reg) => (
                                         <tr key={reg.id} className="hover:bg-background">
@@ -233,7 +233,7 @@ const PendingRegistrations = () => {
                     <DialogHeader>
                         <DialogTitle>Confirm Action</DialogTitle>
                         <DialogDescription>
-                            {confirmAction?.type === 'approve' && <span>Are you sure you want to approve <strong>{confirmAction.item.name}</strong>? This will grant Startnext Supporter status (Land Dollar + BP).</span>}
+                            {confirmAction?.type === 'approve' && <span>Are you sure you want to approve <strong>{confirmAction.item.name}</strong>? This will grant Supporter status (Land Dollar + BP).</span>}
                             {confirmAction?.type === 'reject' && <span>Are you sure you want to reject this request from <strong>{confirmAction.item.name}</strong>?</span>}
                             {confirmAction?.type === 'delete' && <span>Are you sure you want to permanently delete this record?</span>}
                         </DialogDescription>

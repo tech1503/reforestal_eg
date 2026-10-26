@@ -83,7 +83,7 @@ const ContributionForm = ({ onSuccess, onCancel }) => {
                 payload: {
                     email: manualUser.email,
                     name: manualUser.full_name,
-                    role: 'startnext_user',
+                    role: 'user_basic',
                     city: manualUser.city,
                     country: manualUser.country
                 }
@@ -97,7 +97,7 @@ const ContributionForm = ({ onSuccess, onCancel }) => {
          finalUserId = formData.user_id;
       }
 
-      const { data, error } = await supabase.rpc('admin_process_startnext_contribution', {
+      const { data, error } = await supabase.rpc('admin_process_contribution', {
           p_user_id: finalUserId,
           p_amount: parseFloat(formData.contribution_amount),
           p_notes: formData.notes,

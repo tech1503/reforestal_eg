@@ -18,7 +18,6 @@ const Impressum = () => {
     if (user) {
         const role = profile?.role || 'user';
         if (role === 'admin') navigate('/admin');
-        else if (role === 'startnext_user') navigate('/startnext');
         else navigate('/dashboard');
     } else {
         navigate('/');

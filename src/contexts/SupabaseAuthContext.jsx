@@ -6,6 +6,14 @@ import { processReferralOnSignup } from '@/services/referralService';
 
 const AuthContext = createContext(undefined);
 
+// Normaliza roles legacy de la campaña de crowdfunding.
+// `startnext_user` (rol legacy) se comporta como usuario básico (`user`).
+// El rol crudo queda disponible en `profile.legacyRole` para migración manual (Fase 4).
+export const normalizeRole = (rawRole) => {
+  if (rawRole === 'startnext_user') return 'user';
+  return rawRole || 'user';
+};
+
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
@@ -28,12 +36,20 @@ export const AuthProvider = ({ children }) => {
       if (error) throw error;
       if (!data) return null;
 
-      let effectiveRole = data.role || 'user';
+      let rawRole = data.role || 'user';
       if (data.users_roles?.[0]?.roles) {
-          effectiveRole = data.users_roles[0].roles.name;
+          rawRole = data.users_roles[0].roles.name;
       }
-      
-      const fullProfile = { ...data, role: effectiveRole };
+
+      // `role` es el rol efectivo (normalizado): un legacy startnext_user
+      // se comporta como usuario básico. `legacyRole` conserva el crudo
+      // para la futura migración manual (Fase 4).
+      const effectiveRole = normalizeRole(rawRole);
+      const fullProfile = {
+        ...data,
+        role: effectiveRole,
+        legacyRole: rawRole !== effectiveRole ? rawRole : null,
+      };
       
       if (mounted.current) {
         setProfile(fullProfile);
@@ -61,7 +77,6 @@ export const AuthProvider = ({ children }) => {
 
   const handleAuthRedirect = useCallback((userRole) => {
     if (userRole === 'admin') navigate('/admin');
-    else if (userRole === 'startnext_user') navigate('/startnext');
     else navigate('/dashboard');
   }, [navigate]);
 
