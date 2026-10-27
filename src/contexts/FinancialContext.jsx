@@ -42,9 +42,14 @@ export const FinancialProvider = ({ children }) => {
         .select('amount')
         .eq('user_id', user.id);
 
-      if (ledgerError) console.error("Error fetching ic_ledger:", ledgerError);
-      const atomicBalance = (ledgerData || []).reduce((sum, row) => sum + (Number(row.amount) || 0), 0);
-      setBalance(atomicBalance);
+      if (ledgerError) {
+        console.error("Error fetch ic_ledger:", ledgerError);
+        setBalance(0);
+      } else {
+        const atomicBalance = (ledgerData || []).reduce((sum, row) => sum + (Number(row.amount) || 0), 0);
+        console.log('Saldo calculado desde ic_ledger:', atomicBalance);
+        setBalance(atomicBalance);
+      }
 
       const { data: metrics } = await supabase
         .from('founding_pioneer_metrics')
@@ -117,3 +122,5 @@ export const useFinancial = () => {
   }
   return context;
 };
+
+export default FinancialProvider;
