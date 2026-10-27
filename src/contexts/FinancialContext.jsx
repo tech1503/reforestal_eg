@@ -36,11 +36,15 @@ export const FinancialProvider = ({ children }) => {
     }
 
     try {
-      const { data: realBalance, error: balanceError } = await supabase
-        .rpc('get_real_balance', { p_user_id: user.id });
+      // FUENTE ATÓMICA ABSOLUTA: ic_ledger (Fase 2) — suma de todos los movimientos
+      const { data: ledgerData, error: ledgerError } = await supabase
+        .from('ic_ledger')
+        .select('amount')
+        .eq('user_id', user.id);
 
-      if (balanceError) console.error("Error fetching balance RPC:", balanceError);
-      setBalance(Number(realBalance) || 0);
+      if (ledgerError) console.error("Error fetching ic_ledger:", ledgerError);
+      const atomicBalance = (ledgerData || []).reduce((sum, row) => sum + (Number(row.amount) || 0), 0);
+      setBalance(atomicBalance);
 
       const { data: metrics } = await supabase
         .from('founding_pioneer_metrics')
