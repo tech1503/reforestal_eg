@@ -80,6 +80,9 @@ export const FinancialProvider = ({ children }) => {
         .on('postgres_changes', { event: '*', schema: 'public', table: 'user_purchases', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
         .on('postgres_changes', { event: '*', schema: 'public', table: 'land_dollars', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
         .on('postgres_changes', { event: '*', schema: 'public', table: 'contributions', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
+        // Fase 2: Escuchar cambios en la economía atómica (ic_ledger y impact_credits)
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'ic_ledger', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'impact_credits', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
         .subscribe();
 
       return () => { supabase.removeChannel(channel); };
