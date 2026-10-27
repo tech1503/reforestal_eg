@@ -42,12 +42,11 @@ export const emitImpactCredits = async ({
 
     // Call the new emit_ic RPC function
     const { data, error } = await supabase.rpc('emit_ic', {
-      user_id_input: user_id,
-      amount_input: amount,
-      source_input: source,
-      description_input: description || `Impact Credits from ${source}`,
-      related_support_level_id_input: related_support_level_id,
-      issued_by: 'frontend'
+      p_user_id: user_id,
+      p_amount: amount,
+      p_source: source,
+      p_metadata: { description: description || `Impact Credits from ${source}`, related_support_level_id, issued_by: 'frontend' },
+      p_idempotency_key: null
     });
 
     if (error) {
@@ -240,10 +239,10 @@ export const spendImpactCredits = async ({ user_id, amount, product_id, quantity
 
     // Call the new spend_ic RPC function
     const { data, error } = await supabase.rpc('spend_ic', {
-      user_id_input: user_id,
-      amount_input: amount,
-      product_id_input: product_id,
-      quantity_input: quantity
+      p_user_id: user_id,
+      p_amount: amount,
+      p_reason: `Purchase: ${product_id} x${quantity}`,
+      p_metadata: { product_id, quantity }
     });
 
     if (error) {

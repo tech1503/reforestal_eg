@@ -110,14 +110,21 @@ export async function executeGamificationAction(userId, systemBinding, options =
         // 1. Guardar Log
         await logGamificationHistory(userId, action, creditsToAward, notes, isDynamic);
         
-        // 2. Entregar Créditos
-        if (creditsToAward > 0) await emitImpactCredits({ user_id: userId, amount: creditsToAward, source: sourceType, description: displayTitle });
+        // 2. Entregar Créditos (VERIFICADO: si falla, no se otorga visualmente)
+        let emitResult = null;
+        if (creditsToAward > 0) {
+            emitResult = await emitImpactCredits({ user_id: userId, amount: creditsToAward, source: sourceType, description: displayTitle });
+            if (!emitResult || !emitResult.success) {
+                console.error('[Gamification] emit_ic failed:', emitResult?.error || 'Unknown error');
+                return { success: false, message: emitResult?.error || 'Failed to emit Impact Credits via RPC' };
+            }
+        }
         
         // 3. Entregar Reputación 
         if (reputationToAward > 0) await awardReputationScore(userId, reputationToAward);
 
-        // 4. Notificar (INTEGRACIÓN I18N CORRECTA)
-        if (!preventNotification) {
+        // 4. Notificar SOLO si todo fue exitoso
+        if (!preventNotification && emitResult?.success !== false) {
             let titleKey = 'notifications.points_earned.title';
             let messageKey = reputationToAward > 0 
                 ? 'notifications.points_and_rep_earned.message' // Usaremos una nueva clave si hay reputación
