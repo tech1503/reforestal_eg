@@ -195,7 +195,7 @@ const QuestsSection = () => {
       const result = await executeGamificationAction(user.id, quest.slug);
 
       if (result.success) {
-          toast({ title: t('common.success'), description: t('quest.earn_credits', { credits: formatNumber(result.points) }), className: "bg-card text-foreground border-border"});
+          toast({ title: t('common.success'), description: t('quest.earn_credits', { credits: formatNumber(result.creditsAwarded) }), className: "bg-card text-foreground border-border"});
           await refreshFinancials();
           setQuests(prev => prev.map(q => q.id === quest.id ? { ...q, completed: true } : q));
       } else {
@@ -301,7 +301,7 @@ const QuestsSection = () => {
 
             {/* Listado Dinámico de Misiones (Filtradas por la pestaña activa) */}
             <AnimatePresence mode="popLayout">
-                {displayedQuests.map((quest, idx) => (
+                {displayedQuests.map((quest) => (
                 <motion.div 
                     key={`${quest.type}-${quest.id}`} 
                     layout

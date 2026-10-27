@@ -40,49 +40,34 @@ export const emitImpactCredits = async ({
       };
     }
 
-    // Insert IC transaction
-    const { data, error } = await supabase
-      .from('impact_credits')
-      .insert({
-        user_id,
-        amount,
-        source,
-        description: description || `Impact Credits from ${source}`,
-        related_support_level_id,
-        issued_date: new Date().toISOString(),
-        created_at: new Date().toISOString()
-      })
-      .select()
-      .single();
+    // Call the new emit_ic RPC function
+    const { data, error } = await supabase.rpc('emit_ic', {
+      user_id_input: user_id,
+      amount_input: amount,
+      source_input: source,
+      description_input: description || `Impact Credits from ${source}`,
+      related_support_level_id_input: related_support_level_id,
+      issued_by: 'frontend'
+    });
 
     if (error) {
       console.error('Impact Credits emission error:', error);
       return { 
         success: false, 
-        error: error.message 
+        error: error.message || 'Failed to emit Impact Credits' 
       };
-    }
-
-    // Update user balance (if reforestal_user_balances table exists)
-    const { error: balanceError } = await supabase.rpc(
-      'add_to_unvested_balance', 
-      { user_id_input: user_id, amount_input: amount }
-    ).catch(() => null); // Silent fail if RPC doesn't exist
-
-    if (balanceError) {
-      console.warn('Balance update warning:', balanceError);
     }
 
     return { 
       success: true, 
-      data 
+      data: data || { user_id, amount, source, description, issued_date: new Date().toISOString() }
     };
 
   } catch (err) {
     console.error('Unexpected error in emitImpactCredits:', err);
     return { 
       success: false, 
-      error: err.message 
+      error: err.message || 'Unexpected error emitting Impact Credits' 
     };
   }
 };
@@ -253,38 +238,32 @@ export const spendImpactCredits = async ({ user_id, amount, product_id, quantity
       };
     }
 
-    // Record purchase
-    const { data, error } = await supabase
-      .from('user_purchases')
-      .insert({
-        user_id,
-        product_id,
-        credits_spent: amount,
-        quantity,
-        purchased_at: new Date().toISOString(),
-        status: 'completed'
-      })
-      .select()
-      .single();
+    // Call the new spend_ic RPC function
+    const { data, error } = await supabase.rpc('spend_ic', {
+      user_id_input: user_id,
+      amount_input: amount,
+      product_id_input: product_id,
+      quantity_input: quantity
+    });
 
     if (error) {
-      console.error('Purchase error:', error);
+      console.error('Impact Credits spend error:', error);
       return { 
         success: false, 
-        error: error.message 
+        error: error.message || 'Failed to spend Impact Credits' 
       };
     }
 
     return { 
       success: true, 
-      data 
+      data: data || { user_id, product_id, credits_spent: amount, quantity, status: 'completed' }
     };
 
   } catch (err) {
     console.error('Unexpected error in spendImpactCredits:', err);
     return { 
       success: false, 
-      error: err.message 
+      error: err.message || 'Unexpected error spending Impact Credits' 
     };
   }
 };

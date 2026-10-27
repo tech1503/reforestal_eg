@@ -56,7 +56,7 @@ export const useGenesisSync = () => {
           localStorage.removeItem('genesisQuestSessionId');
           
           const rewardMsg = gamificationResult.success 
-                ? ` (+${gamificationResult.points} IC)` 
+                ? ` (+${gamificationResult.creditsAwarded} IC)` 
                 : '';
 
           toast({
