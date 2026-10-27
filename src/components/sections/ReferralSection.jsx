@@ -50,13 +50,15 @@ const ReferralSection = () => {
             .select('id', { count: 'exact' })
             .eq('user_id', user.id); 
 
-          const { data: creditData } = await supabase
-            .from('gamification_history')
-            .select('impact_credits_awarded')
+          // FUENTE ATÓMICA: ic_ledger (Fase 2) — suma de créditos por referidos
+          const { data: ledgerRefData, error: ledgerRefError } = await supabase
+            .from('ic_ledger')
+            .select('amount')
             .eq('user_id', user.id)
-            .ilike('action_type', '%referral%');
-            
-          const totalCredits = creditData ? creditData.reduce((sum, item) => sum + (Number(item.impact_credits_awarded) || 0), 0) : 0;
+            .ilike('source', '%referral%');
+
+          if (ledgerRefError) console.error("Error fetching referral ic_ledger:", ledgerRefError);
+          const totalCredits = (ledgerRefData || []).reduce((sum, item) => sum + (Number(item.amount) || 0), 0);
 
           if (mounted) {
             setReferralStats({
