@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { motion } from 'framer-motion';
-import { Loader2, Mail, Lock, User, Leaf, ArrowRight, Home, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Loader2, Mail, Lock, User, ArrowRight, Home, CheckCircle2, AlertCircle } from 'lucide-react';
 import ForgotPasswordModal from '@/components/ForgotPasswordModal';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher'; 

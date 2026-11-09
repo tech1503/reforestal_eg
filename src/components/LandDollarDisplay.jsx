@@ -15,7 +15,6 @@ const LandDollarDisplay = ({
   profile,
   landDollar, 
   loading,
-  onRegenerate,
   giftShortCode
 }) => {
   const { t } = useTranslation();
@@ -42,7 +41,7 @@ const LandDollarDisplay = ({
     setIsDownloading(true);
     try {
       const canvas = await html2canvas(qrWrapperRef.current, { scale: 2 });
-      const blob = await canvas.toBlob((blob) => {
+      canvas.toBlob((blob) => {
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;

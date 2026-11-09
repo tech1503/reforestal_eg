@@ -41,7 +41,7 @@ const ImpactCreditsManagement = () => {
       .subscribe();
       
     return () => supabase.removeChannel(sub);
-  }, []);
+  }, [fetchCredits, fetchUsers]);
 
   const fetchCredits = async () => {
     setLoading(true);

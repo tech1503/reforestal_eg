@@ -88,7 +88,6 @@ const PremiumDashboard = () => {
       ...baseBenefits
   ];
 
-  const landDollarDisplayValue = landDollar ? t('dashboard.premium.active_asset') : t('dashboard.premium.pending');
   const isPioneerApproved = pioneerStatus === 'approved';
   const firstName = profile?.name ? profile.name.trim().split(' ')[0] : 'Explorer';
 
@@ -257,7 +256,7 @@ const PremiumDashboard = () => {
 // ==========================================
 // COMPONENTE: StatCard (Rediseño Premium)
 // ==========================================
-const StatCard = ({ icon: Icon, iconColor, bgColor, label, value, highlight }) => (
+const StatCard = ({ icon: Icon, iconColor, bgColor, label, value }) => (
   <Card variant="premium" className="group relative overflow-hidden bg-[#063127] border-gold/30 shadow-lg hover:shadow-glow transition-all flex flex-col justify-center h-full min-h-[160px]">
      {/* Textura de fondo */}
      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none" />

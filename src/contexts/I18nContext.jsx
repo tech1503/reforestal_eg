@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo, useEffect } from 'react';
+import React, { createContext, useContext, useMemo, useEffect, useCallback } from 'react';
 import { I18nextProvider, useTranslation } from 'react-i18next';
 import i18n from '@/i18n';
 import { supabase } from '@/lib/customSupabaseClient';
@@ -21,7 +21,7 @@ const I18nStateProvider = ({ children }) => {
   const { t, i18n: i18nInstance } = useTranslation();
   const { user } = useAuth();
 
-  const changeLanguage = async (lang) => {
+  const changeLanguage = useCallback(async (lang) => {
     i18nInstance.changeLanguage(lang);
     localStorage.setItem('i18nextLng', lang);
     
@@ -36,7 +36,7 @@ const I18nStateProvider = ({ children }) => {
          console.error("Failed to save language preference", error);
        }
     }
-  };
+  }, [i18nInstance, user]);
 
   // Load language from user metadata on login if available
   useEffect(() => {
@@ -52,7 +52,7 @@ const I18nStateProvider = ({ children }) => {
     t,
     changeLanguage,
     currentLanguage: i18nInstance.language,
-  }), [t, i18nInstance.language]);
+  }), [t, i18nInstance.language, changeLanguage]);
 
   return (
     <I18nContext.Provider value={value}>

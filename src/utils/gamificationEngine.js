@@ -9,8 +9,6 @@ import { emitImpactCredits } from '@/services/impactCreditService';
 const GAMIFICATION_ACTION_TABLE = 'gamification_actions';
 const GAMIFICATION_HISTORY_TABLE = 'gamification_history';
 const FOUNDING_PIONEER_METRICS_TABLE = 'founding_pioneer_metrics';
-const IC_LEDGER_TABLE = 'ic_ledger';
-const FINANCIAL_CONTEXT_VIEW = 'financial_context_view';
 
 /**
  * Busca el mensaje de éxito traducido en la base de datos.
@@ -90,33 +88,6 @@ async function consumePointsLIFO(userId, pointsToConsume) {
     } catch (e) {
         console.error(`[Gamification] Unexpected error consuming points:`, e);
         return { success: false, error: e.message };
-    }
-}
-
-/**
- * Get user points (green vs gold) via financial_context_view.
- */
-async function getUserPoints(userId) {
-    try {
-        const { data, error } = await supabase
-            .from(FINANCIAL_CONTEXT_VIEW)
-            .select('green_basket_points, gold_basket_points, total_ic_ledger_balance')
-            .eq('user_id', userId)
-            .maybeSingle();
-
-        if (error) {
-            console.error('[Gamification] Error fetching user points from view:', error);
-            return { totalPoints: 0, greenPoints: 0, goldPoints: 0 };
-        }
-
-        const greenPoints = data?.green_basket_points || 0;
-        const goldPoints = data?.gold_basket_points || 0;
-        const totalPoints = data?.total_ic_ledger_balance || (greenPoints + goldPoints);
-
-        return { totalPoints, greenPoints, goldPoints };
-    } catch (e) {
-        console.error('[Gamification] Unexpected error in getUserPoints:', e);
-        return { totalPoints: 0, greenPoints: 0, goldPoints: 0 };
     }
 }
 

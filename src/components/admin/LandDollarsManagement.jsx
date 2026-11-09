@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Loader2, ExternalLink, Image as ImageIcon } from 'lucide-react';
+import { Loader2, ExternalLink } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 
 const LandDollarsManagement = () => {
@@ -14,9 +14,9 @@ const LandDollarsManagement = () => {
 
     useEffect(() => {
         fetchLandDollars();
-    }, []);
+    }, [fetchLandDollars]);
 
-    const fetchLandDollars = async () => {
+    const fetchLandDollars = useCallback(async () => {
         setLoading(true);
         const { data, error } = await supabase
             .from('land_dollar_tokens')
@@ -33,7 +33,7 @@ const LandDollarsManagement = () => {
             setLandDollars(data || []);
         }
         setLoading(false);
-    };
+    }, [toast]);
 
     return (
         <Card>

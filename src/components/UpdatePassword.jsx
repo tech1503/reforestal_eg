@@ -20,7 +20,9 @@ const UpdatePassword = () => {
   
   // Loading & Safety States
   const [isLoading, setIsLoading] = useState(true); 
-  const [showSecurityMessage, setShowSecurityMessage] = useState(false);
+  // `showSecurityMessage` no se lee en el JSX (solo se dispara), por eso se
+  // descarta el valor pero se conserva el setter que usa el flujo de reset.
+  const [, setShowSecurityMessage] = useState(false);
   const [sessionVerificationFailed, setSessionVerificationFailed] = useState(false);
   
   const [isSuccess, setIsSuccess] = useState(false);
@@ -73,7 +75,7 @@ const UpdatePassword = () => {
 
     checkSessionImmediately();
 
-    const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
+    const { data: authListener } = supabase.auth.onAuthStateChange(async (event) => {
       if (!mounted) return;
 
       if (event === 'PASSWORD_RECOVERY' || event === 'SIGNED_IN') {

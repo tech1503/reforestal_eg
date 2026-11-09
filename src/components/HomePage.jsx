@@ -11,7 +11,6 @@ import logoLandDollar from '@/assets/land-dolar-base1.webp';
 import vegReforest from '@/assets/vegetacion-reforestal.webp';
 import InfoSections from '@/pages/InfoSections';
 import logoReforestal from '@/assets/icons/logo-dorado.png';
-import Impressum from '@/pages/Impressum';
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -37,7 +36,6 @@ const HomePage = () => {
     { icon: <Users className="w-8 h-8" />, title: t('home.feature_join_title'), description: t('home.feature_join_desc'), color: "from-cyan-400 to-blue-500" }
   ];
   
-  const scrollTo = id => { const element = document.getElementById(id); if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
 
   return (
     <div className="bg-light dark:bg-darkBgDeep text-foreground font-sans selection:bg-gold selection:text-darkBgDeep overflow-x-hidden">

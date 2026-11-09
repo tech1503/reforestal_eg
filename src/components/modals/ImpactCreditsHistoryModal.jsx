@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { supabase } from '@/lib/customSupabaseClient';
@@ -17,9 +17,9 @@ const ImpactCreditsHistoryModal = ({ isOpen, onClose }) => {
     if (isOpen && user?.id) {
       fetchHistory();
     }
-  }, [isOpen, user?.id]);
+  }, [isOpen, user?.id, fetchHistory]);
 
-  const fetchHistory = async () => {
+  const fetchHistory = useCallback(async () => {
     try {
       setLoading(true);
       const { data, error } = await supabase
@@ -35,7 +35,7 @@ const ImpactCreditsHistoryModal = ({ isOpen, onClose }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user?.id]);
 
   const getSourceLabel = (source) => {
     // Map internal source keys to translation keys

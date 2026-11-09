@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
 import { useTranslation } from 'react-i18next'; 
 
-const ShareQRModal = ({ isOpen, onClose, linkRef, imageUrl }) => {
+const ShareQRModal = ({ isOpen, onClose, linkRef }) => {
   const { toast } = useToast();
   const { t } = useTranslation(); 
   const [copied, setCopied] = React.useState(false);

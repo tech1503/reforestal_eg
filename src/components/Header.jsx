@@ -16,7 +16,7 @@ import UserNotificationCenter from '@/components/ui/UserNotificationCenter';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
 import ThemeSwitcher from '@/components/ThemeSwitcher'; 
 
-const Header = ({ activeSection, toggleSidebar, isSidebarOpen }) => {
+const Header = ({ activeSection }) => {
   const { t } = useTranslation();
   const { signOut, profile, user } = useAuth();
   const navigate = useNavigate();

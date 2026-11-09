@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { AlertCircle, Clock } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import FoundingPioneerEvaluationIcon from './FoundingPioneerEvaluationIcon';
 
 const FoundingPioneerTemporaryNotice = ({ status = 'pending' }) => {

@@ -18,7 +18,6 @@ const flattenKeys = (obj, prefix = '') => {
 };
 
 describe('Multilingual Support', () => {
-  const enKeys = Object.keys(flattenKeys(en));
   const deKeys = Object.keys(flattenKeys(de));
   const esKeys = Object.keys(flattenKeys(es));
   const frKeys = Object.keys(flattenKeys(fr));

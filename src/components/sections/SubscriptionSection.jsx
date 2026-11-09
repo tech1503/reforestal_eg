@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Check, Crown, Shield, Zap, Leaf, Sparkles, ChevronRight, Star, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
-import { useAuth } from '@/contexts/SupabaseAuthContext';
 
 const SubscriptionSection = () => {
   const { t } = useTranslation();
-  const { profile } = useAuth();
   const [isAnnual, setIsAnnual] = useState(false);
 
   const plans = [

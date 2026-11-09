@@ -1,13 +1,5 @@
-import { supabase } from '@/lib/customSupabaseClient';
 
 export const runFullAudit = async () => {
-  const auditResults = {
-    tables: {},
-    relationships: [],
-    rowCounts: {},
-    samples: {}
-  };
-
   try {
     // 1. Fetch Columns
     // Since we can't easily query information_schema via JS client RLS usually blocks it, 

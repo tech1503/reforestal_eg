@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Info, CheckCircle, ShieldCheck, Package, Coins, Leaf, Zap, Calendar, Wallet, Users, Target, Rocket } from 'lucide-react';
+import { Info, CheckCircle, ShieldCheck, Package, Coins, Leaf, Zap, Calendar, Wallet, Users, Target } from 'lucide-react';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useFinancial } from '@/contexts/FinancialContext'; 
@@ -22,7 +22,7 @@ import { useNavigate } from 'react-router-dom';
 import { getBenefitIcon } from '@/components/Icons/CustomIcons';
 import ReforestaProjectWidget from '@/components/ReforestaProjectWidget';
 import ImpactProfileProgress from '@/components/ui/ImpactProfileProgress';
-import { format, differenceInDays } from 'date-fns';
+import { format } from 'date-fns';
 import { formatNumber, formatCurrency } from '@/lib/utils';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 
@@ -54,7 +54,7 @@ const DashboardSection = () => {
   const { landDollar, impactCredits, immatureBalance, matureBalance, loading: financialLoading } = useFinancial();
 
   const [contributionData, setContributionData] = useState(null);
-  const [userBenefit, setUserBenefit] = useState(null);
+  const [, setUserBenefit] = useState(null);
   const [localLoading, setLocalLoading] = useState(true);
 
   const [simAmount, setSimAmount] = useState('');

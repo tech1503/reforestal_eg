@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Loader, ArrowRight, Leaf, Shield, Users, LogIn, CheckCircle2 } from 'lucide-react';
+import { Loader, ArrowRight, Leaf, LogIn, CheckCircle2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/lib/customSupabaseClient';
@@ -13,7 +13,6 @@ import {
   DialogDescription 
 } from "@/components/ui/dialog";
 import { Link, useNavigate } from 'react-router-dom';
-import { getInvestorProfileBySlug } from '@/constants/investorProfiles';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { executeGamificationAction } from '@/utils/gamificationEngine';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher'; 
@@ -39,12 +38,6 @@ const FALLBACK_QUESTIONS = [
     ]
   }
 ];
-
-const PROFILE_ICONS = {
-  ambiente: Leaf,
-  colaboracion: Shield,
-  datos_solidos: Users
-};
 
 // Componente para inyectar el gradiente SVG para los iconos de Lucide
 const GoldGradientSVG = () => (
@@ -132,7 +125,7 @@ const Question = ({ questionData, onSelect, selectedOptionType }) => {
   );
 };
 
-const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
+const GenesisResultModal = ({ isOpen, onClose }) => {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const { user } = useAuth();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Leaf, Shield, Users, ArrowRight, Trees } from 'lucide-react';
+import { Leaf, Shield, Users, ArrowRight } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';

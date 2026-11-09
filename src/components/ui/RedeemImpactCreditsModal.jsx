@@ -49,7 +49,7 @@ const RedeemImpactCreditsModal = ({ isOpen, onClose, currentBalance = 0 }) => {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => !loading && onClose()}>
+    <Dialog open={isOpen} onOpenChange={() => !loading && onClose()}>
       <DialogContent className="sm:max-w-[500px]">
         <AnimatePresence mode="wait">
           {success ? (

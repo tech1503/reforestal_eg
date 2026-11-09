@@ -14,7 +14,6 @@ import { Loader2, User, Save, Sparkles, MapPin, Phone, Mail, Camera, Upload } fr
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
-import { getInvestorProfileBySlug } from '@/constants/investorProfiles';
 import ImpactProfileProgress from '@/components/ui/ImpactProfileProgress';
 
 const ProfileSettings = () => {

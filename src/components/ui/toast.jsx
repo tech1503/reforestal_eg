@@ -35,10 +35,9 @@ const toastVariants = cva(
 );
 
 /**
- * CAMBIO APLICADO:
- * Se desestructura 'dismiss' para evitar que se propague al DOM a través de '...props'.
+ * Componente Toast para mostrar notificaciones temporales.
  */
-const Toast = React.forwardRef(({ className, variant, dismiss, ...props }, ref) => {
+const Toast = React.forwardRef(({ className, variant, ...props }, ref) => {
     return (
         <ToastPrimitives.Root
             ref={ref}

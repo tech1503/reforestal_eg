@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate, Navigate } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Loader2, AlertCircle } from 'lucide-react';
 import PageDollar from '@/pages/PageDollar';
@@ -8,7 +8,6 @@ import PagePeter from '@/pages/PagePeter';
 
 const DynamicRouteHandler = ({ fallback }) => {
 const { username } = useParams();
-const navigate = useNavigate();
 
 // 1. SOLUCIÓN AL ENCODING: Decodificamos "%24" para que vuelva a ser "$" y otros caracteres especiales. Esto es importante para que los QRs funcionen correctamente. 
 let slug = '';

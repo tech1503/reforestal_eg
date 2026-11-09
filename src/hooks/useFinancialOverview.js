@@ -9,19 +9,19 @@ export const useFinancialOverview = () => {
         loading 
     } = useFinancial();
 
-    // Normalizar: FinancialContext devuelve objetos únicos (maybeSingle),
-    // pero este hook espera arrays. Normalizamos para .reduce().
-    const contributionsList = contributions 
-        ? (Array.isArray(contributions) ? contributions : [contributions]) 
-        : [];
-    const landDollarsList = landDollars 
-        ? (Array.isArray(landDollars) ? landDollars : [landDollars]) 
-        : [];
-    const impactCreditsList = impactCredits 
-        ? (Array.isArray(impactCredits) ? impactCredits : [impactCredits]) 
-        : [];
-
     const stats = useMemo(() => {
+        // Normalizar: FinancialContext devuelve objetos únicos (maybeSingle),
+        // pero este hook espera arrays. Normalizamos para .reduce().
+        const contributionsList = contributions 
+            ? (Array.isArray(contributions) ? contributions : [contributions]) 
+            : [];
+        const landDollarsList = landDollars 
+            ? (Array.isArray(landDollars) ? landDollars : [landDollars]) 
+            : [];
+        const impactCreditsList = impactCredits 
+            ? (Array.isArray(impactCredits) ? impactCredits : [impactCredits]) 
+            : [];
+
         const totalContributions = contributionsList.reduce((sum, c) => 
             sum + parseFloat(c.contribution_amount || 0), 0);
         const totalLandDollars = landDollarsList.reduce((sum, ld) => 

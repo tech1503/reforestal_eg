@@ -178,7 +178,7 @@ const UserManagement = () => {
       if (editingUser.selectedTier && editingUser.selectedTier !== 'none' && (isNewTier || isFundsEmpty)) {
           let tierData = availableTiers.find(t => t.id === editingUser.selectedTier);
           if (tierData) {
-              const { data: rpcData, error: rpcError } = await supabase.rpc('admin_process_contribution', {
+              const { error: rpcError } = await supabase.rpc('admin_process_contribution', {
                   p_user_id: editingUser.id,
                   p_amount: tierData.min_amount,
                   p_notes: 'Admin manual tier assignment',

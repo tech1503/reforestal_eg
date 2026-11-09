@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { generateLandDollarWithQR, downloadLandDollar } from '@/utils/landDollarGenerator';
 
@@ -53,7 +53,7 @@ export const useLandDollar = (userId, profile) => {
     return () => { mounted = false; };
   }, [userId, profile]);
 
-  const generateAndSave = async (shortCode, existingRecord = null) => {
+  const generateAndSave = useCallback(async (shortCode, existingRecord = null) => {
     try {
       setLoading(true);
       const pngDataUrl = await generateLandDollarWithQR(shortCode);
@@ -101,7 +101,7 @@ export const useLandDollar = (userId, profile) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [userId]);
 
   const regenerateQR = async () => {
     if (!landDollar || !userId) return;

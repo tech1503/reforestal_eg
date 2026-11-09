@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { useFinancial } from '@/contexts/FinancialContext';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Button } from '@/components/ui/button';
-import { Zap, Lock, Rocket, Check, Trophy, Target, Loader2, FileText, ShoppingBag, ShieldAlert, Clock, History, Leaf, Shield, Database, Brain, ArrowUpRight, Users } from 'lucide-react'; 
+import { Zap, Lock, Rocket, Check, Trophy, Target, Loader2, FileText, ShoppingBag, ShieldAlert, Clock, History, Leaf, Shield, Database, ArrowUpRight, Users } from 'lucide-react'; 
 import { useToast } from '@/components/ui/use-toast';
 import { cn, formatNumber } from '@/lib/utils'; 
 import { useNavigate } from 'react-router-dom';
@@ -175,7 +175,7 @@ const QuestsSection = () => {
     } finally {
       setLoading(false);
     }
-  }, [user.id, profile?.role, i18n.language, hasGenesisProfile]);
+  }, [user.id, profile?.role, i18n.language, hasGenesisProfile, immatureBalance]);
 
   useEffect(() => {
     if (user?.id) {

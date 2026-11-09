@@ -50,7 +50,7 @@ const AdminNotificationCenter = () => {
         fetchNotifications();
 
         const channel = supabase.channel('admin_notifications_global')
-            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'notifications' }, (_payload) => {
+            .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'notifications' }, () => {
                 fetchNotifications();
                 toast({
                     title: t('admin.notifications.new_activity', 'New Activity'),

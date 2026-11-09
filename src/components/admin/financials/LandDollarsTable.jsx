@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Loader2, ExternalLink, QrCode, Download } from 'lucide-react';
+import { Loader2, QrCode, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 // IMPORTAMOS EL GENERADOR
 import { generateLandDollarWithQR } from '@/utils/landDollarGenerator';

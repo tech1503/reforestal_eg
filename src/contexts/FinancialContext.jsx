@@ -8,7 +8,7 @@ import { useRealtimeProfileUpdate } from '@/hooks/useRealtimeProfileUpdate';
 const FinancialContext = createContext(undefined);
 
 export const FinancialProvider = ({ children }) => {
-  const { user, loading: authLoading, profile } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const {
     userTier,
     tierBenefits,
@@ -46,6 +46,13 @@ export const FinancialProvider = ({ children }) => {
         .select('amount, created_at, tax_origin')
         .eq('user_id', user.id);
 
+      // FUENTE ATÓMICA: suma total de ic_ledger.
+      // Se declara AQUÍ (y no dentro del bloque else) para que siga siendo
+      // visible en el fallback de financial_context_view más abajo (línea del
+      // setPointBalance), que queda fuera del ámbito del if/else.
+      // Si hubo error en el ledger, permanece en 0 y el fallback usa 0.
+      let atomicBalance = 0;
+
       if (ledgerError) {
         console.error("Error fetch ic_ledger:", ledgerError);
         setBalance(0);
@@ -54,8 +61,7 @@ export const FinancialProvider = ({ children }) => {
       } else {
         const now = new Date();
         const ninetyDaysAgo = new Date(now.getTime() - (90 * 24 * 60 * 60 * 1000));
-        
-        let atomicBalance = 0;
+
         let immatureBalanceTemp = 0;  // <90 days = Verde/Inmaduro (solo uso digital)
         let matureBalanceTemp = 0;     // >=90 days = Dorado/Maduro (convertible a dm²)
         
@@ -114,9 +120,9 @@ export const FinancialProvider = ({ children }) => {
         // Cestas calculadas dinámicamente en SQL (NOW() - INTERVAL '90 days')
         setImmatureBalance(viewData.green_basket_points || 0);
         setMatureBalance(viewData.gold_basket_points || 0);
-        setPointBalance(viewData.total_ic_ledger_balance || 0);
+        setPointBalance(matureBalance);
       } else {
-        setPointBalance(atomicBalance); // fallback
+        setPointBalance(matureBalance);
       }
 
       await fetchUserTier();

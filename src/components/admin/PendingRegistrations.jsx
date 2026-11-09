@@ -9,11 +9,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import PendingImpactCredits from '@/components/admin/PendingImpactCredits';
 import { createNotification } from '@/utils/notificationUtils'; 
-import { useTranslation } from 'react-i18next';
 
 const PendingRegistrations = () => {
     const { toast } = useToast();
-    const { t } = useTranslation();
     const [registrations, setRegistrations] = useState([]);
     const [loading, setLoading] = useState(true);
     const [processing, setProcessing] = useState(null);

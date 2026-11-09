@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Loader2, Database, Table as TableIcon, RefreshCw, Eye } from 'lucide-react';
+import { Loader2, Database, RefreshCw } from 'lucide-react';
 
 const SchemaMapper = () => {
   const [loading, setLoading] = useState(true);
@@ -50,7 +50,7 @@ const SchemaMapper = () => {
 
   useEffect(() => {
     fetchSchemaData();
-  }, []);
+  }, [fetchSchemaData]);
 
   if (loading) return <div className="flex h-96 items-center justify-center"><Loader2 className="animate-spin text-primary w-8 h-8"/></div>;
 

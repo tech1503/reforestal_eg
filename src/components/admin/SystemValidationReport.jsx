@@ -143,7 +143,7 @@ const SystemValidationReport = () => {
 
     useEffect(() => {
         runValidation();
-    }, []);
+    }, [runValidation]);
 
     return (
         <div className="space-y-6">

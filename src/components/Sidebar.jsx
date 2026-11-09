@@ -14,7 +14,6 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { cn } from '@/lib/utils';
-import { useToast } from '@/components/ui/use-toast';
 import { useNavigate } from 'react-router-dom';
 import logoDorado from '@/assets/icons/Logo-Reforestal-1.svg';
 
@@ -34,7 +33,6 @@ const GoldGradientSVG = () => (
 const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, isPremium = false }) => {
   const { t } = useTranslation();
   const { signOut } = useAuth();
-  const { toast } = useToast();
   const navigate = useNavigate();
 
   const basePath = '/dashboard';

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -19,9 +19,9 @@ const AdminFoundingPioneerRanking = () => {
             .on('postgres_changes', { event: '*', schema: 'public', table: 'founding_pioneer_metrics' }, fetchRanking)
             .subscribe();
         return () => supabase.removeChannel(channel);
-    }, []);
+    }, [fetchRanking]);
 
-    const fetchRanking = async () => {
+    const fetchRanking = useCallback(async () => {
         setLoading(true);
         // Using 'founding_pioneer_metrics'
         const { data, error } = await supabase
@@ -34,14 +34,14 @@ const AdminFoundingPioneerRanking = () => {
         if (error) toast({ variant: 'destructive', title: 'Error', description: error.message });
         else setRanking(data || []);
         setLoading(false);
-    };
+    }, [toast]);
 
     const handleLimitToTop100 = async () => {
         if (!window.confirm("WARNING: This will REVOKE access for all approved users currently ranked below 100. Continue?")) return;
         
         setProcessing(true);
         try {
-            const { data, error } = await supabase.rpc('limit_founding_pioneers_top_100');
+            const { error } = await supabase.rpc('limit_founding_pioneers_top_100');
             if (error) throw error;
             toast({ title: 'Success', description: `Top 100 Enforced.` });
             fetchRanking(); 

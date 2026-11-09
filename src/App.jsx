@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { Toaster } from '@/components/ui/toaster';
-import { useToast } from '@/components/ui/use-toast';
 import { Loader } from 'lucide-react';
 import { Routes, Route, Navigate, useLocation, useParams, useNavigate } from 'react-router-dom';
 import DynamicRouteHandler from './components/DynamicRouteHandler';
@@ -60,7 +59,6 @@ const ReferralHandler = () => {
 const AppContent = () => {
   const { loading, session, profile } = useAuth();
   const location = useLocation();
-  const { toast } = useToast();
 
   useGenesisSync();
   useEffect(() => { runDataIntegrityCheck(); }, []);

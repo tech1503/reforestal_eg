@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Crown, Shield, Star, Award } from 'lucide-react';
+import { Crown, Shield, Star } from 'lucide-react';
 
 const FoundingPioneerIcon = ({ className = "w-24 h-24" }) => {
   return (

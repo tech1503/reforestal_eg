@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
-import { useToast } from '@/components/ui/use-toast';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -10,7 +9,6 @@ import { Loader2, Search, Eye, Star } from 'lucide-react';
 import AdminGamificationMetricsModal from './AdminGamificationMetricsModal';
 
 const AdminGamificationScoring = () => {
-    const { toast } = useToast();
     const [scoring, setScoring] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');

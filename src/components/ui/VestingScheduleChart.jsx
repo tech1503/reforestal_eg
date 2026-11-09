@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BarChart, Calendar } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import { useI18n } from '@/contexts/I18nContext';
 
 const VestingScheduleChart = () => {

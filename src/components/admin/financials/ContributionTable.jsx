@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Eye, Trash2, ExternalLink, Image as ImageIcon } from 'lucide-react';
+import React from 'react';
+import { Trash2, Image as ImageIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useI18n } from '@/contexts/I18nContext';

@@ -12,8 +12,6 @@ import landDollarBaseImg from '@/assets/land-dolar-base1.webp';
  */
 export const generateLandDollarWithQR = async (linkRef, options = {}) => {
   const { format = 'data-url' } = options;
-  const QR_SIZE = 180;
-  const MARGIN_RIGHT = 100;
   const MAX_WIDTH = 1920;
 
   try {

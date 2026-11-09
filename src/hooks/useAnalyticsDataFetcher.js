@@ -90,7 +90,7 @@ export const useAnalyticsDataFetcher = () => {
     // Subscribe to contributions changes
     const contribChannel = supabase
       .channel('contributions_analytics')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'contributions' }, (payload) => {
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'contributions' }, () => {
         console.log('Contribution change detected, refreshing analytics...');
         fetchFinancialData();
       })
@@ -99,7 +99,7 @@ export const useAnalyticsDataFetcher = () => {
     // Subscribe to impact_credits changes
     const creditsChannel = supabase
       .channel('impact_credits_analytics')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'impact_credits' }, (payload) => {
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'impact_credits' }, () => {
         console.log('Credits change detected, refreshing analytics...');
         fetchFinancialData();
       })
@@ -108,7 +108,7 @@ export const useAnalyticsDataFetcher = () => {
     // Subscribe to user_purchases changes
     const purchasesChannel = supabase
       .channel('user_purchases_analytics')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'user_purchases' }, (payload) => {
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'user_purchases' }, () => {
         console.log('Purchase change detected, refreshing analytics...');
         fetchExchangeData();
       })

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { useFinancial } from '@/contexts/FinancialContext';
@@ -21,13 +21,6 @@ const LandDollarQRScanner = ({ onClose }) => {
 
   // Si el usuario ya tiene un Land Dollar, mostrar notificación
   const hasLandDollar = profile?.land_dollar || profile?.hasLandDollar || landDollar;
-
-  const handleScanComplete = (result) => {
-    if (result && !scanResult) {
-      setScanResult(result);
-      setIsScanning(false);
-    }
-  };
 
   const simulateQRScan = () => {
     setIsScanning(true);
@@ -76,7 +69,7 @@ const LandDollarQRScanner = ({ onClose }) => {
       const pointsAmount = pointsToGrant; // Puntos como unidades
 
       // Insertar en ic_ledger
-      const { data, error: insertError } = await supabase
+      const { error: insertError } = await supabase
         .from('ic_ledger')
         .insert({
           user_id: user.id,

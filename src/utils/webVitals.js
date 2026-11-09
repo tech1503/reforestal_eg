@@ -1,6 +1,6 @@
 import { onCLS, onFID, onLCP } from 'web-vitals';
 
-const reportHandler = (metric) => {
+const reportHandler = () => {
   // In a real production app, you would send this to an analytics endpoint
   // console.log(metric); 
 };
