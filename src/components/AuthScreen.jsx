@@ -219,7 +219,7 @@ const AuthScreen = () => {
                  </div>
 
                  <Button type="submit" disabled={loading || (!isLogin && !!nicknameError)} className="w-full h-12 mt-2">
-                    {loading ? <Loader2 className="animate-spin mr-2" /> : (isLogin ? t('auth.sign_in') : t('auth.sign_up'))}
+                    {loading ? <Loader2 className="animate-spin mr-2" /> : <span>{isLogin ? t('auth.sign_in') : t('auth.sign_up')}</span>}
                     {!loading && <ArrowRight className="ml-2 w-4 h-4" />}
                  </Button>
 
@@ -243,7 +243,7 @@ const AuthScreen = () => {
                  <p className="text-slate-600 text-sm">
                     {isLogin ? t('auth.no_account') : t('auth.has_account')}
                     <button onClick={() => setIsLogin(!isLogin)} className="ml-2 text-[#5b8370] font-bold hover:text-[#063127] hover:underline transition-colors">
-                       {isLogin ? t('auth.sign_up') : t('auth.sign_in')}
+                       <span>{isLogin ? t('auth.sign_up') : t('auth.sign_in')}</span>
                     </button>
                  </p>
               </div>
