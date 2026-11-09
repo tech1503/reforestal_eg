@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Search, Plus, Coins, MoreVertical, Edit, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -41,9 +41,9 @@ const ImpactCreditsManagement = () => {
       .subscribe();
       
     return () => supabase.removeChannel(sub);
-  }, [fetchCredits, fetchUsers]);
+  }, [fetchCredits, fetchUsers, setLoading]);
 
-  const fetchCredits = async () => {
+  const fetchCredits = useCallback(async () => {
     setLoading(true);
     const { data, error } = await supabase
       .from('impact_credits')
@@ -56,12 +56,12 @@ const ImpactCreditsManagement = () => {
       setCredits(data || []);
     }
     setLoading(false);
-  };
+  }, [toast, t]);
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     const { data, error } = await supabase.from('profiles').select('id, name, email');
     if (!error) setUsers(data || []);
-  };
+  }, [setUsers]);
 
   const handleSaveCredit = async () => {
     if (!formData.amount) {

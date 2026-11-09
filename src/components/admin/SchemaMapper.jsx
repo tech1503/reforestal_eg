@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -17,7 +17,7 @@ const SchemaMapper = () => {
     { name: 'user_benefits', label: 'User Benefits', count: 0, samples: [] }
   ]);
 
-  const fetchSchemaData = async () => {
+  const fetchSchemaData = useCallback(async () => {
     setLoading(true);
     const updatedTables = [];
 
@@ -46,7 +46,7 @@ const SchemaMapper = () => {
     }
     setTables(updatedTables);
     setLoading(false);
-  };
+  }, [tables]);
 
   useEffect(() => {
     fetchSchemaData();

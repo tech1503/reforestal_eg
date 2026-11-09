@@ -132,7 +132,7 @@ export const FinancialProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  }, [user?.id, fetchUserTier]); 
+  }, [user?.id, matureBalance, fetchUserTier]); 
 
   useEffect(() => {
     if (user?.id && !authLoading) {

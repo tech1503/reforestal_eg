@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Copy, Share2, Users, Gift, TrendingUp, AlertCircle, Loader2, Check } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useToast } from '@/components/ui/use-toast';
+import { Users, Gift, TrendingUp, Loader2 } from 'lucide-react';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { useFinancial } from '@/contexts/FinancialContext';
 import { useRealtimeProfileUpdate } from '@/hooks/useRealtimeProfileUpdate';
 import { supabase } from '@/lib/customSupabaseClient';
-import LandDollarDisplay from '@/components/LandDollarDisplay'; 
 import MyzelGiftPanel from '@/components/sections/MyzelGiftPanel';
 import { useTranslation } from 'react-i18next';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -15,7 +12,6 @@ import { formatNumber } from '@/lib/utils';
 
 const ReferralSection = () => {
   const { user, profile, loading: authLoading } = useAuth();
-  const { toast } = useToast();
   const { t } = useTranslation();
 
   const { userTier, landDollar, loading: financialLoading } = useFinancial();
@@ -24,10 +20,8 @@ const ReferralSection = () => {
   const [referralCode, setReferralCode] = useState('');
   const [referralStats, setReferralStats] = useState({ total: 0, active: 0, credits: 0 });
   const [statsLoading, setStatsLoading] = useState(true);
-  const [copied, setCopied] = useState(false);
 
-  const isLocked = !user; 
-  const isSuspended = landDollar?.status === 'suspended' || landDollar?.status === 'blocked';
+  const isLocked = !user;
 
   useEffect(() => {
     let mounted = true;
@@ -86,21 +80,6 @@ const ReferralSection = () => {
       setStatsLoading(false);
     }
   }, [user, profile, landDollar]);
-
-  const handleCopyLink = () => {
-    if (isSuspended) {
-        toast({ variant: "destructive", title: "Account Suspended", description: "Referral actions are disabled." });
-        return;
-    }
-    if (!referralCode || referralCode === 'GENERATING...') return;
-
-    const link = `${window.location.origin}/${referralCode}`;
-    navigator.clipboard.writeText(link).then(() => {
-      setCopied(true);
-      toast({ title: t('common.copied_clipboard'), description: link });
-      setTimeout(() => setCopied(false), 2000);
-    });
-  };
 
   const statsCards = [
       { title: t('dashboard.referrals.total', 'Total Referrals'), value: referralStats.total, icon: Users, color: 'blue' },
