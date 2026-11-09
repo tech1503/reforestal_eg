@@ -12,11 +12,28 @@ const LandDollarsManagement = () => {
     const [loading, setLoading] = useState(true);
     const { toast } = useToast();
 
+    const fetchLandDollars = useCallback(async () => {
+        setLoading(true);
+        const { data, error } = await supabase
+            .from('land_dollar_tokens')
+            .select(`
+                *,
+                profiles:first_claimed_by_user_id(name, email)
+            `)
+            .order('created_at', { ascending: false });
+
+        if (error) {
+            console.error(error);
+            toast({variant: "destructive", title: "Error fetching Land Dollars"});
+        } else {
+            setLandDollars(data || []);
+        }
+        setLoading(false);
+    }, [toast]);
+
     useEffect(() => {
         fetchLandDollars();
     }, [fetchLandDollars]);
-
-    const fetchLandDollars = useCallback(async () => {
         setLoading(true);
         const { data, error } = await supabase
             .from('land_dollar_tokens')

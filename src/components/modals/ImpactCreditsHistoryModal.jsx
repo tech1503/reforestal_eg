@@ -13,12 +13,6 @@ const ImpactCreditsHistoryModal = ({ isOpen, onClose }) => {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (isOpen && user?.id) {
-      fetchHistory();
-    }
-  }, [isOpen, user?.id, fetchHistory]);
-
   const fetchHistory = useCallback(async () => {
     try {
       setLoading(true);
@@ -36,6 +30,12 @@ const ImpactCreditsHistoryModal = ({ isOpen, onClose }) => {
       setLoading(false);
     }
   }, [user?.id]);
+
+  useEffect(() => {
+    if (isOpen && user?.id) {
+      fetchHistory();
+    }
+  }, [isOpen, user?.id, fetchHistory]);
 
   const getSourceLabel = (source) => {
     // Map internal source keys to translation keys
