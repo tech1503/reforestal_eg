@@ -42,6 +42,38 @@
     "settings": "Einstellungen",
     "logout": "Abmelden"
   },
+  "myzel": {
+    "title": "Mein Netz / Myzel",
+    "subtitle": "Baue ein horizontales Netz. Verschenke, teile und wachse als Team.",
+    "select_gift": "Geschenk auswählen...",
+    "option_points": "Anzahl Punkte/Boni (wird vom LIFO abgezogen)",
+    "option_participation": "1 dm² = (Beteiligung an der Genossenschaft)",
+    "option_digital": "Ein digitales Produkt aus dem Tausch (E-Commerce)",
+    "option_mission": "Mission verschenken (Mission für einen Freund freischalten)",
+    "points_placeholder": "Anzahl Punkte",
+    "participation_placeholder": "Fläche in dm² (z. B. 100)",
+    "digital_placeholder": "Digitale Produkt-ID (z. B. prod_123)",
+    "send_gift": "Geschenk senden",
+    "invalid_amount": "Bitte einen gültigen Betrag eingeben.",
+    "gift_generated": "Geschenk erfolgreich erstellt!",
+    "coming_soon": "Demnächst",
+    "in_development": "Diese Option wird in der nächsten Phase angebunden.",
+    "gift_title": "Hier ist dein Geschenk! 🎁",
+    "gift_desc": "Lade den Land Dollar herunter oder kopiere den Link zum Senden.",
+    "close_create_another": "Schließen und ein weiteres Geschenk erstellen",
+    "gift_error_default": "Unbekannter Fehler beim Erstellen des Geschenks.",
+    "wallet": {
+      "title": "Dein Myzel-Wallet",
+      "subtitle": "Echter Saldo, gelesen aus derselben Quelle wie dein Dashboard.",
+      "synced": "Mit deinem Dashboard synchronisiert",
+      "bonos_label": "Verfügbare Boni",
+      "bonos_unit": "Boni",
+      "bonos_hint": "Bereit zum Verschenken in deinem Myzel-Netz.",
+      "participations_label": "Beteiligungen (dm²)",
+      "participations_value": "0 - Demnächst",
+      "participations_hint": "Umwandlung in dm² in der nächsten Phase aktiviert."
+    }
+  },
   "dashboard": {
     "registration_date": "Registrierungsdatum",
     "title": "Übersicht",

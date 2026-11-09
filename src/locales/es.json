@@ -30,6 +30,7 @@
     "dashboard": "Panel de Control",
     "subscription": "Suscripción",
     "referral": "Referidos",
+    "myzel": "Mi Red",
     "exchange": "Canje",
     "quests": "Misiones",
     "founding_members": "Miembros Fundadores",
@@ -41,6 +42,38 @@
     "profile": "Perfil",
     "settings": "Configuración",
     "logout": "Cerrar Sesión"
+  },
+  "myzel": {
+    "title": "Mi Red / Myzel",
+    "subtitle": "Construye una red horizontal. Regala, comparte y crece en equipo.",
+    "select_gift": "Selecciona un regalo...",
+    "option_points": "Cantidad de puntos/bonos (Descuenta del LIFO)",
+    "option_participation": "1 dm² = (Participación en la Cooperativa)",
+    "option_digital": "Un producto digital del Trueque (E-commerce)",
+    "option_mission": "Regalar una Misión (Desbloquear misión a un amigo)",
+    "points_placeholder": "Cantidad de puntos",
+    "participation_placeholder": "Área en dm² (ej. 100)",
+    "digital_placeholder": "ID del producto digital (ej. prod_123)",
+    "send_gift": "Enviar Regalo",
+    "invalid_amount": "Introduce una cantidad válida.",
+    "gift_generated": "¡Regalo generado con éxito!",
+    "coming_soon": "Próximamente",
+    "in_development": "Esta opción se conectará en la próxima fase.",
+    "gift_title": "¡Aquí tienes tu Regalo! 🎁",
+    "gift_desc": "Descarga el Land Dollar o copia el enlace para enviarlo.",
+    "close_create_another": "Cerrar y crear otro regalo",
+    "gift_error_default": "Error desconocido al generar el regalo.",
+    "wallet": {
+      "title": "Tu Billetera Myzel",
+      "subtitle": "Saldo real leído desde la misma fuente que usa tu Dashboard.",
+      "synced": "Sincronizada con tu Dashboard",
+      "bonos_label": "Bonos Disponibles",
+      "bonos_unit": "bonos",
+      "bonos_hint": "Disponibles para regalar en tu red Myzel.",
+      "participations_label": "Participaciones (dm²)",
+      "participations_value": "0 - Próximamente",
+      "participations_hint": "Conversión a dm² habilitada en la próxima fase."
+    }
   },
   "dashboard": {
     "registration_date": "Fecha de Registro",
@@ -68,7 +101,12 @@
     "discover_investor_profile_desc": "Completa la Misión Génesis para identificar tu estilo de impacto y desbloquear beneficios personalizados.",
     "system_quest": "Misión del Sistema",
     "required_quest": "Requerido para Pioneros",
-    "quests": {
+    "skills": {
+    "ambiente": "Ambiente",
+    "colaboracion": "Colaboración",
+    "datos_solidos": "Datos Sólidos"
+  },
+  "quests": {
       "empty_title": "🚀 ¡Próximamente nuevas misiones!",
       "empty_desc": "Estamos trabajando en nuevas misiones para que sigas creciendo y desbloqueando oportunidades. ¡Atento!"
     },
@@ -126,6 +164,27 @@
       "copy_link": "Copiar Enlace",
       "new_title": "¡Nuevo Referido!",
       "new_desc": "Alguien se unió usando tu código."
+    },
+    "myzel": {
+      "title": "Mi Red / Myzel",
+      "subtitle": "Construye una red horizontal. Regala, comparte y crece en equipo.",
+      "generate_qr": "Generar QR de Regalo",
+      "gift_points": "Regalar Puntos",
+      "gift_participation": "Regalar Participación",
+      "gift_digital": "Regalar Digital",
+      "points_amount": " puntos",
+      "participation_amount": " dm²",
+      "select_gift": "¿Qué deseas regalar?",
+      "points_option": "Puntos de Bonificación",
+      "participation_option": "Participación del Paten-Pool",
+      "digital_option": "Producto Digital del Trueque",
+      "generate_link": "Generar Enlace",
+      "copy_link": "Copiar Enlace",
+      "download_qr": "Descargar QR",
+      "share": "Compartir",
+      "personal_cap": "Tu límite de regalos",
+      "cap_hint": "Máximo de puntos que puedes regalar al mes.",
+      "saving": "Guardando..."
     },
     "explorer": {
       "title": "Niveles de Explorador Reforestal",
@@ -1753,6 +1812,73 @@
       "p2": "Si deseas participar desde ya, puedes hacerte miembro de terra utopia y seguirnos en redes sociales.",
       "btn1": "Hazte miembro",
       "btn2": "Reforestal"
+    },
+    "subscription": {
+      "badge": "Myzel 3.0 — Freemium",
+      "title": "Suscripción Freemium",
+      "subtitle": "Elige tu nivel de impacto. Cada plan desbloquea m² reales, grados de misión y acceso al ecosistema Micelio.",
+      "billing_cycle_title": "Selecciona tu ciclo de facturación",
+      "billing_cycle_desc": "Ahorra hasta un 20% con pago anual. Cambia el interruptor para ver precios.",
+      "cycle": {
+        "monthly": "Mensual",
+        "annual": "Anual"
+      },
+      "most_popular": "MÁS POPULAR",
+      "select_plan": "Seleccionar Plan",
+      "model_title": "Modelo Freemium Myzel 3.0",
+      "model_desc": "Todos los planes incluyen acceso base a misiones. El pago activa los grados desbloqueados y aumenta los m² protegidos directos. No hay barrera de entrada: puedes explorar con la Canasta Verde (Inmadura) antes de comprometerte.",
+      "plans": {
+        "explorador": {
+          "name": "Explorador/a",
+          "feature_1": "Acceso a misiones de la categoría desbloqueada",
+          "feature_2": "Puntos inmaduros (Canasta Verde) con LIFO",
+          "feature_3": "Seguimiento de impacto y certificación Land Dollar",
+          "feature_4": "Soporte de la comunidad Reforestal eG"
+        },
+        "guardian": {
+          "name": "Guardián/a",
+          "feature_1": "Acceso a misiones de la categoría desbloqueada",
+          "feature_2": "Puntos inmaduros (Canasta Verde) con LIFO",
+          "feature_3": "Seguimiento de impacto y certificación Land Dollar",
+          "feature_4": "Soporte de la comunidad Reforestal eG"
+        },
+        "campeon": {
+          "name": "Campeón/a",
+          "feature_1": "Acceso a misiones de la categoría desbloqueada",
+          "feature_2": "Puntos inmaduros (Canasta Verde) con LIFO",
+          "feature_3": "Seguimiento de impacto y certificación Land Dollar",
+          "feature_4": "Soporte de la comunidad Reforestal eG"
+        },
+        "paladin": {
+          "name": "Paladín/a",
+          "feature_1": "Acceso a misiones de la categoría desbloqueada",
+          "feature_2": "Puntos inmaduros (Canasta Verde) con LIFO",
+          "feature_3": "Seguimiento de impacto y certificación Land Dollar",
+          "feature_4": "Soporte de la comunidad Reforestal eG"
+        }
+      }
+    },
+    "quest": {
+      "badges": {
+        "premium": "Premium",
+        "pioneer": "Pionero"
+      },
+      "categories": {
+        "A": "Ambiente",
+        "C": "Colaboración",
+        "D": "Datos Sólidos"
+      }
+    },
+    "dashboard": {
+      "vesting": {
+        "title": "Vesting LIFO — 90 días",
+        "subtitle": "Canasta Verde (Inmadura) → Canasta Dorada (Madura)",
+        "green_basket": "Canasta Verde",
+        "gold_basket": "Canasta Dorada",
+        "less_than_90_days": "< 90 días (Digital)",
+        "more_than_90_days": "≥ 90 días (dm²)",
+        "immature_desc": "Inmaduro — Solo uso digital"
+      }
     }
   }
 }

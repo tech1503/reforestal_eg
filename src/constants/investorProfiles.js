@@ -1,45 +1,42 @@
 export const INVESTOR_PROFILES = {
-  Lena: {
-    id: "Lena",
-    slug: "lena",
-    title: "Verified Impact Partner",
-    legacy_title: "Impact Partner",
-    color: "emerald", 
+  ambiente: {
+    id: "ambiente",
+    slug: "ambiente",
+    title: "Ambiente (A)",
+    legacy_title: "Ambiente",
+    color: "emerald",
     gradient: "from-emerald-400 to-teal-500",
-    description: "Driven by sustainability and long-term preservation. You believe in the power of nature."
+    description: "Ecosistemas, biodiversidad y protección del Amazonas. Tu impacto es verde, tangible y duradero."
   },
-  Markus: {
-    id: "Markus",
-    slug: "markus",
-    title: "Sustainable Risk-Controlled Partner",
-    legacy_title: "Conservative Partner",
+  colaboracion: {
+    id: "colaboracion",
+    slug: "colaboracion",
+    title: "Colaboración (C)",
+    legacy_title: "Colaboración",
     color: "blue",
     gradient: "from-blue-400 to-indigo-500",
-    description: "Focused on systems, innovation, and calculated growth. You build the future with precision."
+    description: "Referidos, comunidad Micelio y construcción colectiva. Tu impacto crece con cada alianza."
   },
-  David: {
-    id: "David",
-    slug: "david",
-    title: "Digital Participative Partner",
-    legacy_title: "Community Partner",
-    color: "orange",
-    gradient: "from-amber-400 to-orange-500",
-    description: "You care about people and community impact. You drive change where it is needed most."
+  datos_solidos: {
+    id: "datos_solidos",
+    slug: "datos_solidos",
+    title: "Datos Sólidos (D)",
+    legacy_title: "Datos Sólidos",
+    color: "violet",
+    gradient: "from-violet-400 to-fuchsia-500",
+    description: "Transparencia, gobernanza y evidencia. Tu impacto es medible, auditable y verificable."
   }
 };
 
 export const investorProfiles = Object.values(INVESTOR_PROFILES);
 
 export const getInvestorProfileBySlug = (slugOrId) => {
-  if (!slugOrId) return INVESTOR_PROFILES['Markus']; // Default
-  
+  if (!slugOrId) return INVESTOR_PROFILES['ambiente'];
   const normalizedKey = slugOrId.charAt(0).toUpperCase() + slugOrId.slice(1).toLowerCase();
-
-  // Try to find by Key (Lena), ID (Lena), Slug (lena), or matching slug in values
   return INVESTOR_PROFILES[slugOrId] ||
     INVESTOR_PROFILES[normalizedKey] ||
     Object.values(INVESTOR_PROFILES).find(p => p.slug === slugOrId?.toLowerCase()) ||
-    INVESTOR_PROFILES['Markus'];
+    INVESTOR_PROFILES['ambiente'];
 };
 
 export const getInvestorProfileName = (slugOrId) => {
@@ -48,5 +45,5 @@ export const getInvestorProfileName = (slugOrId) => {
 };
 
 export const getProfileByInternalName = (internalName) => {
-  return INVESTOR_PROFILES[internalName] || INVESTOR_PROFILES['Markus'];
+  return INVESTOR_PROFILES[internalName] || INVESTOR_PROFILES['ambiente'];
 };

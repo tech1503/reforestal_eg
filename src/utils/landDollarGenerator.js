@@ -1,5 +1,5 @@
 import QRCode from 'qrcode';
-import landDollarBaseImg from '@/assets/land-dollar-base1.webp';
+import landDollarBaseImg from '@/assets/land-dolar-base1.webp';
 
 /**
  * Generates a Land Dollar image using native Canvas API with an integrated QR code.

@@ -18,7 +18,7 @@ import ThemeSwitcher from '@/components/ThemeSwitcher';
 
 const Header = ({ activeSection, toggleSidebar, isSidebarOpen }) => {
   const { t } = useTranslation();
-  const { signOut, profile } = useAuth();
+  const { signOut, profile, user } = useAuth();
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
@@ -29,7 +29,7 @@ const Header = ({ activeSection, toggleSidebar, isSidebarOpen }) => {
   const getTitle = () => {
     if (activeSection === 'dashboard') return t('navigation.dashboard');
     if (activeSection === 'founding_members') return t('navigation.founding_pioneer');
-    if (activeSection === 'referral') return t('navigation.referral');
+    if (activeSection === 'myzel') return t('navigation.myzel');
     if (activeSection === 'exchange') return t('navigation.exchange');
     if (activeSection === 'quests') return t('navigation.quests');
     return t('dashboard.title');
@@ -44,7 +44,7 @@ const Header = ({ activeSection, toggleSidebar, isSidebarOpen }) => {
                 {getTitle()}
             </h1>
             <p className="text-xs text-[#5b8370] dark:text-[#c4d1c0]/80 hidden md:block font-medium">
-                {t('dashboard.greeting', { name: profile?.name || 'User' })}
+                {t('dashboard.greeting', { name: user?.user_metadata?.name ?? profile?.name ?? 'Explorer' })}
             </p>
         </div>
       </div>
@@ -74,7 +74,7 @@ const Header = ({ activeSection, toggleSidebar, isSidebarOpen }) => {
           <DropdownMenuContent align="end" className="w-56 bg-card border-border rounded-xl shadow-lg p-1">
             <DropdownMenuLabel className="font-normal px-2 py-2">
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-bold leading-none text-[#063127] dark:text-white">{profile?.full_name || profile?.name || 'User'}</p>
+                <p className="text-sm font-bold leading-none text-[#063127] dark:text-white">{user?.user_metadata?.name ?? profile?.name ?? 'Explorer'}</p>
                 <p className="text-xs leading-none text-[#5b8370] dark:text-[#c4d1c0]/80 mt-1">{profile?.email}</p>
               </div>
             </DropdownMenuLabel>

@@ -8,8 +8,7 @@ import { useRealtimeProfileUpdate } from '@/hooks/useRealtimeProfileUpdate';
 const FinancialContext = createContext(undefined);
 
 export const FinancialProvider = ({ children }) => {
-  const { user, loading: authLoading } = useAuth();
-
+  const { user, loading: authLoading, profile } = useAuth();
   const {
     userTier,
     tierBenefits,
@@ -19,15 +18,20 @@ export const FinancialProvider = ({ children }) => {
 
   useRealtimeProfileUpdate();
 
-  const [balance, setBalance] = useState(0);       
-  const [lifetimeScore, setLifetimeScore] = useState(0); 
+  const [balance, setBalance] = useState(0);        // Total desde ic_ledger
+  const [immatureBalance, setImmatureBalance] = useState(0); // Canasta Verde (<90 días) - calculada dinámicamente
+  const [matureBalance, setMatureBalance] = useState(0);      // Canasta Dorada (>=90 días) - calculada dinámicamente
+  const [lifetimeScore, setLifetimeScore] = useState(0);  // Total impact credits earned
   const [landDollar, setLandDollar] = useState(null);
   const [contributions, setContributions] = useState(null);
+  const [pointBalance, setPointBalance] = useState(0); // Balance total de puntos (ic_ledger amount)
   const [loading, setLoading] = useState(true);
 
   const fetchFinancialData = useCallback(async () => {
     if (!user?.id) {
       setBalance(0);
+      setImmatureBalance(0);
+      setMatureBalance(0);
       setLifetimeScore(0);
       setLandDollar(null);
       setContributions(null);
@@ -39,16 +43,45 @@ export const FinancialProvider = ({ children }) => {
       // FUENTE ATÓMICA ABSOLUTA: ic_ledger (Fase 2) — suma de todos los movimientos
       const { data: ledgerData, error: ledgerError } = await supabase
         .from('ic_ledger')
-        .select('amount')
+        .select('amount, created_at, tax_origin')
         .eq('user_id', user.id);
 
       if (ledgerError) {
         console.error("Error fetch ic_ledger:", ledgerError);
         setBalance(0);
+        setImmatureBalance(0);
+        setMatureBalance(0);
       } else {
-        const atomicBalance = (ledgerData || []).reduce((sum, row) => sum + (Number(row.amount) || 0), 0);
+        const now = new Date();
+        const ninetyDaysAgo = new Date(now.getTime() - (90 * 24 * 60 * 60 * 1000));
+        
+        let atomicBalance = 0;
+        let immatureBalanceTemp = 0;  // <90 days = Verde/Inmaduro (solo uso digital)
+        let matureBalanceTemp = 0;     // >=90 days = Dorado/Maduro (convertible a dm²)
+        
+        (ledgerData || []).forEach(row => {
+          const amount = Number(row.amount) || 0;
+          atomicBalance += amount;
+          
+          const createdAt = new Date(row.created_at);
+          if (createdAt >= ninetyDaysAgo) {
+            // Canasta Verde / Inmadura (<90 días) - solo uso digital
+            immatureBalanceTemp += amount;
+          } else {
+            // Canasta Dorada / Madura (>=90 días) - convertible a dm²
+            matureBalanceTemp += amount;
+          }
+        });
+        
         console.log('Saldo calculado desde ic_ledger:', atomicBalance);
+        console.log('Saldo LIFO:', {
+          total: atomicBalance,
+          verde_inmaduro: immatureBalanceTemp, // <90 días
+          dorada_madura: matureBalanceTemp,    // >=90 días
+        });
         setBalance(atomicBalance);
+        setImmatureBalance(immatureBalanceTemp);
+        setMatureBalance(matureBalanceTemp);
       }
 
       const { data: metrics } = await supabase
@@ -59,7 +92,7 @@ export const FinancialProvider = ({ children }) => {
 
       setLifetimeScore(metrics?.total_impact_credits_earned || 0);
 
-      const { data: ld } = await supabase.from('land_dollars').select('*').eq('user_id', user.id).maybeSingle();
+      const { data: ld } = await supabase.from('land_dollar_tokens').select('*').eq('first_claimed_by_user_id', user.id).maybeSingle();
       setLandDollar(ld);
 
       const { data: contrib } = await supabase.from('contributions')
@@ -69,6 +102,22 @@ export const FinancialProvider = ({ children }) => {
         .limit(1)
         .maybeSingle();
       setContributions(contrib);
+
+      // Consultar vista financial_context_view para cestas verdes/doradas
+      const { data: viewData } = await supabase
+        .from('financial_context_view')
+        .select('green_basket_points, gold_basket_points, total_ic_ledger_balance')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (viewData) {
+        // Cestas calculadas dinámicamente en SQL (NOW() - INTERVAL '90 days')
+        setImmatureBalance(viewData.green_basket_points || 0);
+        setMatureBalance(viewData.gold_basket_points || 0);
+        setPointBalance(viewData.total_ic_ledger_balance || 0);
+      } else {
+        setPointBalance(atomicBalance); // fallback
+      }
 
       await fetchUserTier();
 
@@ -87,11 +136,13 @@ export const FinancialProvider = ({ children }) => {
         .channel('financial_updates_global')
         .on('postgres_changes', { event: '*', schema: 'public', table: 'founding_pioneer_metrics', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
         .on('postgres_changes', { event: '*', schema: 'public', table: 'user_purchases', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'land_dollars', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'land_dollar_tokens', filter: `first_claimed_by_user_id=eq.${user.id}` }, () => fetchFinancialData())
         .on('postgres_changes', { event: '*', schema: 'public', table: 'contributions', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
         // Fase 2: Escuchar cambios en la economía atómica (ic_ledger y impact_credits)
         .on('postgres_changes', { event: '*', schema: 'public', table: 'ic_ledger', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
         .on('postgres_changes', { event: '*', schema: 'public', table: 'impact_credits', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
+        // Suscripción a share_conversions (cosechas § 15b GenG)
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'share_conversions', filter: `user_id=eq.${user.id}` }, () => fetchFinancialData())
         .subscribe();
 
       return () => { supabase.removeChannel(channel); };
@@ -101,16 +152,19 @@ export const FinancialProvider = ({ children }) => {
   }, [user?.id, authLoading, fetchFinancialData]); 
 
   const value = useMemo(() => ({
-    balance,           
-    impactCredits: balance, 
-    lifetimeScore,     
+    balance,
+    immatureBalance,
+    matureBalance,
+    impactCredits: balance,
+    lifetimeScore,
     landDollar,
     contributions,
+    pointBalance,
     userTier,
     tierBenefits,
     loading: loading || tierLoading,
     refreshFinancials: fetchFinancialData
-  }), [balance, lifetimeScore, landDollar, contributions, userTier, tierBenefits, loading, tierLoading, fetchFinancialData]);
+  }), [balance, immatureBalance, matureBalance, lifetimeScore, landDollar, contributions, pointBalance, userTier, tierBenefits, loading, tierLoading, fetchFinancialData]);
 
   return <FinancialContext.Provider value={value}>{children}</FinancialContext.Provider>;
 };

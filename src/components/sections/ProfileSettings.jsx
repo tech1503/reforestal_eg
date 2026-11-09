@@ -31,7 +31,7 @@ const ProfileSettings = () => {
     const [rewardClaimed, setRewardClaimed] = useState(false);
 
     const [formData, setFormData] = useState({
-        full_name: '',
+        full_name: user?.user_metadata?.name ?? profile?.name ?? '',
         bio: '',
         email: '', 
         phone: '',
@@ -42,7 +42,7 @@ const ProfileSettings = () => {
     useEffect(() => {
         if (profile) {
             setFormData({
-                full_name: profile.name || profile.full_name || '', 
+                full_name: user?.user_metadata?.name ?? profile?.name ?? '',
                 bio: profile.bio || '',
                 email: profile.email || user?.email || '',
                 phone: profile.phone || '',

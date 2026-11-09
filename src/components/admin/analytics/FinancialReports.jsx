@@ -29,7 +29,7 @@ const FinancialReports = () => {
     try {
       const [contribs, ld, ic, tiers] = await Promise.all([
         supabase.from('contributions').select('*'),
-        supabase.from('land_dollars').select('*'),
+        supabase.from('land_dollar_tokens').select('*'),
         supabase.from('impact_credits').select('*'),
         supabase.from('support_levels').select('id, slug, support_level_translations(name, language_code)')
       ]);
@@ -57,7 +57,7 @@ const FinancialReports = () => {
 
     return {
         c: contributions.filter(x => filterFn(x.contribution_date)),
-        l: landDollars.filter(x => filterFn(x.issued_date || x.created_at)),
+        l: landDollars.filter(x => filterFn(x.created_at)),
         i: impactCredits.filter(x => filterFn(x.issued_date || x.created_at))
     };
   }, [contributions, landDollars, impactCredits, dateRange]);

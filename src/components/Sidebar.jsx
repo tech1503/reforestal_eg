@@ -60,16 +60,17 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, isPremium =
       id: 'subscription', 
       label: t('navigation.subscription'), 
       icon: CreditCard, 
-      locked: true, 
+      locked: false, 
+      href: `${basePath}/subscription`, 
       translationKey: 'navigation.subscription'
     },
     { 
-      id: 'referral', 
-      label: t('navigation.referral'), 
+      id: 'myzel', 
+      label: t('navigation.myzel'), 
       icon: Users, 
       locked: false, 
-      href: `${basePath}/referral`,
-      translationKey: 'navigation.referral'
+      href: `${basePath}/myzel`,
+      translationKey: 'navigation.myzel'
     },
     { 
       id: 'exchange', 
@@ -98,16 +99,6 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, isPremium =
   ];
 
   const handleNavigation = (item) => {
-    
-    if (item.id === 'subscription') {
-        toast({
-            variant: "default", 
-            title: t('dashboard.reforestal_pfad.title'), 
-            description: t('dashboard.reforestal_pfad.description')
-        });
-        return;
-    }
-
     if (item.href) {
         navigate(item.href);
         
@@ -143,13 +134,13 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, isPremium =
       >
         <div className="p-4 flex items-center justify-between h-[64px] border-b border-white/20 w-full bg-transparent">
           <div className="flex items-center gap-3">
-               <img src={logoDorado} alt="Reforestal" className="w-8 h-8" />
-               <span className="font-bold text-lg text-white tracking-tight drop-shadow-sm">Reforestal</span>
+               <img src={logoDorado} alt={t('navigation.brand', 'Reforestal')} className="w-8 h-8" />
+               <span className="font-bold text-lg text-white tracking-tight drop-shadow-sm">{t('navigation.brand', 'Reforestal')}</span>
           </div>
           <button 
             onClick={onClose}
             className="md:hidden text-white/80 hover:bg-white/10 p-2 rounded-lg transition-colors duration-200"
-            aria-label="Close sidebar"
+            aria-label={t('common.close', 'Cerrar')}
           >
             <ChevronLeft className="w-5 h-5" />
           </button>

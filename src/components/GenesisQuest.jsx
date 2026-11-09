@@ -31,19 +31,19 @@ const shuffleArray = (array) => {
 const FALLBACK_QUESTIONS = [
   {
     id: 1,
-    question: "What drives your investment decisions most?",
+    question: '¿Qué motiva tu impacto?',
     options: [
-      { type: "lena", main: "Nature & Sustainability", dropdown: "I want to preserve the planet for future generations." },
-      { type: "markus", main: "Innovation & Growth", dropdown: "I believe technology and smart systems drive value." },
-      { type: "david", main: "Community & Impact", dropdown: "I want to empower people and build strong societies." }
+      { type: "ambiente", main: "Ambiente", dropdown: "Protección de ecosistemas y biodiversidad." },
+      { type: "colaboracion", main: "Colaboración", dropdown: "Construcción de comunidad y red." },
+      { type: "datos_solidos", main: "Datos Sólidos", dropdown: "Transparencia, evidencia y gobernanza." }
     ]
   }
 ];
 
 const PROFILE_ICONS = {
-  lena: Leaf,
-  markus: Shield,
-  david: Users
+  ambiente: Leaf,
+  colaboracion: Shield,
+  datos_solidos: Users
 };
 
 // Componente para inyectar el gradiente SVG para los iconos de Lucide
@@ -152,8 +152,8 @@ const GenesisResultModal = ({ isOpen, profileSlug, onClose }) => {
             
             <DialogContent className="fixed left-[50%] top-[50%] z-[9999] w-[95vw] sm:w-full max-w-md translate-x-[-50%] translate-y-[-50%] border border-[#5b8370]/50 bg-[#063127] shadow-2xl p-0 outline-none sm:max-w-lg rounded-3xl">
                 <DialogHeader className="sr-only">
-                    <DialogTitle>Profile Quest Result</DialogTitle>
-                    <DialogDescription>Your assigned profile preferences.</DialogDescription>
+                    <DialogTitle>{t('genesisQuest.result.title', 'Profile Quest Result')}</DialogTitle>
+                    <DialogDescription>{t('genesisQuest.result.desc', 'Your assigned profile preferences.')}</DialogDescription>
                 </DialogHeader>
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8, y: 30 }}
@@ -270,8 +270,8 @@ const GenesisQuest = ({ forceShowResult = false }) => {
     }, {});
     
     let maxCount = 0;
-    let winner = 'lena'; 
-    
+    let winner = 'ambiente';
+
     for (const slug in counts) {
         if (counts[slug] > maxCount) {
             maxCount = counts[slug];
@@ -292,13 +292,13 @@ const GenesisQuest = ({ forceShowResult = false }) => {
     }, {});
     
     let rawPercentages = {
-      lena: totalAnswers > 0 ? Math.round(((counts['lena'] || 0) / totalAnswers) * 100) : 0,
-      markus: totalAnswers > 0 ? Math.round(((counts['markus'] || 0) / totalAnswers) * 100) : 0,
-      david: totalAnswers > 0 ? Math.round(((counts['david'] || 0) / totalAnswers) * 100) : 0,
+      ambiente: totalAnswers > 0 ? Math.round(((counts['ambiente'] || 0) / totalAnswers) * 100) : 0,
+      colaboracion: totalAnswers > 0 ? Math.round(((counts['colaboracion'] || 0) / totalAnswers) * 100) : 0,
+      datos_solidos: totalAnswers > 0 ? Math.round(((counts['datos_solidos'] || 0) / totalAnswers) * 100) : 0,
     };
 
     // --- REGLA: Ningún perfil en 0% ---
-    const keys = ['lena', 'markus', 'david'];
+    const keys = ['ambiente', 'colaboracion', 'datos_solidos'];
     
     keys.forEach(k => {
         if (rawPercentages[k] === 0) {
@@ -394,7 +394,7 @@ const GenesisQuest = ({ forceShowResult = false }) => {
             <Loader className="w-8 h-8 animate-spin mb-4" style={{ stroke: 'url(#icon-gold-gradient)' }} />
             <p>{t('genesisQuest.analyzing_answers', 'Checking for results...')}</p>
             <Button variant="link" onClick={() => window.location.href = '/genesis-quest'} className="mt-4 text-gradient-gold">
-                Start Quest
+                {t('genesisQuest.start_btn', 'Start Quest')}
             </Button>
         </div>
     );
@@ -418,8 +418,8 @@ const GenesisQuest = ({ forceShowResult = false }) => {
         {!user && (
             <div className="absolute top-2 right-2 z-50">
                 <Link to="/auth" className="flex items-center gap-1 text-[#c4d1c0] hover:text-white transition-colors text-[10px] sm:text-xs font-bold px-2 py-1 rounded-full bg-black/20 backdrop-blur-sm border border-white/5 hover:bg-white/10">
-                    <span className="hidden sm:inline">Already a member?</span>
-                    <span className="sm:hidden">Login</span>
+                    <span className="hidden sm:inline">{t('genesisQuest.already_member', 'Already a member?')}</span>
+                    <span className="sm:hidden">{t('common.login', 'Login')}</span>
                     <LogIn size={12} />
                 </Link>
             </div>

@@ -42,6 +42,38 @@
     "settings": "Paramètres",
     "logout": "Se déconnecter"
   },
+  "myzel": {
+    "title": "Mon Réseau / Myzel",
+    "subtitle": "Construisez un réseau horizontal. Offrez, partagez et grandissez en équipe.",
+    "select_gift": "Sélectionnez un cadeau...",
+    "option_points": "Montant de points/bonus (Déduit du LIFO)",
+    "option_participation": "1 dm² = (Participation coopérative)",
+    "option_digital": "Un produit numérique du Troc (E-commerce)",
+    "option_mission": "Offrir une Mission (Débloquer une mission pour un ami)",
+    "points_placeholder": "Montant de points",
+    "participation_placeholder": "Surface en dm² (ex. 100)",
+    "digital_placeholder": "ID du produit numérique (ex. prod_123)",
+    "send_gift": "Envoyer le cadeau",
+    "invalid_amount": "Entrez un montant valide.",
+    "gift_generated": "Cadeau généré avec succès !",
+    "coming_soon": "Bientôt disponible",
+    "in_development": "Cette option sera connectée dans la prochaine phase.",
+    "gift_title": "Voici votre cadeau ! 🎁",
+    "gift_desc": "Téléchargez le Land Dollar ou copiez le lien pour l'envoyer.",
+    "close_create_another": "Fermer et créer un autre cadeau",
+    "gift_error_default": "Erreur inconnue lors de la génération du cadeau.",
+    "wallet": {
+      "title": "Votre Portefeuille Myzel",
+      "subtitle": "Solde réel lu depuis la même source que votre tableau de bord.",
+      "synced": "Synchronisé avec votre tableau de bord",
+      "bonos_label": "Bonus disponibles",
+      "bonos_unit": "bonus",
+      "bonos_hint": "Disponibles à offrir sur votre réseau Myzel.",
+      "participations_label": "Participations (dm²)",
+      "participations_value": "0 - Bientôt",
+      "participations_hint": "Conversion en dm² activée dans la prochaine phase."
+    }
+  },
   "dashboard": {
     "registration_date": "Date de registration",
     "title": "Tableau de bord",

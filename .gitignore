@@ -32,4 +32,12 @@ docker-compose.yml
 Dockerfile
 nginx-custom.conf
 
+# CARPETAS DE CONFIGURACIÓN
+*SYSTEM MIZEL
+SYSTEM MIZEL
+
+# Archivos históricos / temporales (decisión: no se versionan)
+src/locales/*.bak
+scripts/supabase-database.sql
+_locale_cleanup.cjs
 

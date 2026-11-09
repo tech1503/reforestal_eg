@@ -15,6 +15,7 @@ import DashboardSection from '@/components/sections/DashboardSection';
 import FoundingMembersSection from '@/components/sections/FoundingMembersSection';
 import ReferralSection from '@/components/sections/ReferralSection';
 import ExchangeSection from '@/components/sections/ExchangeSection';
+import SubscriptionSection from '@/components/sections/SubscriptionSection';
 import QuestsSection from '@/components/sections/QuestsSection';
 import PremiumDashboard from '@/components/PremiumDashboard';
 import ProfileSettings from '@/components/sections/ProfileSettings';
@@ -35,7 +36,7 @@ const Dashboard = () => {
       const path = location.pathname;
       if (path.includes('/profile')) return 'profile';
       if (path.includes('/quests') || path.includes('/mission/')) return 'quests';
-      if (path.includes('/referral')) return 'referral';
+      if (path.includes('/myzel')) return 'myzel';
       if (path.includes('/exchange')) return 'exchange';
       if (path.includes('/founding_members') || path.includes('/pioneer')) return 'founding_members';
       if (path.includes('/subscription')) return 'subscription';
@@ -106,11 +107,12 @@ const Dashboard = () => {
                   
                   <Route path="founding_members" element={<FoundingMembersSection />} />
                   
-                  <Route path="referral" element={<ReferralSection />} />
+                  <Route path="myzel" element={<ReferralSection />} />
                   <Route path="exchange" element={<ExchangeSection isReadOnly={!isPremium} />} />
                   
                   {/*<Route path="quests" element={<QuestsSection isReadOnly={!isPremium} />} />*/}
                   <Route path="quests" element={<QuestsSection />} />
+                  <Route path="subscription" element={<SubscriptionSection />} />
 
                   
                   <Route path="mission/:id" element={<MissionPlayer />} />

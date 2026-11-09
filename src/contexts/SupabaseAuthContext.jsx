@@ -6,12 +6,16 @@ import { processReferralOnSignup } from '@/services/referralService';
 
 const AuthContext = createContext(undefined);
 
-// Normaliza roles legacy de la campaña de crowdfunding.
-// `startnext_user` (rol legacy) se comporta como usuario básico (`user`).
-// El rol crudo queda disponible en `profile.legacyRole` para migración manual (Fase 4).
+// Normaliza roles SaaS: legacy startnext_user → user_basic
+// Roles validos: user_basic, user_premium, admin, vorstand
 export const normalizeRole = (rawRole) => {
-  if (rawRole === 'startnext_user') return 'user';
-  return rawRole || 'user';
+  if (!rawRole) return 'user_basic';
+  const normalized = rawRole.toLowerCase().trim();
+  if (normalized === 'startnext_user' || normalized === 'user') return 'user_basic';
+  if (normalized === 'user_premium') return 'user_premium';
+  if (normalized === 'admin') return 'admin';
+  if (normalized === 'vorstand') return 'vorstand';
+  return normalized || 'user_basic';
 };
 
 export const AuthProvider = ({ children }) => {
@@ -29,21 +33,22 @@ export const AuthProvider = ({ children }) => {
     try {
       const { data, error } = await supabase
         .from('profiles')
-        .select(`*, users_roles (role_id, roles ( name ))`)
+        .select(`
+          *,
+          users_roles (role_id, roles ( name ))
+        `)
         .eq('id', userId)
         .maybeSingle();
 
       if (error) throw error;
       if (!data) return null;
 
+      // Normalizar rol: startnext_user → user_basic, mantener roles SaaS
       let rawRole = data.role || 'user';
       if (data.users_roles?.[0]?.roles) {
           rawRole = data.users_roles[0].roles.name;
       }
 
-      // `role` es el rol efectivo (normalizado): un legacy startnext_user
-      // se comporta como usuario básico. `legacyRole` conserva el crudo
-      // para la futura migración manual (Fase 4).
       const effectiveRole = normalizeRole(rawRole);
       const fullProfile = {
         ...data,
@@ -76,7 +81,9 @@ export const AuthProvider = ({ children }) => {
   }, [navigate]);
 
   const handleAuthRedirect = useCallback((userRole) => {
-    if (userRole === 'admin') navigate('/admin');
+    const normalized = normalizeRole(userRole);
+    if (normalized === 'admin' || normalized === 'vorstand') navigate('/admin');
+    else if (normalized === 'user_premium') navigate('/premium-dashboard');
     else navigate('/dashboard');
   }, [navigate]);
 

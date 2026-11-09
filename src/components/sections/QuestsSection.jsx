@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { useFinancial } from '@/contexts/FinancialContext';
 import { supabase } from '@/lib/customSupabaseClient';
 import { Button } from '@/components/ui/button';
-import { Zap, Lock, Rocket, Check, Trophy, Target, Loader2, FileText, ShoppingBag, ShieldAlert, Clock, History } from 'lucide-react'; 
+import { Zap, Lock, Rocket, Check, Trophy, Target, Loader2, FileText, ShoppingBag, ShieldAlert, Clock, History, Leaf, Shield, Database, Brain, ArrowUpRight, Users } from 'lucide-react'; 
 import { useToast } from '@/components/ui/use-toast';
 import { cn, formatNumber } from '@/lib/utils'; 
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ import { Badge } from '@/components/ui/badge';
 const QuestsSection = () => {
   const { t, i18n } = useTranslation();
   const { profile, user } = useAuth();
-  const { refreshFinancials } = useFinancial();
+  const { refreshFinancials, immatureBalance } = useFinancial();
   const { toast } = useToast();
   const navigate = useNavigate();
   
@@ -141,6 +141,10 @@ const QuestsSection = () => {
         .map(q => {
             const trans = getTrans(q, 'genesis');
             const access = checkAccess(q.target_role, false, 'genesis_rpg_mission');
+            
+            // Nueva mecánica Pay-to-Quest con LIFO
+            const pointsCost = q.points_cost || 0;
+            const canAfford = pointsCost <= (immatureBalance || 0); // Solo gasta puntos Verdes/Inmaduros
 
             return {
                 id: q.id,
@@ -153,7 +157,13 @@ const QuestsSection = () => {
                 isPending: complexPendingSet.has(q.id),
                 targetRole: q.target_role,
                 isLocked: access.locked,
-                lockReason: access.reason
+                lockReason: access.reason,
+                // Nuevas propiedades LIFO/Gameplay
+                category: q.category,       // A, C, D
+                level: q.level,             // 0, 1, 2, 3
+                gradeUnlock: q.grade_unlock, // 1=Basic, 4=Premium
+                pointsCost,                // Costo para desbloquear
+                canAfford,                   // Si puede pagar con LIFO Verde
             };
         });
 
@@ -335,13 +345,36 @@ const QuestsSection = () => {
                                     <Badge variant="outline" className="text-[9px] uppercase font-bold text-white/50 border-white/20 bg-white/5"><ShieldAlert className="w-3 h-3 mr-1"/> {t('quest.requires_genesis', 'Inicio')}</Badge>
                                 )}
                                 {quest.targetRole === 'user_premium' && (
-                                    <Badge variant="outline" className={`text-[9px] uppercase font-bold ${quest.isLocked ? 'text-white/50 border-white/20 bg-white/5' : 'text-gold border-gold/30 bg-gold/10'}`}><Lock className={`w-3 h-3 mr-1 text-gold ${!quest.isLocked && 'hidden'}`}/> Premium</Badge>
+                                    <Badge variant="outline" className={`text-[9px] uppercase font-bold ${quest.isLocked ? 'text-white/50 border-white/20 bg-white/5' : 'text-gold border-gold/30 bg-gold/10'}`}><Lock className={`w-3 h-3 mr-1 text-gold ${!quest.isLocked && 'hidden'}`}/> {t('quest.badges.premium', 'Premium')}</Badge>
                                 )}
                                 {quest.targetRole === 'pioneer' && (
-                                    <Badge variant="outline" className={`text-[9px] uppercase font-bold ${quest.isLocked ? 'text-white/50 border-white/20 bg-white/5' : 'text-gold border-gold/30 bg-gold/10'}`}><Lock className={`w-3 h-3 mr-1 text-gold ${!quest.isLocked && 'hidden'}`}/> Pionero</Badge>
+                                    <Badge variant="outline" className={`text-[9px] uppercase font-bold ${quest.isLocked ? 'text-white/50 border-white/20 bg-white/5' : 'text-gold border-gold/30 bg-gold/10'}`}><Lock className={`w-3 h-3 mr-1 text-gold ${!quest.isLocked && 'hidden'}`}/> {t('quest.badges.pioneer', 'Pionero')}</Badge>
                                 )}
                                 {quest.isPremium && (
-                                    <Badge variant="outline" className="text-[9px] uppercase font-bold text-gold bg-gold/10 border-gold/30"><ShoppingBag className="w-3 h-3 mr-1 text-gold"/> Premium</Badge>
+                                    <Badge variant="outline" className="text-[9px] uppercase font-bold text-gold bg-gold/10 border-gold/30"><ShoppingBag className="w-3 h-3 mr-1 text-gold"/> {t('quest.badges.premium', 'Premium')}</Badge>
+                                )}
+                                {quest.category && (
+                                    <Badge variant="outline" className={cn("text-[9px] uppercase font-bold",
+                                        quest.category === 'A' ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30' :
+                                        quest.category === 'C' ? 'text-blue-400 bg-blue-500/10 border-blue-500/30' :
+                                        quest.category === 'D' ? 'text-violet-400 bg-violet-500/10 border-violet-500/30' :
+                                        'text-white/60 bg-white/5 border-white/20'
+                                    )}>
+                                        {quest.category === 'A' ? <Leaf className="w-3 h-3 mr-1"/> :
+                                         quest.category === 'C' ? <Users className="w-3 h-3 mr-1"/> :
+                                         quest.category === 'D' ? <Database className="w-3 h-3 mr-1"/> : null}
+                                        {t('quest.categories.' + quest.category.toLowerCase(), quest.category)}
+                                    </Badge>
+                                )}
+                                {quest.level !== undefined && (
+                                    <Badge variant="outline" className="text-[9px] uppercase font-bold text-amber-400 bg-amber-500/10 border-amber-500/30">
+                                        <Shield className="w-3 h-3 mr-1"/> L{quest.level}
+                                    </Badge>
+                                )}
+                                {quest.pointsCost > 0 && (
+                                    <Badge variant="outline" className="text-[9px] uppercase font-bold text-rose-400 bg-rose-500/10 border-rose-500/30">
+                                        <ArrowUpRight className="w-3 h-3 mr-1"/> {formatNumber(quest.pointsCost)}
+                                    </Badge>
                                 )}
                             </div>
 
@@ -368,19 +401,19 @@ const QuestsSection = () => {
 
                     <Button
                         onClick={() => handleInteraction(quest)}
-                        disabled={quest.completed || quest.isPending || processingId === quest.id || quest.isLocked}
+                        disabled={quest.completed || quest.isPending || processingId === quest.id || quest.isLocked || (quest.pointsCost > 0 && quest.pointsCost > (immatureBalance || 0))}
                         className={cn(
                             "w-full font-bold transition-all mt-4 h-10 text-xs sm:text-sm rounded-xl border", 
                             quest.completed 
                                 ? 'bg-white/10 text-gold border-transparent cursor-default shadow-none'
                                 : quest.isPending
                                 ? 'bg-gold/20 text-gold border-gold/30 cursor-default shadow-none'
-                                : quest.isLocked
+                                : quest.isLocked || (quest.pointsCost > 0 && quest.pointsCost > (immatureBalance || 0))
                                 ? 'bg-white/5 text-white border-white/10 cursor-not-allowed' 
                                 : 'bg-gradient-gold text-[#063127] border-transparent shadow-glow hover:brightness-110'
                         )}
                     >
-                        {processingId === quest.id ? <Loader2 className="w-4 h-4 animate-spin"/> : <div className="flex items-center justify-center">{getButtonIcon(quest)}{getButtonText(quest)}</div>}
+                        {processingId === quest.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <div className="flex items-center justify-center">{getButtonIcon(quest)}{getButtonText(quest)}</div>}
                     </Button>
                 </motion.div>
                 ))}

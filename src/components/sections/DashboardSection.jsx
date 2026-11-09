@@ -21,6 +21,7 @@ import { Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { getBenefitIcon } from '@/components/Icons/CustomIcons';
 import ReforestaProjectWidget from '@/components/ReforestaProjectWidget';
+import ImpactProfileProgress from '@/components/ui/ImpactProfileProgress';
 import { format, differenceInDays } from 'date-fns';
 import { formatNumber, formatCurrency } from '@/lib/utils';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
@@ -50,7 +51,7 @@ const DashboardSection = () => {
   const { t } = useTranslation(); 
   const navigate = useNavigate();
   
-  const { landDollar, impactCredits, loading: financialLoading } = useFinancial();
+  const { landDollar, impactCredits, immatureBalance, matureBalance, loading: financialLoading } = useFinancial();
 
   const [contributionData, setContributionData] = useState(null);
   const [userBenefit, setUserBenefit] = useState(null);
@@ -205,7 +206,8 @@ const DashboardSection = () => {
   // =========================================================================
   if (!contributionData && !(profile?.role === 'admin')) {
     const registrationDate = user?.created_at ? format(new Date(user.created_at), 'MMM d, yyyy') : '-';
-    const landDollarStatus = landDollar ? t('common.active', 'Activo') : t('dashboard.premium.pending', 'Pendiente');
+    const isLandDollarActive = landDollar?.status === 'ROOTED';
+    const landDollarStatus = isLandDollarActive ? t('common.active', 'Activo') : t('dashboard.premium.pending', 'Pendiente');
 
     return (
       <div className="relative w-full min-h-screen">
@@ -221,7 +223,7 @@ const DashboardSection = () => {
             </p>
             </motion.div>
 
-            {/* FILA SUPERIOR REDISEÑADA ESTILO PREMIUM (SIN RELOJ) */}
+{/* FILA SUPERIOR REDISEÑADA ESTILO PREMIUM (SIN RELOJ) */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 items-stretch">
                 <StatCard 
                     icon={Calendar} 
@@ -244,6 +246,96 @@ const DashboardSection = () => {
                     label={t('dashboard.impact_credits', 'Impact Credits')} 
                     value={formatNumber(impactCredits)} 
                 />
+            </motion.div> {/* <--- ESTE ES EL CIERRE QUE FALTABA PARA LIBERAR LA GRILLA */}
+
+            {/* MASTER PROGRESS HUB - 4 TARJETAS EN UNA FILA (BENTO GRID 12 COLUMNAS) */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
+                
+                {/* 1. Módulo LIFO (3 columnas) */}
+                <div className="lg:col-span-3">
+                    <Card variant="premium" className="bg-[#053127]/40 backdrop-blur-2xl border-t-white/10 border-l-white/10 border-gold/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] shadow-glow h-full overflow-hidden relative">
+                        {/* Glowing nucleus behind LIFO */}
+                        <div className="absolute -top-20 -left-20 w-80 h-80 bg-emerald-500/30 rounded-full blur-[100px] pointer-events-none" />
+                        <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-amber-400/20 rounded-full blur-[100px] pointer-events-none" />
+                        <CardContent className="p-4 sm:p-6 flex flex-col justify-between h-full">
+                            <div>
+                                <div className="flex items-center gap-3 mb-4">
+                                    <div className="p-2 bg-gradient-to-br from-emerald-500/20 to-amber-500/20 rounded-xl border border-emerald-400/20 shadow-glow"><Leaf className="w-5 h-5 text-emerald-400" /></div>
+                                    <div><h3 className="text-sm font-black text-white tracking-tight">{t('dashboard.vesting.title', 'Vesting LIFO')}</h3><p className="text-[10px] text-emerald-300/80 font-medium">90 días</p></div>
+                                </div>
+                                
+                                <div className="flex justify-center mb-4">
+                                    <div className="relative w-32 h-32 flex items-center justify-center">
+                                        <svg width="128" height="128" viewBox="0 0 200 200" className="transform -rotate-90 absolute">
+                                            <circle cx="100" cy="100" r="85" stroke="currentColor" strokeWidth="12" fill="none" opacity="0.15" />
+                                            <circle cx="100" cy="100" r="85" stroke="#cf9c2a" strokeWidth="12" fill="none" strokeLinecap="round" strokeDasharray={`${(immatureBalance / Math.max(immatureBalance, matureBalance, 1)) * 533 || 213}, 800`} />
+                                            <circle cx="100" cy="100" r="85" stroke="#5b8370" strokeWidth="12" fill="none" strokeLinecap="round" strokeDasharray={`${(matureBalance / Math.max(immatureBalance, matureBalance, 1)) * 533 || 320}, 800`} strokeDashoffset={`${-213 - ((immatureBalance / Math.max(immatureBalance, matureBalance, 1)) * 533 || 213)}`} />
+                                        </svg>
+                                        <div className="text-center z-10 flex flex-col items-center mt-2">
+                                            <span className="text-2xl font-black text-white">{formatNumber(immatureBalance)}</span>
+                                            <span className="text-[9px] uppercase tracking-widest text-emerald-300">Verde</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <Button onClick={() => navigate('/dashboard/quests')} className="w-full h-9 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:brightness-110 text-white font-bold rounded-lg shadow-glow text-[11px]" variant="default"><Zap className="w-3 h-3 mr-1" /> Ganar Verde</Button>
+                        </CardContent>
+                    </Card>
+                </div>
+
+                {/* 2. Skill Tree (3 columnas) */}
+                <div className="lg:col-span-3">
+                    <Card variant="premium" className="bg-[#053127]/40 backdrop-blur-2xl border-t-white/10 border-l-white/10 border-emerald-500/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] shadow-glow h-full overflow-hidden relative">
+                        <CardContent className="p-4 sm:p-6 flex flex-col justify-between h-full">
+                            <div>
+                                <div className="flex items-center gap-3 mb-4">
+                                    <div className="p-2 bg-gradient-to-br from-amber-400/20 to-rose-400/20 rounded-xl border border-amber-400/20 shadow-glow"><Target className="w-5 h-5 text-amber-400" /></div>
+                                    <div><h3 className="text-sm font-black text-white tracking-tight">{t('dashboard.vision.skill_tree', 'Habilidades')}</h3><p className="text-[10px] text-amber-300/80 font-medium">Nivel 0→3</p></div>
+                                </div>
+                                <div className="flex-1 transform scale-90 origin-top mb-2"><ImpactProfileProgress profile={profile} /></div>
+                            </div>
+                            <Button onClick={() => navigate('/dashboard/quests')} className="w-full h-9 bg-gradient-to-r from-amber-500 to-amber-400 hover:brightness-110 text-[#063127] font-bold rounded-lg shadow-glow text-[11px]" variant="default"><Target className="w-3 h-3 mr-1" /> Explorar</Button>
+                        </CardContent>
+                    </Card>
+                </div>
+
+                {/* 3. Micelio (3 columnas) */}
+                <div className="lg:col-span-3">
+                    <Card variant="premium" className="bg-[#053127]/40 backdrop-blur-2xl border-t-white/10 border-l-white/10 border-emerald-400/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] shadow-glow h-full overflow-hidden relative">
+                        <CardContent className="p-4 sm:p-6 flex flex-col justify-between h-full">
+                            <div>
+                                <div className="flex items-center gap-3 mb-3">
+                                    <div className="w-9 h-9 bg-emerald-500/20 rounded-xl flex items-center justify-center border border-emerald-400/20 shadow-glow"><Leaf className="w-4 h-4 text-emerald-300" /></div>
+                                    <div><h4 className="font-black text-white text-sm leading-tight">Micelio</h4><span className="text-[9px] text-emerald-300/70 font-semibold">Entropía (11)</span></div>
+                                </div>
+                                <div className="text-3xl font-black text-emerald-300 mb-1">1.00</div>
+                                <div className="text-[10px] text-white/50 font-medium mb-4">Brillo = 1.0</div>
+                                <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden"><div className="h-full bg-gradient-to-r from-emerald-400 to-emerald-200 w-full rounded-full shadow-[0_0_8px_rgba(52,211,153,0.6)]" /></div>
+                            </div>
+                            <Button onClick={() => navigate('/dashboard/quests')} variant="outline" size="sm" className="w-full mt-4 h-9 border-emerald-400/30 text-emerald-300 hover:bg-emerald-500/10 text-[11px] font-bold">Ver Red</Button>
+                        </CardContent>
+                    </Card>
+                </div>
+
+                {/* 4. Land Dollar (3 columnas) */}
+                <div className="lg:col-span-3">
+                    <Card variant="premium" className="bg-[#053127]/40 backdrop-blur-2xl border-t-white/10 border-l-white/10 border-amber-400/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)] shadow-glow h-full overflow-hidden relative">
+                        <CardContent className="p-4 sm:p-6 flex flex-col justify-between h-full">
+                            <div>
+                                <div className="flex items-center gap-3 mb-3">
+                                    <div className="w-9 h-9 bg-amber-500/20 rounded-xl flex items-center justify-center border border-amber-400/20 shadow-glow"><Coins className="w-4 h-4 text-amber-300" /></div>
+                                    <div><h4 className="font-black text-white text-sm leading-tight">Land Dollar</h4><span className="text-[9px] text-amber-300/70 font-semibold">Activo Digital</span></div>
+                                </div>
+                                <div className="flex items-baseline gap-2 mb-1">
+                                    <div className="text-3xl font-black text-amber-300">{landDollar ? 'Activo' : 'Pndte.'}</div>
+                                </div>
+                                <div className="text-[10px] text-white/50 font-medium mb-4">{landDollar ? 'Vinculado a m²' : 'Escanea QR'}</div>
+                            </div>
+                            <Button onClick={() => setIsLandDollarModalOpen(true)} variant="outline" size="sm" className="w-full h-9 border-amber-400/30 text-amber-300 hover:bg-amber-500/10 text-[11px] font-bold">Certificado</Button>
+                        </CardContent>
+                    </Card>
+                </div>
+
             </motion.div>
 
             <ProjectVisionWidget t={t} />
@@ -416,7 +508,7 @@ const DashboardSection = () => {
                     </span>
                 </div>
                 <h1 className="text-4xl md:text-5xl font-bold mb-4 drop-shadow-md text-[#c2d2c1]">
-                    {t('dashboard.pioneer_status.welcome', { name: profile?.name || 'Explorer' })}
+                    {t('dashboard.pioneer_status.welcome', { name: user?.user_metadata?.name ?? profile?.name ?? 'Explorer' })}
                 </h1>
                 <p className="text-[#c2d2c1]/90 text-lg max-w-xl font-medium leading-relaxed opacity-90">
                     {t('dashboard.pioneer_status.verified_msg', 'Tu estatus de pionero está verificado.')}

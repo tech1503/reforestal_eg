@@ -8,6 +8,7 @@ import { useFinancial } from '@/contexts/FinancialContext';
 import { useRealtimeProfileUpdate } from '@/hooks/useRealtimeProfileUpdate';
 import { supabase } from '@/lib/customSupabaseClient';
 import LandDollarDisplay from '@/components/LandDollarDisplay'; 
+import MyzelGiftPanel from '@/components/sections/MyzelGiftPanel';
 import { useTranslation } from 'react-i18next';
 import { Skeleton } from '@/components/ui/skeleton';
 import { formatNumber } from '@/lib/utils';
@@ -34,11 +35,11 @@ const ReferralSection = () => {
     if (user?.id) {
       const fetchReferralData = async () => {
         try {
-          let code = landDollar?.link_ref || profile?.referral_code;
-          
+          let code = landDollar?.short_code || profile?.referral_code;
+
           if (!code) {
-             const { data } = await supabase.from('land_dollars').select('link_ref').eq('user_id', user.id).maybeSingle();
-             code = data?.link_ref;
+             const { data } = await supabase.from('land_dollar_tokens').select('short_code, status').eq('first_claimed_by_user_id', user.id).maybeSingle();
+             code = data?.short_code;
           }
 
           if (mounted) {
@@ -136,6 +137,7 @@ const ReferralSection = () => {
         })}
       </div>
 
+      {/*
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className={`rounded-2xl p-8 text-[#c2d2c1] shadow-xl relative overflow-hidden transition-colors ${isSuspended ? 'bg-slate-600' : 'bg-gradient-to-br from-[#053127] to-[#5b8370] shadow-[#053127]/30'}`}>
         <div className="relative z-10 text-center">
           <h3 className="text-2xl font-bold mb-2">{t('dashboard.referrals.unique_code', 'Your Code')}</h3>
@@ -156,11 +158,18 @@ const ReferralSection = () => {
           )}
         </div>
       </motion.div>
+        */}
 
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mt-8">
+        <MyzelGiftPanel />
+      </motion.div>
+
+        {/*
       <div className="mt-12 border-t border-border pt-10">
         <h3 className="text-2xl font-bold text-center mb-8 text-[#053127] dark:text-[#c2d2c1]">{t('dashboard.land_dollar.title', 'Your Digital Asset')}</h3>
-        <LandDollarDisplay user={user} landDollar={landDollar} />
+        <LandDollarDisplay user={user} landDollar={landDollar} loading={financialLoading} />
       </div>
+      */}
     </div>
   );
 };

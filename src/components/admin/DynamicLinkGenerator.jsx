@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Separator } from '@/components/ui/separator';
 import { Loader2, Download, QrCode, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import QRCodeLib from 'qrcode';
-import landDollarBaseImg from '@/assets/land-dollar-base1.webp';
+import landDollarBaseImg from '@/assets/land-dolar-base1.webp';
 
 const DynamicLinkGenerator = () => {
   const { t } = useTranslation();

@@ -55,7 +55,7 @@ const UserManagement = () => {
       const { data: metrics } = await supabase.from('founding_pioneer_metrics').select('user_id, total_impact_credits_earned, founding_pioneer_access_status');
       
       let landDollars = [];
-      try { const { data: ld } = await supabase.from('land_dollars').select('*'); landDollars = ld || []; } catch (e) {}
+      try { const { data: ld } = await supabase.from('land_dollar_tokens').select('*'); landDollars = ld || []; } catch (e) {}
 
       setAvailableTiers(tiers || []);
 
@@ -66,7 +66,7 @@ const UserManagement = () => {
              tierInfo = tiers?.find(t => t.id === userBenefit.new_support_level_id);
         }
         const metric = metrics?.find(m => m.user_id === user.id);
-        const userLandDollar = landDollars?.find(l => l.user_id === user.id);
+        const userLandDollar = landDollars?.find(l => l.first_claimed_by_user_id === user.id);
 
         return {
           ...user,
@@ -77,7 +77,7 @@ const UserManagement = () => {
           has_land_dollar: !!userLandDollar,
           land_dollar_id: userLandDollar?.id,
           land_dollar_status: userLandDollar?.status || 'none',
-          land_dollar_link: userLandDollar?.link_ref || 'N/A',
+          land_dollar_link: userLandDollar?.short_code || 'N/A',
           land_dollar_amount: userLandDollar?.amount || 0
         };
       });
@@ -97,7 +97,7 @@ const UserManagement = () => {
     fetchAllData();
     const channel = supabase.channel('admin_users_sync')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'profiles' }, () => fetchAllData())
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'land_dollars' }, () => fetchAllData())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'land_dollar_tokens' }, () => fetchAllData())
       .on('postgres_changes', { event: '*', schema: 'public', table: 'founding_pioneer_metrics' }, () => fetchAllData())
       .on('postgres_changes', { event: '*', schema: 'public', table: 'contributions' }, () => fetchAllData())
       .on('postgres_changes', { event: '*', schema: 'public', table: 'user_benefits' }, () => fetchAllData())
@@ -195,28 +195,36 @@ const UserManagement = () => {
           }
       }
 
+      // Migración 15: link_ref -> short_code (nueva PK), user_id -> first_claimed_by_user_id
+      // Columnas obsoletas eliminadas del esquema: qr_code_url, land_dollar_url
       const linkRefToUse = safeReferralCode || `REF-${editingUser.id.substring(0,6).toUpperCase()}`;
-      const newQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://reforest.al/${linkRefToUse}`;
 
-      const { data: ldExist } = await supabase.from('land_dollars').select('id').eq('user_id', editingUser.id).maybeSingle();
+      const { data: ldExist, error: ldFetchError } = await supabase
+        .from('land_dollar_tokens')
+        .select('short_code')
+        .eq('first_claimed_by_user_id', editingUser.id)
+        .maybeSingle();
+
+      if (ldFetchError) throw ldFetchError;
 
       if (ldExist) {
-          await supabase.from('land_dollars').update({ 
+          const { error: ldUpdateError } = await supabase.from('land_dollar_tokens').update({ 
               status: editingUser.editLandDollarStatus,
               is_active: editingUser.editLandDollarStatus === 'active' || editingUser.editLandDollarStatus === 'issued',
-              link_ref: linkRefToUse,
-              qr_code_url: newQrUrl
-          }).eq('id', ldExist.id);
+              short_code: linkRefToUse
+          }).eq('short_code', ldExist.short_code);
+
+          if (ldUpdateError) throw ldUpdateError;
       } else if (editingUser.editLandDollarStatus === 'active') {
-          await supabase.from('land_dollars').insert({
-               user_id: editingUser.id,
+          const { error: ldInsertError } = await supabase.from('land_dollar_tokens').insert({
+               first_claimed_by_user_id: editingUser.id,
                amount: 0,
                status: 'active',
                is_active: true,
-               link_ref: linkRefToUse,
-               land_dollar_url: '/assets/land-dollar-base1.webp',
-               qr_code_url: newQrUrl
+               short_code: linkRefToUse
            });
+
+          if (ldInsertError) throw ldInsertError;
       }
 
       toast({ title: t('common.success'), description: "Usuario actualizado exitosamente." });

@@ -26,7 +26,7 @@ const AdminOverview = () => {
       .channel('overview-realtime')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'contributions' }, () => fetchStats())
       .on('postgres_changes', { event: '*', schema: 'public', table: 'founding_pioneer_metrics' }, () => fetchStats())
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'land_dollars' }, () => fetchStats())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'land_dollar_tokens' }, () => fetchStats())
       .subscribe();
 
     return () => {
@@ -45,7 +45,7 @@ const AdminOverview = () => {
       const totalMoney = contribs?.reduce((sum, item) => sum + (Number(item.contribution_amount) || 0), 0) || 0;
 
       // 3. Total Land Dollars (Active)
-      const { data: landDollarsData } = await supabase.from('land_dollars').select('id').or('status.eq.active,status.eq.issued');
+      const { data: landDollarsData } = await supabase.from('land_dollar_tokens').select('id').or('status.eq.active,status.eq.issued');
       const totalLandDollarsCount = landDollarsData?.length || 0;
 
       // 4. Total Impact Credits (Cumulative Earned)

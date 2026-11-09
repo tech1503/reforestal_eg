@@ -1,354 +1,187 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { useTranslation } from 'react-i18next'; // IMPORTADO
-import { Check, Crown, Leaf, Zap, Info, Star, Award } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { Check, Crown, Shield, Zap, Leaf, Sparkles, ChevronRight, Star, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/components/ui/use-toast';
-import { supabase } from '@/lib/customSupabaseClient';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { Switch } from '@/components/ui/switch';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 
-const MembershipTimeline = ({ currentTier }) => {
-  const tiers = [
-    {
-      name: 'Explorer',
-      duration: 'Months 0-12',
-      description: 'Your journey begins! All earned credits are in a 12-month cliff, building a strong foundation for your impact.',
-      icon: Leaf,
-      status: 'in_cliff'
-    },
-    {
-      name: 'Designer',
-      duration: 'Months 13-48',
-      description: 'Your impact takes shape. 25% of credits vest at month 12, with the rest vesting monthly for 36 months.',
-      icon: Star,
-      status: 'vesting_linearly'
-    },
-    {
-      name: 'Ambassador',
-      duration: 'Month 49+',
-      description: 'You are a true leader. All credits are fully vested, unlocking maximum impact and exclusive rewards.',
-      icon: Award,
-      status: 'fully_vested'
-    }
-  ];
-
-  const tierOrder = ['Explorer', 'Designer', 'Ambassador'];
-  const currentTierIndex = tierOrder.indexOf(currentTier);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.7 }}
-      className="bg-white rounded-xl p-6 shadow-sm border border-green-100"
-    >
-      <h3 className="text-lg font-semibold text-forest mb-6 text-center">Your Membership Journey</h3>
-      <div className="relative flex justify-between items-start pt-8">
-        {/* Timeline line */}
-        <div className="absolute top-10 left-8 right-8 h-1 bg-gray-200">
-          <motion.div 
-            className="h-1 bg-green-500"
-            initial={{ width: 0 }}
-            animate={{ width: `${(currentTierIndex / (tiers.length - 1)) * 100}%` }}
-            transition={{ duration: 1, delay: 1 }}
-          />
-        </div>
-
-        {tiers.map((tier, index) => {
-          const isCompleted = index < currentTierIndex;
-          const isCurrent = index === currentTierIndex;
-          const Icon = tier.icon;
-
-          return (
-            <div key={tier.name} className="relative flex flex-col items-center text-center w-1/3 px-2">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center z-10 transition-all duration-500 ${
-                isCompleted ? 'bg-green-500 text-white' : 
-                isCurrent ? 'bg-green-500 text-white ring-4 ring-green-200' : 
-                'bg-gray-200 text-gray-500'
-              }`}>
-                {isCompleted ? <Check className="w-5 h-5" /> : <Icon className="w-5 h-5" />}
-              </div>
-              <h4 className="font-bold text-forest mt-3 text-md">{tier.name}</h4>
-              <p className="text-sm font-medium text-gray-500">{tier.duration}</p>
-              <p className="text-xs text-gray-600 mt-2">{tier.description}</p>
-            </div>
-          );
-        })}
-      </div>
-    </motion.div>
-  );
-};
-
-
 const SubscriptionSection = () => {
-  const { toast } = useToast();
-  const { user, profile } = useAuth();
-  const { t } = useTranslation(); // HOOK
-  const [currentSubscription, setCurrentSubscription] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
+  const { profile } = useAuth();
+  const [isAnnual, setIsAnnual] = useState(false);
 
   const plans = [
     {
-      id: 'roots',
-      name: 'Roots',
-      price: '€4.99',
-      priceNum: 4.99,
-      period: '/month',
+      id: 'explorador',
+      name: 'Explorador/a',
+      priceMonthly: 4.99,
+      priceAnnual: 49.90,
       area: '1 m²',
-      credits: 10000,
+      grades: '1º Grado desbloqueado',
       icon: Leaf,
-      color: 'green',
-      features: [
-        '1 m² reforested for you',
-        '10,000 Impact Credits',
-        'Basic carbon tracking',
-        'Community access'
-      ],
-      stripePriceId: 'price_roots_placeholder'
+      color: 'from-emerald-500 to-teal-400',
+      bg: 'bg-emerald-950/40',
+      border: 'border-emerald-400/20',
+      text: 'text-emerald-300',
     },
     {
-      id: 'tree',
-      name: 'Tree',
-      price: '€14.99',
-      priceNum: 14.99,
-      period: '/month',
+      id: 'guardian',
+      name: 'Guardián/a',
+      priceMonthly: 14.99,
+      priceAnnual: 149.90,
       area: '4 m²',
-      credits: 15000,
-      icon: Crown,
-      color: 'blue',
-      popular: true,
-      features: [
-        '4 m² reforested for you',
-        '15,000 Impact Credits',
-        'Advanced carbon tracking',
-        'Priority community access',
-        'Referral bonuses'
-      ],
-      stripePriceId: 'price_tree_placeholder'
+      grades: '1.er y 2º Grado desbloqueados',
+      icon: Shield,
+      color: 'from-blue-500 to-indigo-400',
+      bg: 'bg-blue-950/40',
+      border: 'border-blue-400/20',
+      text: 'text-blue-300',
+      featured: true,
     },
     {
-      id: 'forest',
-      name: 'Forest',
-      price: '€49.99',
-      priceNum: 49.99,
-      period: '/month',
-      area: '12 m²',
-      credits: 25000,
+      id: 'campeon',
+      name: 'Campeón/a',
+      priceMonthly: 49.99,
+      priceAnnual: 499.90,
+      area: '15 m²',
+      grades: '1.er a 3º Grado desbloqueados',
       icon: Zap,
-      color: 'purple',
-      features: [
-        '12 m² reforested for you',
-        '25,000 Impact Credits',
-        'Complete carbon analytics',
-        'VIP community access',
-        'Quest multipliers'
-      ],
-      stripePriceId: 'price_forest_placeholder'
+      color: 'from-violet-500 to-fuchsia-400',
+      bg: 'bg-violet-950/40',
+      border: 'border-violet-400/20',
+      text: 'text-violet-300',
     },
     {
-      id: 'ecosystem',
-      name: 'Ecosystem',
-      price: '€149.99',
-      priceNum: 149.99,
-      period: '/month',
+      id: 'paladin',
+      name: 'Paladín/a',
+      priceMonthly: 97.99,
+      priceAnnual: 979.90,
       area: '30 m²',
-      credits: 35000,
-      icon: Zap,
-      color: 'amber',
-      features: [
-        '30 m² reforested for you',
-        '35,000 Impact Credits',
-        'Full analytics & API access',
-        'Custom projects',
-        'Maximum referral bonuses'
-      ],
-      stripePriceId: 'price_ecosystem_placeholder'
-    }
+      grades: 'Los 4 Grados desbloqueados',
+      icon: Crown,
+      color: 'from-amber-400 to-rose-400',
+      bg: 'bg-amber-950/40',
+      border: 'border-amber-400/20',
+      text: 'text-amber-300',
+    },
   ];
 
-  useEffect(() => {
-    const fetchSubscription = async () => {
-      if (!user) return;
-      setLoading(true);
-      const { data, error } = await supabase
-        .from('subscriptions')
-        .select('*')
-        .eq('user_id', user.id)
-        .in('status', ['active', 'trialing'])
-        .single();
-
-      if (data) {
-        setCurrentSubscription(data);
-      }
-      
-      if (error && error.code !== 'PGRST116') {
-        toast({ variant: "destructive", title: t('common.error'), description: "Could not fetch subscription." });
-      }
-      setLoading(false);
-    };
-
-    fetchSubscription();
-  }, [user, toast, t]);
-
-  const handleSubscribe = (plan) => {
-    toast({
-      title: "🚧 Stripe Checkout",
-      description: t('common.feature_not_implemented')
-    });
-  };
-
-  const handleManageSubscription = () => {
-    toast({
-      title: "🚧 Manage Subscription",
-      description: t('common.feature_not_implemented')
-    });
-  };
-
   return (
-    <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-center"
-      >
-        <h2 className="text-3xl font-bold text-forest mb-4">Memberships & Subscriptions</h2>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          Choose a plan to start your impact journey and watch your membership level grow over time.
-        </p>
-      </motion.div>
+    <div className="min-h-screen bg-gradient-to-b from-[#063127] via-[#0a2e1f] to-[#063127] text-white font-sans">
+      {/* Header */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none" />
+        <div className="max-w-6xl mx-auto px-6 py-16 md:py-24 text-center relative z-10">
+          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <Badge className="bg-gradient-to-r from-amber-500/20 to-rose-500/20 text-amber-300 border-amber-400/30 mb-6 font-black text-xs tracking-[0.2em] uppercase px-4 py-1.5 shadow-glow">{t('subscription.badge', 'Myzel 3.0 — Freemium')}</Badge>
+            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-b from-white via-[#c2d2c1] to-amber-300 drop-shadow-sm">
+              {t('subscription.title', 'Suscripción Freemium')}
+            </h1>
+            <p className="text-lg md:text-xl text-[#c2d2c1]/80 max-w-2xl mx-auto font-light leading-relaxed">
+              {t('subscription.subtitle', 'Elige tu nivel de impacto. Cada plan desbloquea m² reales, grados de misión y acceso al ecosistema Micelio.')}
+            </p>
+          </motion.div>
+        </div>
+      </div>
 
-      <MembershipTimeline currentTier={profile?.membership_tier || 'Explorer'} />
-
-      {loading ? (
-        <div className="text-center p-6">{t('common.loading')}...</div>
-      ) : currentSubscription ? (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="bg-green-50 border border-green-200 rounded-xl p-6"
-        >
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold text-forest">Current Plan: <span className="capitalize">{currentSubscription.plan_type}</span></h3>
-              <p className="text-green-600">Status: <span className="capitalize">{currentSubscription.status}</span></p>
-              {currentSubscription.end_date && <p className="text-sm text-gray-600">Next billing: {new Date(currentSubscription.end_date).toLocaleDateString()}</p>}
-            </div>
-            <Button 
-              onClick={handleManageSubscription}
-              variant="outline" 
-              className="border-green-300 text-green-700 hover:bg-green-100 mt-4 sm:mt-0"
-            >
-              Manage Subscription
-            </Button>
+      {/* Toggle mensual / anual */}
+      <div className="max-w-6xl mx-auto px-6 -mt-8 mb-12 relative z-10">
+        <div className="bg-[#063127]/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <h2 className="text-xl font-black text-white mb-1">{t('subscription.billing_cycle_title', 'Selecciona tu ciclo de facturación')}</h2>
+            <p className="text-sm text-white/50">{t('subscription.billing_cycle_desc', 'Ahorra hasta un 20% con pago anual. Cambia el interruptor para ver precios.')}</p>
           </div>
-        </motion.div>
-      ) : (
-         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="bg-blue-50 border border-blue-200 rounded-xl p-6 text-center"
-        >
-           <h3 className="text-lg font-semibold text-blue-800">You are not subscribed to any plan.</h3>
-           <p className="text-blue-600">Choose a plan below to start your impact journey!</p>
-        </motion.div>
-      )}
+          <div className="flex items-center gap-4 bg-white/5 rounded-xl px-4 py-2 border border-white/10">
+            <span className={`text-sm font-bold transition-colors ${!isAnnual ? 'text-white' : 'text-white/40'}`}>{t('subscription.cycle.monthly', 'Mensual')}</span>
+            <Switch
+              checked={isAnnual}
+              onCheckedChange={setIsAnnual}
+              className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-amber-400 data-[state=checked]:to-rose-400 h-6 w-11"
+            />
+            <span className={`text-sm font-bold transition-colors ${isAnnual ? 'text-amber-300' : 'text-white/40'}`}>{t('subscription.cycle.annual', 'Anual')}</span>
+          </div>
+        </div>
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {plans.map((plan, index) => {
-          const Icon = plan.icon;
-          
-          return (
+      {/* Plans Grid */}
+      <div className="max-w-6xl mx-auto px-6 pb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start auto-rows-min">
+          {plans.map((plan, idx) => (
             <motion.div
               key={plan.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-              className={`relative bg-white rounded-xl p-6 border-2 flex flex-col transition-all duration-300 card-hover ${
-                plan.popular 
-                  ? 'border-green-500 shadow-lg' 
-                  : 'border-gray-200 hover:border-green-300'
-              }`}
+              transition={{ duration: 0.4, delay: idx * 0.1 }}
             >
-              {plan.popular && (
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-green-500 text-white px-4 py-1 rounded-full text-sm font-medium">
-                    Most Popular
-                  </span>
-                </div>
-              )}
+              <Card className={`relative overflow-hidden h-full flex flex-col ${plan.featured ? 'border-amber-400/40 shadow-glow ring-1 ring-amber-400/20' : `border-white/10 shadow-lg hover:border-white/20`} bg-gradient-to-b ${plan.bg} backdrop-blur-sm transition-all hover:-translate-y-1`}>
+                {plan.featured && (
+                  <div className="absolute top-0 right-0 bg-gradient-to-l from-amber-400 to-rose-400 text-[#063127] text-[10px] font-black px-3 py-1 rounded-bl-xl shadow-glow z-10 flex items-center gap-1">
+                    <Star className="w-3 h-3" /> {t('subscription.most_popular', 'MÁS POPULAR')}
+                  </div>
+                )}
+                <CardContent className="p-6 md:p-7 flex-1 flex flex-col">
+                  <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${plan.color} flex items-center justify-center shadow-glow mb-4`}>
+                    <plan.icon className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className={`text-2xl font-black mb-1 ${plan.text}`}>{plan.name}</h3>
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-3xl font-black text-white tracking-tight">€{isAnnual ? plan.priceAnnual.toFixed(2) : plan.priceMonthly.toFixed(2)}</span>
+                    <span className="text-sm text-white/50 font-medium">{isAnnual ? '/año' : '/mes'}</span>
+                  </div>
+                  {isAnnual && (
+                    <div className="text-xs text-amber-300 font-medium mb-4">Ahorra €{(plan.priceMonthly * 12 - plan.priceAnnual).toFixed(2)} al año</div>
+                  )}
 
-              <div className="text-center mb-6">
-                <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-${plan.color}-100 flex items-center justify-center`}>
-                  <Icon className={`w-8 h-8 text-${plan.color}-600`} />
-                </div>
-                <h3 className="text-xl font-bold text-forest mb-2">{plan.name}</h3>
-                <div className="flex items-baseline justify-center">
-                  <span className="text-3xl font-bold text-forest">{plan.price}</span>
-                  <span className="text-gray-600 ml-1">{plan.period}</span>
-                </div>
-              </div>
+                  <div className="space-y-3 mb-6 flex-1">
+                    <div className="flex items-center gap-3 bg-white/5 rounded-xl px-3 py-2.5 border border-white/10">
+                      <Leaf className="w-4 h-4 text-emerald-300 shrink-0" />
+                      <span className="text-sm font-medium text-white">{plan.area} directo</span>
+                    </div>
+                    <div className="flex items-center gap-3 bg-white/5 rounded-xl px-3 py-2.5 border border-white/10">
+                      <Lock className={`w-4 h-4 shrink-0 ${plan.id === 'explorador' ? 'text-emerald-300' : plan.id === 'guardian' ? 'text-blue-300' : plan.id === 'campeon' ? 'text-violet-300' : 'text-amber-300'}`} />
+                      <span className="text-sm font-medium text-white">{plan.grades}</span>
+                    </div>
+                    <ul className="space-y-2 pt-2">
+                      {[
+                        'Acceso a misiones de la categoría desbloqueada',
+                        'Puntos inmaduros (Canasta Verde) con LIFO',
+                        'Seguimiento de impacto y certificación Land Dollar',
+                        'Soporte de la comunidad Reforestal eG',
+                      ].map((feat, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-white/80">
+                          <Check className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />
+                          <span>{t('subscription.plans.' + plan.id + '.feature_' + (i + 1), feat)}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-              <ul className="space-y-3 mb-6 flex-grow">
-                {plan.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start">
-                    <Check className="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-1" />
-                    <span className="text-gray-700">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <Button
-                onClick={() => handleSubscribe(plan)}
-                className={`w-full mt-auto ${
-                  plan.popular 
-                    ? 'btn-primary text-white' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-                disabled={currentSubscription?.plan_type === plan.id}
-              >
-                {currentSubscription?.plan_type === plan.id ? 'Current Plan' : 'Subscribe Now'}
-              </Button>
+                  <Button
+                    onClick={() => {
+                      // Simulación de selección sin bloque de pago
+                      alert(`Plan seleccionado: ${plan.name} — €${isAnnual ? plan.priceAnnual.toFixed(2) : plan.priceMonthly.toFixed(2)} / ${isAnnual ? 'año' : 'mes'}. El paso de pago se conectará en Fase 3.`);
+                    }}
+                    className={`w-full h-12 font-black rounded-xl text-base shadow-glow transition-all active:scale-[0.98] ${plan.featured ? 'bg-gradient-to-r from-amber-400 to-rose-400 text-[#063127] hover:brightness-110' : 'bg-white/10 text-white border border-white/20 hover:bg-white/15 hover:border-white/40'}`}
+                  >
+                    {t('subscription.select_plan', 'Seleccionar Plan')} <ChevronRight className="w-4 h-4 ml-1" />
+                  </Button>
+                </CardContent>
+              </Card>
             </motion.div>
-          );
-        })}
+          ))}
+        </div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
-        className="bg-white rounded-xl p-6 shadow-sm border border-green-100"
-      >
-        <h3 className="text-lg font-semibold text-forest mb-4 flex items-center"><Info className="w-5 h-5 mr-2 text-blue-500"/> Impact Credits Vesting Explained</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h4 className="font-medium text-forest mb-2">48-Month Vesting Schedule</h4>
-            <p className="text-gray-600 text-sm mb-4">
-              Your Impact Credits vest over time to ensure long-term environmental commitment.
-            </p>
-            <ul className="space-y-2 text-sm">
-                <li className="flex items-start"><strong className="w-28 font-semibold">Months 0-12:</strong> <span className="text-gray-600">In Cliff (0% vested)</span></li>
-                <li className="flex items-start"><strong className="w-28 font-semibold">At Month 12:</strong> <span className="text-gray-600">25% of credits vest</span></li>
-                <li className="flex items-start"><strong className="w-28 font-semibold">Months 12-48:</strong> <span className="text-gray-600">75% vests linearly (monthly)</span></li>
-                <li className="flex items-start"><strong className="w-28 font-semibold">At Month 48:</strong> <span className="text-gray-600">100% fully vested</span></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="font-medium text-forest mb-2">Cancellation Rules (Leaver Clauses)</h4>
-             <ul className="space-y-2 text-sm">
-                <li className="flex items-start"><strong className="w-32 font-semibold text-red-600">During Cliff:</strong> <span className="text-gray-600">All credits from that batch are forfeited.</span></li>
-                <li className="flex items-start"><strong className="w-32 font-semibold text-green-600">After Cliff:</strong> <span className="text-gray-600">Keep all vested credits, forfeit unvested.</span></li>
-                <li className="flex items-start"><strong className="w-32 font-semibold text-blue-600">Good Leaver:</strong> <span className="text-gray-600">100% of credits vest immediately.</span></li>
-                <li className="flex items-start"><strong className="w-32 font-semibold text-red-700">Bad Leaver:</strong> <span className="text-gray-600">All credits (vested and unvested) are forfeited.</span></li>
-            </ul>
-          </div>
+      {/* Footer info */}
+      <div className="max-w-4xl mx-auto px-6 pb-12 text-center">
+        <div className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
+          <h3 className="text-lg font-black text-white mb-2 flex items-center justify-center gap-2"><Sparkles className="w-5 h-5 text-amber-300" /> {t('subscription.model_title', 'Modelo Freemium Myzel 3.0')}</h3>
+          <p className="text-sm text-white/60 leading-relaxed">{t('subscription.model_desc', 'Todos los planes incluyen acceso base a misiones. El pago activa los grados desbloqueados y aumenta los m² protegidos directos. No hay barrera de entrada: puedes explorar con la Canasta Verde (Inmadura) antes de comprometerte.')}</p>
         </div>
-         <p className="text-xs text-gray-500 mt-4 text-center">A daily background process updates your vested balance automatically based on this schedule.</p>
-      </motion.div>
+      </div>
     </div>
   );
 };

@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher'; 
 import heroImg from '@/assets/hero-reforestal.webp';
 import heroImg1 from '@/assets/hero-home-reforestal.webp';
-import logoLandDollar from '@/assets/land-dollar-base1.webp';
+import logoLandDollar from '@/assets/land-dolar-base1.webp';
 import vegReforest from '@/assets/vegetacion-reforestal.webp';
 import InfoSections from '@/pages/InfoSections';
 import logoReforestal from '@/assets/icons/logo-dorado.png';

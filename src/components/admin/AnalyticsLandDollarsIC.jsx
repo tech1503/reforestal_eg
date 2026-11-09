@@ -20,7 +20,7 @@ const AnalyticsLandDollarsIC = () => {
     const channel = supabase
       .channel('analytics-financial-realtime')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'gamification_history' }, () => fetchMetrics())
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'land_dollars' }, () => fetchMetrics())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'land_dollar_tokens' }, () => fetchMetrics())
       .subscribe();
 
     return () => {
@@ -34,7 +34,7 @@ const AnalyticsLandDollarsIC = () => {
       
       // 1. Métricas Land Dollars
       const { data: ldData, error: ldError } = await supabase
-        .from('land_dollars')
+        .from('land_dollar_tokens')
         .select('id, status');
       
       if (ldError) throw ldError;

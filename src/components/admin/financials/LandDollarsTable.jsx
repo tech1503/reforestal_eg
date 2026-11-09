@@ -17,8 +17,8 @@ const LandDollarsTable = () => {
         const load = async () => {
             setLoading(true);
             const { data: res } = await supabase
-                .from('land_dollars')
-                .select('*, profiles:user_id(name, email)')
+                .from('land_dollar_tokens')
+                .select('*, profiles:first_claimed_by_user_id(name, email)')
                 .order('created_at', { ascending: false });
             setData(res || []);
             setLoading(false);
@@ -27,7 +27,7 @@ const LandDollarsTable = () => {
         // SUSCRIPCIÓN REALTIME (MEJORA)
         const sub = supabase
             .channel('admin_ld_table')
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'land_dollars' }, () => load())
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'land_dollar_tokens' }, () => load())
             .subscribe();
 
         load();
@@ -38,11 +38,11 @@ const LandDollarsTable = () => {
     const handleAdminDownload = async (asset) => {
         setDownloadingId(asset.id);
         try {
-            const blob = await generateLandDollarWithQR(asset.link_ref);
+            const blob = await generateLandDollarWithQR(asset.short_code);
             const url = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = `Admin_Copy_LandDollar_${asset.link_ref}.png`;
+            link.download = `Admin_Copy_LandDollar_${asset.short_code}.png`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -82,7 +82,7 @@ const LandDollarsTable = () => {
                                     {row.status}
                                 </Badge>
                             </TableCell>
-                            <TableCell className="font-mono text-xs">{row.link_ref}</TableCell>
+                            <TableCell className="font-mono text-xs">{row.short_code}</TableCell>
                             <TableCell className="text-right">
                                 <div className="flex justify-end gap-2">
                                     {/* Botón de Descarga Añadido */}
@@ -96,9 +96,16 @@ const LandDollarsTable = () => {
                                         {downloadingId === row.id ? <Loader2 className="w-3.5 h-3.5 animate-spin"/> : <Download className="w-3.5 h-3.5"/>}
                                     </Button>
                                     
-                                    {/* Botones Originales mantenidos */}
-                                    {row.qr_code_url && (
-                                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => window.open(row.qr_code_url, '_blank')} title="View QR">
+                                    {/* QR generado en cliente: la columna qr_code_url fue eliminada (migración 15) */}
+                                    {row.short_code && (
+                                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={async () => {
+                                            try {
+                                                const qrDataUrl = await generateLandDollarWithQR(row.short_code);
+                                                window.open(qrDataUrl, '_blank');
+                                            } catch (e) {
+                                                console.error("QR preview error", e);
+                                            }
+                                        }} title="View QR">
                                             <QrCode className="w-3.5 h-3.5" />
                                         </Button>
                                     )}

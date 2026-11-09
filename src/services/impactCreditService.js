@@ -45,7 +45,8 @@ export const emitImpactCredits = async ({
       p_user_id: user_id,
       p_amount: amount,
       p_source: source,
-      p_metadata: { description: description || `Impact Credits from ${source}`, related_support_level_id, issued_by: 'frontend' },
+      p_metadata: { description: description || `Impact Credits from ${source}`, related_support_level_id, issued_by: 'frontend', tax_origin: 'SELF_REBATE' },
+      p_tax_origin: 'SELF_REBATE',
       p_idempotency_key: null
     });
 

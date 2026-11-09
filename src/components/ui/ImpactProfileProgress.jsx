@@ -10,18 +10,17 @@ const ImpactProfileProgress = ({ profile }) => {
     const { t } = useTranslation();
 
     // Extraemos los porcentajes
-    let percentages = profile?.profile_percentages || { lena: 0, markus: 0, david: 0 };
-    let total = percentages.lena + percentages.markus + percentages.david;
+    let percentages = profile?.profile_percentages || { ambiente: 0, colaboracion: 0, datos_solidos: 0 };
+    let total = percentages.ambiente + percentages.colaboracion + percentages.datos_solidos;
 
-    // MAGIA DE MIGRACIÓN: Si el total es 0, pero el usuario YA TIENE un perfil antiguo
     if (total === 0 && profile?.genesis_profile) {
         const legacyProfile = profile.genesis_profile.toLowerCase();
         percentages = {
-            lena: legacyProfile === 'lena' ? 100 : 0,
-            markus: legacyProfile === 'markus' ? 100 : 0,
-            david: legacyProfile === 'david' ? 100 : 0,
+            ambiente: legacyProfile === 'ambiente' ? 100 : 0,
+            colaboracion: legacyProfile === 'colaboracion' ? 100 : 0,
+            datos_solidos: legacyProfile === 'datos_solidos' ? 100 : 0,
         };
-        total = 100; // Forzamos el total a 100 para que pase la validación y no muestre el botón
+        total = 100;
     }
 
     // Si el usuario es REALMENTE nuevo (total 0 y no tiene perfil antiguo)
@@ -95,43 +94,40 @@ const ImpactProfileProgress = ({ profile }) => {
                 </h3>
 
                 <div className="space-y-5">
-                    {/* Perfil LENA */}
+                    {/* Habilidad AMBIENTE */}
                     <div className="space-y-1.5">
                         <div className="flex justify-between items-end text-sm">
                             <div className="flex items-center gap-2 text-white font-medium">
-                                <Trees className="w-4 h-4 text-green-400" />
-                                {t('impactQuest.profiles.lena', 'Acción Ecológica')}
+                                <Leaf className="w-4 h-4 text-emerald-400" />
+                                {t('skills.ambiente', 'Ambiente')}
                             </div>
-                            <span className="text-green-400 font-bold">{percentages.lena}%</span>
+                            <span className="text-emerald-300 font-black">{percentages.ambiente}%</span>
                         </div>
-                        {/* Usamos indicatorClassName como lo dicta tu archivo progress.jsx */}
-                        <Progress value={percentages.lena} className="h-2 bg-[#5b8370]/30" indicatorClassName="bg-green-400" />
+                        <Progress value={percentages.ambiente} className="h-2.5 bg-[#5b8370]/30 rounded-full overflow-hidden shadow-inner" indicatorClassName="bg-gradient-to-r from-emerald-400 to-emerald-200 rounded-full shadow-[0_0_8px_rgba(52,211,153,0.5)]" />
                     </div>
 
-                    {/* Perfil MARKUS */}
+                    {/* Habilidad COLABORACIÓN */}
                     <div className="space-y-1.5">
                         <div className="flex justify-between items-end text-sm">
                             <div className="flex items-center gap-2 text-white font-medium">
                                 <Shield className="w-4 h-4 text-blue-400" />
-                                {t('impactQuest.profiles.markus', 'Sostenibilidad Estructural')}
+                                {t('skills.colaboracion', 'Colaboración')}
                             </div>
-                            <span className="text-blue-400 font-bold">{percentages.markus}%</span>
+                            <span className="text-blue-300 font-black">{percentages.colaboracion}%</span>
                         </div>
-                        {/* Usamos indicatorClassName */}
-                        <Progress value={percentages.markus} className="h-2 bg-[#5b8370]/30" indicatorClassName="bg-blue-400" />
+                        <Progress value={percentages.colaboracion} className="h-2.5 bg-[#5b8370]/30 rounded-full overflow-hidden shadow-inner" indicatorClassName="bg-gradient-to-r from-blue-400 to-indigo-300 rounded-full shadow-[0_0_8px_rgba(96,165,250,0.5)]" />
                     </div>
 
-                    {/* Perfil DAVID */}
+                    {/* Habilidad DATOS SOLIDOS */}
                     <div className="space-y-1.5">
                         <div className="flex justify-between items-end text-sm">
                             <div className="flex items-center gap-2 text-white font-medium">
-                                <Users className="w-4 h-4 text-orange-400" />
-                                {t('impactQuest.profiles.david', 'Comunidad Global')}
+                                <Users className="w-4 h-4 text-violet-400" />
+                                {t('skills.datos_solidos', 'Datos Sólidos')}
                             </div>
-                            <span className="text-orange-400 font-bold">{percentages.david}%</span>
+                            <span className="text-violet-300 font-black">{percentages.datos_solidos}%</span>
                         </div>
-                        {/* Usamos indicatorClassName */}
-                        <Progress value={percentages.david} className="h-2 bg-[#5b8370]/30" indicatorClassName="bg-orange-400" />
+                        <Progress value={percentages.datos_solidos} className="h-2.5 bg-[#5b8370]/30 rounded-full overflow-hidden shadow-inner" indicatorClassName="bg-gradient-to-r from-violet-400 to-fuchsia-300 rounded-full shadow-[0_0_8px_rgba(167,139,250,0.5)]" />
                     </div>
                 </div>
             </div>

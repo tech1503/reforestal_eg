@@ -9,6 +9,8 @@ import { emitImpactCredits } from '@/services/impactCreditService';
 const GAMIFICATION_ACTION_TABLE = 'gamification_actions';
 const GAMIFICATION_HISTORY_TABLE = 'gamification_history';
 const FOUNDING_PIONEER_METRICS_TABLE = 'founding_pioneer_metrics';
+const IC_LEDGER_TABLE = 'ic_ledger';
+const FINANCIAL_CONTEXT_VIEW = 'financial_context_view';
 
 /**
  * Busca el mensaje de éxito traducido en la base de datos.
@@ -70,6 +72,55 @@ async function awardReputationScore(userId, amount) {
 }
 
 /**
+ * Consume points from ic_ledger via LIFO RPC spend_points_lifo.
+ * Quema puntos más recientes primero (created_at DESC).
+ */
+async function consumePointsLIFO(userId, pointsToConsume) {
+    try {
+        const { data, error } = await supabase.rpc('spend_points_lifo', {
+            p_user_id: userId,
+            p_amount: pointsToConsume
+        });
+
+        if (error) {
+            console.error(`[Gamification] LIFO point consumption failed:`, error.message);
+            return { success: false, error: error.message };
+        }
+        return { success: true, data };
+    } catch (e) {
+        console.error(`[Gamification] Unexpected error consuming points:`, e);
+        return { success: false, error: e.message };
+    }
+}
+
+/**
+ * Get user points (green vs gold) via financial_context_view.
+ */
+async function getUserPoints(userId) {
+    try {
+        const { data, error } = await supabase
+            .from(FINANCIAL_CONTEXT_VIEW)
+            .select('green_basket_points, gold_basket_points, total_ic_ledger_balance')
+            .eq('user_id', userId)
+            .maybeSingle();
+
+        if (error) {
+            console.error('[Gamification] Error fetching user points from view:', error);
+            return { totalPoints: 0, greenPoints: 0, goldPoints: 0 };
+        }
+
+        const greenPoints = data?.green_basket_points || 0;
+        const goldPoints = data?.gold_basket_points || 0;
+        const totalPoints = data?.total_ic_ledger_balance || (greenPoints + goldPoints);
+
+        return { totalPoints, greenPoints, goldPoints };
+    } catch (e) {
+        console.error('[Gamification] Unexpected error in getUserPoints:', e);
+        return { totalPoints: 0, greenPoints: 0, goldPoints: 0 };
+    }
+}
+
+/**
  * EJECUTOR PRINCIPAL 
  */
 export async function executeGamificationAction(userId, systemBinding, options = {}) {
@@ -99,13 +150,22 @@ export async function executeGamificationAction(userId, systemBinding, options =
 
         const creditsToAward = customCreditValue !== undefined ? customCreditValue : (action.impact_credits_value || action.impact_credit_reward || 0);
         const reputationToAward = customReputationValue || action.reputation_reward || 0;
+        const pointsCost = customCreditValue || action.points_cost || 0; // Pay-to-Unlock: consume puntos via LIFO
 
-        if (creditsToAward <= 0 && reputationToAward <= 0) {
+        if (creditsToAward <= 0 && reputationToAward <= 0 && pointsCost <= 0) {
             return { success: true, message: '0 Rewards awarded (intentional).' };
         }
 
         const displayTitle = action.action_title || action.title || action.name || 'Reward';
         const sourceType = action.source_event || (isDynamic ? 'quest_completion' : 'gamification');
+
+        // Consumir puntos si hay cost (Pay-to-Unlock 50% LIFO)
+        if (pointsCost > 0) {
+            const consumeResult = await consumePointsLIFO(userId, pointsCost);
+            if (!consumeResult.success) {
+                return { success: false, message: `Failed to consume points for reward: ${consumeResult.error}` };
+            }
+        }
 
         // 1. Guardar Log
         await logGamificationHistory(userId, action, creditsToAward, notes, isDynamic);
@@ -127,13 +187,11 @@ export async function executeGamificationAction(userId, systemBinding, options =
         if (!preventNotification && emitResult?.success !== false) {
             let titleKey = 'notifications.points_earned.title';
             let messageKey = reputationToAward > 0 
-                ? 'notifications.points_and_rep_earned.message' // Usaremos una nueva clave si hay reputación
+                ? 'notifications.points_and_rep_earned.message' 
                 : 'notifications.points_earned.message';
                 
             const meta = { points: creditsToAward, action: displayTitle, rep: reputationToAward };
 
-            // Si el admin configuró un mensaje personalizado en la DB, lo usamos.
-            // Al pasar la `meta` como objeto, i18next simplemente devolverá este texto intacto.
             let customMessage = await getTranslatedSuccessMessage(action.id, isDynamic, languageCode);
             if (customMessage) {
                 messageKey = customMessage;
@@ -146,6 +204,7 @@ export async function executeGamificationAction(userId, systemBinding, options =
             success: true, 
             creditsAwarded: creditsToAward, 
             reputationAwarded: reputationToAward,
+            pointsConsumed: pointsCost,
             message: `Executed: ${displayTitle}` 
         };
 

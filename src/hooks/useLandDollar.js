@@ -22,9 +22,9 @@ export const useLandDollar = (userId, profile) => {
 
       try {
         const { data: existing, error: fetchError } = await supabase
-          .from('land_dollars')
+          .from('land_dollar_tokens')
           .select('*')
-          .eq('user_id', userId)
+          .eq('first_claimed_by_user_id', userId)
           .maybeSingle();
 
         if (fetchError) throw fetchError;
@@ -34,8 +34,8 @@ export const useLandDollar = (userId, profile) => {
         } else {
           console.log('No Land Dollar found. Generating new asset...');
           
-          const linkRef = profile?.referral_code || `${userId.substring(0, 8)}-${Date.now()}`;
-          await generateAndSave(linkRef);
+          const shortCode = profile?.referral_code || `${userId.substring(0, 8)}-${Date.now()}`;
+          await generateAndSave(shortCode, null);
         }
       } catch (err) {
         console.error('LandDollar check error:', err);
@@ -53,14 +53,14 @@ export const useLandDollar = (userId, profile) => {
     return () => { mounted = false; };
   }, [userId, profile]);
 
-  const generateAndSave = async (link_ref) => {
+  const generateAndSave = async (shortCode, existingRecord = null) => {
     try {
       setLoading(true);
-      const pngDataUrl = await generateLandDollarWithQR(link_ref);
+      const pngDataUrl = await generateLandDollarWithQR(shortCode);
       
       const res = await fetch(pngDataUrl);
       const blob = await res.blob();
-      const file = new File([blob], `ld_${link_ref}.png`, { type: 'image/png' });
+      const file = new File([blob], `ld_${shortCode}.png`, { type: 'image/png' });
 
       const filePath = `${userId}/land_dollar_${Date.now()}.png`;
       const { error: uploadError } = await supabase.storage
@@ -69,23 +69,27 @@ export const useLandDollar = (userId, profile) => {
 
       if (uploadError) throw uploadError;
 
-      const { data: { publicUrl } } = supabase.storage
-         .from('land-dollars')
-         .getPublicUrl(filePath);
+      // Migración 15: tabla renombrada + PK short_code + columna owner renombrada.
+      // qr_code_url / land_dollar_url fueron eliminadas del esquema.
+      const payload = {
+        short_code: shortCode,
+        first_claimed_by_user_id: userId,
+        is_active: true,
+        status: 'issued'
+      };
 
-      const { data: newRecord, error: dbError } = await supabase
-        .from('land_dollars')
-        .upsert({ 
-            user_id: userId, 
-            link_ref: link_ref, 
-            qr_code_url: publicUrl, 
-            land_dollar_url: publicUrl,
-            is_active: true,
-            status: 'issued',
-            updated_at: new Date().toISOString()
-        }, { onConflict: 'user_id' })
-        .select()
-        .single();
+      const { data: newRecord, error: dbError } = existingRecord?.short_code
+        ? await supabase
+            .from('land_dollar_tokens')
+            .update(payload)
+            .eq('short_code', existingRecord.short_code)
+            .select()
+            .single()
+        : await supabase
+            .from('land_dollar_tokens')
+            .insert(payload)
+            .select()
+            .single();
 
       if (dbError) throw dbError;
 
@@ -103,17 +107,23 @@ export const useLandDollar = (userId, profile) => {
     if (!landDollar || !userId) return;
     try {
       setError(null);
-      const newRef = profile?.referral_code || `${userId.substring(0, 8)}-${Date.now()}`;
-      await generateAndSave(newRef);
+      const newShortCode = profile?.referral_code || `${userId.substring(0, 8)}-${Date.now()}`;
+      await generateAndSave(newShortCode, landDollar);
     } catch (err) {
       console.error('Regeneration error:', err);
       setError(err.message);
     }
   };
 
-  const handleDownload = () => {
-    if (landDollar?.land_dollar_url) {
-      downloadLandDollar(landDollar.land_dollar_url, `LandDollar_${landDollar.link_ref}.png`);
+  const handleDownload = async () => {
+    if (!landDollar?.short_code) return;
+    try {
+      // Regeneramos localmente: la BD ya no persiste land_dollar_url / qr_code_url
+      const dataUrl = await generateLandDollarWithQR(landDollar.short_code);
+      downloadLandDollar(dataUrl, `LandDollar_${landDollar.short_code}.png`);
+    } catch (err) {
+      console.error('LandDollar download error:', err);
+      setError(err.message);
     }
   };
 

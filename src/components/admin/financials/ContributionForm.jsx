@@ -110,17 +110,20 @@ const ContributionForm = ({ onSuccess, onCancel }) => {
       if (!data.success) throw new Error(data.error);
 
       try {
-          const blob = await generateLandDollarWithQR(data.link_ref);
-          const fileName = `land-dollars/${finalUserId}/${data.link_ref}.png`;
-          const { error: upError } = await supabase.storage.from('land-dollars').upload(fileName, blob, { upsert: true, contentType: 'image/png' });
-          
-          if (!upError) {
-              const { data: publicUrlData } = supabase.storage.from('land-dollars').getPublicUrl(fileName);
-              
-              await supabase.from('land_dollars').update({ 
-                  land_dollar_url: publicUrlData.publicUrl,
-                  qr_code_url: `https://reforest.al/${data.link_ref}`
-              }).eq('contribution_id', data.contribution_id);
+          // Migración 15: link_ref -> short_code | contribution_id eliminada de land_dollar_tokens
+          const shortCode = data.short_code || data.link_ref;
+          if (shortCode) {
+              const blob = await generateLandDollarWithQR(shortCode);
+              const fileName = `land-dollars/${finalUserId}/${shortCode}.png`;
+              const { error: upError } = await supabase.storage.from('land-dollars').upload(fileName, blob, { upsert: true, contentType: 'image/png' });
+
+              if (!upError) {
+                  const { error: updError } = await supabase.from('land_dollar_tokens').update({ 
+                      short_code: shortCode
+                  }).eq('first_claimed_by_user_id', finalUserId);
+
+                  if (updError) console.warn("LandDollar short_code sync warning:", updError);
+              }
           }
       } catch (e) {
           console.warn("Asset generation warning:", e);

@@ -19,10 +19,10 @@ const LandDollarsManagement = () => {
     const fetchLandDollars = async () => {
         setLoading(true);
         const { data, error } = await supabase
-            .from('land_dollars')
+            .from('land_dollar_tokens')
             .select(`
                 *,
-                profiles:user_id(name, email)
+                profiles:first_claimed_by_user_id(name, email)
             `)
             .order('created_at', { ascending: false });
 
@@ -68,24 +68,19 @@ const LandDollarsManagement = () => {
                                         </div>
                                     </TableCell>
                                     <TableCell className="font-bold text-green-700">€{ld.amount}</TableCell>
-                                    <TableCell>{new Date(ld.issued_date || ld.created_at).toLocaleDateString()}</TableCell>
+                                    <TableCell>{new Date(ld.created_at).toLocaleDateString()}</TableCell>
                                     <TableCell>
                                         <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 uppercase text-[10px]">
                                             {ld.status || 'Issued'}
                                         </Badge>
                                     </TableCell>
                                     <TableCell className="font-mono text-xs text-muted-foreground">
-                                        {ld.link_ref ? ld.link_ref.slice(0,8)+'...' : '-'}
+                                        {ld.short_code ? ld.short_code.slice(0,8)+'...' : '-'}
                                     </TableCell>
                                     <TableCell className="text-right">
                                         <div className="flex justify-end gap-2">
-                                            {ld.land_dollar_url && (
-                                                <Button variant="ghost" size="icon" title="View Certificate" onClick={() => window.open(ld.land_dollar_url, '_blank')}>
-                                                    <ImageIcon className="w-4 h-4 text-blue-600" />
-                                                </Button>
-                                            )}
-                                            {ld.link_ref && (
-                                                <Button variant="ghost" size="icon" title="Check Link" onClick={() => window.open(`https://reforest.al/${ld.link_ref}`, '_blank')}>
+                                            {ld.short_code && (
+                                                <Button variant="ghost" size="icon" title="Check Link" onClick={() => window.open(`https://reforest.al/${ld.short_code}`, '_blank')}>
                                                     <ExternalLink className="w-4 h-4 text-gray-600" />
                                                 </Button>
                                             )}
