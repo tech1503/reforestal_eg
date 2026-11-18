@@ -4,6 +4,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { Loader } from 'lucide-react';
 import { Routes, Route, Navigate, useLocation, useParams, useNavigate } from 'react-router-dom';
 import DynamicRouteHandler from './components/DynamicRouteHandler';
+import NicknameRescueModal from '@/components/NicknameRescueModal';
 
 // Componentes
 import Dashboard from '@/components/Dashboard';
@@ -18,6 +19,7 @@ import PrivacyPolicy from '@/pages/PrivacyPolicy';
 import CookiesPolicy from '@/pages/CookiesPolicy'; 
 import Impressum from '@/pages/Impressum';
 import RegenerativeEconomy from '@/pages/RegenerativeEconomy';
+import GoldenHour from '@/pages/GoldenHour';
 
 // Banners Cookies
 import CookieBanner from './components/ui/CookieBanner';
@@ -56,6 +58,25 @@ const ReferralHandler = () => {
   );
 };
 
+const RfrstEntry = () => {
+  const { slug } = useParams();
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="h-screen w-full flex items-center justify-center bg-[#02140f]">
+        <Loader className="animate-spin text-gold-500 w-10 h-10" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <Navigate to={slug ? `/golden-hour/${encodeURIComponent(slug)}` : '/'} replace />;
+  }
+
+  return <DynamicRouteHandler />;
+};
+
 const AppContent = () => {
   const { loading, session, profile } = useAuth();
   const location = useLocation();
@@ -87,18 +108,20 @@ const AppContent = () => {
           {/* Ruta de Referidos Explícita (Para cuando se comparte como /ref/usuario) */}
           <Route path="/ref/:username" element={<ReferralHandler />} />
 
-          {/* 
-            RUTA MAESTRA: QRS DINÁMICOS Y REFERIDOS DIRECTOS UNIFICADOS
-            Evalúa primero si el texto es un QR dinámico en base de datos.
-            Si no lo es, carga el ReferralHandler automáticamente.
-          */}
-          <Route path="/:username" element={<DynamicRouteHandler fallback={<ReferralHandler />} />} />
+          <Route path="/golden-hour/:slug" element={<GoldenHour />} />
+
+          <Route path="/rfr.st/:slug" element={<RfrstEntry />} />
+
+          <Route path="/anastomose/:slug" element={<div className="min-h-screen flex items-center justify-center text-white bg-slate-900">Iniciando Apretón de Manos... (Provisional)</div>} />
+
+          <Route path="/:username" element={<DynamicRouteHandler />} />
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AnimatePresence>
       
       <CookieBanner />
+      <NicknameRescueModal />
     </>
   );
 };

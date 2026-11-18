@@ -18,6 +18,13 @@ export const normalizeRole = (rawRole) => {
   return normalized || 'user_basic';
 };
 
+const profileNeedsNickname = (profileData) => {
+  if (!profileData) return false;
+  const role = normalizeRole(profileData.role);
+  if (role === 'admin' || role === 'vorstand') return false;
+  return !String(profileData.referral_code || '').trim();
+};
+
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
@@ -25,6 +32,7 @@ export const AuthProvider = ({ children }) => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isPasswordRecovery, setIsPasswordRecovery] = useState(false);
+  const [needsNickname, setNeedsNickname] = useState(false);
   
   const mounted = useRef(true);
 
@@ -77,6 +85,7 @@ export const AuthProvider = ({ children }) => {
     if (error) throw error;
     setProfile(null);
     setSession(null);
+    setNeedsNickname(false);
     navigate('/auth');
   }, [navigate]);
 
@@ -93,7 +102,12 @@ export const AuthProvider = ({ children }) => {
       if (mounted.current) {
         setSession(currentSession);
         if (currentSession?.user) {
-          await fetchProfile(currentSession.user.id);
+          const currentProfile = await fetchProfile(currentSession.user.id);
+          if (mounted.current) {
+            setNeedsNickname(profileNeedsNickname(currentProfile));
+          }
+        } else {
+          setNeedsNickname(false);
         }
         setLoading(false);
       }
@@ -120,22 +134,35 @@ export const AuthProvider = ({ children }) => {
                   .catch(err => console.error("Referral error:", err));
           }
 
+          const metaNickname = currentSession.user.user_metadata?.referral_code;
           const pendingGoogleNickname = localStorage.getItem('pending_google_nickname');
-          if (pendingGoogleNickname) {
+
+          let refreshedProfile = await fetchProfile(currentSession.user.id);
+          const hasStoredNickname = Boolean(String(refreshedProfile?.referral_code || '').trim());
+          const nicknameToSet = pendingGoogleNickname || (hasStoredNickname ? null : metaNickname);
+
+          if (nicknameToSet) {
               localStorage.removeItem('pending_google_nickname');
               try {
-                  await supabase.rpc('set_google_nickname', { new_nickname: pendingGoogleNickname });
+                  const cleanNickname = nicknameToSet.replace(/[^a-z0-9]/g, '').toLowerCase();
+                  if (cleanNickname.length >= 3) {
+                      await supabase.rpc('set_google_nickname', { new_nickname: cleanNickname });
+                      refreshedProfile = await fetchProfile(currentSession.user.id);
+                  }
               } catch(e) {
-                  console.error("Error setting Google nickname", e);
+                  console.error("Error setting nickname", e);
               }
           }
 
-          await fetchProfile(currentSession.user.id);
+          if (mounted.current) {
+            setNeedsNickname(profileNeedsNickname(refreshedProfile));
+          }
         }
         
         if (event === 'SIGNED_OUT') {
           setProfile(null);
           setIsPasswordRecovery(false);
+          setNeedsNickname(false);
         }
       }
     });
@@ -147,13 +174,15 @@ export const AuthProvider = ({ children }) => {
   }, [fetchProfile]); 
 
   const signUp = useCallback(async (email, password, displayName, nickname) => {
+    const cleanNickname = (nickname || '').replace(/[^a-z0-9]/g, '').toLowerCase();
+
     const { data, error } = await supabase.auth.signUp({ 
       email: email, 
       password: password, 
       options: { 
         data: { 
           name: displayName,       
-          referral_code: nickname   
+          referral_code: cleanNickname
         },
         emailRedirectTo: `${window.location.origin}/auth`
       } 
@@ -162,17 +191,55 @@ export const AuthProvider = ({ children }) => {
     return data;
   }, []);
 
+  const updateNickname = useCallback(async (newNickname) => {
+    if (!session?.user?.id) throw new Error('NOT_AUTHENTICATED');
+
+    const cleanNickname = (newNickname || '').replace(/[^a-z0-9]/g, '').toLowerCase();
+    if (cleanNickname.length < 3) throw new Error('INVALID_NICKNAME');
+
+    const { data: isAvailable, error: availabilityError } = await supabase.rpc(
+      'is_username_available',
+      { username_to_check: cleanNickname }
+    );
+    if (availabilityError) {
+      console.warn('Nickname availability check failed:', availabilityError);
+    } else if (!isAvailable) {
+      throw new Error('NICKNAME_TAKEN');
+    }
+
+    const { error: updateError } = await supabase.rpc('set_google_nickname', {
+      new_nickname: cleanNickname
+    });
+    if (updateError) throw updateError;
+
+    const updatedProfile = await fetchProfile(session.user.id);
+    if (updatedProfile) {
+      if (profileNeedsNickname(updatedProfile)) {
+        setNeedsNickname(true);
+        throw new Error('NICKNAME_NOT_PERSISTED');
+      }
+      setNeedsNickname(false);
+      return updatedProfile;
+    }
+
+    setProfile(prev => prev ? { ...prev, referral_code: cleanNickname } : prev);
+    setNeedsNickname(false);
+    return null;
+  }, [session, fetchProfile]);
+
   const value = useMemo(() => ({
     user: session?.user ?? null,
     session,
     profile,
     loading,
     isPasswordRecovery,
+    needsNickname,
     signIn,
     signOut,
     handleAuthRedirect,
     fetchProfile, 
     signUp, 
+    updateNickname,
     signInWithGoogle: () => supabase.auth.signInWithOAuth({ 
       provider: 'google',
       options: { redirectTo: `${window.location.origin}/auth` }
@@ -181,7 +248,7 @@ export const AuthProvider = ({ children }) => {
     sendPasswordResetEmail: (e) => supabase.auth.resetPasswordForEmail(e, { 
       redirectTo: `${window.location.origin}/update-password` 
     })
-  }), [session, profile, loading, isPasswordRecovery, signOut, handleAuthRedirect, fetchProfile, signUp]);
+  }), [session, profile, loading, isPasswordRecovery, needsNickname, signOut, handleAuthRedirect, fetchProfile, signUp, updateNickname]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

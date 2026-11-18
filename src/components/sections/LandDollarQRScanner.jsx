@@ -66,48 +66,28 @@ const LandDollarQRScanner = ({ onClose }) => {
       // 100 puntos = 1 dm² = 1 Acción (Nennwert 0,01€) según la paridad del sistema
 
       const pointsToGrant = 100; // Puntos
-      const pointsAmount = pointsToGrant; // Puntos como unidades
 
-      // Insertar en ic_ledger
-      const { error: insertError } = await supabase
-        .from('ic_ledger')
-        .insert({
-          user_id: user.id,
-          amount: pointsAmount,
-          source: 'land_dollar_onboarding',
-          metadata: {
-            onboarding: true,
-            land_dollar_qr_scanned: true,
-            type: 'endowment_effect'
-          },
-          created_at: new Date().toISOString(),
-          tax_origin: 'SELF_REBATE' // Libres de impuestos al 100%
-        })
-        .select()
-        .single();
+      const { data: emission, error: emissionError } = await supabase.rpc('emit_ic', {
+        p_user_id: user.id,
+        p_amount: pointsToGrant,
+        p_source: 'land_dollar_onboarding',
+        p_metadata: {
+          onboarding: true,
+          land_dollar_qr_scanned: true,
+          type: 'endowment_effect'
+        },
+        p_idempotency_key: `land_dollar_onboarding_${user.id}`,
+        p_tax_origin: 'SELF_REBATE'
+      });
 
-      if (insertError) {
-        console.error('Error adding endowment points:', insertError);
-        throw insertError;
+      if (emissionError) {
+        console.error('Error adding endowment points:', emissionError);
+        throw emissionError;
       }
 
-      // También actualizar impact_credits si es necesario
-      const { data: existingCredits } = await supabase
-        .from('impact_credits')
-        .select('balance')
-        .eq('user_id', user.id)
-        .single();
-
-      const currentBalance = existingCredits?.balance || 0;
-      const newBalance = currentBalance + pointsAmount;
-
-      await supabase
-        .from('impact_credits')
-        .upsert({
-          user_id: user.id,
-          balance: newBalance,
-          updated_at: new Date().toISOString()
-        });
+      if (emission?.status === 'duplicate') {
+        throw new Error(t('land_dollar_qr.already_has_points', 'Ya tienes puntos SELF_REBATE asignados'));
+      }
 
       // Regenerar Land Dollar si no existe
       if (!hasLandDollar) {
@@ -138,7 +118,7 @@ const LandDollarQRScanner = ({ onClose }) => {
 
       toast({
         title: t('land_dollar_qr.success.title', '¡Bienvenido al ecosistema!'),
-        description: t('land_dollar_qr.success.description', `Has recibido ${pointsAmount} puntos inmaduros (1 dm²) libres de impuestos. ¡Ahora puedes explorar misiones y ganar más!`), 
+        description: t('land_dollar_qr.success.description', `Has recibido ${pointsToGrant} puntos inmaduros (1 dm²) libres de impuestos. ¡Ahora puedes explorar misiones y ganar más!`), 
         className: "bg-emerald-50 border-emerald-200"
       });
 

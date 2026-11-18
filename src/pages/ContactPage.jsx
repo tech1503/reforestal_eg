@@ -73,14 +73,12 @@ const ContactPage = () => {
       const contactMethod = quickContactInfo.trim() || formData.email || 'No especificado';
       const userName = formData.name || 'Visitante';
 
-      const { error } = await supabase.from('notifications').insert({
-        user_id: user?.id || null,
-        title: `[${lang}] ¡Asistencia Rápida Requerida!`,
-        message: `Usuario: ${userName}\nContacto: ${contactMethod}\nIdioma: ${lang}\nSolicita asistencia rápida desde la página de contacto.`,
-        notification_type: 'admin_alert', 
-        is_read: false,
-
-        metadata: {
+      const { error } = await supabase.rpc('create_notification', {
+        p_user_id: user?.id || null,
+        p_title: `[${lang}] ¡Asistencia Rápida Requerida!`,
+        p_message: `Usuario: ${userName}\nContacto: ${contactMethod}\nIdioma: ${lang}\nSolicita asistencia rápida desde la página de contacto.`,
+        p_type: 'admin_alert',
+        p_metadata: {
           name: userName,
           email: contactMethod,
           subject: 'Asistencia Rápida Reforestal eG - Página de Contacto',
@@ -116,14 +114,12 @@ const ContactPage = () => {
       const lang = i18n.language ? i18n.language.split('-')[0].toUpperCase() : 'ES';
       const userName = formData.name || 'Visitante';
 
-      const { error } = await supabase.from('notifications').insert({
-        user_id: user?.id || null,
-        notification_type: 'admin_alert', 
-        title: `[${lang}] Nuevo mensaje de Formulario de contacto de: ${userName}`,
-        message: `Email: ${formData.email}\nAsunto: ${formData.subject}\nMensaje: ${formData.message}\nIdioma: ${lang}`,
-        is_read: false,
-
-        metadata: {
+      const { error } = await supabase.rpc('create_notification', {
+        p_user_id: user?.id || null,
+        p_title: `[${lang}] Nuevo mensaje de Formulario de contacto de: ${userName}`,
+        p_message: `Email: ${formData.email}\nAsunto: ${formData.subject}\nMensaje: ${formData.message}\nIdioma: ${lang}`,
+        p_type: 'admin_alert',
+        p_metadata: {
           name: userName,
           email: formData.email,
           subject: formData.subject,

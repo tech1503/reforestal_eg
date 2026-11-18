@@ -70,8 +70,14 @@ const AuthScreen = () => {
     }
   };
 
-  const handleNicknameChange = (val) => validateAndSetNickname(val, setNickname, setNicknameError, setIsCheckingNickname);
-  const handleGoogleNicknameChange = (val) => validateAndSetNickname(val, setGoogleNickname, setGoogleNicknameError, setIsCheckingGoogle);
+  const handleNicknameChange = (val) => {
+    const cleanVal = val.replace(/[^a-z0-9]/g, '');
+    validateAndSetNickname(cleanVal, setNickname, setNicknameError, setIsCheckingNickname);
+  };
+  const handleGoogleNicknameChange = (val) => {
+    const cleanVal = val.replace(/[^a-z0-9]/g, '');
+    validateAndSetNickname(cleanVal, setGoogleNickname, setGoogleNicknameError, setIsCheckingGoogle);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

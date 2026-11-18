@@ -9,13 +9,12 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { Loader2, ArrowLeft, ArrowRight, CheckCircle2, Trophy, Lightbulb, Zap, Check, SkipForward, Star, Shield, ExternalLink, Sparkles, Leaf, Instagram, Youtube, Info, PlayCircle, Users, RefreshCw } from 'lucide-react';
+import { Loader2, ArrowLeft, ArrowRight, CheckCircle2, Trophy, Lightbulb, Zap, Check, SkipForward, Star, Shield, ExternalLink, Sparkles, Leaf, Instagram, Youtube, Info, PlayCircle, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ReactConfetti from 'react-confetti';
 import { useTranslation } from 'react-i18next';
 import { executeGamificationAction } from '@/utils/gamificationEngine';
 import { cn } from '@/lib/utils';
-import { createNotification } from '@/utils/notificationUtils';
 //import LeafBackground from '@/components/ui/LeafBackground';
 
 const YouTubeEmbed = ({ videoId }) => {
@@ -469,36 +468,6 @@ const MissionPlayer = () => {
                 languageCode: i18n.language
             });
 
-            if (mission.referrer_reward > 0) {
-                try {
-                    const { data: profileData } = await supabase.from('profiles').select('referrer_id').eq('id', user.id).single();
-                    
-                    if (profileData?.referrer_id) {
-                        await executeGamificationAction(profileData.referrer_id, null, {
-                            dynamicAction: {
-                                id: mission.id,
-                                action_name: `mlm_mission_${mission.id.slice(0,8)}`,
-                                action_title: `Red Bonus: ${mission.displayTitle}`,
-                                action_type: 'Referral (MLM)',
-                                impact_credit_reward: mission.referrer_reward,
-                                reputation_reward: 0,
-                                source_event: 'mlm_indirect_quest'
-                            },
-                            preventNotification: true
-                        });
-                        await createNotification(
-                            profileData.referrer_id, 
-                            'notifications.points_earned.title', 
-                            'notifications.points_earned.message', 
-                            { points: mission.referrer_reward, action: mission.displayTitle }, 
-                            'bonus'
-                        );
-                    }
-                } catch (mlmErr) {
-                    console.error("MLM Distribution Error:", mlmErr);
-                }
-            }
-
             setResult('success');
         } else {
             toast({ title: t('mission.submitted_title', "Mission Submitted!"), description: t('mission.review_msg', "An Admin will review your answers shortly."), className: "bg-[#063127] text-white" });
@@ -634,16 +603,6 @@ const MissionPlayer = () => {
                                         <div className="text-left">
                                             <p className="text-[9px] uppercase font-bold text-blue-800 dark:text-blue-400/70">{t('rewards.reputation', 'Reputation')}</p>
                                             <p className="font-black text-base text-blue-700 dark:text-blue-300">+{mission.reputation_reward}</p>
-                                        </div>
-                                    </div>
-                                )}
-                                {/* Premio por Referir */}
-                                {mission.referrer_reward > 0 && (
-                                    <div className="flex items-center gap-2 bg-purple-500/10 border border-purple-500/20 px-3 py-1.5 rounded-lg w-auto">
-                                        <div className="bg-purple-500 p-1.5 rounded-md shadow-sm"><Users className="w-4 h-4 text-white" /></div>
-                                        <div className="text-left">
-                                            <p className="text-[9px] uppercase font-bold text-purple-800 dark:text-purple-400/70">{t('rewards.referral_bonus', 'Por Invitar')}</p>
-                                            <p className="font-black text-base text-purple-700 dark:text-purple-300">+{mission.referrer_reward}</p>
                                         </div>
                                     </div>
                                 )}
@@ -868,11 +827,6 @@ const MissionPlayer = () => {
                                             {mission.reputation_reward > 0 && (
                                                 <div className="px-4 py-2 text-sm font-bold bg-blue-500/10 text-blue-800 dark:text-blue-300 border border-blue-500/20 rounded-lg shadow-sm flex items-center">
                                                     <Shield className="w-4 h-4 mr-1.5 fill-blue-500 text-blue-500"/> +{mission.reputation_reward} {t('rewards.reputation', 'Rep')}
-                                                </div>
-                                            )}
-                                            {mission.referrer_reward > 0 && (
-                                                <div className="px-4 py-2 text-sm font-bold bg-purple-500/10 text-purple-800 dark:text-purple-300 border border-purple-500/20 rounded-lg shadow-sm flex items-center">
-                                                    <Users className="w-4 h-4 mr-1.5 fill-purple-500 text-purple-500"/> +{mission.referrer_reward} {t('rewards.referral_bonus', 'Referrer')}
                                                 </div>
                                             )}
                                          </div>

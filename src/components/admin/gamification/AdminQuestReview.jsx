@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+﻿import React, { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/lib/customSupabaseClient';
 import { useToast } from '@/components/ui/use-toast';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -60,7 +60,7 @@ const AdminQuestReview = () => {
                 else common++;
             });
             setChartData([
-                { name: t('admin.audience.user', 'Usuario Estándar'), value: common, color: '#94a3b8' },
+                { name: t('admin.audience.user', 'Usuario EstÃ¡ndar'), value: common, color: '#94a3b8' },
                 { name: t('admin.audience.premium', 'Premium'), value: premium, color: '#3b82f6' },
                 { name: t('admin.audience.pioneer', 'Pionero Fundador'), value: pioneer, color: '#10b981' }
             ].filter(d => d.value > 0));
@@ -71,7 +71,7 @@ const AdminQuestReview = () => {
         setLoading(true);
         try {
             let query = supabase.from('user_quest_responses')
-                .select(`*, profiles:user_id (name, email), genesis_missions (title, steps, impact_credit_reward, reputation_reward, referrer_reward)`)
+                .select(`*, profiles:user_id (name, email), genesis_missions (title, steps, impact_credit_reward, reputation_reward)`)
                 .eq('review_status', 'pending').order('created_at', { ascending: true });
             if (selectedMissionChart !== 'all') query = query.eq('mission_id', selectedMissionChart);
             const { data, error } = await query;
@@ -84,7 +84,7 @@ const AdminQuestReview = () => {
         setLoadingHistory(true);
         try {
             let query = supabase.from('user_quest_responses')
-                .select(`*, profiles:user_id (name, email), genesis_missions (title, steps, impact_credit_reward, reputation_reward, referrer_reward)`)
+                .select(`*, profiles:user_id (name, email), genesis_missions (title, steps, impact_credit_reward, reputation_reward)`)
                 .neq('review_status', 'pending').order('created_at', { ascending: false }).limit(50);
             if (selectedMissionChart !== 'all') query = query.eq('mission_id', selectedMissionChart);
             const { data, error } = await query;
@@ -101,13 +101,13 @@ const AdminQuestReview = () => {
         return () => supabase.removeChannel(channel);
     }, [fetchPendingReviews, fetchHistoryResponses, fetchMissionsList, fetchChartData]);
 
-    // --- NUEVO: FUNCIÓN PARA EXPORTAR HISTORIAL COMPLETO A CSV/EXCEL ---
+    // --- NUEVO: FUNCIÃ“N PARA EXPORTAR HISTORIAL COMPLETO A CSV/EXCEL ---
     const handleExportCSV = async () => {
         try {
             // Notificamos inicio
-            toast({ title: "Preparando Exportación", description: "Descargando datos y procesando respuestas..." });
+            toast({ title: "Preparando ExportaciÃ³n", description: "Descargando datos y procesando respuestas..." });
             
-            // Obtenemos todos los registros (sin límite de 50)
+            // Obtenemos todos los registros (sin lÃ­mite de 50)
             const { data, error } = await supabase
                 .from('user_quest_responses')
                 .select(`
@@ -131,7 +131,7 @@ const AdminQuestReview = () => {
                 const date = new Date(row.created_at).toLocaleString();
                 const name = row.profiles?.name || 'Desconocido';
                 const email = row.profiles?.email || 'Desconocido';
-                const mission = row.genesis_missions?.title || 'Misión Desconocida';
+                const mission = row.genesis_missions?.title || 'MisiÃ³n Desconocida';
                 const status = row.review_status || 'N/A';
                 const credits = row.credits_awarded || 0;
                 const rep = row.earned_reputation || 0;
@@ -176,7 +176,7 @@ const AdminQuestReview = () => {
             link.click();
             document.body.removeChild(link);
 
-            toast({ title: t('common.success'), description: "Exportación completada y archivo descargado." });
+            toast({ title: t('common.success'), description: "ExportaciÃ³n completada y archivo descargado." });
         } catch (err) {
             console.error("Export error:", err);
             toast({ variant: 'destructive', title: t('common.error'), description: "Fallo al exportar los datos." });
@@ -209,7 +209,7 @@ const AdminQuestReview = () => {
             if (updateError) throw updateError;
             
             if (!data || data.length === 0) {
-                throw new Error(t('admin.quest_review.errors.already_processed', "Permiso denegado por la base de datos o la misión ya no está pendiente."));
+                throw new Error(t('admin.quest_review.errors.already_processed', "Permiso denegado por la base de datos o la misiÃ³n ya no estÃ¡ pendiente."));
             }
 
             if (isApproved) {
@@ -227,40 +227,11 @@ const AdminQuestReview = () => {
                     preventNotification: true
                 });
 
-                // 2. PAGO AL REFERIDOR (Si existe)
-                if (currentReview.genesis_missions.referrer_reward > 0) {
-                    try {
-                        const { data: pData } = await supabase.from('profiles').select('referrer_id').eq('id', currentReview.user_id).single();
-                        if (pData?.referrer_id) {
-                            await executeGamificationAction(pData.referrer_id, null, {
-                                dynamicAction: {
-                                    id: currentReview.mission_id,
-                                    action_name: `mlm_mission_${currentReview.mission_id.slice(0,8)}`,
-                                    action_title: `Red Bonus: ${currentReview.genesis_missions.title}`,
-                                    action_type: 'Referral (MLM)',
-                                    impact_credit_reward: currentReview.genesis_missions.referrer_reward,
-                                    reputation_reward: 0,
-                                    source_event: 'mlm_indirect_quest'
-                                },
-                                preventNotification: true
-                            });
-                            await createNotification(
-                                pData.referrer_id, 
-                                'notifications.points_earned.title', 
-                                'notifications.points_earned.message', 
-                                { points: currentReview.genesis_missions.referrer_reward, action: currentReview.genesis_missions.title }, 
-                                'bonus'
-                            );
-                        }
-                    } catch (mlmErr) {
-                        console.error("MLM Distribution Error in Admin Review:", mlmErr);
-                    }
-                }
             }
 
             const notifTitle = isApproved 
-                ? t('admin.quest_review.notif_approved_title', '¡Misión Aprobada! 🌟') 
-                : t('admin.quest_review.notif_rejected_title', 'Misión Requiere Revisión ⚠️');
+                ? t('admin.quest_review.notif_approved_title', 'Â¡MisiÃ³n Aprobada! ðŸŒŸ') 
+                : t('admin.quest_review.notif_rejected_title', 'MisiÃ³n Requiere RevisiÃ³n âš ï¸');
             
             const notifMsg = isApproved
                 ? t('admin.quest_review.notif_approved_msg', { title: currentReview.genesis_missions.title, feedback: feedbackToSave ? `Nota: "${feedbackToSave}"` : '' })
@@ -272,7 +243,7 @@ const AdminQuestReview = () => {
             setSelectedReview(null);
 
         } catch (err) {
-            console.error("Error en evaluación:", err);
+            console.error("Error en evaluaciÃ³n:", err);
             toast({ variant: "destructive", title: t('common.error'), description: err.message });
         } finally {
             setProcessing(false);
@@ -336,8 +307,8 @@ const AdminQuestReview = () => {
                             <PieChartIcon className="w-8 h-8" />
                         </div>
                         <div>
-                            <CardTitle className="text-2xl font-black text-foreground">{t('admin.quest_review.analytics_title', 'Analítica de Participación')}</CardTitle>
-                            <CardDescription className="font-medium text-foreground">{t('admin.quest_review.analytics_desc', 'Métricas reales por rol de usuario')}</CardDescription>
+                            <CardTitle className="text-2xl font-black text-foreground">{t('admin.quest_review.analytics_title', 'AnalÃ­tica de ParticipaciÃ³n')}</CardTitle>
+                            <CardDescription className="font-medium text-foreground">{t('admin.quest_review.analytics_desc', 'MÃ©tricas reales por rol de usuario')}</CardDescription>
                         </div>
                     </div>
                     <Select value={selectedMissionChart} onValueChange={setSelectedMissionChart}>
@@ -353,17 +324,17 @@ const AdminQuestReview = () => {
                 <CardContent className="p-8">
                     {chartLoading ? <div className="h-40 flex items-center justify-center"><Loader2 className="animate-spin text-emerald-500" /></div> :
                      chartData.length === 0 ? <div className="text-center py-10 text-slate-400 font-bold italic">{t('admin.quest_review.no_data', 'Sin participaciones registradas')}</div> :
-                     <div className="h-[300px]"><ResponsiveContainer><PieChart><Pie data={chartData} cx="50%" cy="50%" innerRadius={70} outerRadius={100} paddingAngle={8} dataKey="value">{chartData.map((entry, index) => <Cell key={index} fill={entry.color} strokeWidth={0} />)}</Pie><RechartsTooltip formatter={(value) => [`${value} ${t('admin.quest_review.tooltip_users', 'Usuarios')}`, t('admin.quest_review.tooltip_participation', 'Participación')]} contentStyle={{borderRadius: '15px', border:'none', boxShadow:'0 10px 15px -3px rgba(0,0,0,0.1)'}} /><Legend iconType="circle" wrapperStyle={{fontWeight: 'bold', paddingTop: '20px'}} /></PieChart></ResponsiveContainer></div>}
+                     <div className="h-[300px]"><ResponsiveContainer><PieChart><Pie data={chartData} cx="50%" cy="50%" innerRadius={70} outerRadius={100} paddingAngle={8} dataKey="value">{chartData.map((entry, index) => <Cell key={index} fill={entry.color} strokeWidth={0} />)}</Pie><RechartsTooltip formatter={(value) => [`${value} ${t('admin.quest_review.tooltip_users', 'Usuarios')}`, t('admin.quest_review.tooltip_participation', 'ParticipaciÃ³n')]} contentStyle={{borderRadius: '15px', border:'none', boxShadow:'0 10px 15px -3px rgba(0,0,0,0.1)'}} /><Legend iconType="circle" wrapperStyle={{fontWeight: 'bold', paddingTop: '20px'}} /></PieChart></ResponsiveContainer></div>}
                 </CardContent>
             </Card>
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-2 gap-4">
                 <div>
-                    <h2 className="text-3xl font-black text-foreground tracking-tight">{t('admin.quest_review.title', 'Moderación de Misiones')}</h2>
+                    <h2 className="text-3xl font-black text-foreground tracking-tight">{t('admin.quest_review.title', 'ModeraciÃ³n de Misiones')}</h2>
                     <p className="text-slate-500 font-medium">{t('admin.quest_review.subtitle', 'Supervisa y recompensa el compromiso de la comunidad.')}</p>
                 </div>
                 
-                {/* BOTÓN GLOBAL DE EXPORTACIÓN */}
+                {/* BOTÃ“N GLOBAL DE EXPORTACIÃ“N */}
                 <Button 
                     onClick={handleExportCSV} 
                     variant="outline" 
@@ -376,7 +347,7 @@ const AdminQuestReview = () => {
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                 <TabsList className="bg-background p-1 rounded-2xl mb-6 h-14">
                     <TabsTrigger value="pending" className="rounded-xl font-black text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">
-                        <Clock className="w-4 h-4 mr-2" /> {t('admin.quest_review.tabs.pending', 'REVISIÓN PENDIENTE')}
+                        <Clock className="w-4 h-4 mr-2" /> {t('admin.quest_review.tabs.pending', 'REVISIÃ“N PENDIENTE')}
                         {pendingReviews.length > 0 && <Badge className="ml-2 bg-blue-500 text-foreground border-0">{pendingReviews.length}</Badge>}
                     </TabsTrigger>
                     <TabsTrigger value="history" className="rounded-xl font-black text-sm data-[state=active]:bg-background data-[state=active]:shadow-sm">
@@ -389,14 +360,14 @@ const AdminQuestReview = () => {
                         <TableHeader className="bg-slate-50/50">
                             <TableRow className="border-0">
                                 <TableHead className="font-black text-foreground py-6 px-8">{t('admin.quest_review.table.user', 'USUARIO')}</TableHead>
-                                <TableHead className="font-black text-foreground">{t('admin.quest_review.table.mission', 'MISIÓN')}</TableHead>
+                                <TableHead className="font-black text-foreground">{t('admin.quest_review.table.mission', 'MISIÃ“N')}</TableHead>
                                 <TableHead className="font-black text-foreground">{t('admin.quest_review.table.reward', 'RECOMPENSA')}</TableHead>
-                                <TableHead className="font-black text-foreground text-right pr-8">{t('admin.quest_review.table.action', 'ACCIÓN')}</TableHead>
+                                <TableHead className="font-black text-foreground text-right pr-8">{t('admin.quest_review.table.action', 'ACCIÃ“N')}</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {loading ? <TableRow><TableCell colSpan={4} className="py-20 text-center"><Loader2 className="animate-spin mx-auto h-10 w-10 text-blue-500" /></TableCell></TableRow> :
-                             pendingReviews.length === 0 ? <TableRow><TableCell colSpan={4} className="py-20 text-center text-foreground font-bold italic">{t('admin.quest_review.no_pending', 'No hay misiones esperando revisión.')}</TableCell></TableRow> :
+                             pendingReviews.length === 0 ? <TableRow><TableCell colSpan={4} className="py-20 text-center text-foreground font-bold italic">{t('admin.quest_review.no_pending', 'No hay misiones esperando revisiÃ³n.')}</TableCell></TableRow> :
                              pendingReviews.map(r => (
                                 <TableRow key={r.id} className="hover:bg-slate-50/80 border-slate-50 transition-colors">
                                     <TableCell className="py-6 px-8">
@@ -417,14 +388,14 @@ const AdminQuestReview = () => {
                         <TableHeader className="bg-slate-50/50">
                             <TableRow className="border-0">
                                 <TableHead className="font-black text-foreground py-6 px-8">{t('admin.quest_review.table.user', 'USUARIO')}</TableHead>
-                                <TableHead className="font-black text-foreground">{t('admin.quest_review.table.mission', 'MISIÓN')}</TableHead>
+                                <TableHead className="font-black text-foreground">{t('admin.quest_review.table.mission', 'MISIÃ“N')}</TableHead>
                                 <TableHead className="font-black text-foreground">{t('admin.quest_review.table.status', 'ESTADO')}</TableHead>
                                 <TableHead className="font-black text-foreground text-right pr-8">{t('admin.quest_review.table.details', 'DETALLE')}</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {loadingHistory ? <TableRow><TableCell colSpan={4} className="py-20 text-center"><Loader2 className="animate-spin h-10 w-10 mx-auto text-emerald-500" /></TableCell></TableRow> :
-                             historyResponses.length === 0 ? <TableRow><TableCell colSpan={4} className="py-20 text-center text-foreground font-bold italic">{t('admin.quest_review.no_history', 'Historial vacío.')}</TableCell></TableRow> :
+                             historyResponses.length === 0 ? <TableRow><TableCell colSpan={4} className="py-20 text-center text-foreground font-bold italic">{t('admin.quest_review.no_history', 'Historial vacÃ­o.')}</TableCell></TableRow> :
                              historyResponses.map(r => (
                                 <TableRow key={r.id} className="hover:bg-slate-50/80 border-slate-50 transition-colors">
                                     <TableCell className="py-6 px-8">
@@ -453,7 +424,7 @@ const AdminQuestReview = () => {
                         <div className="flex justify-between items-start">
                             <div>
                                 <Badge className="bg-emerald-100 text-emerald-700 font-black mb-2 px-3 uppercase tracking-tighter">
-                                    {isReadOnlyMode ? t('admin.quest_review.modal.read_only', 'MODO SOLO LECTURA') : t('admin.quest_review.modal.guardian_eval', 'EVALUACIÓN DE GUARDIÁN')}
+                                    {isReadOnlyMode ? t('admin.quest_review.modal.read_only', 'MODO SOLO LECTURA') : t('admin.quest_review.modal.guardian_eval', 'EVALUACIÃ“N DE GUARDIÃN')}
                                 </Badge>
                                 <DialogTitle className="text-3xl font-black text-slate-800 tracking-tight">{selectedReview?.profiles?.name}</DialogTitle>
                                 <p className="font-bold text-slate-400 text-sm mt-1 uppercase tracking-widest">{selectedReview?.genesis_missions?.title}</p>
@@ -464,7 +435,7 @@ const AdminQuestReview = () => {
                                     <Zap className={`w-6 h-6 ${isReadOnlyMode ? 'text-slate-400 fill-slate-200' : 'text-emerald-500 fill-emerald-500'}`} />
                                     <span className="text-2xl font-black text-slate-800">
                                         +{selectedReview?.credits_awarded || 0} 
-                                        <span className="text-xs text-slate-400 block -mt-1 uppercase">{t('admin.quest_review.modal.rewards_label', 'Créditos')}</span>
+                                        <span className="text-xs text-slate-400 block -mt-1 uppercase">{t('admin.quest_review.modal.rewards_label', 'CrÃ©ditos')}</span>
                                     </span>
                                 </div>
                             </div>
@@ -478,12 +449,12 @@ const AdminQuestReview = () => {
                         {(!isReadOnlyMode || adminFeedback) && (
                             <div className={`mt-8 p-6 rounded-3xl border-2 ${isReadOnlyMode ? 'bg-slate-50 border-slate-200' : 'bg-blue-50/50 border-dashed border-blue-100'}`}>
                                 <h3 className={`text-lg font-black flex items-center gap-2 mb-3 ${isReadOnlyMode ? 'text-slate-600' : 'text-blue-900'}`}>
-                                    <Sparkles className="w-5 h-5" /> {isReadOnlyMode ? t('admin.quest_review.feedback_guardian', 'FEEDBACK DEL GUARDIÁN') : t('admin.quest_review.feedback_label', 'FEEDBACK PARA EL USUARIO')}
+                                    <Sparkles className="w-5 h-5" /> {isReadOnlyMode ? t('admin.quest_review.feedback_guardian', 'FEEDBACK DEL GUARDIÃN') : t('admin.quest_review.feedback_label', 'FEEDBACK PARA EL USUARIO')}
                                 </h3>
                                 <Textarea 
                                     value={adminFeedback} 
                                     onChange={(e) => setAdminFeedback(e.target.value)} 
-                                    placeholder={t('admin.quest_review.feedback_placeholder', 'Ej: ¡Excelente respuesta! Tu perspectiva es muy valiosa.')} 
+                                    placeholder={t('admin.quest_review.feedback_placeholder', 'Ej: Â¡Excelente respuesta! Tu perspectiva es muy valiosa.')} 
                                     className={`min-h-[120px] rounded-2xl font-medium ${isReadOnlyMode ? 'bg-slate-100 border-slate-200 text-slate-600 resize-none' : 'bg-white border-slate-200 focus:ring-blue-500'}`} 
                                     disabled={isReadOnlyMode} 
                                 />

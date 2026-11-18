@@ -17,26 +17,30 @@ export async function createNotification(userId, titleKey, messageKey, metadata 
   }
 
   try {
-    const { error } = await supabase
-      .from('notifications')
-      .insert({
-        user_id: userId,
-        title: titleKey,     
-        message: messageKey, 
-        metadata: metadata,  
-        notification_type: type,
-        related_action_id: relatedActionId,
-        related_user_id: relatedUserId,
-        is_read: false,
-        created_at: new Date().toISOString(),
-      });
+    const payloadMetadata = { ...(metadata || {}) };
+
+    if (relatedActionId) {
+      payloadMetadata.related_action_id = relatedActionId;
+    }
+
+    if (relatedUserId) {
+      payloadMetadata.related_user_id = relatedUserId;
+    }
+
+    const { data, error } = await supabase.rpc('create_notification', {
+      p_user_id: userId,
+      p_title: titleKey,
+      p_message: messageKey,
+      p_metadata: payloadMetadata,
+      p_type: type,
+    });
 
     if (error) {
       console.error('[NotificationUtils] Error creating notification:', error);
       return { success: false, error };
     }
 
-    return { success: true, error: null };
+    return { success: true, error: null, data };
   } catch (err) {
     console.error('[NotificationUtils] Unexpected error creating notification:', err);
     return { success: false, error: err };
