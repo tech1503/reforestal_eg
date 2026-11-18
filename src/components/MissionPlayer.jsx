@@ -178,6 +178,7 @@ const MissionPlayer = () => {
   const [accumulatedPenalty, setAccumulatedPenalty] = useState(0);
   const [penalizedSteps, setPenalizedSteps] = useState(new Set()); 
   const [earnedCredits, setEarnedCredits] = useState(0);
+  const [networkShare, setNetworkShare] = useState(0);
 
   const [isRestartModalOpen, setIsRestartModalOpen] = useState(false);
 
@@ -495,7 +496,8 @@ const MissionPlayer = () => {
             return;
         }
 
-        setEarnedCredits(Math.floor(Number(rpcData?.credits_awarded || 0)));
+        setEarnedCredits(Math.floor(Number(rpcData?.personal_credits ?? rpcData?.credits_awarded ?? 0)));
+        setNetworkShare(Math.floor(Number(rpcData?.network_budget ?? 0)));
         setAccumulatedPenalty(Math.round(Number(rpcData?.penalties || 0)));
 
         if (rpcData?.status === 'pending') {
@@ -862,6 +864,11 @@ const MissionPlayer = () => {
                                             <div className="px-4 py-2 text-sm font-bold bg-[#5b8370]/10 text-[#063127] dark:text-[#c4d1c0] border border-[#5b8370]/20 rounded-lg shadow-sm flex items-center">
                                                 <Zap className="w-4 h-4 mr-1.5 fill-[#5b8370] text-[#5b8370]"/> +{earnedCredits} {t('rewards.bonus_points_short', 'BP')}
                                             </div>
+                                            {networkShare > 0 && (
+                                                <p className="text-[11px] text-muted-foreground font-medium w-full text-center">
+                                                    {t('mission.myzel_split', 'El 50% restante ({{points}} P) viaja a tu micelio — Grados 1 a 4.', { points: networkShare })}
+                                                </p>
+                                            )}
                                             {mission.reputation_reward > 0 && (
                                                 <div className="px-4 py-2 text-sm font-bold bg-blue-500/10 text-blue-800 dark:text-blue-300 border border-blue-500/20 rounded-lg shadow-sm flex items-center">
                                                     <Shield className="w-4 h-4 mr-1.5 fill-blue-500 text-blue-500"/> +{mission.reputation_reward} {t('rewards.reputation', 'Rep')}
