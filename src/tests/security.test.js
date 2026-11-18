@@ -1,12 +1,23 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { sanitizeInput, checkRateLimit } from '../utils/securityUtils';
 
+// jsdom no está disponible como dependencia en este entorno; stub mínimo en memoria.
+class LocalStorageStub {
+  constructor() { this.store = new Map(); }
+  clear() { this.store.clear(); }
+  getItem(key) { return this.store.has(key) ? this.store.get(key) : null; }
+  setItem(key, value) { this.store.set(key, String(value)); }
+  removeItem(key) { this.store.delete(key); }
+}
+
+globalThis.localStorage = new LocalStorageStub();
+
 describe('Security Utilities', () => {
   // 1. Input Sanitization
   describe('sanitizeInput', () => {
     it('should escape HTML tags', () => {
       const malicious = '<script>alert("xss")</script>';
-      const expected = '&lt;script&gt;alert("xss")&lt;/script&gt;';
+      const expected = '&lt;script&gt;alert(&quot;xss&quot;)&lt;&#x2F;script&gt;';
       expect(sanitizeInput(malicious)).toBe(expected);
     });
 

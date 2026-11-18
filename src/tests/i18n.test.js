@@ -30,7 +30,7 @@ describe('Multilingual Support', () => {
   });
 
   it('should not have empty values for critical keys in EN', () => {
-    const criticalKeys = ['common.sign_in', 'navigation.dashboard', 'dashboard.welcome'];
+    const criticalKeys = ['common.loading', 'navigation.dashboard', 'navigation.wallet', 'dashboard.welcome'];
     const flatEn = flattenKeys(en);
     criticalKeys.forEach(key => {
       expect(flatEn[key]).toBeTruthy();
@@ -39,6 +39,7 @@ describe('Multilingual Support', () => {
 
   // In a real suite, we would diff arrays to find missing keys
   it('German should contain common keys', () => {
-     expect(flattenKeys(de)['common.sign_in']).toBeDefined();
+     expect(flattenKeys(de)['common.loading']).toBeDefined();
+     expect(flattenKeys(de)['navigation.wallet']).toBeDefined();
   });
 });

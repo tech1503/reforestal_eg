@@ -1,3 +1,4 @@
+import { describe, it, expect, test } from 'vitest';
 /**
  * Mock tests for Tier Logic (simulating the DB function logic)
  */

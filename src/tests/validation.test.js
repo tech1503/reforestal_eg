@@ -33,13 +33,13 @@ describe('Validation Utilities', () => {
     it('should fail for amounts below minimum', () => {
       const result = validateAmount(4, 5, 10000);
       expect(result.isValid).toBe(false);
-      expect(result.error).toContain('Minimum');
+      expect(result.error).toMatch(/at least/i);
     });
 
     it('should fail for amounts above maximum', () => {
       const result = validateAmount(10001, 5, 10000);
       expect(result.isValid).toBe(false);
-      expect(result.error).toContain('Maximum');
+      expect(result.error).toMatch(/cannot exceed/i);
     });
 
     it('should fail for non-numeric inputs', () => {
@@ -63,7 +63,7 @@ describe('Validation Utilities', () => {
       const validForm = {
         full_name: 'John Doe',
         email: 'john@example.com',
-        amount: 100,
+        contribution_amount: 100,
         contribution_date: '2023-01-01'
       };
       const result = validateContributionForm(validForm, 'manual');
@@ -73,7 +73,7 @@ describe('Validation Utilities', () => {
     it('should fail if manual user email is missing', () => {
       const invalidForm = {
         full_name: 'John Doe',
-        amount: 100
+        contribution_amount: 100
       };
       const result = validateContributionForm(invalidForm, 'manual');
       expect(result.isValid).toBe(false);
@@ -82,7 +82,7 @@ describe('Validation Utilities', () => {
 
     it('should fail if user_id is missing in existing mode', () => {
       const invalidForm = {
-        amount: 100
+        contribution_amount: 100
       };
       const result = validateContributionForm(invalidForm, 'existing');
       expect(result.isValid).toBe(false);

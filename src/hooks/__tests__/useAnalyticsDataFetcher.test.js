@@ -1,4 +1,5 @@
 
+// @vitest-environment jsdom
 import { renderHook, waitFor } from '@testing-library/react';
 import { useAnalyticsDataFetcher } from '../useAnalyticsDataFetcher';
 import { supabase } from '@/lib/customSupabaseClient';
