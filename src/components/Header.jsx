@@ -30,6 +30,7 @@ const Header = ({ activeSection }) => {
     if (activeSection === 'dashboard') return t('navigation.dashboard');
     if (activeSection === 'founding_members') return t('navigation.founding_pioneer');
     if (activeSection === 'myzel') return t('navigation.myzel');
+    if (activeSection === 'wallet') return t('navigation.wallet');
     if (activeSection === 'exchange') return t('navigation.exchange');
     if (activeSection === 'quests') return t('navigation.quests');
     return t('dashboard.title');

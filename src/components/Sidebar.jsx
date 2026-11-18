@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { 
-  LayoutDashboard, 
-  LogOut, 
+  LayoutDashboard,
+  LogOut,
   ChevronLeft,
   CreditCard,
   Users,
@@ -10,7 +10,8 @@ import {
   Award,
   Star,
   Lock,
-  User
+  User,
+  Wallet
 } from 'lucide-react';
 import { useAuth } from '@/contexts/SupabaseAuthContext';
 import { cn } from '@/lib/utils';
@@ -62,11 +63,19 @@ const Sidebar = ({ activeSection, setActiveSection, isOpen, onClose, isPremium =
       href: `${basePath}/subscription`, 
       translationKey: 'navigation.subscription'
     },
-    { 
-      id: 'myzel', 
-      label: t('navigation.myzel'), 
-      icon: Users, 
-      locked: false, 
+    {
+      id: 'wallet',
+      label: t('navigation.wallet'),
+      icon: Wallet,
+      locked: false,
+      href: `${basePath}/wallet`,
+      translationKey: 'navigation.wallet'
+    },
+    {
+      id: 'myzel',
+      label: t('navigation.myzel'),
+      icon: Users,
+      locked: false,
       href: `${basePath}/myzel`,
       translationKey: 'navigation.myzel'
     },

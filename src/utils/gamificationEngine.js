@@ -70,14 +70,17 @@ async function awardReputationScore(userId, amount) {
 }
 
 /**
- * Consume points from ic_ledger via LIFO RPC spend_points_lifo.
- * Quema puntos más recientes primero (created_at DESC).
+ * Consume points from ic_ledger via LIFO RPC wallet_lifo_deduct.
+ * Solo extrae puntos inmaduros (< 90 días), del más reciente al más antiguo.
+ * Los puntos maduros (>= 90 días) jamás se consumen en senkes digitales.
  */
 async function consumePointsLIFO(userId, pointsToConsume) {
     try {
-        const { data, error } = await supabase.rpc('spend_points_lifo', {
+        const { data, error } = await supabase.rpc('wallet_lifo_deduct', {
             p_user_id: userId,
-            p_amount: pointsToConsume
+            p_amount: pointsToConsume,
+            p_source: 'lifo_digital_spend',
+            p_metadata: { type: 'cooldown_skip' }
         });
 
         if (error) {
