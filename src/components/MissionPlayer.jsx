@@ -866,7 +866,7 @@ const MissionPlayer = () => {
                                             </div>
                                             {networkShare > 0 && (
                                                 <p className="text-[11px] text-muted-foreground font-medium w-full text-center">
-                                                    {t('mission.myzel_split', 'El 50% restante ({{points}} P) viaja a tu micelio — Grados 1 a 4.', { points: networkShare })}
+                                                    {t('mission.myzel_split', 'Tu micelio recibe +{{points}} P adicionales (Grados 1 a 4).', { points: networkShare })}
                                                 </p>
                                             )}
                                             {mission.reputation_reward > 0 && (

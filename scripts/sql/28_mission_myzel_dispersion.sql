@@ -9,11 +9,17 @@
 --
 -- Cambios respecto a 25_mission_steps_engine.sql (sección 10 y RETURN):
 --   - emit_ic (100% actor)  →  myzel_distribute_activity (50/25/12.5/6.25/6.25).
---   - credits_awarded sigue reportando el budget BRUTO de la misión (compat).
---     Nuevos campos: personal_credits (abono del actor), network_budget,
---     degree_pools, zero_waste, dispersion_credits, ledger_balance.
---   - gamification_history / founding_pioneer_metrics conservan el budget
---     bruto como histórico; ic_ledger refleja la dispersión real.
+--   - Modul II, Cap. 6 (Punkte- & XP-Katalog): la recompensa de misión que se
+--     muestra al usuario (credits_awarded) es el Eigenverdienst del actor (50%).
+--     Por tanto el presupuesto que Topf B paga es 2× ese valor:
+--         budget = floor(credits_awarded) * 2   →   actor = credits_awarded (100% de lo mostrado)
+--     La red recibe otro tanto. Ejemplo: misión de 15 P mostrados ⇒ 30 P del Pool.
+--   - credits_awarded conserva el valor mostrado al usuario (compat).
+--     Nuevos campos: personal_credits (= abono del actor = credits_awarded),
+--     network_budget (= lo que recibe la red), degree_pools, zero_waste,
+--     dispersion_credits, ledger_balance.
+--   - gamification_history / founding_pioneer_metrics conservan el valor
+--     mostrado como histórico; ic_ledger refleja la dispersión real.
 --
 -- Orden: DESPUÉS de 25_mission_steps_engine.sql y 27_myzel_network.sql.
 -- No se ejecuta automáticamente: revisión en Staging antes de aplicar.
@@ -424,11 +430,12 @@ BEGIN
     -- (10) Acreditación solo en auto-aprobado, vía contabilidad oficial
     IF NOT v_needs_review THEN
         IF v_reward_int > 0 THEN
-            -- Dispersión omnidireccional (REQ-06): 50% actor / 25/12.5/6.25/6.25 por grado.
-            -- Misma transacción plpgsql: ic_ledger queda contablemente íntegro.
+            -- Modul II Cap. 6: credits_awarded mostrado = Eigenverdienst (50%).
+            -- Topf B paga el budget completo: actor recibe el 100% de lo mostrado,
+            -- la red otro tanto. Misma transacción plpgsql.
             SELECT public.myzel_distribute_activity(
                 v_uid,
-                v_reward_int,
+                v_reward_int * 2,
                 'quest_completion',
                 jsonb_build_object(
                     'mission_id', p_mission_id,
@@ -491,7 +498,7 @@ BEGIN
         ) VALUES (
             v_uid,
             'Misión completada',
-            'Has completado la misión y recibido ' || v_personal_share::text || ' puntos (el 50% viaja a tu micelio).',
+            'Has completado la misión y recibido ' || v_personal_share::text || ' puntos. Tu micelio recibe +' || v_personal_share::text || ' P.',
             'success',
             jsonb_build_object(
                 'mission_id', p_mission_id,

@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   planActivityDispersion,
+  planMissionActivityDispersion,
   splitIntegerShares,
   recipientOpenGrade,
   ACTIVITY_WEIGHTS,
@@ -95,6 +96,45 @@ describe('planActivityDispersion — Zero-Waste-Loop por grado cerrado', () => {
     const result = planActivityDispersion({ actorId: 'actor', budget: 10, degrees, openGradesByRecipient: {} });
     expect(result.zeroWaste.total).toBe(result.networkBudget);
     expect(result.totalCredited).toBe(result.actorShare);
+  });
+});
+
+describe('planMissionActivityDispersion — Modul II Cap. 6 (Punkte- & XP-Katalog)', () => {
+  // "Reguläre Wissens-Quest": Eigenverdienst Akteur (50%) = +15 P ⇒ Budget Pool = 30 P.
+  it('misión de 15 P: el actor recibe 15 P completos y la red otros 15 P', () => {
+    const degrees = { 1: [{ id: 'n1' }], 2: [{ id: 'n2' }], 3: [{ id: 'n3' }], 4: [{ id: 'n4' }] };
+    const openAll = { n1: 4, n2: 4, n3: 4, n4: 4 };
+    const result = planMissionActivityDispersion({ actorId: 'actor', personalReward: 15, degrees, openGradesByRecipient: openAll });
+
+    expect(result.missionBudget).toBe(30);
+    expect(result.actorShare).toBe(15);
+    expect(result.personal).toBe(15);
+    expect(result.networkBudget).toBe(15);
+    expect(result.degreePools).toEqual({ 1: 7, 2: 4, 3: 2, 4: 2 });
+    expect(result.totalCredited + result.zeroWaste.total).toBe(30);
+  });
+
+  it('misión de 10 P (Tag-1-Kalibrierung): actor 10, red 10, suma exacta 20', () => {
+    const degrees = { 1: [{ id: 'n1a' }, { id: 'n1b' }], 2: [{ id: 'n2' }], 3: [], 4: [] };
+    const openAll = { n1a: 4, n1b: 4, n2: 4 };
+    const result = planMissionActivityDispersion({ actorId: 'actor', personalReward: 10, degrees, openGradesByRecipient: openAll });
+
+    expect(result.missionBudget).toBe(20);
+    expect(result.personal).toBe(10);
+    expect(result.networkBudget).toBe(10);
+    expect(result.totalCredited + result.zeroWaste.total).toBe(20);
+  });
+
+  it('personalReward 0 no dispersa nada', () => {
+    const result = planMissionActivityDispersion({ actorId: 'actor', personalReward: 0, degrees: { 1: [{ id: 'n1' }] } });
+    expect(result.missionBudget).toBe(0);
+    expect(result.credits).toEqual([]);
+    expect(result.totalCredited).toBe(0);
+  });
+
+  it('personalReward inválido lanza error', () => {
+    expect(() => planMissionActivityDispersion({ actorId: 'a', personalReward: -1, degrees: {} })).toThrow('INVALID_PERSONAL_REWARD');
+    expect(() => planMissionActivityDispersion({ actorId: 'a', personalReward: 2.5, degrees: {} })).toThrow('INVALID_PERSONAL_REWARD');
   });
 });
 

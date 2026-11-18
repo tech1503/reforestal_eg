@@ -42,6 +42,40 @@ export function splitIntegerShares(amount, weights) {
   return floors;
 }
 
+/**
+ * Dispersión para MISIONES (Modul II, Cap. 6 — "Der Konkrete Punkte- & XP-Katalog"):
+ * la recompensa mostrada al usuario (p. ej. "+15 P") es el Eigenverdienst del
+ * actor (50%). El presupuesto total que Topf B paga es 2× ese valor; el actor
+ * recibe el 100% de lo mostrado y la red otro tanto.
+ *
+ * Espejo de la llamada en submit_mission_response (27/28_myzel*.sql):
+ *   myzel_distribute_activity(v_uid, v_reward_int * 2, ...)
+ */
+export function planMissionActivityDispersion({ actorId = 'mission-actor', personalReward, degrees = {}, openGradesByRecipient = {} }) {
+  if (!Number.isInteger(personalReward) || personalReward < 0) {
+    throw new Error('INVALID_PERSONAL_REWARD');
+  }
+  if (personalReward === 0) {
+    return {
+      missionBudget: 0,
+      personal: 0,
+      credits: [],
+      actorShare: 0,
+      networkBudget: 0,
+      degreePools: { 1: 0, 2: 0, 3: 0, 4: 0 },
+      zeroWaste: { 1: 0, 2: 0, 3: 0, 4: 0, total: 0 },
+      totalCredited: 0,
+    };
+  }
+  const missionBudget = personalReward * 2;
+  const plan = planActivityDispersion({ actorId, budget: missionBudget, degrees, openGradesByRecipient });
+  return {
+    ...plan,
+    missionBudget,
+    personal: plan.actorShare,
+  };
+}
+
 export const GRADE_REQUIRED_PLAN_GRADE = { 2: 2, 3: 3, 4: 4 };
 
 /**
