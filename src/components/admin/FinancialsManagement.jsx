@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 // Lazy load heavy components
 const AnalyticsLandDollarsIC = lazy(() => import('@/components/admin/AnalyticsLandDollarsIC'));
 const LandDollarsTable = lazy(() => import('@/components/admin/financials/LandDollarsTable'));
-const ImpactCreditsMLM = lazy(() => import('@/components/admin/financials/ImpactCreditsMLM'));
+const ImpactCreditsTable = lazy(() => import('@/components/admin/financials/ImpactCreditsTable'));
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center py-12">
@@ -69,7 +69,7 @@ const FinancialsManagement = () => {
 
         <TabsContent value="impact-credits" className="m-0 space-y-6">
           <Suspense fallback={<LoadingFallback />}>
-            <ImpactCreditsMLM />
+            <ImpactCreditsTable />
           </Suspense>
         </TabsContent>
       </Tabs>

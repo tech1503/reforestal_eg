@@ -18,6 +18,17 @@ export const normalizeRole = (rawRole) => {
   return normalized || 'user_basic';
 };
 
+// Fires the referral claim only on the very first sign-in of a freshly created
+// account (created_at ~= last_sign_in_at). Subsequent SIGNED_IN events for an
+// already-registered user never trigger it again.
+export const isFreshRegistration = (user) => {
+  if (!user?.created_at || !user?.last_sign_in_at) return false;
+  const created = Date.parse(user.created_at);
+  const lastSignIn = Date.parse(user.last_sign_in_at);
+  if (Number.isNaN(created) || Number.isNaN(lastSignIn)) return false;
+  return Math.abs(lastSignIn - created) <= 5 * 60 * 1000;
+};
+
 const profileNeedsNickname = (profileData) => {
   if (!profileData) return false;
   const role = normalizeRole(profileData.role);
@@ -125,9 +136,9 @@ export const AuthProvider = ({ children }) => {
 
         if (event === 'SIGNED_IN' && currentSession) {
           
-          // LÓGICA DE REFERIDOS BLINDADA
+          // LÓGICA DE REFERIDOS BLINDADA — solo en el primer registro
           const storedRef = localStorage.getItem('reforestal_ref');
-          if (storedRef) {
+          if (storedRef && isFreshRegistration(currentSession.user)) {
 
               localStorage.removeItem('reforestal_ref');
               processReferralOnSignup(currentSession.user.id, storedRef)
