@@ -46,7 +46,7 @@ export default function WalletSection() {
   const dm2Harvestable = Math.floor(mature / 100);
   const matureRemainder = mature % 100;
 
-  const { luminosity, communityXp, loading: myzelLoading } = useMyzelNetwork();
+  const { luminosity, communityXp, peerNodes, networkReady, loading: myzelLoading } = useMyzelNetwork();
 
   useEffect(() => {
     let mounted = true;
@@ -309,7 +309,8 @@ export default function WalletSection() {
           luminosity={luminosity}
           communityXp={communityXp}
           subscriptionTier={null}
-          peers={{}}
+          peerNodes={peerNodes}
+          networkReady={networkReady}
           isVerified={isVerified}
         />
         {myzelLoading && (

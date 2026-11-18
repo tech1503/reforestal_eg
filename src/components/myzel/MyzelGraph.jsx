@@ -39,7 +39,8 @@ export default function MyzelGraph({
   communityXp = 0,
   subscriptionTier = null,
   pointsUnlockedGrades = [],
-  peers = {},
+  peerNodes = [],
+  networkReady = true,
   isVerified = false,
   className,
 }) {
@@ -57,18 +58,30 @@ export default function MyzelGraph({
     [grades]
   );
 
-  const peersByGrade = useMemo(
-    () => ({
-      1: Math.max(0, Number(peers?.degree1) || 0),
-      2: Math.max(0, Number(peers?.degree2) || 0),
-      3: Math.max(0, Number(peers?.degree3) || 0),
-      4: Math.max(0, Number(peers?.degree4) || 0),
-    }),
-    [peers]
-  );
+  const peersByGrade = useMemo(() => {
+    const grouped = { 1: [], 2: [], 3: [], 4: [] };
+    for (const node of peerNodes || []) {
+      const degree = Math.max(1, Math.min(4, Number(node?.degree) || 1));
+      grouped[degree].push({
+        id: node?.peerId ?? node?.id ?? `${degree}-${grouped[degree].length}`,
+        handle: node?.publicHandle ?? node?.handle ?? 'miembro',
+        via: node?.via ?? 'unknown',
+        luminosity: Math.max(0, Math.min(1, Number(node?.luminosity ?? 1) || 0)),
+      });
+    }
+    for (const list of Object.values(grouped)) {
+      list.sort((a, b) => String(a.id).localeCompare(String(b.id)));
+    }
+    return grouped;
+  }, [peerNodes]);
 
-  const totalRealPeers = Object.values(peersByGrade).reduce((a, b) => a + b, 0);
-  const isPreview = totalRealPeers === 0;
+  const isPreview = !networkReady;
+  const visibleRealPeers = useMemo(
+    () => [1, 2, 3, 4]
+      .filter((g) => unlockedByGrade[g]?.unlocked)
+      .reduce((acc, g) => acc + (peersByGrade[g]?.length ?? 0), 0),
+    [peersByGrade, unlockedByGrade]
+  );
 
   const previewNodes = useMemo(
     () => [
@@ -127,6 +140,15 @@ export default function MyzelGraph({
               style={{ color: PALETTE.cream, borderColor: `${PALETTE.cream}33`, background: `${PALETTE.cream}0d` }}
             >
               {t('myzel_graph.preview', 'Vista previa')}
+            </span>
+          )}
+          {!isPreview && (
+            <span
+              className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider border"
+              style={{ color: PALETTE.accent, borderColor: `${PALETTE.accent}55`, background: `${PALETTE.deep}55` }}
+            >
+              <span className="w-2 h-2 rounded-full" style={{ background: PALETTE.accent, boxShadow: `0 0 8px ${PALETTE.accent}` }} />
+              {t('myzel_graph.live_network', 'Red viva')} · {visibleRealPeers}
             </span>
           )}
         </div>
@@ -249,20 +271,34 @@ export default function MyzelGraph({
                 continue;
               }
 
-              // Nodo real enlazado
-              if (slot < realPeers) {
+              // Nodo real enlazado (luminosidad real del peer)
+              if (slot < realPeers.length) {
+                const peer = realPeers[slot];
+                const peerLum = Math.max(0.2, peer.luminosity);
+                const peerOpacity = 0.35 + 0.65 * peerLum;
                 elements.push(
                   <g
-                    key={`real-${grade}-${slot}`}
+                    key={`real-${grade}-${peer.id}`}
                     className="cursor-pointer"
                     role="button"
                     tabIndex={0}
-                    aria-label={`Grado ${grade}, contacto ${slot + 1}`}
-                    onClick={() => setSelected({ kind: 'real', grade, index: slot + 1 })}
-                    onKeyDown={(e) => e.key === 'Enter' && setSelected({ kind: 'real', grade, index: slot + 1 })}
+                    aria-label={`${peer.handle}, grado ${grade}`}
+                    opacity={peerOpacity}
+                    onClick={() => setSelected({ kind: 'real', grade, index: slot + 1, handle: peer.handle, via: peer.via, luminosity: peerLum })}
+                    onKeyDown={(e) => e.key === 'Enter' && setSelected({ kind: 'real', grade, index: slot + 1, handle: peer.handle, via: peer.via, luminosity: peerLum })}
                   >
+                    <title>{`${peer.handle} · Grado ${grade} · ${Math.round(peerLum * 100)}% luminosidad`}</title>
                     <circle cx={x} cy={y} r="14" fill="url(#peerHalo)" className="myzel-halo" />
-                    <circle cx={x} cy={y} r="7.5" fill={PALETTE.accent} stroke={PALETTE.cream} strokeOpacity="0.7" strokeWidth="1" />
+                    <circle
+                      cx={x}
+                      cy={y}
+                      r="7.5"
+                      fill={peerLum < 0.5 ? 'url(#entropyNode)' : PALETTE.accent}
+                      stroke={PALETTE.cream}
+                      strokeOpacity="0.7"
+                      strokeWidth="1"
+                      strokeDasharray={peerLum < 0.5 ? '2.5 2.5' : 'none'}
+                    />
                   </g>
                 );
                 continue;
@@ -396,7 +432,9 @@ export default function MyzelGraph({
           aria-live="polite"
         >
           {selected?.kind === 'real' && (
-            <span>{t('myzel_graph.detail_real', 'Contacto {{index}} enlazado en el Grado {{grade}}. Su actividad impulsa tu cosecha y la tuya nutre sus grados (50/25/12,5/6,25/6,25).', { index: selected.index, grade: selected.grade })}</span>
+            <span>
+              <strong>{selected.handle}</strong> {t('myzel_graph.detail_real', 'enlazado en el Grado {{grade}} ({{via}}) · {{lum}}% luminosidad. Su actividad impulsa tu cosecha (50/25/12,5/6,25/6,25).', { grade: selected.grade, via: selected.via, lum: Math.round((selected.luminosity ?? 1) * 100) })}
+            </span>
           )}
           {selected?.kind === 'preview' && !selected.entropy && (
             <span>{t('myzel_graph.detail_preview', 'Nodo ilustrativo con halo. Así brillará tu red real cuando enlaces a tu primer invitado: pulsos que viajan 4 grados.')}</span>

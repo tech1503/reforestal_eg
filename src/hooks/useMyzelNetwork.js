@@ -7,20 +7,21 @@ import { resolveMyzelGrades, highestUnlockedGrade } from '@/utils/myzelGrades';
 /**
  * Hook del visualizador 2D del Micelio.
  *
- * Datos reales disponibles en cliente (sin RPC nueva):
- *  - XP por pilar propio (`user_xp`, SELECT own) → luminosidad y nivel Community.
- *  - Última actividad propia en `ic_ledger` → entropía (-10%/mes, suelo 20%).
+ * Datos reales disponibles en cliente:
+ *  - XP por pilar propio (`user_xp`, SELECT own).
+ *  - Última actividad propia en `ic_ledger` → entropía propia (-10%/mes, suelo 20%).
  *  - `profiles.membership_stage` → insignia Semilla / Miembro verificado (§15b).
- *
- * La topología real de la red (peers por grado) llegará con REQ-06/REQ-09;
- * mientras tanto, `peers` viene de props y el grafo usa nodos ilustrativos
- * etiquetados como vista previa. NUNCA se muestran peers inventados como reales.
+ *  - RPC `myzel_network` (27_myzel_network.sql): vecindad reticular de 4 grados
+ *    por BFS sobre referral + anastomosis. Si la RPC no existe (migración 27 sin
+ *    aplicar) o devuelve error, el grafo cae en modo "vista previa".
  */
-export function useMyzelNetwork({ subscriptionTier = null, pointsUnlockedGrades = [], peers = {} } = {}) {
+export function useMyzelNetwork({ subscriptionTier = null, pointsUnlockedGrades = [], peerNodes: peerNodesOverride = null } = {}) {
   const { user, profile } = useAuth();
   const [communityXp, setCommunityXp] = useState(0);
   const [totalXp, setTotalXp] = useState(0);
   const [lastActivityAt, setLastActivityAt] = useState(null);
+  const [rpcPeerNodes, setRpcPeerNodes] = useState([]);
+  const [networkReady, setNetworkReady] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -55,13 +56,31 @@ export function useMyzelNetwork({ subscriptionTier = null, pointsUnlockedGrades 
 
         if (ledgerError) console.warn('[Myzel] ic_ledger no disponible:', ledgerError.message);
 
+        const { data: netRows, error: netError } = await supabase.rpc('myzel_network', { p_user_id: user.id });
+        if (netError) {
+          console.warn('[Myzel] myzel_network no disponible (¿migración 27 aplicada?), modo vista previa:', netError.message);
+        }
+
         if (mounted) {
           setCommunityXp(community);
           setTotalXp(total);
           setLastActivityAt(lastRows?.[0]?.created_at ?? null);
+          setRpcPeerNodes(
+            netError
+              ? []
+              : (netRows || []).map((r) => ({
+                  degree: Number(r.degree),
+                  peerId: r.peer_id,
+                  publicHandle: r.public_handle || 'miembro',
+                  via: r.via,
+                  luminosity: Number(r.luminosity) || 1,
+                }))
+          );
+          setNetworkReady(!netError);
         }
       } catch (err) {
         console.error('[Myzel] Error cargando datos de red:', err);
+        if (mounted) setNetworkReady(false);
       } finally {
         if (mounted) setLoading(false);
       }
@@ -93,6 +112,16 @@ export function useMyzelNetwork({ subscriptionTier = null, pointsUnlockedGrades 
 
   const isVerified = profile?.membership_stage === 'VERIFIED_MEMBER_15GENG';
 
+  const peerNodes = peerNodesOverride ?? rpcPeerNodes;
+
+  const peerCounts = useMemo(() => {
+    const counts = { degree1: 0, degree2: 0, degree3: 0, degree4: 0 };
+    for (const node of peerNodes) {
+      if (node.degree >= 1 && node.degree <= 4) counts[`degree${node.degree}`] += 1;
+    }
+    return counts;
+  }, [peerNodes]);
+
   return {
     loading,
     communityXp,
@@ -103,12 +132,9 @@ export function useMyzelNetwork({ subscriptionTier = null, pointsUnlockedGrades 
     highestUnlockedGrade: highestUnlockedGrade(grades),
     isVerified,
     membershipStage: profile?.membership_stage ?? null,
-    peers: {
-      degree1: Number(peers?.degree1) || 0,
-      degree2: Number(peers?.degree2) || 0,
-      degree3: Number(peers?.degree3) || 0,
-      degree4: Number(peers?.degree4) || 0,
-    },
+    peerNodes,
+    peerCounts,
+    networkReady,
   };
 }
 
