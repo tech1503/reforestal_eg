@@ -267,10 +267,13 @@ const AdminQuestReview = () => {
                 display = step.options[parseInt(ans)] || ans;
             } else if (step.ui_type === 'multiple_choice') {
                 display = Array.isArray(ans) ? ans.map(i => step.options[i]).join(', ') : ans;
-            } else if (step.ui_type === 'circular_slider') {
+            } else if (step.ui_type === 'circular_slider' || step.ui_type === 'percent_regulator') {
                 display = Object.entries(ans || {}).map(([k, v]) => `${k}: ${v}%`).join(' | ');
-            } else if (step.ui_type === 'scale_5') {
+            } else if (step.ui_type === 'scale_5' || step.ui_type === 'star_barometer') {
                 display = `${ans} / 5 ${t('admin.quest_review.modal.stars', 'Estrellas')}`;
+            } else if (step.ui_type === 'two_phase_text') {
+                const phases = Array.isArray(ans) ? { phase1: ans[0], phase2: ans[1] } : (ans || {});
+                display = `${t('admin.quest_review.modal.phase_1', 'Fase 1')}: ${phases.phase1 || ''}\n\n${t('admin.quest_review.modal.phase_2', 'Fase 2')}: ${phases.phase2 || ''}`;
             }
 
             return (

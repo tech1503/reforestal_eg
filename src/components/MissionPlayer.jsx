@@ -67,6 +67,18 @@ const YouTubeEmbed = ({ videoId }) => {
     );
 };
 
+const initialAnswerFor = (step) => {
+    const uiType = step?.ui_type;
+    if (uiType === 'multiple_choice' || uiType === 'single_choice') return uiType === 'multiple_choice' ? [] : '';
+    if (uiType === 'percent_regulator' || uiType === 'circular_slider') return {};
+    if (uiType === 'star_barometer' || uiType === 'scale_5') return '';
+    if (uiType === 'two_phase_text') return { phase1: '', phase2: '' };
+    return '';
+};
+
+const isRegulator = (uiType) => uiType === 'percent_regulator' || uiType === 'circular_slider';
+const isStarBarometer = (uiType) => uiType === 'star_barometer' || uiType === 'scale_5';
+
 const ResourceAllocator = ({ poles, values, onChange }) => {
     const { t } = useTranslation();
     const totalAllocated = Object.values(values).reduce((a, b) => a + b, 0);
@@ -110,6 +122,38 @@ const ResourceAllocator = ({ poles, values, onChange }) => {
                     </div>
                 ))}
             </div>
+        </div>
+    );
+};
+
+const TwoPhaseText = ({ value, onChange }) => {
+    const { t } = useTranslation();
+    const data = value && typeof value === 'object' ? value : { phase1: '', phase2: '' };
+
+    return (
+        <div className="space-y-4 bg-card/60 backdrop-blur-xl p-4 lg:p-6 rounded-xl border border-white/10 shadow-sm">
+            <div className="flex items-center gap-2 mb-1">
+                <Badge className="bg-[#5b8370]/15 text-[#5b8370] border border-[#5b8370]/30">
+                    {t('mission.phase_1', 'Phase 1')}
+                </Badge>
+            </div>
+            <Textarea
+                placeholder={t('mission.phase1_placeholder', 'Describe what you observe or experience (Phase 1)...')}
+                value={data.phase1 || ''}
+                onChange={(e) => onChange({ ...data, phase1: e.target.value })}
+                className="relative min-h-[100px] text-sm p-4 rounded-xl bg-white/50 dark:bg-black/40 border-2 border-slate-200 dark:border-white/10 focus-visible:border-[#5b8370] focus-visible:ring-[#5b8370]/20 shadow-inner resize-none font-medium"
+            />
+            <div className="flex items-center gap-2">
+                <Badge className="bg-[#c4d1c0]/20 text-[#063127] dark:text-[#c4d1c0] border border-[#5b8370]/30">
+                    {t('mission.phase_2', 'Phase 2')}
+                </Badge>
+            </div>
+            <Textarea
+                placeholder={t('mission.phase2_placeholder', 'Write your proposal or commitment (Phase 2)...')}
+                value={data.phase2 || ''}
+                onChange={(e) => onChange({ ...data, phase2: e.target.value })}
+                className="relative min-h-[100px] text-sm p-4 rounded-xl bg-white/50 dark:bg-black/40 border-2 border-slate-200 dark:border-white/10 focus-visible:border-[#5b8370] focus-visible:ring-[#5b8370]/20 shadow-inner resize-none font-medium"
+            />
         </div>
     );
 };
@@ -177,9 +221,7 @@ const MissionPlayer = () => {
       setPenalizedSteps(new Set());
       const initialAnswers = {};
       mission.parsedSteps.forEach((step, idx) => {
-          if (step.ui_type === 'multiple_choice') initialAnswers[idx] = [];
-          else if (step.ui_type === 'circular_slider') initialAnswers[idx] = {};
-          else initialAnswers[idx] = '';
+          initialAnswers[idx] = initialAnswerFor(step);
       });
       setStepAnswers(initialAnswers);
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -283,9 +325,7 @@ const MissionPlayer = () => {
       const initialAnswers = savedState?.answers || {};
       if (!savedState) {
           parsedSteps.forEach((step, idx) => {
-              if (step.ui_type === 'multiple_choice') initialAnswers[idx] = [];
-              else if (step.ui_type === 'circular_slider') initialAnswers[idx] = {};
-              else initialAnswers[idx] = '';
+              initialAnswers[idx] = initialAnswerFor(step);
           });
       }
       setStepAnswers(initialAnswers);
@@ -322,14 +362,17 @@ const MissionPlayer = () => {
       
       const answer = stepAnswers[currentStepIndex];
       
-      if (currentStep.is_required) {
-          let isValid = true;
-          if (currentStep.ui_type === 'multiple_choice' && (!answer || answer.length === 0)) isValid = false;
-          if (currentStep.ui_type === 'circular_slider') {
-              const total = Object.values(answer || {}).reduce((a,b)=>a+b, 0);
-              if (total !== 100) isValid = false;
-          }
-          if (typeof answer === 'string' && !answer.trim() && currentStep.ui_type !== 'circular_slider') isValid = false;
+       if (currentStep.is_required) {
+           let isValid = true;
+           if (currentStep.ui_type === 'multiple_choice' && (!answer || answer.length === 0)) isValid = false;
+           if (isRegulator(currentStep.ui_type)) {
+               const total = Object.values(answer || {}).reduce((a,b)=>a+b, 0);
+               if (total !== 100) isValid = false;
+           }
+           if (currentStep.ui_type === 'two_phase_text') {
+               if (!answer || !String(answer.phase1 || '').trim() || !String(answer.phase2 || '').trim()) isValid = false;
+           }
+           if (typeof answer === 'string' && !answer.trim() && !isRegulator(currentStep.ui_type) && currentStep.ui_type !== 'two_phase_text') isValid = false;
 
           if (!isValid) {
               toast({ variant: "destructive", title: t('common.error'), description: t('common.required_field', "This field is required.") });
@@ -436,45 +479,33 @@ const MissionPlayer = () => {
   const handleFinalSubmit = async () => {
     setSubmitting(true);
     try {
-        const needsReview = mission.parsedSteps.some(s => s.ui_type === 'free_text') && !mission.auto_approve;
-        const finalStatus = needsReview ? 'pending' : 'auto_approved';
-
-        const calculatedFinalReward = Math.max(0, mission.impact_credit_reward - accumulatedPenalty);
-        setEarnedCredits(calculatedFinalReward);
-
-        const { error: dbError } = await supabase.from('user_quest_responses').insert({
-            user_id: user.id,
-            mission_id: mission.id,
-            response_data: stepAnswers,
-            is_correct: !needsReview, 
-            review_status: finalStatus,
-            credits_awarded: calculatedFinalReward 
+        // El servidor valida las respuestas y decide la recompensa.
+        // El navegador no envía ni fija créditos.
+        const { data: rpcData, error: rpcError } = await supabase.rpc('submit_mission_response', {
+            p_mission_id: mission.id,
+            p_responses: stepAnswers
         });
 
-        if (dbError) throw dbError;
+        if (rpcError) throw rpcError;
 
-        if (!needsReview) {
-            await executeGamificationAction(user.id, null, {
-                dynamicAction: {
-                    id: mission.id, 
-                    action_name: `mission_${mission.id.slice(0,8)}`,
-                    action_title: mission.displayTitle,
-                    action_type: 'Mission Quest',
-                    impact_credit_reward: calculatedFinalReward, 
-                    reputation_reward: mission.reputation_reward,
-                    source_event: 'quest_completion'
-                },
-                notes: `Completed multi-step mission: ${mission.displayTitle}. Penalties: -${accumulatedPenalty}`,
-                languageCode: i18n.language
-            });
-
-            setResult('success');
-        } else {
-            toast({ title: t('mission.submitted_title', "Mission Submitted!"), description: t('mission.review_msg', "An Admin will review your answers shortly."), className: "bg-[#063127] text-white" });
-            setResult('pending_review');
+        if (rpcData?.status === 'duplicate') {
+            setResult('already_completed');
+            localStorage.removeItem(`mission_progress_${mission.id}`);
+            await refreshFinancials();
+            return;
         }
 
-        localStorage.removeItem(`mission_progress_${mission.id}`); 
+        setEarnedCredits(Math.floor(Number(rpcData?.credits_awarded || 0)));
+        setAccumulatedPenalty(Math.round(Number(rpcData?.penalties || 0)));
+
+        if (rpcData?.status === 'pending') {
+            toast({ title: t('mission.submitted_title', "Mission Submitted!"), description: t('mission.review_msg', "An Admin will review your answers shortly."), className: "bg-[#063127] text-white" });
+            setResult('pending_review');
+        } else {
+            setResult('success');
+        }
+
+        localStorage.removeItem(`mission_progress_${mission.id}`);
         await refreshFinancials();
 
     } catch (error) {
@@ -717,11 +748,11 @@ const MissionPlayer = () => {
                                             </div>
                                         )}
 
-                                        {currentStep.ui_type === 'circular_slider' && (
+                                        {isRegulator(currentStep.ui_type) && (
                                             <ResourceAllocator poles={currentStep.poles || []} values={stepAnswers[currentStepIndex] || {}} onChange={handleAnswerUpdate} />
                                         )}
 
-                                        {currentStep.ui_type === 'scale_5' && (
+                                        {isStarBarometer(currentStep.ui_type) && (
                                             <div className="flex justify-center gap-2 md:gap-4 py-6 bg-black/5 dark:bg-white/5 rounded-xl border border-white/10 shadow-inner">
                                                 {[1,2,3,4,5].map(num => {
                                                     const isActive = stepAnswers[currentStepIndex] >= num;
@@ -744,6 +775,13 @@ const MissionPlayer = () => {
                                                     )
                                                 })}
                                             </div>
+                                        )}
+
+                                        {currentStep.ui_type === 'two_phase_text' && (
+                                            <TwoPhaseText
+                                                value={stepAnswers[currentStepIndex] || { phase1: '', phase2: '' }}
+                                                onChange={handleAnswerUpdate}
+                                            />
                                         )}
 
                                         {currentStep.ui_type === 'free_text' && (
